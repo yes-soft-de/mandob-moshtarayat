@@ -1,0 +1,6 @@
+kreait_firebase:
+  projects:
+    my_project:
+      credentials: '%kernel.project_dir%/config/c4d-app-c299b-firebase-adminsdk-xegik-fa885c59c0.json'
+
+      
