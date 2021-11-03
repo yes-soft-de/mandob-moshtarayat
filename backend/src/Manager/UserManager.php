@@ -431,6 +431,11 @@ class UserManager
     {
         return $this->captainProfileEntityRepository->getCaptainProfileByCaptainID($captainID);
     }
+
+    public function storeOwnerProfileByStoreID($storeID)
+    {
+        return $this->storeOwnerProfileEntityRepository->storeOwnerProfileByStoreID($storeID);
+    }
     
     public function getCaptainProfileByID($captainProfileId)
     {

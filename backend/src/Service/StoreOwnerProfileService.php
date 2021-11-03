@@ -45,14 +45,7 @@ class StoreOwnerProfileService
     {
         $userRegister = $this->userManager->storeOwnerRegister($request);
         if ($userRegister instanceof UserEntity) {
-            
         return $this->autoMapping->map(UserEntity::class, UserRegisterResponse::class, $userRegister);
-
-        }
-        if ($userRegister == true) {
-            $user = $this->userManager->getUserByUserID($request->getUserID());
-            $user['found']="yes";
-            return $user;
         }
     }
 
