@@ -37,7 +37,6 @@ class StoreOwnerProfileService
         $this->ratingService = $ratingService;
         $this->storeOwnerBranchService = $storeOwnerBranchService;
         $this->roomIdHelperService = $roomIdHelperService;
-
         $this->params = $params->get('upload_base_url') . '/';
     }
 
@@ -74,6 +73,21 @@ class StoreOwnerProfileService
             $item['baseURL'] = $this->params;
             $item['branches'] = $this->storeOwnerBranchService->getBranchesByStoreOwnerProfileID($item['id']);
             $item['rating'] = $this->ratingService->getAvgRating($id, 'store');
+
+            $response = $this->autoMapping->map('array', StoreOwnerProfileCreateResponse::class, $item);
+        }
+        return $response;
+    }
+
+    public function getStoreOwnerProfile($userID)
+    {
+        $response = null;
+        $storeOwnerProfileId = $this->userManager->getStoreProfileId($userID);
+        $item = $this->userManager->getStoreOwnerProfileByID($storeOwnerProfileId);
+        if($item){
+            $item['image'] = $this->getImageParams($item['image'], $this->params.$item['image'], $this->params);
+            $item['branches'] = $this->storeOwnerBranchService->getBranchesByStoreOwnerProfileID($item['id']);
+            $item['rating'] = $this->ratingService->getAvgRating($storeOwnerProfileId, 'store');
 
             $response = $this->autoMapping->map('array', StoreOwnerProfileCreateResponse::class, $item);
         }
