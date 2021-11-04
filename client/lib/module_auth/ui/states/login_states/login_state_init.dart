@@ -6,7 +6,6 @@ import 'package:mandob_moshtarayat/module_auth/ui/states/login_states/login_stat
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat/module_auth/ui/widget/login_widgets/custom_field.dart';
 import 'package:mandob_moshtarayat/utils/components/auth_buttons.dart';
-import 'package:mandob_moshtarayat/utils/global/screen_type.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 import 'package:mandob_moshtarayat/utils/images/images.dart';
 
@@ -21,96 +20,104 @@ class LoginStateInit extends LoginState {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> _loginKey = GlobalKey<FormState>();
-  TextStyle tileStyle = TextStyle(fontWeight: FontWeight.w600);
   @override
   Widget getUI(BuildContext context) {
     return Form(
       key: _loginKey,
       child: Stack(
         children: [
-          Container(
-            width: double.maxFinite,
-            child: Center(
-              child: Container(
-                constraints: BoxConstraints(maxWidth: 600),
-                child: ListView(
-                  physics: BouncingScrollPhysics(
-                      parent: AlwaysScrollableScrollPhysics()),
-                  children: [
-                    MediaQuery.of(context).viewInsets.bottom == 0
-                        ? SvgPicture.asset(
-                            SvgAsset.AUTH_SVG,
-                            width: 150,
-                          )
-                        : SizedBox(),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          bottom: 4.0, left: 32, right: 32, top: 8),
-                      child: Text(
-                        S.of(context).username,
-                        style: tileStyle,
+          ListView(
+            physics:
+                BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+            children: [
+              MediaQuery.of(context).viewInsets.bottom == 0
+                  ? Padding(
+                    padding: const EdgeInsets.only(bottom: 32.0,top: 16),
+                    child: Image.asset(
+                        ImageAsset.LOGO,
+                        width: 150,
+                        height: 150,
                       ),
-                    ),
-                    ListTile(
-                      title: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: CustomLoginFormField(
-                          contentPadding: EdgeInsets.only(
-                              left: 0, right: 0, top: 15, bottom: 0),
-                          controller: usernameController,
-                          hintText: S.of(context).registerHint,
-                          preIcon: Icon(Icons.email),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          bottom: 8.0, left: 32, right: 32, top: 8),
-                      child: Text(
-                        S.of(context).password,
-                        style: tileStyle,
-                      ),
-                    ),
-                    ListTile(
-                      title: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: CustomLoginFormField(
-                          preIcon: Icon(Icons.lock),
-                          last: true,
-                          controller: passwordController,
-                          password: true,
-                          contentPadding: EdgeInsets.fromLTRB(0, 15, 0, 0),
-                          hintText: S.of(context).password,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 150,
-                    ),
-                  ],
+                  )
+                  : Container(),
+              Padding(
+                padding: const EdgeInsets.only(
+                    bottom: 8.0, left: 85, right: 85, top: 8),
+                child: Text(
+                  S.of(context).username,
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
-            ),
+              ListTile(
+                leading: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Theme.of(context).backgroundColor,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(Icons.email),
+                  ),
+                ),
+                title: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CustomLoginFormField(
+                    controller: usernameController,
+                    hintText: S.of(context).registerHint,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    bottom: 8.0, left: 85, right: 85, top: 8),
+                child: Text(
+                  S.of(context).password,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              ListTile(
+                leading: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Theme.of(context).backgroundColor,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(Icons.lock),
+                  ),
+                ),
+                title: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CustomLoginFormField(
+                    last: true,
+                    controller: passwordController,
+                    password: true,
+                    contentPadding: EdgeInsets.fromLTRB(16, 13, 16, 0),
+                    hintText: S.of(context).password,
+                  ),
+                ),
+              ),
+              Container(
+                height: 150,
+              ),
+            ],
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: Container(
-              constraints: BoxConstraints(maxWidth: 600),
-              child: AuthButtons(
-                  firstButtonTitle: S.of(context).login,
-                  secondButtonTitle: S.of(context).register,
-                  loading: screen.loadingSnapshot.connectionState ==
-                      ConnectionState.waiting,
-                  secondButtonTab: () => Navigator.of(context)
-                      .pushReplacementNamed(AuthorizationRoutes.REGISTER_SCREEN,
-                          arguments: screen.args),
-                  firstButtonTab: () {
-                    if (_loginKey.currentState!.validate()) {
-                      screen.loginClient(
-                          usernameController.text, passwordController.text);
-                    }
-                  }),
-            ),
+            child: AuthButtons(
+                firstButtonTitle: S.of(context).login,
+                secondButtonTitle: S.of(context).register,
+                loading: screen.loadingSnapshot.connectionState ==
+                    ConnectionState.waiting,
+                secondButtonTab: () => Navigator.of(context)
+                    .pushReplacementNamed(AuthorizationRoutes.REGISTER_SCREEN,
+                        arguments: screen.args),
+                firstButtonTab: () {
+                  if (_loginKey.currentState!.validate()) {
+                    screen.loginClient(
+                        usernameController.text, passwordController.text);
+                  }
+                }),
           ),
         ],
       ),

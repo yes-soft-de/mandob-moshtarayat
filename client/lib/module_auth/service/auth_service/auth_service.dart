@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
-import 'package:mandob_moshtarayat/global_nav_key.dart';
 import 'package:mandob_moshtarayat/module_auth/enums/auth_status.dart';
 import 'package:mandob_moshtarayat/module_auth/exceptions/auth_exception.dart';
 import 'package:mandob_moshtarayat/module_auth/manager/auth_manager/auth_manager.dart';
@@ -11,7 +9,6 @@ import 'package:mandob_moshtarayat/module_auth/request/register_request/register
 import 'package:mandob_moshtarayat/module_auth/response/login_response/login_response.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:mandob_moshtarayat/module_auth/response/regester_response/regester_response.dart';
-import 'package:mandob_moshtarayat/module_splash/splash_routes.dart';
 import 'package:mandob_moshtarayat/utils/helpers/status_code_helper.dart';
 
 @Injectable()
@@ -26,13 +23,9 @@ class AuthService {
   );
 
   bool get isLoggedIn => _prefsHelper.isSignedIn();
-  bool get needToInitAccount => _prefsHelper.needInit();
-  String get username => _prefsHelper.getUsername() ?? '';
-  void profiled() {
-    _prefsHelper.setNeedInit(false);
-  }
 
   Stream<AuthStatus> get authListener => _authSubject.stream;
+  String get username => _prefsHelper.getUsername() ?? '';
 
   Future<void> loginApi(String username, String password) async {
     LoginResponse? loginResult = await _authManager.login(LoginRequest(
@@ -54,21 +47,18 @@ class AuthService {
       throw AuthorizationException(StatusCodeHelper.getStatusCodeMessages(
           loginResult.statusCode ?? '0'));
     }
-    // RegisterResponse? response = await _authManager.userTypeCheck(
-    //     'ROLE_ADMIN', loginResult.token ?? '');
-
-    // if (response?.statusCode != '201') {
-    //   await logout();
-    //   _authSubject.addError(
-    //       StatusCodeHelper.getStatusCodeMessages(response?.statusCode ?? '0'));
-    //   throw AuthorizationException(
-    //       StatusCodeHelper.getStatusCodeMessages(response?.statusCode ?? '0'));
-    // }
-
+    RegisterResponse? response = await _authManager.userTypeCheck(
+        'ROLE_CLIENT', loginResult.token ?? '');
+    if (response?.statusCode != '201') {
+      await logout();
+      _authSubject.addError(
+          StatusCodeHelper.getStatusCodeMessages(response?.statusCode ?? '0'));
+      throw AuthorizationException(
+          StatusCodeHelper.getStatusCodeMessages(response?.statusCode ?? '0'));
+    }
     _prefsHelper.setUsername(username);
     _prefsHelper.setPassword(password);
     _prefsHelper.setToken(loginResult.token);
-
     _authSubject.add(AuthStatus.AUTHORIZED);
   }
 
@@ -85,7 +75,6 @@ class AuthService {
           registerResponse.statusCode ?? '0'));
     }
     _authSubject.add(AuthStatus.REGISTERED);
-    _prefsHelper.setNeedInit(true);
     await loginApi(request.userID ?? '', request.password ?? '');
   }
 
@@ -99,11 +88,6 @@ class AuthService {
       return await this._prefsHelper.getToken();
     } on AuthorizationException {
       _prefsHelper.deleteToken();
-      if (GlobalVariable.navState.currentContext != null) {
-        await Navigator.of(GlobalVariable.navState.currentContext!)
-            .pushNamedAndRemoveUntil(
-                SplashRoutes.SPLASH_SCREEN, (route) => false);
-      }
       return null;
     } on TokenExpiredException {
       return await refreshToken();

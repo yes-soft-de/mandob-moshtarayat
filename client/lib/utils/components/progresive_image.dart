@@ -1,7 +1,4 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:pinch_zoom/pinch_zoom.dart';
 import 'package:progressive_image/progressive_image.dart';
 import 'package:mandob_moshtarayat/consts/urls.dart';
 import 'package:mandob_moshtarayat/utils/customIcon/custom_icons.dart';
@@ -11,21 +8,25 @@ class CustomNetworkImage extends StatelessWidget {
   final double height;
   final double width;
   final String imageSource;
+  final bool assets;
   final Color? background;
   CustomNetworkImage({
     required this.height,
     required this.width,
     required this.imageSource,
+    this.assets = false,
     this.background,
   });
 
   @override
   Widget build(BuildContext context) {
+    bool asset = assets;
     var image = imageSource;
-    bool asset = image.contains('assets');
-    if (!image.contains('/original-image/')) {
-      image = ImageAsset.PLACEHOLDER;
+    if (asset == false && !image.contains('/original-image/')) {
       asset = true;
+      if (!image.contains('assets')) {
+        image = ImageAsset.PLACEHOLDER;
+      }
     }
     if (asset) {
       return ProgressiveImage.custom(
@@ -33,8 +34,10 @@ class CustomNetworkImage extends StatelessWidget {
         width: width,
         placeholderBuilder: (context) {
           return Container(
-            width: double.maxFinite,
+            height: height,
+            width: width,
             decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
                 color: background ?? Theme.of(context).backgroundColor),
             child: Flex(
               direction: Axis.vertical,
@@ -73,55 +76,16 @@ class CustomNetworkImage extends StatelessWidget {
         image = Urls.IMAGES_ROOT + image;
       }
       return GestureDetector(
-        onTap: () {
-          showDialog(
-              context: context,
-              builder: (_) {
-                return Scaffold(
-                  appBar: AppBar(
-                    backgroundColor: Colors.black,
-                    elevation: 0,
-                    leading: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: InkWell(
-                        customBorder: CircleBorder(),
-                        onTap: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.black38,
-                            shape: BoxShape.circle,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Icon(
-                              Icons.arrow_back,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  backgroundColor: Colors.black,
-                  body: PinchZoom(
-                    child: Image.network(image),
-                    resetDuration: const Duration(milliseconds: 150),
-                    onZoomStart: () {},
-                    onZoomEnd: () {},
-                  ),
-                );
-              });
-        },
+        onTap: () {},
         child: ProgressiveImage.custom(
           height: height,
           width: width,
           placeholderBuilder: (context) {
             return Container(
-              width: width,
               height: height,
+              width: width,
               decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
                   color: background ?? Theme.of(context).backgroundColor),
               child: Flex(
                 direction: Axis.vertical,

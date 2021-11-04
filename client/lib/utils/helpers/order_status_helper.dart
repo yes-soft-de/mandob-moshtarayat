@@ -1,130 +1,131 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mandob_moshtarayat/consts/order_status.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 
 class StatusHelper {
-  static OrderStatusEnum getStatusEnum(String? status) {
+  static OrderStatus getStatusEnum(String? status) {
     if (status == 'pending') {
-      return OrderStatusEnum.WAITING;
+      return OrderStatus.WAITING;
     } else if (status == 'on way to pick order') {
-      return OrderStatusEnum.GOT_CAPTAIN;
+      return OrderStatus.GOT_CAPTAIN;
     } else if (status == 'in store') {
-      return OrderStatusEnum.IN_STORE;
+      return OrderStatus.IN_STORE;
     } else if (status == 'ongoing') {
-      return OrderStatusEnum.DELIVERING;
+      return OrderStatus.DELIVERING;
     } else if (status == 'delivered') {
-      return OrderStatusEnum.FINISHED;
+      return OrderStatus.FINISHED;
     } else if (status == 'cancelled') {
-      return OrderStatusEnum.CANCELLED;
+      return OrderStatus.CANCELLED;
     }
-    return OrderStatusEnum.WAITING;
+    return OrderStatus.WAITING;
   }
 
-  static String getStatusString(OrderStatusEnum? status) {
+  static String getStatusString(OrderStatus? status) {
     switch (status) {
-      case OrderStatusEnum.WAITING:
+      case OrderStatus.WAITING:
         return 'pending';
-      case OrderStatusEnum.IN_STORE:
+      case OrderStatus.IN_STORE:
         return 'in store';
-      case OrderStatusEnum.DELIVERING:
+      case OrderStatus.DELIVERING:
         return 'ongoing';
-      case OrderStatusEnum.GOT_CAPTAIN:
+      case OrderStatus.GOT_CAPTAIN:
         return 'on way to pick order';
-      case OrderStatusEnum.FINISHED:
+      case OrderStatus.FINISHED:
         return 'delivered';
-      case OrderStatusEnum.CANCELLED:
+      case OrderStatus.CANCELLED:
         return 'cancelled';
       default:
         return 'pending';
     }
   }
 
-  static String getOrderStatusMessages(OrderStatusEnum? orderStatus) {
+  static String getOrderStatusMessages(OrderStatus? orderStatus) {
     switch (orderStatus) {
-      case OrderStatusEnum.WAITING:
+      case OrderStatus.WAITING:
         return S.current.waiting;
-      case OrderStatusEnum.IN_STORE:
+      case OrderStatus.IN_STORE:
         return S.current.captainInStore;
-      case OrderStatusEnum.DELIVERING:
+      case OrderStatus.DELIVERING:
         return S.current.captainIsDelivering;
-      case OrderStatusEnum.GOT_CAPTAIN:
+      case OrderStatus.GOT_CAPTAIN:
         return S.current.captainAcceptedOrder;
-      case OrderStatusEnum.FINISHED:
+      case OrderStatus.FINISHED:
         return S.current.iFinishedDelivering;
-      case OrderStatusEnum.CANCELLED:
+      case OrderStatus.CANCELLED:
         return S.current.cancelled;
       default:
         return S.current.waiting;
     }
   }
 
-  static String getOrderStatusDescriptionMessages(OrderStatusEnum orderStatus) {
+  static String getOrderStatusDescriptionMessages(OrderStatus orderStatus) {
     switch (orderStatus) {
-      case OrderStatusEnum.WAITING:
+      case OrderStatus.WAITING:
         return S.current.waitingDescription;
-      case OrderStatusEnum.IN_STORE:
+      case OrderStatus.IN_STORE:
         return S.current.captainInStoreDescription;
-      case OrderStatusEnum.DELIVERING:
+      case OrderStatus.DELIVERING:
         return S.current.deliveringDescription;
-      case OrderStatusEnum.GOT_CAPTAIN:
+      case OrderStatus.GOT_CAPTAIN:
         return S.current.captainAcceptOrderDescription;
-      case OrderStatusEnum.FINISHED:
+      case OrderStatus.FINISHED:
         return S.current.orderDeliveredDescription;
-      case OrderStatusEnum.CANCELLED:
+      case OrderStatus.CANCELLED:
         return S.current.cancelledHint;
       default:
         return S.current.waitingDescription;
     }
   }
 
-  static IconData getOrderStatusIcon(OrderStatusEnum status) {
+  static IconData getOrderStatusIcon(OrderStatus status) {
     switch (status) {
-      case OrderStatusEnum.WAITING:
+      case OrderStatus.WAITING:
         return Icons.timer_rounded;
-      case OrderStatusEnum.IN_STORE:
+      case OrderStatus.IN_STORE:
         return Icons.store_rounded;
-      case OrderStatusEnum.DELIVERING:
+      case OrderStatus.DELIVERING:
         return Icons.pedal_bike_rounded;
-      case OrderStatusEnum.GOT_CAPTAIN:
+      case OrderStatus.GOT_CAPTAIN:
         return Icons.account_circle_rounded;
-      case OrderStatusEnum.FINISHED:
+      case OrderStatus.FINISHED:
         return Icons.check_circle_rounded;
       default:
         return Icons.cancel_rounded;
     }
   }
 
-  static Color getOrderStatusColor(OrderStatusEnum status) {
+  static Color getOrderStatusColor(OrderStatus status) {
     switch (status) {
-      case OrderStatusEnum.WAITING:
+      case OrderStatus.WAITING:
         return Colors.amber;
-      case OrderStatusEnum.IN_STORE:
+      case OrderStatus.IN_STORE:
         return Colors.blue;
-      case OrderStatusEnum.DELIVERING:
+      case OrderStatus.DELIVERING:
         return Colors.orange;
-      case OrderStatusEnum.GOT_CAPTAIN:
+      case OrderStatus.GOT_CAPTAIN:
         return Colors.yellow;
-      case OrderStatusEnum.FINISHED:
+      case OrderStatus.FINISHED:
         return Colors.green;
       default:
         return Colors.red;
     }
   }
 
-  static int getOrderStatusIndex(OrderStatusEnum status) {
+  static int getOrderStatusIndex(OrderStatus status) {
     switch (status) {
-      case OrderStatusEnum.WAITING:
+      case OrderStatus.WAITING:
         return 0;
-      case OrderStatusEnum.IN_STORE:
+      case OrderStatus.IN_STORE:
         return 2;
-      case OrderStatusEnum.DELIVERING:
+      case OrderStatus.DELIVERING:
         return 3;
-      case OrderStatusEnum.GOT_CAPTAIN:
+      case OrderStatus.GOT_CAPTAIN:
         return 1;
-      case OrderStatusEnum.FINISHED:
+      case OrderStatus.FINISHED:
         return 4;
       default:
-        return 0;
+        return 5;
     }
   }
 }
