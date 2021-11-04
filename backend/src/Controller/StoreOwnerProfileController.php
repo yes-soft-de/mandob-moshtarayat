@@ -57,46 +57,18 @@ class StoreOwnerProfileController extends BaseController
     }
 
     /**
-     * @Route("/storeowner", name="CreateStoreOwnerProfile", methods={"POST"})
+     * @Route("/storeowner", name="storeOwnerProfileUpdate", methods={"PUT"})
      * @IsGranted("ROLE_OWNER")
      * @param Request $request
      * @return JsonResponse
      */
-    public function createStoreOwnerProfile(Request $request)
-    {
-        $data = json_decode($request->getContent(), true);
-
-        $request = $this->autoMapping->map(stdClass::class, StoreOwnerProfileCreateRequest::class, (object)$data);
-
-        $request->setStoreOwnerID($this->getUserId());
-
-        $violations = $this->validator->validate($request);
-        if (\count($violations) > 0) {
-            $violationsString = (string) $violations;
-
-            return new JsonResponse($violationsString, Response::HTTP_OK);
-        }
-
-        $response = $this->storeOwnerProfileService->createStoreOwnerProfile($request);
-
-        return $this->response($response, self::CREATE);
-    }
-
-    /**
-     * @Route("/storeowner", name="UpdateStoreOwnerProfile", methods={"PUT"})
-     * @IsGranted("ROLE_OWNER")
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function updateStoreOwnerProfile(Request $request)
+    public function storeOwnerProfileUpdate(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class, StoreOwnerProfileUpdateRequest::class, (object)$data);
         $request->setUserID($this->getUserId());
-
-        $response = $this->storeOwnerProfileService->updateStoreOwnerProfile($request);
-
+        $response = $this->storeOwnerProfileService->storeOwnerProfileUpdate($request);
         return $this->response($response, self::UPDATE);
     }
 

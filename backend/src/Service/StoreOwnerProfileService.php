@@ -43,30 +43,16 @@ class StoreOwnerProfileService
 
     public function storeOwnerRegister(UserRegisterRequest $request)
     {
-        $userRegister = $this->userManager->storeOwnerRegister($request);
+        $roomID = $this->roomIdHelperService->roomIdGenerate();
+        $userRegister = $this->userManager->storeOwnerRegister($request, $roomID);
         if ($userRegister instanceof UserEntity) {
         return $this->autoMapping->map(UserEntity::class, UserRegisterResponse::class, $userRegister);
         }
     }
 
-    public function createStoreOwnerProfile(StoreOwnerProfileCreateRequest $request)
+    public function storeOwnerProfileUpdate(StoreOwnerProfileUpdateRequest $request)
     {
-        $roomID = $this->roomIdHelperService->roomIdGenerate();
-        $userProfile = $this->userManager->createStoreOwnerProfile($request, $roomID);
-
-        if ($userProfile instanceof StoreOwnerProfileEntity) {
-
-            return $this->autoMapping->map(StoreOwnerProfileEntity::class,StoreOwnerProfileCreateResponse::class, $userProfile);
-       }
-        if ($userProfile == true) {
-          
-           return $this->getStoreOwnerProfileByID($request->getStoreOwnerID());
-       }
-    }
-
-    public function updateStoreOwnerProfile(StoreOwnerProfileUpdateRequest $request)
-    {
-        $item = $this->userManager->updateStoreOwnerProfile($request);
+        $item = $this->userManager->storeOwnerProfileUpdate($request);
         
         return $this->autoMapping->map(StoreOwnerProfileEntity::class, StoreOwnerProfileResponse::class, $item);
     }
