@@ -44,7 +44,6 @@ class _CustomFormFieldState extends State<ChatFormField> {
       r'[\u0600-\u06ff]|[\u0750-\u077f]|[\ufb50-\ufc3f]|[\ufe70-\ufefc]');
   @override
   Widget build(BuildContext context) {
-    final node = FocusScope.of(context);
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),

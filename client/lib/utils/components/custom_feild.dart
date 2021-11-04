@@ -15,8 +15,6 @@ class CustomFormField extends StatefulWidget {
   final bool numbers;
   final bool last;
   final bool validator;
-  final bool phone;
-  final Function()? onChanged;
   @override
   _CustomFormFieldState createState() => _CustomFormFieldState();
 
@@ -32,9 +30,7 @@ class CustomFormField extends StatefulWidget {
       this.maxLines,
       this.numbers = false,
       this.last = false,
-      this.validator = true,
-      this.phone = false,
-      this.onChanged});
+      this.validator = true});
 }
 
 class _CustomFormFieldState extends State<CustomFormField> {
@@ -45,7 +41,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
     final node = FocusScope.of(context);
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25),
+        borderRadius: BorderRadius.circular(8),
         color: Theme.of(context).backgroundColor,
       ),
       child: Padding(
@@ -57,25 +53,20 @@ class _CustomFormFieldState extends State<CustomFormField> {
           onTap: widget.onTap,
           controller: widget.controller,
           readOnly: widget.readOnly,
-          maxLines: widget.maxLines ?? 1,
+          maxLines: widget.maxLines,
           keyboardType: widget.numbers ? TextInputType.phone : null,
           onEditingComplete:
               widget.maxLines != null ? null : () => node.nextFocus(),
-          onFieldSubmitted: widget.maxLines == null && widget.last
-              ? (_) => node.unfocus()
-              : null,
-          textInputAction: widget.maxLines == null && widget.last
-              ? null
-              : TextInputAction.next,
+          onFieldSubmitted:
+              widget.maxLines != null ? (_) => node.unfocus() : null,
+          textInputAction:
+              widget.maxLines != null ? null : TextInputAction.next,
           inputFormatters: widget.numbers
               ? <TextInputFormatter>[
                   FilteringTextInputFormatter.allow(RegExp('[0-9+]')),
                 ]
               : [],
           onChanged: (v) {
-            if (widget.onChanged != null) {
-              widget.onChanged!();
-            }
             setState(() {});
           },
           validator: widget.validator
@@ -92,9 +83,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
                   } else if (value.isEmpty) {
                     clean = false;
                     return S.of(context).pleaseCompleteField;
-                  } else if (value.length < 8 &&
-                      widget.numbers &&
-                      widget.phone) {
+                  } else if (value.length < 8 && widget.numbers) {
                     clean = false;
                     return S.of(context).phoneNumbertooShort;
                   } else {
