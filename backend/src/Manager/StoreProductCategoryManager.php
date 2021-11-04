@@ -25,7 +25,6 @@ class StoreProductCategoryManager
 
     public function createStoreProductCategory(StoreProductCategoryCreateRequest $request)
     {
-        $request->setStoreOwnerProfileId($request->getUserID());
         $entity = $this->autoMapping->map(StoreProductCategoryCreateRequest::class, StoreProductCategoryEntity::class, $request);
 
         $this->entityManager->persist($entity);
