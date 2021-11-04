@@ -7,6 +7,7 @@ import 'package:mandob_moshtarayat/module_auth/state_manager/register_state_mana
 import 'package:mandob_moshtarayat/module_auth/ui/states/register_states/register_state.dart';
 import 'package:mandob_moshtarayat/module_auth/ui/states/register_states/register_state_init.dart';
 import 'package:flutter/material.dart';
+import 'package:mandob_moshtarayat/module_main/main_routes.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 
@@ -24,6 +25,8 @@ class RegisterScreenState extends State<RegisterScreen> {
   late RegisterState _currentState;
   late AsyncSnapshot loadingSnapshot;
   late StreamSubscription _stateSubscription;
+  int? returnToMainScreen;
+  bool? returnToPreviousScreen;
   @override
   void initState() {
     super.initState();
@@ -48,27 +51,45 @@ class RegisterScreenState extends State<RegisterScreen> {
   dynamic args;
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        var focus = FocusScope.of(context);
-        if (focus.canRequestFocus) {
-          focus.unfocus();
-        }
+    args = ModalRoute.of(context)?.settings.arguments;
+    if (args != null) {
+      if (args is bool) returnToPreviousScreen = args;
+      if (args is int) returnToMainScreen = args;
+    }
+    return WillPopScope(
+      onWillPop: () async {
+        await Navigator.of(context)
+            .pushNamedAndRemoveUntil(MainRoutes.MAIN_SCREEN, (route) => false);
+        return returnToMainScreen == null;
       },
-      child: Scaffold(
-        appBar: CustomTwaslnaAppBar.appBar(context,
-            title: S.of(context).register, canGoBack: false),
-        body: loadingSnapshot.connectionState != ConnectionState.waiting
-            ? _currentState.getUI(context)
-            : Stack(
-                children: [
-                  _currentState.getUI(context),
-                  Container(
-                    width: double.maxFinite,
-                    color: Colors.transparent.withOpacity(0.0),
-                  ),
-                ],
-              ),
+      child: GestureDetector(
+        onTap: () {
+          var focus = FocusScope.of(context);
+          if (focus.canRequestFocus) {
+            focus.unfocus();
+          }
+        },
+        child: Scaffold(
+          appBar: CustomTwaslnaAppBar.appBar(context,
+              title: S.of(context).register,
+              onTap: returnToMainScreen != null
+                  ? () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          MainRoutes.MAIN_SCREEN, (route) => false);
+                    }
+                  : null),
+          body: loadingSnapshot.connectionState != ConnectionState.waiting
+              ? _currentState.getUI(context)
+              : Stack(
+                  children: [
+                    _currentState.getUI(context),
+                    Container(
+                      width: double.maxFinite,
+                      color: Colors.transparent.withOpacity(0.0),
+                    ),
+                  ],
+                ),
+        ),
       ),
     );
   }
@@ -82,9 +103,16 @@ class RegisterScreenState extends State<RegisterScreen> {
   }
 
   void moveToNext() {
-    // Navigator.of(context)
-    //     .pushNamedAndRemoveUntil(MainRoutes.MAIN_SCREEN, (route) => false);
-
+    if (returnToMainScreen != null) {
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          MainRoutes.MAIN_SCREEN, (route) => false,
+          arguments: returnToMainScreen);
+    } else if (returnToPreviousScreen != null) {
+      Navigator.of(context).pop();
+    } else {
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil(MainRoutes.MAIN_SCREEN, (route) => false);
+    }
     CustomFlushBarHelper.createSuccess(
             title: S.current.warnning, message: S.current.loginSuccess)
         .show(context);
