@@ -68,7 +68,7 @@ class StoreProductCategoryController extends BaseController
     }
 
     /**
-     * @Route("/storeProductCategory", name="updateStoreProductCategory", methods={"PUT"})
+     * @Route("/StoreProductCategory", name="updateStoreProductCategory", methods={"PUT"})
      * @IsGranted("ROLE_OWNER")
      * @param Request $request
      * @return JsonResponse
