@@ -1,4 +1,4 @@
-package de.yessoft.mandob_moshtarayat
+package de.yessoft.mandob_moshtarayat.store
 
 import io.flutter.embedding.android.FlutterActivity
 

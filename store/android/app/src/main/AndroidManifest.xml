@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="de.yessoft.mandob_moshtarayat">
+    package="de.yessoft.mandob_moshtarayat.store">
    <application
         android:label="mandob_moshtarayat"
         android:icon="@mipmap/ic_launcher">
@@ -38,4 +38,5 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+    <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>
