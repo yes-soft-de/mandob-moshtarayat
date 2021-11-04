@@ -8,8 +8,6 @@ class StoreProductCategoryUpdateRequest
   
     private $productCategoryName;
   
-    private $storeOwnerProfileId;
-  
     private $productCategoryImage;
 
 
@@ -45,26 +43,6 @@ class StoreProductCategoryUpdateRequest
     public function setProductCategoryName($productCategoryName)
     {
         $this->productCategoryName = $productCategoryName;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of storeOwnerProfileId
-     */ 
-    public function getStoreOwnerProfileId()
-    {
-        return $this->storeOwnerProfileId;
-    }
-
-    /**
-     * Set the value of storeOwnerProfileId
-     *
-     * @return  self
-     */ 
-    public function setStoreOwnerProfileId($storeOwnerProfileId)
-    {
-        $this->storeOwnerProfileId = $storeOwnerProfileId;
 
         return $this;
     }

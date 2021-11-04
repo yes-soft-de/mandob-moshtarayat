@@ -69,19 +69,40 @@ class StoreProductCategoryController extends BaseController
 
     /**
      * @Route("/storeProductCategory", name="updateStoreProductCategory", methods={"PUT"})
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_OWNER")
      * @param Request $request
      * @return JsonResponse
      */
      public function updateStoreProductCategory(Request $request)
      {
         $data = json_decode($request->getContent(), true);
+        $violations = $this->validator->validate($request);
+         if (\count($violations) > 0) {
+             $violationsString = (string) $violations;
 
+             return new JsonResponse($violationsString, Response::HTTP_OK);
+         }
         $request = $this->autoMapping->map(stdClass::class, StoreProductCategoryUpdateRequest::class, (object)$data);
         $result = $this->storeProductCategoryService->updateStoreProductCategory($request);
 
-        return $this->response($result, self::CREATE);
+        return $this->response($result, self::UPDATE);
      }
+//
+//    /**
+//     * @Route("/storeProductCategory", name="updateStoreProductCategory", methods={"PUT"})
+//     * @IsGranted("ROLE_ADMIN")
+//     * @param Request $request
+//     * @return JsonResponse
+//     */
+//     public function updateStoreProductCategory(Request $request)
+//     {
+//        $data = json_decode($request->getContent(), true);
+//
+//        $request = $this->autoMapping->map(stdClass::class, StoreProductCategoryUpdateRequest::class, (object)$data);
+//        $result = $this->storeProductCategoryService->updateStoreProductCategory($request);
+//
+//        return $this->response($result, self::CREATE);
+//     }
 
     /**
      * @Route("/storeProductsCategory/{storeOwnerProfileId}", name="getStoreProductsCategoryForStoreSpecific",methods={"GET"})
