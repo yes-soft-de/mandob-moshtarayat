@@ -4,51 +4,46 @@ namespace App\Request;
 
 class StoreOwnerProfileUpdateRequest
 {
-    private $id;
-
-    private $storeOwnerID;
+    private $userID;
 
     private $storeOwnerName;
 
-    private $story;
-
     private $image;
 
-    private $branch;
-
-    private $city;
-    
     private $phone;
 
-    private $bankName;
+    private $storeCategoryId;
 
-    private $accountID;
-    
-    private $stcPay;
-    
+    private $privateOrders;
+
+    private $hasProducts;
+
+    private $openingTime;
+
+    private $closingTime;
+
+    private $location = [];
+
+    private $branchName;
+
     /**
-     * @return mixed
+     * Get the value of userID
      */
-    public function getId()
+    public function getUserID()
     {
-        return $this->id;
+        return $this->userID;
     }
 
-
     /**
-     * @return mixed
+     * Set the value of userID
+     *
+     * @return  self
      */
-    public function getStoreOwnerID()
+    public function setUserID($userID)
     {
-        return $this->storeOwnerID;
-    }
+        $this->userID = $userID;
 
-    /**
-     * @param mixed $storeOwnerID
-     */
-    public function setStoreOwnerID($storeOwnerID): void
-    {
-        $this->storeOwnerID = $storeOwnerID;
+        return $this;
     }
 
     /**
@@ -70,22 +65,6 @@ class StoreOwnerProfileUpdateRequest
     /**
      * @return mixed
      */
-    public function getStory()
-    {
-        return $this->story;
-    }
-
-    /**
-     * @param mixed $story
-     */
-    public function setStory($story): void
-    {
-        $this->story = $story;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getImage()
     {
         return $this->image;
@@ -98,4 +77,74 @@ class StoreOwnerProfileUpdateRequest
     {
         $this->image = $image;
     }
+
+
+    /**
+     * Get the value of storeCategoryId
+     */
+    public function getStoreCategoryId()
+    {
+        return $this->storeCategoryId;
+    }
+
+    /**
+     * Set the value of storeCategoryId
+     *
+     * @return  self
+     */
+    public function setStoreCategoryId($storeCategoryId)
+    {
+        $this->storeCategoryId = $storeCategoryId;
+
+        return $this;
+    }
+
+    public function getPrivateOrders()
+    {
+        return $this->privateOrders;
+    }
+
+    public function setPrivateOrders($privateOrders)
+    {
+        $this->privateOrders = $privateOrders;
+
+        return $this;
+    }
+
+    public function getHasProducts()
+    {
+        return $this->hasProducts;
+    }
+
+    public function setHasProducts($hasProducts)
+    {
+        $this->hasProducts = $hasProducts;
+
+        return $this;
+    }
+
+    public function getLocation()
+    {
+        return $this->location;
+    }
+
+    public function setLocation($location)
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
+    public function getBranchName()
+    {
+        return $this->branchName;
+    }
+
+    public function setBranchName($branchName)
+    {
+        $this->branchName = $branchName;
+
+        return $this;
+    }
+
 }

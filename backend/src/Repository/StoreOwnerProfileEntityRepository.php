@@ -8,6 +8,7 @@ use App\Entity\OrderEntity;
 use App\Entity\CaptainProfileEntity;
 use App\Entity\DeliveryCompanyFinancialEntity;
 use App\Entity\StoreCategoryEntity;
+use App\Entity\UserEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
@@ -206,5 +207,19 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
         ->select('count(profile.id) as count')
         ->getQuery()
         ->getSingleScalarResult();
+    }
+
+    public function storeOwnerProfileByStoreID($storeID)
+    {
+        return $this->createQueryBuilder('profile')
+            ->addSelect('profile.id', 'profile.storeOwnerName','profile.storeOwnerID', 'profile.image', 'profile.status', 'profile.roomID', 'profile.storeCategoryId', 'profile.phone', 'profile.is_best', 'profile.privateOrders', 'profile.hasProducts')
+            ->addSelect('UserEntity.createDate')
+            ->leftJoin(UserEntity::class, 'UserEntity', Join::WITH, 'UserEntity.id = profile.storeOwnerID')
+            ->andWhere('profile.storeOwnerID=:storeID')
+
+            ->setParameter('storeID', $storeID)
+
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 }
