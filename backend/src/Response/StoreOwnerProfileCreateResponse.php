@@ -23,8 +23,6 @@ class StoreOwnerProfileCreateResponse
     public $imageURL;
 
     public $baseURL;
-    
-    public $bank;
 
     public $deliveryCost;
 

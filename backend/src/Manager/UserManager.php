@@ -676,6 +676,11 @@ class UserManager
         return "yes";
     }
 
+    public function getStoreProfileId($userID)
+    {
+        return $this->userRepository->getStoreProfileId($userID);
+    }
+
     public function getOrdersForSpecificClient($clientID)
     {
         return $this->orderManager->getOrdersForSpecificClient($clientID);

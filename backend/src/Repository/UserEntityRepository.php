@@ -2,8 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\StoreOwnerProfileEntity;
 use App\Entity\UserEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
@@ -42,6 +44,22 @@ class UserEntityRepository extends ServiceEntityRepository implements PasswordUp
 
             ->select('user.id', 'user.userID','user.email')
             ->andWhere('user.userID=:userID')
+            ->setParameter('userID', $userID)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function getStoreProfileId($userID)
+    {
+        return $this->createQueryBuilder('user')
+
+            ->select('StoreOwnerProfileEntity.id')
+
+            ->leftJoin(StoreOwnerProfileEntity::class, 'StoreOwnerProfileEntity', Join::WITH,
+                'StoreOwnerProfileEntity.storeOwnerID =:userID')
+
+            ->andWhere('user.id=:userID')
             ->setParameter('userID', $userID)
 
             ->getQuery()

@@ -102,6 +102,18 @@ class StoreOwnerProfileController extends BaseController
     }
 
     /**
+     * @Route("/storeownerprofilebyid", name="getStoreOwnerProfile",methods={"GET"})
+     * @IsGranted("ROLE_OWNER")
+     * @return JsonResponse
+     */
+    public function getStoreOwnerProfile(): JsonResponse
+    {
+        $response = $this->storeOwnerProfileService->getStoreOwnerProfile($this->getUserId());
+
+        return $this->response($response, self::FETCH);
+    }
+
+    /**
      * @Route("/storeOwners", name="getAllStoreOwners",methods={"GET"})
      * @return JsonResponse
      */

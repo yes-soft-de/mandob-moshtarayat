@@ -8,10 +8,43 @@ class StoreProductCategoryUpdateRequest
   
     private $productCategoryName;
   
-    private $storeOwnerProfileId;
-  
     private $productCategoryImage;
 
+    private $isLevel1;
+
+    private $isLevel2;
+
+    /**
+     * @return mixed
+     */
+    public function getIsLevel1()
+    {
+        return $this->isLevel1;
+    }
+
+    /**
+     * @param mixed $isLevel1
+     */
+    public function setIsLevel1($isLevel1): void
+    {
+        $this->isLevel1 = $isLevel1;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsLevel2()
+    {
+        return $this->isLevel2;
+    }
+
+    /**
+     * @param mixed $isLevel2
+     */
+    public function setIsLevel2($isLevel2): void
+    {
+        $this->isLevel2 = $isLevel2;
+    }
 
     /**
      * @return mixed
@@ -45,26 +78,6 @@ class StoreProductCategoryUpdateRequest
     public function setProductCategoryName($productCategoryName)
     {
         $this->productCategoryName = $productCategoryName;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of storeOwnerProfileId
-     */ 
-    public function getStoreOwnerProfileId()
-    {
-        return $this->storeOwnerProfileId;
-    }
-
-    /**
-     * Set the value of storeOwnerProfileId
-     *
-     * @return  self
-     */ 
-    public function setStoreOwnerProfileId($storeOwnerProfileId)
-    {
-        $this->storeOwnerProfileId = $storeOwnerProfileId;
 
         return $this;
     }
