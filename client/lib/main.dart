@@ -1,6 +1,14 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:injectable/injectable.dart';
+import 'package:mandob_moshtarayat/module_account/account_module.dart';
+import 'package:mandob_moshtarayat/module_main/main_module.dart';
+import 'package:mandob_moshtarayat/module_my_notifications/my_notifications_module.dart';
+import 'package:mandob_moshtarayat/module_orders/orders_module.dart';
+import 'package:mandob_moshtarayat/module_our_services/services_module.dart';
+import 'package:mandob_moshtarayat/module_products/products_module.dart';
+import 'package:mandob_moshtarayat/module_search/search_module.dart';
+import 'package:mandob_moshtarayat/module_stores/store_module.dart';
 import 'package:simple_moment/simple_moment.dart';
 import 'package:mandob_moshtarayat/abstracts/module/yes_module.dart';
 import 'package:mandob_moshtarayat/di/di_config.dart';
@@ -68,17 +76,33 @@ class MyApp extends StatefulWidget {
   final AuthorizationModule _authorizationModule;
   final SettingsModule _settingsModule;
   final ChatModule _chatModule;
+  final MainModule _mainModule;
+  final StoreModule _storeModule;
+  final MyNotificationsModule _myNotificationsModule;
+  final AccountModule _accountModule;
+  final OrdersModule _ordersModule;
+  final ServicesModule _servicesModule;
+  final SearchModule _searchModule;
+  final ProductsModule _productsModule;
 
   MyApp(
-    this._themeDataService,
-    this._localizationService,
-    this._fireNotificationService,
-    this._localNotificationService,
-    this._splashModule,
-    this._authorizationModule,
-    this._chatModule,
-    this._settingsModule,
-  );
+      this._themeDataService,
+      this._localizationService,
+      this._fireNotificationService,
+      this._localNotificationService,
+      this._splashModule,
+      this._authorizationModule,
+      this._chatModule,
+      this._settingsModule,
+      this._mainModule,
+      this._ordersModule,
+      this._searchModule,
+      this._accountModule,
+      this._servicesModule,
+      this._storeModule,
+      this._myNotificationsModule,
+      this._productsModule
+      );
 
   @override
   State<StatefulWidget> createState() => _MyAppState();

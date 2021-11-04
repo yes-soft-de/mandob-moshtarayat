@@ -1,4 +1,4 @@
-enum OrderStatusEnum {
+enum OrderStatus {
   WAITING,
   GOT_CAPTAIN,
   IN_STORE,
