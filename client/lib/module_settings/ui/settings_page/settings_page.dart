@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:list_tile_switch/list_tile_switch.dart';
 import 'package:mandob_moshtarayat/global_nav_key.dart';
 import 'package:mandob_moshtarayat/module_auth/authorization_routes.dart';
+import 'package:mandob_moshtarayat/module_main/main_routes.dart';
 import 'package:mandob_moshtarayat/module_notifications/service/fire_notification_service/fire_notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
@@ -37,117 +38,92 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomTwaslnaAppBar.appBar(context,
-          title: S.of(context).settings, icon: Icons.menu, onTap: () {
-        GlobalVariable.mainScreenScaffold.currentState?.openDrawer();
-      }),
-      body: FixedContainer(
-        child: Padding(
-          padding: const EdgeInsets.only(right: 8.0, left: 8.0),
-          child: ListView(
-            physics:
-                BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-            children: [
-              Container(
-                height: 16,
+          title: S.of(context).settings,
+          colorIcon: Theme.of(context).brightness != Brightness.dark
+              ? Theme.of(context).disabledColor
+              : Colors.white,
+          buttonBackground: Theme.of(context).backgroundColor),
+      body: Padding(
+        padding: const EdgeInsets.only(right: 8.0, left: 8.0),
+        child: ListView(
+          physics:
+          BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+          children: [
+            Container(
+              height: 16,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Theme.of(context).backgroundColor,
               ),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25),
-                  color: Theme.of(context).primaryColor,
-                ),
-                child: Flex(
-                  direction: Axis.vertical,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    SizedBox(
-                      height: 16,
-                    ),
-                    ListTileSwitch(
-                      value: Theme.of(context).brightness == Brightness.dark,
-                      leading: Icon(
-                          Theme.of(context).brightness == Brightness.dark
-                              ? Icons.nightlight_round_rounded
-                              : Icons.wb_sunny,
-                          color: Colors.white),
-                      onChanged: (mode) {
-                        widget._themeDataService.switchDarkMode(mode);
-                      },
-                      visualDensity: VisualDensity.comfortable,
-                      switchType: SwitchType.cupertino,
-                      switchActiveColor:
-                          Theme.of(context).scaffoldBackgroundColor,
-                      title: Text(
-                        S.of(context).darkMode,
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.language, color: Colors.white),
-                      title: Text(
-                        S.of(context).language,
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      trailing: DropdownButton(
-                          dropdownColor: Theme.of(context).primaryColor,
-                          value: Localizations.localeOf(context).languageCode,
-                          style: TextStyle(color: Colors.white),
-                          underline: Container(),
-                          icon: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Icon(Icons.arrow_drop_down_rounded,
-                                color: Colors.white),
-                          ),
-                          items: [
-                            DropdownMenuItem(
-                              child: Text(
-                                'العربية',
-                                style: TextStyle(),
-                              ),
-                              value: 'ar',
-                            ),
-                            DropdownMenuItem(
-                              child: Text(
-                                'English',
-                                style: TextStyle(),
-                              ),
-                              value: 'en',
-                            ),
-                          ],
-                          onChanged: (newLang) {
-                            widget._localizationService
-                                .setLanguage(newLang.toString());
-                          }),
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.person_rounded, color: Colors.white),
-                      title: Text(
-                        S.of(context).signOut,
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      trailing: Padding(
-                        padding: const EdgeInsets.only(right: 10.0, left: 10.0),
-                        child: Icon(
-                          Icons.logout_rounded,
-                          color: Colors.white,
+              child: Flex(
+                direction: Axis.vertical,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  SizedBox(
+                    height: 16,
+                  ),
+                  ListTileSwitch(
+                    value: Theme.of(context).brightness == Brightness.dark,
+                    leading: Icon(
+                        Theme.of(context).brightness == Brightness.dark
+                            ? Icons.nightlight_round_rounded
+                            : Icons.wb_sunny),
+                    onChanged: (mode) {
+                      widget._themeDataService.switchDarkMode(mode);
+                    },
+                    visualDensity: VisualDensity.comfortable,
+                    switchType: SwitchType.cupertino,
+                    switchActiveColor: Theme.of(context).primaryColor,
+                    title: Text(S.of(context).darkMode),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.language),
+                    title: Text(S.of(context).language),
+                    trailing: DropdownButton(
+                        value: Localizations.localeOf(context).languageCode,
+                        underline: Container(),
+                        icon: Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Icon(Icons.arrow_drop_down_rounded),
                         ),
-                      ),
-                      onTap: () {
-                        widget._authService.logout().then((value) {
-                          Navigator.pushNamedAndRemoveUntil(
-                              context,
-                              AuthorizationRoutes.LOGIN_SCREEN,
-                              (route) => false);
-                        });
-                      },
+                        items: [
+                          DropdownMenuItem(
+                            child: Text('العربية'),
+                            value: 'ar',
+                          ),
+                          DropdownMenuItem(
+                            child: Text('English'),
+                            value: 'en',
+                          ),
+                        ],
+                        onChanged: (newLang) {
+                          widget._localizationService
+                              .setLanguage(newLang.toString());
+                        }),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.person_rounded),
+                    title: Text(S.of(context).signOut),
+                    trailing: Padding(
+                      padding: const EdgeInsets.only(right: 10.0, left: 10.0),
+                      child: Icon(Icons.logout_rounded),
                     ),
-                    SizedBox(
-                      height: 16,
-                    ),
-                  ],
-                ),
+                    onTap: () {
+                      widget._authService.logout().then((value) {
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            MainRoutes.MAIN_SCREEN, (route) => false);
+                      });
+                    },
+                  ),
+                  SizedBox(
+                    height: 16,
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
