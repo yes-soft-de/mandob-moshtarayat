@@ -24,7 +24,7 @@ class StoreProductCategoryEntity
     private $productCategoryName;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $storeOwnerProfileId;
     

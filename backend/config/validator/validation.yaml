@@ -172,3 +172,8 @@ App\Request\UpdateUpdateRequest:
       - NotBlank: ~
     content:
       - NotBlank: ~
+
+App\Request\StoreProductCategoryCreateRequest:
+  properties:
+    productCategoryName:
+      - NotBlank: ~

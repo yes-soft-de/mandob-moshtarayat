@@ -4,12 +4,33 @@ namespace App\Request;
 
 class StoreProductCategoryCreateRequest
 {
+    private $userID;
+
     private $productCategoryName;
-   
+
     private $storeOwnerProfileId;
    
     private $productCategoryImage;
 
+    /**
+     * Get the value of userID
+     */
+    public function getUserID()
+    {
+        return $this->userID;
+    }
+
+    /**
+     * Set the value of userID
+     *
+     * @return  self
+     */
+    public function setUserID($userID)
+    {
+        $this->userID = $userID;
+
+        return $this;
+    }
 
     /**
      * Get the value of ProductCategoryName
