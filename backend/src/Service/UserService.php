@@ -19,4 +19,10 @@ class UserService
         return $this->userManager->checkUserType($userType,$userID);
        
     }
+
+    public function getStoreProfileId($userID)
+    {
+        return $this->userManager->getStoreProfileId($userID);
+
+    }
 }

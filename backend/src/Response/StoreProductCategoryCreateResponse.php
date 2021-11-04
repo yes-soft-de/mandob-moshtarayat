@@ -11,4 +11,8 @@ class StoreProductCategoryCreateResponse
     public $storeOwnerProfileId;
   
     public $productCategoryImage;
+
+    public $isLevel1;
+
+    public $isLevel2;
 }

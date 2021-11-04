@@ -24,7 +24,7 @@ class StoreProductCategoryEntity
     private $productCategoryName;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $storeOwnerProfileId;
     
@@ -33,6 +33,15 @@ class StoreProductCategoryEntity
      */
     private $productCategoryImage;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isLevel1;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isLevel2;
 
     public function getId(): ?int
     {
@@ -75,4 +84,15 @@ class StoreProductCategoryEntity
         return $this;
     }
 
+    public function isLevel1(): ?bool
+    {
+        return $this->isLevel1;
+    }
+
+    public function isLevel2(?bool $isLevel2): self
+    {
+        $this->isLevel2 = $isLevel2;
+
+        return $this;
+    }
 }
