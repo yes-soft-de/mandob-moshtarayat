@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "605332815985",
+    "project_id": "mandop-store",
+    "storage_bucket": "mandop-store.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:605332815985:android:c00871ee22dcab26c45bd0",
+        "android_client_info": {
+          "package_name": "de.yessoft.mandob_moshtarayat.store"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "605332815985-q3dteovfjobomp26slhj9tgkuvabn8jm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUbu1SJDKPGJCiRKgKADONt545-6bwzMY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "605332815985-q3dteovfjobomp26slhj9tgkuvabn8jm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
