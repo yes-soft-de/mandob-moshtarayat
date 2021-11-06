@@ -29,7 +29,7 @@ class StoreProductCategoryController extends BaseController
     }
     
     /**
-     * @Route("/StoreProductCategory", name="createStoreProductCategory", methods={"POST"})
+     * @Route("/storeproductcategory", name="createStoreProductCategory", methods={"POST"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
@@ -50,7 +50,7 @@ class StoreProductCategoryController extends BaseController
     }
 
     /**
-     * @Route("/StoreProductCategory", name="updateStoreProductCategory", methods={"PUT"})
+     * @Route("/storeproductcategory", name="updateStoreProductCategory", methods={"PUT"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
