@@ -8,8 +8,6 @@ class StoreProductCategoryCreateResponse
   
     public $productCategoryName;
   
-    public $storeOwnerProfileId;
-  
     public $productCategoryImage;
 
     public $isLevel1;
