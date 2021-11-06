@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mandob_moshtarayat/hive/objects/cart_model/cart_model.dart';
 import 'package:mandob_moshtarayat/module_orders/request/client_order_request.dart';
@@ -17,16 +19,47 @@ class CartHiveHelper {
             image: element.productsImage));
       });
       box.put(cartKey, cartModel);
+      List<Map> maps = [];
+      cartModel.forEach((element) {
+        maps.add(element.toJson(element));
+      });
+      box.put('cartJson', json.encode(maps));
     } else if (products is List<CartModel>) {
       box.put(cartKey, products);
+      List<Map> maps = [];
+      products.forEach((element) {
+        maps.add(element.toJson(element));
+      });
+      box.put('cartJson', json.encode(maps));
     }
+  }
+  void addProductsToCart(CartModel model){
+    List<CartModel> cartModel = getCart();
+    cartModel.add(model);
+    setCart(cartModel);
+  }
+  void removeProductsToCart(CartModel model){
+    List<CartModel> cartModel = box.get(cartKey) ?? [];
+    if (cartModel.isNotEmpty){
+      cartModel.removeWhere((element) => element.id == model.id);
+    }
+    setCart(cartModel);
   }
 
   void setFinish() {
     box.put('finish', true);
   }
 
-  List<CartModel>? getCart() {
+  List<CartModel> getCart() {
+    dynamic dy = box.get(cartKey);
+    List<CartModel> carts = [];
+    if (dy is List<dynamic>) {
+      List? js = json.decode(box.get('cartJson'));
+      js?.forEach((element) {
+        carts.add(CartModel.fromJson(element));
+      });
+      return carts;
+    }
     return box.get(cartKey);
   }
 
@@ -45,12 +78,8 @@ class CartHiveHelper {
     return products;
   }
 
-  bool getFinish() {
-    return box.get('finish') ?? false;
-  }
-
   Future<void> deleteCart() async {
     await box.delete(cartKey);
-    await box.delete('finish');
+    await box.delete('cartJson');
   }
 }

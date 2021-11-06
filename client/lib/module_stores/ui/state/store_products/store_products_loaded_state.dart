@@ -3,6 +3,7 @@ import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_orders/orders_routes.dart';
 import 'package:mandob_moshtarayat/module_orders/request/client_order_request.dart';
 import 'package:mandob_moshtarayat/hive/objects/cart_model/cart_model.dart';
+import 'package:mandob_moshtarayat/module_products/products_routes.dart';
 import 'package:mandob_moshtarayat/module_stores/model/category_model.dart';
 import 'package:mandob_moshtarayat/module_stores/model/checkout_model.dart';
 import 'package:mandob_moshtarayat/module_stores/model/store_profile_model.dart';
@@ -36,7 +37,7 @@ class StoreProductsLoadedState extends StoreProductsState {
       required this.orderCart})
       : super(screenState) {
     if (orderCart != null) {
-      fromEditingOrder = true;
+      fromEditingOrder = false;
       carts = orderCart ?? [];
     }
   }
@@ -152,26 +153,32 @@ class StoreProductsLoadedState extends StoreProductsState {
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: CheckoutButton(
+                        quantity: getItemsCount(),
                         onPressed: carts.isNotEmpty
                             ? () {
+
                                 List<Products> items = [];
                                 carts.forEach((element) {
                                   items.add(Products(
                                       productID: element.id,
                                       countProduct: element.quantity));
                                 });
+
                                 CheckoutModel checkoutModel = CheckoutModel(
                                     ownerId: storeId,
                                     cart: items,
-                                    orderCost: double.parse(getTotal(carts)),
+                                    orderCost: double.parse(getTotal()),
                                     deliveryCost: deliveryCost);
+
                                 if (fromEditingOrder) {
                                   CartHiveHelper().setCart(carts);
                                   Navigator.of(context).pop();
                                 } else {
                                   Navigator.of(context).pushNamed(
-                                      OrdersRoutes.CLIENT_ORDER,
-                                      arguments: checkoutModel);
+                                      ProductsRoutes.CART_SCREEN);
+                                  // Navigator.of(context).pushNamed(
+                                  //     OrdersRoutes.CLIENT_ORDER,
+                                  //     arguments: checkoutModel);
                                 }
                               }
                             : () {
@@ -180,7 +187,7 @@ class StoreProductsLoadedState extends StoreProductsState {
                                     message: S.of(context).yourCartEmpty)
                                   ..show(context);
                               },
-                        total: getTotal(carts),
+                        total: getTotal(),
                         currency: S.of(context).sar,
                       ),
                     ),
@@ -208,9 +215,11 @@ class StoreProductsLoadedState extends StoreProductsState {
             if (cartModel.quantity > 0) {
               carts.removeWhere((e) => e.id == cartModel.id);
               carts.add(cartModel);
+              CartHiveHelper().addProductsToCart(cartModel);
             }
             if (cartModel.quantity == 0) {
               carts.removeWhere((e) => e.id == cartModel.id);
+              CartHiveHelper().removeProductsToCart(cartModel);
             }
             screenState.refresh();
           }));
@@ -273,10 +282,15 @@ class StoreProductsLoadedState extends StoreProductsState {
   }
 }
 
-dynamic getTotal(List<CartModel> carts) {
+dynamic getTotal() {
+  List<CartModel> carts = CartHiveHelper().getCart();
   var total = 0.0;
   for (int i = 0; i < carts.length; i++) {
     total += carts[i].price * carts[i].quantity;
   }
   return total.toString();
+}
+String getItemsCount() {
+  List<CartModel> carts = CartHiveHelper().getCart();
+  return carts.length.toString();
 }
