@@ -130,4 +130,12 @@ class ProductService
     public function getProductsByName($name) {
         return $this->productManager->getProductsByName($name);
     }
+
+    public function createProductByStore(ProductCreateRequest $request)
+    {
+        $item = $this->productManager->createProductByAdmin($request);
+
+        return $this->autoMapping->map(ProductEntity::class, ProductCreateResponse::class, $item);
+    }
+
 }

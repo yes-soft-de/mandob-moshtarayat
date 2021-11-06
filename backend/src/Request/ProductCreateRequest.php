@@ -11,7 +11,22 @@ class ProductCreateRequest
     private $productPrice;
 
     private $storeOwnerProfileID;
-    
+
     private $storeProductCategoryID;
 
+    /**
+     * @return mixed
+     */
+    public function getStoreOwnerProfileID()
+    {
+        return $this->storeOwnerProfileID;
+    }
+
+    /**
+     * @param mixed storeOwnerProfileID
+     */
+    public function setStoreOwnerProfileID($storeOwnerProfileID): void
+    {
+        $this->storeOwnerProfileID = $storeOwnerProfileID;
+    }
 }
