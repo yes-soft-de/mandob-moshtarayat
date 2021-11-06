@@ -437,4 +437,17 @@ class OrderController extends BaseController
   
           return $this->response($result, self::FETCH);
       }
+
+    /**
+     * @Route("/getstoreordersongoing", name="getStoreOrdersOngoingForStoreOwner", methods={"GET"})
+     * @IsGranted("ROLE_OWNER")
+     * @return JsonResponse
+     */
+    public function getStoreOrdersOngoingForStoreOwner()
+    {
+        $result = $this->orderService->getStoreOrdersOngoingForStoreOwner($this->getUserId());
+
+        return $this->response($result, self::FETCH);
+    }
+
 }

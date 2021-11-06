@@ -392,4 +392,9 @@ class OrderManager
     {
         return $this->orderEntityRepository->getOrdersByCaptainId($captainId);
     }
+
+    public function getStoreOrdersOngoingForStoreOwner($storeOwnerProfileID)
+    {
+        return $this->orderEntityRepository->getStoreOrdersOngoingForStoreOwner($storeOwnerProfileID);
+    }
 }
