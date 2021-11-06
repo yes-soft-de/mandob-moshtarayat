@@ -39,7 +39,7 @@ class CartHiveHelper {
     setCart(cartModel);
   }
   void removeProductsToCart(CartModel model){
-    List<CartModel> cartModel = box.get(cartKey) ?? [];
+    List<CartModel> cartModel = getCart();
     if (cartModel.isNotEmpty){
       cartModel.removeWhere((element) => element.id == model.id);
     }
@@ -47,7 +47,7 @@ class CartHiveHelper {
   }
 
   void setFinish() {
-    box.put('finish', true);
+    box.put('update', true);
   }
 
   List<CartModel> getCart() {
@@ -60,12 +60,11 @@ class CartHiveHelper {
       });
       return carts;
     }
-    return box.get(cartKey);
+    return box.get(cartKey) ?? [];
   }
 
   List<Products>? getProduct() {
-    List<CartModel>? cartModel = box.get(cartKey);
-    if (cartModel == null) return null;
+    List<CartModel>? cartModel = getCart();
     List<Products> products = [];
     cartModel.forEach((element) {
       products.add(Products(
@@ -81,5 +80,7 @@ class CartHiveHelper {
   Future<void> deleteCart() async {
     await box.delete(cartKey);
     await box.delete('cartJson');
+    await box.delete('update');
+
   }
 }
