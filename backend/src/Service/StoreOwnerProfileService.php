@@ -14,6 +14,7 @@ use App\Request\UserRegisterRequest;
 use App\Response\StoreOwnerProfileCreateResponse;
 use App\Response\StoreOwnerProfileResponse;
 use App\Response\StoreOwnerByCategoryIdResponse;
+use App\Response\StoresFilterByNameResponse;
 use App\Response\UserRegisterResponse;
 use App\Service\RoomIdHelperService;
 use App\Service\StoreOwnerBranchService;
@@ -192,5 +193,14 @@ class StoreOwnerProfileService
 
     public function getStoresByName($name) {
        return $this->userManager->getStoresByName($name);
+    }
+
+    public function getStoresFilterByName($name) {
+        $items = $this->userManager->getStoresByName($name);
+        foreach ($items as $item) {
+            $item['image'] = $this->getImageParams($item['image'], $this->params.$item['image'], $this->params);
+            $response[] = $this->autoMapping->map('array', StoresFilterByNameResponse::class, $item);
+        }
+        return $response;
     }
 }

@@ -213,9 +213,9 @@ class StoreOwnerProfileController extends BaseController
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
      */
-    public function getStoresByName($name): JsonResponse
+    public function getStoresFilterByName($name): JsonResponse
     {
-        $result = $this->storeOwnerProfileService->getStoresByName($name);
+        $result = $this->storeOwnerProfileService->getStoresFilterByName($name);
 
         return $this->response($result, self::FETCH);
     }
