@@ -397,4 +397,9 @@ class OrderManager
     {
         return $this->orderEntityRepository->getStoreOrdersOngoingForStoreOwner($storeOwnerProfileID);
     }
+
+    public function getStoreOrdersInSpecificDate($fromDate, $toDate, $storeOwnerProfileID)
+    {
+        return $this->orderEntityRepository->getStoreOrdersInSpecificDate($fromDate, $toDate, $storeOwnerProfileID);
+    }
 }

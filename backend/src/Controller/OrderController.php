@@ -446,6 +446,22 @@ class OrderController extends BaseController
     public function getStoreOrdersOngoingForStoreOwner()
     {
         $result = $this->orderService->getStoreOrdersOngoingForStoreOwner($this->getUserId());
+        if(is_string($result)){
+            return $this->response($result, self::ERROR_STORE_INACTIVE);
+        }
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("/getstoreordersinspecificdate/{fromDate}/{toDate}", name="getStoreOrdersInSpecificDate",methods={"GET"})
+     * @IsGranted("ROLE_OWNER")
+     * @param $fromDate
+     * @param $toDate
+     * @return JsonResponse
+     */
+    public function getStoreOrdersInSpecificDate($fromDate, $toDate): JsonResponse
+    {
+        $result = $this->orderService->getStoreOrdersInSpecificDate($fromDate, $toDate, $this->getUserId());
 
         return $this->response($result, self::FETCH);
     }
