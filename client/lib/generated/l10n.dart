@@ -3599,6 +3599,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Cart`
+  String get showingCart {
+    return Intl.message(
+      'Cart',
+      name: 'showingCart',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Item`
+  String get item {
+    return Intl.message(
+      'Item',
+      name: 'item',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

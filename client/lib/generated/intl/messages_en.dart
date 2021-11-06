@@ -227,6 +227,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Wrong username or password"),
         "invoiceCost": MessageLookupByLibrary.simpleMessage("Invoice Cost"),
         "invoiceImage": MessageLookupByLibrary.simpleMessage("Invoice Image"),
+        "item": MessageLookupByLibrary.simpleMessage("Item"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "largeMoreThan100Employees":
             MessageLookupByLibrary.simpleMessage("+100 Employees"),
@@ -442,6 +443,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "share": MessageLookupByLibrary.simpleMessage("Share"),
         "showAll": MessageLookupByLibrary.simpleMessage("Show All"),
+        "showingCart": MessageLookupByLibrary.simpleMessage("Cart"),
         "signOut": MessageLookupByLibrary.simpleMessage("Sign out"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "smallLessThan20Employee":
