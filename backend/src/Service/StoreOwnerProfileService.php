@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\AutoMapping;
+use App\Controller\Request\storeOwnerProfileStatusUpdateByAdminRequest;
 use App\Entity\UserEntity;
 use App\Entity\StoreOwnerProfileEntity;
 use App\Manager\UserManager;
@@ -11,9 +12,11 @@ use App\Request\StoreOwnerProfileCreateByAdminRequest;
 use App\Request\StoreOwnerProfileUpdateRequest;
 use App\Request\StoreOwnerUpdateByAdminRequest;
 use App\Request\UserRegisterRequest;
+use App\Response\CaptainIsActiveResponse;
 use App\Response\StoreOwnerProfileCreateResponse;
 use App\Response\StoreOwnerProfileResponse;
 use App\Response\StoreOwnerByCategoryIdResponse;
+use App\Response\StoresFilterByNameResponse;
 use App\Response\UserRegisterResponse;
 use App\Service\RoomIdHelperService;
 use App\Service\StoreOwnerBranchService;
@@ -59,6 +62,13 @@ class StoreOwnerProfileService
     public function updateStoreOwnerByAdmin(StoreOwnerUpdateByAdminRequest $request)
     {
         $item = $this->userManager->updateStoreOwnerByAdmin($request);
+
+        return $this->autoMapping->map(StoreOwnerProfileEntity::class, StoreOwnerProfileResponse::class, $item);
+    }
+
+    public function storeOwnerProfileStatusUpdateByAdmin(storeOwnerProfileStatusUpdateByAdminRequest $request)
+    {
+        $item = $this->userManager->storeOwnerProfileStatusUpdateByAdmin($request);
 
         return $this->autoMapping->map(StoreOwnerProfileEntity::class, StoreOwnerProfileResponse::class, $item);
     }
@@ -192,5 +202,20 @@ class StoreOwnerProfileService
 
     public function getStoresByName($name) {
        return $this->userManager->getStoresByName($name);
+    }
+
+    public function getStoresFilterByName($name) {
+        $items = $this->userManager->getStoresByName($name);
+        foreach ($items as $item) {
+            $item['image'] = $this->getImageParams($item['image'], $this->params.$item['image'], $this->params);
+            $response[] = $this->autoMapping->map('array', StoresFilterByNameResponse::class, $item);
+        }
+        return $response;
+    }
+
+    public function storeIsActive($captainID)
+    {
+        $item = $this->userManager->storeIsActive($captainID);
+        return $this->autoMapping->map('array',CaptainIsActiveResponse::class, $item);
     }
 }

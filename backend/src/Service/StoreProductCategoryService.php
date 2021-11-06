@@ -27,8 +27,6 @@ class StoreProductCategoryService
 
     public function createStoreProductCategory(StoreProductCategoryCreateRequest $request)
     {
-        $storeOwnerProfileId = $this->userService->getStoreProfileId($request->getUserID());
-        $request->setStoreOwnerProfileId($storeOwnerProfileId['id']);
         $item = $this->storeProductCategoryManager->createStoreProductCategory($request);
          
         return $this->autoMapping->map(StoreProductCategoryEntity::class, StoreProductCategoryCreateResponse::class, $item);

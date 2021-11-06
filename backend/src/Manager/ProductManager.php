@@ -91,5 +91,17 @@ class ProductManager
     public function getProductsByName($name)
     {
         return $this->productEntityRepository->getProductsByName($name);
-    } 
+    }
+
+    public function createProductByStore(ProductCreateRequest $request)
+    {
+        $entity = $this->autoMapping->map(ProductCreateRequest::class, ProductEntity::class, $request);
+
+        $this->entityManager->persist($entity);
+        $this->entityManager->flush();
+        $this->entityManager->clear();
+
+        return $entity;
+    }
+
 }

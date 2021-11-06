@@ -3,6 +3,7 @@
 namespace App\Manager;
 
 use App\AutoMapping;
+use App\Controller\Request\storeOwnerProfileStatusUpdateByAdminRequest;
 use App\Entity\UserEntity;
 use App\Entity\ClientProfileEntity;
 use App\Entity\StoreOwnerProfileEntity;
@@ -148,6 +149,20 @@ class UserManager
                 $this->entityManager->persist($storeOwnerProfile);
                 $this->entityManager->flush();
                 $this->entityManager->clear();
+                //create branch
+                $branch = $this->storeOwnerBranchManager->getBranchesByStoreOwnerProfileID($storeOwnerProfile->getId());
+                if(!$branch){
+                    $branch = $this->autoMapping->map(UserRegisterRequest::class, StoreOwnerBranchEntity::class, $request);
+                    $branch->setIsActive(1);
+                    $branch->setStoreOwnerProfileID($storeOwnerProfile->getId());
+                    $branch->setLocation($request->getLocation());
+                    $branch->setBranchName("default");
+
+                    $this->entityManager->persist($branch);
+                    $this->entityManager->flush();
+                    $this->entityManager->clear();
+                }
+
             }
             return $userRegister;
         }
@@ -171,7 +186,7 @@ class UserManager
                 //create branch
                 $branch = $this->storeOwnerBranchManager->getBranchesByStoreOwnerProfileID($storeOwnerProfile->getId());
                 if(!$branch){
-                    $branch = $this->autoMapping->map(StoreOwnerProfileCreateByAdminRequest::class, StoreOwnerBranchEntity::class, $request);
+                    $branch = $this->autoMapping->map(UserRegisterRequest::class, StoreOwnerBranchEntity::class, $request);
                     $branch->setIsActive(1);
                     $branch->setStoreOwnerProfileID($storeOwnerProfile->getId());
                     $branch->setLocation($request->getLocation());
@@ -344,23 +359,9 @@ class UserManager
             $item->setClosingTime( $item->getClosingTime());
             $this->entityManager->flush();
             $this->entityManager->clear();
-            //create branch
-            $branch = $this->storeOwnerBranchManager->getBranchesByStoreOwnerProfileID($item->getId());
-            if(!$branch){
-                $branch = $this->autoMapping->map(StoreOwnerProfileUpdateRequest::class, StoreOwnerBranchEntity::class, $request);
-                $branch->setIsActive(1);
-                $branch->setStoreOwnerProfileID($item->getId());
-                $branch->setLocation($request->getLocation());
-                if($request->getBranchName() == null) {
-                    $branch->setBranchName("default");
-                }
-                else {
-                    $branch->setBranchName($request->getBranchName());
-                }
-                $this->entityManager->persist($branch);
-                $this->entityManager->flush();
-                $this->entityManager->clear();
-            }
+            //update branch
+            $branch = $this->storeOwnerBranchManager->update($item->getId(), $request->getLocation(), $request->getBranchName());
+
             return $item;
         }
     }
@@ -373,6 +374,19 @@ class UserManager
             $item = $this->autoMapping->mapToObject(StoreOwnerUpdateByAdminRequest::class, StoreOwnerProfileEntity::class, $request, $item);
             $item->setOpeningTime( $request->getOpeningTime());
             $item->setClosingTime( $request->getClosingTime());
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $item;
+        }
+    }
+
+    public function storeOwnerProfileStatusUpdateByAdmin(storeOwnerProfileStatusUpdateByAdminRequest $request)
+    {
+        $item = $this->storeOwnerProfileEntityRepository->find($request->getId());
+
+        if ($item) {
+            $item = $this->autoMapping->mapToObject(storeOwnerProfileStatusUpdateByAdminRequest::class, StoreOwnerProfileEntity::class, $request, $item);
             $this->entityManager->flush();
             $this->entityManager->clear();
 
@@ -485,6 +499,11 @@ class UserManager
     public function captainIsActive($captainID)
     {
         return $this->captainProfileEntityRepository->captainIsActive($captainID);
+    }
+
+    public function storeIsActive($storeOwnerID)
+    {
+        return $this->storeOwnerProfileEntityRepository->storeIsActive($storeOwnerID);
     }
 
     public function getCaptainsState($state)
