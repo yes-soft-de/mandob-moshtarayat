@@ -222,4 +222,17 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function storeIsActive($storeOwnerID)
+    {
+        return $this->createQueryBuilder('profile')
+            ->select('profile.status')
+
+            ->andWhere('profile.storeOwnerID = :storeOwnerID')
+
+            ->setParameter('storeOwnerID', $storeOwnerID)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

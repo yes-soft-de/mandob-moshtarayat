@@ -182,3 +182,14 @@ App\Request\StoreProductCategoryUpdateRequest:
   properties:
     productCategoryName:
       - NotBlank: ~
+
+App\Request\ProductCreateRequest:
+  properties:
+    productName:
+      - NotBlank: ~
+    productImage:
+      - NotBlank: ~
+    productPrice:
+      - NotBlank: ~
+    storeProductCategoryID:
+      - NotBlank: ~

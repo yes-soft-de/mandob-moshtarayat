@@ -737,4 +737,47 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getStoreOrdersOngoingForStoreOwner($storeOwnerProfileID)
+    {
+        return $this->createQueryBuilder('OrderEntity')
+            ->select('OrderEntity.id', 'OrderEntity.deliveryDate', 'OrderEntity.createdAt', 'OrderEntity.storeOwnerProfileID', 'OrderEntity.source', 'OrderEntity.payment', 'OrderEntity.detail', 'OrderEntity.deliveryCost', 'OrderEntity.orderCost', 'OrderEntity.orderType', 'OrderEntity.destination', 'OrderEntity.note', 'OrderEntity.state')
+            ->addSelect('orderDetailEntity.id as orderDetailId', 'orderDetailEntity.orderNumber')
+
+            ->leftJoin(OrderDetailEntity::class, 'orderDetailEntity', Join::WITH, 'orderDetailEntity.orderID = OrderEntity.id')
+            ->andWhere("OrderEntity.storeOwnerProfileID = :storeOwnerProfileID ")
+            ->andWhere("OrderEntity.state != :pending ")
+            ->andWhere("OrderEntity.state != :cancel ")
+            ->andWhere("OrderEntity.state != :delivered ")
+            ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
+            ->setParameter('pending', self::PENDING)
+            ->setParameter('cancel', self::CANCEL)
+            ->setParameter('delivered', self::DELIVERED)
+            ->addGroupBy('OrderEntity.id')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getStoreOrdersInSpecificDate($fromDate, $toDate, $storeOwnerProfileID)
+    {
+        return $this->createQueryBuilder('OrderEntity')
+
+            ->select('OrderEntity.id', 'OrderEntity.deliveryDate', 'OrderEntity.createdAt', 'OrderEntity.storeOwnerProfileID', 'OrderEntity.source', 'OrderEntity.payment', 'OrderEntity.detail', 'OrderEntity.deliveryCost', 'OrderEntity.orderCost', 'OrderEntity.orderType', 'OrderEntity.destination', 'OrderEntity.note', 'OrderEntity.state')
+            ->addSelect('OrderDetailEntity.id as orderDetailId', 'OrderDetailEntity.orderNumber')
+
+            ->leftJoin(OrderDetailEntity::class, 'OrderDetailEntity', Join::WITH, 'OrderDetailEntity.orderID = OrderEntity.id')
+            ->where('OrderEntity.createdAt >= :fromDate')
+            ->andWhere('OrderEntity.createdAt < :toDate')
+            ->andWhere("OrderEntity.storeOwnerProfileID = :storeOwnerProfileID ")
+            ->andWhere("OrderEntity.state != :cancelled")
+
+            ->setParameter('fromDate', $fromDate)
+            ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
+            ->setParameter('toDate', $toDate)
+            ->setParameter('cancelled', self::CANCEL)
+            ->addGroupBy('OrderEntity.id')
+            ->getQuery()
+            ->getResult();
+    }
+
 }

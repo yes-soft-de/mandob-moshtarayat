@@ -28,6 +28,7 @@ class BaseController extends AbstractController
     const ERROR_USER_CHECK = ["error user check","9000"];
     const ERROR_USER_FOUND = ["error user found","9001"];
     const ERROR_CAPTAIN_INACTIVE = ["error captain inactive","9002"];
+    const ERROR_STORE_INACTIVE = ["error store inactive","9002"];
     const NOTFOUND=["Not found", "404"];
 //    const TEST = [
 //        "one"=>[ "error error", "9003"],

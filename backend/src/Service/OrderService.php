@@ -31,6 +31,7 @@ use App\Response\CountOrdersInLastMonthForStoreResponse;
 use App\Response\CountOrdersInLastMonthForCaptainResponse;
 use App\Response\CountOrdersInLastMonthForClientResponse;
 use App\Response\CountOrdersInLastMonthForProoductResponse;
+use App\Response\StoreOrdersOngoingResponse;
 use App\Service\RatingService;
 use App\Service\StoreOwnerProfileService;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -42,6 +43,7 @@ use App\Service\OrderDetailService;
 use App\Service\DeliveryCompanyFinancialService;
 use App\Service\ClientProfileService;
 use App\Service\NotificationLocalService;
+use App\Service\UserService;
 use DateTime;
 
 class OrderService
@@ -61,11 +63,12 @@ class OrderService
     private $clientProfileService;
     private $notificationLocalService;
     private $orderLogService;
+    private $userService;
 
     public function __construct(AutoMapping $autoMapping, OrderManager $orderManager, StoreOwnerProfileService $storeOwnerProfileService, ParameterBagInterface $params,  RatingService $ratingService
                                 // , NotificationService $notificationService
                                , RoomIdHelperService $roomIdHelperService,  DateFactoryService $dateFactoryService, CaptainProfileService $captainProfileService, ProductService $productService, OrderDetailService $orderDetailService, DeliveryCompanyFinancialService $deliveryCompanyFinancialService,
-                               ClientProfileService $clientProfileService, NotificationLocalService $notificationLocalService, OrderLogService $orderLogService
+                               ClientProfileService $clientProfileService, NotificationLocalService $notificationLocalService, OrderLogService $orderLogService, UserService $userService
                                 )
     {
         $this->autoMapping = $autoMapping;
@@ -83,6 +86,7 @@ class OrderService
         $this->clientProfileService = $clientProfileService;
         $this->notificationLocalService = $notificationLocalService;
         $this->orderLogService = $orderLogService;
+        $this->userService = $userService;
     }
 
     public function closestOrders($userId)
@@ -612,4 +616,34 @@ class OrderService
         $response['orders'] = $item;
         return $response;
     }
+
+    public function getStoreOrdersOngoingForStoreOwner($userID)
+    {
+
+        $item = $this->userService->getStoreProfileId($userID);
+        $store = $this->storeOwnerProfileService->storeIsActive($userID);
+        if ($store->getStatus() == 'inactive') {
+            $response = "store inactive";
+        }
+        if ($store->getStatus() == 'active') {
+            $orders = $this->orderManager->getStoreOrdersOngoingForStoreOwner($item['id']);
+            foreach ($orders as $order) {
+                $response[] = $this->autoMapping->map('array', StoreOrdersOngoingResponse::class, $order);
+            }
+        }
+        return $response;
+    }
+
+    public function getStoreOrdersInSpecificDate($fromDate, $toDate, $userID):?array
+    {
+        $response=[];
+        $date = $this->dateFactoryService->returnSpecificDate($fromDate, $toDate);
+        $item = $this->userService->getStoreProfileId($userID);
+        $orders = $this->orderManager->getStoreOrdersInSpecificDate($date[0], $date[1], $item['id']);
+        foreach ($orders as $order) {
+            $response[] = $this->autoMapping->map('array', StoreOrdersOngoingResponse::class, $order);
+        }
+        return $response;
+    }
+
 }

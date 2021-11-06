@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\AutoMapping;
+use App\Controller\Request\storeOwnerProfileStatusUpdateByAdminRequest;
 use App\Request\StoreOwnerProfileCreateRequest;
 use App\Request\StoreOwnerProfileCreateByAdminRequest;
 use App\Request\StoreOwnerProfileUpdateRequest;
@@ -85,6 +86,22 @@ class StoreOwnerProfileController extends BaseController
         $request = $this->autoMapping->map(stdClass::class, StoreOwnerUpdateByAdminRequest::class, (object)$data);
 
         $response = $this->storeOwnerProfileService->updateStoreOwnerByAdmin($request);
+
+        return $this->response($response, self::UPDATE);
+    }
+    /**
+     * @Route("/storeownerprofilestatusupdatebyadmin", name="storeOwnerProfileStatusUpdateByAdmin", methods={"PUT"})
+     * @IsGranted("ROLE_ADMIN")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function storeOwnerProfileStatusUpdateByAdmin(Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, storeOwnerProfileStatusUpdateByAdminRequest::class, (object)$data);
+
+        $response = $this->storeOwnerProfileService->storeOwnerProfileStatusUpdateByAdmin($request);
 
         return $this->response($response, self::UPDATE);
     }
@@ -213,10 +230,12 @@ class StoreOwnerProfileController extends BaseController
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
      */
-    public function getStoresByName($name): JsonResponse
+    public function getStoresFilterByName($name): JsonResponse
     {
-        $result = $this->storeOwnerProfileService->getStoresByName($name);
+        $result = $this->storeOwnerProfileService->getStoresFilterByName($name);
 
         return $this->response($result, self::FETCH);
     }
+
+
 }
