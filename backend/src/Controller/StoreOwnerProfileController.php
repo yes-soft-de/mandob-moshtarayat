@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\AutoMapping;
+use App\Controller\Request\storeOwnerProfileStatusUpdateByAdminRequest;
 use App\Request\StoreOwnerProfileCreateRequest;
 use App\Request\StoreOwnerProfileCreateByAdminRequest;
 use App\Request\StoreOwnerProfileUpdateRequest;
@@ -85,6 +86,22 @@ class StoreOwnerProfileController extends BaseController
         $request = $this->autoMapping->map(stdClass::class, StoreOwnerUpdateByAdminRequest::class, (object)$data);
 
         $response = $this->storeOwnerProfileService->updateStoreOwnerByAdmin($request);
+
+        return $this->response($response, self::UPDATE);
+    }
+    /**
+     * @Route("/storeownerprofilestatusupdatebyadmin", name="storeOwnerProfileStatusUpdateByAdmin", methods={"PUT"})
+     * @IsGranted("ROLE_ADMIN")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function storeOwnerProfileStatusUpdateByAdmin(Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, storeOwnerProfileStatusUpdateByAdminRequest::class, (object)$data);
+
+        $response = $this->storeOwnerProfileService->storeOwnerProfileStatusUpdateByAdmin($request);
 
         return $this->response($response, self::UPDATE);
     }
@@ -219,4 +236,6 @@ class StoreOwnerProfileController extends BaseController
 
         return $this->response($result, self::FETCH);
     }
+
+
 }

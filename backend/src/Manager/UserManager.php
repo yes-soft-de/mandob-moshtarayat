@@ -3,6 +3,7 @@
 namespace App\Manager;
 
 use App\AutoMapping;
+use App\Controller\Request\storeOwnerProfileStatusUpdateByAdminRequest;
 use App\Entity\UserEntity;
 use App\Entity\ClientProfileEntity;
 use App\Entity\StoreOwnerProfileEntity;
@@ -380,6 +381,19 @@ class UserManager
         }
     }
 
+    public function storeOwnerProfileStatusUpdateByAdmin(storeOwnerProfileStatusUpdateByAdminRequest $request)
+    {
+        $item = $this->storeOwnerProfileEntityRepository->find($request->getId());
+
+        if ($item) {
+            $item = $this->autoMapping->mapToObject(storeOwnerProfileStatusUpdateByAdminRequest::class, StoreOwnerProfileEntity::class, $request, $item);
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $item;
+        }
+    }
+
     public function getStoreOwnerProfileByID($id)
     {
         return $this->storeOwnerProfileEntityRepository->getStoreOwnerProfileByID($id);
@@ -485,6 +499,11 @@ class UserManager
     public function captainIsActive($captainID)
     {
         return $this->captainProfileEntityRepository->captainIsActive($captainID);
+    }
+
+    public function storeIsActive($storeOwnerID)
+    {
+        return $this->storeOwnerProfileEntityRepository->storeIsActive($storeOwnerID);
     }
 
     public function getCaptainsState($state)
