@@ -1,2 +1,12 @@
+<<<<<<< HEAD
 upload
 
+=======
+/.idea/.gitignore
+/.idea/mandob-moshtarayat.iml
+/.idea/modules.xml
+/.idea/php.xml
+/.idea/php-test-framework.xml
+/.idea/vcs.xml
+/upload/
+>>>>>>> 4d9be2d2ee6fb86a1a213a518a13c450a877de07

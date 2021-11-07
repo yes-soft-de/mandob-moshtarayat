@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\AutoMapping;
-use App\Controller\Request\storeOwnerProfileStatusUpdateByAdminRequest;
+use App\Request\storeOwnerProfileStatusUpdateByAdminRequest;
 use App\Request\StoreOwnerProfileCreateRequest;
 use App\Request\StoreOwnerProfileCreateByAdminRequest;
 use App\Request\StoreOwnerProfileUpdateRequest;
@@ -52,7 +52,6 @@ class StoreOwnerProfileController extends BaseController
 
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
-
         $response = $this->storeOwnerProfileService->storeOwnerRegister($request);
         return $this->response($response, self::CREATE);
     }

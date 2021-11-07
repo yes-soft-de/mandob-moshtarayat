@@ -3,7 +3,7 @@
 namespace App\Service;
 
 use App\AutoMapping;
-use App\Controller\Request\storeOwnerProfileStatusUpdateByAdminRequest;
+use App\Request\storeOwnerProfileStatusUpdateByAdminRequest;
 use App\Entity\UserEntity;
 use App\Entity\StoreOwnerProfileEntity;
 use App\Manager\UserManager;
@@ -49,6 +49,11 @@ class StoreOwnerProfileService
         $userRegister = $this->userManager->storeOwnerRegister($request, $roomID);
         if ($userRegister instanceof UserEntity) {
         return $this->autoMapping->map(UserEntity::class, UserRegisterResponse::class, $userRegister);
+        }
+        if ($userRegister == true) {
+            $user = $this->userManager->getUserByUserID($request->getUserID());
+            $user['found']="yes";
+            return $user;
         }
     }
 
