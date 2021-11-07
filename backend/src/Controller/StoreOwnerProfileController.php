@@ -37,9 +37,10 @@ class StoreOwnerProfileController extends BaseController
     }
 
     /**
-     * @Route("/storeownerregister", name="storeOwnerRegister", methods={"POST"})
+     * @Route("storeownerregister", name="storeOwnerRegister", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
+     *
      * @OA\Tag(name="user_register")
      *
      * @OA\RequestBody(
@@ -65,7 +66,6 @@ class StoreOwnerProfileController extends BaseController
      *      )
      * )
      *
-     *
      * @Security(name="Bearer")
      */
     public function storeOwnerRegister(Request $request): JsonResponse
@@ -75,20 +75,24 @@ class StoreOwnerProfileController extends BaseController
         $request = $this->autoMapping->map(stdClass::class, UserRegisterRequest::class, (object)$data);
 
         $violations = $this->validator->validate($request);
-        if (\count($violations) > 0) {
+
+        if(\count($violations) > 0)
+        {
             $violationsString = (string) $violations;
 
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
-        $response = $this->storeOwnerProfileService->storeOwnerRegister($request);
-        $isArray = is_array($response);
-        if($isArray){
-            $found = isset($response['found']);
 
-            if( $found == "yes"){
+        $response = $this->storeOwnerProfileService->storeOwnerRegister($request);
+
+        if(key_exists("found", $response))
+        {
+            if($response['found'] == "yes")
+            {
                 return $this->response($response, self::ERROR_USER_FOUND);
             }
         }
+
         return $this->response($response, self::CREATE);
     }
 
