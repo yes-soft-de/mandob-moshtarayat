@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_our_services/services_routes.dart';
 import 'package:mandob_moshtarayat/module_search/model/search_model.dart';
@@ -10,10 +9,7 @@ import 'package:mandob_moshtarayat/module_stores/store_routes.dart';
 import 'package:mandob_moshtarayat/module_stores/ui/widget/store_card.dart';
 import 'package:mandob_moshtarayat/module_stores/ui/widget/store_list/order_type.dart';
 import 'package:mandob_moshtarayat/module_stores/ui/widget/store_products/products_card.dart';
-import 'package:mandob_moshtarayat/utils/components/costom_search.dart';
-import 'package:mandob_moshtarayat/utils/images/images.dart';
 import 'package:mandob_moshtarayat/utils/models/store.dart';
-import 'package:mandob_moshtarayat/utils/text_style/text_style.dart';
 
 class SearchLoadedState extends SearchState {
   SearchScreenState screenState;
