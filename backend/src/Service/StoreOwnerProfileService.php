@@ -49,7 +49,7 @@ class StoreOwnerProfileService
         {
             return $this->autoMapping->map(UserEntity::class, UserRegisterResponse::class, $userRegister);
         }
-        elseif($userRegister == true)
+        elseif(is_string($userRegister))
         {
             $user = $this->userManager->getUserByUserID($request->getUserID());
 
