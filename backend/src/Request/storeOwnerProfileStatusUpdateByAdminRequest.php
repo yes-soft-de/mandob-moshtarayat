@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Request;
+namespace App\Request;
 
 class storeOwnerProfileStatusUpdateByAdminRequest
 {

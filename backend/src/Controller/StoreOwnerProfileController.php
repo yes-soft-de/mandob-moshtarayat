@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\AutoMapping;
-use App\Controller\Request\storeOwnerProfileStatusUpdateByAdminRequest;
+use App\Request\storeOwnerProfileStatusUpdateByAdminRequest;
 use App\Request\StoreOwnerProfileCreateRequest;
 use App\Request\StoreOwnerProfileCreateByAdminRequest;
 use App\Request\StoreOwnerProfileUpdateRequest;

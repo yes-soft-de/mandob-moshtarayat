@@ -3,7 +3,7 @@
 namespace App\Service;
 
 use App\AutoMapping;
-use App\Controller\Request\storeOwnerProfileStatusUpdateByAdminRequest;
+use App\Request\storeOwnerProfileStatusUpdateByAdminRequest;
 use App\Entity\UserEntity;
 use App\Entity\StoreOwnerProfileEntity;
 use App\Manager\UserManager;
