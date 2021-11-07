@@ -44,9 +44,7 @@ class StoreCategoryService
        $items = $this->storeCategoryManager->getStoreCategories();
 
        foreach ($items as $item) {
-           $item['imageURL'] = $item['image'];
-           $item['image'] = $this->params.$item['image'];
-           $item['baseURL'] = $this->params;
+           $item['image'] = $this->getImageParams($item['image'], $this->params.$item['image'], $this->params);
            $response[] =  $this->autoMapping->map('array', StoreCategoryCreateResponse::class, $item);
         }
       return $response;
@@ -55,7 +53,16 @@ class StoreCategoryService
     public function getStoreCategory($id)
     {
        $item = $this->storeCategoryManager->getStoreCategory($id);
-       return $this->autoMapping->map(StoreCategoryEntity::class, StoreCategoryByIdResponse::class, $item);  
+       return $this->autoMapping->map(StoreCategoryEntity::class, StoreCategoryByIdResponse::class, $item);
        
+    }
+
+    public function getImageParams($imageURL, $image, $baseURL): array
+    {
+        $item['imageURL'] = $imageURL;
+        $item['image'] = $image;
+        $item['baseURL'] = $baseURL;
+
+        return $item;
     }
 }
