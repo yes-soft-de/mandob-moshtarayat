@@ -38,8 +38,25 @@ class StoreProductCategoryEntityRepository extends ServiceEntityRepository
             ->select('storeProductCategory.id', 'storeProductCategory.productCategoryName', 'storeProductCategory.isLevel1', 'storeProductCategory.productCategoryImage')
 
             ->andWhere('storeProductCategory.storeCategoryID = :storeCategoryID')
+            ->andWhere('storeProductCategory.isLevel1 = :isLevel1')
 
             ->setParameter('storeCategoryID', $storeCategoryID)
+            ->setParameter('isLevel1', 1)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function getStoreProductsCategoryLevelTwoByStoreProductCategoryID($storeProductCategoryID)
+    {
+        return $this->createQueryBuilder('storeProductCategory')
+            ->select('storeProductCategory.id', 'storeProductCategory.productCategoryName', 'storeProductCategory.isLevel2', 'storeProductCategory.productCategoryImage')
+
+            ->andWhere('storeProductCategory.storeProductCategoryID = :storeProductCategoryID')
+            ->andWhere('storeProductCategory.isLevel2 = :isLevel2')
+
+            ->setParameter('storeProductCategoryID', $storeProductCategoryID)
+            ->setParameter('isLevel2', 1)
             ->getQuery()
             ->getResult()
         ;

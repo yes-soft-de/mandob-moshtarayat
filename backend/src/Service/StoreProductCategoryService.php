@@ -66,4 +66,14 @@ class StoreProductCategoryService
       }
        return $response;
     }
+
+    public function getStoreProductsCategoryLeveltwoByStoreProductCategoryID($storeProductCategoryID)
+    {
+        $response = [];
+       $items = $this->storeProductCategoryManager->getStoreProductsCategoryLevelTwoByStoreProductCategoryID($storeProductCategoryID);
+       foreach($items as $item) {
+            $response[] = $this->autoMapping->map('array', StoreProductsCategoryResponse::class, $item);
+      }
+       return $response;
+    }
 }

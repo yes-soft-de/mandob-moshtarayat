@@ -71,4 +71,9 @@ class StoreProductCategoryManager
     {
        return $this->storeProductCategoryEntityRepository->getStoreProductsCategoryLevelOneByStoreCategoryID($storeCategoryID);
     }
+
+    public function getStoreProductsCategoryLevelTwoByStoreProductCategoryID($storeProductCategoryID)
+    {
+       return $this->storeProductCategoryEntityRepository->getStoreProductsCategoryLevelTwoByStoreProductCategoryID($storeProductCategoryID);
+    }
 }
