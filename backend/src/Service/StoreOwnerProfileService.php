@@ -46,21 +46,19 @@ class StoreOwnerProfileService
     public function storeOwnerRegister(UserRegisterRequest $request)
     {
         $roomID = $this->roomIdHelperService->roomIdGenerate();
+
         $userRegister = $this->userManager->storeOwnerRegister($request, $roomID);
-        if ($userRegister instanceof UserEntity) {
 
+        if($userRegister instanceof UserEntity)
+        {
             return $this->autoMapping->map(UserEntity::class, UserRegisterResponse::class, $userRegister);
-
         }
-        if ($userRegister == true) {
+        elseif($userRegister == true)
+        {
+            $user = $this->userManager->getUserByUserID($request->getUserID());
 
-            $user = $this->userManager->getUserByUserID($request->getUserID());
-            $user['found']="yes";
-            return $user;
-        }
-        if ($userRegister == true) {
-            $user = $this->userManager->getUserByUserID($request->getUserID());
-            $user['found']="yes";
+            $user['found'] = "yes";
+
             return $user;
         }
     }
