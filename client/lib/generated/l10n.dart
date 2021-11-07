@@ -2420,10 +2420,10 @@ class S {
     );
   }
 
-  /// `order Number`
+  /// `Order Number`
   String get orderNumber {
     return Intl.message(
-      'order Number',
+      'Order Number',
       name: 'orderNumber',
       desc: '',
       args: [],
