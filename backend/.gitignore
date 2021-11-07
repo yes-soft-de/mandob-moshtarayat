@@ -15,7 +15,6 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
-/upload
 # jetbrain
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
@@ -39,7 +38,6 @@
 .env
 .env.test
 /.env
-upload/
 # Gradle:
 .idea/**/gradle.xml
 .idea/**/libraries
@@ -88,7 +86,6 @@ config/jwt
 ###> symfony/phpunit-bridge ###
 .phpunit
 .phpunit.result.cache
-/phpunit.xml
 ###< symfony/phpunit-bridge ###
 
 ###> liip/imagine-bundle ###
