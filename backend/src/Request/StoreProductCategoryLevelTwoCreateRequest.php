@@ -2,38 +2,35 @@
 
 namespace App\Request;
 
-class StoreProductCategoryCreateRequest
+class StoreProductCategoryLevelTwoCreateRequest
 {
-
     private $productCategoryName;
 
-    private $storeOwnerProfileId;
-   
     private $productCategoryImage;
 
-    private $isLevel1;
+    private $isLevel2;
 
-    private $storeCategoryID;
+    private $storeProductCategoryID;
 
     /**
      * @return mixed
      */
-    public function getIsLevel1()
+    public function getIsLevel2()
     {
-        return $this->isLevel1;
+        return $this->isLevel2;
     }
 
     /**
-     * @param mixed $isLevel1
+     * @param mixed $isLevel2
      */
-    public function setIsLevel1($isLevel1): void
+    public function setIsLevel2($isLevel2): void
     {
-        $this->isLevel1 = $isLevel1;
+        $this->isLevel2 = $isLevel2;
     }
 
     /**
      * Get the value of ProductCategoryName
-     */ 
+     */
     public function getProductCategoryName()
     {
         return $this->productCategoryName;
@@ -43,7 +40,7 @@ class StoreProductCategoryCreateRequest
      * Set the value of ProductCategoryName
      *
      * @return  self
-     */ 
+     */
     public function setProductCategoryName($productCategoryName)
     {
         $this->productCategoryName = $productCategoryName;
@@ -52,28 +49,28 @@ class StoreProductCategoryCreateRequest
     }
 
     /**
-     * Get the value of storeOwnerProfileId
-     */ 
-    public function getStoreOwnerProfileId()
+     * Get the value of storeProductCategoryID
+     */
+    public function getStoreProductCategoryID()
     {
-        return $this->storeOwnerProfileId;
+        return $this->storeProductCategoryID;
     }
 
     /**
-     * Set the value of storeOwnerProfileId
+     * Set the value of storeProductCategoryID
      *
      * @return  self
-     */ 
-    public function setStoreOwnerProfileId($storeOwnerProfileId)
+     */
+    public function setStoreProductCategoryID($storeProductCategoryID)
     {
-        $this->storeOwnerProfileId = $storeOwnerProfileId;
+        $this->storeProductCategoryID = $storeProductCategoryID;
 
         return $this;
     }
 
     /**
      * Get the value of ProductCategoryImage
-     */ 
+     */
     public function getProductCategoryImage()
     {
         return $this->productCategoryImage;
@@ -83,7 +80,7 @@ class StoreProductCategoryCreateRequest
      * Set the value of ProductCategoryImage
      *
      * @return  self
-     */ 
+     */
     public function setProductCategoryImage($productCategoryImage)
     {
         $this->productCategoryImage = $productCategoryImage;

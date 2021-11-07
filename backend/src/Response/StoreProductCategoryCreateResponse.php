@@ -13,4 +13,8 @@ class StoreProductCategoryCreateResponse
     public $isLevel1;
 
     public $isLevel2;
+
+    public $storeCategoryID;
+
+    public $storeProductCategoryID;
 }

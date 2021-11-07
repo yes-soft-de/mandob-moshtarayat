@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\StoreProductCategoryEntity;
 use App\Manager\StoreProductCategoryManager;
 use App\Request\StoreProductCategoryCreateRequest;
+use App\Request\StoreProductCategoryLevelTwoCreateRequest;
 use App\Request\StoreProductCategoryUpdateRequest;
 use App\Response\StoreProductCategoryCreateResponse;
 use App\Response\StoreProductsCategoryResponse;
@@ -25,10 +26,17 @@ class StoreProductCategoryService
         $this->userService = $userService;
     }
 
-    public function createStoreProductCategory(StoreProductCategoryCreateRequest $request)
+    public function createStoreProductCategoryLevelOne(StoreProductCategoryCreateRequest $request)
     {
-        $item = $this->storeProductCategoryManager->createStoreProductCategory($request);
+        $item = $this->storeProductCategoryManager->createStoreProductCategoryLevelOne($request);
          
+        return $this->autoMapping->map(StoreProductCategoryEntity::class, StoreProductCategoryCreateResponse::class, $item);
+    }
+
+    public function createStoreProductCategoryLevelTwo(StoreProductCategoryLevelTwoCreateRequest $request)
+    {
+        $item = $this->storeProductCategoryManager->createStoreProductCategoryLevelTwo($request);
+
         return $this->autoMapping->map(StoreProductCategoryEntity::class, StoreProductCategoryCreateResponse::class, $item);
     }
 

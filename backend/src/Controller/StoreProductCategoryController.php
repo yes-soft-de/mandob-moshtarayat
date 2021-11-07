@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\StoreProductCategoryCreateRequest;
+use App\Request\StoreProductCategoryLevelTwoCreateRequest;
 use App\Request\StoreProductCategoryUpdateRequest;
 use App\Service\StoreProductCategoryService;
 use stdClass;
@@ -29,12 +30,12 @@ class StoreProductCategoryController extends BaseController
     }
     
     /**
-     * @Route("/storeproductcategory", name="createStoreProductCategory", methods={"POST"})
+     * @Route("/storeproductcategorylevelone", name="createStoreProductCategoryLevelOne", methods={"POST"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
      */
-    public function createStoreProductCategory(Request $request)
+    public function createStoreProductCategoryLevelOne(Request $request)
     {
         $data = json_decode($request->getContent(), true);
         $request = $this->autoMapping->map(stdClass::class, StoreProductCategoryCreateRequest::class, (object)$data);
@@ -44,7 +45,28 @@ class StoreProductCategoryController extends BaseController
 
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
-        $result = $this->storeProductCategoryService->createStoreProductCategory($request);
+        $result = $this->storeProductCategoryService->createStoreProductCategoryLevelOne($request);
+
+        return $this->response($result, self::CREATE);
+    }
+
+    /**
+     * @Route("/storeproductcategoryleveltwo", name="createStoreProductCategoryLevelTwo", methods={"POST"})
+     * @IsGranted("ROLE_ADMIN")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function createStoreProductCategoryLevelTwo(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+        $request = $this->autoMapping->map(stdClass::class, StoreProductCategoryLevelTwoCreateRequest::class, (object)$data);
+        $violations = $this->validator->validate($request);
+        if (\count($violations) > 0) {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+        $result = $this->storeProductCategoryService->createStoreProductCategoryLevelTwo($request);
 
         return $this->response($result, self::CREATE);
     }
