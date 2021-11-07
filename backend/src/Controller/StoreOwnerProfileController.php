@@ -52,7 +52,6 @@ class StoreOwnerProfileController extends BaseController
 
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
-
         $response = $this->storeOwnerProfileService->storeOwnerRegister($request);
         return $this->response($response, self::CREATE);
     }
