@@ -55,7 +55,7 @@ dependencies:
   # NoSQL Database
   hive: ^2.0.4
   hive_flutter: ^1.1.0
-  hive_generator: ^1.1.0
+  hive_generator: ^1.1.1
   # Open Url On Browser
   url_launcher: ^6.0.6
   share: ^2.0.4

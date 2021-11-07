@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/module_auth/service/auth_service/auth_service.dart';
+import 'package:mandob_moshtarayat/module_stores/presistance/cart_hive_box_helper.dart';
 import 'package:mandob_moshtarayat/module_stores/request/rate_store_request.dart';
 import 'package:mandob_moshtarayat/module_stores/state_manager/store_products_state_manager.dart';
 import 'package:mandob_moshtarayat/module_stores/ui/state/store_products/store_products_loading_state.dart';
@@ -52,18 +55,24 @@ class StoreProductsScreenState extends State<StoreProductsScreen> {
       snapshot = event;
       if (mounted) setState(() {});
     });
-
+    Hive.box('Order').listenable(keys: ['update']).addListener(() {
+      widget.stateManager.getStoresProducts(storeId, this);
+      print('++++++++++++++++++++++++++++++++++++++++++++++++++++');
+      if (mounted) setState(() {});
+    });
     super.initState();
   }
 
   bool flag = true;
   late String title;
+  int storeId  = -1;
   late String backgroundImage;
   @override
   Widget build(BuildContext context) {
     var args = ModalRoute.of(context)?.settings.arguments;
     if (flag && args is StoreModel) {
       title = args.storeOwnerName;
+      storeId = args.id;
       widget.stateManager.getStoresProducts(args.id, this);
       flag = false;
     }

@@ -355,7 +355,11 @@
   "rateCaptainMessage":"Rate this captain upon your opinion" ,
   "rateCaptain": "Rate Captain",
   "all": "All",
-  "withTaxes": "With taxes "
+  "withTaxes": "With taxes ",
+  "showingCart": "Cart",
+  "item": "Item"
+
+
 
 
 

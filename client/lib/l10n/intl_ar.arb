@@ -354,6 +354,8 @@
   "rateCaptainMessage":"قم بتقييم المندوب من فضلك" ,
   "rateCaptain": "قييم المندوب",
   "all": "الكل",
-  "withTaxes": "شامل القيمة المضافة"
+  "withTaxes": "شامل القيمة المضافة",
+  "showingCart": "مشاهدة السلة",
+  "item": "عنصر"
 
 }

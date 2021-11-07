@@ -220,6 +220,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "هناك خطأ في كلمة السر أو اسم المستخدم"),
         "invoiceCost": MessageLookupByLibrary.simpleMessage("تكلفة الفاتورة"),
         "invoiceImage": MessageLookupByLibrary.simpleMessage("صورة الفاتورة"),
+        "item": MessageLookupByLibrary.simpleMessage("عنصر"),
         "language": MessageLookupByLibrary.simpleMessage("اللغة"),
         "largeMoreThan100Employees":
             MessageLookupByLibrary.simpleMessage("+100 موظف"),
@@ -434,6 +435,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "settings": MessageLookupByLibrary.simpleMessage("الاعدادات"),
         "share": MessageLookupByLibrary.simpleMessage("المشاركة"),
         "showAll": MessageLookupByLibrary.simpleMessage("عرض الكل"),
+        "showingCart": MessageLookupByLibrary.simpleMessage("مشاهدة السلة"),
         "signOut": MessageLookupByLibrary.simpleMessage("تسحيل الخروج"),
         "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
         "smallLessThan20Employee":

@@ -29,8 +29,10 @@ class StoreProductsStateManager {
 
   StoreProductsStateManager(this._storeProductsService);
 
-  void getStoresProducts(int id, StoreProductsScreenState screenState) {
-    _stateSubject.add(StoreProductsLoadingState(screenState));
+  void getStoresProducts(int id, StoreProductsScreenState screenState ,[bool withoutLoading = false]) {
+    if (!withoutLoading){
+      _stateSubject.add(StoreProductsLoadingState(screenState));
+    }
     _storeProductsService.getStoreProfile(id).then((store) {
       if (store.hasError) {
         _stateSubject

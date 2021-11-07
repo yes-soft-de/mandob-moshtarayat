@@ -96,7 +96,7 @@ import '../module_products/products_module.dart' as _i58;
 import '../module_products/repository/products_repository.dart' as _i44;
 import '../module_products/service/store_products_service.dart' as _i70;
 import '../module_products/state_manager/store_products_state_manager.dart'
-    as _i72;
+    as _i71;
 import '../module_products/ui/screen/cart_screen.dart' as _i4;
 import '../module_products/ui/screen/products_details_screen.dart' as _i57;
 import '../module_search/manager/search_manager.dart' as _i35;
@@ -117,7 +117,7 @@ import '../module_stores/service/store_list_service.dart' as _i41;
 import '../module_stores/service/store_products_service.dart' as _i69;
 import '../module_stores/state_manager/store_list_state_manager.dart' as _i42;
 import '../module_stores/state_manager/store_products_state_manager.dart'
-    as _i71;
+    as _i72;
 import '../module_stores/store_module.dart' as _i103;
 import '../module_stores/ui/screen/store_list_screen.dart' as _i66;
 import '../module_stores/ui/screen/store_products_screen.dart' as _i90;
@@ -310,7 +310,7 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.factory<_i89.SettingsModule>(
       () => _i89.SettingsModule(get<_i64.SettingsScreen>()));
   gh.factory<_i90.StoreProductsScreen>(() => _i90.StoreProductsScreen(
-      get<_i71.StoreProductsStateManager>(), get<_i24.AuthService>()));
+      get<_i72.StoreProductsStateManager>(), get<_i24.AuthService>()));
   gh.factory<_i91.AccountScreen>(
       () => _i91.AccountScreen(get<_i75.AccountStateManager>()));
   gh.factory<_i92.ChatModule>(

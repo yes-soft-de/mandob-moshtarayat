@@ -5,8 +5,9 @@ class CheckoutButton extends StatelessWidget {
   final String total;
   final VoidCallback onPressed;
   final String currency;
+  final String quantity;
   CheckoutButton(
-      {required this.total, required this.onPressed, this.currency = 'SAR'});
+      {required this.total, required this.onPressed, this.currency = 'SAR',required this.quantity});
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +34,15 @@ class CheckoutButton extends StatelessWidget {
           width: double.maxFinite,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: ElevatedButton(
+            child: ElevatedButton.icon(
+              icon: Icon(Icons.shopping_cart,color: Colors.white,),
               style: ElevatedButton.styleFrom(
                   primary: Theme.of(context).primaryColor,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10))),
               onPressed: onPressed,
-              child: Text(
-                '${S.of(context).checkout} ($total $currency)',
+              label: Text(
+                '${S.of(context).showingCart} ( $quantity ${S.current.item} | $total $currency  )',
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
             ),
