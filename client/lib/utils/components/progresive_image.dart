@@ -22,7 +22,7 @@ class CustomNetworkImage extends StatelessWidget {
   Widget build(BuildContext context) {
     bool asset = assets;
     var image = imageSource;
-    if (asset == false && !image.contains('/original-image/')) {
+    if (asset == false && !image.contains('http')) {
       asset = true;
       if (!image.contains('assets')) {
         image = ImageAsset.PLACEHOLDER;
