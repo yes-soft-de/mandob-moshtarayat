@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\StoreProductCategoryEntity;
 use App\Repository\StoreProductCategoryEntityRepository;
 use App\Request\StoreProductCategoryCreateRequest;
+use App\Request\StoreProductCategoryLevelTwoCreateRequest;
 use App\Request\StoreProductCategoryUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -23,10 +24,23 @@ class StoreProductCategoryManager
         $this->storeProductCategoryEntityRepository = $storeProductCategoryEntityRepository;
     }
 
-    public function createStoreProductCategory(StoreProductCategoryCreateRequest $request)
+    public function createStoreProductCategoryLevelOne(StoreProductCategoryCreateRequest $request)
     {
         $entity = $this->autoMapping->map(StoreProductCategoryCreateRequest::class, StoreProductCategoryEntity::class, $request);
+        $entity->setIsLevel1(true);
+        $entity->setIsLevel2(false);
+        $this->entityManager->persist($entity);
+        $this->entityManager->flush();
+        $this->entityManager->clear();
 
+        return $entity;
+    }
+
+    public function createStoreProductCategoryLevelTwo(StoreProductCategoryLevelTwoCreateRequest $request)
+    {
+        $entity = $this->autoMapping->map(StoreProductCategoryLevelTwoCreateRequest::class, StoreProductCategoryEntity::class, $request);
+        $entity->setIsLevel2(true);
+        $entity->setIsLevel1(false);
         $this->entityManager->persist($entity);
         $this->entityManager->flush();
         $this->entityManager->clear();
@@ -51,5 +65,15 @@ class StoreProductCategoryManager
     public function getStoreProductsCategoryForStoreSpecific($storeOwnerProfileId)
     {
        return $this->storeProductCategoryEntityRepository->getStoreProductsCategoryForStoreSpecific($storeOwnerProfileId);
+    }
+
+    public function getStoreProductsCategoryLevelOneByStoreCategoryID($storeCategoryID)
+    {
+       return $this->storeProductCategoryEntityRepository->getStoreProductsCategoryLevelOneByStoreCategoryID($storeCategoryID);
+    }
+
+    public function getStoreProductsCategoryLevelTwoByStoreProductCategoryID($storeProductCategoryID)
+    {
+       return $this->storeProductCategoryEntityRepository->getStoreProductsCategoryLevelTwoByStoreProductCategoryID($storeProductCategoryID);
     }
 }
