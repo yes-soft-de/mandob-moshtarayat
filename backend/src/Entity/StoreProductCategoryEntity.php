@@ -43,6 +43,16 @@ class StoreProductCategoryEntity
      */
     private $isLevel2;
 
+    /**
+     * @ORM\Column(type="integer", length=100, nullable=true)
+     */
+    private $storeCategoryID;
+
+    /**
+     * @ORM\Column(type="integer", length=100, nullable=true)
+     */
+    private $storeProductCategoryID;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -84,14 +94,49 @@ class StoreProductCategoryEntity
         return $this;
     }
 
-    public function isLevel1(): ?bool
+    public function getIsLevel1(): ?bool
     {
         return $this->isLevel1;
     }
 
-    public function isLevel2(?bool $isLevel2): self
+    public function setIsLevel1(int $isLevel1): self
+    {
+        $this->isLevel1 = $isLevel1;
+
+        return $this;
+    }
+
+    public function getIsLevel2(): ?bool
+    {
+        return $this->isLevel2;
+    }
+    public function setIsLevel2(?bool $isLevel2): self
     {
         $this->isLevel2 = $isLevel2;
+
+        return $this;
+    }
+
+    public function getStoreCategoryID(): ?int
+    {
+        return $this->storeCategoryID;
+    }
+
+    public function setStoreCategoryID(int $storeCategoryID): self
+    {
+        $this->storeCategoryID = $storeCategoryID;
+
+        return $this;
+    }
+
+    public function getStoreProductCategoryID(): ?int
+    {
+        return $this->storeProductCategoryID;
+    }
+
+    public function setStoreProductCategoryID(int $storeProductCategoryID): self
+    {
+        $this->storeProductCategoryID = $storeProductCategoryID;
 
         return $this;
     }

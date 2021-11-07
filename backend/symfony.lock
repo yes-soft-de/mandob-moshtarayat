@@ -356,6 +356,9 @@
             "./config/packages/stof_doctrine_extensions.yaml"
         ]
     },
+    "symfony/asset": {
+        "version": "v5.1.11"
+    },
     "symfony/cache": {
         "version": "v5.1.7"
     },
@@ -495,9 +498,6 @@
     },
     "symfony/polyfill-php80": {
         "version": "v1.18.1"
-    },
-    "symfony/polyfill-php81": {
-        "version": "v1.23.0"
     },
     "symfony/process": {
         "version": "v5.1.10"

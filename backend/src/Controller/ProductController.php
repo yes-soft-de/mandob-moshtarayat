@@ -124,6 +124,19 @@ class ProductController extends BaseController
     }
 
     /**
+     * @Route("/getproductsstore", name="getStoreProducts", methods={"GET"})
+     * @IsGranted("ROLE_OWNER")
+     * @return JsonResponse
+     */
+    public function getStoreProducts(): JsonResponse
+    {
+
+        $result = $this->productService->getStoreProducts($this->getUserId());
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
      * @Route("/updateProductByAdmin", name="updateProductByAdmin", methods={"PUT"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
