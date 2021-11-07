@@ -11,6 +11,8 @@ import 'package:mandob_moshtarayat/module_our_services/ui/widget/label_text.dart
 import 'package:mandob_moshtarayat/module_our_services/ui/widget/private_order_title_bar.dart';
 import 'package:mandob_moshtarayat/utils/components/make_order_button.dart';
 import 'package:mandob_moshtarayat/utils/components/progresive_image.dart';
+import 'package:mandob_moshtarayat/utils/effect/checked.dart';
+import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 import 'package:mandob_moshtarayat/utils/models/store.dart';
 
@@ -19,13 +21,12 @@ class PrivateOrderLoadedState extends PrivateOrderState {
       : super(screenState);
   String? payments;
   ScrollController scrollController = ScrollController();
-  TextEditingController orderDetailsController = TextEditingController();
-  TextEditingController noteController = TextEditingController();
   final GlobalKey<FormState> _privateOrder = GlobalKey<FormState>();
   late String title;
   late String backgroundImage;
   late int storeId;
   late num deliveryCost;
+
   @override
   Widget getUI(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -47,18 +48,43 @@ class PrivateOrderLoadedState extends PrivateOrderState {
         CustomPrivateOrderAppBar(),
         Align(
           alignment: Alignment.bottomCenter,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+              color: Colors.black.withOpacity(0.45),
+            ),
+            height: height * 0.72,
+            width: double.maxFinite,
+          ),
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
           child: Flex(
             direction: Axis.vertical,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Padding(
-                padding:
-                    const EdgeInsets.only(right: 28.0, left: 28, bottom: 16),
-                child: PrivateOrderTitleBar(
-                    title: title,
-                    rate: 0,
-                    views: 40,
-                    deliveryCost: deliveryCost),
+              Checked(
+                checked: MediaQuery.of(context).viewInsets.bottom != 0,
+                checkedWidget: Align(
+                  alignment: AlignmentDirectional.centerStart,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.arrow_back,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: PrivateOrderTitleBar(
+                      title: title,
+                      rate: 0,
+                      views: 40,
+                      deliveryCost: deliveryCost),
+                ),
               ),
               Container(
                 height: height * 0.65,
@@ -81,7 +107,7 @@ class PrivateOrderLoadedState extends PrivateOrderState {
                         subtitle: CustomSendItFormField(
                           maxLines: 7,
                           hintText: S.of(context).orderDetailHint,
-                          controller: orderDetailsController,
+                          controller: screenState.orderDetailsController,
                         ),
                       ),
                       SizedBox(
@@ -92,7 +118,7 @@ class PrivateOrderLoadedState extends PrivateOrderState {
                         subtitle: CustomSendItFormField(
                           maxLines: 5,
                           hintText: S.of(context).note,
-                          controller: noteController,
+                          controller: screenState.noteController,
                           validator: false,
                         ),
                       ),
@@ -114,8 +140,8 @@ class PrivateOrderLoadedState extends PrivateOrderState {
             onPressed: () {
               if (_privateOrder.currentState!.validate()) {
                 PrivateOrderRequest request = PrivateOrderRequest(
-                    note: noteController.text,
-                    detail: orderDetailsController.text,
+                    note: screenState.noteController.text,
+                    detail: screenState.orderDetailsController.text,
                     storeOwnerProfileID: storeId,
                     ownerID: title);
                 screenState.request = request;

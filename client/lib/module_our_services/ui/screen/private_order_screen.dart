@@ -25,6 +25,8 @@ class PrivateOrderScreenState extends State<PrivateOrderScreen> {
   late PrivateOrderState currentState;
   late PrivateOrderRequest request;
   AsyncSnapshot myLocation = AsyncSnapshot.nothing();
+  TextEditingController orderDetailsController = TextEditingController();
+  TextEditingController noteController = TextEditingController();
 
   @override
   void initState() {
