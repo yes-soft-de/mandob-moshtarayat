@@ -215,7 +215,7 @@ class UserManager
                 }
             }
 
-            return "user is exist!";
+            return 'user_exist';
         }
     }
 
