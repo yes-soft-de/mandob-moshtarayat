@@ -33,23 +33,20 @@ class CustomOrderDetailsAppBar extends StatelessWidget {
                   : Navigator.of(context).pop(),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Theme.of(context).cardColor.withOpacity(0.5),
+                  color: Theme.of(context).cardColor,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Icon(
                     Icons.arrow_back,
-                    color: collapsed
-                        ? Colors.white
-                        : Theme.of(context).disabledColor,
                   ),
                 ),
               ),
             ),
             collapsed
                 ? Text(
-                    S.current.deliverForMe,
+                    S.current.orderDetails,
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,

@@ -9,62 +9,34 @@ class OrderDetailsTitleBar extends StatelessWidget {
     return Container(
       width: double.maxFinite,
       child: Flex(
-        direction: Axis.vertical,
+        direction: Axis.horizontal,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Align(
-            alignment: AlignmentDirectional.centerStart,
-            child: Text(
-              title,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold),
+          Text(
+            title,
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 25,
+                fontWeight: FontWeight.bold),
+          ),
+          Container(
+            width: 16,
+          ),
+          Text(
+            rate.toString(),
+            style: TextStyle(
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+              color: Colors.white
             ),
           ),
           Container(
-            height: 16,
+            width: 8,
           ),
-          Align(
-            alignment: AlignmentDirectional.centerStart,
-            child: Container(
-              decoration: BoxDecoration(
-                color:
-                Theme.of(context).cardColor.withOpacity(0.65),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Flex(
-                direction: Axis.horizontal,
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    width: 4,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      rate.toString(),
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        top: 8.0, bottom: 8.0),
-                    child: Icon(
-                      Icons.star,
-                      size: 18,
-                      color: Colors.blue[700],
-                    ),
-                  ),
-                  Container(
-                    width: 4,
-                  ),
-                ],
-              ),
-            ),
+          Icon(
+            Icons.star,
+            size: 25,
+            color: Colors.white,
           ),
         ],
       ),
