@@ -7,4 +7,5 @@ class UserRegisterResponse
     public $roles = [];
 
     public $createDate;
+
 }
