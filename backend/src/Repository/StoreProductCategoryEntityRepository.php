@@ -19,7 +19,6 @@ class StoreProductCategoryEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, StoreProductCategoryEntity::class);
     }
 
-  
     public function getStoreProductsCategoryForStoreSpecific($storeOwnerProfileId)
     {
         return $this->createQueryBuilder('storeProductCategory')
@@ -28,6 +27,19 @@ class StoreProductCategoryEntityRepository extends ServiceEntityRepository
             ->andWhere('storeProductCategory.storeOwnerProfileId = :storeOwnerProfileId')
             
             ->setParameter('storeOwnerProfileId', $storeOwnerProfileId)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function getStoreProductsCategoryLevelOneByStoreCategoryID($storeCategoryID)
+    {
+        return $this->createQueryBuilder('storeProductCategory')
+            ->select('storeProductCategory.id', 'storeProductCategory.productCategoryName', 'storeProductCategory.isLevel1', 'storeProductCategory.productCategoryImage')
+
+            ->andWhere('storeProductCategory.storeCategoryID = :storeCategoryID')
+
+            ->setParameter('storeCategoryID', $storeCategoryID)
             ->getQuery()
             ->getResult()
         ;

@@ -66,4 +66,9 @@ class StoreProductCategoryManager
     {
        return $this->storeProductCategoryEntityRepository->getStoreProductsCategoryForStoreSpecific($storeOwnerProfileId);
     }
+
+    public function getStoreProductsCategoryLevelOneByStoreCategoryID($storeCategoryID)
+    {
+       return $this->storeProductCategoryEntityRepository->getStoreProductsCategoryLevelOneByStoreCategoryID($storeCategoryID);
+    }
 }
