@@ -149,7 +149,6 @@ class UserManager
             
                 $this->entityManager->persist($storeOwnerProfile);
                 $this->entityManager->flush();
-                $this->entityManager->clear();
 
                 //create branch
                 $branch = $this->storeOwnerBranchManager->getBranchesByStoreOwnerProfileID($storeOwnerProfile->getId());
