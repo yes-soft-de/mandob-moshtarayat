@@ -215,7 +215,7 @@ class UserManager
                 }
             }
 
-            return true;
+            return 'user_exist';
         }
     }
 
