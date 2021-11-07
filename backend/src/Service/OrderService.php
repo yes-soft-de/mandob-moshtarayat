@@ -619,7 +619,7 @@ class OrderService
 
     public function getStoreOrdersOngoingForStoreOwner($userID)
     {
-
+        $response = [];
         $item = $this->userService->getStoreProfileId($userID);
         $store = $this->storeOwnerProfileService->storeIsActive($userID);
         if ($store->getStatus() == 'inactive') {
