@@ -66,9 +66,8 @@ class StoreOwnerProfileController extends BaseController
      *      )
      * )
      *
-     * @Security(name="Bearer")
      */
-    public function storeOwnerRegister(Request $request): JsonResponse
+    public function storeOwnerRegister(Request $request)
     {
         $data = json_decode($request->getContent(), true);
         
@@ -85,9 +84,9 @@ class StoreOwnerProfileController extends BaseController
 
         $response = $this->storeOwnerProfileService->storeOwnerRegister($request);
 
-        if(key_exists("found", $response))
+        if(is_array($response))
         {
-            if($response['found'] == "yes")
+            if(key_exists("found", $response) && $response['found'] == "yes")
             {
                 return $this->response($response, self::ERROR_USER_FOUND);
             }
