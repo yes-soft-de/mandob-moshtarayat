@@ -151,12 +151,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "destinationAddressHint": MessageLookupByLibrary.simpleMessage(
             "Please place your destination address"),
         "directSupport": MessageLookupByLibrary.simpleMessage("Direct Support"),
+        "discount": MessageLookupByLibrary.simpleMessage("Discount"),
         "downloadTwaslnaApp": MessageLookupByLibrary.simpleMessage(
             "Download Twaslna App on Play Store"),
         "driverLicence": MessageLookupByLibrary.simpleMessage("Driver Licence"),
         "earnCash": MessageLookupByLibrary.simpleMessage("Earn Cash"),
         "editBranchName":
             MessageLookupByLibrary.simpleMessage("Edit Branch Name"),
+        "electronic": MessageLookupByLibrary.simpleMessage("Electronic"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "emailAddressIsRequired":
             MessageLookupByLibrary.simpleMessage("Email Address is Required"),
@@ -378,6 +380,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "privateOrder": MessageLookupByLibrary.simpleMessage("Private Order"),
         "product": MessageLookupByLibrary.simpleMessage("product"),
+        "productQuantity":
+            MessageLookupByLibrary.simpleMessage("Product Quantity"),
         "products": MessageLookupByLibrary.simpleMessage("Products"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "profileDataEmpty": MessageLookupByLibrary.simpleMessage(
@@ -392,6 +396,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Rate this store in your opinion"),
         "rateSubmitting": MessageLookupByLibrary.simpleMessage(
             "Your rate has been submitted"),
+        "rating": MessageLookupByLibrary.simpleMessage("Rating"),
         "reasonIsRequired":
             MessageLookupByLibrary.simpleMessage("Reason is Required"),
         "reasonOfTheReport":
@@ -449,8 +454,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "smallLessThan20Employee":
             MessageLookupByLibrary.simpleMessage("1 - 20 Employee"),
         "socialMedia": MessageLookupByLibrary.simpleMessage("Social Media"),
+        "sold": MessageLookupByLibrary.simpleMessage("Sold"),
         "sortByEarlier": MessageLookupByLibrary.simpleMessage("By Earlier"),
         "sortByRate": MessageLookupByLibrary.simpleMessage("highest rate"),
+        "specification": MessageLookupByLibrary.simpleMessage("Specification"),
         "startWriting": MessageLookupByLibrary.simpleMessage("Start Writing"),
         "statusCodeBadRequest": MessageLookupByLibrary.simpleMessage(
             "The server could not understand the request due to invalid syntax"),
@@ -494,6 +501,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "took": MessageLookupByLibrary.simpleMessage("Took"),
         "totalBillCostHint": MessageLookupByLibrary.simpleMessage(
             "The total cost without delivery cost"),
+        "totalPrice": MessageLookupByLibrary.simpleMessage("Total Price"),
         "unaccept": MessageLookupByLibrary.simpleMessage(
             "Your request not accepted from administration you can contact us to get info"),
         "unknown": MessageLookupByLibrary.simpleMessage("Unknown"),

@@ -357,7 +357,16 @@
   "all": "All",
   "withTaxes": "With taxes ",
   "showingCart": "Cart",
-  "item": "Item"
+  "item": "Item",
+  "electronic": "Electronic",
+  "rating": "Rating",
+  "discount": "Discount",
+  "sold": "Sold",
+  "specification": "Specification",
+  "totalPrice": "Total Price",
+  "productQuantity": "Product Quantity"
+
+
 
 
 

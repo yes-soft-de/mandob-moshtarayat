@@ -356,6 +356,13 @@
   "all": "الكل",
   "withTaxes": "شامل القيمة المضافة",
   "showingCart": "مشاهدة السلة",
-  "item": "عنصر"
+  "item": "عنصر",
+  "electronic": "إلكترونيات",
+  "rating": "التقييم",
+  "discount": "الخصم",
+  "sold": "المبيعات",
+  "specification": "المواصفات",
+  "totalPrice": "المبلغ النهائي",
+  "productQuantity": "عدد الوحدات"
 
 }
