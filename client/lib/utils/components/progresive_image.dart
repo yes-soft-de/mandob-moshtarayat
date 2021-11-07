@@ -10,6 +10,7 @@ class CustomNetworkImage extends StatelessWidget {
   final String imageSource;
   final bool assets;
   final Color? background;
+
   CustomNetworkImage({
     required this.height,
     required this.width,
@@ -22,12 +23,16 @@ class CustomNetworkImage extends StatelessWidget {
   Widget build(BuildContext context) {
     bool asset = assets;
     var image = imageSource;
-    if (asset == false && !image.contains('http')) {
-      asset = true;
-      if (!image.contains('assets')) {
+
+    if (image.contains('assets/')) {
+
+      if (image == '') {
         image = ImageAsset.PLACEHOLDER;
       }
+      asset = true;
+
     }
+
     if (asset) {
       return ProgressiveImage.custom(
         height: height,
