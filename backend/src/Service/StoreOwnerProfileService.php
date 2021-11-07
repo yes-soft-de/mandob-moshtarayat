@@ -48,9 +48,12 @@ class StoreOwnerProfileService
         $roomID = $this->roomIdHelperService->roomIdGenerate();
         $userRegister = $this->userManager->storeOwnerRegister($request, $roomID);
         if ($userRegister instanceof UserEntity) {
-        return $this->autoMapping->map(UserEntity::class, UserRegisterResponse::class, $userRegister);
+
+            return $this->autoMapping->map(UserEntity::class, UserRegisterResponse::class, $userRegister);
+
         }
         if ($userRegister == true) {
+
             $user = $this->userManager->getUserByUserID($request->getUserID());
             $user['found']="yes";
             return $user;
