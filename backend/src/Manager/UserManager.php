@@ -132,7 +132,6 @@ class UserManager
 
             $this->entityManager->persist($userRegister);
             $this->entityManager->flush();
-            $this->entityManager->clear();
 
             // Second, create the owner's profile
             $storeOwnerProfile = $this->storeOwnerProfileByStoreID($request->getUserID());
@@ -171,7 +170,6 @@ class UserManager
 
                     $this->entityManager->persist($branch);
                     $this->entityManager->flush();
-                    $this->entityManager->clear();
                 }
             }
 
@@ -194,7 +192,6 @@ class UserManager
             
                 $this->entityManager->persist($storeOwnerProfile);
                 $this->entityManager->flush();
-                $this->entityManager->clear();
 
                 //create branch
                 $branch = $this->storeOwnerBranchManager->getBranchesByStoreOwnerProfileID($storeOwnerProfile->getId());
@@ -215,7 +212,6 @@ class UserManager
 
                     $this->entityManager->persist($branch);
                     $this->entityManager->flush();
-                    $this->entityManager->clear();
                 }
             }
 
