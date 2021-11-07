@@ -117,13 +117,14 @@ class UserManager
     {
         $user = $this->getUserByUserID($request->getUserID());
 
-        if ($user == null) {
-
+        if($user == null)
+        {
             $userRegister = $this->autoMapping->map(UserRegisterRequest::class, UserEntity::class, $request);
 
             $user = new UserEntity($request->getUserID());
 
-            if ($request->getPassword()) {
+            if($request->getPassword())
+            {
                 $userRegister->setPassword($this->encoder->encodePassword($user, $request->getPassword()));
             }
 
@@ -136,12 +137,13 @@ class UserManager
             // Second, create the owner's profile
             $storeOwnerProfile = $this->storeOwnerProfileByStoreID($request->getUserID());
             
-            if ($storeOwnerProfile == null) {
+            if($storeOwnerProfile == null)
+            {
                 $storeOwnerProfile = $this->autoMapping->map(UserRegisterRequest::class, StoreOwnerProfileEntity::class, $request);
+
                 $storeOwnerProfile->setStoreOwnerID($userRegister->getId());
                 $storeOwnerProfile->setStoreOwnerName($request->getUserName());
                 $storeOwnerProfile->setRoomID($roomID);
-                            
                 $storeOwnerProfile->setStatus('inactive');
                 $storeOwnerProfile->setFree(false);
                 $storeOwnerProfile->setIs_best(false);
@@ -149,21 +151,30 @@ class UserManager
                 $this->entityManager->persist($storeOwnerProfile);
                 $this->entityManager->flush();
                 $this->entityManager->clear();
+
                 //create branch
                 $branch = $this->storeOwnerBranchManager->getBranchesByStoreOwnerProfileID($storeOwnerProfile->getId());
-                if(!$branch){
+
+                if(!$branch)
+                {
                     $branch = $this->autoMapping->map(UserRegisterRequest::class, StoreOwnerBranchEntity::class, $request);
+
                     $branch->setIsActive(1);
                     $branch->setStoreOwnerProfileID($storeOwnerProfile->getId());
-                    $branch->setLocation($request->getLocation());
+
+                    if($request->getLocation())
+                    {
+                        $branch->setLocation($request->getLocation());
+                    }
+
                     $branch->setBranchName("default");
 
                     $this->entityManager->persist($branch);
                     $this->entityManager->flush();
                     $this->entityManager->clear();
                 }
-
             }
+
             return $userRegister;
         }
         else
@@ -173,6 +184,7 @@ class UserManager
             if ($storeOwnerProfile == null)
             {
                 $storeOwnerProfile = $this->autoMapping->map(UserRegisterRequest::class, StoreOwnerProfileEntity::class, $request);
+
                 $storeOwnerProfile->setStoreOwnerID($user['id']);
                 $storeOwnerProfile->setStoreOwnerName($request->getUserName());
                 $storeOwnerProfile->setRoomID($roomID);
@@ -183,20 +195,28 @@ class UserManager
                 $this->entityManager->persist($storeOwnerProfile);
                 $this->entityManager->flush();
                 $this->entityManager->clear();
+
                 //create branch
                 $branch = $this->storeOwnerBranchManager->getBranchesByStoreOwnerProfileID($storeOwnerProfile->getId());
-                if(!$branch){
+
+                if(!$branch)
+                {
                     $branch = $this->autoMapping->map(UserRegisterRequest::class, StoreOwnerBranchEntity::class, $request);
+
                     $branch->setIsActive(1);
                     $branch->setStoreOwnerProfileID($storeOwnerProfile->getId());
-                    $branch->setLocation($request->getLocation());
+
+                    if($request->getLocation())
+                    {
+                        $branch->setLocation($request->getLocation());
+                    }
+
                     $branch->setBranchName("default");
 
                     $this->entityManager->persist($branch);
                     $this->entityManager->flush();
                     $this->entityManager->clear();
                 }
-
             }
 
             return true;
