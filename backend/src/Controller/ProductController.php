@@ -21,6 +21,7 @@ class ProductController extends BaseController
 {
     private $autoMapping;
     private $productService;
+    private $validator;
 
     public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, ProductService $productService, ValidatorInterface $validator)
     {
@@ -42,6 +43,7 @@ class ProductController extends BaseController
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class, ProductCreateRequest::class, (object)$data);
+
         $result = $this->productService->createProductByAdmin($request);
 
         return $this->response($result, self::CREATE);
@@ -49,7 +51,7 @@ class ProductController extends BaseController
 
     /**
      * @Route("/productscategory/{storeProductCategoryID}", name="getProductsByStoreProductCategoryID", methods={"GET"})
-     * @param Request $request
+     * @param $storeProductCategoryID
      * @return JsonResponse
      */
     public function getProductsByProductCategoryId($storeProductCategoryID)
@@ -61,7 +63,8 @@ class ProductController extends BaseController
 
     /**
      * @Route("/productsbycategoryidandstoreownerprofileid/{storeProductCategoryID}/{storeOwnerProfileId}", name="getProductsByProductCategoryIdAndStoreOwnerProfileId  ", methods={"GET"})
-     * @param Request $request
+     * @param $storeProductCategoryID
+     * @param $storeOwnerProfileId
      * @return JsonResponse
      */
     public function getProductsByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId)
@@ -118,7 +121,6 @@ class ProductController extends BaseController
     /**
      * @Route("/productsStoreByProfileId/{storeOwnerProfileId}", name="getStoreProductsByProfileId", methods={"GET"})
      * @return JsonResponse
-     *
      */
     public function getStoreProductsByProfileId($storeOwnerProfileId)
     {
@@ -234,12 +236,16 @@ class ProductController extends BaseController
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class, ProductCreateRequest::class, (object)$data);
+
         $violations = $this->validator->validate($request);
-        if (\count($violations) > 0) {
+
+        if(\count($violations) > 0)
+        {
             $violationsString = (string) $violations;
 
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
+
         $result = $this->productService->createProductByStore($request, $this->getUserId());
 
         return $this->response($result, self::CREATE);

@@ -162,8 +162,10 @@ class ProductService
     public function createProductByStore(ProductCreateRequest $request, $userID)
     {
         $storeOwnerProfileId = $this->userManager->getStoreProfileId($userID);
+
         $request->setStoreOwnerProfileID($storeOwnerProfileId['id']);
-        $item = $this->productManager->createProductByAdmin($request);
+
+        $item = $this->productManager->createProductByStore($request);
 
         return $this->autoMapping->map(ProductEntity::class, ProductCreateResponse::class, $item);
     }
