@@ -66,13 +66,14 @@ class OrderLogService
                 $state['deliveredTime'] = $this->dateFactoryService->subtractTwoDates($acceptOrderDate[0]['createdAt'], $lastDate[0]['createdAt']);
             }
             $logs[] = $this->autoMapping->map('array', OrderLogsResponse::class, $item);
-        } 
-        $state['currentStage'] = $lastDate[0]['state'] ;
-        $orderStatus = $this->autoMapping->map('array', OrderLogTimeLineResponse::class, $state);
-        if($firstDate && $lastDate) {
+        }
+        if(isset($lastDate)) {
+            $state['currentStage'] = $lastDate[0]['state'];
+            $orderStatus = $this->autoMapping->map('array', OrderLogTimeLineResponse::class, $state);
+
             $response['orderStatus'] = $orderStatus ;
             $response['logs'] = $logs ;
-            }
+        }
         return  $response;
     }
 
