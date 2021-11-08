@@ -10,7 +10,9 @@ use App\Request\StoreProductCategoryLevelTwoCreateRequest;
 use App\Request\StoreProductCategoryUpdateRequest;
 use App\Response\StoreProductCategoryCreateResponse;
 use App\Response\StoreProductsCategoryResponse;
+use App\Response\SubCategoriesAndProductsByStoreCategoryIDResponse;
 use App\Service\UserService;
+use App\Service\ProductService;
 
 
 class StoreProductCategoryService
@@ -18,12 +20,14 @@ class StoreProductCategoryService
     private $autoMapping;
     private $storeProductCategoryManager;
     private $userService;
+    private $productService;
 
-    public function __construct(AutoMapping $autoMapping, StoreProductCategoryManager $storeProductCategoryManager, UserService $userService)
+    public function __construct(AutoMapping $autoMapping, StoreProductCategoryManager $storeProductCategoryManager, UserService $userService, ProductService $productService)
     {
         $this->autoMapping = $autoMapping;
         $this->storeProductCategoryManager = $storeProductCategoryManager;
         $this->userService = $userService;
+        $this->productService = $productService;
     }
 
     public function createStoreProductCategoryLevelOne(StoreProductCategoryCreateRequest $request)
@@ -74,6 +78,24 @@ class StoreProductCategoryService
        foreach($items as $item) {
             $response[] = $this->autoMapping->map('array', StoreProductsCategoryResponse::class, $item);
       }
+       return $response;
+    }
+
+    public function getSubCategoriesAndProductsByStoreCategoryID($storeCategoryID)
+    {
+       $response = [];
+       //productCategoriesLevel1
+       $items = $this->storeProductCategoryManager->getStoreProductsCategoryLevelOneByStoreCategoryID($storeCategoryID);
+
+       foreach($items as $item) {
+           $item['productCategoriesLevel2'] = $this->storeProductCategoryManager->getStoreProductsCategoryLevelTwoByStoreProductCategoryID($item['id']);
+           foreach($item['productCategoriesLevel2'] as $productCategoryLevel2) {
+               $item['productCategoriesLevel2']['products'] = $this->productService->getProductsByStoreProductCategoryID($productCategoryLevel2['id']);
+
+           }
+           $response[] = $this->autoMapping->map('array', SubCategoriesAndProductsByStoreCategoryIDResponse::class, $item);
+
+       }
        return $response;
     }
 }
