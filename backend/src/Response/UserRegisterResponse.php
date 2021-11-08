@@ -8,4 +8,6 @@ class UserRegisterResponse
 
     public $createDate;
 
+    public $found;
+
 }

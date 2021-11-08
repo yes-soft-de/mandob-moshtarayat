@@ -214,7 +214,7 @@ class UserManager
                 }
             }
 
-            return 'user_exist';
+            return $user;
         }
     }
 
@@ -339,27 +339,27 @@ class UserManager
         return $this->userRepository->getUserByUserID($userID);
     }
 
-    public function createStoreOwnerProfile(StoreOwnerProfileCreateRequest $request, $roomID)
-    {
-        $request->setRoomID($roomID);
-        $userProfile = $this->getStoreOwnerProfileByID($request->getStoreOwnerID());
-        if ($userProfile == null) {
-            $userProfile = $this->autoMapping->map(StoreOwnerProfileCreateRequest::class, StoreOwnerProfileEntity::class, $request);
-
-            $userProfile->setStatus('inactive');
-            $userProfile->setFree(false);
-            $userProfile->setIs_best(false);
-
-            $this->entityManager->persist($userProfile);
-            $this->entityManager->flush();
-            $this->entityManager->clear();
-
-            return $userProfile;
-        }
-        else {
-            return true;
-        }
-    }
+//    public function createStoreOwnerProfile(StoreOwnerProfileCreateRequest $request, $roomID)
+//    {
+//        $request->setRoomID($roomID);
+//        $userProfile = $this->getStoreOwnerProfileByID($request->getStoreOwnerID());
+//        if ($userProfile == null) {
+//            $userProfile = $this->autoMapping->map(StoreOwnerProfileCreateRequest::class, StoreOwnerProfileEntity::class, $request);
+//
+//            $userProfile->setStatus('inactive');
+//            $userProfile->setFree(false);
+//            $userProfile->setIs_best(false);
+//
+//            $this->entityManager->persist($userProfile);
+//            $this->entityManager->flush();
+//            $this->entityManager->clear();
+//
+//            return $userProfile;
+//        }
+//        else {
+//            return true;
+//        }
+//    }
 
     public function storeOwnerProfileUpdate(StoreOwnerProfileUpdateRequest $request)
     {
