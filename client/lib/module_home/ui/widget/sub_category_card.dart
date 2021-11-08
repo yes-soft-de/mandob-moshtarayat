@@ -12,7 +12,7 @@ class SubCategoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Padding(
-      padding: const EdgeInsets.all(12.0),
+      padding: const EdgeInsets.all(8.0),
       child: InkWell(
         borderRadius:  BorderRadius.circular(25),
         onTap: (){

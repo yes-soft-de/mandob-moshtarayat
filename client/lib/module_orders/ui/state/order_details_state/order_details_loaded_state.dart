@@ -23,7 +23,9 @@ class OrderDetailsLoadedState extends OrderDetailsState {
 
   OrderDetailsLoadedState(this.screenState, this.orderDetails)
       : super(screenState);
+
   bool get edit => screenState.edit;
+
   @override
   Widget getUI(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -37,33 +39,30 @@ class OrderDetailsLoadedState extends OrderDetailsState {
       },
       child: Stack(
         children: [
-          orderDetails.order.orderType != 3
-              ? Container(
-                  height: height,
-                  width: width,
-                  child: Flex(
-                    direction: Axis.vertical,
-                    children: [
-                      CustomNetworkImage(
-                        imageSource: orderDetails.storeInfo.image,
-                        height: height / 2,
-                        width: width,
-                      ),
-                      SizedBox(
-                        width: width,
-                        height: height / 2,
-                      ),
-                    ],
-                  ),
-                )
-              : Container(
+         // orderDetails.order.orderType != -1
+         //      ? Container(
+         //          height: height,
+         //          width: width,
+         //          child: Flex(
+         //            direction: Axis.vertical,
+         //            children: [
+         //              CustomNetworkImage(
+         //                imageSource: orderDetails.storeInfo.image,
+         //                height: height / 2,
+         //                width: width,
+         //              ),
+         //              SizedBox(
+         //                width: width,
+         //                height: height / 2,
+         //              ),
+         //            ],
+         //          ),
+         //        )
+             Container(
                   color: Theme.of(context).primaryColor,
                   height: height,
                   width: width,
                 ),
-          Container(
-            color: Colors.black.withOpacity(0.25),
-          ),
           CustomOrderDetailsAppBar(
             editTap: false
                 ? () {
@@ -79,8 +78,27 @@ class OrderDetailsLoadedState extends OrderDetailsState {
                     screenState.deleteOrder(screenState.orderNumber ?? -1);
                   }
                 : null,
-            collapsed: orderDetails.order.orderType == 3,
+            collapsed: orderDetails.order.orderType != -1,
             edit: edit,
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: orderDetails.order.orderType != -1
+                ? Container()
+                : Container(
+              height:height * 0.78 ,
+                    decoration: BoxDecoration(
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(25)),
+                        color: Colors.black54),
+                    child: Padding(
+                      padding:  EdgeInsets.all(16),
+                      child: OrderDetailsTitleBar(
+                        title: orderDetails.storeInfo.storeOwnerName,
+                        rate: orderDetails.storeInfo.rating,
+                      ),
+                    ),
+                  ),
           ),
           Align(
             alignment: Alignment.bottomCenter,
@@ -88,18 +106,8 @@ class OrderDetailsLoadedState extends OrderDetailsState {
               direction: Axis.vertical,
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                orderDetails.order.orderType == 3
-                    ? Container()
-                    : Padding(
-                        padding: const EdgeInsets.only(
-                            right: 28.0, left: 28, bottom: 16),
-                        child: OrderDetailsTitleBar(
-                          title: orderDetails.storeInfo.storeOwnerName,
-                          rate: orderDetails.storeInfo.rating,
-                        ),
-                      ),
                 Container(
-                  height: orderDetails.order.orderType == 3
+                  height: orderDetails.order.orderType != -1
                       ? height * 0.875
                       : height * 0.70,
                   decoration: BoxDecoration(
@@ -122,7 +130,7 @@ class OrderDetailsLoadedState extends OrderDetailsState {
                                   bottom: 25.0,
                                   top: 25.0),
                               child: Text(
-                                '${S.of(context).orderDetails} #${screenState.orderNumber}',
+                                '${S.of(context).orderNumber} #${screenState.orderNumber}',
                                 style: TextStyle(
                                     fontSize: 25, fontWeight: FontWeight.bold),
                               ),

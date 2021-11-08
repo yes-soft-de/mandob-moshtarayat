@@ -49,13 +49,13 @@ class HomeLoadedFilterState extends HomeState {
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Container(
-              height: 75,
+              height: 65,
               width: MediaQuery.of(context).size.width,
               child: ListView(
                 physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                 scrollDirection:Axis.horizontal,
                 children: [
-                  SubCategoryCard(title: S.current.all, selected:title == S.current.all, icon: Icons.home,onTap: (selected){
+                  SubCategoryCard(title: S.current.all, selected:title == S.current.all, icon: Icons.filter_list_rounded,onTap: (selected){
                     title = selected;
                     screenState.refresh();
                   },),
@@ -110,7 +110,7 @@ class HomeLoadedFilterState extends HomeState {
                               children: [
                                 Column(
                                   children: [
-                                    Text('Rating',style: TextStyle(
+                                    Text(S.current.rating,style: TextStyle(
                                       fontSize: 13,
                                     ),textAlign: TextAlign.start,overflow:TextOverflow.ellipsis,),
                                     SizedBox(height: 4,),
@@ -134,7 +134,7 @@ class HomeLoadedFilterState extends HomeState {
                                 ),
                                 Column(
                                   children: [
-                                    Text('Discount',style: TextStyle(
+                                    Text(S.current.discount,style: TextStyle(
                                       fontSize: 13,
                                     ),textAlign: TextAlign.start,overflow:TextOverflow.ellipsis,),
                                     SizedBox(height: 8,),
@@ -151,7 +151,7 @@ class HomeLoadedFilterState extends HomeState {
                                 ),
                                 Column(
                                   children: [
-                                    Text('Sold',style: TextStyle(
+                                    Text(S.current.sold,style: TextStyle(
                                       fontSize: 13,
                                     ),textAlign: TextAlign.start,overflow:TextOverflow.ellipsis,),
                                     SizedBox(height: 8,),
@@ -184,7 +184,7 @@ class HomeLoadedFilterState extends HomeState {
                           child: CustomNetworkImage(
                             height: 125,
                             width: 125,
-                            imageSource: ImageAsset.PLACEHOLDER,
+                            imageSource:'https://assets.swappie.com/cdn-cgi/image/width=600,height=600,fit=contain,format=auto/SwappieiPhonex256gbt%C3%A4htiharmaa-1-1-1-600x600.jpg',
                           ),
                         ),
                       ),

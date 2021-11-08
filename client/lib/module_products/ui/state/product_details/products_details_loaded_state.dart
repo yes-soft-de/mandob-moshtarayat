@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mandob_moshtarayat/abstracts/states/state.dart';
+import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_products/ui/screen/products_details_screen.dart';
 import 'package:mandob_moshtarayat/utils/components/progresive_image.dart';
 import 'package:mandob_moshtarayat/utils/images/images.dart';
@@ -35,7 +36,7 @@ class ProductDetailsLoadedState extends States {
                 child: CustomNetworkImage(
                   width: double.maxFinite,
                   height: double.maxFinite,
-                  imageSource: ImageAsset.PLACEHOLDER,
+                  imageSource: 'https://assets.swappie.com/cdn-cgi/image/width=600,height=600,fit=contain,format=auto/SwappieiPhonex256gbt%C3%A4htiharmaa-1-1-1-600x600.jpg',
                 ),
               ),
             ),
@@ -61,7 +62,7 @@ class ProductDetailsLoadedState extends States {
                     child: Align(
                       alignment: AlignmentDirectional.centerStart,
                       child: Text(
-                        'Specification',
+                        S.current.specification,
                         textAlign: TextAlign.start,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -102,11 +103,11 @@ class ProductDetailsLoadedState extends States {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('Rating'),
+                                  Text(S.current.rating),
                                   SizedBox(height: 12,),
-                                  Text('Discount'),
+                                  Text(S.current.discount),
                                   SizedBox(height: 12,),
-                                  Text('Sold'),
+                                  Text(S.current.sold),
                                 ],
                               ),
                             ),
@@ -208,7 +209,7 @@ class ProductDetailsLoadedState extends States {
                     padding: const EdgeInsets.all(16),
                     child: Row(
                       children: [
-                        Text('Product quantity',style: TextStyle(fontSize: 16),),
+                        Text(S.current.productQuantity,style: TextStyle(fontSize: 16),),
                         Spacer(flex: 1,),
                         Container(
                           height: 40,
@@ -286,7 +287,7 @@ class ProductDetailsLoadedState extends States {
                     padding: const EdgeInsets.only(left:16,right: 16,bottom: 16),
                     child: Row(
                       children: [
-                        Text('Total price',style: TextStyle(fontSize: 16),),
+                        Text(S.current.totalPrice,style: TextStyle(fontSize: 16),),
                         Spacer(flex: 1,),
                         Container(
                           height: 40,

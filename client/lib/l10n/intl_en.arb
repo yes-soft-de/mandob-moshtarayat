@@ -238,7 +238,7 @@
   "searchFor": "Search for store , product",
   "views": "views",
   "sortByRate": "highest rate",
-  "orderNumber": "order Number",
+  "orderNumber": "Order Number",
   "orderDate": "order date",
   "orderStatus": "order status",
   "cost": "cost",
@@ -357,7 +357,16 @@
   "all": "All",
   "withTaxes": "With taxes ",
   "showingCart": "Cart",
-  "item": "Item"
+  "item": "Item",
+  "electronic": "Electronic",
+  "rating": "Rating",
+  "discount": "Discount",
+  "sold": "Sold",
+  "specification": "Specification",
+  "totalPrice": "Total Price",
+  "productQuantity": "Product Quantity"
+
+
 
 
 

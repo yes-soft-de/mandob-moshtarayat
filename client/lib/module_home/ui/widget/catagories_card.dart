@@ -11,7 +11,7 @@ class CategoriesCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(12.0),
+      padding: const EdgeInsets.all(8.0),
       child: InkWell(
         borderRadius: BorderRadius.circular(25),
         onTap:(){
@@ -26,10 +26,10 @@ class CategoriesCard extends StatelessWidget {
             color:selected ? Theme.of(context).primaryColor : Theme.of(context).backgroundColor,
           ),
           child: Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                Icon(icon,size: 40,color: selected ? Colors.white : null,),
+                Icon(icon,size: 35,color: selected ? Colors.white : null,),
                 SizedBox(height: 4,),
                 Text(title,style: TextStyle(
                     fontWeight: FontWeight.bold,

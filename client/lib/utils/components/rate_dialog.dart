@@ -18,9 +18,9 @@ class RatingAlertDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     double? _rate;
     return TweenAnimationBuilder(
-      duration: Duration(milliseconds: 750),
+      duration: Duration(milliseconds: 450),
       tween: Tween<double>(begin: 0, end: 1),
-      curve: Curves.bounceIn,
+      curve: Curves.linear,
       builder: (context, double val, child) {
         return Transform.scale(
           scale: val,
@@ -42,7 +42,7 @@ class RatingAlertDialog extends StatelessWidget {
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: CustomNetworkImage(
-                        height: 100, width: 100, imageSource: image!)),
+                        height: 125, width: 125, imageSource: image!)),
               ),
             ),
             RatingBar.builder(

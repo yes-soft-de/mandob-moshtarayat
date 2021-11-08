@@ -31,12 +31,12 @@ class _CustomHomeAppBarState extends State<CustomHomeAppBar> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(child: Padding(
+                Padding(
                   padding: const EdgeInsets.only(right:8.0,left: 8.0),
-                  child: SvgPicture.asset(SvgAsset.LOGO_SVG,),
-                )),
+                  child: SvgPicture.asset(SvgAsset.LOGO_SVG,width: 35),
+                ),
                 Container(
-                  width: 300,
+                  width: 275,
                   child: CustomDeliverySearch(
                     onTap: () {
                       Navigator.pushNamed(context, SearchRoutes.SEARCH_SCREEN);
@@ -56,7 +56,7 @@ class _CustomHomeAppBarState extends State<CustomHomeAppBar> {
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Container(
-              height: 115,
+              height: 90,
               width: MediaQuery.of(context).size.width,
               child: ListView(
                 physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
@@ -68,7 +68,7 @@ class _CustomHomeAppBarState extends State<CustomHomeAppBar> {
                     setState(() {
                     });
                   },),
-                  CategoriesCard(title: S.current.store, selected:title == S.current.store, icon: Icons.store,onTap: (selected){
+                  CategoriesCard(title: S.current.electronic, selected:title == S.current.electronic, icon: Icons.cable,onTap: (selected){
                     title = selected;
                     widget.callback(title);
                     setState(() {

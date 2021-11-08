@@ -15,14 +15,14 @@ class CustomPrivateOrderAppBar extends StatelessWidget {
             onTap: () => Navigator.of(context).pop(),
             child: Container(
               decoration: BoxDecoration(
-                color: Theme.of(context).cardColor.withOpacity(0.5),
+                color: Theme.of(context).primaryColor,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Icon(
                   Icons.arrow_back,
-                  color:  Colors.white.withOpacity(0.85),
+                  color: Colors.white,
                 ),
               ),
             ),
