@@ -15,7 +15,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-
+use Nelmio\ApiDocBundle\Annotation\Security;
+use OpenApi\Annotations as OA;
 class StoreProductCategoryController extends BaseController
 {
     private $autoMapping;
@@ -106,6 +107,29 @@ class StoreProductCategoryController extends BaseController
     /**
      * @Route("/storeproductscategorylevelone/{storeCategoryID}", name="getStoreProductsCategoryLevelOneByStoreCategoryID",methods={"GET"})
      * @return JsonResponse
+     * *  * *
+     * @OA\Tag(name="Store Product Category")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns array of categories level one ",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="productCategoryName"),
+     *                  @OA\Property(type="object", property="image",
+     *                      @OA\Property(type="string", property="imageURL"),
+     *                      @OA\Property(type="string", property="image"),
+     *                      @OA\Property(type="string", property="baseURL"),
+     *                  ),
+     *              )
+     *          )
+     *      )
+     * )
+     *
      */
       public function getStoreProductsCategoryLevelOneByStoreCategoryID($storeCategoryID)
       {
@@ -117,6 +141,29 @@ class StoreProductCategoryController extends BaseController
     /**
      * @Route("/storeproductscategoryleveltwo/{storeProductCategoryID}", name="getStoreProductsCategoryLevelTwoByStoreProductCategoryID",methods={"GET"})
      * @return JsonResponse
+     *  * *
+     * @OA\Tag(name="Store Product Category")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns array of categories level one ",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="productCategoryName"),
+     *                  @OA\Property(type="object", property="image",
+     *                      @OA\Property(type="string", property="imageURL"),
+     *                      @OA\Property(type="string", property="image"),
+     *                      @OA\Property(type="string", property="baseURL"),
+     *                  ),
+     *              )
+     *          )
+     *      )
+     * )
+     *
      */
       public function getStoreProductsCategoryLevelTwoByStoreProductCategoryID($storeProductCategoryID)
       {

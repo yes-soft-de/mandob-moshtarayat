@@ -143,6 +143,41 @@ class StoreOwnerProfileController extends BaseController
      * @IsGranted("ROLE_OWNER")
      * @param Request $request
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Store Owner Profile")
+     *
+     * @OA\RequestBody(
+     *      description="Update Store Owner Profile",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="storeOwnerName"),
+     *          @OA\Property(type="string", property="image"),
+     *          @OA\Property(type="string", property="phone"),
+     *          @OA\Property(type="integer", property="storeCategoryId"),
+     *          @OA\Property(type="boolean", property="privateOrders"),
+     *          @OA\Property(type="boolean", property="hasProducts"),
+     *          @OA\Property(type="string", property="branchName"),
+     *          @OA\Property(type="string", property="openingTime"),
+     *          @OA\Property(type="string", property="closingTime"),
+     *          @OA\Property(type="object", property="location")
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the store owner's profile",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="storeOwnerName"),
+     *          @OA\Property(type="string", property="image"),
+     *          @OA\Property(type="string", property="phone"),
+     *          @OA\Property(type="integer", property="storeCategoryId"),
+     *          @OA\Property(type="boolean", property="privateOrders"),
+     *          @OA\Property(type="boolean", property="hasProducts"),
+     *          @OA\Property(type="string", property="branchName"),
+     *          @OA\Property(type="string", property="openingTime"),
+     *          @OA\Property(type="string", property="closingTime"),
+     *          @OA\Property(type="object", property="location")
+     *      )
+     * )
      */
     public function storeOwnerProfileUpdate(Request $request): JsonResponse
     {
