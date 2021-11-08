@@ -14,6 +14,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Nelmio\ApiDocBundle\Annotation\Security;
+use OpenApi\Annotations as OA;
 
 class ProductController extends BaseController
 {
@@ -33,6 +35,7 @@ class ProductController extends BaseController
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
+     *
      */
     public function createProductByAdmin(Request $request)
     {
@@ -115,10 +118,48 @@ class ProductController extends BaseController
     /**
      * @Route("/productsStoreByProfileId/{storeOwnerProfileId}", name="getStoreProductsByProfileId", methods={"GET"})
      * @return JsonResponse
+     *
      */
     public function getStoreProductsByProfileId($storeOwnerProfileId)
     {
         $result = $this->productService->getStoreProductsByProfileId($storeOwnerProfileId);
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("/productsbystoreproductcategoryid/{storeProductCategoryID}", name="getProductsByStoreProductCategoryID", methods={"GET"})
+     * @return JsonResponse
+     * *
+     * @OA\Tag(name="Product")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns array of subcategory products ",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="productName"),
+     *                  @OA\Property(type="number", property="productPrice"),
+     *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                  @OA\Property(type="integer", property="storeProductCategoryID"),
+     *                  @OA\Property(type="object", property="image",
+     *                      @OA\Property(type="string", property="imageURL"),
+     *                      @OA\Property(type="string", property="image"),
+     *                      @OA\Property(type="string", property="baseURL"),
+     *                  ),
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     */
+    public function getProductsByStoreProductCategoryID($storeProductCategoryID)
+    {
+        $result = $this->productService->getProductsByStoreProductCategoryID($storeProductCategoryID);
 
         return $this->response($result, self::FETCH);
     }
@@ -157,8 +198,38 @@ class ProductController extends BaseController
      * @IsGranted("ROLE_OWNER")
      * @param Request $request
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Product")
+     *
+     * @OA\RequestBody(
+     *      description="Create New Product",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="productName"),
+     *          @OA\Property(type="string", property="productImage"),
+     *          @OA\Property(type="number", property="productPrice"),
+     *          @OA\Property(type="integer", property="storeProductCategoryID"),
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the new store owner's role and the creation date",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="productName"),
+     *                  @OA\Property(type="string", property="productImage"),
+     *                  @OA\Property(type="number", property="productPrice"),
+     *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                  @OA\Property(type="integer", property="storeProductCategoryID"),
+     *          )
+     *      )
+     * )
+     * @Security(name="Bearer")
      */
-    public function createProductByStore(Request $request)
+    public function createProductByStore(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
 
@@ -169,8 +240,7 @@ class ProductController extends BaseController
 
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
-        $request->setStoreOwnerProfileID($this->getUserId());
-        $result = $this->productService->createProductByStore($request);
+        $result = $this->productService->createProductByStore($request, $this->getUserId());
 
         return $this->response($result, self::CREATE);
     }

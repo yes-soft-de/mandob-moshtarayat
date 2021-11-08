@@ -131,6 +131,17 @@ class ProductService
         return $response;
     }
 
+    public function getProductsByStoreProductCategoryID($storeProductCategoryID): ?array
+    {
+        $response = [];
+        $items = $this->productManager->getProductsByStoreProductCategoryID($storeProductCategoryID);
+        foreach ($items as $item) {
+            $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
+            $response[] = $this->autoMapping->map('array', ProductsByProductCategoryIdResponse::class, $item);
+        }
+        return $response;
+    }
+
     public function updateProductByAdmin($request)
     {
         $item = $this->productManager->updateProductByAdmin($request);
@@ -148,8 +159,10 @@ class ProductService
         return $this->productManager->getProductsByName($name);
     }
 
-    public function createProductByStore(ProductCreateRequest $request)
+    public function createProductByStore(ProductCreateRequest $request, $userID)
     {
+        $storeOwnerProfileId = $this->userManager->getStoreProfileId($userID);
+        $request->setStoreOwnerProfileID($storeOwnerProfileId['id']);
         $item = $this->productManager->createProductByAdmin($request);
 
         return $this->autoMapping->map(ProductEntity::class, ProductCreateResponse::class, $item);

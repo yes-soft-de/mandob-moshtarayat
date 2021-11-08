@@ -10,7 +10,10 @@ use App\Request\StoreProductCategoryLevelTwoCreateRequest;
 use App\Request\StoreProductCategoryUpdateRequest;
 use App\Response\StoreProductCategoryCreateResponse;
 use App\Response\StoreProductsCategoryResponse;
+use App\Response\SubCategoriesAndProductsByStoreCategoryIDResponse;
 use App\Service\UserService;
+use App\Service\ProductService;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 
 class StoreProductCategoryService
@@ -18,12 +21,16 @@ class StoreProductCategoryService
     private $autoMapping;
     private $storeProductCategoryManager;
     private $userService;
+    private $productService;
+    private $params;
 
-    public function __construct(AutoMapping $autoMapping, StoreProductCategoryManager $storeProductCategoryManager, UserService $userService)
+    public function __construct(AutoMapping $autoMapping, StoreProductCategoryManager $storeProductCategoryManager, UserService $userService, ProductService $productService, ParameterBagInterface $params)
     {
         $this->autoMapping = $autoMapping;
         $this->storeProductCategoryManager = $storeProductCategoryManager;
         $this->userService = $userService;
+        $this->productService = $productService;
+        $this->params = $params->get('upload_base_url') . '/';
     }
 
     public function createStoreProductCategoryLevelOne(StoreProductCategoryCreateRequest $request)
@@ -62,7 +69,9 @@ class StoreProductCategoryService
         $response = [];
        $items = $this->storeProductCategoryManager->getStoreProductsCategoryLevelOneByStoreCategoryID($storeCategoryID);
        foreach($items as $item) {
-            $response[] = $this->autoMapping->map('array', StoreProductsCategoryResponse::class, $item);
+           $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params.$item['productCategoryImage'], $this->params);
+
+           $response[] = $this->autoMapping->map('array', StoreProductsCategoryResponse::class, $item);
       }
        return $response;
     }
@@ -72,8 +81,37 @@ class StoreProductCategoryService
         $response = [];
        $items = $this->storeProductCategoryManager->getStoreProductsCategoryLevelTwoByStoreProductCategoryID($storeProductCategoryID);
        foreach($items as $item) {
-            $response[] = $this->autoMapping->map('array', StoreProductsCategoryResponse::class, $item);
+           $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params.$item['productCategoryImage'], $this->params);
+
+           $response[] = $this->autoMapping->map('array', StoreProductsCategoryResponse::class, $item);
       }
        return $response;
+    }
+
+    public function getSubCategoriesAndProductsByStoreCategoryID($storeCategoryID)
+    {
+       $response = [];
+       //productCategoriesLevel1
+       $items = $this->storeProductCategoryManager->getStoreProductsCategoryLevelOneByStoreCategoryID($storeCategoryID);
+
+       foreach($items as $item) {
+           $item['productCategoriesLevel2'] = $this->storeProductCategoryManager->getStoreProductsCategoryLevelTwoByStoreProductCategoryID($item['id']);
+           foreach($item['productCategoriesLevel2'] as $productCategoryLevel2) {
+               $item['productCategoriesLevel2']['products'] = $this->productService->getProductsByStoreProductCategoryID($productCategoryLevel2['id']);
+
+           }
+           $response[] = $this->autoMapping->map('array', SubCategoriesAndProductsByStoreCategoryIDResponse::class, $item);
+
+       }
+       return $response;
+    }
+
+    public function getImageParams($imageURL, $image, $baseURL): array
+    {
+        $item['imageURL'] = $imageURL;
+        $item['image'] = $image;
+        $item['baseURL'] = $baseURL;
+
+        return $item;
     }
 }

@@ -74,6 +74,11 @@ class ProductManager
         return $this->productEntityRepository->getStoreProducts($storeOwnerProfileId);
     }
 
+    public function getProductsByStoreProductCategoryID($storeProductCategoryID)
+    {
+        return $this->productEntityRepository->getProductsByStoreProductCategoryID($storeProductCategoryID);
+    }
+
     public function updateProductByAdmin(ProductUpdateRequest $request)
     {
         $entity = $this->productEntityRepository->find($request->getId());
