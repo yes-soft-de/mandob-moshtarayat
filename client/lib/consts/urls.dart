@@ -1,5 +1,5 @@
 class Urls {
-  static const String DOMAIN = 'http://167.172.175.77';
+  static const String DOMAIN = 'http://138.197.186.138';
   static const String BASE_API = DOMAIN + '';
   static const String IMAGES_ROOT = DOMAIN + '/upload/';
   static const UPLOAD_API = BASE_API + '/uploadfile';
