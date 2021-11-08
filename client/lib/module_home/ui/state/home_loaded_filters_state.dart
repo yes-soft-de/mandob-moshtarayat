@@ -13,6 +13,7 @@ import 'package:mandob_moshtarayat/module_home/ui/widget/sub_category_card.dart'
 import 'package:mandob_moshtarayat/module_products/products_routes.dart';
 import 'package:mandob_moshtarayat/module_stores/store_routes.dart';
 import 'package:mandob_moshtarayat/utils/components/progresive_image.dart';
+import 'package:mandob_moshtarayat/utils/customIcon/mandob_icons_icons.dart';
 import 'package:mandob_moshtarayat/utils/images/images.dart';
 import 'package:mandob_moshtarayat/utils/models/store.dart';
 import 'package:mandob_moshtarayat/utils/models/store_category.dart';
@@ -113,7 +114,7 @@ class HomeLoadedFilterState extends HomeState {
                                     Text(S.current.rating,style: TextStyle(
                                       fontSize: 13,
                                     ),textAlign: TextAlign.start,overflow:TextOverflow.ellipsis,),
-                                    SizedBox(height: 4,),
+                                    SizedBox(height: 8,),
                                     RatingBar.builder(
                                       ignoreGestures: true,
                                       initialRating: 3,
@@ -125,7 +126,7 @@ class HomeLoadedFilterState extends HomeState {
                                       itemPadding: EdgeInsets.symmetric(horizontal: 0.0),
                                       itemBuilder: (context, _) => Icon(
                                         Icons.star,
-                                        color: Colors.amber,
+                                        color: Theme.of(context).primaryColor,
                                       ),
                                       onRatingUpdate: (rating) {
                                       },
@@ -140,7 +141,7 @@ class HomeLoadedFilterState extends HomeState {
                                     SizedBox(height: 8,),
                                     Row(
                                       children: [
-                                        Icon(FontAwesomeIcons.percent,size: 12,color: Theme.of(context).primaryColor,),
+                                        Icon(MandobIcons.discount,size: 15,color: Theme.of(context).primaryColor,),
                                         SizedBox(width: 4,),
                                         Text('10',style: TextStyle(
                                           fontSize: 12,

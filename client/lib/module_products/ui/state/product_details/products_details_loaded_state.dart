@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mandob_moshtarayat/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_products/ui/screen/products_details_screen.dart';
 import 'package:mandob_moshtarayat/utils/components/progresive_image.dart';
+import 'package:mandob_moshtarayat/utils/customIcon/mandob_icons_icons.dart';
 import 'package:mandob_moshtarayat/utils/images/images.dart';
 
 class ProductDetailsLoadedState extends States {
@@ -99,91 +101,100 @@ class ProductDetailsLoadedState extends States {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             SizedBox(
-                              width: 100,
+                              width: 200,
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(S.current.rating),
-                                  SizedBox(height: 12,),
-                                  Text(S.current.discount),
-                                  SizedBox(height: 12,),
-                                  Text(S.current.sold),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              width: 100,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Align(
-                                    alignment: AlignmentDirectional.centerStart,
-                                    child: RatingBar.builder(
-                                      ignoreGestures: true,
-                                      initialRating: 3,
-                                      minRating: 0,
-                                      itemSize: 15,
-                                      direction: Axis.horizontal,
-                                      allowHalfRating: true,
-                                      itemCount: 5,
-                                      itemPadding: EdgeInsets.symmetric(horizontal: 0.0),
-                                      itemBuilder: (context, _) => Icon(
-                                        Icons.star,
-                                        color: Colors.amber,
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                          width: 75,
+                                          child: Text(S.current.rating)),
+                                      Align(
+                                        alignment: AlignmentDirectional.centerStart,
+                                        child: RatingBar.builder(
+                                          ignoreGestures: true,
+                                          initialRating: 3,
+                                          minRating: 0,
+                                          itemSize: 20,
+                                          direction: Axis.horizontal,
+                                          allowHalfRating: true,
+                                          itemCount: 5,
+                                          itemPadding: EdgeInsets.symmetric(horizontal: 0.0),
+                                          itemBuilder: (context, _) => Icon(
+                                            Icons.star,
+                                            color: Theme.of(context).primaryColor,
+                                          ),
+                                          onRatingUpdate: (rating) {},
+                                        ),
                                       ),
-                                      onRatingUpdate: (rating) {},
+                                    ],
+                                  ),
+                                  SizedBox(height: 12,),
+                                  Row(children: [
+                                    SizedBox(
+                                        width:75,
+                                        child: Text(S.current.discount)),
+                                    Row(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(top: 1.0,bottom: 2.0,right:2.0 ,left: 2.0),
+                                          child: Icon(
+                                            MandobIcons.discount,
+                                            size: 18,
+                                            color: Theme.of(context).primaryColor,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 4,
+                                        ),
+                                        Text(
+                                          '10',
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                          ),
+                                          textAlign: TextAlign.start,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ],
                                     ),
-                                  ),
+                                  ],),
                                   SizedBox(height: 12,),
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        FontAwesomeIcons.percent,
-                                        size: 12,
-                                        color: Theme.of(context).primaryColor,
-                                      ),
-                                      SizedBox(
-                                        width: 4,
-                                      ),
-                                      Text(
-                                        '10',
-                                        style: TextStyle(
-                                          fontSize: 12,
+                                  Row(children: [
+                                    SizedBox(
+                                        width:75,
+                                        child: Text(S.current.sold)),
+                                    Row(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(bottom: 3.0,right:3.0 ,left: 3.0),
+                                          child: Icon(
+                                            FontAwesomeIcons.shoppingBag,
+                                            size: 16,
+                                            color: Theme.of(context).primaryColor,
+                                          ),
                                         ),
-                                        textAlign: TextAlign.start,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: 12,),
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        FontAwesomeIcons.shoppingBag,
-                                        size: 12,
-                                        color: Theme.of(context).primaryColor,
-                                      ),
-                                      SizedBox(
-                                        width: 4,
-                                      ),
-                                      Text(
-                                        '2',
-                                        style: TextStyle(
-                                          fontSize: 12,
+                                        SizedBox(
+                                          width: 4,
                                         ),
-                                        textAlign: TextAlign.start,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ],
-                                  ),
+                                        Text(
+                                          '2',
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                          ),
+                                          textAlign: TextAlign.start,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ],
+                                    ),
+                                  ],),
                                 ],
                               ),
                             ),
                             Expanded(
                               child: Column(
                                 children: [
-                                  Icon(FontAwesomeIcons.medal,color: Theme.of(context).disabledColor,size: 35,),
-                                  SizedBox(height: 16,),
+                                  SvgPicture.asset(SvgAsset.ACHIEVEMENT_SVG,width:40),
+                                  SizedBox(height: 8,),
                                   Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(25),
