@@ -56,7 +56,7 @@ class StoreOwnerProfileController extends BaseController
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
 
-        //$response = $this->storeOwnerProfileService->storeOwnerRegister($request);
+        $response = $this->storeOwnerProfileService->storeOwnerRegister($request);
 
         return new JsonResponse('ok rami', 200);
     }

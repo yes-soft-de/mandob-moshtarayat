@@ -49,13 +49,13 @@ class StoreOwnerProfileService
         {
             return $this->autoMapping->map(UserEntity::class, UserRegisterResponse::class, $userRegister);
         }
-        elseif($userRegister == 'user_exist')
+        else
         {
-            $user = $this->userManager->getUserByUserID($request->getUserID());
+            $response = $this->autoMapping->map('array', UserRegisterResponse::class, $userRegister);
 
-            $user['found'] = "yes";
+            $response->found = 1;
 
-            return $user;
+            return $response;
         }
     }
 
