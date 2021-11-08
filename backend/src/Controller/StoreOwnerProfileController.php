@@ -82,7 +82,9 @@ class StoreOwnerProfileController extends BaseController
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
 
-        return new JsonResponse(["result" => true]);
+        $response = $this->storeOwnerProfileService->storeOwnerRegister($request);
+
+        return new JsonResponse(["result" => "user registered"]);
     }
 
     /**
