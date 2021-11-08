@@ -19,5 +19,6 @@ class SvgAsset {
   static const EMPTY_SVG = ROOT + 'empty.svg';
   static const SUCCESS_SVG = ROOT + 'success.svg';
   static const LOGO_SVG = ROOT + 'logo.svg';
+  static const ACHIEVEMENT_SVG = ROOT + 'achievement.svg';
 
 }
