@@ -14,7 +14,7 @@ class RegisterRequest {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['userID'] = this.userID;
     data['password'] = this.password;
-  //  data['userName'] = this.userName;
+    data['userName'] = this.userName;
     return data;
   }
 }

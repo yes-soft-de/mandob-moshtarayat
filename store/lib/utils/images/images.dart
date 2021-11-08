@@ -13,4 +13,5 @@ class SvgAsset {
   static const ERROR_SVG = ROOT + 'error.svg';
   static const EMPTY_SVG = ROOT + 'empty.svg';
   static const SUCCESS_SVG = ROOT + 'success.svg';
+  static const WE_DELIVER = ROOT + 'we_deliver.svg';
 }

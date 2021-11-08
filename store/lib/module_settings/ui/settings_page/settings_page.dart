@@ -37,8 +37,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomTwaslnaAppBar.appBar(context,
-          title: S.of(context).settings, icon: Icons.menu, onTap: () {
-        GlobalVariable.mainScreenScaffold.currentState?.openDrawer();
+          title: S.of(context).settings, icon: Icons.arrow_back, onTap: () {
+        Navigator.pop(context);
+
       }),
       body: FixedContainer(
         child: Padding(

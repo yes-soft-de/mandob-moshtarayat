@@ -3,7 +3,7 @@ class Urls {
   static const String BASE_API = DOMAIN + '';
   static const String IMAGES_ROOT = DOMAIN + '/upload/';
   static const UPLOAD_API = BASE_API + '/uploadfile';
-  static const SIGN_UP_API = BASE_API + '/createAdmin';
+  static const SIGN_UP_API = BASE_API + '/storeownerregister';
   static const OWNER_PROFILE_API = BASE_API + '/userprofile';
   static const CREATE_TOKEN_API = BASE_API + '/login_check';
   static const REPORT_API = BASE_API + '/report';
@@ -37,7 +37,7 @@ class Urls {
   static const GET_STORES = BASE_API + '/storeOwners';
   static const GET_STORES_INACTIVE = BASE_API + '/storesinactive';
   static const GET_STORES_INACTIVE_FILTER = BASE_API + '/storesinactivefilter/';
-  static const GET_STORE_PROFILE = BASE_API + '/storeownerprofilebyid/';
+  static const GET_STORE_PROFILE = BASE_API + '/storeownerprofilebyid';
   static const CREATE_STORES = BASE_API + '/storeownercreatbyadmin';
   static const GET_PRODUCTS_CATEGORY = BASE_API + '/storeProductsCategory/';
   static const GET_PRODUCTS = BASE_API + '/productsStoreByProfileId/';
@@ -73,8 +73,8 @@ class Urls {
   static const GET_REMAINING_PAYMENT = BASE_API + '/captainsRemainingOnItAmount';
   static const GET_PENDING_ORDER = BASE_API + '/getPendingOrders';
   static const GET_WITHOUT_PENDING_ORDER = BASE_API + '/getOrdersWithOutPending ';
-  static const GET_ONGOING_ORDERS = BASE_API + '/getOrdersOngoing';
-  static const GET_SPECIFIC_DATE_ORDERS = BASE_API + '/getOrdersInSpecificDate/';
+  static const GET_ONGOING_ORDERS = BASE_API + '/getstoreordersongoing';
+  static const GET_SPECIFIC_DATE_ORDERS = BASE_API + '/getstoreordersinspecificdate/';
   static const GET_ORDER_DETAILS = BASE_API + '/orderDetailsForAdmin/';
   static const GET_ORDER_TIMELINE = BASE_API + '/orderLogsTimeLine/';
   static const GET_CAPTAINS_REPORT = BASE_API + '/countOrdersEveryCaptainInLastMonth';

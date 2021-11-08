@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
-import 'package:mandob_moshtarayat/global_nav_key.dart';
 import 'package:mandob_moshtarayat/module_auth/enums/auth_status.dart';
 import 'package:mandob_moshtarayat/module_auth/exceptions/auth_exception.dart';
 import 'package:mandob_moshtarayat/module_auth/manager/auth_manager/auth_manager.dart';
@@ -11,7 +9,6 @@ import 'package:mandob_moshtarayat/module_auth/request/register_request/register
 import 'package:mandob_moshtarayat/module_auth/response/login_response/login_response.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:mandob_moshtarayat/module_auth/response/regester_response/regester_response.dart';
-import 'package:mandob_moshtarayat/module_splash/splash_routes.dart';
 import 'package:mandob_moshtarayat/utils/helpers/status_code_helper.dart';
 
 @Injectable()
@@ -54,16 +51,15 @@ class AuthService {
       throw AuthorizationException(StatusCodeHelper.getStatusCodeMessages(
           loginResult.statusCode ?? '0'));
     }
-    // RegisterResponse? response = await _authManager.userTypeCheck(
-    //     'ROLE_ADMIN', loginResult.token ?? '');
+    RegisterResponse? response = await _authManager.userTypeCheck('ROLE_OWNER', loginResult.token??'');
 
-    // if (response?.statusCode != '201') {
-    //   await logout();
-    //   _authSubject.addError(
-    //       StatusCodeHelper.getStatusCodeMessages(response?.statusCode ?? '0'));
-    //   throw AuthorizationException(
-    //       StatusCodeHelper.getStatusCodeMessages(response?.statusCode ?? '0'));
-    // }
+    if (response?.statusCode != '201') {
+      await logout();
+      _authSubject.addError(StatusCodeHelper.getStatusCodeMessages(
+          response?.statusCode ?? '0'));
+      throw AuthorizationException(StatusCodeHelper.getStatusCodeMessages(
+          response?.statusCode ?? '0'));
+    }
 
     _prefsHelper.setUsername(username);
     _prefsHelper.setPassword(password);
@@ -99,11 +95,6 @@ class AuthService {
       return await this._prefsHelper.getToken();
     } on AuthorizationException {
       _prefsHelper.deleteToken();
-      if (GlobalVariable.navState.currentContext != null) {
-        await Navigator.of(GlobalVariable.navState.currentContext!)
-            .pushNamedAndRemoveUntil(
-                SplashRoutes.SPLASH_SCREEN, (route) => false);
-      }
       return null;
     } on TokenExpiredException {
       return await refreshToken();

@@ -3,6 +3,7 @@ import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_auth/authorization_routes.dart';
 import 'package:mandob_moshtarayat/module_auth/service/auth_service/auth_service.dart';
 import 'package:flutter/material.dart';
+import 'package:mandob_moshtarayat/module_main/main_routes.dart';
 import 'package:mandob_moshtarayat/utils/images/images.dart';
 
 @injectable
@@ -34,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<String> _getNextRoute() async {
     if (widget._authService.isLoggedIn) {
-      return 'MainRoutes.MAIN_SCREEN';
+      return MainRoutes.MAIN_SCREEN;
     }
     return AuthorizationRoutes.LOGIN_SCREEN;
   }
