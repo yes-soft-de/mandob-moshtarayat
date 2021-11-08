@@ -40,33 +40,7 @@ class StoreOwnerProfileController extends BaseController
      * @Route("storeownerregister", name="storeOwnerRegister", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
-     *
-     * @OA\Tag(name="user_register")
-     *
-     * @OA\RequestBody(
-     *      description="Create new store owner",
-     *      @OA\JsonContent(
-     *          @OA\Property(type="string", property="userName"),
-     *          @OA\Property(type="string", property="userID"),
-     *          @OA\Property(type="string", property="password"),
-     *      )
-     * )
-     *
-     * @OA\Response(
-     *      response=200,
-     *      description="Returns the new store owner's role and the creation date",
-     *      @OA\JsonContent(
-     *          @OA\Property(type="string", property="status_code"),
-     *          @OA\Property(type="string", property="msg"),
-     *          @OA\Property(type="object", property="Data",
-     *                  @OA\Property(type="array", property="roles",
-     *                      @OA\Items(example="user")),
-     *                  @OA\Property(type="object", property="createdAt")
-     *          )
-     *      )
-     * )
-     *
-     */
+    */
     public function storeOwnerRegister(Request $request)
     {
         $data = json_decode($request->getContent(), true);
@@ -82,9 +56,9 @@ class StoreOwnerProfileController extends BaseController
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
 
-        $response = $this->storeOwnerProfileService->storeOwnerRegister($request);
+        //$response = $this->storeOwnerProfileService->storeOwnerRegister($request);
 
-        return new JsonResponse(["result" => "user registered"]);
+        return new JsonResponse('ok rami', 200);
     }
 
     /**
