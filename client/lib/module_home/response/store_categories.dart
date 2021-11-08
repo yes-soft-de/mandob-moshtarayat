@@ -33,7 +33,7 @@ class Data {
   int? id;
   String? storeCategoryName;
   String? description;
-  String? image;
+  Image? image;
 
   Data({this.id, this.storeCategoryName, this.description, this.image});
 
@@ -41,6 +41,19 @@ class Data {
     id = json['id'];
     storeCategoryName = json['storeCategoryName'];
     description = json['description'];
+    image = json['image'] != null ? Image.fromJson(json['image']) : null;
+  }
+}
+class Image {
+  String? imageURL;
+  String? baseURL;
+  String? image;
+
+  Image({this.imageURL, this.baseURL, this.image});
+
+  Image.fromJson(dynamic json) {
+    imageURL = json['imageURL'];
+    baseURL = json['baseURL'];
     image = json['image'];
   }
 }

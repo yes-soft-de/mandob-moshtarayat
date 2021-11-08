@@ -40,12 +40,12 @@ class HomeLoadedFilterState extends HomeState {
       child: ListView(
         physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         children: [
-          CustomHomeAppBar(callback: (title){
-            if (S.current.home == title){
+          CustomHomeAppBar(categoriesCallback: (categoriesID){
+            if ('0' == categoriesID){
               screenState.currentState = HomeLoadedState(screenState, topProducts: topProducts, categories: categories, bestStores: bestStores);
               screenState.refresh();
             }
-          },),
+          },categories: categories,),
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Container(
