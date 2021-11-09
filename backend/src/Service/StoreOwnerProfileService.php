@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\AutoMapping;
+use App\Entity\UserEntity;
 use App\Manager\StoreOwnerProfileManager;
 use App\Request\storeOwnerProfileStatusUpdateByAdminRequest;
 use App\Entity\StoreOwnerProfileEntity;
@@ -16,6 +17,7 @@ use App\Response\StoreOwnerProfileCreateResponse;
 use App\Response\StoreOwnerProfileResponse;
 use App\Response\StoreOwnerByCategoryIdResponse;
 use App\Response\StoresFilterByNameResponse;
+use App\Response\UserRegisterResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 
@@ -47,21 +49,17 @@ class StoreOwnerProfileService
 
         $userRegister = $this->storeOwnerProfileManager->storeOwnerRegister($request);
 
-        if($userRegister == 1)
+        if($userRegister instanceof UserEntity)
         {
-//            return $this->autoMapping->map(UserEntity::class, UserRegisterResponse::class, $userRegister);
-
-            return 'newUser';
+            return $this->autoMapping->map(UserEntity::class, UserRegisterResponse::class, $userRegister);
         }
-        elseif($userRegister == 2)
+        elseif(is_array($userRegister))
         {
-//            $response = $this->autoMapping->map('array', UserRegisterResponse::class, $userRegister);
-//
-//            $response->found = 1;
-//
-//            return $response;
+            $response = $this->autoMapping->map('array', UserRegisterResponse::class, $userRegister);
 
-            return 'userExists';
+            $response->found = 1;
+
+            return $response;
         }
     }
 

@@ -91,9 +91,9 @@ class StoreOwnerProfileManager
                 }
             }
 
-            //            return $userRegister;
+            return $userRegister;
 
-            return $found = 1;
+//            return $found = 1;
         }
         else
         {
@@ -135,9 +135,9 @@ class StoreOwnerProfileManager
                 }
             }
 
-            //            return $user;
+            return $userResult;
 
-            return $found = 2;
+//            return $found = 2;
         }
     }
 
