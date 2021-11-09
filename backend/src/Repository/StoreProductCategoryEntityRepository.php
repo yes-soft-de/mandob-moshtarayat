@@ -2,8 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\ProductEntity;
 use App\Entity\StoreProductCategoryEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -60,5 +62,24 @@ class StoreProductCategoryEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
+    }
+
+
+    public function getStoreProductsCategoryLevelTwoByStoreOwnerProfile($storeOwnerProfileID)
+    {
+        return $this->createQueryBuilder('storeProductCategory')
+            ->select('storeProductCategory.id', 'storeProductCategory.productCategoryName', 'storeProductCategory.isLevel2', 'storeProductCategory.productCategoryImage')
+
+            ->leftJoin(ProductEntity::class, 'ProductEntity', Join::WITH, 'ProductEntity.storeOwnerProfileID = :storeOwnerProfileID')
+
+            ->andWhere('ProductEntity.storeOwnerProfileID = :storeOwnerProfileID')
+            ->andWhere('storeProductCategory.isLevel2 = :isLevel2')
+
+            ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
+            ->setParameter('isLevel2', 1)
+            ->groupBy('storeProductCategory.id')
+            ->getQuery()
+            ->getResult()
+            ;
     }
 }
