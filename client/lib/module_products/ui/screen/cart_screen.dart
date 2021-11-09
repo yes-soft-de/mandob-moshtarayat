@@ -96,7 +96,7 @@ class _CartScreenState extends State<CartScreen> {
                                   });
 
                                   CheckoutModel checkoutModel = CheckoutModel(
-                                      ownerId: 0,
+                                      ownerId: CartHiveHelper().getStoreID(),
                                       cart: items,
                                       orderCost: double.parse(getTotal()),
                                       deliveryCost: 0);
