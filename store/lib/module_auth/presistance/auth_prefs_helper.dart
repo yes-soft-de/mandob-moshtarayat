@@ -24,7 +24,7 @@ class AuthPrefsHelper {
   }
 
   void setNeedInit(bool state) {
-    box.put('registerState', state);
+    box.put('registerState',state);
   }
 
   bool needInit() {

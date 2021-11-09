@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:injectable/injectable.dart';
+import 'package:mandob_moshtarayat/module_orders/orders_module.dart';
 import 'package:simple_moment/simple_moment.dart';
 import 'package:mandob_moshtarayat/abstracts/module/yes_module.dart';
 import 'package:mandob_moshtarayat/di/di_config.dart';
@@ -21,7 +22,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'generated/l10n.dart';
+import 'module_about/about_module.dart';
+import 'module_init/init_account_module.dart';
+import 'module_main/main_module.dart';
 import 'module_notifications/service/local_notification_service/local_notification_service.dart';
+import 'module_profile/stores_module.dart';
 import 'module_splash/splash_routes.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:feature_discovery/feature_discovery.dart';
@@ -67,7 +72,11 @@ class MyApp extends StatefulWidget {
   final AuthorizationModule _authorizationModule;
   final SettingsModule _settingsModule;
   final ChatModule _chatModule;
-
+  final AboutModule _aboutModule;
+  final InitAccountModule _initAccountModule;
+  final MainModule _mainModule;
+  final StoresModule _storesModule;
+  final OrdersModule _ordersModule;
   MyApp(
     this._themeDataService,
     this._localizationService,
@@ -75,8 +84,13 @@ class MyApp extends StatefulWidget {
     this._localNotificationService,
     this._splashModule,
     this._authorizationModule,
+      this._settingsModule,
     this._chatModule,
-    this._settingsModule,
+      this._aboutModule,
+      this._initAccountModule,
+      this._mainModule,
+      this._storesModule,
+      this._ordersModule
   );
 
   @override
@@ -141,7 +155,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         ],
         theme: activeTheme,
         supportedLocales: S.delegate.supportedLocales,
-        title: 'Mandob Moshtarayat',
+        title: 'Mandob Moshtarayat Store',
         routes: fullRoutesList,
         initialRoute: SplashRoutes.SPLASH_SCREEN,
       ),
