@@ -173,12 +173,39 @@ class StoreProductCategoryController extends BaseController
       }
 
      /**
-     * @Route("/subcategoriesandproductsbystorecategoryiD/{storeCategoryID}", name="getSubCategoriesAndProductsByStoreCategoryID",methods={"GET"})
+     * @Route("/subcategoriesbystorecategoryid/{storeCategoryID}", name="getSubCategoriesByStoreCategoryID",methods={"GET"})
      * @return JsonResponse
-     */
-      public function getSubCategoriesAndProductsByStoreCategoryID($storeCategoryID)
+      * @OA\Tag(name="Store Product Category")
+      * @OA\Response(
+      *      response=200,
+      *      description="Returns SubCategories",
+      *      @OA\JsonContent(
+      *          @OA\Property(type="string", property="status_code"),
+      *          @OA\Property(type="string", property="msg"),
+      *          @OA\Property(type="array", property="Data",
+      *              @OA\Items(
+      *                  @OA\Property(type="string", property="productCategoryName"),
+      *                  @OA\Property(type="object", property="productCategoryImage",
+      *                      @OA\Property(type="string", property="imageURL"),
+      *                      @OA\Property(type="string", property="image"),
+      *                      @OA\Property(type="string", property="baseURL"),
+      *                  ),
+      *
+      *              @OA\Property(type="array", property="productCategoriesLevel2",
+      *              @OA\Items(
+      *                 @OA\Property(type="integer", property="id"),
+      *                 @OA\Property(type="string", property="productCategoryName"),
+      *                 @OA\Property(type="boolean", property="isLevel2"),
+      *                 @OA\Property(type="string", property="productCategoryImage"),
+      *             ))
+      * )
+      *          )
+      *      )
+      * )
+      */
+      public function getSubCategoriesByStoreCategoryID($storeCategoryID)
       {
-        $result = $this->storeProductCategoryService->getSubCategoriesAndProductsByStoreCategoryID($storeCategoryID);
+        $result = $this->storeProductCategoryService->getSubCategoriesByStoreCategoryID($storeCategoryID);
 
         return $this->response($result, self::FETCH);
       }
