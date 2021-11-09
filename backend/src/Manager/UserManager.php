@@ -172,7 +172,9 @@ class UserManager
                 }
             }
 
-            return $userRegister;
+//            return $userRegister;
+
+            return $found = 1;
         }
         else
         {
@@ -214,7 +216,9 @@ class UserManager
                 }
             }
 
-            return $user;
+//            return $user;
+
+            return $found = 2;
         }
     }
 
