@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\AutoMapping;
+use App\Manager\StoreOwnerProfileManager;
 use App\Request\storeOwnerProfileStatusUpdateByAdminRequest;
 use App\Entity\UserEntity;
 use App\Entity\StoreOwnerProfileEntity;
@@ -24,16 +25,18 @@ class StoreOwnerProfileService
 {
     private $autoMapping;
     private $userManager;
+    private $storeOwnerProfileManager;
     private $storeOwnerBranchService;
     private $params;
     private $roomIdHelperService;
     private $ratingService;
 
     public function __construct(AutoMapping $autoMapping, UserManager $userManager, RatingService $ratingService, StoreOwnerBranchService $storeOwnerBranchService,
-                                ParameterBagInterface $params, RoomIdHelperService $roomIdHelperService)
+                                ParameterBagInterface $params, RoomIdHelperService $roomIdHelperService, StoreOwnerProfileManager $storeOwnerProfileManager)
     {
         $this->autoMapping = $autoMapping;
         $this->userManager = $userManager;
+        $this->storeOwnerProfileManager = $storeOwnerProfileManager;
         $this->ratingService = $ratingService;
         $this->storeOwnerBranchService = $storeOwnerBranchService;
         $this->roomIdHelperService = $roomIdHelperService;
@@ -44,7 +47,7 @@ class StoreOwnerProfileService
     {
         $roomID = $this->roomIdHelperService->roomIdGenerate();
 
-        $userRegister = $this->userManager->storeOwnerRegister($request, $roomID);
+        $userRegister = $this->storeOwnerProfileManager->storeOwnerRegister($request, $roomID);
 
         if($userRegister == 1)
         {
