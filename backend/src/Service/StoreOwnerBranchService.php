@@ -42,6 +42,11 @@ class StoreOwnerBranchService
 
         foreach($items as $item)
         {
+            if(empty($item['geoLocation']))
+            {
+                $item['geoLocation'] = null;
+            }
+
             $response[] =  $this->autoMapping->map('array', StoreOwnerBranchResponse::class, $item);
         }
 
