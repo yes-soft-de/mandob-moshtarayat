@@ -46,13 +46,13 @@ class StoreOwnerProfileService
 
         $userRegister = $this->userManager->storeOwnerRegister($request, $roomID);
 
-        if($userRegister instanceof UserEntity)
+        if($userRegister == 1)
         {
 //            return $this->autoMapping->map(UserEntity::class, UserRegisterResponse::class, $userRegister);
 
             return 'newUser';
         }
-        else
+        elseif($userRegister == 2)
         {
 //            $response = $this->autoMapping->map('array', UserRegisterResponse::class, $userRegister);
 //
