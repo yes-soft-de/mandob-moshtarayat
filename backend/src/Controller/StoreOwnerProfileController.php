@@ -58,7 +58,12 @@ class StoreOwnerProfileController extends BaseController
 
         $response = $this->storeOwnerProfileService->storeOwnerRegister($request);
 
-        return new JsonResponse('ok rami', 200);
+        if($response->found == 1)
+        {
+            return $this->response($response, self::ERROR_USER_FOUND);
+        }
+
+        return $this->response($response, self::CREATE);
     }
 
     /**
@@ -109,7 +114,7 @@ class StoreOwnerProfileController extends BaseController
 
         $response = $this->storeOwnerProfileService->storeOwnerRegister($request);
 
-        return $this->response($response, self::CREATE);
+        return new JsonResponse('correct_response', 200);
     }
 
     /**
