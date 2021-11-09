@@ -24,7 +24,7 @@ class StoreOwnerBranchEntityRepository extends ServiceEntityRepository
     public function getBranchesByStoreOwnerProfileID($storeOwnerProfileID)
     {
         return $this->createQueryBuilder('BranchesEntity')
-            ->select('BranchesEntity.id', 'BranchesEntity.storeOwnerProfileID', 'BranchesEntity.location', 'BranchesEntity.city', 'BranchesEntity.branchName', 'userProfileEntity.free',
+            ->select('BranchesEntity.id', 'BranchesEntity.storeOwnerProfileID', 'BranchesEntity.location as geoLocation', 'BranchesEntity.city', 'BranchesEntity.branchName', 'userProfileEntity.free',
                 'userProfileEntity.storeOwnerName', 'userProfileEntity.status', 'BranchesEntity.isActive')
 
             ->leftJoin(

@@ -105,15 +105,22 @@ class StoreOwnerProfileService
     public function getStoreOwnerProfile($userID)
     {
         $response = null;
+
         $storeOwnerProfileId = $this->userManager->getStoreProfileId($userID);
+
         $item = $this->userManager->getStoreOwnerProfileByID($storeOwnerProfileId);
-        if($item){
+
+        if($item)
+        {
             $item['image'] = $this->getImageParams($item['image'], $this->params.$item['image'], $this->params);
+
             $item['branches'] = $this->storeOwnerBranchService->getBranchesByStoreOwnerProfileID($item['id']);
+
             $item['rating'] = $this->ratingService->getAvgRating($storeOwnerProfileId, 'store');
 
             $response = $this->autoMapping->map('array', StoreOwnerProfileCreateResponse::class, $item);
         }
+
         return $response;
     }
 
