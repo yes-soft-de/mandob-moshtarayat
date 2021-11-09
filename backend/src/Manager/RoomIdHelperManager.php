@@ -12,12 +12,15 @@ class RoomIdHelperManager
 {
     private $autoMapping;
     private $entityManager;
+    private $storeOwnerProfileManager;
     private $roomIdHelperEntityRepository;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, RoomIdHelperEntityRepository $roomIdHelperEntityRepository)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, RoomIdHelperEntityRepository $roomIdHelperEntityRepository,
+     StoreOwnerProfileManager $storeOwnerProfileManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
+        $this->storeOwnerProfileManager = $storeOwnerProfileManager;
         $this->roomIdHelperEntityRepository = $roomIdHelperEntityRepository;
     }
 
@@ -39,4 +42,10 @@ class RoomIdHelperManager
     {
         return $this->roomIdHelperEntityRepository->getByRoomID($roomID);
     }
+
+    public function getStoreOwnerProfileByRoomID($roomID)
+    {
+        return $this->storeOwnerProfileManager->storeOwnerProfileByRoomID($roomID);
+    }
+
 }

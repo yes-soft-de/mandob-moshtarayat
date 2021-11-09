@@ -32,11 +32,11 @@ class StoreOwnerProfileManager
         $this->userManager = $userManager;
     }
 
-    public function storeOwnerRegister(UserRegisterRequest $request, $roomID)
+    public function storeOwnerRegister(UserRegisterRequest $request)
     {
-        $user = $this->userManager->getUserByUserID($request->getUserID());
+        $userResult = $this->userManager->getUserByUserID($request->getUserID());
 
-        if($user == null)
+        if($userResult == null)
         {
             $userRegister = $this->autoMapping->map(UserRegisterRequest::class, UserEntity::class, $request);
 
@@ -47,7 +47,7 @@ class StoreOwnerProfileManager
                 $userRegister->setPassword($this->encoder->encodePassword($user, $request->getPassword()));
             }
 
-            $userRegister->setRoles(["ROLE_OWNER"]);
+            $userRegister->setRoles(['ROLE_OWNER']);
 
             $this->entityManager->persist($userRegister);
             $this->entityManager->flush();
@@ -61,7 +61,7 @@ class StoreOwnerProfileManager
 
                 $storeOwnerProfile->setStoreOwnerID($userRegister->getId());
                 $storeOwnerProfile->setStoreOwnerName($request->getUserName());
-                $storeOwnerProfile->setRoomID($roomID);
+                $storeOwnerProfile->setRoomID($request->getRoomID());
                 $storeOwnerProfile->setStatus('inactive');
                 $storeOwnerProfile->setFree(false);
                 $storeOwnerProfile->setIs_best(false);
@@ -72,7 +72,7 @@ class StoreOwnerProfileManager
                 //create branch
                 $branch = $this->storeOwnerBranchManager->getBranchesByStoreOwnerProfileID($storeOwnerProfile->getId());
 
-                if(!$branch)
+                if(count($branch) == 0)
                 {
                     $branch = $this->autoMapping->map(UserRegisterRequest::class, StoreOwnerBranchEntity::class, $request);
 
@@ -97,15 +97,15 @@ class StoreOwnerProfileManager
         }
         else
         {
-            $storeOwnerProfile = $this->storeOwnerProfileByStoreID($user['id']);
+            $storeOwnerProfile = $this->storeOwnerProfileByStoreID($userResult['id']);
 
             if($storeOwnerProfile == null)
             {
                 $storeOwnerProfile = $this->autoMapping->map(UserRegisterRequest::class, StoreOwnerProfileEntity::class, $request);
 
-                $storeOwnerProfile->setStoreOwnerID($user['id']);
+                $storeOwnerProfile->setStoreOwnerID($userResult['id']);
                 $storeOwnerProfile->setStoreOwnerName($request->getUserName());
-                $storeOwnerProfile->setRoomID($roomID);
+                $storeOwnerProfile->setRoomID($request->getRoomID());
                 $storeOwnerProfile->setStatus('inactive');
                 $storeOwnerProfile->setFree(false);
                 $storeOwnerProfile->setIs_best(false);
@@ -116,14 +116,15 @@ class StoreOwnerProfileManager
                 //create branch
                 $branch = $this->storeOwnerBranchManager->getBranchesByStoreOwnerProfileID($storeOwnerProfile->getId());
 
-                if(!$branch)
+                if(count($branch) == 0)
                 {
                     $branch = $this->autoMapping->map(UserRegisterRequest::class, StoreOwnerBranchEntity::class, $request);
 
                     $branch->setIsActive(1);
                     $branch->setStoreOwnerProfileID($storeOwnerProfile->getId());
 
-                    if ($request->getLocation()) {
+                    if($request->getLocation())
+                    {
                         $branch->setLocation($request->getLocation());
                     }
 
@@ -143,6 +144,11 @@ class StoreOwnerProfileManager
     public function storeOwnerProfileByStoreID($storeID)
     {
         return $this->storeOwnerProfileEntityRepository->storeOwnerProfileByStoreID($storeID);
+    }
+
+    public function storeOwnerProfileByRoomID($roomID)
+    {
+        return $this->storeOwnerProfileEntityRepository->storeOwnerProfileByRoomID($roomID);
     }
 
 }

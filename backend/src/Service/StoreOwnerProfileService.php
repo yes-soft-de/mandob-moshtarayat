@@ -5,7 +5,6 @@ namespace App\Service;
 use App\AutoMapping;
 use App\Manager\StoreOwnerProfileManager;
 use App\Request\storeOwnerProfileStatusUpdateByAdminRequest;
-use App\Entity\UserEntity;
 use App\Entity\StoreOwnerProfileEntity;
 use App\Manager\UserManager;
 use App\Request\StoreOwnerProfileCreateByAdminRequest;
@@ -17,7 +16,6 @@ use App\Response\StoreOwnerProfileCreateResponse;
 use App\Response\StoreOwnerProfileResponse;
 use App\Response\StoreOwnerByCategoryIdResponse;
 use App\Response\StoresFilterByNameResponse;
-use App\Response\UserRegisterResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 
@@ -45,9 +43,9 @@ class StoreOwnerProfileService
 
     public function storeOwnerRegister(UserRegisterRequest $request)
     {
-        $roomID = $this->roomIdHelperService->roomIdGenerate();
+        $request->setRoomID($this->roomIdHelperService->roomIdGenerate());
 
-        $userRegister = $this->storeOwnerProfileManager->storeOwnerRegister($request, $roomID);
+        $userRegister = $this->storeOwnerProfileManager->storeOwnerRegister($request);
 
         if($userRegister == 1)
         {
