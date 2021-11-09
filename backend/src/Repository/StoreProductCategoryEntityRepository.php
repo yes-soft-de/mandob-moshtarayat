@@ -34,7 +34,7 @@ class StoreProductCategoryEntityRepository extends ServiceEntityRepository
         ;
     }
 
-    public function getStoreProductsCategoryLevelOneByStoreCategoryID($storeCategoryID)
+    public function getSubCategoriesByStoreCategoryID($storeCategoryID)
     {
         return $this->createQueryBuilder('storeProductCategory')
             ->select('storeProductCategory.id', 'storeProductCategory.productCategoryName', 'storeProductCategory.isLevel1', 'storeProductCategory.productCategoryImage')

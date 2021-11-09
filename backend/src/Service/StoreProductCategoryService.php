@@ -89,18 +89,14 @@ class StoreProductCategoryService
        return $response;
     }
 
-    public function getSubCategoriesAndProductsByStoreCategoryID($storeCategoryID)
+    public function getSubCategoriesByStoreCategoryID($storeCategoryID)
     {
        $response = [];
        //productCategoriesLevel1
-       $items = $this->storeProductCategoryManager->getStoreProductsCategoryLevelOneByStoreCategoryID($storeCategoryID);
-
+       $items = $this->storeProductCategoryManager->getSubCategoriesByStoreCategoryID($storeCategoryID);
        foreach($items as $item) {
+           $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params.$item['productCategoryImage'], $this->params);
            $item['productCategoriesLevel2'] = $this->storeProductCategoryManager->getStoreProductsCategoryLevelTwoByStoreProductCategoryID($item['id']);
-           foreach($item['productCategoriesLevel2'] as $productCategoryLevel2) {
-               $item['productCategoriesLevel2']['products'] = $this->productService->getProductsByStoreProductCategoryID($productCategoryLevel2['id']);
-
-           }
            $response[] = $this->autoMapping->map('array', SubCategoriesAndProductsByStoreCategoryIDResponse::class, $item);
        }
        return $response;
