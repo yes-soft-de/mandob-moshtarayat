@@ -132,7 +132,11 @@ class StoreOwnerProfileController extends BaseController
      *          @OA\Property(type="string", property="branchName"),
      *          @OA\Property(type="string", property="openingTime"),
      *          @OA\Property(type="string", property="closingTime"),
-     *          @OA\Property(type="object", property="location")
+     *          @OA\Property(type="object", property="location",
+     *              @OA\Property(type="string", property="lat"),
+     *              @OA\Property(type="string", property="lon")
+     *
+     *          )
      *      )
      * )
      *
@@ -140,17 +144,25 @@ class StoreOwnerProfileController extends BaseController
      *      response=200,
      *      description="Returns the store owner's profile",
      *      @OA\JsonContent(
-     *          @OA\Property(type="string", property="storeOwnerName"),
-     *          @OA\Property(type="string", property="image"),
-     *          @OA\Property(type="string", property="phone"),
-     *          @OA\Property(type="integer", property="storeCategoryId"),
-     *          @OA\Property(type="boolean", property="privateOrders"),
-     *          @OA\Property(type="boolean", property="hasProducts"),
-     *          @OA\Property(type="string", property="branchName"),
-     *          @OA\Property(type="string", property="openingTime"),
-     *          @OA\Property(type="string", property="closingTime"),
-     *          @OA\Property(type="object", property="location")
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="string", property="storeOwnerName"),
+     *              @OA\Property(type="string", property="image"),
+     *              @OA\Property(type="string", property="phone"),
+     *              @OA\Property(type="integer", property="storeCategoryId"),
+     *              @OA\Property(type="boolean", property="privateOrders"),
+     *              @OA\Property(type="boolean", property="hasProducts"),
+     *              @OA\Property(type="string", property="branchName"),
+     *              @OA\Property(type="string", property="openingTime"),
+     *              @OA\Property(type="string", property="closingTime"),
+     *              @OA\Property(type="object", property="location",
+     *                   @OA\Property(type="string", property="lat"),
+     *                   @OA\Property(type="string", property="lon")
+     *
+     *          )
      *      )
+     *   )
      * )
      */
     public function storeOwnerProfileUpdate(Request $request): JsonResponse
