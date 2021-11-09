@@ -212,12 +212,30 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
     public function storeOwnerProfileByStoreID($storeID)
     {
         return $this->createQueryBuilder('profile')
-            ->addSelect('profile.id', 'profile.storeOwnerName','profile.storeOwnerID', 'profile.image', 'profile.status', 'profile.roomID', 'profile.storeCategoryId', 'profile.phone', 'profile.is_best', 'profile.privateOrders', 'profile.hasProducts')
-            ->addSelect('UserEntity.createDate')
-            ->leftJoin(UserEntity::class, 'UserEntity', Join::WITH, 'UserEntity.id = profile.storeOwnerID')
-            ->andWhere('profile.storeOwnerID=:storeID')
+            ->select('profile.id', 'profile.storeOwnerName', 'profile.storeOwnerID', 'profile.image', 'profile.status', 'profile.roomID', 'profile.storeCategoryId',
+                'profile.phone', 'profile.is_best', 'profile.privateOrders', 'profile.hasProducts', 'userEntity.createDate')
 
+            ->leftJoin(
+                UserEntity::class,
+                'userEntity',
+                Join::WITH,
+                'userEntity.id = profile.storeOwnerID')
+
+            ->andWhere('profile.storeOwnerID = :storeID')
             ->setParameter('storeID', $storeID)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function storeOwnerProfileByRoomID($roomID)
+    {
+        return $this->createQueryBuilder('profile')
+            ->select('profile.id', 'profile.storeOwnerName', 'profile.storeOwnerID', 'profile.image', 'profile.status', 'profile.roomID', 'profile.storeCategoryId',
+                'profile.phone', 'profile.is_best', 'profile.privateOrders', 'profile.hasProducts')
+
+            ->andWhere('profile.roomID = :roomID')
+            ->setParameter('roomID', $roomID)
 
             ->getQuery()
             ->getOneOrNullResult();
