@@ -7,7 +7,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
-
+use Nelmio\ApiDocBundle\Annotation\Security;
+use OpenApi\Annotations as OA;
 
 class OrderLogController extends BaseController
 {
@@ -35,7 +36,35 @@ class OrderLogController extends BaseController
       * @Route("/orderLogsTimeLine/{orderNumber}", name="getOrderLogsTimeLine", methods={"GET"})
       * @param Request $request
       * @return JsonResponse
-      */
+     * *
+     * @OA\Tag(name="Logs")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns Order Logs Time Line",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *
+     *                  @OA\Property(type="object", property="orderStatus",
+     *                      @OA\Property(type="string", property="completionTime"),
+     *                      @OA\Property(type="string", property="currentStage"),
+     *                      @OA\Property(type="string", property="deliveredTime"),
+     *                  ),
+     *              @OA\Property(type="array", property="logs",
+     *                  @OA\Items(
+     *              @OA\Property(type="integer", property="id"),
+     *              @OA\Property(type="string", property="state"),
+     *              @OA\Property(type="object", property="createdAt")
+     *
+     *          )
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     */
       public function getOrderLogsTimeLine($orderNumber)
       {
           $result = $this->orderLogService->getOrderLogsTimeLine($orderNumber);

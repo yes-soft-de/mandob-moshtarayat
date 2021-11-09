@@ -54,16 +54,18 @@ class OrderLogService
         $items = $this->getOrderLogsByOrderNumber($orderNumber);
      
         foreach ($items as $item) {
-         
-            $firstDate = $this->getFirstDate($item['orderNumber']); 
-            $acceptOrderDate = $this->getAcceptOrderDate($item['orderNumber']); 
+
+            $firstDate = $this->getFirstDate($item['orderNumber']);
+            $acceptOrderDate = $this->getAcceptOrderDate($item['orderNumber']);
             $lastDate = $this->getLastDate($item['orderNumber']);
-           
+
             if($firstDate[0]['createdAt'] && $lastDate[0]['createdAt']) {
                 $state['completionTime'] = $this->dateFactoryService->subtractTwoDates($firstDate[0]['createdAt'], $lastDate[0]['createdAt']);
             }
-            if($acceptOrderDate[0]['createdAt'] && $lastDate[0]['createdAt']) {
-                $state['deliveredTime'] = $this->dateFactoryService->subtractTwoDates($acceptOrderDate[0]['createdAt'], $lastDate[0]['createdAt']);
+            if(isset($acceptOrderDate[0]['createdAt'])) {
+                if ($acceptOrderDate[0]['createdAt'] && $lastDate[0]['createdAt']) {
+                    $state['deliveredTime'] = $this->dateFactoryService->subtractTwoDates($acceptOrderDate[0]['createdAt'], $lastDate[0]['createdAt']);
+                }
             }
             $logs[] = $this->autoMapping->map('array', OrderLogsResponse::class, $item);
         }

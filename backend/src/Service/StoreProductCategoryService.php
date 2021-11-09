@@ -9,26 +9,27 @@ use App\Request\StoreProductCategoryCreateRequest;
 use App\Request\StoreProductCategoryLevelTwoCreateRequest;
 use App\Request\StoreProductCategoryUpdateRequest;
 use App\Response\StoreProductCategoryCreateResponse;
+use App\Response\StoreProductsCategoryLevelTwoAndStoreProductsResponse;
 use App\Response\StoreProductsCategoryResponse;
 use App\Response\SubCategoriesAndProductsByStoreCategoryIDResponse;
-use App\Service\UserService;
 use App\Service\ProductService;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use App\Manager\UserManager;
 
 
 class StoreProductCategoryService
 {
     private $autoMapping;
     private $storeProductCategoryManager;
-    private $userService;
     private $productService;
     private $params;
+    private $userManager;
 
-    public function __construct(AutoMapping $autoMapping, StoreProductCategoryManager $storeProductCategoryManager, UserService $userService, ProductService $productService, ParameterBagInterface $params)
+    public function __construct(AutoMapping $autoMapping, StoreProductCategoryManager $storeProductCategoryManager, ProductService $productService, ParameterBagInterface $params, userManager $userManager)
     {
         $this->autoMapping = $autoMapping;
         $this->storeProductCategoryManager = $storeProductCategoryManager;
-        $this->userService = $userService;
+        $this->userManager = $userManager;
         $this->productService = $productService;
         $this->params = $params->get('upload_base_url') . '/';
     }
@@ -101,9 +102,21 @@ class StoreProductCategoryService
 
            }
            $response[] = $this->autoMapping->map('array', SubCategoriesAndProductsByStoreCategoryIDResponse::class, $item);
-
        }
        return $response;
+    }
+
+    public function getStoreProductsCategoryLevelTwoAndStoreProductsByStoreOwnerProfile($userID) {
+        $response = [];
+        $storeOwnerProfileId = $this->userManager->getStoreProfileId($userID);
+        $productCategoriesLevel2 = $this->storeProductCategoryManager->getStoreProductsCategoryLevelTwoByStoreOwnerProfile($storeOwnerProfileId);
+         foreach ($productCategoriesLevel2 as $category) {
+             $category['productCategoryImage'] = $this->getImageParams($category['productCategoryImage'], $this->params.$category['productCategoryImage'], $this->params);
+
+             $category['products'] = $this->productService->getProductsByStoreProfileIDAndStoreProductCategoryID($storeOwnerProfileId, $category['id']);
+             $response[] = $this->autoMapping->map('array', StoreProductsCategoryLevelTwoAndStoreProductsResponse::class, $category);
+         }
+        return $response;
     }
 
     public function getImageParams($imageURL, $image, $baseURL): array

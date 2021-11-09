@@ -142,6 +142,17 @@ class ProductService
         return $response;
     }
 
+    public function getProductsByStoreProfileIDAndStoreProductCategoryID($storeOwnerProfileId, $storeProductCategoryID): ?array
+    {
+        $response = [];
+        $items = $this->productManager-> getProductsByStoreProfileIDAndStoreProductCategoryID($storeOwnerProfileId, $storeProductCategoryID);
+        foreach ($items as $item) {
+            $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
+            $response[] = $this->autoMapping->map('array', ProductsByProductCategoryIdResponse::class, $item);
+        }
+        return $response;
+    }
+
     public function updateProductByAdmin($request)
     {
         $item = $this->productManager->updateProductByAdmin($request);
