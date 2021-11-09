@@ -36,5 +36,8 @@ class Urls {
   static const GET_SEARCH_RESULT = BASE_API + '/clientFilter/';
   static const RATE_STORE = BASE_API + '/ratingStoreByClient';
   static const RATE_CAPTAIN = BASE_API + '/ratingCaptainByClient';
+  static const GET_SUBCATEGORIES_API = BASE_API + '/subcategoriesbystorecategoryid/';
+  static const GET_PRODUCTS_BY_CATEGORIES = BASE_API + '/productsbystoreproductcategoryid/';
+
 
 }

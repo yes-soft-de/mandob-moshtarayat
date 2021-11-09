@@ -553,6 +553,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("صاحب المحل"),
         "withTaxes":
             MessageLookupByLibrary.simpleMessage("شامل القيمة المضافة"),
+        "youHaveProductsFromDifferentStore": MessageLookupByLibrary.simpleMessage(
+            "السلة تحتوي على أصناف من متجر آخر , هل تريد حذف أصناف السلة وإضافة الأصناف الجديدة"),
         "yourCartEmpty": MessageLookupByLibrary.simpleMessage(
             "قائمة طلباتك فارغة من فضلك اختر ما تريد طلبه")
       };

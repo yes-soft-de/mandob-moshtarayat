@@ -3689,6 +3689,16 @@ class S {
       args: [],
     );
   }
+
+  /// `You have products from other store , Do you want to clear your cart and add the new ones`
+  String get youHaveProductsFromDifferentStore {
+    return Intl.message(
+      'You have products from other store , Do you want to clear your cart and add the new ones',
+      name: 'youHaveProductsFromDifferentStore',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
