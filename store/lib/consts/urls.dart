@@ -81,6 +81,8 @@ class Urls {
   static const GET_STORES_REPORT = BASE_API + '/countOrdersEveryStoreInLastMonth';
   static const GET_CLIENTS_REPORT = BASE_API + '/countOrdersEveryClientInLastMonth';
   static const GET_PRODUCTS_REPORT = BASE_API + '/countOrdersEveryProductInLastMonth';
+  static const CATEGORY_LEVEL_ONE = BASE_API + '/storeproductscategorylevelone/';
+  static const CATEGORY_LEVEL_TWO = BASE_API + '/storeproductscategoryleveltwo/';
 
 
 

@@ -666,8 +666,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "storeUpdatedSuccessfully":
             MessageLookupByLibrary.simpleMessage("تم تعديل المتجر بنجاح"),
         "stores": MessageLookupByLibrary.simpleMessage("متاجر"),
-        "storesInActive":
-            MessageLookupByLibrary.simpleMessage("المتاجر الغير متاحة"),
+        "storesInActive": MessageLookupByLibrary.simpleMessage(
+            "حساب المتجر غير مفعل ، يرجى انتظار الإدارة لتفعيل حسابك"),
         "storesList": MessageLookupByLibrary.simpleMessage("قائمة المتاجر"),
         "storesReports": MessageLookupByLibrary.simpleMessage("تقارير المتاجر"),
         "submittingProfile":

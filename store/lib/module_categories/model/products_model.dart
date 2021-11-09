@@ -7,13 +7,14 @@ class ProductsModel extends DataModel{
   String productName = '';
   String productImage = '';
   num productPrice = 0;
-  int storeOwnerProfileID = -1;
+  // int storeOwnerProfileID = -1;
   int storeProductCategoryID = -1;
 
   List <ProductsModel> _model = [];
 
   ProductsModel({required this.id,required this.productName,required this.productImage,required this.productPrice,
-    required  this.storeOwnerProfileID,required this.storeProductCategoryID});
+    // required  this.storeOwnerProfileID,
+    required this.storeProductCategoryID});
 
   ProductsModel.withData(List <Data> data) : super.withData() {
     _model = [];
@@ -22,7 +23,8 @@ class ProductsModel extends DataModel{
         id:element.id ?? -1,
         productName: element.productName ?? S.current.productCategory,
         productImage : element.productImage ?? '',
-        productPrice : element.productPrice ?? 0, storeOwnerProfileID:element.storeOwnerProfileID ?? -1,
+        productPrice : element.productPrice ?? 0,
+          // storeOwnerProfileID:element.storeOwnerProfileID ?? -1,
         storeProductCategoryID: element.storeProductCategoryID ?? -1
       ));
     }

@@ -5220,10 +5220,10 @@ class S {
     );
   }
 
-  /// `Stores In Active`
+  /// `Store Account In Active , Please wait the administration to activate your account`
   String get storesInActive {
     return Intl.message(
-      'Stores In Active',
+      'Store Account In Active , Please wait the administration to activate your account',
       name: 'storesInActive',
       desc: '',
       args: [],
