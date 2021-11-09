@@ -29,7 +29,8 @@ class StoreOwnerProfileService
     private $roomIdHelperService;
     private $ratingService;
 
-    public function __construct(AutoMapping $autoMapping, UserManager $userManager,  RatingService $ratingService, StoreOwnerBranchService $storeOwnerBranchService, ParameterBagInterface $params, RoomIdHelperService $roomIdHelperService)
+    public function __construct(AutoMapping $autoMapping, UserManager $userManager, RatingService $ratingService, StoreOwnerBranchService $storeOwnerBranchService,
+                                ParameterBagInterface $params, RoomIdHelperService $roomIdHelperService)
     {
         $this->autoMapping = $autoMapping;
         $this->userManager = $userManager;
@@ -47,15 +48,19 @@ class StoreOwnerProfileService
 
         if($userRegister instanceof UserEntity)
         {
-            return $this->autoMapping->map(UserEntity::class, UserRegisterResponse::class, $userRegister);
+//            return $this->autoMapping->map(UserEntity::class, UserRegisterResponse::class, $userRegister);
+
+            return 'newUser';
         }
         else
         {
-            $response = $this->autoMapping->map('array', UserRegisterResponse::class, $userRegister);
+//            $response = $this->autoMapping->map('array', UserRegisterResponse::class, $userRegister);
+//
+//            $response->found = 1;
+//
+//            return $response;
 
-            $response->found = 1;
-
-            return $response;
+            return 'userExists';
         }
     }
 
