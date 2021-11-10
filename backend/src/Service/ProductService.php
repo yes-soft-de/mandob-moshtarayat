@@ -40,6 +40,7 @@ class ProductService
         $response = [];
         $items = $this->productManager->getProductsByProductCategoryId($storeProductCategoryID);
         foreach ($items as $item) {
+            $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
             $response[] = $this->autoMapping->map('array', ProductsByProductCategoryIdResponse::class, $item);
         }
         return $response;
@@ -50,6 +51,7 @@ class ProductService
         $response = [];
         $items = $this->productManager->getProductsByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId);
         foreach ($items as $item) {
+            $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
             $response[] = $this->autoMapping->map('array', ProductsByProductCategoryIdResponse::class, $item);
         }
         return $response;
@@ -111,9 +113,8 @@ class ProductService
         $response = [];
         $items = $this->productManager->getStoreProductsByProfileId($storeOwnerProfileId);
         foreach ($items as $item) {
-            $item['imageURL'] = $item['productImage'];
-            $item['image'] = $this->params . $item['productImage'];
-            $item['baseURL'] = $this->params;
+            $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
+
             $response[] = $this->autoMapping->map('array', ProductsByProductCategoryIdResponse::class, $item);
         }
         return $response;
