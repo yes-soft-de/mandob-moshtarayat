@@ -44,7 +44,7 @@ class ProductEntity
 
 
     /**
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $discount;
 
@@ -115,12 +115,12 @@ class ProductEntity
         return $this;
     }
 
-    public function getDiscount(): ?float
+    public function getDiscount(): ?int
     {
         return $this->discount;
     }
 
-    public function setDiscount(?float $discount): self
+    public function setDiscount(?int $discount): self
     {
         $this->discount = $discount;
 
