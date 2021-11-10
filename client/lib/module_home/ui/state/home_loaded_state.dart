@@ -38,13 +38,12 @@ class HomeLoadedState extends HomeState {
       child: ListView(
         physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         children: [
-          CustomHomeAppBar(callback: (title){
-            print(title);
+          CustomHomeAppBar(categoriesCallback: (title){
             if (title != S.current.home) {
               screenState.currentState = HomeLoadedFilterState(screenState,categories: categories,topProducts: topProducts,bestStores: bestStores);
               screenState.refresh();
             }
-          },),
+          },categories: categories,),
           ListTile(
             leading: Icon(
               CustomIcon.our_service,

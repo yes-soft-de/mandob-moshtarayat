@@ -12,6 +12,7 @@ import 'package:mandob_moshtarayat/module_localization/service/localization_serv
 import 'package:mandob_moshtarayat/module_theme/service/theme_service/theme_service.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat/utils/components/fixed_container.dart';
+import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
 
 @injectable
 class SettingsScreen extends StatefulWidget {
@@ -103,19 +104,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               .setLanguage(newLang.toString());
                         }),
                   ),
-                  ListTile(
-                    leading: Icon(Icons.person_rounded),
-                    title: Text(S.of(context).signOut),
-                    trailing: Padding(
-                      padding: const EdgeInsets.only(right: 10.0, left: 10.0),
-                      child: Icon(Icons.logout_rounded),
+                  Hider(
+                    active: widget._authService.isLoggedIn,
+                    child: ListTile(
+                      leading: Icon(Icons.person_rounded),
+                      title: Text(S.of(context).signOut),
+                      trailing: Padding(
+                        padding: const EdgeInsets.only(right: 10.0, left: 10.0),
+                        child: Icon(Icons.logout_rounded),
+                      ),
+                      onTap: () {
+                        widget._authService.logout().then((value) {
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              MainRoutes.MAIN_SCREEN, (route) => false);
+                        });
+                      },
                     ),
-                    onTap: () {
-                      widget._authService.logout().then((value) {
-                        Navigator.of(context).pushNamedAndRemoveUntil(
-                            MainRoutes.MAIN_SCREEN, (route) => false);
-                      });
-                    },
                   ),
                   SizedBox(
                     height: 16,

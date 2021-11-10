@@ -557,6 +557,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "whatsappWithStoreOwner":
             MessageLookupByLibrary.simpleMessage("Store Owner"),
         "withTaxes": MessageLookupByLibrary.simpleMessage("With taxes "),
+        "youHaveProductsFromDifferentStore": MessageLookupByLibrary.simpleMessage(
+            "You have products from other store , Do you want to clear your cart and add the new ones"),
         "yourCartEmpty": MessageLookupByLibrary.simpleMessage(
             "Your cart is empty please choose items to add")
       };

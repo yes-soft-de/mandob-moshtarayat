@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 
 class CategoriesCard extends StatelessWidget {
   final String title;
+  final String categoryId;
   final IconData icon;
   final bool selected;
   final Function(String)? onTap;
 
-  CategoriesCard({required this.title,required this.icon,required this.selected,this.onTap});
+  CategoriesCard({required this.title,required this.icon,required this.selected,this.onTap,required this.categoryId});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class CategoriesCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(25),
         onTap:(){
           if (onTap != null){
-            onTap!(title);
+            onTap!(categoryId);
           }
         },
         child: Container(

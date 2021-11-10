@@ -18,6 +18,7 @@ import 'package:mandob_moshtarayat/module_stores/ui/widget/store_products/produc
 import 'package:mandob_moshtarayat/module_stores/ui/widget/store_products/products_zone.dart';
 import 'package:mandob_moshtarayat/module_stores/ui/widget/store_products/store_products_title_bar.dart';
 import 'package:mandob_moshtarayat/utils/components/costom_search.dart';
+import 'package:mandob_moshtarayat/utils/components/custom_alert_dialog.dart';
 import 'package:mandob_moshtarayat/utils/components/progresive_image.dart';
 import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
@@ -213,9 +214,21 @@ class StoreProductsLoadedState extends StoreProductsState {
           defaultQuantity: getQuantity(element.id),
           quantity: (cartModel) {
             if (cartModel.quantity > 0) {
-              carts.removeWhere((e) => e.id == cartModel.id);
-              carts.add(cartModel);
-              CartHiveHelper().addProductsToCart(cartModel);
+              if (CartHiveHelper().getCart().isEmpty) {
+                CartHiveHelper().setStoreId(screenState.storeId);
+                addToCart(cartModel);
+              }
+              else {
+                if (CartHiveHelper().getStoreID() == screenState.storeId) {
+                  addToCart(cartModel);
+                }
+                else {
+                  CustomAlertDialog(content: S.current.youHaveProductsFromDifferentStore, onPressed: () async {
+                   await CartHiveHelper().deleteCart();
+                   addToCart(cartModel);
+                  },);
+                }
+              }
             }
             if (cartModel.quantity == 0) {
               carts.removeWhere((e) => e.id == cartModel.id);
@@ -226,7 +239,11 @@ class StoreProductsLoadedState extends StoreProductsState {
     });
     return prods;
   }
-
+  void addToCart(cartModel){
+    carts.removeWhere((e) => e.id == cartModel.id);
+    carts.add(cartModel);
+    CartHiveHelper().addProductsToCart(cartModel);
+  }
   List<Widget> getCategories(List<CategoryModel> categoriesModel) {
     if (categoriesModel.isEmpty) {
       return [

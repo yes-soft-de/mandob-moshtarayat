@@ -1,11 +1,14 @@
 import 'package:injectable/injectable.dart';
+import 'package:mandob_moshtarayat/abstracts/data_model/data_model.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_home/manager/home_manager.dart';
 import 'package:mandob_moshtarayat/module_home/model/home_model.dart';
 import 'package:mandob_moshtarayat/module_home/model/top_wanted_products_model.dart';
 import 'package:mandob_moshtarayat/module_home/response/best_store.dart';
 import 'package:mandob_moshtarayat/module_home/response/products.dart';
+import 'package:mandob_moshtarayat/module_home/response/products_by_categories_response.dart';
 import 'package:mandob_moshtarayat/module_home/response/store_categories.dart';
+import 'package:mandob_moshtarayat/module_home/response/sub_categories_response.dart';
 import 'package:mandob_moshtarayat/module_stores/response/store_category_list.dart';
 import 'package:mandob_moshtarayat/utils/helpers/status_code_helper.dart';
 import 'package:mandob_moshtarayat/utils/models/store.dart';
@@ -82,5 +85,25 @@ class HomeService {
     }
     return HomeModel.Data(
         top.data, bestStores.data, storeCategories.data, errors);
+  }
+  Future<DataModel> getSubCategories(String categoriesID) async {
+    SubCategoriesResponse? subCategoriesResponse = await _homeManager.getSubCategories(categoriesID);
+    if (subCategoriesResponse == null) return DataModel.withError(S.current.networkError);
+    if (subCategoriesResponse.statusCode != '200') {
+      return DataModel.withError(
+          StatusCodeHelper.getStatusCodeMessages(subCategoriesResponse.statusCode ?? '0'));
+    }
+    if (subCategoriesResponse.data == null) return DataModel.empty();
+    return DataModel();
+  }
+  Future<DataModel> getCategoriesProducts(String categoriesID) async {
+    ProductsByCategoriesResponse? productsResponse = await _homeManager.getCategoriesProducts(categoriesID);
+    if (productsResponse == null) return DataModel.withError(S.current.networkError);
+    if (productsResponse.statusCode != '200') {
+      return DataModel.withError(
+          StatusCodeHelper.getStatusCodeMessages(productsResponse.statusCode ?? '0'));
+    }
+    if (productsResponse.data == null) return DataModel.empty();
+    return DataModel();
   }
 }

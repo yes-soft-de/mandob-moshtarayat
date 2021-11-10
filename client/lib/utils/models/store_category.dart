@@ -27,7 +27,7 @@ class StoreCategoryModel {
           id: element.id ?? -1,
           storeCategoryName: element.storeCategoryName ?? S.current.category,
           description: element.description ?? '',
-          image: element.image ?? ''));
+          image: element.image?.image ?? ''));
     });
   }
 

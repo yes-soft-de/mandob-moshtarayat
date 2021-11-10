@@ -39,30 +39,32 @@ class OrderDetailsLoadedState extends OrderDetailsState {
       },
       child: Stack(
         children: [
-         // orderDetails.order.orderType != -1
-         //      ? Container(
-         //          height: height,
-         //          width: width,
-         //          child: Flex(
-         //            direction: Axis.vertical,
-         //            children: [
-         //              CustomNetworkImage(
-         //                imageSource: orderDetails.storeInfo.image,
-         //                height: height / 2,
-         //                width: width,
-         //              ),
-         //              SizedBox(
-         //                width: width,
-         //                height: height / 2,
-         //              ),
-         //            ],
-         //          ),
-         //        )
+         orderDetails.order.orderType != 3
+              ? Container(
+                  height: height,
+                  width: width,
+                  child: Flex(
+                    direction: Axis.vertical,
+                    children: [
+                      CustomNetworkImage(
+                        imageSource: orderDetails.storeInfo.image,
+                        height: height / 2,
+                        width: width,
+                      ),
+                      SizedBox(
+                        width: width,
+                        height: height / 2,
+                      ),
+                    ],
+                  ),
+                ) : SizedBox(),
+
              Container(
                   color: Theme.of(context).primaryColor,
                   height: height,
                   width: width,
                 ),
+
           CustomOrderDetailsAppBar(
             editTap: false
                 ? () {
@@ -78,12 +80,12 @@ class OrderDetailsLoadedState extends OrderDetailsState {
                     screenState.deleteOrder(screenState.orderNumber ?? -1);
                   }
                 : null,
-            collapsed: orderDetails.order.orderType != -1,
+            collapsed: orderDetails.order.orderType != 3,
             edit: edit,
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: orderDetails.order.orderType != -1
+            child: orderDetails.order.orderType != 3
                 ? Container()
                 : Container(
               height:height * 0.78 ,
@@ -107,7 +109,7 @@ class OrderDetailsLoadedState extends OrderDetailsState {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
-                  height: orderDetails.order.orderType != -1
+                  height: orderDetails.order.orderType != 3
                       ? height * 0.875
                       : height * 0.70,
                   decoration: BoxDecoration(

@@ -363,6 +363,7 @@
   "sold": "المبيعات",
   "specification": "المواصفات",
   "totalPrice": "المبلغ النهائي",
-  "productQuantity": "عدد الوحدات"
+  "productQuantity": "عدد الوحدات",
+  "youHaveProductsFromDifferentStore": "السلة تحتوي على أصناف من متجر آخر , هل تريد حذف أصناف السلة وإضافة الأصناف الجديدة"
 
 }
