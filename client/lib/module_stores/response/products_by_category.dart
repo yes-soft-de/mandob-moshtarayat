@@ -42,7 +42,7 @@ class ProductsByCategory {
 class Data {
   int? id;
   String? productName;
-  String? productImage;
+  Image? productImage;
   double? productPrice;
   int? storeOwnerProfileID;
   int? productCategoryID;
@@ -58,7 +58,7 @@ class Data {
   Data.fromJson(dynamic json) {
     id = json['id'];
     productName = json['productName'];
-    productImage = json['productImage'];
+    productImage = json['productImage'] != null ? Image.fromJson(json['productImage']): null;
     productPrice = json['productPrice']?.toDouble();
     storeOwnerProfileID = json['storeOwnerProfileID'];
     productCategoryID = json['storeProductCategoryID'];
@@ -74,4 +74,28 @@ class Data {
     map['ProductCategoryID'] = productCategoryID;
     return map;
   }
+}
+class Image {
+  Image({
+    this.imageURL,
+    this.image,
+    this.baseURL,});
+
+  Image.fromJson(dynamic json) {
+    imageURL = json['imageURL'];
+    image = json['image'];
+    baseURL = json['baseURL'];
+  }
+  String? imageURL;
+  String? image;
+  String? baseURL;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['imageURL'] = imageURL;
+    map['image'] = image;
+    map['baseURL'] = baseURL;
+    return map;
+  }
+
 }
