@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
+import 'package:mandob_moshtarayat/module_theme/service/theme_service/theme_service.dart';
 import 'package:mandob_moshtarayat/utils/global/screen_type.dart';
+import 'package:mandob_moshtarayat/utils/text_style/text_style.dart';
 
-class CustomTwaslnaAppBar {
+class CustomMandopAppBar {
   static PreferredSizeWidget appBar(BuildContext context,
       {required title,
       GestureTapCallback? onTap,
@@ -19,34 +21,34 @@ class CustomTwaslnaAppBar {
     return AppBar(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       centerTitle: true,
-      bottom: PreferredSize(
-        preferredSize: Size.fromHeight(16),
-        child: Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding:
-                  const EdgeInsets.only(right: 24.0, left: 24.0, bottom: 8.0),
-              child: Container(
-                height: 3,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  borderRadius: BorderRadius.circular(25),
-                ),
-                width: double.maxFinite,
-              ),
-            )),
-      ),
+      // bottom: PreferredSize(
+      //   preferredSize: Size.fromHeight(16),
+      //   child: Align(
+      //       alignment: Alignment.bottomCenter,
+      //       child: Padding(
+      //         padding:
+      //             const EdgeInsets.only(right: 24.0, left: 24.0, bottom: 8.0),
+      //         child: Container(
+      //           height: 3,
+      //           decoration: BoxDecoration(
+      //             color: Theme.of(context).primaryColor,
+      //             borderRadius: BorderRadius.circular(25),
+      //           ),
+      //           width: double.maxFinite,
+      //         ),
+      //       )),
+      // ),
       title: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(25),
-          color: Theme.of(context).primaryColor,
-        ),
+        // decoration: BoxDecoration(
+        //   borderRadius: BorderRadius.circular(25),
+        //   color: Theme.of(context).primaryColor,
+        // ),
         child: Padding(
           padding: const EdgeInsets.only(
               right: 16.0, left: 16.0, top: 10.0, bottom: 10.0),
           child: Text(
             title,
-            style: TextStyle(color: Colors.white),
+            style: StyleText.appBarHeaderStyle,
           ),
         ),
       ),
@@ -59,15 +61,16 @@ class CustomTwaslnaAppBar {
                   customBorder: CircleBorder(),
                   onTap: onTap ?? () => Navigator.of(context).pop(),
                   child: Container(
-                    decoration: BoxDecoration(
-                        color:
-                            buttonBackground ?? Theme.of(context).primaryColor,
-                        shape: BoxShape.circle),
+                    decoration:icon == Icons.menu?
+                     BoxDecoration():BoxDecoration(
+                        color: StyleText.geyApp,
+                        borderRadius: BorderRadius.circular(8)) ,
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(3.0),
                       child: Icon(
                         icon ?? Icons.arrow_back,
-                        color: colorIcon ?? Colors.white,
+                        color: colorIcon?? Colors.grey.shade600,
+                        size: 35,
                       ),
                     ),
                   ),

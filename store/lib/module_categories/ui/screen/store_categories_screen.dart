@@ -59,7 +59,7 @@ class StoreCategoriesScreenState extends State<StoreCategoriesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomTwaslnaAppBar.appBar(context,
+      appBar: CustomMandopAppBar.appBar(context,
           title: S.of(context).storeCategories, icon: Icons.menu, onTap: () {
         GlobalVariable.mainScreenScaffold.currentState?.openDrawer();
       }),

@@ -36,7 +36,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomTwaslnaAppBar.appBar(context,
+      appBar: CustomMandopAppBar.appBar(context,
           title: S.of(context).settings, icon: Icons.arrow_back, onTap: () {
         Navigator.pop(context);
 

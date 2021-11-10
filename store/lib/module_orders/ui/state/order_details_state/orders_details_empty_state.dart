@@ -17,7 +17,7 @@ class OrderDetailsEmptyState extends OrderDetailsState {
   @override
   Widget getUI(BuildContext context) {
     return Scaffold(
-      appBar: CustomTwaslnaAppBar.appBar(context, title:S.current.orderDetails),
+      appBar: CustomMandopAppBar.appBar(context, title:S.current.orderDetails),
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         child: Flex(

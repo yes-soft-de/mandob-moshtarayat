@@ -57,7 +57,7 @@ class RegisterScreenState extends State<RegisterScreen> {
         }
       },
       child: Scaffold(
-        appBar: CustomTwaslnaAppBar.appBar(context,
+        appBar: CustomMandopAppBar.appBar(context,
             title: S.of(context).register,canGoBack: false),
 
         body: loadingSnapshot.connectionState != ConnectionState.waiting

@@ -783,7 +783,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "welcomeToOurApp":
             MessageLookupByLibrary.simpleMessage("WELCOME TO TWASLNA APP"),
         "welcomeTomandob_moshtarayat": MessageLookupByLibrary.simpleMessage(
-            "Welcome to mandob_moshtarayat"),
+            "Welcome to Mandob Moshtarayat"),
         "whatsapp": MessageLookupByLibrary.simpleMessage("Whatsapp"),
         "whatsappWithCaptain": MessageLookupByLibrary.simpleMessage("Captain"),
         "whatsappWithClient": MessageLookupByLibrary.simpleMessage("Client"),

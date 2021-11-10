@@ -17,7 +17,7 @@ class OrderDetailsErrorState extends OrderDetailsState {
   @override
   Widget getUI(BuildContext context) {
     return Scaffold(
-      appBar: CustomTwaslnaAppBar.appBar(context, title:S.of(context).orderDetails,buttonBackground:Colors.red),
+      appBar: CustomMandopAppBar.appBar(context, title:S.of(context).orderDetails,buttonBackground:Colors.red),
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         child: Container(

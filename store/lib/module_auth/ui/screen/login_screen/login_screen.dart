@@ -63,8 +63,9 @@ class LoginScreenState extends State<LoginScreen> {
         }
       },
       child: Scaffold(
-        appBar: CustomTwaslnaAppBar.appBar(context,
+        appBar: CustomMandopAppBar.appBar(context,
             title: S.of(context).login, canGoBack: false),
+
         body: loadingSnapshot.connectionState != ConnectionState.waiting
             ? _currentStates.getUI(context)
             : Stack(

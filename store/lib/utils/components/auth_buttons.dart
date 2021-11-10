@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
+import 'package:mandob_moshtarayat/utils/text_style/text_style.dart';
 
 class AuthButtons extends StatelessWidget {
   final String firstButtonTitle;
@@ -48,8 +49,9 @@ class AuthButtons extends StatelessWidget {
                     onSurface: Theme.of(context).primaryColor,
                     elevation: 0,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25),
+                      borderRadius: BorderRadius.circular(12),
                     ),
+
                   ),
                   child: Center(
                     child: loading!
@@ -59,7 +61,8 @@ class AuthButtons extends StatelessWidget {
                           )
                         : Text(
                             firstButtonTitle,
-                            style: TextStyle(
+                            style:
+                            TextStyle(
                               color: firstButtonTab != null
                                   ? Colors.white
                                   : Theme.of(context).disabledColor,
@@ -80,13 +83,13 @@ class AuthButtons extends StatelessWidget {
                     elevation: 0,
                     primary: Theme.of(context).backgroundColor,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25),
+                      borderRadius: BorderRadius.circular(12),
                     ),
                   ),
                   child: Center(
                     child: Text(
                       secondButtonTitle,
-                      style: TextStyle(),
+                      style: StyleText.textsAlmaraiNormal,
                     ),
                   )),
             ),

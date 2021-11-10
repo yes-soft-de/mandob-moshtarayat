@@ -37,7 +37,7 @@ class _AddProductsFormState extends State<AddProductsForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomTwaslnaAppBar.appBar(context, title: S.current.addProducts),
+      appBar: CustomMandopAppBar.appBar(context, title: S.current.addProducts),
       body: StackedForm(
           child: Form(
             key: _key,
@@ -165,7 +165,7 @@ class _UpdateProductsFormState extends State<UpdateProductsForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomTwaslnaAppBar.appBar(context, title: S.current.updateProduct),
+      appBar: CustomMandopAppBar.appBar(context, title: S.current.updateProduct),
       body: StackedForm(
           child: Form(
             key: _key,

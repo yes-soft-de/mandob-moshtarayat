@@ -31,9 +31,11 @@ class LoginStateInit extends LoginState {
             physics:
                 BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
             children: [
+              Container(height: 50,),
               MediaQuery.of(context).viewInsets.bottom == 0
-                  ? SvgPicture.asset(
-                      SvgAsset.WE_DELIVER,
+                  ? Image.asset(
+                      ImageAsset.LOGO,
+                      height: 250,
                       width: 150,
                     )
                   : Container(),

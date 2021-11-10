@@ -177,7 +177,7 @@
 //                             width: MediaQuery.of(context).size.width,
 //                             height: MediaQuery.of(context).size.height,
 //                             child: Scaffold(
-//                               appBar: CustomTwaslnaAppBar.appBar(context,
+//                               appBar: CustomMandopAppBar.appBar(context,
 //                                   title: S.current.updateStore),
 //                               backgroundColor:
 //                               Theme.of(context).scaffoldBackgroundColor,

@@ -10,6 +10,7 @@ import 'package:mandob_moshtarayat/module_auth/ui/widget/rigester/custom_registe
 import 'package:mandob_moshtarayat/utils/components/auth_buttons.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 import 'package:mandob_moshtarayat/utils/images/images.dart';
+import 'package:mandob_moshtarayat/utils/text_style/text_style.dart';
 
 class RegisterStateInit extends RegisterState {
   RegisterStateInit(RegisterScreenState screen,
@@ -35,7 +36,6 @@ class RegisterStateInit extends RegisterState {
   TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> _registerKey = GlobalKey<FormState>();
   bool agreed = false;
-  TextStyle tileStyle = TextStyle(fontWeight: FontWeight.w600);
 
   @override
   Widget getUI(BuildContext context) {
@@ -47,10 +47,12 @@ class RegisterStateInit extends RegisterState {
             physics:
                 BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
             children: [
+              Container(height: 50,),
               MediaQuery.of(context).viewInsets.bottom == 0
-                  ? SvgPicture.asset(
-                      SvgAsset.EMAIL,
-                      width: 150,
+                  ? Image.asset(
+                ImageAsset.LOGO,
+                height: 250,
+                width: 150,
                     )
                   : Container(),
               Padding(
@@ -58,7 +60,7 @@ class RegisterStateInit extends RegisterState {
                     bottom: 4.0, left: 32, right: 32, top: 8),
                 child: Text(
                   S.of(context).name,
-                  style: tileStyle,
+                  style: StyleText.textsAlmaraiNormalBold,
                 ),
               ),
               ListTile(
@@ -78,7 +80,7 @@ class RegisterStateInit extends RegisterState {
                     bottom: 4.0, left: 32, right: 32, top: 8),
                 child: Text(
                   S.of(context).username,
-                  style: tileStyle,
+                  style: StyleText.textsAlmaraiNormalBold,
                 ),
               ),
               ListTile(
@@ -98,7 +100,7 @@ class RegisterStateInit extends RegisterState {
                     bottom: 8.0, left: 32, right: 32, top: 8),
                 child: Text(
                   S.of(context).password,
-                  style: tileStyle,
+                  style: StyleText.textsAlmaraiNormalBold,
                 ),
               ),
               ListTile(
@@ -119,11 +121,11 @@ class RegisterStateInit extends RegisterState {
                 child: CheckboxListTile(
                     value: agreed,
                     title: Text(
-                        S.of(context).iAgreeToTheTermsOfServicePrivacyPolicy),
+                        S.of(context).iAgreeToTheTermsOfServicePrivacyPolicy,style: StyleText.textsAlmaraiNormal,),
                     onChanged: (v) {
                       agreed = v ?? false;
                       screen.refresh();
-                    }),
+                    })
               ),
               Container(
                 height: 175,

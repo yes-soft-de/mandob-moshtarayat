@@ -10,6 +10,7 @@ import 'package:mandob_moshtarayat/module_home/state_manager/home_state_manager.
 import 'package:mandob_moshtarayat/module_home/widget/drawer.dart';
 import 'package:mandob_moshtarayat/module_main/ui/screen/main_screen.dart';
 import 'package:mandob_moshtarayat/module_profile/model/store_profile_model.dart';
+import 'package:mandob_moshtarayat/module_theme/service/theme_service/theme_service.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat/utils/images/images.dart';
 
@@ -34,8 +35,8 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomTwaslnaAppBar.appBar(context,
-          title: S.of(context).home, icon: Icons.menu, onTap: () {
+      appBar: CustomMandopAppBar.appBar(context,
+          title: S.of(context).home, icon: Icons.menu,colorIcon: AppThemeDataService.PrimaryDarker, onTap: () {
             MainScreenState.advancedController.showDrawer();
           }),
       body: AdvancedDrawer(
@@ -57,7 +58,7 @@ class HomeScreenState extends State<HomeScreen> {
                       child: Opacity(
                           opacity: 0.1,
                           child: Image.asset(
-                            ImageAsset.DELIVERY_MOTOR,
+                            ImageAsset.DELIVERY_CAR,
                             fit: BoxFit.cover,
                             alignment: Alignment.center,
                             height: 2000,

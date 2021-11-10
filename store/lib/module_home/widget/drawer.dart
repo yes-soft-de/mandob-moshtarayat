@@ -5,7 +5,9 @@ import 'package:mandob_moshtarayat/module_orders/orders_routes.dart';
 import 'package:mandob_moshtarayat/module_profile/model/store_profile_model.dart';
 import 'package:mandob_moshtarayat/module_profile/stores_routes.dart';
 import 'package:mandob_moshtarayat/module_settings/setting_routes.dart';
+import 'package:mandob_moshtarayat/module_theme/service/theme_service/theme_service.dart';
 import 'package:mandob_moshtarayat/utils/components/progresive_image.dart';
+import 'package:mandob_moshtarayat/utils/text_style/text_style.dart';
 
 class MenuScreen extends StatelessWidget {
   final StoreProfileModel profileModel;
@@ -52,8 +54,24 @@ class MenuScreen extends StatelessWidget {
                   Navigator.of(context)
                       .pushNamed(StoresRoutes.STORE_INFO);
                 },
-                leading: Icon(Icons.account_circle_rounded),
+                leading: Container(
+                    decoration: BoxDecoration(
+                        color: AppThemeDataService.PrimaryColor,
+                        borderRadius: BorderRadius.circular(8)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Icon(Icons.account_circle_rounded,color: Colors.white,),
+                    )),
                 title: Text('${S.of(context).profile}'),
+                trailing: Container(
+                  decoration: BoxDecoration(
+                      color: StyleText.geyApp,
+                      borderRadius: BorderRadius.circular(8)),
+
+                    child: Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: Icon(Icons.arrow_forward),
+                    )),
               ),
 
               ListTile(
@@ -61,8 +79,25 @@ class MenuScreen extends StatelessWidget {
                   Navigator.of(context)
                       .pushNamed(OrdersRoutes.ORDERS);
                 },
-                leading: Icon(Icons.history),
+                leading: Container(
+                    decoration: BoxDecoration(
+                        color: AppThemeDataService.PrimaryColor,
+                        borderRadius: BorderRadius.circular(8)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Icon(Icons.history,color: Colors.white,),
+                    )),
                 title: Text('${S.of(context).orderLog}'),
+                trailing: Container(
+                    decoration: BoxDecoration(
+                        color: StyleText.geyApp,
+                        borderRadius: BorderRadius.circular(8)),
+
+                    child: Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: Icon(Icons.arrow_forward),
+                    )),
+
               ),
               ListTile(
                 onTap: () {
@@ -72,24 +107,74 @@ class MenuScreen extends StatelessWidget {
                   // }
                   Navigator.of(context).pushNamed(SettingRoutes.ROUTE_SETTINGS);
                 },
-                leading: Icon(Icons.settings),
+                leading: Container(
+                    decoration: BoxDecoration(
+                        color: AppThemeDataService.PrimaryColor,
+                        borderRadius: BorderRadius.circular(8)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Icon(Icons.settings,color: Colors.white,),
+                    )),
                 title: Text('${S.of(context).settings}'),
+                trailing: Container(
+                    decoration: BoxDecoration(
+                        color: StyleText.geyApp,
+                        borderRadius: BorderRadius.circular(8)),
+
+                    child: Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: Icon(Icons.arrow_forward),
+                    )),
+
               ),
               ListTile(
                 onTap: () {
                   // String url = 'https://yes_delivery-app.web.app/tos.html';
                   // launch(url);
                 },
-                leading: Icon(Icons.supervised_user_circle),
+                leading: Container(
+                    decoration: BoxDecoration(
+                        color: AppThemeDataService.PrimaryColor,
+                        borderRadius: BorderRadius.circular(8)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Icon(Icons.supervised_user_circle,color: Colors.white,),
+                    )),
                 title: Text('${S.of(context).termsOfService}'),
+                trailing: Container(
+                    decoration: BoxDecoration(
+                        color: StyleText.geyApp,
+                        borderRadius: BorderRadius.circular(8)),
+
+                    child: Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: Icon(Icons.arrow_forward),
+                    )),
+
               ),
               ListTile(
                 onTap: () {
                   // String url = 'https://yes_delivery-app.web.app/privacy.html';
                   // launch(url);
                 },
-                leading: Icon(Icons.privacy_tip),
+                leading: Container(
+                    decoration: BoxDecoration(
+                        color: AppThemeDataService.PrimaryColor,
+                        borderRadius: BorderRadius.circular(8)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Icon(Icons.privacy_tip,color: Colors.white,),
+                    )),
                 title: Text('${S.of(context).privacyPolicy}'),
+                trailing: Container(
+                    decoration: BoxDecoration(
+                        color: StyleText.geyApp,
+                        borderRadius: BorderRadius.circular(8)),
+
+                    child: Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: Icon(Icons.arrow_forward),
+                    )),
               ),
               Spacer(),
               DefaultTextStyle(
