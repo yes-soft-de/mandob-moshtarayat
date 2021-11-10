@@ -14,6 +14,8 @@ class ProductCreateRequest
 
     private $storeProductCategoryID;
 
+    private $discount;
+
     /**
      * @return mixed
      */

@@ -16,4 +16,6 @@ class ProductCreateResponse
 
     public $storeProductCategoryID;
 
+    public $discount;
+
 }

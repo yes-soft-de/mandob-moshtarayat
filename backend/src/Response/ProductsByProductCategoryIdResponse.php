@@ -10,6 +10,5 @@ class ProductsByProductCategoryIdResponse
     public $storeOwnerProfileID;
     public $storeProductCategoryID;
     public $image;
-    public $imageURL;
-    public $baseURL;
+    public $discount;
 }

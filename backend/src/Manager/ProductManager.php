@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\ProductEntity;
 use App\Repository\ProductEntityRepository;
 use App\Request\ProductCreateRequest;
+use App\Request\ProductUpdateByStoreOwnerRequest;
 use App\Request\ProductUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -119,4 +120,27 @@ class ProductManager
         return $entity;
     }
 
+    public function updateProductByStore(ProductUpdateByStoreOwnerRequest $request)
+    {
+        $entity = $this->productEntityRepository->find($request->getId());
+
+        if (!$entity) {
+            return null;
+        }
+        $entity = $this->autoMapping->mapToObject(ProductUpdateByStoreOwnerRequest::class, ProductEntity::class, $request, $entity);
+
+        $this->entityManager->flush();
+
+        return $entity;
+    }
+
+    public function getStoreProductCategoryIdLevel2()
+    {
+        return $this->productEntityRepository->getStoreProductCategoryIdLevel2();
+    }
+
+    public function getStoreProductCategoryIdOfLevel1($storeCategoryID, $StoreProductCategoryId)
+    {
+        return $this->productEntityRepository->getStoreProductCategoryIdOfLevel1($storeCategoryID, $StoreProductCategoryId);
+    }
 }

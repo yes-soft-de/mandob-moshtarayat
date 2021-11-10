@@ -43,6 +43,12 @@ class ProductEntity
     private $storeProductCategoryID;
 
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $discount;
+
+
     
     public function getId(): ?int
     {
@@ -108,4 +114,17 @@ class ProductEntity
 
         return $this;
     }
+
+    public function getDiscount(): ?int
+    {
+        return $this->discount;
+    }
+
+    public function setDiscount(?int $discount): self
+    {
+        $this->discount = $discount;
+
+        return $this;
+    }
+
 }

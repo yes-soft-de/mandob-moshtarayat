@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\ProductCreateRequest;
+use App\Request\ProductUpdateByStoreOwnerRequest;
 use App\Request\ProductUpdateRequest;
 use App\Service\ProductService;
 use stdClass;
@@ -50,7 +51,7 @@ class ProductController extends BaseController
     }
 
     /**
-     * @Route("/productscategory/{storeProductCategoryID}", name="getProductsByStoreProductCategoryID", methods={"GET"})
+     * @Route("/productscategory/{storeProductCategoryID}", name="productsByStoreProductCategoryID", methods={"GET"})
      * @param $storeProductCategoryID
      * @return JsonResponse
      */
@@ -210,6 +211,7 @@ class ProductController extends BaseController
      *          @OA\Property(type="string", property="productImage"),
      *          @OA\Property(type="number", property="productPrice"),
      *          @OA\Property(type="integer", property="storeProductCategoryID"),
+     *          @OA\Property(type="integer", property="discount"),
      *      )
      * )
      *
@@ -226,6 +228,7 @@ class ProductController extends BaseController
      *                  @OA\Property(type="number", property="productPrice"),
      *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
      *                  @OA\Property(type="integer", property="storeProductCategoryID"),
+     *                  @OA\Property(type="integer", property="discount"),
      *          )
      *      )
      * )
@@ -251,4 +254,88 @@ class ProductController extends BaseController
         return $this->response($result, self::CREATE);
     }
 
+    /**
+     * @Route("/updateproductbystore", name="updateProductByStore", methods={"PUT"})
+     * @IsGranted("ROLE_OWNER")
+     * @param Request $request
+     * @return JsonResponse
+     * *
+     * @OA\Tag(name="Product")
+     *
+     * @OA\RequestBody(
+     *      description="Update New Product",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="productName"),
+     *          @OA\Property(type="string", property="productImage"),
+     *          @OA\Property(type="number", property="productPrice"),
+     *          @OA\Property(type="integer", property="storeProductCategoryID"),
+     *          @OA\Property(type="integer", property="discount"),
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the new store owner's role and the creation date",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="productName"),
+     *                  @OA\Property(type="string", property="productImage"),
+     *                  @OA\Property(type="number", property="productPrice"),
+     *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                  @OA\Property(type="integer", property="storeProductCategoryID"),
+     *                  @OA\Property(type="integer", property="discount"),
+     *          )
+     *      )
+     * )
+     * @Security(name="Bearer")
+     */
+    public function updateProductByStore(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, ProductUpdateByStoreOwnerRequest::class, (object)$data);
+        $result = $this->productService->updateProductByStore($request);
+
+        return $this->response($result, self::CREATE);
+    }
+
+    /**
+     * @Route("/productsbystorecategory/{storeCategoryID}", name="getProductsByStoreCategoryID", methods={"GET"})
+     * @return JsonResponse
+     * *
+     * @OA\Tag(name="Product")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns products by store category ",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="productName"),
+     *                  @OA\Property(type="number", property="productPrice"),
+     *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                  @OA\Property(type="integer", property="storeProductCategoryID"),
+     *                  @OA\Property(type="object", property="image",
+     *                      @OA\Property(type="string", property="imageURL"),
+     *                      @OA\Property(type="string", property="image"),
+     *                      @OA\Property(type="string", property="baseURL"),
+     *                  ),
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     */
+    public function getProductsByStoreCategoryID($storeCategoryID)
+    {
+        $result = $this->productService->getProductsByStoreCategoryID($storeCategoryID);
+
+        return $this->response($result, self::FETCH);
+    }
 }
