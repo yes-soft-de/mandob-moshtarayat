@@ -39,7 +39,7 @@ class ProductModel {
     productsByCategory.data?.forEach((element) {
       models.add(ProductModel(
           title: element.productName ?? S.current.product,
-          image: element.productImage ?? '',
+          image: element.productImage?.image ?? '',
           price: element.productPrice ?? 0,
           id: element.id ?? -1));
     });
