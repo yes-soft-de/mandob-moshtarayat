@@ -174,7 +174,7 @@ class ProductEntityRepository extends ServiceEntityRepository
     public function getProductsByStoreProductCategoryID($storeProductCategoryID)
     {
         return $this->createQueryBuilder('product')
-        ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID')
+        ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount')
 
         ->andWhere('product.storeProductCategoryID = :storeProductCategoryID')
         ->setParameter('storeProductCategoryID',$storeProductCategoryID)
