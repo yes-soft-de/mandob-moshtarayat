@@ -59,7 +59,7 @@ class OrderDetailsLoadedState extends OrderDetailsState {
                   ),
                 ) : SizedBox(),
 
-             Container(
+          orderDetails.order.orderType != 3 ? SizedBox() :  Container(
                   color: Theme.of(context).primaryColor,
                   height: height,
                   width: width,
@@ -80,14 +80,13 @@ class OrderDetailsLoadedState extends OrderDetailsState {
                     screenState.deleteOrder(screenState.orderNumber ?? -1);
                   }
                 : null,
-            collapsed: orderDetails.order.orderType != 3,
+            collapsed: orderDetails.order.orderType == 3,
             edit: edit,
           ),
           Align(
             alignment: Alignment.bottomCenter,
             child: orderDetails.order.orderType != 3
-                ? Container()
-                : Container(
+                ? Container(
               height:height * 0.78 ,
                     decoration: BoxDecoration(
                         borderRadius:
@@ -100,7 +99,7 @@ class OrderDetailsLoadedState extends OrderDetailsState {
                         rate: orderDetails.storeInfo.rating,
                       ),
                     ),
-                  ),
+                  ) : SizedBox(),
           ),
           Align(
             alignment: Alignment.bottomCenter,
@@ -110,8 +109,8 @@ class OrderDetailsLoadedState extends OrderDetailsState {
               children: [
                 Container(
                   height: orderDetails.order.orderType != 3
-                      ? height * 0.875
-                      : height * 0.70,
+                      ? height * 0.70
+                      : height * 0.875,
                   decoration: BoxDecoration(
                     borderRadius:
                         BorderRadius.vertical(top: Radius.circular(18)),
