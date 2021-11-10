@@ -190,4 +190,12 @@ class ProductService
 
         return $item;
     }
+
+    public function updateProductByStore($request)
+    {
+        $item = $this->productManager->updateProductByStore($request);
+
+        return $this->autoMapping->map(ProductEntity::class, ProductCreateResponse::class, $item);
+    }
+
 }

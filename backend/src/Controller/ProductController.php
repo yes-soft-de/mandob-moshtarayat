@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\ProductCreateRequest;
+use App\Request\ProductUpdateByStoreOwnerRequest;
 use App\Request\ProductUpdateRequest;
 use App\Service\ProductService;
 use stdClass;
@@ -247,6 +248,22 @@ class ProductController extends BaseController
         }
 
         $result = $this->productService->createProductByStore($request, $this->getUserId());
+
+        return $this->response($result, self::CREATE);
+    }
+
+    /**
+     * @Route("/updateproductbystore", name="updateProductByStore", methods={"PUT"})
+     * @IsGranted("ROLE_OWNER")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function updateProductByStore(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, ProductUpdateByStoreOwnerRequest::class, (object)$data);
+        $result = $this->productService->updateProductByStore($request);
 
         return $this->response($result, self::CREATE);
     }
