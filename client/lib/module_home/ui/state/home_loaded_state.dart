@@ -40,7 +40,7 @@ class HomeLoadedState extends HomeState {
         children: [
           CustomHomeAppBar(categoriesCallback: (title){
             if (title != S.current.home) {
-              screenState.currentState = HomeLoadedFilterState(screenState,categories: categories,topProducts: topProducts,bestStores: bestStores);
+              screenState.getCategories(title, categories);
               screenState.refresh();
             }
           },categories: categories,),

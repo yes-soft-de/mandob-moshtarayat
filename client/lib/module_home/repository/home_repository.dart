@@ -32,7 +32,7 @@ class HomeRepository {
   }
 
   Future<SubCategoriesResponse?> getSubCategories(String categoriesID) async {
-    dynamic response = await _apiClient.get(Urls.GET_STORE_CATEGORIES_API + categoriesID);
+    dynamic response = await _apiClient.get(Urls.GET_SUBCATEGORIES_API + categoriesID);
     if (response == null) return null;
     return SubCategoriesResponse.fromJson(response);
   }

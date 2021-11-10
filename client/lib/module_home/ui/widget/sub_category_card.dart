@@ -6,8 +6,8 @@ class SubCategoryCard extends StatelessWidget {
   final IconData icon;
   final bool selected;
   final Function(String)? onTap;
-
-  SubCategoryCard({required this.title,required this.icon,required this.selected, this.onTap});
+  final String id;
+  SubCategoryCard({required this.id,required this.title,required this.icon,required this.selected, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +17,10 @@ class SubCategoryCard extends StatelessWidget {
         borderRadius:  BorderRadius.circular(25),
         onTap: (){
           if (onTap!= null){
-            onTap!(title);
+            onTap!(id);
           }
         },
         child: Container(
-          width: 100,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(25),
             color:selected ?Theme.of(context).primaryColor : Theme.of(context).backgroundColor,
