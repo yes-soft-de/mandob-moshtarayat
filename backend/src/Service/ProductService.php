@@ -198,4 +198,21 @@ class ProductService
         return $this->autoMapping->map(ProductEntity::class, ProductCreateResponse::class, $item);
     }
 
+    public function getProductsByStoreCategoryID($storeCategoryID): ?array
+    {
+        $response = [];
+        $storeProductCategoriesIdsLevel2 = $this->productManager->getStoreProductCategoryIdLevel2();
+
+        foreach ($storeProductCategoriesIdsLevel2 as $storeProductCategoryIdLevel2 ) {
+
+            $products = $this->productManager->getStoreProductCategoryIdOfLevel1($storeCategoryID, $storeProductCategoryIdLevel2['storeProductCategoryID']);
+
+            foreach ($products as $item) {
+                $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
+                $response[] = $this->autoMapping->map('array', ProductsByProductCategoryIdResponse::class, $item);
+            }
+            }
+        return $response;
+    }
+
 }

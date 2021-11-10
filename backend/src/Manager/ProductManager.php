@@ -133,4 +133,14 @@ class ProductManager
 
         return $entity;
     }
+
+    public function getStoreProductCategoryIdLevel2()
+    {
+        return $this->productEntityRepository->getStoreProductCategoryIdLevel2();
+    }
+
+    public function getStoreProductCategoryIdOfLevel1($storeCategoryID, $StoreProductCategoryId)
+    {
+        return $this->productEntityRepository->getStoreProductCategoryIdOfLevel1($storeCategoryID, $StoreProductCategoryId);
+    }
 }

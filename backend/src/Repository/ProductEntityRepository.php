@@ -7,6 +7,8 @@ use App\Entity\StoreOwnerProfileEntity;
 use App\Entity\StoreOwnerBranchEntity;
 use App\Entity\OrderDetailEntity;
 use App\Entity\DeliveryCompanyFinancialEntity;
+use App\Entity\StoreCategoryEntity;
+use App\Entity\StoreProductCategoryEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
@@ -219,6 +221,37 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->setParameter('productName', '%'.$name.'%')
 
             ->setMaxResults(20)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getStoreProductCategoryIdLevel2()
+    {
+        return $this->createQueryBuilder('product')
+
+            ->select('StoreProductCategoryEntity.storeCategoryID','StoreProductCategoryEntity.storeProductCategoryID','StoreProductCategoryEntity.id')
+            ->leftJoin(StoreProductCategoryEntity::class, 'StoreProductCategoryEntity', Join::WITH, 'StoreProductCategoryEntity.id = product.storeProductCategoryID')
+            ->andWhere('StoreProductCategoryEntity.isLevel2 = :isLevel2')
+
+            ->setParameter('isLevel2',1)
+            ->getQuery()
+            ->getResult();
+
+    }
+
+    public function getStoreProductCategoryIdOfLevel1($storeCategoryID, $storeProductCategoryId)
+    {
+//        var_dump($storeCategoryID, $storeProductCategoryId);
+        return $this->createQueryBuilder('product')
+            ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID')
+
+            ->join(StoreProductCategoryEntity::class, 'StoreProductCategoryEntity')
+
+            ->andWhere('StoreProductCategoryEntity.id = :storeProductCategoryId')
+            ->andWhere('StoreProductCategoryEntity.storeCategoryID = :storeCategoryID')
+            ->andWhere('StoreProductCategoryEntity.storeCategoryID = :storeCategoryID')
+            ->setParameter('storeProductCategoryId',$storeProductCategoryId)
+            ->setParameter('storeCategoryID',$storeCategoryID)
             ->getQuery()
             ->getResult();
     }
