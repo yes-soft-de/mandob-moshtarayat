@@ -64,16 +64,19 @@ class StoreProductsScreenState extends State<StoreProductsScreen> {
   }
 
   bool flag = true;
-  late String title;
   int storeId  = -1;
   late String backgroundImage;
   @override
   Widget build(BuildContext context) {
     var args = ModalRoute.of(context)?.settings.arguments;
     if (flag && args is StoreModel) {
-      title = args.storeOwnerName;
       storeId = args.id;
       widget.stateManager.getStoresProducts(args.id, this);
+      flag = false;
+    }
+    else if (flag && args is Map){
+      storeId = int.parse(args['storeId']);
+      widget.stateManager.getStoresProducts(int.parse(args['storeId']), this);
       flag = false;
     }
     return GestureDetector(

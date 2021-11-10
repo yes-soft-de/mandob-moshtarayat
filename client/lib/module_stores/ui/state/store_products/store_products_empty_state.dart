@@ -18,7 +18,7 @@ class StoreProductsEmptyState extends StoreProductsState {
   @override
   Widget getUI(BuildContext context) {
     return Scaffold(
-      appBar: CustomTwaslnaAppBar.appBar(context, title: screenState.title),
+      appBar: CustomTwaslnaAppBar.appBar(context, title: S.current.storeProducts),
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         child: Flex(
