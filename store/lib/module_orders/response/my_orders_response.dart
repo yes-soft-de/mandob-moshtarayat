@@ -9,10 +9,20 @@ class MyOrdersResponse {
   MyOrdersResponse({this.statusCode, this.msg, this.data});
 
   MyOrdersResponse.fromJson(dynamic json) {
+    //   statusCode = json['status_code'];
+    //   msg = json['msg'];
+    //   if (json['Data'] != null && statusCode==200) {
+    //     data = [];
+    //     json['Data'].forEach((v) {
+    //       data?.add(Data.fromJson(v));
+    //     });
+    //   }
+    // }
+    // }
     try {
       statusCode = json['status_code'];
       msg = json['msg'];
-      if (json['Data'] != null) {
+      if (json['Data'] != null && statusCode ==200) {
         data = [];
         json['Data'].forEach((v) {
           data?.add(Data.fromJson(v));
@@ -25,17 +35,17 @@ class MyOrdersResponse {
     }
   }
 
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
-    map['status_code'] = statusCode;
-    map['msg'] = msg;
-    if (data != null) {
-      map['Data'] = data?.map((v) => v.toJson()).toList();
-    }
-    return map;
-  }
+// Map<String, dynamic> toJson() {
+//   var map = <String, dynamic>{};
+//   map['status_code'] = statusCode;
+//   map['msg'] = msg;
+//   if (data != null) {
+//     map['Data'] = data?.map((v) => v.toJson()).toList();
+//   }
+//   return map;
+// }
+// }
 }
-
 class Data {
   DeliveryDate? deliveryDate;
   String? state;

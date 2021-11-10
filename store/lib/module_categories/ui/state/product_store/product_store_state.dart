@@ -147,7 +147,7 @@ class ProductStoreState extends States {
                               productImage: image,
                               productPrice:double.parse(price),
                               storeProductCategoryID:element.storeProductCategoryID,
-                              storeOwnerProfileID: element.storeOwnerProfileID
+                              // storeOwnerProfileID: element.storeOwnerProfileID
                           ));
                         },
                       );

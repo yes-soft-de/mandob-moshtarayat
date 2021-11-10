@@ -679,8 +679,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "storeUpdatedSuccessfully":
             MessageLookupByLibrary.simpleMessage("Store Updated Successfully"),
         "stores": MessageLookupByLibrary.simpleMessage("Stores"),
-        "storesInActive":
-            MessageLookupByLibrary.simpleMessage("Stores In Active"),
+        "storesInActive": MessageLookupByLibrary.simpleMessage(
+            "Store Account In Active , Please wait the administration to activate your account"),
         "storesList": MessageLookupByLibrary.simpleMessage("Stores List"),
         "storesReports": MessageLookupByLibrary.simpleMessage("Stores Report"),
         "submittingProfile":

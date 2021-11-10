@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.yessoft.mandob_moshtarayat.store">
    <application
-        android:label="mandob_moshtarayat"
+        android:label="Mandob Store"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

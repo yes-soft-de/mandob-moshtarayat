@@ -7,7 +7,9 @@ import 'package:mandob_moshtarayat/module_orders/ui/screen/OngoingOrdersScreen.d
 import 'package:mandob_moshtarayat/module_orders/ui/widget/my_orders/order_card.dart';
 import 'package:mandob_moshtarayat/utils/components/fixed_container.dart';
 
-class OnGoingOrdersLoadedState extends States {
+import 'ongoing_orders_state.dart';
+
+class OnGoingOrdersLoadedState extends OngoingState {
   OnGoingOrdersScreenState screenState;
   List<OrderModel> orders;
 

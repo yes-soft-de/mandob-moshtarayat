@@ -1,5 +1,9 @@
 import 'dart:async';
 import 'package:injectable/injectable.dart';
+import 'package:mandob_moshtarayat/module_orders/ui/state/ongoing_orders/onGoing_orders_loading_state.dart';
+import 'package:mandob_moshtarayat/module_orders/ui/state/ongoing_orders/ongoing_orders_empty_state.dart';
+import 'package:mandob_moshtarayat/module_orders/ui/state/ongoing_orders/ongoing_orders_error_state.dart';
+import 'package:mandob_moshtarayat/module_orders/ui/state/ongoing_orders/ongoing_orders_state.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:mandob_moshtarayat/abstracts/states/loading_state.dart';
 import 'package:mandob_moshtarayat/abstracts/states/state.dart';
@@ -20,10 +24,10 @@ import 'package:mandob_moshtarayat/module_orders/ui/state/ongoing_orders/ongoing
 class OnGoingOrdersStateManager {
   final OrdersService _myOrdersService;
   final AuthService _authService;
-  final PublishSubject<States> _stateSubject =
-  PublishSubject<States>();
+  final PublishSubject<OngoingState> _stateSubject =
+  PublishSubject<OngoingState>();
 
-  Stream<States> get stateStream => _stateSubject.stream;
+  Stream<OngoingState> get stateStream => _stateSubject.stream;
 
   OnGoingOrdersStateManager(
       this._myOrdersService, this._authService);
@@ -32,16 +36,17 @@ class OnGoingOrdersStateManager {
 
   void getOrders(OnGoingOrdersScreenState screenState) {
     if (_authService.isLoggedIn) {
-      _stateSubject.add(LoadingState(screenState));
+      _stateSubject.add(OnGoingOrdersLoadingState(screenState));
       _myOrdersService.getOngoingOrders().then((value) {
         if (value.hasError) {
-          _stateSubject.add(MyOrdersErrorState(
+          print(value.error);
+          _stateSubject.add(OnGoingOrdersErrorState(
               screenState, value.error ?? S.current.errorHappened,refresh: (){
                 getOrders(screenState);
           }));
         } else if (value.isEmpty) {
           _stateSubject
-              .add(MyOrdersEmptyState(screenState, S.current.homeDataEmpty,refresh: (){
+              .add(OnGoingOrdersEmptyState(screenState, S.current.homeDataEmpty,refresh: (){
                 getOrders(screenState);
           }));
         } else {
