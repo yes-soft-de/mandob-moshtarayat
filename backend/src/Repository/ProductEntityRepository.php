@@ -44,7 +44,7 @@ class ProductEntityRepository extends ServiceEntityRepository
     public function getProductsByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId)
     {
         return $this->createQueryBuilder('product')
-            ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID','product.discount')
+            ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID','product.discount','product.description')
 
             ->andWhere('product.storeProductCategoryID =:storeProductCategoryID')
             ->andWhere('product.storeOwnerProfileID =:storeOwnerProfileId')
@@ -58,7 +58,7 @@ class ProductEntityRepository extends ServiceEntityRepository
     public function getProducts()
     {
         return $this->createQueryBuilder('product')
-            ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID','product.discount')
+            ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID','product.discount', 'product.description')
 
             ->getQuery()
             ->getResult();
@@ -67,7 +67,7 @@ class ProductEntityRepository extends ServiceEntityRepository
     public function getProductByIdWithFullInfo($id)
     {
         return $this->createQueryBuilder('product')
-            ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID')
+            ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.description')
 
             ->addSelect('storeOwnerProfile.id as storeOwnerProfileID', 'storeOwnerProfile.storeOwnerName as storeOwnerName','storeOwnerProfile.storeOwnerID', 'storeOwnerProfile.image', 'storeOwnerProfile.story', 'storeOwnerProfile.free', 'storeOwnerProfile.status', 'storeOwnerProfile.phone', 'storeOwnerProfile.storeOwnerID')
 
@@ -87,7 +87,7 @@ class ProductEntityRepository extends ServiceEntityRepository
     public function getProductsTopWanted()
     {
         return $this->createQueryBuilder('product')
-            ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID','product.discount')
+            ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID','product.discount', 'product.description')
 
             ->addSelect('count(orderDetailEntity.productID) as countProduct, orderDetailEntity.productID')
 
@@ -120,7 +120,7 @@ class ProductEntityRepository extends ServiceEntityRepository
     public function productsTopWantedOfSpecificStoreOwner($storeOwnerProfileId)
     {
         return $this->createQueryBuilder('product')
-             ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID')
+             ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount','product.description')
 
             ->addSelect('count(orderDetailEntity.productID) as countProduct, orderDetailEntity.productID')
 
@@ -152,7 +152,7 @@ class ProductEntityRepository extends ServiceEntityRepository
     public function getStoreProductsByProfileId($storeOwnerProfileId)
     {
         return $this->createQueryBuilder('product')
-        ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount')
+        ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount','product.description')
        
         ->andWhere('product.storeOwnerProfileID = :storeOwnerProfileId')
         ->setParameter('storeOwnerProfileId',$storeOwnerProfileId)
@@ -163,7 +163,7 @@ class ProductEntityRepository extends ServiceEntityRepository
     public function getStoreProducts($storeOwnerProfileId)
     {
         return $this->createQueryBuilder('product')
-        ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount')
+        ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount','product.description')
 
         ->andWhere('product.storeOwnerProfileID = :storeOwnerProfileId')
         ->setParameter('storeOwnerProfileId',$storeOwnerProfileId)
@@ -185,7 +185,7 @@ class ProductEntityRepository extends ServiceEntityRepository
     public function getProductsByStoreProfileIDAndStoreProductCategoryID($storeOwnerProfileID, $storeProductCategoryID)
     {
         return $this->createQueryBuilder('product')
-        ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount')
+        ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount','product.description')
 
         ->andWhere('product.storeProductCategoryID = :storeProductCategoryID')
         ->andWhere('product.storeOwnerProfileID = :storeOwnerProfileID')
@@ -243,7 +243,7 @@ class ProductEntityRepository extends ServiceEntityRepository
     {
 //        var_dump($storeCategoryID, $storeProductCategoryId);
         return $this->createQueryBuilder('product')
-            ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID','product.discount')
+            ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID','product.discount', 'product.description')
 
             ->join(StoreProductCategoryEntity::class, 'StoreProductCategoryEntity')
 

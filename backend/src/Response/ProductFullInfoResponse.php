@@ -17,4 +17,5 @@ class ProductFullInfoResponse
     public $branchName;
     public $deliveryCost;
     public $discount;
+    public $description;
 }
