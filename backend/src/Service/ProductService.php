@@ -43,6 +43,8 @@ class ProductService
         $items = $this->productManager->getProductsByProductCategoryId($storeProductCategoryID);
         foreach ($items as $item) {
             $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
+            $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
+            $item['soldCount'] = $this->getProductsSoldCount($item['id']);
             $response[] = $this->autoMapping->map('array', ProductsByProductCategoryIdResponse::class, $item);
         }
         return $response;
@@ -54,6 +56,8 @@ class ProductService
         $items = $this->productManager->getProductsByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId);
         foreach ($items as $item) {
             $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
+            $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
+            $item['soldCount'] = $this->getProductsSoldCount($item['id']);
             $response[] = $this->autoMapping->map('array', ProductsByProductCategoryIdResponse::class, $item);
         }
         return $response;
@@ -116,7 +120,8 @@ class ProductService
         $items = $this->productManager->getStoreProductsByProfileId($storeOwnerProfileId);
         foreach ($items as $item) {
             $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
-
+            $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
+            $item['soldCount'] = $this->getProductsSoldCount($item['id']);
             $response[] = $this->autoMapping->map('array', ProductsByProductCategoryIdResponse::class, $item);
         }
         return $response;
@@ -129,6 +134,8 @@ class ProductService
         $items = $this->productManager->getStoreProducts($storeOwnerProfileId);
         foreach ($items as $item) {
             $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
+            $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
+            $item['soldCount'] = $this->getProductsSoldCount($item['id']);
             $response[] = $this->autoMapping->map('array', ProductsByProductCategoryIdResponse::class, $item);
         }
         return $response;
@@ -219,6 +226,8 @@ class ProductService
 
             foreach ($products as $item) {
                 $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
+                $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
+                $item['soldCount'] = $this->getProductsSoldCount($item['id']);
                 $response[] = $this->autoMapping->map('array', ProductsByProductCategoryIdResponse::class, $item);
             }
             }
