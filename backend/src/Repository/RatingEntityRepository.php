@@ -31,7 +31,7 @@ class RatingEntityRepository extends ServiceEntityRepository
                ->setParameter('itemType', $itemType)
 
                ->getQuery()
-               ->getOneOrNullResult();
+               ->getSingleScalarResult();
     }
     public function getAvgOrder($orderNumber)
     {

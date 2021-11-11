@@ -141,9 +141,16 @@ class ProductService
         foreach ($items as $item) {
             $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
             $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
+            $item['soldCount'] = $this->getProductsSoldCount($item['id']);
             $response[] = $this->autoMapping->map('array', ProductsByProductCategoryIdResponse::class, $item);
         }
         return $response;
+    }
+
+    public function getProductsSoldCount($id)
+    {
+        return $this->productManager->getProductsSoldCount($id);
+
     }
 
     public function getProductsByStoreProfileIDAndStoreProductCategoryID($storeOwnerProfileId, $storeProductCategoryID): ?array

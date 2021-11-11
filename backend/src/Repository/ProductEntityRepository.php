@@ -255,4 +255,17 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getProductsSoldCount($id)
+    {
+        return $this->createQueryBuilder('product')
+            ->select('sum(orderDetailEntity.countProduct) as soldCount')
+            ->leftJoin(OrderDetailEntity::class, 'orderDetailEntity', Join::WITH, 'orderDetailEntity.productID = product.id')
+
+            ->andWhere('product.id = :id')
+            ->setParameter('id',$id)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
 }
