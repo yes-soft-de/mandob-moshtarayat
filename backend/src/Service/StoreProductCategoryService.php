@@ -12,6 +12,7 @@ use App\Response\getProductCategoriesLevel2Response;
 use App\Response\StoreProductCategoryCreateResponse;
 use App\Response\StoreProductsCategoryLevelTwoAndStoreProductsResponse;
 use App\Response\StoreProductsCategoryResponse;
+use App\Response\StoreProductsCategoryWithProductsResponse;
 use App\Response\SubCategoriesAndProductsByStoreCategoryIDResponse;
 use App\Service\ProductService;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -123,5 +124,17 @@ class StoreProductCategoryService
         $item['baseURL'] = $baseURL;
 
         return $item;
+    }
+
+    public function getStoreProductsCategoryLevelTwoWithProductsByStoreProductCategoryID($storeProductCategoryID)
+    {
+        $response = [];
+        $items = $this->storeProductCategoryManager->getStoreProductsCategoryLevelTwoByStoreProductCategoryID($storeProductCategoryID);
+        foreach($items as $item) {
+            $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params.$item['productCategoryImage'], $this->params);
+            $item['products'] = $this->productService->getProductsByProductCategoryId($item['id']);
+            $response[] = $this->autoMapping->map('array', StoreProductsCategoryWithProductsResponse::class, $item);
+        }
+        return $response;
     }
 }

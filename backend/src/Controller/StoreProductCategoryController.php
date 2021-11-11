@@ -260,4 +260,16 @@ class StoreProductCategoryController extends BaseController
 
         return $this->response($result, self::FETCH);
       }
+
+    /**
+     * @Route("/storeproductscategoryleveltwowithproducts/{storeProductCategoryID}", name="getStoreProductsCategoryLevelTwoWithProductsByStoreProductCategoryID",methods={"GET"})
+     * @return JsonResponse
+     *
+     */
+    public function getStoreProductsCategoryLevelTwoWithProductsByStoreProductCategoryID($storeProductCategoryID)
+    {
+        $result = $this->storeProductCategoryService->getStoreProductsCategoryLevelTwoWithProductsByStoreProductCategoryID($storeProductCategoryID);
+
+        return $this->response($result, self::FETCH);
+    }
 }
