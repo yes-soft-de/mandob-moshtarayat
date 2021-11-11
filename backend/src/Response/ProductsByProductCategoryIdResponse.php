@@ -12,4 +12,5 @@ class ProductsByProductCategoryIdResponse
     public $image;
     public $discount;
     public $description;
+    public $rate;
 }
