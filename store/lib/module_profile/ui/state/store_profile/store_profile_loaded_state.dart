@@ -70,7 +70,7 @@ class StoreProfileLoadedState extends States {
       ),
       CustomListTile(
         title: S.current.categoryName,
-        subTitle: screenState.model?.categoryId,
+        subTitle: profile?.storeCategoryName,
       ),
       CustomListTile(
         title: S.current.storePhone,

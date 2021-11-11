@@ -34,10 +34,11 @@ class StoreProductScreenState
       currentState = event;
       refresh();
     });
+    widget._stateManager.getProductCategory(this,storeId??2);
     super.initState();
   }
   void getProductsCategories(){
-    widget._stateManager.getProductCategory(this,storeId??-1);
+    widget._stateManager.getProductCategory(this,storeId??2);
   }
   void createProduct(CreateProductRequest request){
     widget._stateManager.createProduct(this, request);
@@ -62,7 +63,6 @@ class StoreProductScreenState
       if (args is int) {
         storeId = args;
         flagArgs = false;
-        widget._stateManager.getProductCategory(this,storeId??-1);
       }
     }
     return Scaffold(

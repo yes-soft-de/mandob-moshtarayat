@@ -29,7 +29,7 @@ class StoreProductsStateManager {
 
   void getProductCategory(StoreProductScreenState screenState,int id) {
     _stateSubject.add(LoadingState(screenState));
-    _categoriesService.getProductsCategory(id).then((value) {
+    _categoriesService.getProductsCategoryLevelOne(id).then((value) {
       if (value.hasError) {
         _stateSubject.add(
             ProductStoreState(screenState, null,null ,error: value.error));

@@ -37,7 +37,9 @@ class StoreProfileResponse {
 
 class Data {
   int? id;
+  int? storeCategoryId;
   String? storeOwnerName;
+  String? storeCategoryName;
   // String? image;
   bool? free;
 
@@ -51,8 +53,10 @@ class Data {
   Date? closingTime;
 
   Data({
-      this.id, 
-      this.storeOwnerName, 
+      this.id,
+    this.storeCategoryId,
+      this.storeOwnerName,
+    this.storeCategoryName,
       // this.image,
 
       this.free, 
@@ -71,7 +75,9 @@ class Data {
 
   Data.fromJson(dynamic json) {
     id = json['id'];
+    storeCategoryId = json['storeCategoryId'];
     storeOwnerName = json['storeOwnerName'];
+    storeCategoryName = json['storeCategoryName'];
     // image = json['image'];
     free = json['free'];
 
@@ -83,8 +89,8 @@ class Data {
     hasProducts = json['hasProducts'];
     // openingTime=DateTime.now();
     // openingTime=DateTime.now();
-    // openingTime = json['openingTime'] != null ? Date.fromJson(json['openingTime']) : null;
-    // closingTime = json['closingTime'] != null ? Date.fromJson(json['closingTime']) : null;
+    openingTime = json['openingTime'] != null ? Date.fromJson(json['openingTime']) : null;
+    closingTime = json['closingTime'] != null ? Date.fromJson(json['closingTime']) : null;
   }
 
   // Map<String, dynamic> toJson() {

@@ -16,16 +16,16 @@ class StoreCategoriesModel extends DataModel {
   StoreCategoriesModel.withData(List<Data> data) : super.withData() {
     _models = [];
     for (var element in data) {
-      if (element.image != null && (element.image?.contains('original-image') ?? false) == false) {
-        int f = Random().nextInt(1600);
-        int s = Random().nextInt(900);
-        element.image = 'https://source.unsplash.com/${f}x${s}/?store';
-      }
+      // if (element.image != null && (element.image?.contains('original-image') ?? false) == false) {
+      //   int f = Random().nextInt(1600);
+      //   int s = Random().nextInt(900);
+      //   element.image = 'https://source.unsplash.com/${f}x${s}/?store';
+      // }
       _models.add(StoreCategoriesModel(
           id: element.id ?? -1,
           categoryName: element.storeCategoryName ?? S.current.storeCategories,
           categoryDescription: element.description ?? '',
-          image: element.image ?? '',
+          // image: element.image ?? '',
       ));
     }
   }
@@ -33,8 +33,7 @@ class StoreCategoriesModel extends DataModel {
   StoreCategoriesModel(
       {required this.id,
       required this.categoryName,
-      required this.categoryDescription,
-      required this.image});
+      required this.categoryDescription,});
 
   List<StoreCategoriesModel> get data => _models;
 }

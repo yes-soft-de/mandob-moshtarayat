@@ -9,8 +9,9 @@ import 'package:mandob_moshtarayat/utils/images/images.dart';
 class StoreProfileModel extends DataModel {
   int id = -1;
   String storeOwnerName = '';
-  String categoryId = '';
+  int categoryId = 1;
   String phone = '';
+  String storeCategoryName = '';
   num deliveryCost = 0;
   String image = '';
   bool privateOrders = false;
@@ -25,6 +26,7 @@ class StoreProfileModel extends DataModel {
       required this.storeOwnerName,
       required this.phone,
       required this.deliveryCost,
+        required this.storeCategoryName,
       required this.image,
       required this.privateOrders,
       required this.hasProducts,
@@ -34,9 +36,12 @@ class StoreProfileModel extends DataModel {
       });
 
   StoreProfileModel.withData(Data data) : super.withData() {
+    print(data.storeCategoryId);
+    print('fgdhsjk');
     _models = StoreProfileModel(
+      storeCategoryName: data.storeCategoryName??'',
         id: data.id ?? -1,
-        categoryId: '-1',
+        categoryId: data.storeCategoryId ??1,
         storeOwnerName: data.storeOwnerName ?? S.current.store,
         deliveryCost: data.deliveryCost ?? 0,
         hasProducts: data.hasProducts ?? false,

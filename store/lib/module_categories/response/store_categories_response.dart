@@ -44,19 +44,20 @@ class Data {
   int? id;
   String? storeCategoryName;
   String? description;
-  String? image;
+  // String? image;
 
   Data({
       this.id, 
       this.storeCategoryName, 
       this.description, 
-      this.image});
+      // this.image
+  });
 
   Data.fromJson(dynamic json) {
     id = json['id'];
     storeCategoryName = json['storeCategoryName'];
     description = json['description'];
-    image = json['image'];
+    // image = json['image'];
   }
 
   Map<String, dynamic> toJson() {
@@ -64,7 +65,7 @@ class Data {
     map['id'] = id;
     map['storeCategoryName'] = storeCategoryName;
     map['description'] = description;
-    map['image'] = image;
+    // map['image'] = image;
     return map;
 
   }

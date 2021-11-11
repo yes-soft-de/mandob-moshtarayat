@@ -37,10 +37,17 @@ class CategoriesRepository {
     if (response == null) return null;
     return ActionResponse.fromJson(response);
   }
-
-  Future<ProductsCategoryResponse?> getProductsCategory(int id) async {
+  Future<ProductsCategoryResponse?> getProductsCategoryLevelTwo(int levelOne) async {
     var token = await _authService.getToken();
-    dynamic response = await _apiClient.get(Urls.GET_PRODUCTS_CATEGORY + '$id',
+    dynamic response = await _apiClient.get(Urls.CATEGORY_LEVEL_TWO + '$levelOne',
+        headers: {'Authorization': 'Bearer ' + token.toString()});
+    if (response == null) return null;
+    return ProductsCategoryResponse.fromJson(response);
+  }
+
+  Future<ProductsCategoryResponse?> getProductsCategoryLevelOne(int mainCat) async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.get(Urls.CATEGORY_LEVEL_ONE + '$mainCat',
         headers: {'Authorization': 'Bearer ' + token.toString()});
     if (response == null) return null;
     return ProductsCategoryResponse.fromJson(response);

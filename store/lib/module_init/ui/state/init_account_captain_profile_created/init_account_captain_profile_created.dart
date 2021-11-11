@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mandob_moshtarayat/module_main/main_routes.dart';
-// import 'package:mandob_moshtarayat/module_orders/orders_routes.dart';
 
 class InitAccountStateProfileCreated extends InitAccountState {
   InitAccountStateProfileCreated(InitAccountScreenState screen) : super(screen);
