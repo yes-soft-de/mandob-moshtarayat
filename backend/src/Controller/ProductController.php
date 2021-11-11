@@ -135,7 +135,7 @@ class ProductController extends BaseController
      * @return JsonResponse
      * *
      * @OA\Tag(name="Product")
-     *
+
      * @OA\Response(
      *      response=200,
      *      description="Returns array of subcategory products ",
@@ -203,7 +203,12 @@ class ProductController extends BaseController
      * @return JsonResponse
      * *
      * @OA\Tag(name="Product")
-     *
+     *@OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
      * @OA\RequestBody(
      *      description="Create New Product",
      *      @OA\JsonContent(
@@ -261,13 +266,20 @@ class ProductController extends BaseController
      * @return JsonResponse
      * *
      * @OA\Tag(name="Product")
-     *
+     *@OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
      * @OA\RequestBody(
      *      description="Update New Product",
      *      @OA\JsonContent(
+     *          @OA\Property(type="integer", property="id"),
      *          @OA\Property(type="string", property="productName"),
      *          @OA\Property(type="string", property="productImage"),
-     *          @OA\Property(type="number", property="productPrice"),
+     *          @OA\Property(type="number", property="productPrice"),     *
+     *          @OA\Property(type="integer", property="storeOwnerProfileID"),
      *          @OA\Property(type="integer", property="storeProductCategoryID"),
      *          @OA\Property(type="integer", property="discount"),
      *      )
@@ -321,6 +333,7 @@ class ProductController extends BaseController
      *                  @OA\Property(type="number", property="productPrice"),
      *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
      *                  @OA\Property(type="integer", property="storeProductCategoryID"),
+     *                  @OA\Property(type="integer", property="discount"),
      *                  @OA\Property(type="object", property="image",
      *                      @OA\Property(type="string", property="imageURL"),
      *                      @OA\Property(type="string", property="image"),

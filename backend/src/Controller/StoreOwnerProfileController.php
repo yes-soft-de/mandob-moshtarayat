@@ -149,7 +149,12 @@ class StoreOwnerProfileController extends BaseController
      * @return JsonResponse
      * *
      * @OA\Tag(name="Store Owner Profile")
-     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
      * @OA\RequestBody(
      *      description="Update Store Owner Profile",
      *      @OA\JsonContent(
@@ -194,6 +199,7 @@ class StoreOwnerProfileController extends BaseController
      *      )
      *   )
      * )
+     * @Security(name="Bearer")
      */
     public function storeOwnerProfileUpdate(Request $request): JsonResponse
     {
