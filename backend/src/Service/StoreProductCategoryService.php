@@ -68,7 +68,7 @@ class StoreProductCategoryService
     public function getStoreProductsCategoryLevelOneByStoreCategoryID($storeCategoryID)
     {
         $response = [];
-       $items = $this->storeProductCategoryManager->getStoreProductsCategoryLevelOneByStoreCategoryID($storeCategoryID);
+       $items = $this->storeProductCategoryManager->getSubCategoriesByStoreCategoryID($storeCategoryID);
        foreach($items as $item) {
            $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params.$item['productCategoryImage'], $this->params);
 

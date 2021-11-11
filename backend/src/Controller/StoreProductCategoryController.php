@@ -120,7 +120,7 @@ class StoreProductCategoryController extends BaseController
      *              @OA\Items(
      *                  @OA\Property(type="integer", property="id"),
      *                  @OA\Property(type="string", property="productCategoryName"),
-     *                  @OA\Property(type="object", property="image",
+     *                  @OA\Property(type="object", property="productCategoryImage",
      *                      @OA\Property(type="string", property="imageURL"),
      *                      @OA\Property(type="string", property="image"),
      *                      @OA\Property(type="string", property="baseURL"),
@@ -213,6 +213,7 @@ class StoreProductCategoryController extends BaseController
      /**
      * @Route("/storeproductscategoryleveltwoandstoreproduct", name="getStoreProductsCategoryLevelTwoAndStoreProductsByStoreOWnerProfile",methods={"GET"})
      * @return JsonResponse
+      *@IsGranted("ROLE_OWNER")
       * @OA\Tag(name="Store Product Category")
       *
       * @OA\Response(
@@ -238,6 +239,7 @@ class StoreProductCategoryController extends BaseController
       *                  @OA\Property(type="number", property="productPrice"),
       *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
       *                  @OA\Property(type="integer", property="storeProductCategoryID"),
+      *                  @OA\Property(type="integer", property="discount"),
       *                  @OA\Property(type="object", property="image",
       *                      @OA\Property(type="string", property="imageURL"),
       *                      @OA\Property(type="string", property="image"),
