@@ -22,3 +22,8 @@ class SvgAsset {
   static const ACHIEVEMENT_SVG = ROOT + 'achievement.svg';
 
 }
+class LottieAsset {
+  static const ROOT = 'assets/animations/';
+  static const LOADING_CART = ROOT + 'cart_loading.json';
+
+}
