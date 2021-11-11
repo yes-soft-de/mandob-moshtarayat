@@ -26,8 +26,8 @@ class HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  Future<void> getHomeData() async {
-    widget._homeStateManager.getHomeData(this);
+  Future<void> getHomeData([bool loading = true]) async {
+    widget._homeStateManager.getHomeData(this,loading);
   }
 
   void getCategories(catId,categories) async {

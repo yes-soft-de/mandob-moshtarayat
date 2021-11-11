@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lottie/lottie.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_home/model/productsByCategoriesModel.dart';
 import 'package:mandob_moshtarayat/module_home/model/subCategoriesModel.dart';
@@ -15,7 +16,9 @@ import 'package:mandob_moshtarayat/module_products/products_routes.dart';
 import 'package:mandob_moshtarayat/module_stores/store_routes.dart';
 import 'package:mandob_moshtarayat/utils/components/progresive_image.dart';
 import 'package:mandob_moshtarayat/utils/customIcon/mandob_icons_icons.dart';
+import 'package:mandob_moshtarayat/utils/effect/checked.dart';
 import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
+import 'package:mandob_moshtarayat/utils/images/images.dart';
 import 'package:mandob_moshtarayat/utils/models/store.dart';
 import 'package:mandob_moshtarayat/utils/models/store_category.dart';
 
@@ -32,6 +35,7 @@ class HomeLoadedFilterState extends HomeState {
   String subCategory = '';
   String? subCategoryLevel2ID;
   List<SubcategoriesLevel2> catsLevel2 = [];
+
   @override
   Widget getUI(BuildContext context) {
     return RefreshIndicator(
@@ -44,42 +48,43 @@ class HomeLoadedFilterState extends HomeState {
           CustomHomeAppBar(
             categoriesCallback: (categoriesID) {
               if ('0' == categoriesID) {
-                screenState.getHomeData();
+                screenState.getHomeData(false);
+                screenState.refresh();
+              } else {
+                categoryID = categoriesID;
+                subCategory = '';
+                subCategoryLevel2ID = null;
+                screenState.getCategories(categoriesID, categories);
                 screenState.refresh();
               }
             },
             categories: categories,
           ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 4.0),
-            child: Container(
-              height: 65,
-              width: MediaQuery.of(context).size.width,
-              child: ListView(
-                physics: BouncingScrollPhysics(
-                    parent: AlwaysScrollableScrollPhysics()),
-                scrollDirection: Axis.horizontal,
-                children: _getSubCategories(),
-              ),
+          Container(
+            height: 65,
+            width: MediaQuery.of(context).size.width,
+            child: ListView(
+              physics: BouncingScrollPhysics(
+                  parent: AlwaysScrollableScrollPhysics()),
+              scrollDirection: Axis.horizontal,
+              children: _getSubCategories(),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
-            child: Container(
-              height: 65,
-              width: MediaQuery.of(context).size.width,
-              child: ListView(
-                physics: BouncingScrollPhysics(
-                    parent: AlwaysScrollableScrollPhysics()),
-                scrollDirection: Axis.horizontal,
-                children: _getSubCategoriesLevel2(),
-              ),
+          Container(
+            height: 65,
+            width: MediaQuery.of(context).size.width,
+            child: ListView(
+              physics: BouncingScrollPhysics(
+                  parent: AlwaysScrollableScrollPhysics()),
+              scrollDirection: Axis.horizontal,
+              children: _getSubCategoriesLevel2(),
             ),
           ),
-          Hider(
-            active:screenState.snapshot.hasData ,
-            child: Column(
-              children:_getProductsByCategories(),
+          Checked(
+            checked: screenState.snapshot.hasData && screenState.snapshot.connectionState != ConnectionState.waiting,
+            child: Lottie.asset(LottieAsset.LOADING_CART,repeat: true,width: 125,height: 125),
+            checkedWidget: Column(
+              children: _getProductsByCategories(),
             ),
           ),
           SizedBox(
@@ -102,12 +107,14 @@ class HomeLoadedFilterState extends HomeState {
             onTap: (selected) {
               subCategory = selected;
               catsLevel2 = element.productCategoriesLevel2;
+              subCategoryLevel2ID = null;
               screenState.refresh();
             }),
       );
     });
     return widgets;
   }
+
   List<Widget> _getSubCategoriesLevel2() {
     List<Widget> widgets = [];
     catsLevel2.forEach((element) {
@@ -126,20 +133,18 @@ class HomeLoadedFilterState extends HomeState {
     });
     return widgets;
   }
+
   List<Widget> _getProductsByCategories() {
     List<Widget> widgets = [];
     if (!screenState.snapshot.hasData) return widgets;
     screenState.snapshot.data.forEach((ProductsByCategoriesModel element) {
-      widgets.add(
-          ProductComponent(
-            productId: element.id.toString(),
-            storeId: element.storeOwnerProfileID.toString() ,
-            image: element.image,
-            title: element.productName,
-          )
-      );
+      widgets.add(ProductComponent(
+        productId: element.id.toString(),
+        storeId: element.storeOwnerProfileID.toString(),
+        image: element.image,
+        title: element.productName,
+      ));
     });
     return widgets;
   }
-
 }
