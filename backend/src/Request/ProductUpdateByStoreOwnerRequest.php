@@ -16,6 +16,8 @@ class ProductUpdateByStoreOwnerRequest
 
     private $discount;
 
+    private $description;
+
     /**
      * Get the value of ProductCategoryID
      */

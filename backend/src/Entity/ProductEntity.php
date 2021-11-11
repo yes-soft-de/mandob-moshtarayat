@@ -48,6 +48,11 @@ class ProductEntity
      */
     private $discount;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
+
 
     
     public function getId(): ?int
@@ -123,6 +128,18 @@ class ProductEntity
     public function setDiscount(?int $discount): self
     {
         $this->discount = $discount;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

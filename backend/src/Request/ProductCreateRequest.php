@@ -16,6 +16,8 @@ class ProductCreateRequest
 
     private $discount;
 
+    private $description;
+
     /**
      * @return mixed
      */
