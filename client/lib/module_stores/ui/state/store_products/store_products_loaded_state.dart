@@ -207,6 +207,9 @@ class StoreProductsLoadedState extends StoreProductsState {
     List<ProductsCard> prods = [];
     topWantedProducts.forEach((element) {
       prods.add(ProductsCard(
+        onTap: (){
+          Navigator.of(screenState.context).pushNamed(ProductsRoutes.PRODUCT_DETAILS_SCREEN,arguments:element.id);
+        },
           id: element.id,
           title: element.title,
           image: element.image,

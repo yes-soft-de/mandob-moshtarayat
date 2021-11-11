@@ -1,3 +1,4 @@
+import 'package:mandob_moshtarayat/module_home/response/products_by_categories_response.dart';
 import 'package:mandob_moshtarayat/module_stores/response/rating.dart';
 import 'package:mandob_moshtarayat/utils/logger/logger.dart';
 
@@ -35,7 +36,8 @@ class Data {
   double? deliveryCost;
   bool? privateOrders;
   bool? hasProducts;
-  Rating? rating;
+  String? rating;
+
   Data({
     this.id,
     this.storeOwnerName,
@@ -57,6 +59,6 @@ class Data {
     deliveryCost = json['deliveryCost']?.toDouble();
     privateOrders = json['privateOrders'];
     hasProducts = json['hasProducts'];
-    rating = json['rating'] != null ? Rating.fromJson(json['rating']) : null;
+    rating = json['rating'];
   }
 }

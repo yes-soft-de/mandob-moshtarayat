@@ -8,10 +8,11 @@ class StoreProfileResponse {
       this.data,});
 
   StoreProfileResponse.fromJson(dynamic json) {
+    statusCode = json['status_code'];
+    msg = json['msg'];
+    data = json['Data'] != null ? Data.fromJson(json['Data']) : null;
+
     try {
-      statusCode = json['status_code'];
-      msg = json['msg'];
-      data = json['Data'] != null ? Data.fromJson(json['Data']) : null;
     }
     catch (e){
       Logger().error('Store Profile Response', e.toString(), StackTrace.current);
@@ -57,7 +58,7 @@ class Data {
       this.status,});
 
   Data.fromJson(dynamic json) {
-    try {
+
       id = json['id'];
       storeOwnerName = json['storeOwnerName'];
       image = json['image'];
@@ -76,16 +77,13 @@ class Data {
       deliveryCost = json['deliveryCost'];
       privateOrders = json['privateOrders'];
       hasProducts = json['hasProducts'];
-      rating = json['rating'] != null ? Rating.fromJson(json['rating']) : null;
+      rating = json['rating'];
       openingTime = json['openingTime'] != null ? OpeningTime.fromJson(json['openingTime']) : null;
       closingTime = json['closingTime'] != null ? ClosingTime.fromJson(json['closingTime']) : null;
       storeCategoryId = json['storeCategoryId'];
       storeCategoryName = json['storeCategoryName'];
       status = json['status'];
-    }
-    catch (e) {
-     throw Exception(e);
-    }
+
   }
   int? id;
   String? storeOwnerName;
@@ -100,7 +98,7 @@ class Data {
   dynamic deliveryCost;
   bool? privateOrders;
   bool? hasProducts;
-  Rating? rating;
+  String? rating;
   OpeningTime? openingTime;
   ClosingTime? closingTime;
   int? storeCategoryId;
@@ -124,9 +122,6 @@ class Data {
     map['deliveryCost'] = deliveryCost;
     map['privateOrders'] = privateOrders;
     map['hasProducts'] = hasProducts;
-    if (rating != null) {
-      map['rating'] = rating?.toJson();
-    }
     if (openingTime != null) {
       map['openingTime'] = openingTime?.toJson();
     }
