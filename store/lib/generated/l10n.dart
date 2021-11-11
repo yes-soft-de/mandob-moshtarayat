@@ -890,10 +890,10 @@ class S {
     );
   }
 
-  /// `Welcome to mandob_moshtarayat`
+  /// `Welcome to Mandob Moshtarayat`
   String get welcomeTomandob_moshtarayat {
     return Intl.message(
-      'Welcome to mandob_moshtarayat',
+      'Welcome to Mandob Moshtarayat',
       name: 'welcomeTomandob_moshtarayat',
       desc: '',
       args: [],

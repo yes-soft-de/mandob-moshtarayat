@@ -74,7 +74,7 @@ class ProductCategoriesScreenState extends State<ProductCategoriesScreen> {
       }
     }
     return Scaffold(
-      appBar: CustomTwaslnaAppBar.appBar(context,
+      appBar: CustomMandopAppBar.appBar(context,
           title: S.of(context).productCategories,),
       body: currentState.getUI(context),
       floatingActionButton: Hider(

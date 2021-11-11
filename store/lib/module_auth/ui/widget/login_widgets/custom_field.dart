@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
+import 'package:mandob_moshtarayat/utils/text_style/text_style.dart';
 
 class CustomLoginFormField extends StatefulWidget {
   final double height;
@@ -40,7 +41,7 @@ class _CustomLoginFormFieldState extends State<CustomLoginFormField> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        color: Theme.of(context).backgroundColor,
+        color: StyleText.geyApp,
       ),
       child: Padding(
         padding: !clean ? EdgeInsets.only(bottom: 8.0) : EdgeInsets.zero,
@@ -81,6 +82,7 @@ class _CustomLoginFormFieldState extends State<CustomLoginFormField> {
           decoration: InputDecoration(
             border: InputBorder.none,
             hintText: widget.hintText,
+            hintStyle: StyleText.textsAlmaraiNormal,
             prefixIcon: widget.preIcon,
             suffixIcon: widget.password
                 ? IconButton(

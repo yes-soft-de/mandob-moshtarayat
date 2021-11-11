@@ -67,7 +67,7 @@ class StoreProductScreenState
     }
     return Scaffold(
       appBar:
-          CustomTwaslnaAppBar.appBar(context, title: S.current.storeProducts),
+          CustomMandopAppBar.appBar(context, title: S.current.storeProducts),
       body: currentState.getUI(context),
       floatingActionButton: ElevatedButton(
         onPressed: (){

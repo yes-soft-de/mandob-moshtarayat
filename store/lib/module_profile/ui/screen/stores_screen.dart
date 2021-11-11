@@ -61,7 +61,7 @@
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
-//       appBar: CustomTwaslnaAppBar.appBar(context,
+//       appBar: CustomMandopAppBar.appBar(context,
 //           title: S.of(context).storesList, icon: Icons.menu, onTap: () {
 //         GlobalVariable.mainScreenScaffold.currentState?.openDrawer();
 //       }),
@@ -80,7 +80,7 @@
 //                     width: MediaQuery.of(context).size.width,
 //                     height: MediaQuery.of(context).size.height,
 //                     child: Scaffold(
-//                       appBar: CustomTwaslnaAppBar.appBar(context,
+//                       appBar: CustomMandopAppBar.appBar(context,
 //                           title: S.current.addStore),
 //                       backgroundColor:
 //                           Theme.of(context).scaffoldBackgroundColor,

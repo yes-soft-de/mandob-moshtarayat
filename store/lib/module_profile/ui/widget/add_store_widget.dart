@@ -117,7 +117,7 @@
 //                         showDialog(
 //                             builder: (_) {
 //                               return Scaffold(
-//                                 appBar: CustomTwaslnaAppBar.appBar(context,
+//                                 appBar: CustomMandopAppBar.appBar(context,
 //                                     title: S.current.storeLocation,
 //                                     actions: [
 //                                       TextButton(
@@ -438,7 +438,7 @@
 //                           showDialog(
 //                               builder: (_) {
 //                                 return Scaffold(
-//                                   appBar: CustomTwaslnaAppBar.appBar(context,
+//                                   appBar: CustomMandopAppBar.appBar(context,
 //                                       title: S.current.storeLocation,
 //                                       actions: [
 //                                         TextButton(
