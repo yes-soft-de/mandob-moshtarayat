@@ -11,4 +11,7 @@ class ProductsByProductCategoryIdResponse
     public $storeProductCategoryID;
     public $image;
     public $discount;
+    public $description;
+    public $rate;
+    public $soldCount;
 }

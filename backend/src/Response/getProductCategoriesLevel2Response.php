@@ -2,10 +2,9 @@
 
 namespace App\Response;
 
-class SubCategoriesAndProductsByStoreCategoryIDResponse
+class getProductCategoriesLevel2Response
 {
     public $id;
     public $productCategoryName;
     public $productCategoryImage;
-    public $productCategoriesLevel2;
 }

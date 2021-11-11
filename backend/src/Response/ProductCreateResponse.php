@@ -18,4 +18,6 @@ class ProductCreateResponse
 
     public $discount;
 
+    public $description;
+
 }

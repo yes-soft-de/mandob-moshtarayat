@@ -11,4 +11,5 @@ class ProductsResponse
     public $storeOwnerProfileID;
     public $storeProductCategoryID;
     public $discount;
+    public $description;
 }
