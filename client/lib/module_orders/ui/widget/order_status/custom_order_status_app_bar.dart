@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/utils/components/rate_dialog.dart';
+import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
 import 'package:mandob_moshtarayat/utils/images/images.dart';
 
 class CustomOrderStatusAppBar extends StatelessWidget {
@@ -20,7 +21,7 @@ class CustomOrderStatusAppBar extends StatelessWidget {
           top: MediaQuery.of(context).size.height * 0.025,
         ),
         child: Align(
-          alignment: AlignmentDirectional.centerStart,
+          alignment: Alignment.center,
           child: Flex(
             direction: Axis.horizontal,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -50,9 +51,9 @@ class CustomOrderStatusAppBar extends StatelessWidget {
                     fontSize: 20),
               ),
               Opacity(
-                opacity: hide ? 0 : 1,
+                opacity:hide ? 0 : 1,
                 child: InkWell(
-                  onTap: () {
+                  onTap:hide ? null : () {
                     showDialog(
                       context: context,
                       builder: (context) => RatingAlertDialog(
