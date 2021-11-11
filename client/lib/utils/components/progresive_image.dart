@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mandob_moshtarayat/utils/customIcon/mandob_icons_icons.dart';
 import 'package:progressive_image/progressive_image.dart';
 import 'package:mandob_moshtarayat/consts/urls.dart';
 import 'package:mandob_moshtarayat/utils/customIcon/custom_icons.dart';
@@ -52,7 +53,7 @@ class CustomNetworkImage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0),
                   child: Icon(
-                    CustomIcon.logo,
+                    MandobIcons.logo,
                     size: 30,
                   ),
                 ),
@@ -100,7 +101,7 @@ class CustomNetworkImage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0),
                     child: Icon(
-                      CustomIcon.logo,
+                      MandobIcons.logo,
                       size: 30,
                     ),
                   ),
