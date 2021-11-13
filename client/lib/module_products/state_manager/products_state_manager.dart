@@ -42,13 +42,13 @@ class ProductDetailsStateManager {
         }));
       } else {
         ProductsDetailsModel model = store as ProductsDetailsModel;
-        _stateSubject.add(ProductDetailsLoadedState(screenState, store.data));
+        _stateSubject.add(ProductDetailsLoadedState(screenState, model.data));
       }
     });
   }
 
-  void rateStore(
-      RateStoreRequest request, StoreProductsScreenState screenState) {
+  void rateProduct(
+      RateStoreRequest request, ProductDetailsScreenState screenState) {
     CustomFlushBarHelper.createSuccess(
       title: S.current.note,
       message: S.current.rateSubmitting,
@@ -62,7 +62,7 @@ class ProductDetailsStateManager {
         ).show(screenState.context);
       } else {
         CustomFlushBarHelper.createSuccess(
-                title: S.current.warnning, message: S.current.storeRated)
+                title: S.current.warnning, message: S.current.productRated)
             .show(screenState.context);
       }
     });

@@ -14,7 +14,10 @@ class ProductsDetailsModel extends DataModel {
   late String phone;
   late String? branchName;
   late num deliveryCost;
-  late num discount;
+  late String discount;
+  late String? description;
+  late num rate;
+  late String soldCount;
   late ProductsDetailsModel _model;
   ProductsDetailsModel(
       {required this.id,
@@ -28,14 +31,21 @@ class ProductsDetailsModel extends DataModel {
       required this.phone,
       required this.branchName,
       required this.deliveryCost,
-      required this.discount});
+      required this.discount,
+      required this.description,
+      required this.rate,
+      required this.soldCount
+      });
 
   ProductsDetailsModel.withData(Data data){
     _model = ProductsDetailsModel(
+      soldCount: data.soldCount ?? '0',
+      rate: num.parse(data.rate ?? '0'),
+      description: data.description ?? '',
       id: data.id ?? -1,
       productName: data.productName ?? S.current.unknown,
       productPrice: data.productPrice ?? 0,
-      discount: data.discount ?? 0,
+      discount: data.discount ?? '0',
       storeOwnerProfileID: data.storeOwnerProfileID ?? 0,
       storeProductCategoryID: data.storeProductCategoryID ?? 0,
       image: data.image ?? '',

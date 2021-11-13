@@ -66,6 +66,10 @@ class Data {
     branchName = json['branchName'];
     deliveryCost = json['deliveryCost'];
     discount = json['discount'];
+    description = json['description'];
+    rate = json['rate'];
+    soldCount = json['soldCount']?.toString();
+
   }
 
   int? id;
@@ -80,7 +84,10 @@ class Data {
   List<dynamic>? location;
   String? branchName;
   dynamic deliveryCost;
-  dynamic discount;
+  String? discount;
+  String? description;
+  String? rate;
+  String? soldCount;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

@@ -7,19 +7,21 @@ import 'package:mandob_moshtarayat/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_products/model/products_details_model.dart';
 import 'package:mandob_moshtarayat/module_products/ui/screen/products_details_screen.dart';
+import 'package:mandob_moshtarayat/module_stores/presistance/cart_hive_box_helper.dart';
 import 'package:mandob_moshtarayat/utils/components/progresive_image.dart';
 import 'package:mandob_moshtarayat/utils/customIcon/mandob_icons_icons.dart';
+import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
 import 'package:mandob_moshtarayat/utils/images/images.dart';
 
 class ProductDetailsLoadedState extends States {
   ProductDetailsScreenState screenState;
   ProductsDetailsModel model;
-  ProductDetailsLoadedState(this.screenState,this.model) : super(screenState);
-
+  ProductDetailsLoadedState(this.screenState,this.model) : super(screenState){
+    quantity = getQuantity(model.id);
+  }
+  late int quantity;
   @override
   Widget getUI(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
       child: Column(
@@ -44,12 +46,6 @@ class ProductDetailsLoadedState extends States {
               ),
             ),
           ),
-          Center(
-              child: Text(
-            'Buy this apple product from us ',
-            style:
-                TextStyle(color: Theme.of(context).disabledColor, fontSize: 17),
-          )),
           Padding(
             padding: const EdgeInsets.only(top:16.0),
             child: Container(
@@ -80,7 +76,7 @@ class ProductDetailsLoadedState extends States {
                       child: Container(
                         width: 150,
                         child: Text(
-                          'Blue color 128 gb space 4 camera 8 gb ram m1 chip ios os',
+                          '${model.description}',
                           textAlign: TextAlign.start,
                           style: TextStyle(
                             height: 1.2,
@@ -114,7 +110,7 @@ class ProductDetailsLoadedState extends States {
                                         alignment: AlignmentDirectional.centerStart,
                                         child: RatingBar.builder(
                                           ignoreGestures: true,
-                                          initialRating: 3,
+                                          initialRating: model.rate.toDouble(),
                                           minRating: 0,
                                           itemSize: 20,
                                           direction: Axis.horizontal,
@@ -149,7 +145,7 @@ class ProductDetailsLoadedState extends States {
                                           width: 4,
                                         ),
                                         Text(
-                                          '10',
+                                          '${model.discount}',
                                           style: TextStyle(
                                             fontSize: 15,
                                           ),
@@ -178,7 +174,7 @@ class ProductDetailsLoadedState extends States {
                                           width: 4,
                                         ),
                                         Text(
-                                          '2',
+                                          '${model.soldCount}',
                                           style: TextStyle(
                                             fontSize: 15,
                                           ),
@@ -225,11 +221,15 @@ class ProductDetailsLoadedState extends States {
                         Spacer(flex: 1,),
                         Container(
                           height: 40,
+                          width: 155,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
                             color: Theme.of(context).backgroundColor,
                           ),
-                          child: Row(
+                          child:true ? Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Center(child: Text(quantity.toString(),style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),)),
+                          ) : Row(
                             children: [
                               TextButton(
                                 style: ButtonStyle(
@@ -249,19 +249,15 @@ class ProductDetailsLoadedState extends States {
                                     ),
                                   ),
                                 ),
-                                onPressed: () {
-                                  // if (cartModel.quantity > 0) {
-                                  //   cartModel.quantity = cartModel.quantity - 1;
-                                  //   setState(() {
-                                  //     widget.quantity(cartModel);
-                                  //   });
-                                  // }
-                                },
+                                onPressed: quantity > 0 ? () {
+                                  quantity = quantity -1 ;
+                                  screenState.refresh();
+                                } : null,
                                 child: Icon(Icons.remove),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                                child: Text('0'),
+                                child: Text(quantity.toString()),
                               ),
                               TextButton(
                                 style: ButtonStyle(
@@ -282,10 +278,8 @@ class ProductDetailsLoadedState extends States {
                                   ),
                                 ),
                                 onPressed: () {
-                                  // cartModel.quantity = cartModel.quantity + 1;
-                                  // setState(() {
-                                  //   widget.quantity(cartModel);
-                                  // });
+                                  quantity = quantity + 1;
+                                  screenState.refresh();
                                 },
                                 child: Icon(Icons.add),
                               ),
@@ -308,7 +302,7 @@ class ProductDetailsLoadedState extends States {
                             borderRadius: BorderRadius.circular(25),
                             color: Theme.of(context).backgroundColor,
                           ),
-                          child:Center(child: Text('200 \$',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),)),
+                          child:Center(child: Text('${quantity * model.productPrice} \$',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),)),
                         ),
                       ],
                     ),
@@ -322,5 +316,16 @@ class ProductDetailsLoadedState extends States {
         ],
       ),
     );
+  }
+  int getQuantity(int id) {
+    if (CartHiveHelper().getCart().isEmpty) {
+      return 0;
+    } else {
+      int quantity = 0;
+      CartHiveHelper().getCart().forEach((element) {
+        quantity = element.id == id ? element.quantity : quantity;
+      });
+      return quantity;
+    }
   }
 }

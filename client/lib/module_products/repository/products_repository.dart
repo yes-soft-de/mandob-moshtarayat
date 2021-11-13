@@ -24,7 +24,7 @@ class ProductsRepository {
 
   Future<RateResponse?> createRateForProducts(RateStoreRequest request) async {
     var token = await _authService.getToken();
-    dynamic response = await _apiClient.post(Urls.RATE_STORE, request.toJson(),
+    dynamic response = await _apiClient.post(Urls.RATE_PRODUCT, request.toJson(),
         headers: {'Authorization': 'Bearer ' + token.toString()});
     if (response == null) return null;
     return RateResponse.fromJson(response);
