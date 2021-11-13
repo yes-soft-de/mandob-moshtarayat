@@ -6,8 +6,24 @@ class StoreProductsCategoryWithProductsResponse
 {
     public $id;
 
-    public $productCategoryName;
+    public $productName;
 
-    public $productCategoryImage;
-    public $products;
+    public $productPrice;
+
+    public $storeOwnerProfileID;
+
+    public $storeProductCategoryID;
+
+    public $image;
+
+    public $discount;
+
+    public $description;
+
+    public $rate;
+
+    public $soldCount;
+
+    public $status;
+
 }

@@ -220,27 +220,45 @@ class ProductService
     public function getProductsByStoreCategoryID($storeCategoryID): ?array
     {
         $response = [];
+
         $storeProductCategoriesIdsLevel1 = $this->productManager->getStoreProductCategoryIdLevel1($storeCategoryID);
-        foreach ($storeProductCategoriesIdsLevel1 as $item ) {
-            $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params . $item['productCategoryImage'], $this->params);
+
+        foreach($storeProductCategoriesIdsLevel1 as $item )
+        {
+//            $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params . $item['productCategoryImage'], $this->params);
 
             $item['storeProductCategoriesLevel2'] = $this->getStoreProductCategoryLevel2($item['id']);
 
-            $response[] = $this->autoMapping->map('array', ProductsByStoreProductCategoryIdResponse::class, $item);
+            foreach($item['storeProductCategoriesLevel2'] as $value)
+            {
+                if($value->products)
+                {
+                   foreach($value->products as $product)
+                   {
+                       $response[] = $this->autoMapping->map(ProductsByProductCategoryIdResponse::class, ProductsByStoreProductCategoryIdResponse::class, $product);
+                   }
+                }
+            }
         }
-        return $response;
 
+        return $response;
     }
 
     public function getStoreProductCategoryLevel2($storeProductCategoryIdLevel1): array
     {
         $response = [];
+
         $storeProductCategoriesLevel1 = $this->productManager->getStoreProductCategoryLevel2($storeProductCategoryIdLevel1);
-        foreach ($storeProductCategoriesLevel1 as $item) {
+
+        foreach ($storeProductCategoriesLevel1 as $item)
+        {
             $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params . $item['productCategoryImage'], $this->params);
+
             $item['products'] = $this->getProductsByStoreProductCategoryID($item['id']);
+
             $response[] = $this->autoMapping->map('array', StoreProductCategoriesResponse::class, $item);
         }
+
         return $response;
     }
 
