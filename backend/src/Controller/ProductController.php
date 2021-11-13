@@ -153,6 +153,7 @@ class ProductController extends BaseController
      *                  @OA\Property(type="string", property="description"),
      *                  @OA\Property(type="string", property="rate"),
      *                  @OA\Property(type="string", property="soldCount"),
+     *                  @OA\Property(type="string", property="status"),
      *                  @OA\Property(type="object", property="image",
      *                      @OA\Property(type="string", property="imageURL"),
      *                      @OA\Property(type="string", property="image"),
@@ -240,6 +241,7 @@ class ProductController extends BaseController
      *                  @OA\Property(type="integer", property="storeProductCategoryID"),
      *                  @OA\Property(type="integer", property="discount"),
      *                  @OA\Property(type="string", property="description"),
+     *                  @OA\Property(type="string", property="status"),
      *          )
      *      )
      * )
@@ -307,6 +309,7 @@ class ProductController extends BaseController
      *                  @OA\Property(type="integer", property="storeProductCategoryID"),
      *                  @OA\Property(type="integer", property="discount"),
      *                  @OA\Property(type="string", property="description"),
+     *                  @OA\Property(type="string", property="status"),
      *          )
      *      )
      * )
@@ -367,6 +370,7 @@ class ProductController extends BaseController
      *                  @OA\Property(type="string", property="description"),
      *                  @OA\Property(type="number", property="rate"),
      *                  @OA\Property(type="number", property="soldCount"),
+     *                  @OA\Property(type="string", property="status"),
      *                              )
      *                          )
      *                      )
