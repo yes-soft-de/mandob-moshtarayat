@@ -339,24 +339,6 @@ class ProductController extends BaseController
      *          @OA\Property(type="array", property="Data",
      *              @OA\Items(
      *                  @OA\Property(type="integer", property="id"),
-     *                  @OA\Property(type="string", property="productCategoryName"),
-     *                  @OA\Property(type="object", property="productCategoryImage",
-     *                      @OA\Property(type="string", property="imageURL"),
-     *                      @OA\Property(type="string", property="image"),
-     *                      @OA\Property(type="string", property="baseURL"),
-     *                  ),
-     *      @OA\Property(type="array", property="storeProductCategoriesLevel2",
-     *              @OA\Items(
-     *                  @OA\Property(type="integer", property="id"),
-     *                  @OA\Property(type="string", property="productCategoryName"),
-     *                  @OA\Property(type="object", property="productCategoryImage",
-     *                      @OA\Property(type="string", property="imageURL"),
-     *                      @OA\Property(type="string", property="image"),
-     *                      @OA\Property(type="string", property="baseURL"),
-     *                  ),
-     *     @OA\Property(type="array", property="products",
-     *              @OA\Items(
-     *                  @OA\Property(type="integer", property="id"),
      *                  @OA\Property(type="string", property="productName"),
      *                  @OA\Property(type="number", property="productPrice"),
      *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
@@ -370,11 +352,7 @@ class ProductController extends BaseController
      *                  @OA\Property(type="string", property="description"),
      *                  @OA\Property(type="number", property="rate"),
      *                  @OA\Property(type="number", property="soldCount"),
-     *                  @OA\Property(type="string", property="status"),
-     *                              )
-     *                          )
-     *                      )
-     *                  )
+     *                  @OA\Property(type="string", property="status")
      *              )
      *          )
      *      )
