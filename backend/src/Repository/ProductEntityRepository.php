@@ -225,15 +225,16 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function getStoreProductCategoryIdLevel2()
+    public function getStoreProductCategoryIdLevel2($storeProductCategoryId)
     {
         return $this->createQueryBuilder('product')
-
-            ->select('StoreProductCategoryEntity.storeCategoryID','StoreProductCategoryEntity.storeProductCategoryID','StoreProductCategoryEntity.id')
+            ->addSelect('StoreProductCategoryEntity.storeCategoryID','StoreProductCategoryEntity.storeProductCategoryID','StoreProductCategoryEntity.id')
             ->leftJoin(StoreProductCategoryEntity::class, 'StoreProductCategoryEntity', Join::WITH, 'StoreProductCategoryEntity.id = product.storeProductCategoryID')
             ->andWhere('StoreProductCategoryEntity.isLevel2 = :isLevel2')
+            ->andWhere('StoreProductCategoryEntity.storeProductCategoryID = :storeProductCategoryId')
 
             ->setParameter('isLevel2',1)
+            ->setParameter('storeProductCategoryId',$storeProductCategoryId)
             ->getQuery()
             ->getResult();
 
