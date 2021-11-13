@@ -120,7 +120,7 @@ class Stores {
   int? storeCategoryId;
   bool? privateOrders;
   bool? hasProducts;
-  Rating? rating;
+  String? rating;
 
   Stores(
       {this.id,
@@ -140,7 +140,7 @@ class Stores {
     storeCategoryId = json['storeCategoryId'];
     privateOrders = json['privateOrders'];
     hasProducts = json['hasProducts'];
-    rating = json['rate'] != null ? Rating.fromJson(json['rate']) : null;
+    rating = json['rate'];
   }
 
   Map<String, dynamic> toJson() {

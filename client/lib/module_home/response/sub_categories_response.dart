@@ -75,12 +75,12 @@ class ProductCategoriesLevel2 {
     id = json['id'];
     productCategoryName = json['productCategoryName'];
     isLevel2 = json['isLevel2'];
-    productCategoryImage = json['productCategoryImage'];
+    productCategoryImage =json['productCategoryImage'] != null ? ProductCategoryImage.fromJson(json['productCategoryImage']) : null;
   }
   int? id;
   String? productCategoryName;
   bool? isLevel2;
-  String? productCategoryImage;
+  ProductCategoryImage? productCategoryImage;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

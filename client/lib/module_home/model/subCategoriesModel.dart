@@ -32,7 +32,7 @@ class SubCategoriesModel extends DataModel {
     cats.forEach((element) {
       result.add(SubcategoriesLevel2(
           name: element.productCategoryName ?? S.current.unknown,
-          image: element.productCategoryImage ?? ImageAsset.PLACEHOLDER,
+          image: element.productCategoryImage?.image ?? ImageAsset.PLACEHOLDER,
           id: element.id ?? -1));
     });
     return result;
