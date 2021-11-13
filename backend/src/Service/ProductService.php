@@ -78,6 +78,20 @@ class ProductService
     {
         $item = $this->productManager->getProductByIdWithFullInfo($id);
 
+        if($item['productImage'])
+        {
+            $item['productImage'] = $this->params . $item['productImage'];
+        }
+
+        if($item['image'])
+        {
+            $item['image'] = $this->params . $item['image'];
+        }
+
+        $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
+
+        $item['soldCount'] = $this->getProductsSoldCount($item['id']);
+
         return $this->autoMapping->map('array', ProductFullInfoResponse::class, $item);
     }
 
