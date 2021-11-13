@@ -73,13 +73,23 @@ class ProductEntityRepository extends ServiceEntityRepository
 
             ->addSelect('storeOwnerBranch.location','storeOwnerBranch.branchName','storeOwnerBranch.city')
 
-            ->leftJoin(StoreOwnerProfileEntity::class, 'storeOwnerProfile', Join::WITH, 'storeOwnerProfile.id = product.storeOwnerProfileID')
+            ->leftJoin(
+                StoreOwnerProfileEntity::class,
+                'storeOwnerProfile',
+                Join::WITH,
+                'storeOwnerProfile.id = product.storeOwnerProfileID')
 
-            ->leftJoin(StoreOwnerBranchEntity::class, 'storeOwnerBranch', Join::WITH, 'storeOwnerBranch.storeOwnerProfileID = storeOwnerProfile.id ')
+            ->leftJoin(
+                StoreOwnerBranchEntity::class,
+                'storeOwnerBranch',
+                Join::WITH,
+                'storeOwnerBranch.storeOwnerProfileID = storeOwnerProfile.id ')
             
-            ->andWhere('product.id= :id')
-            ->setParameter('id',$id)
+            ->andWhere('product.id = :id')
+            ->setParameter('id', $id)
+
             ->groupBy('product.id')
+
             ->getQuery()
             ->getOneOrNullResult();
     }

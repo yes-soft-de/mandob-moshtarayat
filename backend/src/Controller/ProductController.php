@@ -88,8 +88,41 @@ class ProductController extends BaseController
     }
 
     /**
-     * @Route("/product/{id}", name="getProductById", methods={"GET"})
+     * @Route("product/{id}", name="getProductById", methods={"GET"})
      * @return JsonResponse
+     *
+     * @OA\Tag(name="Product")
+
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns information of the product",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="productName"),
+     *                  @OA\Property(type="string", property="productImage"),
+     *                  @OA\Property(type="number", property="productPrice"),
+     *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                  @OA\Property(type="integer", property="storeProductCategoryID"),
+     *                  @OA\Property(type="string", property="storeOwnerName"),
+     *                  @OA\Property(type="string", property="phone"),
+     *                  @OA\Property(type="object", property="location"),
+     *                  @OA\Property(type="string", property="branchName"),
+     *                  @OA\Property(type="number", property="discount"),
+     *                  @OA\Property(type="number", property="deliveryCost"),
+     *                  @OA\Property(type="string", property="description"),
+     *                  @OA\Property(type="string", property="rate"),
+     *                  @OA\Property(type="string", property="soldCount"),
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="string", property="image"),
+     *              )
+     *          )
+     *      )
+     * )
+     *
      */
     public function getProductByIdWithFullInfo($id)
     {
