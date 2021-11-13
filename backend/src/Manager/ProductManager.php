@@ -5,6 +5,7 @@ namespace App\Manager;
 use App\AutoMapping;
 use App\Entity\ProductEntity;
 use App\Repository\ProductEntityRepository;
+use App\Request\ProductCancelByStoreOwnerRequest;
 use App\Request\ProductCreateRequest;
 use App\Request\ProductUpdateByStoreOwnerRequest;
 use App\Request\ProductUpdateRequest;
@@ -119,6 +120,7 @@ class ProductManager
 
     public function createProductByStore(ProductCreateRequest $request)
     {
+        $request->setStatus('active');
         $entity = $this->autoMapping->map(ProductCreateRequest::class, ProductEntity::class, $request);
 
         $this->entityManager->persist($entity);
@@ -155,5 +157,20 @@ class ProductManager
     public function getStoreProductCategoryIdOfLevel1($storeCategoryID, $StoreProductCategoryId)
     {
         return $this->productEntityRepository->getStoreProductCategoryIdOfLevel1($storeCategoryID, $StoreProductCategoryId);
+    }
+
+
+    public function updateProductStatusByStore(ProductCancelByStoreOwnerRequest $request)
+    {
+        $entity = $this->productEntityRepository->find($request->getId());
+
+        if (!$entity) {
+            return null;
+        }
+        $entity = $this->autoMapping->mapToObject(ProductCancelByStoreOwnerRequest::class, ProductEntity::class, $request, $entity);
+
+        $this->entityManager->flush();
+
+        return $entity;
     }
 }

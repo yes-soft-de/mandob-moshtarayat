@@ -243,4 +243,11 @@ class ProductService
         }
         return $response;
     }
+
+    public function updateProductStatusByStore($request)
+    {
+        $item = $this->productManager->updateProductStatusByStore($request);
+
+        return $this->autoMapping->map(ProductEntity::class, ProductCreateResponse::class, $item);
+    }
 }

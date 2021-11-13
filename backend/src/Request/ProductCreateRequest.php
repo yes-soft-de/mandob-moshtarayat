@@ -18,6 +18,8 @@ class ProductCreateRequest
 
     private $description;
 
+    private $status;
+
     /**
      * @return mixed
      */
@@ -32,5 +34,17 @@ class ProductCreateRequest
     public function setStoreOwnerProfileID($storeOwnerProfileID): void
     {
         $this->storeOwnerProfileID = $storeOwnerProfileID;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
     }
 }

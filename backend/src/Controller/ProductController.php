@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\AutoMapping;
+use App\Request\ProductCancelByStoreOwnerRequest;
 use App\Request\ProductCreateRequest;
 use App\Request\ProductUpdateByStoreOwnerRequest;
 use App\Request\ProductUpdateRequest;
@@ -152,6 +153,7 @@ class ProductController extends BaseController
      *                  @OA\Property(type="string", property="description"),
      *                  @OA\Property(type="string", property="rate"),
      *                  @OA\Property(type="string", property="soldCount"),
+     *                  @OA\Property(type="string", property="status"),
      *                  @OA\Property(type="object", property="image",
      *                      @OA\Property(type="string", property="imageURL"),
      *                      @OA\Property(type="string", property="image"),
@@ -239,6 +241,7 @@ class ProductController extends BaseController
      *                  @OA\Property(type="integer", property="storeProductCategoryID"),
      *                  @OA\Property(type="integer", property="discount"),
      *                  @OA\Property(type="string", property="description"),
+     *                  @OA\Property(type="string", property="status"),
      *          )
      *      )
      * )
@@ -278,7 +281,7 @@ class ProductController extends BaseController
      *      required=true
      * )
      * @OA\RequestBody(
-     *      description="Update New Product",
+     *      description="Update Product",
      *      @OA\JsonContent(
      *          @OA\Property(type="integer", property="id"),
      *          @OA\Property(type="string", property="productName"),
@@ -306,6 +309,7 @@ class ProductController extends BaseController
      *                  @OA\Property(type="integer", property="storeProductCategoryID"),
      *                  @OA\Property(type="integer", property="discount"),
      *                  @OA\Property(type="string", property="description"),
+     *                  @OA\Property(type="string", property="status"),
      *          )
      *      )
      * )
@@ -366,6 +370,7 @@ class ProductController extends BaseController
      *                  @OA\Property(type="string", property="description"),
      *                  @OA\Property(type="number", property="rate"),
      *                  @OA\Property(type="number", property="soldCount"),
+     *                  @OA\Property(type="string", property="status"),
      *                              )
      *                          )
      *                      )
@@ -381,5 +386,58 @@ class ProductController extends BaseController
         $result = $this->productService->getProductsByStoreCategoryID($storeCategoryID);
 
         return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("/updateproductstatusbystore", name="updateProductStatusByStore", methods={"PUT"})
+     * @IsGranted("ROLE_OWNER")
+     * @param Request $request
+     * @return JsonResponse
+     * *
+     * @OA\Tag(name="Product")
+     *@OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\RequestBody(
+     *      description="Update Product status",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="integer", property="id"),
+     *          @OA\Property(type="string", property="status")
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns product",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="productName"),
+     *                  @OA\Property(type="string", property="productImage"),
+     *                  @OA\Property(type="number", property="productPrice"),
+     *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                  @OA\Property(type="integer", property="storeProductCategoryID"),
+     *                  @OA\Property(type="integer", property="discount"),
+     *                  @OA\Property(type="string", property="description"),
+     *                  @OA\Property(type="string", property="status"),
+     *          )
+     *      )
+     * )
+     * @Security(name="Bearer")
+     */
+    public function updateProductStatusByStore(Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, ProductCancelByStoreOwnerRequest::class, (object)$data);
+        $result = $this->productService->updateProductStatusByStore($request);
+
+        return $this->response($result, self::CREATE);
     }
 }

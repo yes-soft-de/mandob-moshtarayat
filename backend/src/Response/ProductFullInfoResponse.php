@@ -18,4 +18,5 @@ class ProductFullInfoResponse
     public $deliveryCost;
     public $discount;
     public $description;
+    public $status;
 }

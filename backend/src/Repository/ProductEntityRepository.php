@@ -67,7 +67,7 @@ class ProductEntityRepository extends ServiceEntityRepository
     public function getProductByIdWithFullInfo($id)
     {
         return $this->createQueryBuilder('product')
-            ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.description')
+            ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.description', 'product.status')
 
             ->addSelect('storeOwnerProfile.id as storeOwnerProfileID', 'storeOwnerProfile.storeOwnerName as storeOwnerName','storeOwnerProfile.storeOwnerID', 'storeOwnerProfile.image', 'storeOwnerProfile.story', 'storeOwnerProfile.free', 'storeOwnerProfile.status', 'storeOwnerProfile.phone', 'storeOwnerProfile.storeOwnerID')
 
@@ -163,7 +163,7 @@ class ProductEntityRepository extends ServiceEntityRepository
     public function getStoreProducts($storeOwnerProfileId)
     {
         return $this->createQueryBuilder('product')
-        ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount','product.description')
+        ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount','product.description','product.status')
 
         ->andWhere('product.storeOwnerProfileID = :storeOwnerProfileId')
         ->setParameter('storeOwnerProfileId',$storeOwnerProfileId)
@@ -174,10 +174,12 @@ class ProductEntityRepository extends ServiceEntityRepository
     public function getProductsByStoreProductCategoryID($storeProductCategoryID)
     {
         return $this->createQueryBuilder('product')
-        ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount','product.description')
+        ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount','product.description','product.status')
 
         ->andWhere('product.storeProductCategoryID = :storeProductCategoryID')
+        ->andWhere('product.status = :status')
         ->setParameter('storeProductCategoryID',$storeProductCategoryID)
+        ->setParameter('status','active')
         ->getQuery()
         ->getResult();
     }

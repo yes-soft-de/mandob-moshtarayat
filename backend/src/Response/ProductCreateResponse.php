@@ -20,4 +20,6 @@ class ProductCreateResponse
 
     public $description;
 
+    public $status;
+
 }
