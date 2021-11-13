@@ -382,6 +382,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "product": MessageLookupByLibrary.simpleMessage("product"),
         "productQuantity":
             MessageLookupByLibrary.simpleMessage("Product Quantity"),
+        "productRated": MessageLookupByLibrary.simpleMessage("Product Rated"),
         "products": MessageLookupByLibrary.simpleMessage("Products"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "profileDataEmpty": MessageLookupByLibrary.simpleMessage(
