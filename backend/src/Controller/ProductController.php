@@ -324,7 +324,6 @@ class ProductController extends BaseController
     /**
      * @Route("/productsbystorecategory/{storeCategoryID}", name="getProductsByStoreCategoryID", methods={"GET"})
      * @return JsonResponse
-     * *
      * @OA\Tag(name="Product")
      *
      * @OA\Response(
@@ -336,26 +335,48 @@ class ProductController extends BaseController
      *          @OA\Property(type="array", property="Data",
      *              @OA\Items(
      *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="productCategoryName"),
+     *                  @OA\Property(type="object", property="productCategoryImage",
+     *                      @OA\Property(type="string", property="imageURL"),
+     *                      @OA\Property(type="string", property="image"),
+     *                      @OA\Property(type="string", property="baseURL"),
+     *                  ),
+     *      @OA\Property(type="array", property="storeProductCategoriesLevel2",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="productCategoryName"),
+     *                  @OA\Property(type="object", property="productCategoryImage",
+     *                      @OA\Property(type="string", property="imageURL"),
+     *                      @OA\Property(type="string", property="image"),
+     *                      @OA\Property(type="string", property="baseURL"),
+     *                  ),
+     *     @OA\Property(type="array", property="products",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
      *                  @OA\Property(type="string", property="productName"),
      *                  @OA\Property(type="number", property="productPrice"),
      *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
      *                  @OA\Property(type="integer", property="storeProductCategoryID"),
-     *                  @OA\Property(type="integer", property="discount"),
-     *                  @OA\Property(type="integer", property="description"),
-     *                  @OA\Property(type="number", property="rate"),
-     *                  @OA\Property(type="integer", property="soldCount"),
      *                  @OA\Property(type="object", property="image",
      *                      @OA\Property(type="string", property="imageURL"),
      *                      @OA\Property(type="string", property="image"),
      *                      @OA\Property(type="string", property="baseURL"),
      *                  ),
+     *                  @OA\Property(type="string", property="discount"),
+     *                  @OA\Property(type="string", property="description"),
+     *                  @OA\Property(type="number", property="rate"),
+     *                  @OA\Property(type="number", property="soldCount"),
+     *                              )
+     *                          )
+     *                      )
+     *                  )
      *              )
      *          )
      *      )
-     * )
+     *  )
      *
      */
-    public function getProductsByStoreCategoryID($storeCategoryID)
+    public function getProductsByStoreCategoryID($storeCategoryID): JsonResponse
     {
         $result = $this->productService->getProductsByStoreCategoryID($storeCategoryID);
 

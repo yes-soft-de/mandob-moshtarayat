@@ -9,6 +9,7 @@ use App\Request\ProductCreateRequest;
 use App\Request\ProductUpdateByStoreOwnerRequest;
 use App\Request\ProductUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Manager\StoreProductCategoryManager;
 
 
 class ProductManager
@@ -16,12 +17,14 @@ class ProductManager
     private $autoMapping;
     private $entityManager;
     private $productEntityRepository;
+    private $storeProductCategoryManager;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, ProductEntityRepository $productEntityRepository)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, ProductEntityRepository $productEntityRepository, StoreProductCategoryManager $storeProductCategoryManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
         $this->productEntityRepository = $productEntityRepository;
+        $this->storeProductCategoryManager = $storeProductCategoryManager;
     }
 
     public function createProductByAdmin(ProductCreateRequest $request)
@@ -139,9 +142,14 @@ class ProductManager
         return $entity;
     }
 
-    public function getStoreProductCategoryIdLevel2()
+    public function getStoreProductCategoryLevel2($storeProductCategoryId)
     {
-        return $this->productEntityRepository->getStoreProductCategoryIdLevel2();
+        return $this->storeProductCategoryManager->getStoreProductsCategoryLevelTwoByStoreProductCategoryID($storeProductCategoryId);
+    }
+
+    public function getStoreProductCategoryIdLevel1($storeCategoryID)
+    {
+        return $this->storeProductCategoryManager->getSubCategoriesByStoreCategoryID($storeCategoryID);
     }
 
     public function getStoreProductCategoryIdOfLevel1($storeCategoryID, $StoreProductCategoryId)

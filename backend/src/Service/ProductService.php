@@ -8,9 +8,11 @@ use App\Manager\ProductManager;
 use App\Manager\UserManager;
 use App\Request\ProductCreateRequest;
 use App\Response\ProductCreateResponse;
+use App\Response\ProductsByStoreProductCategoryIdResponse;
 use App\Response\ProductsResponse;
 use App\Response\ProductFullInfoResponse;
 use App\Response\ProductsByProductCategoryIdResponse;
+use App\Response\StoreProductCategoriesResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class ProductService
@@ -218,20 +220,27 @@ class ProductService
     public function getProductsByStoreCategoryID($storeCategoryID): ?array
     {
         $response = [];
-        $storeProductCategoriesIdsLevel2 = $this->productManager->getStoreProductCategoryIdLevel2();
+        $storeProductCategoriesIdsLevel1 = $this->productManager->getStoreProductCategoryIdLevel1($storeCategoryID);
+        foreach ($storeProductCategoriesIdsLevel1 as $item ) {
+            $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params . $item['productCategoryImage'], $this->params);
 
-        foreach ($storeProductCategoriesIdsLevel2 as $storeProductCategoryIdLevel2 ) {
+            $item['storeProductCategoriesLevel2'] = $this->getStoreProductCategoryLevel2($item['id']);
 
-            $products = $this->productManager->getStoreProductCategoryIdOfLevel1($storeCategoryID, $storeProductCategoryIdLevel2['storeProductCategoryID']);
-
-            foreach ($products as $item) {
-                $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
-                $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
-                $item['soldCount'] = $this->getProductsSoldCount($item['id']);
-                $response[] = $this->autoMapping->map('array', ProductsByProductCategoryIdResponse::class, $item);
-            }
-            }
+            $response[] = $this->autoMapping->map('array', ProductsByStoreProductCategoryIdResponse::class, $item);
+        }
         return $response;
+
     }
 
+    public function getStoreProductCategoryLevel2($storeProductCategoryIdLevel1): array
+    {
+        $response = [];
+        $storeProductCategoriesLevel1 = $this->productManager->getStoreProductCategoryLevel2($storeProductCategoryIdLevel1);
+        foreach ($storeProductCategoriesLevel1 as $item) {
+            $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params . $item['productCategoryImage'], $this->params);
+            $item['products'] = $this->getProductsByStoreProductCategoryID($item['id']);
+            $response[] = $this->autoMapping->map('array', StoreProductCategoriesResponse::class, $item);
+        }
+        return $response;
+    }
 }
