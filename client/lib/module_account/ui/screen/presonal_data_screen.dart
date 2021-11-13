@@ -22,6 +22,8 @@ class PersonalDataScreen extends StatefulWidget {
 
 class PersonalDataScreenState extends State<PersonalDataScreen> {
   PersonalDataState? currentState;
+  String? fileString;
+
   void refresh() {
     if (mounted) {
       setState(() {});

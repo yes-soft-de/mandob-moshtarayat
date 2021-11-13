@@ -1,5 +1,6 @@
+import 'dart:io';
+
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
 import 'package:mandob_moshtarayat/consts/urls.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_account/model/profile_model.dart';
@@ -9,8 +10,6 @@ import 'package:mandob_moshtarayat/module_account/ui/screen/presonal_data_screen
 import 'package:mandob_moshtarayat/module_account/ui/state/personal_data/personal_data_state.dart';
 import 'package:mandob_moshtarayat/module_account/ui/widget/update_button.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_feild.dart';
-import 'package:mandob_moshtarayat/utils/customIcon/custom_icons.dart';
-import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 import 'package:mandob_moshtarayat/utils/images/images.dart';
 
 class PersonalDataLoadedState extends PersonalDataState {
@@ -38,7 +37,6 @@ class PersonalDataLoadedState extends PersonalDataState {
   var gender;
 
   late String image;
-
   @override
   Widget getUI(BuildContext context) {
     return Stack(
@@ -64,6 +62,7 @@ class PersonalDataLoadedState extends PersonalDataState {
                               source: ImageSource.gallery, imageQuality: 75)
                           .then((value) {
                         if (value != null) {
+                          screenState.fileString = value.path;
                           screenState.uploadImage(
                               ProfileModel(
                                 name: nameController.text.trim(),
@@ -125,7 +124,7 @@ class PersonalDataLoadedState extends PersonalDataState {
                               );
                             },
                             fit: BoxFit.cover,
-                            image: NetworkImage(image),
+                            image:screenState.fileString != null ? Image.file(File(screenState.fileString!)).image : NetworkImage(image),
                             width: 150,
                             height: 150,
                           ),
