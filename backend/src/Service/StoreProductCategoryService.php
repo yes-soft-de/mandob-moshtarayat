@@ -9,6 +9,7 @@ use App\Request\StoreProductCategoryCreateRequest;
 use App\Request\StoreProductCategoryLevelTwoCreateRequest;
 use App\Request\StoreProductCategoryUpdateRequest;
 use App\Response\getProductCategoriesLevel2Response;
+use App\Response\ProductsByProductCategoryIdResponse;
 use App\Response\StoreProductCategoryCreateResponse;
 use App\Response\StoreProductsCategoryLevelTwoAndStoreProductsResponse;
 use App\Response\StoreProductsCategoryResponse;
@@ -129,12 +130,22 @@ class StoreProductCategoryService
     public function getStoreProductsCategoryLevelTwoWithProductsByStoreProductCategoryID($storeProductCategoryID)
     {
         $response = [];
+
         $items = $this->storeProductCategoryManager->getStoreProductsCategoryLevelTwoByStoreProductCategoryID($storeProductCategoryID);
-        foreach($items as $item) {
-            $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params.$item['productCategoryImage'], $this->params);
+
+        foreach($items as $item)
+        {
             $item['products'] = $this->productService->getProductsByProductCategoryId($item['id']);
-            $response[] = $this->autoMapping->map('array', StoreProductsCategoryWithProductsResponse::class, $item);
+
+            if($item['products'])
+            {
+                foreach($item['products'] as $product)
+                {
+                    $response[] = $this->autoMapping->map(ProductsByProductCategoryIdResponse::class, StoreProductsCategoryWithProductsResponse::class, $product);
+                }
+            }
         }
+
         return $response;
     }
 }
