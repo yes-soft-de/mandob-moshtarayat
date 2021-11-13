@@ -121,6 +121,26 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
+    public function countOngoingOrdersForStoreOwner($storeOwnerProfileId)
+    {
+        return $this->createQueryBuilder('OrderEntity')
+            ->select('count(OrderEntity.id) as count')
+
+            ->where("OrderEntity.state = :on_way ")
+            ->orWhere("OrderEntity.state = :in_store ")
+            ->orWhere("OrderEntity.state = :picked ")
+            ->orWhere("OrderEntity.state = :ongoing ")
+            ->andWhere("OrderEntity.storeOwnerProfileId = :storeOwnerProfileId ")
+            ->setParameter('on_way', self::ON_WAY)
+            ->setParameter('in_store', self::IN_STORE)
+            ->setParameter('picked', self::PICKED)
+            ->setParameter('ongoing', self::ONGOING)
+            ->setParameter('storeOwnerProfileId', $storeOwnerProfileId)
+
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     public function countCancelledOrders()
     {
         return $this->createQueryBuilder('OrderEntity')
@@ -392,6 +412,26 @@ class OrderEntityRepository extends ServiceEntityRepository
           ->getSingleScalarResult();
     }
 
+    public function countOrdersInTodayForStoreOwner($fromDate, $toDate, $storeOwnerProfileId)
+    {
+        return $this->createQueryBuilder('OrderEntity')
+
+          ->select('count(OrderEntity.id) as countOrdersInToday')
+
+          ->andWhere("OrderEntity.state != :cancelled")
+          ->andWhere('OrderEntity.createdAt >= :fromDate')
+          ->andWhere('OrderEntity.createdAt < :toDate')
+          ->andWhere('OrderEntity.storeOwnerProfileID = :storeOwnerProfileId')
+
+          ->setParameter('fromDate', $fromDate)
+          ->setParameter('toDate', $toDate)
+          ->setParameter('cancelled', self::CANCEL)
+          ->setParameter('storeOwnerProfileId', $storeOwnerProfileId)
+
+          ->getQuery()
+          ->getSingleScalarResult();
+    }
+
     public function countCaptainOrdersDelivered($captainId)
     {
         return $this->createQueryBuilder('OrderEntity')
@@ -630,6 +670,18 @@ class OrderEntityRepository extends ServiceEntityRepository
                 ->select('count(OrderEntity.id) as count')
                 ->andWhere("OrderEntity.state = :delivered")
                 ->setParameter('delivered', self::DELIVERED)
+                ->getQuery()
+                ->getSingleScalarResult();
+    }
+
+    public function countCompletedOrdersForStoreOwner($storeOwnerProfileId)
+    {
+        return  $this->createQueryBuilder('OrderEntity')
+                ->select('count(OrderEntity.id) as count')
+                ->andWhere("OrderEntity.state = :delivered")
+                ->andWhere("OrderEntity.storeOwnerProfileId = :storeOwnerProfileId")
+                ->setParameter('delivered', self::DELIVERED)
+                ->setParameter('storeOwnerProfileId', $storeOwnerProfileId)
                 ->getQuery()
                 ->getSingleScalarResult();
     }

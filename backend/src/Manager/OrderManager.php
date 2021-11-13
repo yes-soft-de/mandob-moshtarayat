@@ -71,6 +71,11 @@ class OrderManager
         return $this->orderEntityRepository->countOngoingOrders();
     }
 
+    public function countOngoingOrdersForStoreOwner($storeOwnerProfileId)
+    {
+        return $this->orderEntityRepository->countOngoingOrders();
+    }
+
     public function countCancelledOrders()
     {
         return $this->orderEntityRepository->countCancelledOrders();
@@ -134,6 +139,11 @@ class OrderManager
     public function countOrdersInToday($fromDate, $toDate)
     {
         return $this->orderEntityRepository->countOrdersInToday($fromDate, $toDate);
+    }
+
+    public function countOrdersInTodayForStoreOwner($fromDate, $toDate, $storeOwnerProfileId)
+    {
+        return $this->orderEntityRepository->countOrdersInTodayForStoreOwner($fromDate, $toDate, $storeOwnerProfileId);
     }
 
     public function getAcceptedOrderByCaptainId($captainID)
@@ -349,6 +359,11 @@ class OrderManager
     }
 
     public function countCompletedOrders()
+    {
+        return $this->orderEntityRepository->countCompletedOrders();
+    }
+
+    public function countCompletedOrdersForStoreOwner($storeOwnerProfileId)
     {
         return $this->orderEntityRepository->countCompletedOrders();
     }
