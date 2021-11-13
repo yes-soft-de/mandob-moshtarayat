@@ -117,15 +117,33 @@ class ClientProfileService
         $stores = $this->storeOwnerProfileService->getStoresByName($itemName);
         $products = $this->productService->getProductsByName($itemName);
 
-        foreach ($stores as $store)
+        foreach($stores as $store)
+        {
+            $store['rate'] = $this->ratingService->getAvgRating($stores[0]['id'], 'store');
+
+            if($store['image'])
             {
-                $store['rate'] = $this->ratingService->getAvgRating($stores[0]['id'], 'store');
-                $response['stores'][]= $this->autoMapping->map('array', ClientFilterStoreResponse::class, $store);
+                $store['image'] = $this->params . $store['image'];
             }
-        foreach ($products as $product)
+
+            $response['stores'][] = $this->autoMapping->map('array', ClientFilterStoreResponse::class, $store);
+        }
+
+        foreach($products as $product)
+        {
+            if($product['productImage'])
             {
-                $response['products'][] = $this->autoMapping->map('array', ClientFilterProductResponse::class, $product);
+                $product['productImage'] = $this->params . $product['productImage'];
             }
+
+            if($product['storeImage'])
+            {
+                $product['storeImage'] = $this->params . $product['storeImage'];
+            }
+
+            $response['products'][] = $this->autoMapping->map('array', ClientFilterProductResponse::class, $product);
+        }
+
         return $response;
     }
 
