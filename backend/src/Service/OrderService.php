@@ -16,6 +16,7 @@ use App\Request\OrderUpdateByClientRequest;
 use App\Request\OrderUpdateSpecialByClientRequest;
 use App\Request\OrderUpdateSendByClientRequest;
 use App\Request\SendNotificationRequest;
+use App\Response\CountReportForStoreOwnerResponse;
 use App\Response\OrderResponse;
 use App\Response\OrderClosestResponse;
 use App\Response\OrderPendingResponse;
@@ -585,6 +586,11 @@ class OrderService
        return $this->orderManager->countOrdersInToday($date[0], $date[1]);
     }
 
+    public function countOrdersInTodayForStoreOwner($storeOwnerProfileId) {
+       $date = $this->dateFactoryService->returnTodayDate();
+       return $this->orderManager->countOrdersInTodayForStoreOwner($date[0], $date[1], $storeOwnerProfileId);
+    }
+
     public function getOrdersAndCountByStoreProfileId($storeProfileId)
     {
         $response = [];
@@ -646,4 +652,16 @@ class OrderService
         return $response;
     }
 
+    public function countReportForStoreOwner($userID)
+    {
+        $storeOwnerProfileId = $this->userService->getStoreProfileId($userID);
+        $item['countCompletedOrders'] = $this->orderManager->countCompletedOrdersForStoreOwner($storeOwnerProfileId['id']);
+        $item['countOngoingOrders'] = $this->orderManager->countOngoingOrdersForStoreOwner($storeOwnerProfileId['id']);
+
+        $item['countOrdersInToday'] = $this-> countOrdersInTodayForStoreOwner($storeOwnerProfileId['id']);
+
+        $response = $this->autoMapping->map("array", CountReportForStoreOwnerResponse::class, $item);
+
+        return $response;
+    }
 }

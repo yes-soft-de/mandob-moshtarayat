@@ -21,7 +21,8 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use stdClass;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-
+use Nelmio\ApiDocBundle\Annotation\Security;
+use OpenApi\Annotations as OA;
 
 class OrderController extends BaseController
 {
@@ -466,4 +467,37 @@ class OrderController extends BaseController
         return $this->response($result, self::FETCH);
     }
 
+    /**
+     * @Route("/countreportforstoreowner", name="countReportForStoreOwner",methods={"GET"})
+     * @IsGranted("ROLE_OWNER")
+     * @return JsonResponse
+     *  * *
+     * @OA\Tag(name="Order")
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns object of count orders (Completed- Ongoing - InToday) For StoreOwner ",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="countCompletedOrders"),
+     *                  @OA\Property(type="integer", property="countOngoingOrders"),
+     *                  @OA\Property(type="integer", property="countOrdersInToday")
+     *          )
+     *      )
+     * )
+     * @Security(name="Bearer")
+     */
+    public function countReportForStoreOwner()
+    {
+        $result = $this->orderService->countReportForStoreOwner($this->getUserId());
+
+        return $this->response($result, self::FETCH);
+    }
 }
