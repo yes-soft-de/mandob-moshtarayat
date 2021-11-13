@@ -55,7 +55,7 @@ class StoreProductsTitleBar extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    rate.toString(),
+                    rate.toStringAsFixed(1),
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.white
