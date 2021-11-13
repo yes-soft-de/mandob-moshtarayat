@@ -143,6 +143,10 @@ class HomeLoadedFilterState extends HomeState {
         storeId: element.storeOwnerProfileID.toString(),
         image: element.image,
         title: element.productName,
+        sold: element.soldCount,
+        discount: element.discount,
+        rating: element.rate.toDouble(),
+        description: element.description,
       ));
     });
     return widgets;
