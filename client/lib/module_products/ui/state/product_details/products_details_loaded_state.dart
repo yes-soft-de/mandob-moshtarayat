@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mandob_moshtarayat/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
+import 'package:mandob_moshtarayat/module_products/model/products_details_model.dart';
 import 'package:mandob_moshtarayat/module_products/ui/screen/products_details_screen.dart';
 import 'package:mandob_moshtarayat/utils/components/progresive_image.dart';
 import 'package:mandob_moshtarayat/utils/customIcon/mandob_icons_icons.dart';
@@ -12,8 +13,8 @@ import 'package:mandob_moshtarayat/utils/images/images.dart';
 
 class ProductDetailsLoadedState extends States {
   ProductDetailsScreenState screenState;
-
-  ProductDetailsLoadedState(this.screenState) : super(screenState);
+  ProductsDetailsModel model;
+  ProductDetailsLoadedState(this.screenState,this.model) : super(screenState);
 
   @override
   Widget getUI(BuildContext context) {
@@ -25,7 +26,7 @@ class ProductDetailsLoadedState extends States {
         children: [
           Center(
               child: Text(
-            'Iphone 12 pro',
+            model.productName,
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
           )),
           Padding(
@@ -38,7 +39,7 @@ class ProductDetailsLoadedState extends States {
                 child: CustomNetworkImage(
                   width: double.maxFinite,
                   height: double.maxFinite,
-                  imageSource: 'https://assets.swappie.com/cdn-cgi/image/width=600,height=600,fit=contain,format=auto/SwappieiPhonex256gbt%C3%A4htiharmaa-1-1-1-600x600.jpg',
+                  imageSource: model.productImage,
                 ),
               ),
             ),
@@ -202,7 +203,7 @@ class ProductDetailsLoadedState extends States {
                                     ),
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
-                                      child: Text('200 \$',style: TextStyle(
+                                      child: Text('${model.productPrice} \$',style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white
                                       ),),

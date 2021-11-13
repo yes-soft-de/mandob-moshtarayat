@@ -22,7 +22,7 @@ class StoreProductsErrorState extends StoreProductsState {
     List<String> errs = LinkedHashSet<String>.from(errors).toList();
     return Scaffold(
       appBar: CustomTwaslnaAppBar.appBar(context,
-          title: screenState.title, buttonBackground: Colors.red),
+          title: S.current.storeProducts, buttonBackground: Colors.red),
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         child: Container(

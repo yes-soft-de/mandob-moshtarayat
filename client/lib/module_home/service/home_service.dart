@@ -3,6 +3,8 @@ import 'package:mandob_moshtarayat/abstracts/data_model/data_model.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_home/manager/home_manager.dart';
 import 'package:mandob_moshtarayat/module_home/model/home_model.dart';
+import 'package:mandob_moshtarayat/module_home/model/productsByCategoriesModel.dart';
+import 'package:mandob_moshtarayat/module_home/model/subCategoriesModel.dart';
 import 'package:mandob_moshtarayat/module_home/model/top_wanted_products_model.dart';
 import 'package:mandob_moshtarayat/module_home/response/best_store.dart';
 import 'package:mandob_moshtarayat/module_home/response/products.dart';
@@ -94,7 +96,7 @@ class HomeService {
           StatusCodeHelper.getStatusCodeMessages(subCategoriesResponse.statusCode ?? '0'));
     }
     if (subCategoriesResponse.data == null) return DataModel.empty();
-    return DataModel();
+    return SubCategoriesModel.withData(subCategoriesResponse.data!);
   }
   Future<DataModel> getCategoriesProducts(String categoriesID) async {
     ProductsByCategoriesResponse? productsResponse = await _homeManager.getCategoriesProducts(categoriesID);
@@ -104,6 +106,6 @@ class HomeService {
           StatusCodeHelper.getStatusCodeMessages(productsResponse.statusCode ?? '0'));
     }
     if (productsResponse.data == null) return DataModel.empty();
-    return DataModel();
+    return ProductsByCategoriesModel.withData(productsResponse.data!);
   }
 }

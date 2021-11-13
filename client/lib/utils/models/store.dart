@@ -44,7 +44,7 @@ class StoreModel {
           hasProducts: element.hasProducts ?? false,
           privateOrders: element.privateOrders ?? false,
           image: element.image ?? '',
-          rating: element.rating?.rate ?? 0));
+          rating: num.parse(element.rating ?? '0')));
     });
   }
 

@@ -18,6 +18,7 @@ class HomeScreen extends StatefulWidget {
 
 class HomeScreenState extends State<HomeScreen> {
   HomeState? currentState;
+  late AsyncSnapshot snapshot = AsyncSnapshot.nothing();
 
   void refresh() {
     if (mounted) {
@@ -25,9 +26,17 @@ class HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  Future<void> getHomeData() async {
-    widget._homeStateManager.getHomeData(this);
+  Future<void> getHomeData([bool loading = true]) async {
+    widget._homeStateManager.getHomeData(this,loading);
   }
+
+  void getCategories(catId,categories) async {
+    widget._homeStateManager.getHomeFilterData(this,catId,categories);
+  }
+  void getProducts(catId)  {
+    widget._homeStateManager.getFilteredProducts(this,catId);
+  }
+
 
   @override
   void initState() {
@@ -35,6 +44,12 @@ class HomeScreenState extends State<HomeScreen> {
     widget._homeStateManager.getHomeData(this);
     widget._homeStateManager.stateStream.listen((event) {
       currentState = event;
+      if (mounted) {
+        setState(() {});
+      }
+    });
+    widget._homeStateManager.productsStream.listen((event) {
+      snapshot = event;
       if (mounted) {
         setState(() {});
       }

@@ -9,10 +9,9 @@ class EmptyState extends States {
   State<StatefulWidget> screenState;
   final String emptyMessage;
   final String title;
-  final int id;
   final bool hasAppbar;
   final VoidCallback onPressed;
-  EmptyState(this.screenState,{required this.emptyMessage,required this.id ,required this.title,this.hasAppbar = true,required this.onPressed})
+  EmptyState(this.screenState,{required this.emptyMessage,required this.title,this.hasAppbar = true,required this.onPressed})
       : super(screenState);
 
   @override

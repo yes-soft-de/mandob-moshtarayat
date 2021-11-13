@@ -38,9 +38,9 @@ class HomeLoadedState extends HomeState {
       child: ListView(
         physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         children: [
-          CustomHomeAppBar(categoriesCallback: (title){
-            if (title != S.current.home) {
-              screenState.currentState = HomeLoadedFilterState(screenState,categories: categories,topProducts: topProducts,bestStores: bestStores);
+          CustomHomeAppBar(categoriesCallback: (categoriesId){
+            if (categoriesId != '0') {
+              screenState.getCategories(categoriesId, categories);
               screenState.refresh();
             }
           },categories: categories,),

@@ -93,11 +93,13 @@ class StoreProductsStateManager {
     ).show(screenState.context);
     _storeProductsService.rateStore(request).then((value) {
       if (value.hasError) {
+        getStoresProducts(request.itemID!,screenState,true);
         CustomFlushBarHelper.createError(
           title: S.current.warnning,
           message: value.error ?? '',
         ).show(screenState.context);
       } else {
+        getStoresProducts(request.itemID!,screenState,true);
         CustomFlushBarHelper.createSuccess(
                 title: S.current.warnning, message: S.current.storeRated)
             .show(screenState.context);
