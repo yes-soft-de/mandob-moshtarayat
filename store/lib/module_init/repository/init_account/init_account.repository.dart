@@ -20,7 +20,7 @@ class InitAccountRepository {
       CreateStoreRequest request) async {
     var token =  await _authService.getToken();
     dynamic response = await _apiClient.put(
-      Urls.CREATE_CAPTAIN_PROFILE,
+      Urls.CREATE_STORE_PROFILE,
       request.toJson(),
       headers: {'Authorization': 'Bearer ' + token.toString()},
     );

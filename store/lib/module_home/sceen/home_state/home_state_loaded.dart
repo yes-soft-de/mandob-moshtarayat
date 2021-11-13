@@ -1,8 +1,10 @@
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:mandob_moshtarayat/abstracts/states/state.dart';
+import 'package:mandob_moshtarayat/consts/order_status.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_home/model/report_model.dart';
 import 'package:mandob_moshtarayat/module_home/widget/animation.dart';
+import 'package:mandob_moshtarayat/module_profile/model/store_profile_model.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_list_view.dart';
 import 'package:mandob_moshtarayat/utils/components/empty_screen.dart';
 import 'package:mandob_moshtarayat/utils/components/error_screen.dart';
@@ -16,8 +18,9 @@ class HomeLoadedState extends States {
   final String? error;
   final bool empty;
   final ReportModel? model;
+  final StoreProfileModel? profileModel;
 
-  HomeLoadedState(this.screenState, this.model,
+  HomeLoadedState(this.screenState, this.model, this.profileModel,
       {this.empty = false, this.error})
       : super(screenState);
 
@@ -39,6 +42,10 @@ class HomeLoadedState extends States {
                     screenState.getReport();
           });
     }
+    print('fgfgfgfgfgfgf');
+    print(profileModel!.categoryId);
+    constCategoryID.id= profileModel!.categoryId;
+    print(constCategoryID.id);
     return SingleChildScrollView(
       physics:
       BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
@@ -103,6 +110,15 @@ class HomeLoadedState extends States {
           ),
         ],
       ),
+    );
+  }
+}
+class HomeLoadingState extends States {
+  HomeLoadingState(HomeScreenState screenState) : super(screenState);
+  @override
+  Widget getUI(BuildContext context) {
+    return Center(
+      child: CircularProgressIndicator(),
     );
   }
 }

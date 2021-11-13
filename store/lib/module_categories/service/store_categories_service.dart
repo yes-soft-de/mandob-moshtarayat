@@ -55,9 +55,23 @@ class CategoriesService {
     return DataModel.empty();
   }
 
-  Future<DataModel> getProductsCategory(int id) async {
+  Future<DataModel> getProductsCategoryLevelOne(int id) async {
 
-    ProductsCategoryResponse? _productCategories = await _categoriesManager.getProductCategories(id);
+    ProductsCategoryResponse? _productCategories = await _categoriesManager.getProductCategoriesLevelOne(id);
+    if (_productCategories == null) {
+      return DataModel.withError(S.current.networkError);
+    }
+    if (_productCategories.statusCode != '200') {
+      return DataModel.withError(
+          StatusCodeHelper.getStatusCodeMessages(_productCategories.statusCode));
+    }
+    if (_productCategories.data == null) return DataModel.empty();
+
+    return ProductsCategoryModel.withData(_productCategories.data!);
+  }
+  Future<DataModel> getProductsCategoryLevelTwo(int id) async {
+
+    ProductsCategoryResponse? _productCategories = await _categoriesManager.getProductCategoriesLevelTwo(id);
     if (_productCategories == null) {
       return DataModel.withError(S.current.networkError);
     }

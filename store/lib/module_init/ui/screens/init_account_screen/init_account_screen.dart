@@ -46,7 +46,9 @@ class InitAccountScreenState extends State<InitAccountScreen> {
   void submitProfile(CreateStoreRequest request) {
     widget._stateManager.submitProfile(request, this);
   }
-
+  void getStoreCategories() {
+    widget._stateManager.getStoreCategories(this);
+  }
   @override
   void initState() {
     SchedulerBinding.instance!.addPostFrameCallback((Duration duration) async {
@@ -66,15 +68,15 @@ class InitAccountScreenState extends State<InitAccountScreen> {
         setState(() {});
       }
     });
-    getRoleInitState();
+    getStoreCategories();
     super.initState();
   }
 
 
 
-  void getRoleInitState() {
-    widget._stateManager.getRoleInit(this);
-  }
+  // void getRoleInitState() {
+  //   widget._stateManager.getRoleInit(this);
+  // }
 
   @override
   Widget build(BuildContext context) {

@@ -43,7 +43,7 @@ class Data {
   String? productName;
   String? productImage;
   num? productPrice;
-  // int? storeOwnerProfileID;
+  num? discount;
   int? storeProductCategoryID;
 
   Data({
@@ -51,7 +51,7 @@ class Data {
       this.productName, 
       this.productImage, 
       this.productPrice, 
-      // this.storeOwnerProfileID,
+      this.discount,
       this.storeProductCategoryID});
 
   Data.fromJson(dynamic json) {
@@ -59,7 +59,7 @@ class Data {
     productName = json['productName'];
     productImage = json['productImage'];
     productPrice = json['productPrice'];
-    // storeOwnerProfileID = json['storeOwnerProfileID'];
+    discount = json['discount'];
     storeProductCategoryID = json['storeProductCategoryID'];
   }
 
@@ -69,7 +69,7 @@ class Data {
     map['productName'] = productName;
     map['productImage'] = productImage;
     map['productPrice'] = productPrice;
-    // map['storeOwnerProfileID'] = storeOwnerProfileID;
+    map['discount'] = discount;
     map['storeProductCategoryID'] = storeProductCategoryID;
     return map;
   }

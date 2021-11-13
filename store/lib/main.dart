@@ -23,6 +23,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'generated/l10n.dart';
 import 'module_about/about_module.dart';
+import 'module_categories/categories_module.dart';
 import 'module_init/init_account_module.dart';
 import 'module_main/main_module.dart';
 import 'module_notifications/service/local_notification_service/local_notification_service.dart';
@@ -77,6 +78,7 @@ class MyApp extends StatefulWidget {
   final MainModule _mainModule;
   final StoresModule _storesModule;
   final OrdersModule _ordersModule;
+  final CategoriesModule _categoriesModule;
   MyApp(
     this._themeDataService,
     this._localizationService,
@@ -90,7 +92,8 @@ class MyApp extends StatefulWidget {
       this._initAccountModule,
       this._mainModule,
       this._storesModule,
-      this._ordersModule
+      this._ordersModule,
+      this._categoriesModule
   );
 
   @override

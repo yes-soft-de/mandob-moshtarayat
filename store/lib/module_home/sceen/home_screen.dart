@@ -30,13 +30,14 @@ class HomeScreenState extends State<HomeScreen> {
   StoreProfileModel model = StoreProfileModel(id: 0,
       storeOwnerName: 'storeOwnerName', phone: '323230',
       deliveryCost: 0, image: '', privateOrders: true,
-      hasProducts: true, categoryId: '1');
+      storeCategoryName: '',
+      hasProducts: true, categoryId: -1);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomMandopAppBar.appBar(context,
-          title: S.of(context).home, icon: Icons.menu,colorIcon: AppThemeDataService.PrimaryDarker, onTap: () {
+          title: S.of(context).home, icon: Icons.menu, onTap: () {
             MainScreenState.advancedController.showDrawer();
           }),
       body: AdvancedDrawer(
@@ -82,8 +83,8 @@ class HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    ReportModel model =ReportModel(countOngoingOrders: 5,countCaptains: 5,countClients: 8,countCompletedOrders: 3,countProducts: 6,countStores: 2);
-    state = HomeLoadedState(this,model);
+    // ReportModel model =ReportModel(countOngoingOrders: 5,countCaptains: 5,countClients: 8,countCompletedOrders: 3,countProducts: 6,countStores: 2);
+    state = HomeLoadingState(this);
     widget._stateManager.stateStream.listen((event) {
       state = event;
      if (this.mounted){
@@ -91,11 +92,11 @@ class HomeScreenState extends State<HomeScreen> {
        });
      }
     });
-    // getReport();
+    getReport();
     super.initState();
   }
 
   void getReport() {
-    widget._stateManager.getReport(this);
+    widget._stateManager.getProfileStore(this);
   }
 }

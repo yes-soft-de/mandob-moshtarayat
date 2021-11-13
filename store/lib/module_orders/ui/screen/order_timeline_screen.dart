@@ -33,10 +33,10 @@ void getOrder(){
 
   @override
   void initState() {
-  OrderStatus status = OrderStatus(completionTime: '30',currentStage: '50',deliveredTime: '45');
-  Data v = Data(logs: [],orderStatus:status );
-    OrderTimeLineModel model = OrderTimeLineModel.withData(v);
-    currentState = OrderTimLineLoadedState(this,model);
+  // OrderStatus status = OrderStatus(completionTime: '30',currentStage: '50',deliveredTime: '45');
+  // Data v = Data(logs: [],orderStatus:status );
+  //   OrderTimeLineModel model = OrderTimeLineModel.withData(v);
+    currentState = MyOrdersLoadingState(this);
     widget._stateManager.stateStream.listen((event) {
       currentState = event;
       if (mounted) {
@@ -51,15 +51,15 @@ void getOrder(){
 
   @override
   Widget build(BuildContext context) {
-    // var args = ModalRoute
-    //     .of(context)
-    //     ?.settings
-    //     .arguments;
-    // if (args != null && flagArgs) {
-    //     orderId = int.parse(args.toString());
-    //     flagArgs = false;
-    //     widget._stateManager.getOrderTimeLine(orderId ?? -1,this);
-    // }
+    var args = ModalRoute
+        .of(context)
+        ?.settings
+        .arguments;
+    if (args != null && flagArgs) {
+        orderId = int.parse(args.toString());
+        flagArgs = false;
+        widget._stateManager.getOrderTimeLine(orderId ?? -1,this);
+    }
     return GestureDetector(
       onTap: () {
         var focus = FocusScope.of(context);

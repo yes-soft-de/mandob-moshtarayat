@@ -1,5 +1,8 @@
 import 'dart:io';
+import 'package:flutter_map/plugin_api.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
+import 'package:mandob_moshtarayat/module_categories/model/StoreCategoriesModel.dart';
 import 'package:mandob_moshtarayat/module_init/request/create_captain_profile/create_captain_profile_request.dart';
 import 'package:mandob_moshtarayat/module_init/ui/screens/init_account_screen/init_account_screen.dart';
 import 'package:mandob_moshtarayat/module_init/ui/state/init_account/init_account.state.dart';
@@ -7,46 +10,66 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_feild.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_list_view.dart';
 import 'package:mandob_moshtarayat/utils/components/faded_button_bar.dart';
+import 'package:mandob_moshtarayat/utils/components/map.dart';
+import 'package:mandob_moshtarayat/utils/effect/checked.dart';
+import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
 
 class InitAccountCaptainInitProfile extends InitAccountState {
+  final InitAccountScreenState screenState;
+  final List<StoreCategoriesModel> categories;
+  // Uri? restaurantIamge;
+  //
+  // final _nameController = TextEditingController();
+  // final _phoneController = TextEditingController();
+  //
+  //
+  // int hasProduct=0;
+  // int privateOrders=0;
+  //
+  // // TimeOfDay closingTime='';
+  // // TimeOfDay openingTime='';
+  //
+  // int storeCategoryId=0;
+
+
+  InitAccountCaptainInitProfile( this.screenState,this.categories)
+      : super(screenState);
+
+  // InitAccountCaptainInitProfile.withData(
+  //     InitAccountScreenState screenState,
+  //     CreateStoreRequest request, this.categories)
+  //     : super(screenState);
+  // {
+  //   _nameController.text = request.storeOwnerName??'';
+  //    _phoneController.text = request.phone??'';
+  //    storeCategoryId =request.storeCategoryId??0;
+  //   // closingTime = request.closingTime??'';
+  //   // openingTime = request.openingTime??'';
+  //   hasProduct = request.hasProducts??0;
+  //   privateOrders = request.privateOrders??0;
+  //
+  //   restaurantIamge = this.restaurantIamge;
+  // }
+
+  final GlobalKey<FormState> _initKey = GlobalKey<FormState>();
+
+  String? catId;
+  MapController mapController = MapController();
+  LatLng? storeLocation;
+  String? imagePath;
+  bool privateOrder = false;
+  bool products = false;
+  TimeOfDay? openingTime;
+  TimeOfDay? closingTime;
+  var date = DateTime.now();
   Uri? restaurantIamge;
 
   final _nameController = TextEditingController();
   final _phoneController = TextEditingController();
-
-
-  int hasProduct=0;
-  int privateOrders=0;
-
-  String closingTime='';
-  String openingTime='';
-
-  int storeCategoryId=0;
-
-
-  InitAccountCaptainInitProfile(InitAccountScreenState screenState)
-      : super(screenState);
-
-  InitAccountCaptainInitProfile.withData(
-      InitAccountScreenState screenState,
-      CreateStoreRequest request)
-      : super(screenState) {
-    _nameController.text = request.storeOwnerName??'';
-     _phoneController.text = request.phone??'';
-     storeCategoryId =request.storeCategoryId??0;
-    closingTime = request.closingTime??'';
-    openingTime = request.openingTime??'';
-    hasProduct = request.hasProducts??0;
-    privateOrders = request.privateOrders??0;
-
-    restaurantIamge = this.restaurantIamge;
-  }
-
-  final GlobalKey<FormState> _initKey = GlobalKey<FormState>();
-
   @override
   Widget getUI(BuildContext context) {
     return SafeArea(
@@ -55,77 +78,303 @@ class InitAccountCaptainInitProfile extends InitAccountState {
         child: Stack(
           children: [
             CustomListView.custom(
+              padding: EdgeInsets.only(right: 16, left: 16),
               children: [
-                MediaQuery.of(context).viewInsets.bottom != 0
-                    ? Container()
-                    : Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: GestureDetector(
-                          onTap: () {
-                            ImagePicker()
-                                .getImage(source: ImageSource.gallery)
-                                .then((value) {
-                              if (value != null) {
-                                restaurantIamge = Uri(path: value.path);
-                                screen.refresh();
-                              }
-                            });
-                          },
-                          child: Container(
-                              height: 75,
-                              width: 75,
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).primaryColor,
-                                shape: BoxShape.circle,
-                              ),
-                              child: Stack(
-                                children: [
-                                  Positioned.fill(
-                                      child: Icon(Icons.person,
-                                          size: 45, color: Colors.white)),
-                                  _getCaptainImageFG(),
-                                ],
-                              )),
+                // MediaQuery.of(context).viewInsets.bottom != 0
+                //     ? Container()
+                //     : Padding(
+                //         padding: const EdgeInsets.all(8.0),
+                //         child: GestureDetector(
+                //           onTap: () {
+                //             ImagePicker()
+                //                 .getImage(source: ImageSource.gallery)
+                //                 .then((value) {
+                //               if (value != null) {
+                //                 restaurantIamge = Uri(path: value.path);
+                //                 screen.refresh();
+                //               }
+                //             });
+                //           },
+                //           child: Container(
+                //               height: 75,
+                //               width: 75,
+                //               decoration: BoxDecoration(
+                //                 color: Theme.of(context).primaryColor,
+                //                 shape: BoxShape.circle,
+                //               ),
+                //               child: Stack(
+                //                 children: [
+                //                   Positioned.fill(
+                //                       child: Icon(Icons.person,
+                //                           size: 45, color: Colors.white)),
+                //                   _getCaptainImageFG(),
+                //                 ],
+                //               )),
+                //         ),
+                //       ),
+                Container(height: 50,),
+                Hider(
+                  active: true,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                        color: Theme.of(context).backgroundColor),
+                    child: Center(
+                      child: DropdownButton(
+                        value: catId,
+                        items: getStoresCategories(),
+                        onChanged: (v) {
+                          catId = v.toString();
+                          screenState.refresh();
+                        },
+                        hint: Text(
+                          S.current.chooseCategory,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        underline: SizedBox(),
+                        icon: Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Icon(Icons.arrow_drop_down_rounded),
                         ),
                       ),
+                    ),
+                  ),
+                ),
 
 //name
-                Align(
-                    alignment: AlignmentDirectional.bottomStart,
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 4, 20, 4),
-                      child: Text('${S.of(context).name}'),
-                    )),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-                  child: CustomFormField(
-                    controller: _nameController,
-                    hintText: S.current.age,
-                    contentPadding: EdgeInsets.only(top: 15),
-                    preIcon: Icon(Icons.date_range_rounded),
-                    numbers: true,
+                  padding: const EdgeInsets.only(
+                      left: 12.0, bottom: 8, right: 12, top: 16.0),
+                  child: Text(
+                    S.current.storeName,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.start,
                   ),
                 ),
-                // phone
-                Align(
-                    alignment: AlignmentDirectional.bottomStart,
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 4, 20, 4),
-                      child: Text('${S.of(context).phoneNumber}'),
-                    )),
+                CustomFormField(
+                  controller: _nameController,
+                  hintText: S.current.storeName,
+                ),
+                // Phone Number
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-                  child: CustomFormField(
-                    controller: _phoneController,
-                    hintText: '0500000000',
-                    contentPadding: EdgeInsets.only(top: 15),
-                    preIcon: Icon(Icons.phone),
-                    numbers: true,
-                    phone: true,
+                  padding: const EdgeInsets.only(
+                      left: 12.0, bottom: 8, right: 12, top: 16.0),
+                  child: Text(
+                    S.current.storePhone,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.start,
                   ),
                 ),
-                // age
+                CustomFormField(
+                  controller: _phoneController,
+                  hintText: S.current.storePhone,
+                  phone: true,
+                  numbers: true,
+                ),
+                // Store Location
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 32, top: 32.0),
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(25),
+                    onTap: () {
+                      FocusScope.of(context).unfocus();
+                      storeLocation = null;
+                      mapController = MapController();
+                      showDialog(
+                          builder: (_) {
+                            return Scaffold(
+                              appBar: CustomMandopAppBar.appBar(context,
+                                  title: S.current.storeLocation,
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Text(S.current.save)),
+                                  ]),
+                              body: MapClientOrder(
+                                mapController,
+                                onTap: (newPos) {
+                                  storeLocation = newPos;
+                                 screenState.refresh();
+                                },
+                              ),
+                            );
+                          },
+                          context: context);
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                        color: storeLocation == null
+                            ? Theme.of(context).primaryColor
+                            : Colors.green,
+                      ),
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Text(
+                            S.current.storeLocation,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, color: Colors.white),
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                // Store Image
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Center(
+                      child: Text(
+                        S.current.storeImage,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )),
+                ),
+                InkWell(
+                  onTap: () {
+                    ImagePicker.platform
+                        .getImage(source: ImageSource.gallery, imageQuality: 70)
+                        .then((value) {
+                      if (value != null) {
+                        imagePath = value.path;
+                       screenState.refresh();
+                      }
+                    });
+                  },
+                  child: Checked(
+                    child: Icon(
+                      Icons.image,
+                      size: 150,
+                    ),
+                    checked: imagePath != null,
+                    checkedWidget: SizedBox(
+                        height: 150,
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.circular(25),
+                            child: Image.file(
+                              File(imagePath ?? ''),
+                              fit: BoxFit.cover,
+                            ))),
+                  ),
+                ),
 
+                Padding(
+                  padding: const EdgeInsets.only(top: 32.0, left: 16, right: 16),
+                  child: Align(
+                      alignment: AlignmentDirectional.centerStart,
+                      child: Text(
+                        S.current.workTime + ' : ',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 16.0),
+                  child: Material(
+                    borderRadius: BorderRadius.circular(25),
+                    elevation: 0.5,
+                    child: ListTile(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      onTap: () {
+                        showTimePicker(
+                          context: context,
+                          initialTime: TimeOfDay.now(),
+                        ).then((value) {
+                          if (value == null) {
+                          } else {
+                            openingTime = value;
+                            screenState.refresh();
+                          }
+                        });
+                      },
+                      title: Text(S.of(context).openingTime),
+                      trailing: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Theme.of(context).backgroundColor),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              openingTime?.format(context).toString() ?? '00:00 ',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          )),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 16.0),
+                  child: Material(
+                    borderRadius: BorderRadius.circular(25),
+                    elevation: 0.5,
+                    child: ListTile(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      onTap: () {
+                        showTimePicker(
+                          context: context,
+                          initialTime: TimeOfDay.now(),
+                        ).then((value) {
+                          if (value == null) {
+                          } else {
+                            closingTime = value;
+                            screenState.refresh();
+                          }
+                        });
+                      },
+                      title: Text(S.of(context).closingTime),
+                      trailing: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Theme.of(context).backgroundColor),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              closingTime?.format(context).toString() ?? '00:00 ',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          )),
+                    ),
+                  ),
+                ),
+                // Store Services
+                Padding(
+                  padding: const EdgeInsets.only(top: 32.0, left: 16, right: 16),
+                  child: Align(
+                      alignment: AlignmentDirectional.centerStart,
+                      child: Text(
+                        S.current.storeService + ' : ',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 16.0),
+                  child: CheckboxListTile(
+                      value: products,
+                      title: Text(S.of(context).products),
+                      onChanged: (v) {
+                        products = v ?? false;
+                        screenState.refresh();
+                      }),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 16.0),
+                  child: CheckboxListTile(
+                      value: privateOrder,
+                      title: Text(S.of(context).privateOrder),
+                      onChanged: (v) {
+                        privateOrder = v ?? false;
+                        screenState.refresh();
+                      }),
+                ),
+                SizedBox(
+                  height: 100,
+                ),
 
               ],
             ),
@@ -133,21 +382,39 @@ class InitAccountCaptainInitProfile extends InitAccountState {
               alignment: Alignment.bottomCenter,
               child: FadedButtonBar(
                 text: S.of(context).uploadAndSubmit,
-                onPressed: restaurantIamge == null
+                onPressed: imagePath == null
                     ? null
                     : () {
-                        if (_initKey.currentState!.validate()) {
+                        if (_initKey.currentState!.validate() &&
+                            imagePath != null &&
+                        openingTime != null &&
+                        closingTime != null) {
                           screen.submitProfile(
                               CreateStoreRequest(
+                                storeCategoryId: int.parse(catId ?? '0'),
+                                openingTime: DateTime(date.year, date.month,
+                                    date.day, openingTime!.hour,
+                                    openingTime!.minute)
+                                    .toUtc()
+                                    .toIso8601String(),
+                                closingTime: DateTime(date.year, date.month,
+                                    date.day, closingTime!.hour,
+                                    closingTime!.minute)
+                                    .toUtc()
+                                    .toIso8601String(),
+                                hasProducts: products ? 1 : 0,
+                                privateOrders: privateOrder ? 1 : 0,
+                                location: GeoJson(
+                                    lat: storeLocation?.latitude,
+                                    long: storeLocation?.longitude),
 
-                                  image: restaurantIamge!.path.toString(),
-                                  storeOwnerName: _nameController.text,
-                                  phone: _phoneController.text,
+                                image: imagePath!.toString(),
+                                storeOwnerName: _nameController.text,
+                                phone: _phoneController.text,
 
 
                               ));
-                        }
-                      },
+                        }},
               ),
             ),
           ],
@@ -171,4 +438,15 @@ class InitAccountCaptainInitProfile extends InitAccountState {
       return Container();
     }
   }
+  List<DropdownMenuItem<String>> getStoresCategories() {
+    List<DropdownMenuItem<String>> items = [];
+    categories.forEach((element) {
+      items.add(DropdownMenuItem(
+        value: element.id.toString(),
+        child: Text(element.categoryName),
+      ));
+    });
+    return items;
+  }
+
 }

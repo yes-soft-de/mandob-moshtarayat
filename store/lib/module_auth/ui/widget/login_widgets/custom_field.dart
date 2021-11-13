@@ -41,7 +41,7 @@ class _CustomLoginFormFieldState extends State<CustomLoginFormField> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        color: StyleText.geyApp,
+        color: Theme.of(context).backgroundColor,
       ),
       child: Padding(
         padding: !clean ? EdgeInsets.only(bottom: 8.0) : EdgeInsets.zero,
@@ -82,7 +82,6 @@ class _CustomLoginFormFieldState extends State<CustomLoginFormField> {
           decoration: InputDecoration(
             border: InputBorder.none,
             hintText: widget.hintText,
-            hintStyle: StyleText.textsAlmaraiNormal,
             prefixIcon: widget.preIcon,
             suffixIcon: widget.password
                 ? IconButton(

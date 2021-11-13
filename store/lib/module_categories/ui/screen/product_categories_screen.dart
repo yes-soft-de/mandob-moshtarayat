@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mandob_moshtarayat/consts/order_status.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/global_nav_key.dart';
+import 'package:mandob_moshtarayat/module_categories/model/products_categories_model.dart';
 import 'package:mandob_moshtarayat/module_categories/request/create_products_request.dart';
 import 'package:mandob_moshtarayat/module_categories/request/update_product_category_request.dart';
 import 'package:mandob_moshtarayat/module_categories/state_manager/products_category_state_manager.dart';
@@ -35,25 +37,20 @@ class ProductCategoriesScreenState extends State<ProductCategoriesScreen> {
       currentState = event;
       refresh();
     });
-
     super.initState();
   }
 
-  void getStoreCategories() {
+  void getStoreCategoriesLevelTwo(List<ProductsCategoryModel> categoriesOne,int id) {
 
-    widget._stateManager.getProductCategory(this,storeId??-1);
+    widget._stateManager.getProductsCategoryLevelTwo(this,categoriesOne,id);
+
+  }
+  void getStoreCategoriesLevelOne() {
+
+    widget._stateManager.getProductsCategoryLevelOne(this,storeId??-1);
 
   }
 
-  void addCategory(CreateProductsCategoriesRequest request) {
-
-    widget._stateManager.createProductCategory(this, request);
-
-  }
-
-  void updateProductCategory(UpdateProductCategoryRequest request){
-    widget._stateManager.updateProductCategory(this, request, storeId??-1);
-  }
 
   void refresh() {
     if (mounted) {
@@ -66,36 +63,37 @@ class ProductCategoriesScreenState extends State<ProductCategoriesScreen> {
   @override
   Widget build(BuildContext context) {
     var args = ModalRoute.of(context)?.settings.arguments;
+    print('ddff');
     if (args != null && flagArgs){
       if (args is int) {
         storeId = args;
         flagArgs = false;
-        widget._stateManager.getProductCategory(this,storeId??-1);
+        widget._stateManager.getProductsCategoryLevelOne(this,storeId??-1);
       }
     }
     return Scaffold(
       appBar: CustomMandopAppBar.appBar(context,
           title: S.of(context).productCategories,),
       body: currentState.getUI(context),
-      floatingActionButton: Hider(
-        active: canAddCategories,
-        child: FloatedIconButton(
-          text: S.current.addNewCategory,
-          icon: Icons.add_circle_rounded,
-          onPressed: (){
-            showDialog(
-                context: context,
-                builder: (_) {
-                  return formDialog(
-                      context, S.current.addNewCategory, S.current.category,
-                          (name, image) {
-                        Navigator.of(context).pop();
-                        addCategory(CreateProductsCategoriesRequest(productCategoryName: name,storeOwnerProfileId: storeId));
-                      },image: false);
-                });
-          },
-        ),
-      ),
+      // floatingActionButton: Hider(
+      //   active: canAddCategories,
+      //   child: FloatedIconButton(
+      //     text: S.current.addNewCategory,
+      //     icon: Icons.add_circle_rounded,
+      //     onPressed: (){
+      //       showDialog(
+      //           context: context,
+      //           builder: (_) {
+      //             return formDialog(
+      //                 context, S.current.addNewCategory, S.current.category,
+      //                     (name, image) {
+      //                   Navigator.of(context).pop();
+      //                   addCategory(CreateProductsCategoriesRequest(productCategoryName: name,storeOwnerProfileId: storeId));
+      //                 },image: false);
+      //           });
+      //     },
+      //   ),
+      // ),
     );
   }
 }
