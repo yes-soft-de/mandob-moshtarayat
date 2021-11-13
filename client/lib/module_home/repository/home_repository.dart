@@ -42,5 +42,15 @@ class HomeRepository {
     if (response == null) return null;
     return ProductsByCategoriesResponse.fromJson(response);
   }
+  Future<ProductsByCategoriesResponse?> getSubCategoriesProducts(String categoriesID) async {
+    dynamic response = await _apiClient.get(Urls.GET_PRODUCTS_BY_SUBCATEGORIES + categoriesID);
+    if (response == null) return null;
+    return ProductsByCategoriesResponse.fromJson(response);
+  }
+  Future<ProductsByCategoriesResponse?> getMainCategoryProducts(String categoriesID) async {
+    dynamic response = await _apiClient.get(Urls.GET_PRODUCTS_BY_MAIN_CATEGORIES + categoriesID);
+    if (response == null) return null;
+    return ProductsByCategoriesResponse.fromJson(response);
+  }
 
 }

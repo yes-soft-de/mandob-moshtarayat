@@ -36,6 +36,12 @@ class HomeScreenState extends State<HomeScreen> {
   void getProducts(catId)  {
     widget._homeStateManager.getFilteredProducts(this,catId);
   }
+  void getSubCategoriesProducts(catId)  {
+    widget._homeStateManager.getSubCategoriesProducts(this,catId);
+  }
+  void getMainCategoryProducts(catId)  {
+    widget._homeStateManager.getMainCategoryProducts(this,catId);
+  }
 
 
   @override

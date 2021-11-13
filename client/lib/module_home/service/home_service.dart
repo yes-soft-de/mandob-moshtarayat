@@ -108,4 +108,25 @@ class HomeService {
     if (productsResponse.data == null) return DataModel.empty();
     return ProductsByCategoriesModel.withData(productsResponse.data!);
   }
+  Future<DataModel> getSubCategoriesProducts(String categoriesID) async {
+    ProductsByCategoriesResponse? productsResponse = await _homeManager.getSubCategoriesProducts(categoriesID);
+    if (productsResponse == null) return DataModel.withError(S.current.networkError);
+    if (productsResponse.statusCode != '200') {
+      return DataModel.withError(
+          StatusCodeHelper.getStatusCodeMessages(productsResponse.statusCode ?? '0'));
+    }
+    if (productsResponse.data == null) return DataModel.empty();
+    return ProductsByCategoriesModel.withData(productsResponse.data!);
+  }
+
+  Future<DataModel> getMainCategoryProducts(String categoriesID) async {
+    ProductsByCategoriesResponse? productsResponse = await _homeManager.getMainCategoryProducts(categoriesID);
+    if (productsResponse == null) return DataModel.withError(S.current.networkError);
+    if (productsResponse.statusCode != '200') {
+      return DataModel.withError(
+          StatusCodeHelper.getStatusCodeMessages(productsResponse.statusCode ?? '0'));
+    }
+    if (productsResponse.data == null) return DataModel.empty();
+    return ProductsByCategoriesModel.withData(productsResponse.data!);
+  }
 }
