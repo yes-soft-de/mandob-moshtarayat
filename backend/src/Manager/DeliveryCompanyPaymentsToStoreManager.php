@@ -42,13 +42,13 @@ class DeliveryCompanyPaymentsToStoreManager
         return $this->deliveryCompanyPaymentsToStoreEntityRepository->deliveryCompanySumPaymentsToStore($storeOwnerProfileID);
     }
 
-    public function deliveryCompanySumPaymentsToStoreInSpecificDate($storeOwnerProfileID, $ToDate, $toDate)
+    public function deliveryCompanySumPaymentsToStoreInSpecificDate($storeOwnerProfileID, $fromDate, $toDate)
     {
-        return $this->deliveryCompanyPaymentsToStoreEntityRepository->deliveryCompanySumPaymentsToStoreInSpecificDate($storeOwnerProfileID, $ToDate, $toDate);
+        return $this->deliveryCompanyPaymentsToStoreEntityRepository->deliveryCompanySumPaymentsToStoreInSpecificDate($storeOwnerProfileID, $fromDate, $toDate);
     }
 
-    public function deliveryCompanyPaymentsToStoreInSpecificDate($storeOwnerProfileID, $ToDate, $toDate)
+    public function deliveryCompanyPaymentsToStoreInSpecificDate($storeOwnerProfileID, $fromDate, $toDate)
     {
-        return $this->deliveryCompanyPaymentsToStoreEntityRepository->deliveryCompanyPaymentsToStoreInSpecificDate($storeOwnerProfileID, $ToDate, $toDate);
+        return $this->deliveryCompanyPaymentsToStoreEntityRepository->deliveryCompanyPaymentsToStoreInSpecificDate($storeOwnerProfileID, $fromDate, $toDate);
     }
 }

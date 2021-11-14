@@ -45,14 +45,14 @@ class DeliveryCompanyPaymentsToStoreService
       return $this->deliveryCompanyPaymentsToStoreManager->deliveryCompanySumPaymentsToStore($storeOwnerProfileID);
     }
 
-    public function deliveryCompanySumPaymentsToStoreInSpecificDate($storeOwnerProfileID, $ToDate, $toDate)
+    public function deliveryCompanySumPaymentsToStoreInSpecificDate($storeOwnerProfileID, $fromDate, $toDate)
     {
-       return $this->deliveryCompanyPaymentsToStoreManager->deliveryCompanySumPaymentsToStoreInSpecificDate($storeOwnerProfileID, $ToDate, $toDate);
+       return $this->deliveryCompanyPaymentsToStoreManager->deliveryCompanySumPaymentsToStoreInSpecificDate($storeOwnerProfileID, $fromDate, $toDate);
     }
 
-    public function deliveryCompanyPaymentsToStoreInSpecificDate($storeOwnerProfileID, $ToDate, $toDate)
+    public function deliveryCompanyPaymentsToStoreInSpecificDate($storeOwnerProfileID, $fromDate, $toDate)
     {
-       return $this->deliveryCompanyPaymentsToStoreManager->deliveryCompanyPaymentsToStoreInSpecificDate($storeOwnerProfileID, $ToDate, $toDate);
+       return $this->deliveryCompanyPaymentsToStoreManager->deliveryCompanyPaymentsToStoreInSpecificDate($storeOwnerProfileID, $fromDate, $toDate);
     }
 
 }

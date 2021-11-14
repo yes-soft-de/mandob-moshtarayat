@@ -44,20 +44,20 @@ class DeliveryCompanyPaymentsToStoreEntityRepository extends ServiceEntityReposi
             ->getSingleScalarResult();
     }
 
-    public function deliveryCompanySumPaymentsToStoreInSpecificDate($storeOwnerProfileID, $ToDate, $toDate)
+    public function deliveryCompanySumPaymentsToStoreInSpecificDate($storeOwnerProfileID, $fromDate, $toDate)
     {
         return $this->createQueryBuilder('paymentsToStore')
             ->select('sum(paymentsToStore.amount) as sumPayments ')
 
             ->where('paymentsToStore.storeOwnerProfileID = :storeOwnerProfileID')
-            ->andWhere('paymentsToStore.date >= :ToDate')
+            ->andWhere('paymentsToStore.date >= :fromDate')
             ->andWhere('paymentsToStore.date < :toDate')
 
             ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
-            ->setParameter('ToDate', $ToDate)
+            ->setParameter('fromDate', $fromDate)
             ->setParameter('toDate', $toDate)
             ->getQuery()
-            ->getResult();
+            ->getSingleScalarResult();
     }
 
     public function deliveryCompanyPaymentsToStoreInSpecificDate($storeOwnerProfileID, $ToDate, $toDate)
