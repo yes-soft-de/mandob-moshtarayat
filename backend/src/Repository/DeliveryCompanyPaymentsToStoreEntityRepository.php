@@ -19,32 +19,60 @@ class DeliveryCompanyPaymentsToStoreEntityRepository extends ServiceEntityReposi
         parent::__construct($registry, DeliveryCompanyPaymentsToStoreEntity::class);
     }
 
-    // /**
-    //  * @return DeliveryCompanyPaymentsToStoreEntity[] Returns an array of DeliveryCompanyPaymentsToStoreEntity objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('d.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?DeliveryCompanyPaymentsToStoreEntity
+    public function  deliveryCompanyPaymentsToStore($storeOwnerProfileID)
     {
-        return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
-            ->setParameter('val', $value)
+        return $this->createQueryBuilder('paymentsToStore')
+            ->select('paymentsToStore.id, paymentsToStore.storeOwnerProfileID, paymentsToStore.amount, paymentsToStore.date, paymentsToStore.note')
+
+            ->andWhere('paymentsToStore.storeOwnerProfileID = :storeOwnerProfileID')
+
+            ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
+
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult();
     }
-    */
+
+    public function deliveryCompanySumPaymentsToStore($storeOwnerProfileID)
+    {
+        return $this->createQueryBuilder('paymentsToStore')
+            ->select('sum(paymentsToStore.amount) as sumPaymentsFromCompany')
+            ->andWhere('paymentsToStore.storeOwnerProfileID = :storeOwnerProfileID')
+            ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function deliveryCompanySumPaymentsToStoreInSpecificDate($storeOwnerProfileID, $ToDate, $toDate)
+    {
+        return $this->createQueryBuilder('paymentsToStore')
+            ->select('sum(paymentsToStore.amount) as sumPayments ')
+
+            ->where('paymentsToStore.storeOwnerProfileID = :storeOwnerProfileID')
+            ->andWhere('paymentsToStore.date >= :ToDate')
+            ->andWhere('paymentsToStore.date < :toDate')
+
+            ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
+            ->setParameter('ToDate', $ToDate)
+            ->setParameter('toDate', $toDate)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function deliveryCompanyPaymentsToStoreInSpecificDate($storeOwnerProfileID, $ToDate, $toDate)
+    {
+        return $this->createQueryBuilder('paymentsToStore')
+            ->select('paymentsToStore.id, paymentsToStore.storeOwnerProfileID, paymentsToStore.amount, paymentsToStore.date, paymentsToStore.note')
+
+            ->where('paymentsToStore.storeOwnerProfileID = :storeOwnerProfileID')
+            ->andWhere('paymentsToStore.date >= :ToDate')
+            ->andWhere('paymentsToStore.date < :toDate')
+            ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
+            ->setParameter('ToDate', $ToDate)
+            ->setParameter('toDate', $toDate)
+            ->getQuery()
+            ->getResult();
+    }
+
 }

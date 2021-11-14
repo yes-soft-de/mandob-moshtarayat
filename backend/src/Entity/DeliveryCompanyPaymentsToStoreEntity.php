@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\DeliveryCompanyPaymentsToStoreEntityRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=DeliveryCompanyPaymentsToStoreEntityRepository::class)
@@ -23,6 +24,7 @@ class DeliveryCompanyPaymentsToStoreEntity
     private $storeOwnerProfileID;
 
     /**
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
     private $date;
