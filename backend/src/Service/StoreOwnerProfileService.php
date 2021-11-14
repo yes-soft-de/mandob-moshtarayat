@@ -13,13 +13,14 @@ use App\Request\StoreOwnerProfileUpdateRequest;
 use App\Request\StoreOwnerUpdateByAdminRequest;
 use App\Request\UserRegisterRequest;
 use App\Response\CaptainIsActiveResponse;
+use App\Response\StoreFinancialAccountForStoreResponse;
 use App\Response\StoreOwnerProfileCreateResponse;
 use App\Response\StoreOwnerProfileResponse;
 use App\Response\StoreOwnerByCategoryIdResponse;
 use App\Response\StoresFilterByNameResponse;
 use App\Response\UserRegisterResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-
+use App\Service\DeliveryCompanyPaymentsToStoreService;
 
 class StoreOwnerProfileService
 {
@@ -30,9 +31,10 @@ class StoreOwnerProfileService
     private $params;
     private $roomIdHelperService;
     private $ratingService;
+    private $deliveryCompanyPaymentsToStoreService;
 
     public function __construct(AutoMapping $autoMapping, UserManager $userManager, RatingService $ratingService, StoreOwnerBranchService $storeOwnerBranchService,
-                                ParameterBagInterface $params, RoomIdHelperService $roomIdHelperService, StoreOwnerProfileManager $storeOwnerProfileManager)
+                                ParameterBagInterface $params, RoomIdHelperService $roomIdHelperService, StoreOwnerProfileManager $storeOwnerProfileManager, DeliveryCompanyPaymentsToStoreService $deliveryCompanyPaymentsToStoreService)
     {
         $this->autoMapping = $autoMapping;
         $this->userManager = $userManager;
@@ -40,6 +42,7 @@ class StoreOwnerProfileService
         $this->ratingService = $ratingService;
         $this->storeOwnerBranchService = $storeOwnerBranchService;
         $this->roomIdHelperService = $roomIdHelperService;
+        $this->deliveryCompanyPaymentsToStoreService = $deliveryCompanyPaymentsToStoreService;
         $this->params = $params->get('upload_base_url') . '/';
     }
 
@@ -231,9 +234,31 @@ class StoreOwnerProfileService
         return $response;
     }
 
-    public function storeIsActive($captainID)
+    public function storeIsActive($userID)
     {
-        $item = $this->userManager->storeIsActive($captainID);
+        $item = $this->userManager->storeIsActive($userID);
         return $this->autoMapping->map('array',CaptainIsActiveResponse::class, $item);
+    }
+
+    public function storeFinancialAccountForStore($userID)
+    {
+        $storeOwnerProfileId = $this->userManager->getStoreProfileId($userID);
+        $item['amountOwedToStore'] = (float)$this->userManager->getSumInvoicesForStore($storeOwnerProfileId);
+        $item['sumPaymentsToStore'] = (float)$this->deliveryCompanyPaymentsToStoreService->deliveryCompanySumPaymentsToStore($storeOwnerProfileId);
+        $item['total'] =  $item['amountOwedToStore'] -  $item['sumPaymentsToStore'];
+        $item['paymentsToStore'] = $this->deliveryCompanyPaymentsToStoreService->deliveryCompanyPaymentsToStore($storeOwnerProfileId);
+
+        return $this->autoMapping->map('array',StoreFinancialAccountForStoreResponse::class, $item);
+
+    }
+
+    public function storeFinancialAccountForAdmin($storeOwnerProfileId)
+    {
+        $item['amountOwedToStore'] = (float)$this->userManager->getSumInvoicesForStore($storeOwnerProfileId);
+        $item['sumPaymentsToStore'] = (float)$this->deliveryCompanyPaymentsToStoreService->deliveryCompanySumPaymentsToStore($storeOwnerProfileId);
+        $item['total'] = $item['sumPaymentsToStore'] - $item['amountOwedToStore'];
+        $item['paymentsToStore'] = $this->deliveryCompanyPaymentsToStoreService->deliveryCompanyPaymentsToStore($storeOwnerProfileId);
+        return $this->autoMapping->map('array',StoreFinancialAccountForStoreResponse::class, $item);
+
     }
 }

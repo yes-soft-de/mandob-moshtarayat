@@ -41,7 +41,7 @@ class DeliveryCompanyPaymentsToStoreEntityRepository extends ServiceEntityReposi
             ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
 
             ->getQuery()
-            ->getResult();
+            ->getSingleScalarResult();
     }
 
     public function deliveryCompanySumPaymentsToStoreInSpecificDate($storeOwnerProfileID, $ToDate, $toDate)

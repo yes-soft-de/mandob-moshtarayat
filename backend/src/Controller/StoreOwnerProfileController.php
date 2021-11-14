@@ -432,5 +432,27 @@ class StoreOwnerProfileController extends BaseController
         return $this->response($result, self::FETCH);
     }
 
+    /**
+     * @Route("/storefinancialaccountforstore", name="storeFinancialAccountForStore",methods={"GET"})
+     * @IsGranted("ROLE_OWNER")
+     * @return JsonResponse
+     */
+    public function storeFinancialAccountForStore(): JsonResponse
+    {
+        $response = $this->storeOwnerProfileService->storeFinancialAccountForStore($this->getUserId());
 
+        return $this->response($response, self::FETCH);
+    }
+
+    /**
+     * @Route("/storefinancialaccountforadmin/{storeOwnerProfileID}", name="storeFinancialAccountForAdmin",methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
+     * @return JsonResponse
+     */
+    public function storeFinancialAccountForAdmin($storeOwnerProfileID): JsonResponse
+    {
+        $response = $this->storeOwnerProfileService->storeFinancialAccountForAdmin($storeOwnerProfileID);
+
+        return $this->response($response, self::FETCH);
+    }
 }

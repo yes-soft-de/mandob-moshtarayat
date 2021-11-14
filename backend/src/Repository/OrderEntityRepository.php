@@ -832,4 +832,22 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getSumInvoicesForStore($storeOwnerProfileId)
+    {
+        return $this->createQueryBuilder('OrderEntity')
+
+            ->select('sum(OrderEntity.invoiceAmount) as SumInvoices')
+
+            ->andWhere("OrderEntity.storeOwnerProfileID = :storeOwnerProfileId ")
+            ->andWhere("OrderEntity.state != :cancelled")
+            ->andWhere("OrderEntity.isBillCalculated = :isBillCalculated")
+
+            ->setParameter('storeOwnerProfileId', $storeOwnerProfileId)
+            ->setParameter('cancelled', self::CANCEL)
+            ->setParameter('isBillCalculated', 1)
+            ->getQuery()
+//            ->getOneOrNullResult();
+        ->getSingleScalarResult();
+    }
+
 }
