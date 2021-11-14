@@ -3699,6 +3699,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Product Rated`
+  String get productRated {
+    return Intl.message(
+      'Product Rated',
+      name: 'productRated',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

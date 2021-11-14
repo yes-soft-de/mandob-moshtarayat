@@ -90,4 +90,32 @@ class HomeStateManager {
       }
     });
   }
+  void getSubCategoriesProducts(HomeScreenState screenState,String categoriesId) {
+    _productSubject.add(AsyncSnapshot.waiting());
+    _homeService.getSubCategoriesProducts(categoriesId).then((value) {
+      if (value.hasError){
+        _productSubject.add(AsyncSnapshot.waiting());
+      } else if (value.isEmpty){
+        _productSubject.add(AsyncSnapshot.nothing());
+      }
+      else {
+        ProductsByCategoriesModel model = value as ProductsByCategoriesModel;
+        _productSubject.add(AsyncSnapshot.withData(ConnectionState.done, model.data));
+      }
+    });
+  }
+  void getMainCategoryProducts(HomeScreenState screenState,String categoriesId) {
+    _productSubject.add(AsyncSnapshot.waiting());
+    _homeService.getMainCategoryProducts(categoriesId).then((value) {
+      if (value.hasError){
+        _productSubject.add(AsyncSnapshot.waiting());
+      } else if (value.isEmpty){
+        _productSubject.add(AsyncSnapshot.nothing());
+      }
+      else {
+        ProductsByCategoriesModel model = value as ProductsByCategoriesModel;
+        _productSubject.add(AsyncSnapshot.withData(ConnectionState.done, model.data));
+      }
+    });
+  }
 }

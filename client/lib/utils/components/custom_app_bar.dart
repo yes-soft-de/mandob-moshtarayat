@@ -6,9 +6,12 @@ class CustomTwaslnaAppBar {
       {required title,
       GestureTapCallback? onTap,
       Color? colorIcon,
-      Color? buttonBackground}) {
+      Color? buttonBackground,
+      List<Widget>? actions
+      }) {
     return AppBar(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      actions: actions,
       centerTitle: true,
       title: Text(
         title,

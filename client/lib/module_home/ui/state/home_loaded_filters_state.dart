@@ -1,25 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_home/model/productsByCategoriesModel.dart';
 import 'package:mandob_moshtarayat/module_home/model/subCategoriesModel.dart';
-import 'package:mandob_moshtarayat/module_home/model/top_wanted_products_model.dart';
 import 'package:mandob_moshtarayat/module_home/ui/screen/home_screen.dart';
 import 'package:mandob_moshtarayat/module_home/ui/state/home_state.dart';
 import 'package:mandob_moshtarayat/module_home/ui/widget/home_app_bar.dart';
-import 'package:mandob_moshtarayat/module_home/ui/widget/product_card.dart';
 import 'package:mandob_moshtarayat/module_home/ui/widget/product_component.dart';
 import 'package:mandob_moshtarayat/module_home/ui/widget/sub_category_card.dart';
-import 'package:mandob_moshtarayat/module_products/products_routes.dart';
-import 'package:mandob_moshtarayat/module_stores/store_routes.dart';
-import 'package:mandob_moshtarayat/utils/components/progresive_image.dart';
-import 'package:mandob_moshtarayat/utils/customIcon/mandob_icons_icons.dart';
 import 'package:mandob_moshtarayat/utils/effect/checked.dart';
-import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
 import 'package:mandob_moshtarayat/utils/images/images.dart';
-import 'package:mandob_moshtarayat/utils/models/store.dart';
 import 'package:mandob_moshtarayat/utils/models/store_category.dart';
 
 class HomeLoadedFilterState extends HomeState {
@@ -55,6 +45,7 @@ class HomeLoadedFilterState extends HomeState {
                 subCategory = '';
                 subCategoryLevel2ID = null;
                 screenState.getCategories(categoriesID, categories);
+                screenState.getMainCategoryProducts(categoriesID);
                 screenState.refresh();
               }
             },
@@ -100,14 +91,15 @@ class HomeLoadedFilterState extends HomeState {
     subCategories.forEach((element) {
       widgets.add(
         SubCategoryCard(
-            id: element.productCategoryName,
+            id: element.subCategoriesID.toString(),
             title: element.productCategoryName,
-            selected: subCategory == element.productCategoryName,
+            selected: subCategory ==  element.subCategoriesID.toString(),
             icon: Icons.phone_android_rounded,
             onTap: (selected) {
               subCategory = selected;
               catsLevel2 = element.productCategoriesLevel2;
               subCategoryLevel2ID = null;
+              screenState.getSubCategoriesProducts(subCategory);
               screenState.refresh();
             }),
       );
@@ -143,6 +135,10 @@ class HomeLoadedFilterState extends HomeState {
         storeId: element.storeOwnerProfileID.toString(),
         image: element.image,
         title: element.productName,
+        sold: element.soldCount,
+        discount: element.discount,
+        rating: element.rate.toDouble(),
+        description: element.description,
       ));
     });
     return widgets;

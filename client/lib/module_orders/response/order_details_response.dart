@@ -342,7 +342,7 @@ class StoreOwner {
   dynamic imageURL;
   dynamic baseURL;
   dynamic bank;
-  Rating? rating;
+  String? rating;
 
   StoreOwner(
       {this.id,
@@ -377,7 +377,7 @@ class StoreOwner {
     imageURL = json['imageURL'];
     baseURL = json['baseURL'];
     bank = json['bank'];
-    rating = json['rating'] != null ? Rating.fromJson(json['rating']) : null;
+    rating = json['rating'];
   }
 
   Map<String, dynamic> toJson() {

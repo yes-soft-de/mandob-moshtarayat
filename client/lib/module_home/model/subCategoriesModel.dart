@@ -5,19 +5,21 @@ import 'package:mandob_moshtarayat/utils/images/images.dart';
 
 class SubCategoriesModel extends DataModel {
   late String productCategoryName;
-
+  late int subCategoriesID;
   late String productCategoryImage;
   late List<SubcategoriesLevel2> productCategoriesLevel2;
   List<SubCategoriesModel> _subCategories = [];
 
   SubCategoriesModel(
-      {required this.productCategoryName,
+      {required this.subCategoriesID,
+      required this.productCategoryName,
       required this.productCategoryImage,
       required this.productCategoriesLevel2});
 
   SubCategoriesModel.withData(List<Data> data) {
     data.forEach((element) {
       _subCategories.add(SubCategoriesModel(
+        subCategoriesID: element.id ?? -1,
           productCategoryName: element.productCategoryName ?? S.current.unknown,
           productCategoryImage:
               element.productCategoryImage?.image ?? ImageAsset.PLACEHOLDER,
@@ -32,7 +34,7 @@ class SubCategoriesModel extends DataModel {
     cats.forEach((element) {
       result.add(SubcategoriesLevel2(
           name: element.productCategoryName ?? S.current.unknown,
-          image: element.productCategoryImage ?? ImageAsset.PLACEHOLDER,
+          image: element.productCategoryImage?.image ?? ImageAsset.PLACEHOLDER,
           id: element.id ?? -1));
     });
     return result;

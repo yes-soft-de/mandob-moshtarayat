@@ -10,15 +10,15 @@ import 'package:mandob_moshtarayat/utils/customIcon/mandob_icons_icons.dart';
 class ProductComponent extends StatelessWidget {
  final String productId;
  final String title;
- final String? description;
+ final String description;
  final String image;
- final String? sold;
- final String? discount;
- final double? rating;
+ final String sold;
+ final String discount;
+ final double rating;
  final String storeId;
 
  ProductComponent(
- {required this.title,required this.image,this.sold, this.discount, this.rating, this.description,required this.storeId,required this.productId});
+ {required this.title,required this.image,required this.sold,required this.discount,required this.rating,required this.description,required this.storeId,required this.productId});
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,7 @@ class ProductComponent extends StatelessWidget {
                           constraints:
                           BoxConstraints(maxHeight: 50, maxWidth: 200),
                           child: Text(
-                            'Buy new Iphone from us and you will be happy',
+                            description,
                             style: TextStyle(
                               fontSize: 14,
                             ),
@@ -87,7 +87,7 @@ class ProductComponent extends StatelessWidget {
                                   ),
                                   RatingBar.builder(
                                     ignoreGestures: true,
-                                    initialRating: 3,
+                                    initialRating: rating,
                                     minRating: 0,
                                     itemSize: 15,
                                     direction: Axis.horizontal,
@@ -121,13 +121,13 @@ class ProductComponent extends StatelessWidget {
                                       Icon(
                                         MandobIcons.discount,
                                         size: 15,
-                                        color: Theme.of(context).primaryColor,
+                                        color:discount == '0' ?Colors.red : Theme.of(context).primaryColor,
                                       ),
                                       SizedBox(
                                         width: 4,
                                       ),
                                       Text(
-                                        '10',
+                                        '$discount',
                                         style: TextStyle(
                                           fontSize: 12,
                                         ),
@@ -162,7 +162,7 @@ class ProductComponent extends StatelessWidget {
                                         width: 4,
                                       ),
                                       Text(
-                                        '2',
+                                        '$sold',
                                         style: TextStyle(
                                           fontSize: 12,
                                         ),

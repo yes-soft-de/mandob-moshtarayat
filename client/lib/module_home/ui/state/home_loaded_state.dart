@@ -41,6 +41,7 @@ class HomeLoadedState extends HomeState {
           CustomHomeAppBar(categoriesCallback: (categoriesId){
             if (categoriesId != '0') {
               screenState.getCategories(categoriesId, categories);
+              screenState.getMainCategoryProducts(categoriesId);
               screenState.refresh();
             }
           },categories: categories,),

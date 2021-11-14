@@ -10,6 +10,10 @@ class ProductsByCategoriesModel extends DataModel {
   late int storeOwnerProfileID;
   late int storeProductCategoryID;
   late String image;
+  late String discount;
+  late num rate;
+  late String soldCount;
+  late String description;
 
   ProductsByCategoriesModel(
       {required this.id,
@@ -17,13 +21,30 @@ class ProductsByCategoriesModel extends DataModel {
       required this.productPrice,
       required this.storeOwnerProfileID,
       required this.storeProductCategoryID,
-      required this.image});
+      required this.image,
+      required this.description,
+      required this.rate,
+      required this.discount,
+      required this.soldCount});
+
   List<ProductsByCategoriesModel> _products = [];
 
-  ProductsByCategoriesModel.withData(List<Data> data){
+  ProductsByCategoriesModel.withData(List<Data> data) {
     data.forEach((element) {
-      _products.add(ProductsByCategoriesModel(id: element.id ?? -1, productName:element.productName ?? S.current.unknown , productPrice: element.productPrice ?? 0, storeOwnerProfileID: element.storeOwnerProfileID ?? -1, storeProductCategoryID: element.storeProductCategoryID ?? -1, image: element.image?.image ?? ImageAsset.PLACEHOLDER));
+      _products.add(ProductsByCategoriesModel(
+          id: element.id ?? -1,
+          productName: element.productName ?? S.current.unknown,
+          productPrice: element.productPrice ?? 0,
+          storeOwnerProfileID: element.storeOwnerProfileID ?? -1,
+          storeProductCategoryID: element.storeProductCategoryID ?? -1,
+          image: element.image?.image ?? ImageAsset.PLACEHOLDER,
+          description: element.description ?? '',
+          discount: element.discount ?? '0',
+          rate: num.parse(element.rate ?? '0'),
+          soldCount: element.soldCount ?? '0'
+      ));
     });
   }
+
   List<ProductsByCategoriesModel> get data => _products;
 }

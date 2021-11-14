@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat/utils/models/product.dart';
 import 'package:mandob_moshtarayat/utils/models/store.dart';
 import 'package:mandob_moshtarayat/module_search/response/search_response.dart';
@@ -31,7 +30,7 @@ class SearchModel {
 
     data.stores?.forEach((element) {
       store.add(StoreModel(
-          rating: element.rating?.rate ?? 0,
+          rating: num.parse(element.rating ?? '0') ,
           deliveryCost: 0,
           id: element.id ?? 0,
           storeOwnerName: element.storeOwnerName ?? '',

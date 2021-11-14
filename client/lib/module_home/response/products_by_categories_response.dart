@@ -1,8 +1,9 @@
 class ProductsByCategoriesResponse {
   ProductsByCategoriesResponse({
-      this.statusCode, 
-      this.msg, 
-      this.data,});
+    this.statusCode,
+    this.msg,
+    this.data,
+  });
 
   ProductsByCategoriesResponse.fromJson(dynamic json) {
     statusCode = json['status_code'];
@@ -14,6 +15,7 @@ class ProductsByCategoriesResponse {
       });
     }
   }
+
   String? statusCode;
   String? msg;
   List<Data>? data;
@@ -27,19 +29,20 @@ class ProductsByCategoriesResponse {
     }
     return map;
   }
-
 }
 
 class Data {
-  Data({
-      this.id, 
-      this.productName, 
-      this.productPrice, 
-      this.storeOwnerProfileID, 
-      this.storeProductCategoryID, 
-      this.image, 
-      this.imageURL, 
-      this.baseURL,});
+  Data(
+      {this.id,
+      this.productName,
+      this.productPrice,
+      this.storeOwnerProfileID,
+      this.storeProductCategoryID,
+      this.image,
+      this.discount,
+      this.rate,
+      this.soldCount,
+      this.description});
 
   Data.fromJson(dynamic json) {
     id = json['id'];
@@ -47,18 +50,23 @@ class Data {
     productPrice = json['productPrice'];
     storeOwnerProfileID = json['storeOwnerProfileID'];
     storeProductCategoryID = json['storeProductCategoryID'];
+    discount = json['discount']?.toString();
+    rate = json['rate'];
+    soldCount = json['soldCount']?.toString();
+    description = json['description'];
     image = json['image'] != null ? Image.fromJson(json['image']) : null;
-    imageURL = json['imageURL'];
-    baseURL = json['baseURL'];
   }
+
   int? id;
   String? productName;
   int? productPrice;
   int? storeOwnerProfileID;
   int? storeProductCategoryID;
   Image? image;
-  dynamic imageURL;
-  dynamic baseURL;
+  String? discount;
+  String? rate;
+  String? soldCount;
+  String? description;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -70,24 +78,23 @@ class Data {
     if (image != null) {
       map['image'] = image?.toJson();
     }
-    map['imageURL'] = imageURL;
-    map['baseURL'] = baseURL;
     return map;
   }
-
 }
 
 class Image {
   Image({
-      this.imageURL, 
-      this.image, 
-      this.baseURL,});
+    this.imageURL,
+    this.image,
+    this.baseURL,
+  });
 
   Image.fromJson(dynamic json) {
     imageURL = json['imageURL'];
     image = json['image'];
     baseURL = json['baseURL'];
   }
+
   String? imageURL;
   String? image;
   String? baseURL;
@@ -99,5 +106,4 @@ class Image {
     map['baseURL'] = baseURL;
     return map;
   }
-
 }

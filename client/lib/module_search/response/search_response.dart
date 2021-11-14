@@ -1,4 +1,3 @@
-import 'package:mandob_moshtarayat/module_stores/response/rating.dart';
 import 'package:mandob_moshtarayat/utils/logger/logger.dart';
 
 class SearchResponse {
@@ -120,7 +119,7 @@ class Stores {
   int? storeCategoryId;
   bool? privateOrders;
   bool? hasProducts;
-  Rating? rating;
+  String? rating;
 
   Stores(
       {this.id,
@@ -140,7 +139,7 @@ class Stores {
     storeCategoryId = json['storeCategoryId'];
     privateOrders = json['privateOrders'];
     hasProducts = json['hasProducts'];
-    rating = json['rate'] != null ? Rating.fromJson(json['rate']) : null;
+    rating = json['rate'];
   }
 
   Map<String, dynamic> toJson() {
