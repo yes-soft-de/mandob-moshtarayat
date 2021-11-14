@@ -1,4 +1,3 @@
-import 'package:mandob_moshtarayat/module_stores/response/rating.dart';
 import 'package:mandob_moshtarayat/utils/logger/logger.dart';
 
 class SearchResponse {
