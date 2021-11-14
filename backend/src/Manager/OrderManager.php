@@ -417,4 +417,14 @@ class OrderManager
     {
         return $this->orderEntityRepository->getStoreOrdersInSpecificDate($fromDate, $toDate, $storeOwnerProfileID);
     }
+
+    public function getSumInvoicesForStore($storeOwnerProfileId)
+    {
+        return $this->orderEntityRepository->getSumInvoicesForStore($storeOwnerProfileId);
+    }
+
+    public function getSumInvoicesForStoreInSpecificDate($storeOwnerProfileId, $fromDate, $toDate)
+    {
+        return $this->orderEntityRepository->getSumInvoicesForStoreInSpecificDate($storeOwnerProfileId, $fromDate, $toDate);
+    }
 }

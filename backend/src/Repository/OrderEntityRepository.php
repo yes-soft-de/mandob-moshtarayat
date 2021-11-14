@@ -832,4 +832,41 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getSumInvoicesForStore($storeOwnerProfileId)
+    {
+        return $this->createQueryBuilder('OrderEntity')
+
+            ->select('sum(OrderEntity.invoiceAmount) as SumInvoices')
+
+            ->andWhere("OrderEntity.storeOwnerProfileID = :storeOwnerProfileId ")
+            ->andWhere("OrderEntity.state != :cancelled")
+            ->andWhere("OrderEntity.isBillCalculated = :isBillCalculated")
+
+            ->setParameter('storeOwnerProfileId', $storeOwnerProfileId)
+            ->setParameter('cancelled', self::CANCEL)
+            ->setParameter('isBillCalculated', 1)
+            ->getQuery()
+        ->getSingleScalarResult();
+    }
+
+    public function getSumInvoicesForStoreInSpecificDate($storeOwnerProfileId, $fromDate, $toDate)
+    {
+        return $this->createQueryBuilder('OrderEntity')
+
+            ->select('sum(OrderEntity.invoiceAmount) as SumInvoices')
+
+            ->where('OrderEntity.createdAt >= :fromDate')
+            ->andWhere('OrderEntity.createdAt < :toDate')
+            ->andWhere("OrderEntity.storeOwnerProfileID = :storeOwnerProfileId ")
+            ->andWhere("OrderEntity.state != :cancelled")
+            ->andWhere("OrderEntity.isBillCalculated = :isBillCalculated")
+            ->setParameter('storeOwnerProfileId', $storeOwnerProfileId)
+            ->setParameter('cancelled', self::CANCEL)
+            ->setParameter('isBillCalculated', 1)
+            ->setParameter('fromDate', $fromDate)
+            ->setParameter('toDate', $toDate)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
 }

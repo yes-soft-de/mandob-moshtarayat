@@ -738,4 +738,13 @@ class UserManager
     {
         return $this->orderManager->clientOrdersDelivered($clientID);
     }
+
+    public function getSumInvoicesForStore($storeOwnerProfileId)
+    {
+        return $this->orderManager->getSumInvoicesForStore($storeOwnerProfileId);
+    }
+    public function getSumInvoicesForStoreInSpecificDate($storeOwnerProfileId, $fromDate, $toDate)
+    {
+        return $this->orderManager->getSumInvoicesForStoreInSpecificDate($storeOwnerProfileId, $fromDate, $toDate);
+    }
 }

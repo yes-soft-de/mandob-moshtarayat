@@ -432,5 +432,132 @@ class StoreOwnerProfileController extends BaseController
         return $this->response($result, self::FETCH);
     }
 
+    /**
+     * @Route("/storefinancialaccountforstore", name="storeFinancialAccountForStore",methods={"GET"})
+     * @IsGranted("ROLE_OWNER")
+     * @return JsonResponse
+     * @OA\Tag(name="Store Owner Profile")
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns Store Financial Account For Store",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="number", property="amountOwedToStore"),
+     *              @OA\Property(type="number", property="sumPaymentsToStore"),
+     *              @OA\Property(type="number", property="total"),
+     *              @OA\Property(type="array", property="paymentsToStore",
+     *                  @OA\items(
+     *                   @OA\Property(type="integer", property="id"),
+     *                   @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                   @OA\Property(type="integer", property="amount"),
+     *                   @OA\Property(type="object", property="date"),
+     *                   @OA\Property(type="string", property="note")
+     *              )
+     *          )
+     *      )
+     *   )
+     * )
+     * @Security(name="Bearer")
+     */
+    public function storeFinancialAccountForStore(): JsonResponse
+    {
+        $response = $this->storeOwnerProfileService->storeFinancialAccountForStore($this->getUserId());
 
+        return $this->response($response, self::FETCH);
+    }
+
+    /**
+     * @Route("/storefinancialaccountforstoreinspecificdate/{fromDate}/{toDate}", name="storeFinancialAccountForStoreInSpecificDate",methods={"GET"})
+     * @IsGranted("ROLE_OWNER")
+     * @return JsonResponse
+     * @OA\Tag(name="Store Owner Profile")
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns Store Financial Account For Store",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="number", property="amountOwedToStore"),
+     *              @OA\Property(type="number", property="sumPaymentsToStore"),
+     *              @OA\Property(type="number", property="total"),
+     *              @OA\Property(type="array", property="paymentsToStore",
+     *                  @OA\items(
+     *                   @OA\Property(type="integer", property="id"),
+     *                   @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                   @OA\Property(type="integer", property="amount"),
+     *                   @OA\Property(type="object", property="date"),
+     *                   @OA\Property(type="string", property="note")
+     *              )
+     *          )
+     *      )
+     *   )
+     * )
+     * @Security(name="Bearer")
+     */
+    public function storeFinancialAccountForStoreInSpecificDate($fromDate, $toDate): JsonResponse
+    {
+        $response = $this->storeOwnerProfileService->storeFinancialAccountForStoreInSpecificDate($this->getUserId(), $fromDate, $toDate);
+
+        return $this->response($response, self::FETCH);
+    }
+
+    /**
+     * @Route("/storefinancialaccountforadmin/{storeOwnerProfileID}", name="storeFinancialAccountForAdmin",methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
+     * @return JsonResponse
+     * @OA\Tag(name="Store Owner Profile")
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns Store Financial Account For Store",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="number", property="amountOwedToStore"),
+     *              @OA\Property(type="number", property="sumPaymentsToStore"),
+     *              @OA\Property(type="number", property="total"),
+     *              @OA\Property(type="array", property="paymentsToStore",
+     *                  @OA\items(
+     *                   @OA\Property(type="integer", property="id"),
+     *                   @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                   @OA\Property(type="integer", property="amount"),
+     *                   @OA\Property(type="object", property="date"),
+     *                   @OA\Property(type="string", property="note")
+     *              )
+     *          )
+     *      )
+     *   )
+     * )
+     * @Security(name="Bearer")
+     */
+    public function storeFinancialAccountForAdmin($storeOwnerProfileID): JsonResponse
+    {
+        $response = $this->storeOwnerProfileService->storeFinancialAccountForAdmin($storeOwnerProfileID);
+
+        return $this->response($response, self::FETCH);
+    }
 }
