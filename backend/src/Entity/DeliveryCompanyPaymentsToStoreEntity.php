@@ -2,15 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\DeliveryCompanyPaymentsToCaptainEntityRepository;
+use App\Repository\DeliveryCompanyPaymentsToStoreEntityRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
-
 
 /**
- * @ORM\Entity(repositoryClass=DeliveryCompanyPaymentsFromCaptainEntityRepository::class)
+ * @ORM\Entity(repositoryClass=DeliveryCompanyPaymentsToStoreEntityRepository::class)
  */
-class DeliveryCompanyPaymentsToCaptainEntity
+class DeliveryCompanyPaymentsToStoreEntity
 {
     /**
      * @ORM\Id
@@ -20,40 +18,38 @@ class DeliveryCompanyPaymentsToCaptainEntity
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer")
      */
-    private $captainId;
+    private $storeOwnerProfileID;
 
     /**
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime")
      */
     private $date;
 
     /**
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="float")
      */
     private $amount;
-    
+
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text")
      */
     private $note;
-
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getCaptainId(): ?string
+    public function getStoreOwnerProfileID(): ?int
     {
-        return $this->captainId;
+        return $this->storeOwnerProfileID;
     }
 
-    public function setCaptainId(string $captainId): self
+    public function setStoreOwnerProfileID(int $storeOwnerProfileID): self
     {
-        $this->captainId = $captainId;
+        $this->storeOwnerProfileID = $storeOwnerProfileID;
 
         return $this;
     }
@@ -63,7 +59,7 @@ class DeliveryCompanyPaymentsToCaptainEntity
         return $this->date;
     }
 
-    public function setDate(?\DateTimeInterface $date): self
+    public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
 
@@ -75,19 +71,19 @@ class DeliveryCompanyPaymentsToCaptainEntity
         return $this->amount;
     }
 
-    public function setAmount(?float $amount): self
+    public function setAmount(float $amount): self
     {
         $this->amount = $amount;
 
         return $this;
     }
-    
+
     public function getNote(): ?string
     {
         return $this->note;
     }
 
-    public function setNote(?string $note): self
+    public function setNote(string $note): self
     {
         $this->note = $note;
 
