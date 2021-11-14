@@ -7,16 +7,19 @@ use App\Manager\DeliveryCompanyPaymentsToStoreManager;
 use App\Entity\DeliveryCompanyPaymentsToStoreEntity;
 use App\Request\DeliveryCompanyPaymentsToStoreCreateRequest;
 use App\Response\DeliveryCompanyPaymentsToStoreCreateResponse;
+use App\Service\UserService;
 
 class DeliveryCompanyPaymentsToStoreService
 {
     private $autoMapping;
     private $deliveryCompanyPaymentsToStoreManager;
+    private $userService;
 
-    public function __construct(AutoMapping $autoMapping, DeliveryCompanyPaymentsToStoreManager $deliveryCompanyPaymentsToStoreManager)
+    public function __construct(AutoMapping $autoMapping, DeliveryCompanyPaymentsToStoreManager $deliveryCompanyPaymentsToStoreManager, UserService $userService)
     {
         $this->autoMapping = $autoMapping;
         $this->deliveryCompanyPaymentsToStoreManager = $deliveryCompanyPaymentsToStoreManager;
+        $this->userService = $userService;
     }
 
     public function createDeliveryCompanyPaymentsToStore(DeliveryCompanyPaymentsToStoreCreateRequest $request)
@@ -26,24 +29,30 @@ class DeliveryCompanyPaymentsToStoreService
         return $this->autoMapping->map(DeliveryCompanyPaymentsToStoreEntity::class, DeliveryCompanyPaymentsToStoreCreateResponse::class, $item);
     }
     
-    public function deliveryCompanyPaymentsToStore($captainId)
+    public function deliveryCompanyPaymentsToStoreByUserID($userID)
     {
-      return $this->deliveryCompanyPaymentsToStoreManager->deliveryCompanyPaymentsToStore($captainId);
+      $storeOwnerProfileID =  $this->userService->getStoreProfileId($userID);
+      return $this->deliveryCompanyPaymentsToStoreManager->deliveryCompanyPaymentsToStore($storeOwnerProfileID);
     }
 
-    public function deliveryCompanySumPaymentsToStore($captainId)
+    public function deliveryCompanyPaymentsToStore($storeOwnerProfileID)
     {
-      return $this->deliveryCompanyPaymentsToStoreManager->deliveryCompanySumPaymentsToStore($captainId);
+      return $this->deliveryCompanyPaymentsToStoreManager->deliveryCompanyPaymentsToStore($storeOwnerProfileID);
     }
 
-    public function deliveryCompanySumPaymentsToStoreInSpecificDate($captainId, $ToDate, $toDate)
+    public function deliveryCompanySumPaymentsToStore($storeOwnerProfileID)
     {
-       return $this->deliveryCompanyPaymentsToStoreManager->deliveryCompanySumPaymentsToStoreInSpecificDate($captainId, $ToDate, $toDate);
+      return $this->deliveryCompanyPaymentsToStoreManager->deliveryCompanySumPaymentsToStore($storeOwnerProfileID);
     }
 
-    public function deliveryCompanyPaymentsToStoreInSpecificDate($captainId, $ToDate, $toDate)
+    public function deliveryCompanySumPaymentsToStoreInSpecificDate($storeOwnerProfileID, $ToDate, $toDate)
     {
-       return $this->deliveryCompanyPaymentsToStoreManager->deliveryCompanyPaymentsToStoreInSpecificDate($captainId, $ToDate, $toDate);
+       return $this->deliveryCompanyPaymentsToStoreManager->deliveryCompanySumPaymentsToStoreInSpecificDate($storeOwnerProfileID, $ToDate, $toDate);
+    }
+
+    public function deliveryCompanyPaymentsToStoreInSpecificDate($storeOwnerProfileID, $ToDate, $toDate)
+    {
+       return $this->deliveryCompanyPaymentsToStoreManager->deliveryCompanyPaymentsToStoreInSpecificDate($storeOwnerProfileID, $ToDate, $toDate);
     }
 
 }
