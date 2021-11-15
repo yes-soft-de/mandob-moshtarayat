@@ -9,10 +9,11 @@ class OrderDetailsResponse {
   OrderDetailsResponse({this.statusCode, this.msg, this.data});
 
   OrderDetailsResponse.fromJson(dynamic json) {
+    statusCode = json['status_code'];
+    msg = json['msg'];
+    data = json['Data'] != null ? Data.fromJson(json['Data']) : null;
     try {
-      statusCode = json['status_code'];
-      msg = json['msg'];
-      data = json['Data'] != null ? Data.fromJson(json['Data']) : null;
+
     } catch (e) {
       Logger().error(
           'Order Details Response', '${e.toString()}', StackTrace.current);
@@ -342,7 +343,7 @@ class StoreOwner {
   dynamic imageURL;
   dynamic baseURL;
   dynamic bank;
-  Rating? rating;
+  String? rating;
 
   StoreOwner(
       {this.id,
@@ -377,7 +378,7 @@ class StoreOwner {
     imageURL = json['imageURL'];
     baseURL = json['baseURL'];
     bank = json['bank'];
-    rating = json['rating'] != null ? Rating.fromJson(json['rating']) : null;
+    rating = json['rating'];
   }
 
   Map<String, dynamic> toJson() {
