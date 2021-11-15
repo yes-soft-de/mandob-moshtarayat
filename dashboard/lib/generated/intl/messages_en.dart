@@ -355,6 +355,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "loginSuccess": MessageLookupByLibrary.simpleMessage(
             "Your account has been logged successfully"),
+        "mainCategories":
+            MessageLookupByLibrary.simpleMessage("Main Categories"),
         "makeBill": MessageLookupByLibrary.simpleMessage("Upload Bill"),
         "male": MessageLookupByLibrary.simpleMessage("Male"),
         "me": MessageLookupByLibrary.simpleMessage("ME"),

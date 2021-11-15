@@ -520,5 +520,6 @@
   "storeAvailable": "المتجر متوفر",
   "storesInActive": "المتاجر الغير متاحة",
   "ordersCancel": "الطلبات الملغية",
-  "createDate": "تاريخ الإنشاء"
+  "createDate": "تاريخ الإنشاء",
+  "mainCategories": "التصنيفات الرئيسية"
 }

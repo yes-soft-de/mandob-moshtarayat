@@ -521,7 +521,9 @@
   "storeAvailable": "Store Availability",
   "storesInActive": "Stores In Active",
   "ordersCancel": "Orders Canceled",
-  "createDate": "Create Date"
+  "createDate": "Create Date",
+  "mainCategories": "Main Categories"
+
 
 
 

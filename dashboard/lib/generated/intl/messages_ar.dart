@@ -345,6 +345,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "loginSuccess":
             MessageLookupByLibrary.simpleMessage("تم تسجيل الدخول بنجاح"),
+        "mainCategories":
+            MessageLookupByLibrary.simpleMessage("التصنيفات الرئيسية"),
         "makeBill": MessageLookupByLibrary.simpleMessage("أصدر فاتورة"),
         "male": MessageLookupByLibrary.simpleMessage("ذكر"),
         "me": MessageLookupByLibrary.simpleMessage("مهنتي"),
