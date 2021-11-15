@@ -468,6 +468,46 @@ class OrderController extends BaseController
     }
 
     /**
+     * @Route("/getstoreorders", name="getStoreOrders",methods={"GET"})
+     * @IsGranted("ROLE_OWNER")
+     * @return JsonResponse
+     * @OA\Tag(name="Order")
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns array of store orders",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="object", property="deliveryDate"),
+     *                  @OA\Property(type="integer", property="orderNumber"),
+     *                  @OA\Property(type="string", property="detail"),
+     *                  @OA\Property(type="string", property="note"),
+     *                  @OA\Property(type="string", property="state"),
+     *                  @OA\Property(type="integer", property="orderType"),
+     *                  @OA\Property(type="number", property="invoiceAmount"),
+     *              )
+     *          )
+     *      )
+     * )
+     * @Security(name="Bearer")
+     */
+    public function getStoreOrders(): JsonResponse
+    {
+        $result = $this->orderService->getStoreOrders($this->getUserId());
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
      * @Route("/countreportforstoreowner", name="countReportForStoreOwner",methods={"GET"})
      * @IsGranted("ROLE_OWNER")
      * @return JsonResponse
@@ -500,4 +540,67 @@ class OrderController extends BaseController
 
         return $this->response($result, self::FETCH);
     }
+
+    /**
+     * @Route("orderdetailsforstore/{orderNumber}", name="getOrderDetailsByOrderNumberForStore", methods={"GET"})
+     * @IsGranted("ROLE_OWNER")
+     * @return JsonResponse
+     *  * *
+     * @OA\Tag(name="Order")
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns object of invoice detail",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="array", property="orderDetails",
+     *                      @OA\Items(
+     *                          @OA\Property(type="integer", property="id"),
+     *                          @OA\Property(type="integer", property="productID"),
+     *                          @OA\Property(type="integer", property="orderID"),
+     *                          @OA\Property(type="integer", property="productName"),
+     *                          @OA\Property(type="object", property="productImage",
+     *                                @OA\Property(type="string", property="imageURL"),
+     *                                @OA\Property(type="string", property="image"),
+     *                                @OA\Property(type="string", property="baseURL"),
+     *                          ),
+     *                          @OA\Property(type="integer", property="productPrice"),
+     *                          @OA\Property(type="integer", property="countProduct"),
+     *                          @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                          @OA\Property(type="integer", property="ProductCategoryID"),
+     *                          @OA\Property(type="integer", property="orderNumber"),
+     *                                 ),
+     *                              ),
+     *                        @OA\Property(type="integer", property="invoiceAmount"),
+     *                        @OA\Property(type="object", property="invoiceImage",
+     *                                @OA\Property(type="string", property="imageURL"),
+     *                                @OA\Property(type="string", property="image"),
+     *                                @OA\Property(type="string", property="baseURL"),
+     *                          ),
+     *                        @OA\Property(type="object", property="createdAt"),
+     *                        @OA\Property(type="string", property="detail"),
+     *                        @OA\Property(type="integer", property="orderType"),
+     *                        @OA\Property(type="string", property="note"),
+     *                        @OA\Property(type="string", property="state"),
+     *                        @OA\Property(type="string", property="rating"),
+     *
+     *                           )
+     *                   )
+     *          )
+     * @Security(name="Bearer")
+     */
+    public function getOrderDetailsByOrderNumberForStore($orderNumber): JsonResponse
+    {
+        $result = $this->orderService->getOrderDetailsByOrderNumberForStore($orderNumber);
+
+        return $this->response($result, self::FETCH);
+    }
+
 }

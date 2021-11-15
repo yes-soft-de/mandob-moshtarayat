@@ -231,7 +231,7 @@ class ProductController extends BaseController
         $request = $this->autoMapping->map(stdClass::class, ProductUpdateRequest::class, (object)$data);
         $result = $this->productService->updateProductByAdmin($request);
 
-        return $this->response($result, self::CREATE);
+        return $this->response($result, self::UPDATE);
     }
 
     /**
@@ -355,7 +355,7 @@ class ProductController extends BaseController
         $request = $this->autoMapping->map(stdClass::class, ProductUpdateByStoreOwnerRequest::class, (object)$data);
         $result = $this->productService->updateProductByStore($request);
 
-        return $this->response($result, self::CREATE);
+        return $this->response($result, self::UPDATE);
     }
 
     /**
@@ -449,6 +449,6 @@ class ProductController extends BaseController
         $request = $this->autoMapping->map(stdClass::class, ProductCancelByStoreOwnerRequest::class, (object)$data);
         $result = $this->productService->updateProductStatusByStore($request);
 
-        return $this->response($result, self::CREATE);
+        return $this->response($result, self::UPDATE);
     }
 }

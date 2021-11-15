@@ -832,6 +832,25 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getStoreOrders($storeOwnerProfileID)
+    {
+        return $this->createQueryBuilder('OrderEntity')
+
+            ->select('OrderEntity.id', 'OrderEntity.deliveryDate', 'OrderEntity.createdAt', 'OrderEntity.detail', 'OrderEntity.orderType', 'OrderEntity.destination', 'OrderEntity.note', 'OrderEntity.state')
+            ->addSelect('OrderDetailEntity.id as orderDetailId', 'OrderDetailEntity.orderNumber')
+
+            ->leftJoin(OrderDetailEntity::class, 'OrderDetailEntity', Join::WITH, 'OrderDetailEntity.orderID = OrderEntity.id')
+
+            ->andWhere("OrderEntity.storeOwnerProfileID = :storeOwnerProfileID ")
+            ->andWhere("OrderEntity.state != :cancelled")
+
+            ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
+            ->setParameter('cancelled', self::CANCEL)
+            ->addGroupBy('OrderEntity.id')
+            ->getQuery()
+            ->getResult();
+    }
+
     public function getSumInvoicesForStore($storeOwnerProfileId)
     {
         return $this->createQueryBuilder('OrderEntity')

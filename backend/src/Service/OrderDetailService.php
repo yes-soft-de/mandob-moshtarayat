@@ -7,17 +7,20 @@ use App\Entity\OrderDetailEntity;
 use App\Manager\OrderDetailManager;
 use App\Response\OrderCreateDetailResponse;
 use App\Response\OrderDetailResponse;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 
 class OrderDetailService
 {
     private $autoMapping;
     private $orderDetailManager;
+    private $params;
 
-    public function __construct(AutoMapping $autoMapping, OrderDetailManager $orderDetailManager)
+    public function __construct(AutoMapping $autoMapping, OrderDetailManager $orderDetailManager, ParameterBagInterface $params)
     {
         $this->autoMapping = $autoMapping;
         $this->orderDetailManager = $orderDetailManager;
+        $this->params = $params->get('upload_base_url') . '/';
     }
 
     public function createOrderDetail($orderID, $productID, $countProduct, $orderNumber)
@@ -43,6 +46,8 @@ class OrderDetailService
         $response = [];
         $items = $this->orderDetailManager->getOrderIdByOrderNumber($orderNumber);
         foreach ($items as $item) {
+            $item['productImage'] = $this->getImageParams($item['productImage'], $this->params . $item['productImage'], $this->params);
+
             $response[] = $this->autoMapping->map('array', OrderDetailResponse::class, $item);
         }
        return $response;
@@ -78,12 +83,12 @@ class OrderDetailService
        return $this->orderDetailManager->getCountOrdersEveryProductInLastMonth($fromDate, $toDate);
    }
 
-   public function specialLinkCheck($bool)
+    public function getImageParams($imageURL, $image, $baseURL): array
     {
-        if (!$bool)
-        {
-            return $this->params;
-        }
-    }
+        $item['imageURL'] = $imageURL;
+        $item['image'] = $image;
+        $item['baseURL'] = $baseURL;
 
+        return $item;
+    }
 }

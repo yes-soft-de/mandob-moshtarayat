@@ -11,6 +11,7 @@ use App\Repository\UserEntityRepository;
 use App\Request\UserRegisterRequest;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use App\Manager\OrderManager;
 
 class StoreOwnerProfileManager
 {
@@ -20,9 +21,10 @@ class StoreOwnerProfileManager
     private $storeOwnerProfileEntityRepository;
     private $storeOwnerBranchManager;
     private $userManager;
+    private $orderManager;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $encoder,
-                                StoreOwnerProfileEntityRepository $storeOwnerProfileEntityRepository, StoreOwnerBranchManager $storeOwnerBranchManager, UserManager $userManager)
+                                StoreOwnerProfileEntityRepository $storeOwnerProfileEntityRepository, StoreOwnerBranchManager $storeOwnerBranchManager, UserManager $userManager, OrderManager $orderManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
@@ -30,6 +32,7 @@ class StoreOwnerProfileManager
         $this->storeOwnerProfileEntityRepository = $storeOwnerProfileEntityRepository;
         $this->storeOwnerBranchManager = $storeOwnerBranchManager;
         $this->userManager = $userManager;
+        $this->orderManager = $orderManager;
     }
 
     public function storeOwnerRegister(UserRegisterRequest $request)
@@ -151,4 +154,13 @@ class StoreOwnerProfileManager
         return $this->storeOwnerProfileEntityRepository->storeOwnerProfileByRoomID($roomID);
     }
 
+    public function getSumInvoicesForStore($storeOwnerProfileId)
+    {
+        return $this->orderManager->getSumInvoicesForStore($storeOwnerProfileId);
+    }
+
+    public function getSumInvoicesForStoreInSpecificDate($storeOwnerProfileId, $fromDate, $toDate)
+    {
+        return $this->orderManager->getSumInvoicesForStoreInSpecificDate($storeOwnerProfileId, $fromDate, $toDate);
+    }
 }
