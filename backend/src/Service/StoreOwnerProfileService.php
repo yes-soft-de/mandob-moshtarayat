@@ -243,7 +243,7 @@ class StoreOwnerProfileService
     public function storeFinancialAccountForStore($userID)
     {
         $storeOwnerProfileId = $this->userManager->getStoreProfileId($userID);
-        $item['amountOwedToStore'] = (float)$this->userManager->getSumInvoicesForStore($storeOwnerProfileId);
+        $item['amountOwedToStore'] = (float)$this->storeOwnerProfileManager->getSumInvoicesForStore($storeOwnerProfileId);
         $item['sumPaymentsToStore'] = (float)$this->deliveryCompanyPaymentsToStoreService->deliveryCompanySumPaymentsToStore($storeOwnerProfileId);
         $item['total'] =  $item['amountOwedToStore'] -  $item['sumPaymentsToStore'];
         $item['paymentsToStore'] = $this->deliveryCompanyPaymentsToStoreService->deliveryCompanyPaymentsToStore($storeOwnerProfileId);
@@ -255,7 +255,7 @@ class StoreOwnerProfileService
     public function storeFinancialAccountForStoreInSpecificDate($userID, $fromDate, $toDate)
     {
         $storeOwnerProfileId = $this->userManager->getStoreProfileId($userID);
-        $item['amountOwedToStore'] = (float)$this->userManager->getSumInvoicesForStoreInSpecificDate($storeOwnerProfileId, $fromDate, $toDate);
+        $item['amountOwedToStore'] = (float)$this->storeOwnerProfileManager->getSumInvoicesForStoreInSpecificDate($storeOwnerProfileId, $fromDate, $toDate);
         $item['sumPaymentsToStore'] = (float)$this->deliveryCompanyPaymentsToStoreService->deliveryCompanySumPaymentsToStoreInSpecificDate($storeOwnerProfileId, $fromDate, $toDate);
         $item['total'] = $item['amountOwedToStore'] -  $item['sumPaymentsToStore'];
         $item['paymentsToStore'] = $this->deliveryCompanyPaymentsToStoreService->deliveryCompanyPaymentsToStoreInSpecificDate($storeOwnerProfileId, $fromDate, $toDate);
@@ -265,11 +265,10 @@ class StoreOwnerProfileService
 
     public function storeFinancialAccountForAdmin($storeOwnerProfileId)
     {
-        $item['amountOwedToStore'] = (float)$this->userManager->getSumInvoicesForStore($storeOwnerProfileId);
+        $item['amountOwedToStore'] = (float)$this->storeOwnerProfileManager->getSumInvoicesForStore($storeOwnerProfileId);
         $item['sumPaymentsToStore'] = (float)$this->deliveryCompanyPaymentsToStoreService->deliveryCompanySumPaymentsToStore($storeOwnerProfileId);
         $item['total'] = $item['sumPaymentsToStore'] - $item['amountOwedToStore'];
         $item['paymentsToStore'] = $this->deliveryCompanyPaymentsToStoreService->deliveryCompanyPaymentsToStore($storeOwnerProfileId);
         return $this->autoMapping->map('array',StoreFinancialAccountForStoreResponse::class, $item);
-
     }
 }
