@@ -17,6 +17,7 @@ use App\Request\OrderUpdateSpecialByClientRequest;
 use App\Request\OrderUpdateSendByClientRequest;
 use App\Request\SendNotificationRequest;
 use App\Response\CountReportForStoreOwnerResponse;
+use App\Response\OrderDetailsByOrderNumberForStoreResponse;
 use App\Response\OrderResponse;
 use App\Response\OrderClosestResponse;
 use App\Response\OrderPendingResponse;
@@ -33,6 +34,7 @@ use App\Response\CountOrdersInLastMonthForCaptainResponse;
 use App\Response\CountOrdersInLastMonthForClientResponse;
 use App\Response\CountOrdersInLastMonthForProoductResponse;
 use App\Response\StoreOrdersOngoingResponse;
+use App\Response\StoreOrdersResponse;
 use App\Service\RatingService;
 use App\Service\StoreOwnerProfileService;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -652,6 +654,18 @@ class OrderService
         return $response;
     }
 
+
+    public function getStoreOrders($userID):?array
+    {
+        $response=[];
+        $storeOwnerProfileID= $this->userService->getStoreProfileId($userID);
+        $orders = $this->orderManager->getStoreOrders($storeOwnerProfileID['id']);
+        foreach ($orders as $order) {
+            $response[] = $this->autoMapping->map('array', StoreOrdersResponse::class, $order);
+        }
+        return $response;
+    }
+
     public function countReportForStoreOwner($userID)
     {
         $storeOwnerProfileId = $this->userService->getStoreProfileId($userID);
@@ -663,5 +677,36 @@ class OrderService
         $response = $this->autoMapping->map("array", CountReportForStoreOwnerResponse::class, $item);
 
         return $response;
+    }
+
+
+    public function getOrderDetailsByOrderNumberForStore($orderNumber)
+    {
+        $response = [];
+        $orderDetails = $this->orderDetailService->getOrderIdByOrderNumber($orderNumber);
+        if($orderDetails) {
+            $order = $this->orderManager->orderStatusByOrderId($orderDetails[0]->orderID);
+            $rate = $this->ratingService->getAvgRating($order[0]['storeOwnerProfileID'],'store');
+            $item['orderDetails'] = $orderDetails;
+            $item['invoiceAmount'] = $order[0]['invoiceAmount'];
+            $item['invoiceImage'] = $this->getImageParams($order[0]['invoiceImage'], $this->params . $order[0]['invoiceImage'], $this->params);
+            $item['createdAt'] = $order[0]['createdAt'];
+            $item['detail'] = $order[0]['detail'];
+            $item['orderType'] = $order[0]['orderType'];
+            $item['note'] = $order[0]['note'];
+            $item['state'] = $order[0]['state'];
+            $item['rating'] = $rate;
+            $response = $this->autoMapping->map("array", OrderDetailsByOrderNumberForStoreResponse::class, $item);
+        }
+        return $response;
+    }
+
+    public function getImageParams($imageURL, $image, $baseURL): array
+    {
+        $item['imageURL'] = $imageURL;
+        $item['image'] = $image;
+        $item['baseURL'] = $baseURL;
+
+        return $item;
     }
 }
