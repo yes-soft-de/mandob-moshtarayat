@@ -86,6 +86,6 @@ class SupportController extends BaseController
     {
         $result = $this->supportService->supportReportNewMessageStatus($id);
 
-        return $this->response($result, self::FETCH);
+        return $this->response($result, self::UPDATE);
     }
 }

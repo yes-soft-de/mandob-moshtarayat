@@ -90,7 +90,7 @@ class StoreProductCategoryController extends BaseController
          }
         $result = $this->storeProductCategoryService->updateStoreProductCategory($request);
 
-        return $this->response($result, self::CREATE);
+        return $this->response($result, self::UPDATE);
      }
 
     /**

@@ -58,7 +58,7 @@ class StoreCategoryController extends BaseController
             return $this->response($result, self::ERROR);  
           }
           
-        return $this->response($result, self::CREATE);
+        return $this->response($result, self::UPDATE);
     }
 
     /**

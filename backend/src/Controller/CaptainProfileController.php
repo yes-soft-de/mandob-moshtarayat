@@ -238,7 +238,7 @@ class CaptainProfileController extends BaseController
         
         $response = $this->captainProfileService->updateCaptainNewMessageStatus($request,false);
 
-        return $this->response($response, self::CREATE);
+        return $this->response($response, self::UPDATE);
     }
 
     /**
