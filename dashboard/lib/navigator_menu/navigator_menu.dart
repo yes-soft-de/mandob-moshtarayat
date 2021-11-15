@@ -85,13 +85,20 @@ class _NavigatorMenuState extends State<NavigatorMenu> {
           ),
           customListTile(getIt<MainModule>().homeScreen, S.current.home,
               FontAwesomeIcons.home),
+          // Categories
+          customExpansionTile(
+              title: S.current.categories,
+              icon: Icons.category_rounded,
+              children: [
+                customListTile(getIt<CategoriesModule>().storeCategoriesScreen,
+                    S.current.mainCategories, FontAwesomeIcons.circle, true),
+              ],
+              page: widget.currentPage),
           // Store
           customExpansionTile(
               title: S.current.stores,
               icon: FontAwesomeIcons.store,
               children: [
-                customListTile(getIt<CategoriesModule>().storeCategoriesScreen,
-                    S.current.storeCategories, Icons.category_rounded, true),
                 customListTile(getIt<StoresModule>().storesScreen,
                     S.current.storesList, Icons.storefront_rounded, true),
                 customListTile(
