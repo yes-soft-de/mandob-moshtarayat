@@ -37,12 +37,6 @@ class StoresModel extends DataModel {
   StoresModel.withData(List<Data> data) : super.withData() {
     _models = [];
     for (var element in data) {
-      if (element.image != null &&
-          (element.image?.contains('original-image') ?? false) == false) {
-        int f = Random().nextInt(1600);
-        int s = Random().nextInt(900);
-        element.image = 'https://source.unsplash.com/${f}x${s}/?store';
-      }
       _models.add(StoresModel(
           id: element.id ?? -1,
           categoryId: element.categoryId?.toString() ?? '-1',
