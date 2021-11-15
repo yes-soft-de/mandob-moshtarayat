@@ -8,7 +8,16 @@ class ReportsCaptainResponse {
   ReportsCaptainResponse({this.statusCode, this.msg, this.data});
 
   ReportsCaptainResponse.fromJson(dynamic json) {
-    try {} catch (e) {
+    try {
+      statusCode = json['status_code'];
+      msg = json['msg'];
+      if (json['Data'] != null) {
+        data = [];
+        json['Data'].forEach((v) {
+          data?.add(Data.fromJson(v));
+        });
+      }
+    } catch (e) {
       Logger()
           .error('Reports Captain Response', e.toString(), StackTrace.current);
       statusCode = '-1';
