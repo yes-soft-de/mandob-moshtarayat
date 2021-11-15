@@ -40,7 +40,7 @@ class Data {
   String? drivingLicenceURL;
   dynamic? salary;
   String? status;
-  Rating? rating;
+  String? rating;
   dynamic? bounce;
   dynamic? roomID;
   String? image;
@@ -95,7 +95,7 @@ class Data {
     drivingLicenceURL = json['drivingLicenceURL'];
     salary = json['salary'];
     status = json['status'];
-    rating = json['rating'] != null ? Rating.fromJson(json['rating']) : null;
+    rating = json['rating'];
     bounce = json['bounce'];
     roomID = json['roomID'];
     image = json['image'];
@@ -128,9 +128,6 @@ class Data {
     map['drivingLicenceURL'] = drivingLicenceURL;
     map['salary'] = salary;
     map['status'] = status;
-    if (rating != null) {
-      map['rating'] = rating?.toJson();
-    }
     map['bounce'] = bounce;
     map['roomID'] = roomID;
     map['image'] = image;
