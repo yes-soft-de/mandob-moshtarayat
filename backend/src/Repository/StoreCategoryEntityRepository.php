@@ -26,6 +26,7 @@ class StoreCategoryEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('storeCategory')
             ->select('storeCategory.id', 'storeCategory.storeCategoryName', 'storeCategory.description', 'storeCategory.image')
+
             ->getQuery()
             ->getResult();
     }

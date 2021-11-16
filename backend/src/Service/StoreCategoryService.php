@@ -8,6 +8,7 @@ use App\Manager\StoreCategoryManager;
 use App\Request\StoreCategoryCreateRequest;
 use App\Response\StoreCategoryCreateResponse;
 use App\Response\StoreCategoryByIdResponse;
+use App\Response\StoreCategoryGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 
@@ -43,13 +44,17 @@ class StoreCategoryService
     public function getStoreCategories(): array
     {
        $response = [];
+
        $items = $this->storeCategoryManager->getStoreCategories();
 
-       foreach ($items as $item) {
+       foreach($items as $item)
+       {
            $item['image'] = $this->getImageParams($item['image'], $this->params.$item['image'], $this->params);
-           $response[] =  $this->autoMapping->map('array', StoreCategoryByIdResponse::class, $item);
-        }
-      return $response;
+
+           $response[] =  $this->autoMapping->map('array', StoreCategoryGetResponse::class, $item);
+       }
+
+       return $response;
     }
 
     public function getStoreCategory($id)
