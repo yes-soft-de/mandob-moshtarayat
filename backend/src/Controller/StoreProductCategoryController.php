@@ -228,6 +228,45 @@ class StoreProductCategoryController extends BaseController
       }
 
     /**
+     * @Route("/storeproductscategorylevelonefroadmin/{storeCategoryID}", name="getStoreProductsCategoryLevelOneByStoreCategoryIDForAdmin",methods={"GET"})
+     * @return JsonResponse
+     * @IsGranted("ROLE_ADMIN")
+     * @OA\Tag(name="Store Product Category")
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns array of categories level one ",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="productCategoryName"),
+     *                  @OA\Property(type="object", property="productCategoryImage",
+     *                      @OA\Property(type="string", property="imageURL"),
+     *                      @OA\Property(type="string", property="image"),
+     *                      @OA\Property(type="string", property="baseURL"),
+     *                  ),
+     *              )
+     *          )
+     *      )
+     * )
+     * @Security(name="Bearer")
+     */
+      public function getStoreProductsCategoryLevelOneByStoreCategoryIDFroAdmin($storeCategoryID)
+      {
+        $result = $this->storeProductCategoryService->getStoreProductsCategoryLevelOneByStoreCategoryIDFroAdmin($storeCategoryID);
+
+        return $this->response($result, self::FETCH);
+      }
+
+    /**
      * @Route("/storeproductscategoryleveltwo/{storeProductCategoryID}", name="getStoreProductsCategoryLevelTwoByStoreProductCategoryID",methods={"GET"})
      * @return JsonResponse
      *  * *

@@ -91,6 +91,18 @@ class StoreProductCategoryService
        return $response;
     }
 
+    public function getStoreProductsCategoryLevelOneByStoreCategoryIDFroAdmin($storeCategoryID)
+    {
+        $response = [];
+       $items = $this->storeProductCategoryManager->getSubCategoriesByStoreCategoryID($storeCategoryID);
+       foreach($items as $item) {
+           $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params.$item['productCategoryImage'], $this->params);
+
+           $response[] = $this->autoMapping->map('array', StoreProductsCategoryResponse::class, $item);
+      }
+       return $response;
+    }
+
     public function getStoreProductsCategoryLeveltwoByStoreProductCategoryID($storeProductCategoryID)
     {
         $response = [];
