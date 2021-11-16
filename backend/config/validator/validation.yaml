@@ -173,11 +173,6 @@ App\Request\UpdateUpdateRequest:
     content:
       - NotBlank: ~
 
-App\Request\StoreProductCategoryCreateRequest:
-  properties:
-    productCategoryName:
-      - NotBlank: ~
-
 App\Request\StoreProductCategoryLevelOneUpdateRequest:
   properties:
     productCategoryName:
@@ -185,6 +180,15 @@ App\Request\StoreProductCategoryLevelOneUpdateRequest:
     productCategoryImage:
       - NotBlank: ~
     storeCategoryID:
+      - NotBlank: ~
+
+App\Request\StoreProductCategoryLevelTwoUpdateRequest:
+  properties:
+    productCategoryName:
+      - NotBlank: ~
+    productCategoryImage:
+      - NotBlank: ~
+    storeProductCategoryID:
       - NotBlank: ~
 
 
@@ -215,4 +219,22 @@ App\Request\StoreCategoryUpdateRequest:
     image:
       - NotBlank: ~
     description:
+      - NotBlank: ~
+
+App\Request\StoreProductCategoryLevelTwoCreateRequest:
+  properties:
+    productCategoryName:
+      - NotBlank: ~
+    productCategoryImage:
+      - NotBlank: ~
+    storeProductCategoryID:
+      - NotBlank: ~
+
+App\Request\StoreProductCategoryCreateRequest:
+  properties:
+    productCategoryName:
+      - NotBlank: ~
+    productCategoryImage:
+      - NotBlank: ~
+    storeCategoryID:
       - NotBlank: ~
