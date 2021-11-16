@@ -522,9 +522,9 @@
   "storesInActive": "Stores In Active",
   "ordersCancel": "Orders Canceled",
   "createDate": "Create Date",
-  "mainCategories": "Main Categories"
-
-
+  "mainCategories": "Main Categories",
+  "imageSpecification": "Please choose image of type (vector) with (96 px) rate with transparent background",
+  "badFormat": "Please choose image with .png format"
 
 
 

@@ -59,6 +59,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "apply": MessageLookupByLibrary.simpleMessage("APPLY"),
         "areYouSureToDisposeThis": MessageLookupByLibrary.simpleMessage(
             "Are you sure about dispose your changes"),
+        "badFormat": MessageLookupByLibrary.simpleMessage(
+            "Please choose image with .png format"),
         "balanceDetails":
             MessageLookupByLibrary.simpleMessage("Balance Details"),
         "bankAccountNumber":
@@ -314,6 +316,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("I have an account"),
         "iSpeak": MessageLookupByLibrary.simpleMessage("Preferred language"),
         "identity": MessageLookupByLibrary.simpleMessage("Identity"),
+        "imageSpecification": MessageLookupByLibrary.simpleMessage(
+            "Please choose image of type (vector) with (96 px) rate with transparent background"),
         "inActiveCaptains":
             MessageLookupByLibrary.simpleMessage("In Active Captains"),
         "inactive": MessageLookupByLibrary.simpleMessage(

@@ -5259,6 +5259,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Please choose image of type (vector) with (96 px) rate with transparent background`
+  String get imageSpecification {
+    return Intl.message(
+      'Please choose image of type (vector) with (96 px) rate with transparent background',
+      name: 'imageSpecification',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please choose image with .png format`
+  String get badFormat {
+    return Intl.message(
+      'Please choose image with .png format',
+      name: 'badFormat',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

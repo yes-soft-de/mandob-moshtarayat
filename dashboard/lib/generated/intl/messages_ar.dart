@@ -58,6 +58,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "apply": MessageLookupByLibrary.simpleMessage("حفظ"),
         "areYouSureToDisposeThis": MessageLookupByLibrary.simpleMessage(
             "هل أنت متأكد من إنك تريد تجاهل هذه التغييرات في بياناتك الشخصية"),
+        "badFormat": MessageLookupByLibrary.simpleMessage(
+            "الرجاء اختيار صورة بصيغة png"),
         "balanceDetails":
             MessageLookupByLibrary.simpleMessage("تفاصيل المدفوعات"),
         "bankAccountNumber":
@@ -304,6 +306,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "iHaveAnAccount": MessageLookupByLibrary.simpleMessage("لدي حساب"),
         "iSpeak": MessageLookupByLibrary.simpleMessage("اللغة المفضلة"),
         "identity": MessageLookupByLibrary.simpleMessage("الهوية"),
+        "imageSpecification": MessageLookupByLibrary.simpleMessage(
+            "الرجاء اختيار صورة من نوع (vector) بقياس (96 بكسل)  و بخلفية شفافة"),
         "inActiveCaptains":
             MessageLookupByLibrary.simpleMessage("المندوبين الغير مفعلين"),
         "inactive": MessageLookupByLibrary.simpleMessage(
