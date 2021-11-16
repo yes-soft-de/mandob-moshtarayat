@@ -6,11 +6,13 @@ use App\AutoMapping;
 use App\Entity\StoreProductCategoryEntity;
 use App\Manager\StoreProductCategoryManager;
 use App\Request\StoreProductCategoryCreateRequest;
+use App\Request\StoreProductCategoryLevelOneUpdateRequest;
 use App\Request\StoreProductCategoryLevelTwoCreateRequest;
 use App\Request\StoreProductCategoryUpdateRequest;
 use App\Response\getProductCategoriesLevel2Response;
 use App\Response\ProductsByProductCategoryIdResponse;
 use App\Response\StoreProductCategoryCreateResponse;
+use App\Response\StoreProductCategoryUpdateLevelOneResponse;
 use App\Response\StoreProductsCategoryLevelTwoAndStoreProductsResponse;
 use App\Response\StoreProductsCategoryResponse;
 use App\Response\StoreProductsCategoryWithProductsResponse;
@@ -51,11 +53,11 @@ class StoreProductCategoryService
         return $this->autoMapping->map(StoreProductCategoryEntity::class, StoreProductCategoryCreateResponse::class, $item);
     }
 
-     public function updateStoreProductCategory(StoreProductCategoryUpdateRequest $request)
+     public function updateStoreProductCategoryLevelOne(StoreProductCategoryLevelOneUpdateRequest $request)
      {
-         $item = $this->storeProductCategoryManager->updateStoreProductCategory($request);
+         $item = $this->storeProductCategoryManager->updateStoreProductCategoryLevelOne($request);
 
-         return $this->autoMapping->map(StoreProductCategoryEntity::class, StoreProductCategoryCreateResponse::class, $item);
+         return $this->autoMapping->map(StoreProductCategoryEntity::class, StoreProductCategoryUpdateLevelOneResponse::class, $item);
      }
 
     public function getStoreProductsCategoryForStoreSpecific($storeOwnerProfileId)

@@ -178,10 +178,15 @@ App\Request\StoreProductCategoryCreateRequest:
     productCategoryName:
       - NotBlank: ~
 
-App\Request\StoreProductCategoryUpdateRequest:
+App\Request\StoreProductCategoryLevelOneUpdateRequest:
   properties:
     productCategoryName:
       - NotBlank: ~
+    productCategoryImage:
+      - NotBlank: ~
+    storeCategoryID:
+      - NotBlank: ~
+
 
 App\Request\ProductCreateRequest:
   properties:

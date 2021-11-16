@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\StoreProductCategoryEntity;
 use App\Repository\StoreProductCategoryEntityRepository;
 use App\Request\StoreProductCategoryCreateRequest;
+use App\Request\StoreProductCategoryLevelOneUpdateRequest;
 use App\Request\StoreProductCategoryLevelTwoCreateRequest;
 use App\Request\StoreProductCategoryUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
@@ -48,14 +49,14 @@ class StoreProductCategoryManager
         return $entity;
     }
 
-     public function updateStoreProductCategory(StoreProductCategoryUpdateRequest $request)
+     public function updateStoreProductCategoryLevelOne(StoreProductCategoryLevelOneUpdateRequest $request)
      {
          $entity = $this->storeProductCategoryEntityRepository->find($request->getId());
-
+         $request->setIsLevel1(1);
          if (!$entity) {
              return null;
          }
-         $entity = $this->autoMapping->mapToObject(StoreProductCategoryUpdateRequest::class, StoreProductCategoryEntity::class, $request, $entity);
+         $entity = $this->autoMapping->mapToObject(StoreProductCategoryLevelOneUpdateRequest::class, StoreProductCategoryEntity::class, $request, $entity);
 
          $this->entityManager->flush();
 

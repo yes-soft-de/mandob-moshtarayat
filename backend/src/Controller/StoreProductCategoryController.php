@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\StoreProductCategoryCreateRequest;
+use App\Request\StoreProductCategoryLevelOneUpdateRequest;
 use App\Request\StoreProductCategoryLevelTwoCreateRequest;
 use App\Request\StoreProductCategoryUpdateRequest;
 use App\Service\StoreProductCategoryService;
@@ -73,22 +74,55 @@ class StoreProductCategoryController extends BaseController
     }
 
     /**
-     * @Route("/storeproductcategory", name="updateStoreProductCategory", methods={"PUT"})
+     * @Route("/storeproductcategorylevelone", name="updateStoreProductCategoryLevelOne", methods={"PUT"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
+     * @OA\Tag(name="Store Product Category")
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     * @OA\RequestBody(
+     *      description="Update Store Product Category Level One",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="integer", property="id"),
+     *          @OA\Property(type="string", property="productCategoryName"),
+     *          @OA\Property(type="string", property="productCategoryImage"),
+     *          @OA\Property(type="integer", property="storeCategoryID"),
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns store ",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="productCategoryName"),
+     *                  @OA\Property(type="string", property="productCategoryImage"),
+     *                  @OA\Property(type="number", property="isLevel1"),
+     *                  @OA\Property(type="string", property="storeCategoryID")
+     *          )
+     *      )
+     * )
+     * @Security(name="Bearer")
      */
-     public function updateStoreProductCategory(Request $request)
+     public function updateStoreProductCategoryLevelOne(Request $request)
      {
         $data = json_decode($request->getContent(), true);
-        $request = $this->autoMapping->map(stdClass::class, StoreProductCategoryUpdateRequest::class, (object)$data);
+        $request = $this->autoMapping->map(stdClass::class, StoreProductCategoryLevelOneUpdateRequest::class, (object)$data);
         $violations = $this->validator->validate($request);
          if (\count($violations) > 0) {
              $violationsString = (string) $violations;
 
              return new JsonResponse($violationsString, Response::HTTP_OK);
          }
-        $result = $this->storeProductCategoryService->updateStoreProductCategory($request);
+        $result = $this->storeProductCategoryService->updateStoreProductCategoryLevelOne($request);
 
         return $this->response($result, self::UPDATE);
      }
