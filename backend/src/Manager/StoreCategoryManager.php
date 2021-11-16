@@ -36,14 +36,17 @@ class StoreCategoryManager
 
     public function updateStoreCategory(StoreCategoryUpdateRequest $request)
     {
+        $isRelated = $this->isItRelatedToSubcategories($request->getId());
+        if ($isRelated == 'not related') {
+            $entity = $this->storeCategoryEntityRepository->find($request->getId());
 
-        $entity = $this->storeCategoryEntityRepository->find($request->getId());
+            $entity = $this->autoMapping->mapToObject(StoreCategoryUpdateRequest::class, StoreCategoryEntity::class, $request, $entity);
 
-        $entity = $this->autoMapping->mapToObject(StoreCategoryUpdateRequest::class, StoreCategoryEntity::class, $request, $entity);
+            $this->entityManager->flush();
 
-        $this->entityManager->flush();
-
-        return $entity;
+            return $entity;
+        }
+        return $isRelated;
     }
 
     public function getStoreCategories()
@@ -54,5 +57,15 @@ class StoreCategoryManager
     public function getStoreCategory($id): ?StoreCategoryEntity
     {
        return $this->storeCategoryEntityRepository->find($id);
+    }
+
+    public function isItRelatedToSubcategories($id):string
+    {
+        $items = $this->storeCategoryEntityRepository->isItRelatedToSubcategories($id);
+
+        if($items) {
+            return "related";
+        }
+        return "not related";
     }
 }

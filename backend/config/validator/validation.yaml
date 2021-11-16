@@ -193,3 +193,21 @@ App\Request\ProductCreateRequest:
       - NotBlank: ~
     storeProductCategoryID:
       - NotBlank: ~
+
+App\Request\StoreCategoryCreateRequest:
+  properties:
+    storeCategoryName:
+      - NotBlank: ~
+    image:
+      - NotBlank: ~
+
+App\Request\StoreCategoryUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    storeCategoryName:
+      - NotBlank: ~
+    image:
+      - NotBlank: ~
+    description:
+      - NotBlank: ~

@@ -7,6 +7,7 @@ use App\Entity\StoreOwnerProfileEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
+use App\Entity\StoreProductCategoryEntity;
 
 /**
  * @method StoreCategoryEntity|null find($id, $lockMode = null, $lockVersion = null)
@@ -25,6 +26,17 @@ class StoreCategoryEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('storeCategory')
             ->select('storeCategory.id', 'storeCategory.storeCategoryName', 'storeCategory.description', 'storeCategory.image')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function isItRelatedToSubcategories($id)
+    {
+        return $this->createQueryBuilder('storeCategory')
+            ->select('StoreProductCategoryEntity.id')
+            ->leftJoin(StoreProductCategoryEntity::class, 'StoreProductCategoryEntity', Join::WITH, 'StoreProductCategoryEntity.storeCategoryID = storeCategory.id')
+            ->andWhere('StoreProductCategoryEntity.storeCategoryID= :id')
+            ->setParameter('id',$id)
             ->getQuery()
             ->getResult();
     }
