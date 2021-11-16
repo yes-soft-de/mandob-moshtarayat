@@ -6,6 +6,7 @@ import 'package:mandob_moshtarayat_dashboad/consts/urls.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/store_categories_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_product_category_request.dart';
+import 'package:mandob_moshtarayat_dashboad/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_feild.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_list_view.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/stacked_form.dart';
@@ -13,63 +14,28 @@ import 'package:mandob_moshtarayat_dashboad/utils/effect/checked.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/global/screen_type.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/helpers/custom_flushbar.dart';
 
-AlertDialog formDialog(BuildContext context, String title, String textHint,
+Widget formDialog(BuildContext context, String title, String textHint,
     Function(String, String) add,
     {bool image = true,
     UpdateStoreCategoriesRequest? storeCategoriesRequest,
     UpdateProductCategoryRequest? request}) {
-  return AlertDialog(
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(25),
-    ),
-    title: Column(
-      children: [
-        Center(
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(25),
-              color: Theme.of(context).primaryColor,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(
-                  top: 8.0, bottom: 8.0, left: 16, right: 16),
-              child: Text(
-                title,
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              ),
-            ),
+  return Scaffold(
+    appBar:CustomTwaslnaAppBar.appBar(context, title: S.current.addNewCategory),
+    body: image
+        ? InsertForm(
+            add: (name, image) {
+              add(name, image);
+            },
+            hintText: textHint,
+            storeCategoriesRequest: storeCategoriesRequest,
+          )
+        : insertFormWithoutImage(
+            add: (name) {
+              add(name, '');
+            },
+            hintText: textHint,
+            updateStoreCategoriesRequest: request,
           ),
-        ),
-        Divider(
-          thickness: 2,
-          color: Theme.of(context).primaryColor,
-        ),
-      ],
-    ),
-    content: Container(
-      height: 250,
-      width: ScreenType.isDesktop()
-          ? 450
-          : ScreenType.isTablet()
-              ? 350
-              : 250,
-      child: image
-          ? InsertForm(
-              add: (name, image) {
-                add(name, image);
-              },
-              hintText: textHint,
-              storeCategoriesRequest: storeCategoriesRequest,
-            )
-          : insertFormWithoutImage(
-              add: (name) {
-                add(name, '');
-              },
-              hintText: textHint,
-              updateStoreCategoriesRequest: request,
-            ),
-    ),
   );
 }
 
@@ -103,64 +69,88 @@ class _InsertFormState extends State<InsertForm> {
   @override
   Widget build(BuildContext context) {
     return StackedForm(
-        child: Form(
-          key: _key,
-          child: CustomListView.custom(children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 12.0, bottom: 8, right: 12, top: 8.0),
-              child: Text(
-                S.current.categoryName,
-                style: TextStyle(fontWeight: FontWeight.bold),
-                textAlign: TextAlign.start,
-              ),
-            ),
-            CustomFormField(
-              controller: _nameController,
-              hintText: widget.hintText,
-              last: true,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Center(
-                  child: Text(
-                S.current.categoryImage,
-                style: TextStyle(fontWeight: FontWeight.bold),
-              )),
-            ),
-            InkWell(
-              onTap: () {
-                ImagePicker.platform
-                    .getImage(source: ImageSource.gallery, imageQuality: 70)
-                    .then((value) {
-                  if (value != null) {
-                    imagePath = value.path;
-                    setState(() {});
-                  }
-                });
-              },
-              child: Checked(
-                child: Icon(
-                  Icons.image,
-                  size: 50,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Form(
+            key: _key,
+            child: CustomListView.custom(children: [
+               Padding(
+                 padding: const EdgeInsets.only(
+                     left: 12.0, bottom: 8, right: 12, top: 8.0),
+                 child: Text(
+                   S.current.categoryName,
+                   style: TextStyle(fontWeight: FontWeight.bold),
+                   textAlign: TextAlign.start,
+                 ),
+               ),
+               CustomFormField(
+                 controller: _nameController,
+                 hintText: widget.hintText,
+                 last: true,
+               ),
+               Padding(
+                 padding: const EdgeInsets.all(16.0),
+                 child: Center(
+                     child: Text(
+                       S.current.categoryImage,
+                       style: TextStyle(fontWeight: FontWeight.bold),
+                     )),
+               ),
+               InkWell(
+                 onTap: () {
+                   ImagePicker.platform
+                       .getImage(source: ImageSource.gallery, imageQuality: 70,)
+                       .then((value) {
+                     if (value != null) {
+                       if (value.mimeType == 'png') {
+                         imagePath = value.path;
+                         setState(() {});
+                       }
+                       else {
+                         CustomFlushBarHelper.createError(title: S.current.warnning, message: S.current.badFormat).show(context);
+                       }
+                     }
+                   });
+                 },
+                 child: Checked(
+                   child: Icon(
+                     Icons.image,
+                     size: 125,
+                   ),
+                   checked: imagePath != '',
+                   checkedWidget: SizedBox(
+                       height: 250,
+                       child: ClipRRect(
+                           borderRadius: BorderRadius.circular(25),
+                           child: imagePath.contains('http')
+                               ? Image.network(imagePath)
+                               : Image.file(
+                             File(imagePath),
+                             fit: BoxFit.cover,
+                           ))),
+                 ),
+               ),
+               Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(25),
+                    color: Theme.of(context).primaryColor.withOpacity(0.4)
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      S.current.imageSpecification,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 ),
-                checked: imagePath != '',
-                checkedWidget: SizedBox(
-                    height: 125,
-                    child: ClipRRect(
-                        borderRadius: BorderRadius.circular(25),
-                        child: imagePath.contains('http')
-                            ? Image.network(imagePath)
-                            : Image.file(
-                                File(imagePath),
-                                fit: BoxFit.cover,
-                              ))),
               ),
-            ),
-            SizedBox(
-              height: 75,
-            ),
-          ]),
+               SizedBox(
+                 height: 75,
+               ),
+             ])
+          ),
         ),
         label: widget.storeCategoriesRequest != null
             ? S.current.update
