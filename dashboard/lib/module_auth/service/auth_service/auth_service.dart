@@ -96,7 +96,13 @@ class AuthService {
       if (diff.abs() > 55) {
         throw TokenExpiredException('Token is created ${diff} minutes ago');
       }
-      return await this._prefsHelper.getToken();
+
+        await this._prefsHelper.getToken();
+      String? token =  await this._prefsHelper.getToken();
+      if (token == null) {
+        throw AuthorizationException;
+      }
+      return token;
     } on AuthorizationException {
       _prefsHelper.deleteToken();
       if (GlobalVariable.navState.currentContext != null) {
