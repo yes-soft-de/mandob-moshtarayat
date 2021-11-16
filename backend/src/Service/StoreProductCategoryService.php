@@ -6,11 +6,17 @@ use App\AutoMapping;
 use App\Entity\StoreProductCategoryEntity;
 use App\Manager\StoreProductCategoryManager;
 use App\Request\StoreProductCategoryCreateRequest;
+use App\Request\StoreProductCategoryLevelOneUpdateRequest;
 use App\Request\StoreProductCategoryLevelTwoCreateRequest;
+use App\Request\StoreProductCategoryLevelTwoUpdateRequest;
 use App\Request\StoreProductCategoryUpdateRequest;
 use App\Response\getProductCategoriesLevel2Response;
 use App\Response\ProductsByProductCategoryIdResponse;
 use App\Response\StoreProductCategoryCreateResponse;
+use App\Response\StoreProductCategoryLevelOneCreateResponse;
+use App\Response\StoreProductCategoryLevelTwoCreateResponse;
+use App\Response\StoreProductCategoryUpdateLevelOneResponse;
+use App\Response\StoreProductCategoryUpdateLevelTwoResponse;
 use App\Response\StoreProductsCategoryLevelTwoAndStoreProductsResponse;
 use App\Response\StoreProductsCategoryResponse;
 use App\Response\StoreProductsCategoryWithProductsResponse;
@@ -41,21 +47,28 @@ class StoreProductCategoryService
     {
         $item = $this->storeProductCategoryManager->createStoreProductCategoryLevelOne($request);
          
-        return $this->autoMapping->map(StoreProductCategoryEntity::class, StoreProductCategoryCreateResponse::class, $item);
+        return $this->autoMapping->map(StoreProductCategoryEntity::class, StoreProductCategoryLevelOneCreateResponse::class, $item);
     }
 
     public function createStoreProductCategoryLevelTwo(StoreProductCategoryLevelTwoCreateRequest $request)
     {
         $item = $this->storeProductCategoryManager->createStoreProductCategoryLevelTwo($request);
 
-        return $this->autoMapping->map(StoreProductCategoryEntity::class, StoreProductCategoryCreateResponse::class, $item);
+        return $this->autoMapping->map(StoreProductCategoryEntity::class, StoreProductCategoryLevelTwoCreateResponse::class, $item);
     }
 
-     public function updateStoreProductCategory(StoreProductCategoryUpdateRequest $request)
+     public function updateStoreProductCategoryLevelOne(StoreProductCategoryLevelOneUpdateRequest $request)
      {
-         $item = $this->storeProductCategoryManager->updateStoreProductCategory($request);
+         $item = $this->storeProductCategoryManager->updateStoreProductCategoryLevelOne($request);
 
-         return $this->autoMapping->map(StoreProductCategoryEntity::class, StoreProductCategoryCreateResponse::class, $item);
+         return $this->autoMapping->map(StoreProductCategoryEntity::class, StoreProductCategoryUpdateLevelOneResponse::class, $item);
+     }
+
+     public function updateStoreProductCategoryLevelTwo(StoreProductCategoryLevelTwoUpdateRequest $request)
+     {
+         $item = $this->storeProductCategoryManager->updateStoreProductCategoryLevelTwo($request);
+
+         return $this->autoMapping->map(StoreProductCategoryEntity::class, StoreProductCategoryUpdateLevelTwoResponse::class, $item);
      }
 
     public function getStoreProductsCategoryForStoreSpecific($storeOwnerProfileId)
@@ -80,7 +93,31 @@ class StoreProductCategoryService
        return $response;
     }
 
+    public function getStoreProductsCategoryLevelOneByStoreCategoryIDFroAdmin($storeCategoryID)
+    {
+        $response = [];
+       $items = $this->storeProductCategoryManager->getSubCategoriesByStoreCategoryID($storeCategoryID);
+       foreach($items as $item) {
+           $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params.$item['productCategoryImage'], $this->params);
+
+           $response[] = $this->autoMapping->map('array', StoreProductsCategoryResponse::class, $item);
+      }
+       return $response;
+    }
+
     public function getStoreProductsCategoryLeveltwoByStoreProductCategoryID($storeProductCategoryID)
+    {
+        $response = [];
+       $items = $this->storeProductCategoryManager->getStoreProductsCategoryLevelTwoByStoreProductCategoryID($storeProductCategoryID);
+       foreach($items as $item) {
+           $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params.$item['productCategoryImage'], $this->params);
+
+           $response[] = $this->autoMapping->map('array', StoreProductsCategoryResponse::class, $item);
+      }
+       return $response;
+    }
+
+    public function getStoreProductsCategoryLevelTwoByStoreProductCategoryIDForAdmin($storeProductCategoryID)
     {
         $response = [];
        $items = $this->storeProductCategoryManager->getStoreProductsCategoryLevelTwoByStoreProductCategoryID($storeProductCategoryID);

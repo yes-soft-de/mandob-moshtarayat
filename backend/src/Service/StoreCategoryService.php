@@ -34,7 +34,9 @@ class StoreCategoryService
     public function updateStoreCategory($request)
     {
         $item = $this->storeCategoryManager->updateStoreCategory($request);
- 
+        if(is_string($item)){
+            return $item;
+        }
         return $this->autoMapping->map(StoreCategoryEntity::class, StoreCategoryCreateResponse::class, $item);
     }
 
@@ -45,7 +47,7 @@ class StoreCategoryService
 
        foreach ($items as $item) {
            $item['image'] = $this->getImageParams($item['image'], $this->params.$item['image'], $this->params);
-           $response[] =  $this->autoMapping->map('array', StoreCategoryCreateResponse::class, $item);
+           $response[] =  $this->autoMapping->map('array', StoreCategoryByIdResponse::class, $item);
         }
       return $response;
     }

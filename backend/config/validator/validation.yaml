@@ -173,15 +173,24 @@ App\Request\UpdateUpdateRequest:
     content:
       - NotBlank: ~
 
-App\Request\StoreProductCategoryCreateRequest:
+App\Request\StoreProductCategoryLevelOneUpdateRequest:
   properties:
     productCategoryName:
+      - NotBlank: ~
+    productCategoryImage:
+      - NotBlank: ~
+    storeCategoryID:
       - NotBlank: ~
 
-App\Request\StoreProductCategoryUpdateRequest:
+App\Request\StoreProductCategoryLevelTwoUpdateRequest:
   properties:
     productCategoryName:
       - NotBlank: ~
+    productCategoryImage:
+      - NotBlank: ~
+    storeProductCategoryID:
+      - NotBlank: ~
+
 
 App\Request\ProductCreateRequest:
   properties:
@@ -192,4 +201,40 @@ App\Request\ProductCreateRequest:
     productPrice:
       - NotBlank: ~
     storeProductCategoryID:
+      - NotBlank: ~
+
+App\Request\StoreCategoryCreateRequest:
+  properties:
+    storeCategoryName:
+      - NotBlank: ~
+    image:
+      - NotBlank: ~
+
+App\Request\StoreCategoryUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    storeCategoryName:
+      - NotBlank: ~
+    image:
+      - NotBlank: ~
+    description:
+      - NotBlank: ~
+
+App\Request\StoreProductCategoryLevelTwoCreateRequest:
+  properties:
+    productCategoryName:
+      - NotBlank: ~
+    productCategoryImage:
+      - NotBlank: ~
+    storeProductCategoryID:
+      - NotBlank: ~
+
+App\Request\StoreProductCategoryCreateRequest:
+  properties:
+    productCategoryName:
+      - NotBlank: ~
+    productCategoryImage:
+      - NotBlank: ~
+    storeCategoryID:
       - NotBlank: ~
