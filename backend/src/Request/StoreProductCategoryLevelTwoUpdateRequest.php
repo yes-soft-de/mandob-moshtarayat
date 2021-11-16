@@ -2,7 +2,7 @@
 
 namespace App\Request;
 
-class StoreProductCategoryLevelOneUpdateRequest
+class StoreProductCategoryLevelTwoUpdateRequest
 {
     private $id;
 
@@ -10,7 +10,7 @@ class StoreProductCategoryLevelOneUpdateRequest
 
     private $productCategoryImage;
 
-    private $storeCategoryID;
+    private $storeProductCategoryID;
 
     /**
      * @return mixed
@@ -19,5 +19,4 @@ class StoreProductCategoryLevelOneUpdateRequest
     {
         return $this->id;
     }
-
 }
