@@ -189,7 +189,9 @@ class StoreProductCategoryController extends BaseController
              return new JsonResponse($violationsString, Response::HTTP_OK);
          }
         $result = $this->storeProductCategoryService->updateStoreProductCategoryLevelOne($request);
-
+         if(is_string($result)){
+             return $this->response($result, self::ERROR_RELATED);
+         }
         return $this->response($result, self::UPDATE);
      }
 
@@ -243,7 +245,9 @@ class StoreProductCategoryController extends BaseController
              return new JsonResponse($violationsString, Response::HTTP_OK);
          }
         $result = $this->storeProductCategoryService->updateStoreProductCategoryLevelTwo($request);
-
+         if(is_string($result)){
+             return $this->response($result, self::ERROR_RELATED);
+         }
         return $this->response($result, self::UPDATE);
      }
 
