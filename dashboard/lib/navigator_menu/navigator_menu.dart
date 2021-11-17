@@ -8,10 +8,8 @@ import 'package:mandob_moshtarayat_dashboad/module_categories/categories_module.
 import 'package:mandob_moshtarayat_dashboad/module_clients/clients_module.dart';
 import 'package:mandob_moshtarayat_dashboad/module_company/company_module.dart';
 import 'package:mandob_moshtarayat_dashboad/module_filters/filters_module.dart';
-import 'package:mandob_moshtarayat_dashboad/module_logs/logs_module.dart';
 import 'package:mandob_moshtarayat_dashboad/module_main/main_module.dart';
 import 'package:mandob_moshtarayat_dashboad/module_orders/orders_module.dart';
-import 'package:mandob_moshtarayat_dashboad/module_payment_portal/portals_module.dart';
 import 'package:mandob_moshtarayat_dashboad/module_reports/report_module.dart';
 import 'package:mandob_moshtarayat_dashboad/module_settings/settings_module.dart';
 import 'package:mandob_moshtarayat_dashboad/module_stores/stores_module.dart';
@@ -94,6 +92,8 @@ class _NavigatorMenuState extends State<NavigatorMenu> {
                     S.current.mainCategories, FontAwesomeIcons.circle, true),
                 customListTile(getIt<CategoriesModule>().subCategoriesScreen,
                     S.current.subCategories, FontAwesomeIcons.square, true),
+                customListTile(getIt<CategoriesModule>().productCategoriesScreen,
+                    S.current.categoriesLevel2, FontAwesomeIcons.dotCircle, true),
               ],
               page: widget.currentPage),
           // Store
