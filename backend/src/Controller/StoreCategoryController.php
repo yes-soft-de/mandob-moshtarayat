@@ -87,7 +87,7 @@ class StoreCategoryController extends BaseController
     }
 
     /**
-     * @Route("/updateStorecategory", name="updateStoreCategory", methods={"PUT"})
+     * @Route("/updatestorecategory", name="updateStoreCategory", methods={"PUT"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
@@ -139,8 +139,8 @@ class StoreCategoryController extends BaseController
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
         $result = $this->storeCategoryService->updateStoreCategory($request);
-          if(is_string($result)){
-              return $this->response($result, self::ERROR);
+        if(is_string($result)){
+              return $this->response($result, self::ERROR_RELATED);
           }
         return $this->response($result, self::UPDATE);
     }

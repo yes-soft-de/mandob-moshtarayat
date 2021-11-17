@@ -14,6 +14,7 @@ use App\Response\ProductFullInfoResponse;
 use App\Response\ProductsByProductCategoryIdResponse;
 use App\Response\StoreProductCategoriesResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use App\Service\StoreOwnerProfileService;
 
 class ProductService
 {
@@ -22,14 +23,16 @@ class ProductService
     private $params;
     private $userManager;
     private $ratingService;
+    private $storeOwnerProfileService;
 
-    public function __construct(AutoMapping $autoMapping, ProductManager $productManager, ParameterBagInterface $params, userManager $userManager,  RatingService $ratingService)
+    public function __construct(AutoMapping $autoMapping, ProductManager $productManager, ParameterBagInterface $params, userManager $userManager,  RatingService $ratingService,StoreOwnerProfileService $storeOwnerProfileService)
     {
         $this->autoMapping = $autoMapping;
         $this->productManager = $productManager;
         $this->userManager = $userManager;
         $this->params = $params->get('upload_base_url') . '/';
         $this->ratingService = $ratingService;
+        $this->storeOwnerProfileService = $storeOwnerProfileService;
     }
 
     public function createProductByAdmin(ProductCreateRequest $request)
@@ -44,6 +47,8 @@ class ProductService
         $response = [];
         $items = $this->productManager->getProductsByProductCategoryId($storeProductCategoryID);
         foreach ($items as $item) {
+
+            $item['store'] = $this->storeOwnerProfileService->getStoreNameById($item['storeOwnerProfileID']);
             $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
             $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
             $item['soldCount'] = $this->getProductsSoldCount($item['id']);
@@ -162,6 +167,8 @@ class ProductService
         $response = [];
         $items = $this->productManager->getProductsByStoreProductCategoryID($storeProductCategoryID);
         foreach ($items as $item) {
+
+            $item['store'] = $this->storeOwnerProfileService->getStoreNameById($item['storeOwnerProfileID']);
             $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
             $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
             $item['soldCount'] = $this->getProductsSoldCount($item['id']);

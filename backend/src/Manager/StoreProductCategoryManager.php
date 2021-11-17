@@ -52,28 +52,36 @@ class StoreProductCategoryManager
 
      public function updateStoreProductCategoryLevelOne(StoreProductCategoryLevelOneUpdateRequest $request)
      {
-         $entity = $this->storeProductCategoryEntityRepository->find($request->getId());
-         if (!$entity) {
-             return null;
+         $isRelated = $this->isItRelatedToCategoryLevelTwo($request->getId());
+         if ($isRelated == 'not related') {
+             $entity = $this->storeProductCategoryEntityRepository->find($request->getId());
+             if (!$entity) {
+                 return null;
+             }
+             $entity = $this->autoMapping->mapToObject(StoreProductCategoryLevelOneUpdateRequest::class, StoreProductCategoryEntity::class, $request, $entity);
+
+             $this->entityManager->flush();
+
+             return $entity;
          }
-         $entity = $this->autoMapping->mapToObject(StoreProductCategoryLevelOneUpdateRequest::class, StoreProductCategoryEntity::class, $request, $entity);
-
-         $this->entityManager->flush();
-
-         return $entity;
+         return $isRelated;
      }
 
      public function updateStoreProductCategoryLevelTwo(StoreProductCategoryLevelTwoUpdateRequest $request)
      {
-         $entity = $this->storeProductCategoryEntityRepository->find($request->getId());
-         if (!$entity) {
-             return null;
+         $isRelated = $this->isItRelatedToProducts($request->getId());
+         if ($isRelated == 'not related') {
+             $entity = $this->storeProductCategoryEntityRepository->find($request->getId());
+             if (!$entity) {
+                 return null;
+             }
+             $entity = $this->autoMapping->mapToObject(StoreProductCategoryLevelTwoUpdateRequest::class, StoreProductCategoryEntity::class, $request, $entity);
+
+             $this->entityManager->flush();
+
+             return $entity;
          }
-         $entity = $this->autoMapping->mapToObject(StoreProductCategoryLevelTwoUpdateRequest::class, StoreProductCategoryEntity::class, $request, $entity);
-
-         $this->entityManager->flush();
-
-         return $entity;
+         return $isRelated;
      }
 
     public function getStoreProductsCategoryForStoreSpecific($storeOwnerProfileId)
@@ -94,5 +102,24 @@ class StoreProductCategoryManager
     public function getStoreProductsCategoryLevelTwoByStoreOwnerProfile($storeOwnerProfileID)
     {
        return $this->storeProductCategoryEntityRepository->getStoreProductsCategoryLevelTwoByStoreOwnerProfile($storeOwnerProfileID);
+    }
+
+    public function isItRelatedToProducts($id):string
+    {
+        $items = $this->storeProductCategoryEntityRepository->isItRelatedToProducts($id);
+
+        if($items) {
+            return "related";
+        }
+        return "not related";
+    }
+    public function isItRelatedToCategoryLevelTwo($id):string
+    {
+        $items = $this->storeProductCategoryEntityRepository->isItRelatedToCategoryLevelTwo($id);
+
+        if($items) {
+            return "related";
+        }
+        return "not related";
     }
 }

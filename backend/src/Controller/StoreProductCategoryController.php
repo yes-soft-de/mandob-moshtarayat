@@ -189,7 +189,9 @@ class StoreProductCategoryController extends BaseController
              return new JsonResponse($violationsString, Response::HTTP_OK);
          }
         $result = $this->storeProductCategoryService->updateStoreProductCategoryLevelOne($request);
-
+         if(is_string($result)){
+             return $this->response($result, self::ERROR_RELATED);
+         }
         return $this->response($result, self::UPDATE);
      }
 
@@ -243,7 +245,9 @@ class StoreProductCategoryController extends BaseController
              return new JsonResponse($violationsString, Response::HTTP_OK);
          }
         $result = $this->storeProductCategoryService->updateStoreProductCategoryLevelTwo($request);
-
+         if(is_string($result)){
+             return $this->response($result, self::ERROR_RELATED);
+         }
         return $this->response($result, self::UPDATE);
      }
 
@@ -521,7 +525,11 @@ class StoreProductCategoryController extends BaseController
      *                  @OA\Property(type="string", property="description"),
      *                  @OA\Property(type="number", property="rate"),
      *                  @OA\Property(type="number", property="soldCount"),
-     *                  @OA\Property(type="string", property="status")
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="object", property="store",
+     *                      @OA\Property(type="integer", property="id"),
+     *                      @OA\Property(type="string", property="storeOwnerName"),
+     *                  ),
      *              )
      *          )
      *      )

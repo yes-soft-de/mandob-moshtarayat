@@ -42,4 +42,6 @@ class StoreOwnerProfileCreateResponse
 
     public $status;
 
+    public $store;
+
 }

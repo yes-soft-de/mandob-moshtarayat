@@ -3,6 +3,7 @@
 namespace App\Manager;
 
 use App\AutoMapping;
+use App\Request\ClientUpdateFavouriteCategoriesRequest;
 use App\Request\storeOwnerProfileStatusUpdateByAdminRequest;
 use App\Entity\UserEntity;
 use App\Entity\ClientProfileEntity;
@@ -226,6 +227,11 @@ class UserManager
     }
 
     public function getStoreOwnerProfileByID($id)
+    {
+        return $this->storeOwnerProfileEntityRepository->getStoreOwnerProfileByID($id);
+    }
+
+    public function getStoreNameById($id)
     {
         return $this->storeOwnerProfileEntityRepository->getStoreOwnerProfileByID($id);
     }
@@ -550,4 +556,19 @@ class UserManager
     {
         return $this->orderManager->clientOrdersDelivered($clientID);
     }
+
+
+    public function updateClientFavouriteCategories(ClientUpdateFavouriteCategoriesRequest $request)
+    {
+        $item = $this->clientProfileEntityRepository->findOneBy(['clientID'=>$request->getClientID()]);
+
+        if ($item) {
+            $item = $this->autoMapping->mapToObject(ClientUpdateFavouriteCategoriesRequest::class, ClientProfileEntity::class, $request, $item);
+
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+            return $item;
+        }
+    }
+
 }

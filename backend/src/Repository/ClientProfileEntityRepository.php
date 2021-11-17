@@ -22,7 +22,7 @@ class ClientProfileEntityRepository extends ServiceEntityRepository
     public function getClientProfileByClientID($clientID)
     {
         return $this->createQueryBuilder('clientProfile')
-            ->select('clientProfile.id', 'clientProfile.clientName','clientProfile.clientID', 'clientProfile.image', 'clientProfile.phone', 'clientProfile.roomID', 'clientProfile.location')
+            ->select('clientProfile.id', 'clientProfile.clientName','clientProfile.clientID', 'clientProfile.image', 'clientProfile.phone', 'clientProfile.roomID', 'clientProfile.location','clientProfile.favouriteCategories')
 
             ->andWhere('clientProfile.clientID = :clientID')
 

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\AutoMapping;
 use App\Request\ClientProfileCreateRequest;
 use App\Request\ClientProfileUpdateRequest;
+use App\Request\ClientUpdateFavouriteCategoriesRequest;
 use App\Request\UserRegisterRequest;
 use App\Service\ClientProfileService;
 use stdClass;
@@ -15,7 +16,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-
+use Nelmio\ApiDocBundle\Annotation\Security;
+use OpenApi\Annotations as OA;
 
 class ClientProfileController extends BaseController
 {
@@ -82,6 +84,37 @@ class ClientProfileController extends BaseController
      * @Route("/clientProfile", name="getClientProfileByClientID",methods={"GET"})
      * @IsGranted("ROLE_CLIENT")
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Client")
+     *@OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns Client Profile",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="integer", property="clientID"),
+     *                  @OA\Property(type="string", property="clientName"),
+     *                  @OA\Property(type="string", property="roomID"),
+     *                  @OA\Property(type="string", property="phone"),
+     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="string", property="imageURL"),
+     *                  @OA\Property(type="string", property="baseURL"),
+     *                  @OA\Property(type="jsone", property="location"),
+     *                  @OA\Property(type="array", property="favouriteCategories",
+     *                      @OA\Items(),
+     *     ),
+     *          )
+     *      )
+     * )
+     * @Security(name="Bearer")
      */
     public function getClientProfileByClientID()
     {
@@ -134,4 +167,54 @@ class ClientProfileController extends BaseController
 
         return $this->response($result, self::FETCH);
     }
+
+
+    /**
+     * @Route("/updateclientfavouritecategories", name="updateClientFavouriteCategories", methods={"PUT"})
+     * @IsGranted("ROLE_CLIENT")
+     * @param Request $request
+     * @return JsonResponse
+     * *
+     * @OA\Tag(name="Client")
+     *@OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     * @OA\RequestBody(
+     *      description="Update Client Favourite Categories",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="array", property="favouriteCategories", @OA\Items( ),),
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the new store owner's role and the creation date",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="array", property="favouriteCategories",
+     *                        @OA\Items( ),
+     * ),
+     *          )
+     *      )
+     * )
+     * @Security(name="Bearer")
+     */
+    public function updateClientFavouriteCategories(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, ClientUpdateFavouriteCategoriesRequest::class, (object)$data);
+        $request->setClientID($this->getUserId());
+
+        $response = $this->clientProfileService->updateClientFavouriteCategories($request);
+
+        return $this->response($response, self::UPDATE);
+    }
+
 }
