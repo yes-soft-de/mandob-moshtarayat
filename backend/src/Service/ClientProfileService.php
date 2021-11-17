@@ -6,11 +6,14 @@ use App\AutoMapping;
 use App\Entity\ClientProfileEntity;
 use App\Entity\UserEntity;
 use App\Manager\UserManager;
+use App\Request\ClientUpdateFavouriteCategoriesRequest;
 use App\Request\UserRegisterRequest;
 use App\Request\ClientProfileUpdateRequest;
 use App\Response\clientOrdersCountResponse;
 use App\Response\ClientProfileResponse;
+use App\Response\ClientProfileWithFavouriteCategoriesResponse;
 use App\Response\ClientsProfileResponse;
+use App\Response\ClientUpdateFavouriteCategoriesResponse;
 use App\Response\UserRegisterResponse;
 use App\Response\NotificationLocalResponse;
 use App\Response\ClientFilterStoreResponse;
@@ -72,7 +75,7 @@ class ClientProfileService
     {
         $item = $this->userManager->getClientProfileByClientID($clientID);  
             
-        return $this->autoMapping->map('array', ClientProfileResponse::class, $item);
+        return $this->autoMapping->map('array', ClientProfileWithFavouriteCategoriesResponse::class, $item);
     }
 
     public function getClientProfileByID($id)
@@ -161,4 +164,12 @@ class ClientProfileService
            }
        return $response;
    }
+
+    public function updateClientFavouriteCategories(ClientUpdateFavouriteCategoriesRequest $request)
+    {
+        $item = $this->userManager->updateClientFavouriteCategories($request);
+
+        return $this->autoMapping->map(ClientProfileEntity ::class, ClientUpdateFavouriteCategoriesResponse::class, $item);
+    }
+
 }

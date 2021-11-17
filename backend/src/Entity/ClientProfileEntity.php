@@ -47,6 +47,11 @@ class ClientProfileEntity
      */
     private $location = [];
 
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $favouriteCategories = [];
+
 
     public function getId(): ?int
     {
@@ -121,6 +126,18 @@ class ClientProfileEntity
     public function setLocation(array $location): self
     {
         $this->location = $location;
+
+        return $this;
+    }
+
+    public function getFavouriteCategories(): ?array
+    {
+        return $this->favouriteCategories;
+    }
+
+    public function setFavouriteCategories(?array $favouriteCategories): self
+    {
+        $this->favouriteCategories = $favouriteCategories;
 
         return $this;
     }
