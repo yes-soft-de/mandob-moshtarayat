@@ -7,6 +7,7 @@ import 'package:mandob_moshtarayat_dashboad/module_categories/model/StoreCategor
 import 'package:mandob_moshtarayat_dashboad/module_categories/model/products_categories_model.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/model/products_model.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/model/subCategoriesModel.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/request/category_level_tow_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_product_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_products_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_store_category_request.dart';
@@ -44,6 +45,19 @@ class CategoriesService {
   Future<DataModel> getSubCategories(int id) async {
     SubCategoriesResponse? _ordersResponse =
     await _categoriesManager.getSubCategories(id);
+    if (_ordersResponse == null) {
+      return DataModel.withError(S.current.networkError);
+    }
+    if (_ordersResponse.statusCode != '200') {
+      return DataModel.withError(
+          StatusCodeHelper.getStatusCodeMessages(_ordersResponse.statusCode));
+    }
+    if (_ordersResponse.data == null) return DataModel.empty();
+    return SubCategoriesModel.withData(_ordersResponse.data!);
+  }
+  Future<DataModel> getSubcategoriesLevelTow(int id) async {
+    SubCategoriesResponse? _ordersResponse =
+    await _categoriesManager.getSubcategoriesLevelTow(id);
     if (_ordersResponse == null) {
       return DataModel.withError(S.current.networkError);
     }
@@ -100,7 +114,7 @@ class CategoriesService {
   }
 
   Future<DataModel> createProductCategories(
-      CreateProductsCategoriesRequest request) async {
+      CategoryLevelTowRequest request) async {
     ActionResponse? actionResponse =
         await _categoriesManager.createProductsCategory(request);
 

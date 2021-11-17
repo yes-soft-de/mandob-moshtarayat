@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat_dashboad/consts/urls.dart';
 import 'package:mandob_moshtarayat_dashboad/module_auth/service/auth_service/auth_service.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/request/category_level_tow_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_product_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_products_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_store_category_request.dart';
@@ -39,6 +40,14 @@ class CategoriesRepository {
     return SubCategoriesResponse.fromJson(response);
   }
 
+  Future<SubCategoriesResponse?> getSubcategoriesLevelTow(int id) async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.get(Urls.GET_SUBCATEGORIES_LEVEL_TOW + '$id',
+        headers: {'Authorization': 'Bearer ' + token.toString()});
+    if (response == null) return null;
+    return SubCategoriesResponse.fromJson(response);
+  }
+
   Future<ActionResponse?> addCategory(
       CreateStoreCategoryRequest request) async {
     var token = await _authService.getToken();
@@ -66,10 +75,10 @@ class CategoriesRepository {
   }
 
   Future<ActionResponse?> createProductsCategory(
-      CreateProductsCategoriesRequest request) async {
+      CategoryLevelTowRequest request) async {
     var token = await _authService.getToken();
     dynamic response = await _apiClient.post(
-        Urls.CREATE_PRODUCTS_CATEGORY, request.toJson(),
+        Urls.CREATE_SUBCATEGORIES_LEVEL_TOW, request.toJson(),
         headers: {'Authorization': 'Bearer ' + token.toString()});
     if (response == null) return null;
     return ActionResponse.fromJson(response);

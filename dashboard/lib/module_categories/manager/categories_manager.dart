@@ -1,6 +1,7 @@
 import 'package:analyzer_plugin/protocol/protocol.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/repository/categories_repository.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/request/category_level_tow_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_product_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_products_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_store_category_request.dart';
@@ -27,6 +28,9 @@ class CategoriesManager {
   Future<SubCategoriesResponse?> getSubCategories(int id) =>
       _categoriesRepository.getSubcategoriesLevelOne(id);
 
+  Future<SubCategoriesResponse?> getSubcategoriesLevelTow(int id) =>
+      _categoriesRepository.getSubcategoriesLevelTow(id);
+
   Future<ActionResponse?> createCategory(CreateStoreCategoryRequest request) =>
       _categoriesRepository.addCategory(request);
 
@@ -37,7 +41,7 @@ class CategoriesManager {
       _categoriesRepository.getProducts(id);
 
   Future<ActionResponse?> createProductsCategory(
-          CreateProductsCategoriesRequest request) =>
+      CategoryLevelTowRequest request) =>
       _categoriesRepository.createProductsCategory(request);
 
   Future<ActionResponse?> createStoreProduct(CreateProductRequest request) =>
