@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:injectable/injectable.dart';
+import 'package:mandob_moshtarayat_dashboad/utils/global/global_state_manager.dart';
 import 'package:simple_moment/simple_moment.dart';
 import 'package:mandob_moshtarayat_dashboad/abstracts/module/yes_module.dart';
 import 'package:mandob_moshtarayat_dashboad/di/di_config.dart';
@@ -139,6 +140,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     // });
     // widget._localNotificationService.onLocalNotificationStream
     //     .listen((event) {});
+    getIt<GlobalStateManager>().stateStream.listen((event) {
+      if (mounted){
+        setState(() {
+        });
+      }
+    });
     widget._themeDataService.darkModeStream.listen((event) {
       activeTheme = event;
       setState(() {});
