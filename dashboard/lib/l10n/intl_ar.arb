@@ -523,5 +523,8 @@
   "createDate": "تاريخ الإنشاء",
   "mainCategories": "التصنيفات الرئيسية",
   "imageSpecification": "الرجاء اختيار صورة من نوع (vector) بقياس (96 بكسل)  و بخلفية شفافة",
-  "badFormat": "الرجاء اختيار صورة بصيغة png"
+  "badFormat": "الرجاء اختيار صورة بصيغة png",
+  "subCategories": "التصنيفات الفرعية",
+  "updateCategory": "تعديل التصنيف",
+  "categoriesLevel2": "تصنيفات فرعية ثانية"
 }

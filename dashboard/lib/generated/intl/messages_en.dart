@@ -131,6 +131,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "card": MessageLookupByLibrary.simpleMessage("Card"),
         "cash": MessageLookupByLibrary.simpleMessage("Cash"),
         "categories": MessageLookupByLibrary.simpleMessage("Categories"),
+        "categoriesLevel2":
+            MessageLookupByLibrary.simpleMessage("Categories Level 2"),
         "category": MessageLookupByLibrary.simpleMessage("category"),
         "categoryCreatedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "Category created successfully"),
@@ -691,6 +693,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Stores In Active"),
         "storesList": MessageLookupByLibrary.simpleMessage("Stores List"),
         "storesReports": MessageLookupByLibrary.simpleMessage("Stores Report"),
+        "subCategories": MessageLookupByLibrary.simpleMessage("Sub Categories"),
         "submittingProfile":
             MessageLookupByLibrary.simpleMessage("Submitting Profile"),
         "subscribe": MessageLookupByLibrary.simpleMessage("Subscribe"),
@@ -745,6 +748,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Branch has been updated successfully"),
         "updateBranches":
             MessageLookupByLibrary.simpleMessage("Update Branches"),
+        "updateCategory":
+            MessageLookupByLibrary.simpleMessage("Update Category"),
         "updateOrderNote": MessageLookupByLibrary.simpleMessage(
             "You can update your order item from this interface"),
         "updateOrderSuccess":

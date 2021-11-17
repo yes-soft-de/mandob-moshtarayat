@@ -5279,6 +5279,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Sub Categories`
+  String get subCategories {
+    return Intl.message(
+      'Sub Categories',
+      name: 'subCategories',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update Category`
+  String get updateCategory {
+    return Intl.message(
+      'Update Category',
+      name: 'updateCategory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Categories Level 2`
+  String get categoriesLevel2 {
+    return Intl.message(
+      'Categories Level 2',
+      name: 'categoriesLevel2',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

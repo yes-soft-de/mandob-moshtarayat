@@ -130,6 +130,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "card": MessageLookupByLibrary.simpleMessage("بطاقة"),
         "cash": MessageLookupByLibrary.simpleMessage("نقدا"),
         "categories": MessageLookupByLibrary.simpleMessage("التصنيفات"),
+        "categoriesLevel2":
+            MessageLookupByLibrary.simpleMessage("تصنيفات فرعية ثانية"),
         "category": MessageLookupByLibrary.simpleMessage("تصنيف"),
         "categoryCreatedSuccessfully":
             MessageLookupByLibrary.simpleMessage("تم إضافة الصنف بنجاح"),
@@ -678,6 +680,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("المتاجر الغير متاحة"),
         "storesList": MessageLookupByLibrary.simpleMessage("قائمة المتاجر"),
         "storesReports": MessageLookupByLibrary.simpleMessage("تقارير المتاجر"),
+        "subCategories":
+            MessageLookupByLibrary.simpleMessage("التصنيفات الفرعية"),
         "submittingProfile":
             MessageLookupByLibrary.simpleMessage("جار حفظ الملف"),
         "subscribe": MessageLookupByLibrary.simpleMessage("اشترك"),
@@ -731,6 +735,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "updateBranchSuccess":
             MessageLookupByLibrary.simpleMessage("تم تعديل الفرع بنجاح"),
         "updateBranches": MessageLookupByLibrary.simpleMessage("تعديل الأفرع"),
+        "updateCategory": MessageLookupByLibrary.simpleMessage("تعديل التصنيف"),
         "updateOrderNote": MessageLookupByLibrary.simpleMessage(
             "يمكنك تعديل الطلب من خلال النافذة الحالية"),
         "updateOrderSuccess":
