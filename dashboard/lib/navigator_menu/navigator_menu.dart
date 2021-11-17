@@ -92,6 +92,8 @@ class _NavigatorMenuState extends State<NavigatorMenu> {
               children: [
                 customListTile(getIt<CategoriesModule>().storeCategoriesScreen,
                     S.current.mainCategories, FontAwesomeIcons.circle, true),
+                customListTile(getIt<CategoriesModule>().subCategoriesScreen,
+                    S.current.subCategories, FontAwesomeIcons.square, true),
               ],
               page: widget.currentPage),
           // Store
