@@ -1,10 +1,7 @@
-import 'package:analyzer_plugin/protocol/protocol.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat_dashboad/consts/urls.dart';
 import 'package:mandob_moshtarayat_dashboad/module_auth/service/auth_service/auth_service.dart';
-import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_store_category_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/response.dart';
-import 'package:mandob_moshtarayat_dashboad/module_categories/response/store_categories_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_network/http_client/http_client.dart';
 import 'package:mandob_moshtarayat_dashboad/module_stores/request/create_store_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_stores/response/store_profile_response.dart';
