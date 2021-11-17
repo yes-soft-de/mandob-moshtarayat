@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/model/products_categories_model.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_product_category_request.dart';
-import 'package:mandob_moshtarayat_dashboad/module_categories/ui/screen/product_categories_screen.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/ui/screen/level_tow_categories_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/state/product_category/product_categories_state.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/widget/product_categories_card.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_list_view.dart';
@@ -12,7 +12,7 @@ import 'package:mandob_moshtarayat_dashboad/utils/components/fixed_container.dar
 import 'package:mandob_moshtarayat_dashboad/utils/helpers/form_dialog.dart';
 
 class ProductCategoriesLoadedState extends ProductCategoriesState {
-  final ProductCategoriesScreenState screenState;
+  final LevelTowCategoriesScreenState screenState;
   final String? error;
   final bool empty;
   final List<ProductsCategoryModel>? model;

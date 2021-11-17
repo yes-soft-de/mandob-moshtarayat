@@ -5,6 +5,7 @@ import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_pro
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_products_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_store_category_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/store_categories_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/request/sub_categories_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_product_category_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_product_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_store_request.dart';
@@ -12,6 +13,7 @@ import 'package:mandob_moshtarayat_dashboad/module_categories/response/products_
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/store_categories_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/store_products_response.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/response/sub_categories_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_network/http_client/http_client.dart';
 
 @injectable
@@ -27,6 +29,14 @@ class CategoriesRepository {
         headers: {'Authorization': 'Bearer ' + token.toString()});
     if (response == null) return null;
     return StoreCategoriesResponse.fromJson(response);
+  }
+
+  Future<SubCategoriesResponse?> getSubcategoriesLevelOne(int id) async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.get(Urls.GET_SUBCATEGORIES_LEVEL_ONE + '$id',
+        headers: {'Authorization': 'Bearer ' + token.toString()});
+    if (response == null) return null;
+    return SubCategoriesResponse.fromJson(response);
   }
 
   Future<ActionResponse?> addCategory(
@@ -110,4 +120,23 @@ class CategoriesRepository {
     if (response == null) return null;
     return ActionResponse.fromJson(response);
   }
+
+  Future<ActionResponse?> createSubCategories(SubCategoriesRequest request) async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.post(
+        Urls.CREATE_SUB_CATEGORIES, request.toJson(),
+        headers: {'Authorization': 'Bearer ' + token.toString()});
+    if (response == null) return null;
+    return ActionResponse.fromJson(response);
+  }
+
+  Future<ActionResponse?> updateSubCategories(SubCategoriesRequest request) async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.put(
+        Urls.CREATE_SUB_CATEGORIES, request.toJson(),
+        headers: {'Authorization': 'Bearer ' + token.toString()});
+    if (response == null) return null;
+    return ActionResponse.fromJson(response);
+  }
+
 }

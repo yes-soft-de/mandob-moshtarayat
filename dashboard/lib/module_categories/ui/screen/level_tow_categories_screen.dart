@@ -13,16 +13,16 @@ import 'package:mandob_moshtarayat_dashboad/utils/effect/hidder.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/helpers/form_dialog.dart';
 
 @injectable
-class ProductCategoriesScreen extends StatefulWidget {
+class LevelTowCategoriesScreen extends StatefulWidget {
   final ProductsCategoryStateManager _stateManager;
 
-  ProductCategoriesScreen(this._stateManager);
+  LevelTowCategoriesScreen(this._stateManager);
 
   @override
-  ProductCategoriesScreenState createState() => ProductCategoriesScreenState();
+  LevelTowCategoriesScreenState createState() => LevelTowCategoriesScreenState();
 }
 
-class ProductCategoriesScreenState extends State<ProductCategoriesScreen> {
+class LevelTowCategoriesScreenState extends State<LevelTowCategoriesScreen> {
   late ProductCategoriesState currentState;
   bool canAddCategories = true;
 
@@ -61,14 +61,7 @@ class ProductCategoriesScreenState extends State<ProductCategoriesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var args = ModalRoute.of(context)?.settings.arguments;
-    if (args != null && flagArgs) {
-      if (args is int) {
-        storeId = args;
-        flagArgs = false;
-        widget._stateManager.getProductCategory(this, storeId ?? -1);
-      }
-    }
+
     return Scaffold(
       appBar: CustomTwaslnaAppBar.appBar(
         context,

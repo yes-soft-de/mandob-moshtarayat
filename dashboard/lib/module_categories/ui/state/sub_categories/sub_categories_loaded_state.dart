@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat_dashboad/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/model/StoreCategoriesModel.dart';
-import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_store_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/model/subCategoriesModel.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/request/sub_categories_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/screen/sub_categories_screen.dart';
-import 'package:mandob_moshtarayat_dashboad/module_stores/model/stores_model.dart';
-import 'package:mandob_moshtarayat_dashboad/module_stores/stores_routes.dart';
-import 'package:mandob_moshtarayat_dashboad/module_stores/ui/widget/add_store_widget.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/ui/widget/sub_categories.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_list_view.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/empty_screen.dart';
@@ -18,7 +17,7 @@ class SubCategoriesLoadedState extends States {
   final SubCategoriesScreenState screenState;
   final String? error;
   final bool empty;
-  final List<StoresModel>? model;
+  final List<SubCategoriesModel>? model;
   final List<StoreCategoriesModel>? categories;
 
   SubCategoriesLoadedState(this.screenState, this.model, this.categories,
@@ -30,14 +29,12 @@ class SubCategoriesLoadedState extends States {
     }
   }
 
-  String? id;
-
   @override
   Widget getUI(BuildContext context) {
     if (error != null) {
       return ErrorStateWidget(
         onRefresh: () {
-          screenState.getStores();
+          screenState.getMainCategories();
         },
         error: error,
       );
@@ -45,7 +42,7 @@ class SubCategoriesLoadedState extends States {
       return EmptyStateWidget(
           empty: S.current.emptyStaff,
           onRefresh: () {
-            screenState.getStores();
+            screenState.getMainCategories();
           });
     }
     return Container(
@@ -66,10 +63,11 @@ class SubCategoriesLoadedState extends States {
                           color: Theme.of(context).primaryColor, width: 4)),
                   child: Center(
                     child: DropdownButton(
-                      value: id,
+                      value: screenState.id,
                       items: getChoices(),
                       onChanged: (v) {
-                        id = v.toString();
+                        screenState.id = v.toString();
+                        screenState.getSubCategories(categories);
                         screenState.refresh();
                       },
                       hint: Text(
@@ -113,129 +111,88 @@ class SubCategoriesLoadedState extends States {
     }
     if (model!.isEmpty) return widgets;
     for (var element in model!) {
-      if (element.categoryId != id && id != null) {
-        continue;
-      }
       widgets.add(Padding(
         padding: const EdgeInsets.all(8.0),
-        child: InkWell(
-          borderRadius: BorderRadius.circular(25),
-          onTap: () {
-            Navigator.of(screenState.context).pushNamed(StoresRoutes.STORE_INFO,
-                arguments: StoresModel(
-                    id: element.id,
-                    storeOwnerName: element.storeOwnerName,
-                    phone: element.phone,
-                    deliveryCost: element.deliveryCost,
-                    image: element.image,
-                    privateOrders: element.privateOrders,
-                    hasProducts: element.hasProducts,
-                    categoryId: categories
-                        ?.firstWhere(
-                            (e) => e.id.toString() == element.categoryId)
-                        .categoryName ??
-                        S.current.categoryName,
-                    status: element.status));
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              color: Theme.of(screenState.context).primaryColor,
-              borderRadius: BorderRadius.circular(25),
-            ),
-            child: Flex(
-              direction: Axis.horizontal,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(25),
-                    child: SizedBox(
-                      height: 75,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Theme.of(screenState.context).primaryColor,
+            borderRadius: BorderRadius.circular(25),
+          ),
+          child: Flex(
+            direction: Axis.horizontal,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(25),
+                  child: SizedBox(
+                    height: 75,
+                    width: 75,
+                    child: CustomNetworkImage(
+                      imageSource: element.image,
                       width: 75,
-                      child: CustomNetworkImage(
-                        imageSource: element.image,
-                        width: 75,
-                        height: 75,
-                      ),
+                      height: 75,
                     ),
                   ),
                 ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: getTile(element.storeOwnerName),
-                  ),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: getTile(element.categoryName),
                 ),
-                InkWell(
-                  onTap: () {
-                    showDialog(
-                        barrierDismissible: false,
-                        context: screenState.context,
-                        builder: (context) {
-                          return Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height,
-                            child: Scaffold(
-                              appBar: CustomTwaslnaAppBar.appBar(context,
-                                  title: S.current.updateStore),
-                              backgroundColor:
-                              Theme.of(context).scaffoldBackgroundColor,
-                              body: UpdateStoreWidget(
-                                request: UpdateStoreRequest(
-                                    id: element.categoryId,
-                                    storeOwnerName: element.storeOwnerName,
-                                    hasProducts: element.hasProducts ? 1 : 0,
-                                    privateOrders:
-                                    element.privateOrders ? 1 : 0,
-                                    image: element.image,
-                                    openingTime:
-                                    element.openingTime?.toIso8601String(),
-                                    closingTime:
-                                    element.closingTime?.toIso8601String(),
-                                    status: element.status),
-                                updateStore: (id, name, image, products,
-                                    privateOrder, open, close, status) {
-                                  Navigator.of(context).pop();
-                                  screenState.updateStore(UpdateStoreRequest(
-                                    status: status,
-                                    id: element.id.toString(),
-                                    storeOwnerName: name,
-                                    storeCategoryId:
-                                    int.parse(element.categoryId),
-                                    image: image,
-                                    hasProducts: products ? 1 : 0,
-                                    privateOrders: privateOrder ? 1 : 0,
-                                    openingTime: open,
-                                    closingTime: close,
-                                  ));
-                                },
-                              ),
+              ),
+              InkWell(
+                onTap: () {
+                  showDialog(
+                      barrierDismissible: false,
+                      context: screenState.context,
+                      builder: (context) {
+                        return Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height,
+                          child: Scaffold(
+                            appBar: CustomTwaslnaAppBar.appBar(context,
+                                title: S.current.updateCategory),
+                            backgroundColor:
+                            Theme.of(context).scaffoldBackgroundColor,
+                            body: AddSubCategoriesWidget(
+                              catID: screenState.id,
+                              state: this,
+                              addSubCategories: (id , name , image) {
+                                screenState.updateSubCategories(SubCategoriesRequest(
+                                  storeCategoryID: int.tryParse(id),
+                                  productCategoryImage: image,
+                                  productCategoryName: name,
+                                  id:element.id
+                                ));
+                              },
                             ),
-                          );
-                        });
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Theme.of(screenState.context)
-                            .backgroundColor
-                            .withOpacity(0.2),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Icon(
-                          Icons.edit,
-                          color: Colors.white,
-                        ),
+                          ),
+                        );
+                      });
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Theme.of(screenState.context)
+                          .backgroundColor
+                          .withOpacity(0.2),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(
+                        Icons.edit,
+                        color: Colors.white,
                       ),
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ));

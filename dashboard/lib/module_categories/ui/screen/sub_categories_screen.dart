@@ -4,12 +4,11 @@ import 'package:mandob_moshtarayat_dashboad/abstracts/states/loading_state.dart'
 import 'package:mandob_moshtarayat_dashboad/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/global_nav_key.dart';
-import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_store_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/request/sub_categories_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/state_manager/sub_categories_state_manager.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/ui/state/sub_categories/sub_categories_loaded_state.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/ui/widget/sub_categories.dart';
 import 'package:mandob_moshtarayat_dashboad/module_stores/request/create_store_request.dart';
-import 'package:mandob_moshtarayat_dashboad/module_stores/state_manager/stores_state_manager.dart';
-import 'package:mandob_moshtarayat_dashboad/module_stores/ui/state/store_categories/stores_loaded_state.dart';
-import 'package:mandob_moshtarayat_dashboad/module_stores/ui/widget/add_store_widget.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/floated_button.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/effect/hidder.dart';
@@ -27,7 +26,7 @@ class SubCategoriesScreen extends StatefulWidget {
 class SubCategoriesScreenState extends State<SubCategoriesScreen> {
   late States currentState;
   bool canAddCategories = true;
-
+  String? id;
   @override
   void initState() {
     currentState = LoadingState(this);
@@ -41,16 +40,21 @@ class SubCategoriesScreenState extends State<SubCategoriesScreen> {
     super.initState();
   }
 
-  void getStores() {
+  void getMainCategories() {
     widget._stateManager.getStoreCategories(this);
   }
-
-  void addStore(CreateStoreRequest request) {
-    widget._stateManager.createCategory(this, request);
+  void getSubCategories(categories) {
+    widget._stateManager.getCategoriesLevelOne(this,int.parse(id ?? '0'),categories);
   }
 
-  void updateStore(request) {
-    widget._stateManager.updateCategory(this, request);
+  void addSubCategories(SubCategoriesRequest request) {
+    id = null;
+    widget._stateManager.createSubCategory(this, request);
+  }
+
+  void updateSubCategories(request) {
+    id = null;
+    widget._stateManager.updateSubCategory(this, request);
   }
 
   void refresh() {
@@ -63,14 +67,14 @@ class SubCategoriesScreenState extends State<SubCategoriesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomTwaslnaAppBar.appBar(context,
-          title: S.of(context).storesList, icon: Icons.menu, onTap: () {
+          title: S.of(context).subCategories, icon: Icons.menu, onTap: () {
             GlobalVariable.mainScreenScaffold.currentState?.openDrawer();
           }),
       body: currentState.getUI(context),
       floatingActionButton: Hider(
         active: canAddCategories,
         child: FloatedIconButton(
-          text: S.current.addStore,
+          text: S.current.addNewCategory,
           icon: Icons.add_circle_rounded,
           onPressed: () {
             showDialog(
@@ -82,27 +86,20 @@ class SubCategoriesScreenState extends State<SubCategoriesScreen> {
                     height: MediaQuery.of(context).size.height,
                     child: Scaffold(
                       appBar: CustomTwaslnaAppBar.appBar(context,
-                          title: S.current.addStore),
+                          title: S.current.addNewCategory),
                       backgroundColor:
                       Theme.of(context).scaffoldBackgroundColor,
-                      body: AddStoreWidget(
-                        state: currentState is StoresLoadedState
-                            ? currentState as StoresLoadedState
+                      body: AddSubCategoriesWidget(
+                        state: currentState is SubCategoriesLoadedState
+                            ? currentState as SubCategoriesLoadedState
                             : null,
-                        addStore: (id, name, phone, image, location, products,
-                            privateOrder, open, close, status) {
+                        addSubCategories: (id, name, image) {
+                          addSubCategories(SubCategoriesRequest(
+                            storeCategoryID: int.tryParse(id),
+                            productCategoryName: name,
+                            productCategoryImage: image
+                          ));
                           Navigator.of(context).pop();
-                          addStore(CreateStoreRequest(
-                              location: location,
-                              storeOwnerName: name,
-                              phone: phone,
-                              storeCategoryId: int.parse(id),
-                              image: image,
-                              hasProducts: products ? 1 : 0,
-                              privateOrders: privateOrder ? 1 : 0,
-                              openingTime: open,
-                              closingTime: close,
-                              status: status));
                         },
                       ),
                     ),

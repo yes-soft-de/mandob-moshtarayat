@@ -1,7 +1,8 @@
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat_dashboad/abstracts/states/loading_state.dart';
 import 'package:mandob_moshtarayat_dashboad/abstracts/states/state.dart';
-import 'package:mandob_moshtarayat_dashboad/module_categories/request/store_categories_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/model/subCategoriesModel.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/request/sub_categories_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/screen/sub_categories_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/state/sub_categories/sub_categories_loaded_state.dart';
 import 'package:rxdart/rxdart.dart';
@@ -9,7 +10,6 @@ import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_auth/service/auth_service/auth_service.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/model/StoreCategoriesModel.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/service/store_categories_service.dart';
-import 'package:mandob_moshtarayat_dashboad/module_stores/request/create_store_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_stores/service/store_service.dart';
 import 'package:mandob_moshtarayat_dashboad/module_upload/service/image_upload/image_upload_service.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/helpers/custom_flushbar.dart';
@@ -43,19 +43,32 @@ class SubCategoriesStateManager {
     });
   }
 
-  void createCategory(
-      SubCategoriesScreenState screenState, CreateStoreRequest request) {
-    _stateSubject.add(LoadingState(screenState));
+  void getCategoriesLevelOne(SubCategoriesScreenState screenState,int id,List<StoreCategoriesModel> model) {
+   // _stateSubject.add(LoadingState(screenState));
+    _categoriesService.getSubCategories(id).then((value) {
+      if (value.hasError) {
+        CustomFlushBarHelper.createError(title: S.current.warnning, message: value.error ?? '').show(screenState.context);
+      } else if (value.isEmpty) {
+        _stateSubject.add(SubCategoriesLoadedState(screenState, null, model));
+      } else {
+        SubCategoriesModel cats = value as SubCategoriesModel;
+        _stateSubject.add(SubCategoriesLoadedState(screenState, cats.data ,model));
+      }
+    });
+  }
 
-    _uploadService.uploadImage(request.image!).then((value) {
+  void createSubCategory(
+      SubCategoriesScreenState screenState, SubCategoriesRequest request) {
+    _stateSubject.add(LoadingState(screenState));
+    _uploadService.uploadImage(request.productCategoryImage!).then((value) {
       if (value == null) {
         getStoreCategories(screenState);
         CustomFlushBarHelper.createError(
             title: S.current.warnning, message: S.current.errorUploadingImages)
           ..show(screenState.context);
       } else {
-        request.image = value;
-        _storesService.createStores(request).then((value) {
+        request.productCategoryImage = value;
+        _categoriesService.createSubCategories(request).then((value) {
           if (value.hasError) {
             getStoreCategories(screenState);
             CustomFlushBarHelper.createError(
@@ -65,7 +78,7 @@ class SubCategoriesStateManager {
             getStoreCategories(screenState);
             CustomFlushBarHelper.createSuccess(
                 title: S.current.warnning,
-                message: S.current.storeCreatedSuccessfully)
+                message: S.current.categoryCreatedSuccessfully)
               ..show(screenState.context);
           }
         });
@@ -73,11 +86,11 @@ class SubCategoriesStateManager {
     });
   }
 
-  void updateCategory(SubCategoriesScreenState screenState,
-      UpdateStoreCategoriesRequest request) {
-    if (request.image!.contains('/original-image/')) {
+  void updateSubCategory(SubCategoriesScreenState screenState,
+      SubCategoriesRequest request) {
+    if (request.productCategoryImage!.contains('/original-image/')) {
       _stateSubject.add(LoadingState(screenState));
-      _categoriesService.updateStoreCategory(request).then((value) {
+      _categoriesService.updateSubCategories(request).then((value) {
         if (value.hasError) {
           getStoreCategories(screenState);
           CustomFlushBarHelper.createError(
@@ -92,7 +105,7 @@ class SubCategoriesStateManager {
       });
     } else {
       _stateSubject.add(LoadingState(screenState));
-      _uploadService.uploadImage(request.image!).then((value) {
+      _uploadService.uploadImage(request.productCategoryImage!).then((value) {
         if (value == null) {
           getStoreCategories(screenState);
           CustomFlushBarHelper.createError(
@@ -100,9 +113,8 @@ class SubCategoriesStateManager {
               message: S.current.errorUploadingImages)
             ..show(screenState.context);
         } else {
-          request.image = value;
-
-          _categoriesService.updateStoreCategory(request).then((value) {
+          request.productCategoryImage = value;
+          _categoriesService.updateSubCategories(request).then((value) {
             if (value.hasError) {
               getStoreCategories(screenState);
               CustomFlushBarHelper.createError(
@@ -120,4 +132,5 @@ class SubCategoriesStateManager {
       });
     }
   }
+
 }

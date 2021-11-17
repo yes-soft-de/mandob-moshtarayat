@@ -5,6 +5,7 @@ import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_pro
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_products_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_store_category_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/store_categories_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/request/sub_categories_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_product_category_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_product_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_store_request.dart';
@@ -12,6 +13,7 @@ import 'package:mandob_moshtarayat_dashboad/module_categories/response/products_
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/store_categories_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/store_products_response.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/response/sub_categories_response.dart';
 
 @injectable
 class CategoriesManager {
@@ -21,6 +23,9 @@ class CategoriesManager {
 
   Future<StoreCategoriesResponse?> getStoreCategories() =>
       _categoriesRepository.getStoreCategories();
+
+  Future<SubCategoriesResponse?> getSubCategories(int id) =>
+      _categoriesRepository.getSubcategoriesLevelOne(id);
 
   Future<ActionResponse?> createCategory(CreateStoreCategoryRequest request) =>
       _categoriesRepository.addCategory(request);
@@ -50,4 +55,10 @@ class CategoriesManager {
 
   Future<ActionResponse?> updateProduct(UpdateProductRequest request) =>
       _categoriesRepository.updateProduct(request);
+
+  Future<ActionResponse?> createSubCategories(SubCategoriesRequest request) =>
+      _categoriesRepository.createSubCategories(request);
+
+  Future<ActionResponse?> updateSubCategories(SubCategoriesRequest request) =>
+      _categoriesRepository.updateSubCategories(request);
 }

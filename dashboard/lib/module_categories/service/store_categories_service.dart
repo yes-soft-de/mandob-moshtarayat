@@ -6,10 +6,12 @@ import 'package:mandob_moshtarayat_dashboad/module_categories/manager/categories
 import 'package:mandob_moshtarayat_dashboad/module_categories/model/StoreCategoriesModel.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/model/products_categories_model.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/model/products_model.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/model/subCategoriesModel.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_product_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_products_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_store_category_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/store_categories_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/request/sub_categories_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_product_category_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_product_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_store_request.dart';
@@ -17,6 +19,7 @@ import 'package:mandob_moshtarayat_dashboad/module_categories/response/products_
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/store_categories_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/store_products_response.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/response/sub_categories_response.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/helpers/status_code_helper.dart';
 
 @injectable
@@ -37,6 +40,19 @@ class CategoriesService {
     }
     if (_ordersResponse.data == null) return DataModel.empty();
     return StoreCategoriesModel.withData(_ordersResponse.data!);
+  }
+  Future<DataModel> getSubCategories(int id) async {
+    SubCategoriesResponse? _ordersResponse =
+    await _categoriesManager.getSubCategories(id);
+    if (_ordersResponse == null) {
+      return DataModel.withError(S.current.networkError);
+    }
+    if (_ordersResponse.statusCode != '200') {
+      return DataModel.withError(
+          StatusCodeHelper.getStatusCodeMessages(_ordersResponse.statusCode));
+    }
+    if (_ordersResponse.data == null) return DataModel.empty();
+    return SubCategoriesModel.withData(_ordersResponse.data!);
   }
 
   Future<DataModel> createCategory(CreateStoreCategoryRequest request) async {
@@ -164,6 +180,31 @@ class CategoriesService {
       return DataModel.withError(S.current.networkError);
     }
     if (actionResponse.statusCode != '201') {
+      return DataModel.withError(
+          StatusCodeHelper.getStatusCodeMessages(actionResponse.statusCode));
+    }
+    return DataModel.empty();
+  }
+  Future<DataModel> createSubCategories(SubCategoriesRequest request) async {
+    ActionResponse? actionResponse = await _categoriesManager.createSubCategories(request);
+
+    if (actionResponse == null) {
+      return DataModel.withError(S.current.networkError);
+    }
+    if (actionResponse.statusCode != '201') {
+      return DataModel.withError(
+          StatusCodeHelper.getStatusCodeMessages(actionResponse.statusCode));
+    }
+    return DataModel.empty();
+  }
+
+  Future<DataModel> updateSubCategories(SubCategoriesRequest request) async {
+    ActionResponse? actionResponse = await _categoriesManager.updateSubCategories(request);
+
+    if (actionResponse == null) {
+      return DataModel.withError(S.current.networkError);
+    }
+    if (actionResponse.statusCode != '204') {
       return DataModel.withError(
           StatusCodeHelper.getStatusCodeMessages(actionResponse.statusCode));
     }

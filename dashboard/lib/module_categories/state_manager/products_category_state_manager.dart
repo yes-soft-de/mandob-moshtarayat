@@ -6,7 +6,7 @@ import 'package:mandob_moshtarayat_dashboad/module_categories/model/products_cat
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_products_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_product_category_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/service/store_categories_service.dart';
-import 'package:mandob_moshtarayat_dashboad/module_categories/ui/screen/product_categories_screen.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/ui/screen/level_tow_categories_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/state/product_category/product_categories_loaded_state.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/state/product_category/product_categories_loading_state.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/state/product_category/product_categories_state.dart';
@@ -28,7 +28,7 @@ class ProductsCategoryStateManager {
   ProductsCategoryStateManager(
       this._categoriesService, this._authService, this._uploadService);
 
-  void getProductCategory(ProductCategoriesScreenState screenState, int id) {
+  void getProductCategory(LevelTowCategoriesScreenState screenState, int id) {
     _stateSubject.add(ProductCategoriesLoadingState(screenState));
 
     _categoriesService.getProductsCategory(id).then((value) {
@@ -46,7 +46,7 @@ class ProductsCategoryStateManager {
     });
   }
 
-  void createProductCategory(ProductCategoriesScreenState screenState,
+  void createProductCategory(LevelTowCategoriesScreenState screenState,
       CreateProductsCategoriesRequest request) {
     _stateSubject.add(ProductCategoriesLoadingState(screenState));
 
@@ -66,7 +66,7 @@ class ProductsCategoryStateManager {
     });
   }
 
-  void updateProductCategory(ProductCategoriesScreenState screenState,
+  void updateProductCategory(LevelTowCategoriesScreenState screenState,
       UpdateProductCategoryRequest request, int storeId) {
     _stateSubject.add(ProductCategoriesLoadingState(screenState));
 
