@@ -231,6 +231,11 @@ class UserManager
         return $this->storeOwnerProfileEntityRepository->getStoreOwnerProfileByID($id);
     }
 
+    public function getStoreNameById($id)
+    {
+        return $this->storeOwnerProfileEntityRepository->getStoreOwnerProfileByID($id);
+    }
+
     public function getremainingOrders($userID)
     {
         return $this->storeOwnerProfileEntityRepository->getremainingOrders($userID);

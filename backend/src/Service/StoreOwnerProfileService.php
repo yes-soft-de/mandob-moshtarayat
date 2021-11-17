@@ -14,6 +14,7 @@ use App\Request\StoreOwnerUpdateByAdminRequest;
 use App\Request\UserRegisterRequest;
 use App\Response\CaptainIsActiveResponse;
 use App\Response\StoreFinancialAccountForStoreResponse;
+use App\Response\StoreNameResponse;
 use App\Response\StoreOwnerProfileCreateResponse;
 use App\Response\StoreOwnerProfileResponse;
 use App\Response\StoreOwnerByCategoryIdResponse;
@@ -97,9 +98,17 @@ class StoreOwnerProfileService
             $item['baseURL'] = $this->params;
             $item['branches'] = $this->storeOwnerBranchService->getBranchesByStoreOwnerProfileID($item['id']);
             $item['rating'] = $this->ratingService->getAvgRating($id, 'store');
-
             $response = $this->autoMapping->map('array', StoreOwnerProfileCreateResponse::class, $item);
         }
+        return $response;
+    }
+
+    public function getStoreNameById($id)
+    {
+        $response = null;
+        $item = $this->userManager->getStoreNameById($id);
+        $response = $this->autoMapping->map('array', StoreNameResponse::class, $item);
+
         return $response;
     }
 
