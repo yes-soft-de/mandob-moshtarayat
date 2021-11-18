@@ -459,4 +459,51 @@ class ProductController extends BaseController
 
         return $this->response($result, self::UPDATE);
     }
+
+
+    /**
+     * @Route("/productssimilar/{storeProductCategoryID}", name="getSimilarProductsByStoreProductCategoryIdOfLevelTwo", methods={"GET"})
+     * @return JsonResponse
+     * @OA\Tag(name="Product")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns Similar Products By Store Product CategoryID Of Level Two ",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="productName"),
+     *                  @OA\Property(type="number", property="productPrice"),
+     *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                  @OA\Property(type="integer", property="storeProductCategoryID"),
+     *                  @OA\Property(type="object", property="image",
+     *                      @OA\Property(type="string", property="imageURL"),
+     *                      @OA\Property(type="string", property="image"),
+     *                      @OA\Property(type="string", property="baseURL"),
+     *                  ),
+     *                  @OA\Property(type="string", property="discount"),
+     *                  @OA\Property(type="string", property="description"),
+     *                  @OA\Property(type="number", property="rate"),
+     *                  @OA\Property(type="number", property="soldCount"),
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="object", property="store",
+     *                      @OA\Property(type="integer", property="id"),
+     *                      @OA\Property(type="string", property="storeOwnerName"),
+     *                  ),
+     *              )
+     *          )
+     *      )
+     *  )
+     *
+     */
+    public function getSimilarProductsByStoreProductCategoryIdOfLevelTwo($storeProductCategoryID): JsonResponse
+    {
+        $result = $this->productService->getSimilarProductsByStoreProductCategoryIdOfLevelTwo($storeProductCategoryID);
+
+        return $this->response($result, self::FETCH);
+    }
+
 }
