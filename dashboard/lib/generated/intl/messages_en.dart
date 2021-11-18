@@ -266,6 +266,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "errorLoggingInFirebaseAccountNotFound":
             MessageLookupByLibrary.simpleMessage(
                 "Error logging in, firebase account not found"),
+        "errorUpdateCategory": MessageLookupByLibrary.simpleMessage(
+            "Sorry , We can\'t complete this action cause this category related with other items"),
         "errorUploadingImages":
             MessageLookupByLibrary.simpleMessage("Error Uploading Images!!"),
         "exceededAllowedTime": MessageLookupByLibrary.simpleMessage(
@@ -750,6 +752,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Update Branches"),
         "updateCategory":
             MessageLookupByLibrary.simpleMessage("Update Category"),
+        "updateCategorySuccessfully": MessageLookupByLibrary.simpleMessage(
+            "Category Updated Successfully"),
         "updateOrderNote": MessageLookupByLibrary.simpleMessage(
             "You can update your order item from this interface"),
         "updateOrderSuccess":

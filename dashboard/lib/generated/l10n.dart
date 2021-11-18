@@ -5309,6 +5309,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Category Updated Successfully`
+  String get updateCategorySuccessfully {
+    return Intl.message(
+      'Category Updated Successfully',
+      name: 'updateCategorySuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sorry , We can't complete this action cause this category related with other items`
+  String get errorUpdateCategory {
+    return Intl.message(
+      'Sorry , We can\'t complete this action cause this category related with other items',
+      name: 'errorUpdateCategory',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

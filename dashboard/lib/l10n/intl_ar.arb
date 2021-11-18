@@ -526,5 +526,7 @@
   "badFormat": "الرجاء اختيار صورة بصيغة png",
   "subCategories": "التصنيفات الفرعية",
   "updateCategory": "تعديل التصنيف",
-  "categoriesLevel2": "تصنيفات فرعية ثانية"
+  "categoriesLevel2": "تصنيفات فرعية ثانية",
+  "updateCategorySuccessfully": "تم تحديث الصنف بنجاح",
+  "errorUpdateCategory": "عذرا لا يمكن تعديل الصنف لأحتوائه على عناصر"
 }

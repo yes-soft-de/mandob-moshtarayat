@@ -262,6 +262,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "errorLoggingInFirebaseAccountNotFound":
             MessageLookupByLibrary.simpleMessage(
                 "Error logging in, firebase account not found"),
+        "errorUpdateCategory": MessageLookupByLibrary.simpleMessage(
+            "عذرا لا يمكن تعديل الصنف لأحتوائه على عناصر"),
         "errorUploadingImages":
             MessageLookupByLibrary.simpleMessage("حدث خطأ عند رفع الصور!!"),
         "exceededAllowedTime": MessageLookupByLibrary.simpleMessage(
@@ -736,6 +738,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تم تعديل الفرع بنجاح"),
         "updateBranches": MessageLookupByLibrary.simpleMessage("تعديل الأفرع"),
         "updateCategory": MessageLookupByLibrary.simpleMessage("تعديل التصنيف"),
+        "updateCategorySuccessfully":
+            MessageLookupByLibrary.simpleMessage("تم تحديث الصنف بنجاح"),
         "updateOrderNote": MessageLookupByLibrary.simpleMessage(
             "يمكنك تعديل الطلب من خلال النافذة الحالية"),
         "updateOrderSuccess":

@@ -527,7 +527,11 @@
   "badFormat": "Please choose image with .png format",
   "subCategories": "Sub Categories",
   "updateCategory": "Update Category",
-  "categoriesLevel2": "Categories Level 2"
+  "categoriesLevel2": "Categories Level 2",
+  "updateCategorySuccessfully": "Category Updated Successfully",
+  "errorUpdateCategory": "Sorry , We can't complete this action cause this category related with other items"
+
+
 
 
 
