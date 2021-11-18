@@ -99,7 +99,7 @@ class ProductManager
         $entity = $this->productEntityRepository->find($request->getId());
 
         if (!$entity) {
-            return null;
+            return $entity;
         }
         $entity = $this->autoMapping->mapToObject(ProductUpdateRequest::class, ProductEntity::class, $request, $entity);
 
@@ -135,7 +135,7 @@ class ProductManager
         $entity = $this->productEntityRepository->find($request->getId());
 
         if (!$entity) {
-            return null;
+            return $entity;
         }
         $entity = $this->autoMapping->mapToObject(ProductUpdateByStoreOwnerRequest::class, ProductEntity::class, $request, $entity);
 
@@ -174,7 +174,7 @@ class ProductManager
         $entity = $this->productEntityRepository->find($request->getId());
 
         if (!$entity) {
-            return null;
+            return $entity;
         }
         $entity = $this->autoMapping->mapToObject(ProductCancelByStoreOwnerRequest::class, ProductEntity::class, $request, $entity);
 
