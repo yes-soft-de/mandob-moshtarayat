@@ -3,12 +3,15 @@ class UpdateStoreCategoriesRequest {
   String? storeCategoryName;
   String? description;
   String? image;
+  String? baseImage;
 
   UpdateStoreCategoriesRequest({
       this.id, 
       this.storeCategoryName, 
       this.description, 
-      this.image});
+      this.image,
+      this.baseImage
+  });
 
   UpdateStoreCategoriesRequest.fromJson(dynamic json) {
     id = json['id'];

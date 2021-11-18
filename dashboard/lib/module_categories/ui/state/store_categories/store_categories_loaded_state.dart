@@ -9,7 +9,6 @@ import 'package:mandob_moshtarayat_dashboad/utils/components/costom_search.dart'
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_list_view.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/empty_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/error_screen.dart';
-import 'package:mandob_moshtarayat_dashboad/utils/components/progresive_image.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/helpers/form_dialog.dart';
 
 class StoreCategoriesLoadedState extends StoreCategoriesState {
@@ -84,6 +83,7 @@ class StoreCategoriesLoadedState extends StoreCategoriesState {
                   description: '',
                   storeCategoryName: element.categoryName,
                   image: element.image,
+                  baseImage: element.baseImage
                 )),
       ));
     }
