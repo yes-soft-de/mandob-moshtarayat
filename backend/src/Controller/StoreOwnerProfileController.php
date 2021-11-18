@@ -232,6 +232,38 @@ class StoreOwnerProfileController extends BaseController
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Store Owner Profile")
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     * @OA\RequestBody(
+     *      description="Update Store Owner Status",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="id"),
+     *          @OA\Property(type="string", property="status")
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the store owner's profile",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="string", property="id"),
+     *              @OA\Property(type="string", property="storeOwnerName"),
+     *              @OA\Property(type="string", property="image"),
+     *              @OA\Property(type="integer", property="status"),
+     *              @OA\Property(type="integer", property="phone")
+     *      )
+     *   )
+     * )
+     * @Security(name="Bearer")
      */
     public function storeOwnerProfileStatusUpdateByAdmin(Request $request): JsonResponse
     {

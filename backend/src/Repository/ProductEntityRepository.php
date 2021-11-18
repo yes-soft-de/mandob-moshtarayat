@@ -254,7 +254,6 @@ class ProductEntityRepository extends ServiceEntityRepository
 
     public function getStoreProductCategoryIdOfLevel1($storeCategoryID, $storeProductCategoryId)
     {
-//        var_dump($storeCategoryID, $storeProductCategoryId);
         return $this->createQueryBuilder('product')
             ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID','product.discount', 'product.description')
 
@@ -265,6 +264,34 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->andWhere('StoreProductCategoryEntity.storeCategoryID = :storeCategoryID')
             ->setParameter('storeProductCategoryId',$storeProductCategoryId)
             ->setParameter('storeCategoryID',$storeCategoryID)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getStoreProductCategoryIdLevel1ByIdOfLevelTwo($storeProductCategoryID)
+    {
+        return $this->createQueryBuilder('product')
+            ->select('StoreProductCategoryEntity.storeProductCategoryID')
+
+            ->leftJoin(StoreProductCategoryEntity::class, 'StoreProductCategoryEntity', Join::WITH, 'StoreProductCategoryEntity.id = product.storeProductCategoryID')
+
+            ->andWhere('StoreProductCategoryEntity.id = :storeProductCategoryID')
+            ->setParameter('storeProductCategoryID',$storeProductCategoryID)
+            ->groupBy('StoreProductCategoryEntity.id')
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function getProductsByStoreProductCategoryIDLevelOne($storeProductCategoryIdLevel1)
+    {
+        return $this->createQueryBuilder('product')
+            ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID','product.discount', 'product.description', 'product.status')
+
+            ->leftJoin(StoreProductCategoryEntity::class, 'StoreProductCategoryEntity', Join::WITH, 'StoreProductCategoryEntity.id = product.storeProductCategoryID')
+
+            ->andWhere('StoreProductCategoryEntity.storeProductCategoryID = :storeProductCategoryIdLevel1')
+            ->setParameter('storeProductCategoryIdLevel1',$storeProductCategoryIdLevel1)
+            ->groupBy('StoreProductCategoryEntity.id')
             ->getQuery()
             ->getResult();
     }

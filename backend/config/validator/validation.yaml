@@ -218,8 +218,6 @@ App\Request\StoreCategoryUpdateRequest:
       - NotBlank: ~
     image:
       - NotBlank: ~
-    description:
-      - NotBlank: ~
 
 App\Request\StoreProductCategoryLevelTwoCreateRequest:
   properties:
@@ -237,4 +235,11 @@ App\Request\StoreProductCategoryCreateRequest:
     productCategoryImage:
       - NotBlank: ~
     storeCategoryID:
+      - NotBlank: ~
+
+App\Request\AdminCreateRequest:
+  properties:
+    userID:
+      - NotBlank: ~
+    password:
       - NotBlank: ~

@@ -56,7 +56,7 @@ class StoreProductCategoryManager
          if ($isRelated == 'not related') {
              $entity = $this->storeProductCategoryEntityRepository->find($request->getId());
              if (!$entity) {
-                 return null;
+                 return $entity;
              }
              $entity = $this->autoMapping->mapToObject(StoreProductCategoryLevelOneUpdateRequest::class, StoreProductCategoryEntity::class, $request, $entity);
 
@@ -73,7 +73,7 @@ class StoreProductCategoryManager
          if ($isRelated == 'not related') {
              $entity = $this->storeProductCategoryEntityRepository->find($request->getId());
              if (!$entity) {
-                 return null;
+                 return $entity;
              }
              $entity = $this->autoMapping->mapToObject(StoreProductCategoryLevelTwoUpdateRequest::class, StoreProductCategoryEntity::class, $request, $entity);
 

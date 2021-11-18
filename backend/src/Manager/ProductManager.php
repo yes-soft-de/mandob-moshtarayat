@@ -99,7 +99,7 @@ class ProductManager
         $entity = $this->productEntityRepository->find($request->getId());
 
         if (!$entity) {
-            return null;
+            return $entity;
         }
         $entity = $this->autoMapping->mapToObject(ProductUpdateRequest::class, ProductEntity::class, $request, $entity);
 
@@ -135,7 +135,7 @@ class ProductManager
         $entity = $this->productEntityRepository->find($request->getId());
 
         if (!$entity) {
-            return null;
+            return $entity;
         }
         $entity = $this->autoMapping->mapToObject(ProductUpdateByStoreOwnerRequest::class, ProductEntity::class, $request, $entity);
 
@@ -159,13 +159,22 @@ class ProductManager
         return $this->productEntityRepository->getStoreProductCategoryIdOfLevel1($storeCategoryID, $StoreProductCategoryId);
     }
 
+    public function getStoreProductCategoryIdLevel1ByIdOfLevelTwo($storeProductCategoryID)
+    {
+        return $this->productEntityRepository->getStoreProductCategoryIdLevel1ByIdOfLevelTwo($storeProductCategoryID);
+    }
+
+    public function getProductsByStoreProductCategoryIDLevelOne($storeProductCategoryIdLevel1)
+    {
+        return $this->productEntityRepository->getProductsByStoreProductCategoryIDLevelOne($storeProductCategoryIdLevel1);
+    }
 
     public function updateProductStatusByStore(ProductCancelByStoreOwnerRequest $request)
     {
         $entity = $this->productEntityRepository->find($request->getId());
 
         if (!$entity) {
-            return null;
+            return $entity;
         }
         $entity = $this->autoMapping->mapToObject(ProductCancelByStoreOwnerRequest::class, ProductEntity::class, $request, $entity);
 

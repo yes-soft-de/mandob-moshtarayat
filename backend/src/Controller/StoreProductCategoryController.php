@@ -23,6 +23,7 @@ class StoreProductCategoryController extends BaseController
 {
     private $autoMapping;
     private $storeProductCategoryService;
+    private $validator;
 
     public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, StoreProductCategoryService $storeProductCategoryService, ValidatorInterface $validator)
     {
@@ -189,7 +190,7 @@ class StoreProductCategoryController extends BaseController
              return new JsonResponse($violationsString, Response::HTTP_OK);
          }
         $result = $this->storeProductCategoryService->updateStoreProductCategoryLevelOne($request);
-         if(is_string($result)){
+         if($result =="related"){
              return $this->response($result, self::ERROR_RELATED);
          }
         return $this->response($result, self::UPDATE);
@@ -245,7 +246,7 @@ class StoreProductCategoryController extends BaseController
              return new JsonResponse($violationsString, Response::HTTP_OK);
          }
         $result = $this->storeProductCategoryService->updateStoreProductCategoryLevelTwo($request);
-         if(is_string($result)){
+        if($result =="related"){
              return $this->response($result, self::ERROR_RELATED);
          }
         return $this->response($result, self::UPDATE);

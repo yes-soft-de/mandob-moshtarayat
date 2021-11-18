@@ -38,8 +38,11 @@ class StoreCategoryManager
     {
         $isRelated = $this->isItRelatedToSubcategories($request->getId());
         if ($isRelated == 'not related') {
-            $entity = $this->storeCategoryEntityRepository->find($request->getId());
 
+            $entity = $this->storeCategoryEntityRepository->find($request->getId());
+            if(!$entity) {
+                return $entity;
+            }
             $entity = $this->autoMapping->mapToObject(StoreCategoryUpdateRequest::class, StoreCategoryEntity::class, $request, $entity);
 
             $this->entityManager->flush();
