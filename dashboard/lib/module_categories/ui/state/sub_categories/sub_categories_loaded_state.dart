@@ -160,7 +160,9 @@ class SubCategoriesLoadedState extends States {
                             body: AddSubCategoriesWidget(
                               catID: screenState.id,
                               state: this,
+                              subCategoriesModel: element,
                               addSubCategories: (id , name , image) {
+                                Navigator.of(context).pop();
                                 screenState.updateSubCategories(SubCategoriesRequest(
                                   storeCategoryID: int.tryParse(id),
                                   productCategoryImage: image,

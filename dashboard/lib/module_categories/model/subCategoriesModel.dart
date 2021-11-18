@@ -18,6 +18,9 @@ class SubCategoriesModel extends DataModel {
         id: element.id ?? -1,
         categoryName: element.productCategoryName ?? S.current.storeCategories,
         image: element.productCategoryImage?.image ?? '',
+        baseImage: element.productCategoryImage?.baseURL ,
+        imageUrl: element.productCategoryImage?.imageURL
+
       ));
     }
   }
@@ -25,7 +28,7 @@ class SubCategoriesModel extends DataModel {
   SubCategoriesModel(
       {required this.id,
         required this.categoryName,
-        required this.image});
+        required this.image,this.imageUrl,this.baseImage});
 
   List<SubCategoriesModel> get data => _models;
 }

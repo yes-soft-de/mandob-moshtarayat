@@ -102,7 +102,7 @@ class _InsertFormState extends State<InsertForm> {
                        .getImage(source: ImageSource.gallery, imageQuality: 70,)
                        .then((value) {
                      if (value != null) {
-                       if (value.mimeType == 'png') {
+                       if (value.path.contains('.png')) {
                          imagePath = value.path;
                          setState(() {});
                        }
@@ -123,10 +123,10 @@ class _InsertFormState extends State<InsertForm> {
                        child: ClipRRect(
                            borderRadius: BorderRadius.circular(25),
                            child: imagePath.contains('http')
-                               ? Image.network(imagePath)
+                               ? Image.network(imagePath,fit: BoxFit.cover,)
                                : Image.file(
                              File(imagePath),
-                             fit: BoxFit.cover,
+                             fit: BoxFit.scaleDown,
                            ))),
                  ),
                ),
@@ -157,6 +157,9 @@ class _InsertFormState extends State<InsertForm> {
             : S.current.save,
         onTap: () {
           if (_key.currentState!.validate() && imagePath != '') {
+            if (imagePath.contains('http') && widget.storeCategoriesRequest != null){
+              imagePath = widget.storeCategoriesRequest?.baseImage ?? '';
+            }
             widget.add(_nameController.text.trim(), imagePath);
           } else {
             CustomFlushBarHelper.createError(

@@ -20,6 +20,7 @@ class StoreCategoriesModel extends DataModel {
         categoryName: element.storeCategoryName ?? S.current.storeCategories,
         categoryDescription: element.description ?? '',
         image: element.image?.image ?? '',
+        baseImage:element.image?.baseURL
       ));
     }
   }
@@ -28,7 +29,7 @@ class StoreCategoriesModel extends DataModel {
       {required this.id,
       required this.categoryName,
       required this.categoryDescription,
-      required this.image});
+      required this.image,this.baseImage});
 
   List<StoreCategoriesModel> get data => _models;
 }

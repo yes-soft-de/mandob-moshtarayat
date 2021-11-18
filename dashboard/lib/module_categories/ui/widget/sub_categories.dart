@@ -156,6 +156,9 @@ class _AddSubCategoriesWidgetState extends State<AddSubCategoriesWidget> {
         onTap: () {
           if (_key.currentState!.validate() &&
               imagePath != '' ) {
+            if (imagePath.contains('http') && widget.subCategoriesModel != null){
+              imagePath = widget.subCategoriesModel?.baseImage ?? '' ;
+          }
             widget.addSubCategories(
                 catId.toString(),
                 _nameController.text.trim(),
