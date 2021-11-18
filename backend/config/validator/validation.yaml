@@ -238,3 +238,10 @@ App\Request\StoreProductCategoryCreateRequest:
       - NotBlank: ~
     storeCategoryID:
       - NotBlank: ~
+
+App\Request\AdminCreateRequest:
+  properties:
+    userID:
+      - NotBlank: ~
+    password:
+      - NotBlank: ~

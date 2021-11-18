@@ -46,6 +46,9 @@ class AdminController extends BaseController
         }
 
         $response = $this->adminService->createAdmin($request);
+        if(is_array($response)){
+                return $this->response($response, self::ERROR_USER_FOUND);
+        }
 
         return $this->response($response, self::CREATE);
     }
