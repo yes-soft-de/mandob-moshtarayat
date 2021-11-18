@@ -197,6 +197,9 @@ class _AddSubCategoriesWidgetState extends State<AddSubCategoriesLevelTowWidget>
                 subCatId.toString(),
                 _nameController.text.trim(),
                 imagePath);
+            if (imagePath.contains('http') && widget.subCategoriesModel != null){
+              imagePath = widget.subCategoriesModel?.baseImage ?? '' ;
+            }
           } else {
             CustomFlushBarHelper.createError(
                 title: S.current.warnning,
@@ -213,6 +216,7 @@ class _AddSubCategoriesWidgetState extends State<AddSubCategoriesLevelTowWidget>
       _nameController.text = widget.subCategoriesModel!.categoryName;
       imagePath = widget.subCategoriesModel!.image;
       catId = widget.catID ?? '';
+      subCatId = widget.subCatID ?? '';
     }
     super.initState();
   }

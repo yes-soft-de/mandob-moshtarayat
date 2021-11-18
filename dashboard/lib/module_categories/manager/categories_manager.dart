@@ -54,7 +54,7 @@ class CategoriesManager {
   Future<ActionResponse?> updateStore(UpdateStoreRequest request) =>
       _categoriesRepository.updateStore(request);
   Future<ActionResponse?> updateProductCategory(
-          UpdateProductCategoryRequest request) =>
+      CategoryLevelTowRequest request) =>
       _categoriesRepository.updateProductCategory(request);
 
   Future<ActionResponse?> updateProduct(UpdateProductRequest request) =>

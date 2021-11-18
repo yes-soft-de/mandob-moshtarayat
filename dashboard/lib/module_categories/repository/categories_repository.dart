@@ -112,10 +112,10 @@ class CategoriesRepository {
   }
 
   Future<ActionResponse?> updateProductCategory(
-      UpdateProductCategoryRequest request) async {
+      CategoryLevelTowRequest request) async {
     var token = await _authService.getToken();
     dynamic response = await _apiClient.put(
-        Urls.UPDATE_PRODUCT_CATEGORY, request.toJson(),
+        Urls.CREATE_SUBCATEGORIES_LEVEL_TOW, request.toJson(),
         headers: {'Authorization': 'Bearer ' + token.toString()});
     if (response == null) return null;
     return ActionResponse.fromJson(response);

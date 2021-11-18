@@ -65,8 +65,8 @@ class LevelTowCategoriesScreenState extends State<LevelTowCategoriesScreen> {
     widget.stateManager.createProductCategory(this, request);
   }
 
-  void updateProductCategory(UpdateProductCategoryRequest request) {
-    widget.stateManager.updateProductCategory(this, request, storeId ?? -1);
+  void updateCategoryLevel2(CategoryLevelTowRequest request) {
+    widget.stateManager.updateProductCategory(this, request);
   }
 
   void refresh() {
@@ -96,8 +96,7 @@ class LevelTowCategoriesScreenState extends State<LevelTowCategoriesScreen> {
           text: S.current.addNewCategory,
           icon: Icons.add_circle_rounded,
           onPressed: () {
-            mainCatId = null;
-            subCatId = null;
+            getStoreCategories();
             showDialog(
                 barrierDismissible: false,
                 context: context,

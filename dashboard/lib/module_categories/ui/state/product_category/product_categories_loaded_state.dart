@@ -3,7 +3,9 @@ import 'package:mandob_moshtarayat_dashboad/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/model/StoreCategoriesModel.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/model/subCategoriesModel.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/request/category_level_tow_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/screen/level_tow_categories_screen.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/ui/widget/add_categories_level_tow.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/widget/sub_categories.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_list_view.dart';
@@ -194,12 +196,21 @@ class ProductCategoriesLoadedState extends States {
                           height: MediaQuery.of(context).size.height,
                           child: Scaffold(
                             appBar: CustomTwaslnaAppBar.appBar(context,
-                                title: S.current.updateCategory),
+                                title: S.current.addNewCategory),
                             backgroundColor:
                             Theme.of(context).scaffoldBackgroundColor,
-                            body: AddSubCategoriesWidget(
-                              addSubCategories: (id , name , image) {
-
+                            body: AddSubCategoriesLevelTowWidget(
+                              state: this,
+                              catID: screenState.mainCatId,
+                              subCatID: screenState.subCatId,
+                              subCategoriesModel: element,
+                              addSubCategories: (id,subId,name, image) {
+                                screenState.updateCategoryLevel2(CategoryLevelTowRequest(
+                                    storeProductCategoryID: int.parse(subId),
+                                    productCategoryName: name,
+                                    productCategoryImage: image,
+                                    id: element.id
+                                ));
                               },
                             ),
                           ),

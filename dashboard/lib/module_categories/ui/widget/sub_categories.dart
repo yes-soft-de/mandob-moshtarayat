@@ -55,7 +55,7 @@ class _AddSubCategoriesWidgetState extends State<AddSubCategoriesWidget> {
                             child: Center(
                               child: DropdownButton(
                                 value: catId,
-                                items: widget.state!.getChoices(),
+                                items: widget.state?.getChoices(),
                                 onChanged: (v) {
                                   catId = v.toString();
                                   setState(() {});

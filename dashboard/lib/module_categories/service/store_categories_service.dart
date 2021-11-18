@@ -172,7 +172,7 @@ class CategoriesService {
   }
 
   Future<DataModel> updateProductCategory(
-      UpdateProductCategoryRequest request) async {
+      CategoryLevelTowRequest request) async {
     ActionResponse? actionResponse =
         await _categoriesManager.updateProductCategory(request);
 

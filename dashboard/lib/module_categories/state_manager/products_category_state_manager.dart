@@ -107,21 +107,47 @@ class ProductsCategoryStateManager {
   }
 
   void updateProductCategory(LevelTowCategoriesScreenState screenState,
-      UpdateProductCategoryRequest request, int storeId) {
+      CategoryLevelTowRequest request) {
     _stateSubject.add(LoadingState(screenState));
-
-    _categoriesService.updateProductCategory(request).then((value) {
-      if (value.hasError) {
+    if (request.productCategoryImage?.contains('/original-image/') == true) {
+      _categoriesService.updateProductCategory(request).then((value) {
+        if (value.hasError) {
+          getProductCategory(screenState);
+          CustomFlushBarHelper.createError(
+              title: S.current.warnning, message: value.error ?? '')
+            ..show(screenState.context);
+        } else {
+          getProductCategory(screenState);
+          CustomFlushBarHelper.createSuccess(
+              title: S.current.warnning,
+              message: S.current.updateCategorySuccessfully)
+            ..show(screenState.context);
+        }
+      });
+    }
+    else
+    _uploadService.uploadImage(request.productCategoryImage!).then((value) {
+      if (value == null) {
         getProductCategory(screenState);
         CustomFlushBarHelper.createError(
-            title: S.current.warnning, message: value.error ?? '')
+            title: S.current.warnning, message: S.current.errorUploadingImages)
           ..show(screenState.context);
       } else {
-        getProductCategory(screenState);
-        CustomFlushBarHelper.createSuccess(
-            title: S.current.warnning,
-            message: S.current.categoryCreatedSuccessfully)
-          ..show(screenState.context);
+        request.productCategoryImage = value;
+        _categoriesService.updateProductCategory(request).then((value) {
+          if (value.hasError) {
+            getProductCategory(screenState);
+            CustomFlushBarHelper.createError(
+                title: S.current.warnning, message: value.error ?? '')
+              ..show(screenState.context);
+          } else {
+            getProductCategory(screenState);
+            CustomFlushBarHelper.createSuccess(
+                title: S.current.warnning,
+                message: S.current.updateCategorySuccessfully)
+              ..show(screenState.context);
+          }
+        });
       }
     });
   }
