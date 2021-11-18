@@ -105,11 +105,8 @@ class StoreOwnerProfileService
 
     public function getStoreNameById($id)
     {
-        $response = null;
         $item = $this->userManager->getStoreNameById($id);
-        $response = $this->autoMapping->map('array', StoreNameResponse::class, $item);
-
-        return $response;
+        return $this->autoMapping->map('array', StoreNameResponse::class, $item);
     }
 
     public function getStoreOwnerProfile($userID)
