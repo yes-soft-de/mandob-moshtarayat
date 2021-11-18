@@ -289,4 +289,24 @@ class ProductService
 
         return $this->autoMapping->map(ProductEntity::class, ProductCreateResponse::class, $item);
     }
+
+    public function getSimilarProductsByStoreProductCategoryIdOfLevelTwo($storeProductCategoryID): ?array
+    {
+        $response = [];
+
+        $storeProductCategoryIdLevel1 = $this->productManager->getStoreProductCategoryIdLevel1ByIdOfLevelTwo($storeProductCategoryID);
+
+        $products = $this->productManager->getProductsByStoreProductCategoryIDLevelOne($storeProductCategoryIdLevel1);
+
+        foreach($products as $item)
+        {
+            $item['store'] = $this->storeOwnerProfileService->getStoreNameById($item['storeOwnerProfileID']);
+            $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
+            $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
+            $item['soldCount'] = $this->getProductsSoldCount($item['id']);
+            $response[] = $this->autoMapping->map("array", ProductsByProductCategoryIdResponse::class, $item);
+        }
+        return $response;
+    }
+
 }
