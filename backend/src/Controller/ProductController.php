@@ -55,6 +55,38 @@ class ProductController extends BaseController
      * @Route("/productscategory/{storeProductCategoryID}", name="productsByStoreProductCategoryID", methods={"GET"})
      * @param $storeProductCategoryID
      * @return JsonResponse
+     * @OA\Tag(name="Product")
+
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns array Products By ProductCategoryId And StoreOwnerProfileId",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="productName"),
+     *                  @OA\Property(type="number", property="productPrice"),
+     *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                  @OA\Property(type="integer", property="storeProductCategoryID"),
+     *                  @OA\Property(type="string", property="description"),
+     *                  @OA\Property(type="string", property="rate"),
+     *                  @OA\Property(type="string", property="soldCount"),
+     *                  @OA\Property(type="object", property="image",
+     *                      @OA\Property(type="string", property="imageURL"),
+     *                      @OA\Property(type="string", property="image"),
+     *                      @OA\Property(type="string", property="baseURL"),
+     *                  ),
+     *                  @OA\Property(type="object", property="store",
+     *                      @OA\Property(type="integer", property="id"),
+     *                      @OA\Property(type="string", property="storeOwnerName"),
+     *                  ),
+     *              )
+     *          )
+     *      )
+     * )
+     *
      */
     public function getProductsByProductCategoryId($storeProductCategoryID)
     {
@@ -68,6 +100,39 @@ class ProductController extends BaseController
      * @param $storeProductCategoryID
      * @param $storeOwnerProfileId
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Product")
+
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns array Products By ProductCategoryId And StoreOwnerProfileId",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="productName"),
+     *                  @OA\Property(type="number", property="productPrice"),
+     *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                  @OA\Property(type="integer", property="storeProductCategoryID"),
+     *                  @OA\Property(type="string", property="description"),
+     *                  @OA\Property(type="string", property="rate"),
+     *                  @OA\Property(type="string", property="soldCount"),
+     *                  @OA\Property(type="object", property="image",
+     *                      @OA\Property(type="string", property="imageURL"),
+     *                      @OA\Property(type="string", property="image"),
+     *                      @OA\Property(type="string", property="baseURL"),
+     *                  ),
+     *                  @OA\Property(type="object", property="store",
+     *                      @OA\Property(type="integer", property="id"),
+     *                      @OA\Property(type="string", property="storeOwnerName"),
+     *                  ),
+     *              )
+     *          )
+     *      )
+     * )
+     *
      */
     public function getProductsByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId)
     {
