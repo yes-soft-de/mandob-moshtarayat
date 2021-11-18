@@ -57,7 +57,7 @@ class Urls {
   static const PAYMENTS_TO_CAPTAIN = BASE_API + '/deliveryCompanyPaymentsToCaptain';
   static const GET_CAPTAIN_PROFILE = BASE_API +'/captainProfile/';
   static const GET_CLIENT_PROFILE = BASE_API +'/clientprofilebyid/';
-  static const UPDATE_STORE_CATEGORY = BASE_API + '/updateStorecategory';
+  static const UPDATE_STORE_CATEGORY = BASE_API + '/updatestorecategory';
   static const UPDATE_STORE = BASE_API + '/storeownerprofileupdatebyadmin';
   static const UPDATE_PRODUCT_CATEGORY = BASE_API + '/storeProductCategory';
   static const UPDATE_PRODUCT = BASE_API + '/updateProductByAdmin';
