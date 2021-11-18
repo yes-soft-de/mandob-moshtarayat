@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:io';
+import 'package:device_info/device_info.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/global/global_state_manager.dart';
 import 'package:simple_moment/simple_moment.dart';
@@ -37,11 +39,19 @@ import 'module_splash/splash_routes.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:feature_discovery/feature_discovery.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:lehttp_overrides/lehttp_overrides.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   timeago.setLocaleMessages('ar', timeago.ArMessages());
   timeago.setLocaleMessages('en', timeago.EnMessages());
+  if (Platform.isAndroid){
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    if (androidInfo.version.sdkInt < 26) {
+      HttpOverrides.global = LEHttpOverrides();
+    }
+  }
   await HiveSetUp.init();
   await Firebase.initializeApp();
   if (kIsWeb) {

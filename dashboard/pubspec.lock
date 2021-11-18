@@ -773,6 +773,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.8.1"
+  lehttp_overrides:
+    dependency: "direct dev"
+    description:
+      name: lehttp_overrides
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.2"
   liquid_progress_indicator:
     dependency: "direct main"
     description:
