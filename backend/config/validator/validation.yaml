@@ -218,8 +218,6 @@ App\Request\StoreCategoryUpdateRequest:
       - NotBlank: ~
     image:
       - NotBlank: ~
-    description:
-      - NotBlank: ~
 
 App\Request\StoreProductCategoryLevelTwoCreateRequest:
   properties:
