@@ -533,7 +533,7 @@ class ProductController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns Similar Products By Store Product CategoryID Of Level Two ",
+     *      description="Returns Similar Products By Store Product Category Of Level One ",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
