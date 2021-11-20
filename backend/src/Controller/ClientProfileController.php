@@ -60,7 +60,6 @@ class ClientProfileController extends BaseController
       *          )
       *      )
       * )
-      *
       */
     public function clientRegister(Request $request)
     {
@@ -92,7 +91,12 @@ class ClientProfileController extends BaseController
      * @param Request $request
      * @return JsonResponse
      * @OA\Tag(name="Client")
-     *
+     *@OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
      * @OA\RequestBody(
      *      description="Create new Client",
      *      @OA\JsonContent(
@@ -120,7 +124,7 @@ class ClientProfileController extends BaseController
      *          )
      *      )
      * )
-     *
+     * @Security(name="Bearer")
      */
     public function updateClientProfile(Request $request)
     {
