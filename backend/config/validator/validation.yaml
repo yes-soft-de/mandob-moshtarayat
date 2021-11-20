@@ -243,3 +243,8 @@ App\Request\AdminCreateRequest:
       - NotBlank: ~
     password:
       - NotBlank: ~
+
+App\Request\CaptainTermCreateRequest:
+  properties:
+    content:
+      - NotBlank: ~
