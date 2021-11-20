@@ -338,3 +338,56 @@ App\Request\StoreOwnerBranchUpdateRequest:
       - NotBlank: ~
     location:
       - NotBlank: ~
+
+App\Request\StoreOwnerProfileUpdateRequest:
+  properties:
+    storeOwnerName:
+      - NotBlank: ~
+    image:
+      - NotBlank: ~
+    phone:
+      - NotBlank: ~
+    storeCategoryId:
+      - NotBlank: ~
+    privateOrders:
+      - NotBlank: ~
+    hasProducts:
+      - NotBlank: ~
+    location:
+      - NotBlank: ~
+    branchName:
+      - NotBlank: ~
+    openingTime:
+      - NotBlank: ~
+    closingTime:
+      - NotBlank: ~
+
+App\Request\StoreOwnerUpdateByAdminRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    storeOwnerName:
+      - NotBlank: ~
+    status:
+      - NotBlank: ~
+    is_best:
+      - NotBlank: ~
+    image:
+      - NotBlank: ~
+    storeCategoryId:
+      - NotBlank: ~
+    privateOrders:
+      - NotBlank: ~
+    hasProducts:
+      - NotBlank: ~
+    openingTime:
+      - NotBlank: ~
+    closingTime:
+      - NotBlank: ~
+
+App\Request\storeOwnerProfileStatusUpdateByAdminRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    status:
+      - NotBlank: ~

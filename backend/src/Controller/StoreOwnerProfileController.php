@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\storeOwnerProfileStatusUpdateByAdminRequest;
-use App\Request\StoreOwnerProfileCreateRequest;
 use App\Request\StoreOwnerProfileCreateByAdminRequest;
 use App\Request\StoreOwnerProfileUpdateRequest;
 use App\Request\StoreOwnerUpdateByAdminRequest;
@@ -207,6 +206,16 @@ class StoreOwnerProfileController extends BaseController
 
         $request = $this->autoMapping->map(stdClass::class, StoreOwnerProfileUpdateRequest::class, (object)$data);
         $request->setUserID($this->getUserId());
+
+        $violations = $this->validator->validate($request);
+
+        if(\count($violations) > 0)
+        {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
         $response = $this->storeOwnerProfileService->storeOwnerProfileUpdate($request);
         return $this->response($response, self::UPDATE);
     }
@@ -222,6 +231,15 @@ class StoreOwnerProfileController extends BaseController
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class, StoreOwnerUpdateByAdminRequest::class, (object)$data);
+
+        $violations = $this->validator->validate($request);
+
+        if(\count($violations) > 0)
+        {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
 
         $response = $this->storeOwnerProfileService->updateStoreOwnerByAdmin($request);
 
@@ -270,6 +288,15 @@ class StoreOwnerProfileController extends BaseController
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class, storeOwnerProfileStatusUpdateByAdminRequest::class, (object)$data);
+
+        $violations = $this->validator->validate($request);
+
+        if(\count($violations) > 0)
+        {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
 
         $response = $this->storeOwnerProfileService->storeOwnerProfileStatusUpdateByAdmin($request);
 
