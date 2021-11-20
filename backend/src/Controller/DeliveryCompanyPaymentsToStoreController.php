@@ -7,23 +7,27 @@ use App\Request\DeliveryCompanyPaymentsToStoreCreateRequest;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use App\Service\DeliveryCompanyPaymentsToStoreService;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class DeliveryCompanyPaymentsToStoreController extends BaseController
 {
     private $autoMapping;
     private $deliveryCompanyPaymentsToStoreService;
+    private $validator;
 
-    public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, DeliveryCompanyPaymentsToStoreService $deliveryCompanyPaymentsToStoreService)
+    public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, DeliveryCompanyPaymentsToStoreService $deliveryCompanyPaymentsToStoreService, ValidatorInterface $validator)
     {
         parent::__construct($serializer);
         $this->autoMapping = $autoMapping;
         $this->deliveryCompanyPaymentsToStoreService = $deliveryCompanyPaymentsToStoreService;
+        $this->validator = $validator;
     }
     
     /**
@@ -66,11 +70,18 @@ class DeliveryCompanyPaymentsToStoreController extends BaseController
      */
     public function createDeliveryCompanyPaymentsTostore(Request $request)
     {
-            $data = json_decode($request->getContent(), true);
+        $data = json_decode($request->getContent(), true);
 
-            $request = $this->autoMapping->map(stdClass::class, DeliveryCompanyPaymentsToStoreCreateRequest::class, (object)$data);
+        $request = $this->autoMapping->map(stdClass::class, DeliveryCompanyPaymentsToStoreCreateRequest::class, (object)$data);
 
-            $result = $this->deliveryCompanyPaymentsToStoreService->createDeliveryCompanyPaymentsTostore($request);
+        $violations = $this->validator->validate($request);
+        if (\count($violations) > 0) {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $result = $this->deliveryCompanyPaymentsToStoreService->createDeliveryCompanyPaymentsTostore($request);
 
         return $this->response($result, self::CREATE);
     }

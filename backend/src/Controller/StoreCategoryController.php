@@ -21,6 +21,7 @@ class StoreCategoryController extends BaseController
 {
     private $autoMapping;
     private $storeCategoryService;
+    private $validator;
 
     public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, StoreCategoryService $storeCategoryService, ValidatorInterface $validator)
     {
