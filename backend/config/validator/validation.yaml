@@ -191,7 +191,6 @@ App\Request\StoreProductCategoryLevelTwoUpdateRequest:
     storeProductCategoryID:
       - NotBlank: ~
 
-
 App\Request\ProductCreateRequest:
   properties:
     productName:
@@ -201,6 +200,34 @@ App\Request\ProductCreateRequest:
     productPrice:
       - NotBlank: ~
     storeProductCategoryID:
+      - NotBlank: ~
+
+App\Request\ProductUpdateByStoreOwnerRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    productName:
+      - NotBlank: ~
+    productImage:
+      - NotBlank: ~
+    productPrice:
+      - NotBlank: ~
+    storeProductCategoryID:
+      - NotBlank: ~
+
+App\Request\ProductUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    productName:
+      - NotBlank: ~
+    productImage:
+      - NotBlank: ~
+    productPrice:
+      - NotBlank: ~
+    storeProductCategoryID:
+      - NotBlank: ~
+    storeOwnerProfileID:
       - NotBlank: ~
 
 App\Request\StoreCategoryCreateRequest:
@@ -247,4 +274,67 @@ App\Request\AdminCreateRequest:
 App\Request\CaptainTermCreateRequest:
   properties:
     content:
+      - NotBlank: ~
+
+App\Request\DeliveryCompanyFinancialCompensationCreateRequest:
+  properties:
+    kilometers:
+      - NotBlank: ~
+    maxKilometerBonus:
+      - NotBlank: ~
+    minKilometerBonus:
+      - NotBlank: ~
+
+App\Request\DeliveryCompanyFinancialRequest:
+  properties:
+    deliveryCost:
+      - NotBlank: ~
+
+App\Request\DeliveryCompanyFinancialUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    deliveryCost:
+      - NotBlank: ~
+
+App\Request\DeliveryCompanyPaymentsFromCaptainCreateRequest:
+  properties:
+    captainId:
+      - NotBlank: ~
+    amount:
+      - NotBlank: ~
+
+App\Request\DeliveryCompanyPaymentsToCaptainCreateRequest:
+  properties:
+    captainId:
+      - NotBlank: ~
+    amount:
+      - NotBlank: ~
+
+App\Request\DeliveryCompanyPaymentsToStoreCreateRequest:
+  properties:
+    storeOwnerProfileID:
+      - NotBlank: ~
+    amount:
+      - NotBlank: ~
+
+App\Request\DeliveryCompanyInfoRequest:
+  properties:
+    phone:
+      - NotBlank: ~
+
+App\Request\RatingCreateRequest:
+  properties:
+    itemID:
+      - NotBlank: ~
+    rating:
+      - NotBlank: ~
+    orderNumber:
+      - NotBlank: ~
+
+App\Request\StoreOwnerBranchUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    location:
       - NotBlank: ~
