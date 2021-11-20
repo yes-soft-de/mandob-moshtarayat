@@ -91,7 +91,7 @@ class StoresStateManager {
   }
 
   void updateStore(StoresScreenState screenState, UpdateStoreRequest request) {
-    if (request.image!.contains('/original-image/')) {
+    if (request.image?.contains('/original-image/') == true) {
       _stateSubject.add(StoresLoadingState(screenState));
       _categoriesService.updateStore(request).then((value) {
         if (value.hasError) {

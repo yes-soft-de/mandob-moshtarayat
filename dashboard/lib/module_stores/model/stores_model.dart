@@ -19,6 +19,7 @@ class StoresModel extends DataModel {
   DateTime? closingTime;
   DateTime? openingTime;
   String status = '';
+  String? imageUrl;
   List<StoresModel> _models = [];
 
   StoresModel(
@@ -32,7 +33,9 @@ class StoresModel extends DataModel {
       required this.categoryId,
       this.openingTime,
       this.closingTime,
-      required this.status});
+      required this.status,
+      this.imageUrl
+      });
 
   StoresModel.withData(List<Data> data) : super.withData() {
     _models = [];
@@ -48,7 +51,9 @@ class StoresModel extends DataModel {
           phone: element.phone ?? '',
           openingTime: DateHelper.convert(element.openingTime?.timestamp),
           closingTime: DateHelper.convert(element.closingTime?.timestamp),
-          status: element.status ?? ''));
+          status: element.status ?? '',
+          imageUrl: element.imageUrl,
+      ));
     }
   }
 

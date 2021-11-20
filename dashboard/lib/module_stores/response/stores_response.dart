@@ -38,6 +38,7 @@ class Data {
   Date? closingTime;
   Date? openingTime;
   String? status;
+  String? imageUrl;
   Data(
       {this.id,
       this.storeOwnerName,
@@ -50,10 +51,13 @@ class Data {
       this.categoryId,
       this.closingTime,
       this.openingTime,
-      this.status});
+      this.status,
+      this.imageUrl
+      });
 
   Data.fromJson(dynamic json) {
     id = json['id'];
+    imageUrl = json['imageURL'];
     storeOwnerName = json['storeOwnerName'];
     categoryId = json['storeCategoryId'];
     image = json['image'];
