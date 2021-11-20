@@ -397,8 +397,9 @@ class UpdateStoreWidget extends StatefulWidget {
   final Function(String, String, String, bool, bool, String?, String?, String)
       updateStore;
   final UpdateStoreRequest? request;
+  final List<DropdownMenuItem<String>>? categories;
 
-  UpdateStoreWidget({required this.updateStore, this.request});
+  UpdateStoreWidget({required this.updateStore, this.request,this.categories});
 
   @override
   _UpdateStoreWidgetState createState() => _UpdateStoreWidgetState();
@@ -434,6 +435,35 @@ class _UpdateStoreWidgetState extends State<UpdateStoreWidget> {
                 child: CustomListView.custom(
                     padding: EdgeInsets.only(right: 16, left: 16),
                     children: [
+                      // categories
+                      Hider(
+                        active: widget.categories != null,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(25),
+                              color: Theme.of(context).backgroundColor),
+                          child: Center(
+                            child: DropdownButton(
+                              value: catId,
+                              items: widget.categories,
+                              onChanged: (v) {
+                                catId = v.toString();
+                                setState(() {});
+                              },
+                              hint: Text(
+                                S.current.chooseCategory,
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              underline: SizedBox(),
+                              icon: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Icon(Icons.arrow_drop_down_rounded),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      //
                       Padding(
                         padding: const EdgeInsets.only(
                             left: 12.0, bottom: 8, right: 12, top: 16.0),
@@ -686,6 +716,10 @@ class _UpdateStoreWidgetState extends State<UpdateStoreWidget> {
               imagePath != null &&
               openingTime != null &&
               closingTime != null) {
+            if (imagePath?.contains('http') == true && widget.request != null){
+              print(widget.request?.baseImage);
+              imagePath = widget.request?.baseImage ?? '' ;
+            }
             widget.updateStore(
                 catId.toString(),
                 _nameController.text.trim(),
@@ -725,6 +759,7 @@ class _UpdateStoreWidgetState extends State<UpdateStoreWidget> {
       closingTime = TimeOfDay.fromDateTime(DateTime.parse(
           widget.request?.closingTime ?? DateTime.now().toString()));
       status = widget.request?.status ?? 'active';
+      catId = widget.request?.storeCategoryId.toString();
     }
     super.initState();
   }

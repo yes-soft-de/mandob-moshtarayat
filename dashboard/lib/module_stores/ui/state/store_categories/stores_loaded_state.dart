@@ -183,8 +183,10 @@ class StoresLoadedState extends StoresState {
                               backgroundColor:
                                   Theme.of(context).scaffoldBackgroundColor,
                               body: UpdateStoreWidget(
+                                categories: getChoices(),
                                 request: UpdateStoreRequest(
-                                    id: element.categoryId,
+                                    id: element.id.toString(),
+                                    storeCategoryId: int.parse(element.categoryId),
                                     storeOwnerName: element.storeOwnerName,
                                     hasProducts: element.hasProducts ? 1 : 0,
                                     privateOrders:
@@ -194,7 +196,9 @@ class StoresLoadedState extends StoresState {
                                         element.openingTime?.toIso8601String(),
                                     closingTime:
                                         element.closingTime?.toIso8601String(),
-                                    status: element.status),
+                                    status: element.status,
+                                    baseImage: element.imageUrl
+                                ),
                                 updateStore: (id, name, image, products,
                                     privateOrder, open, close, status) {
                                   Navigator.of(context).pop();
@@ -202,8 +206,7 @@ class StoresLoadedState extends StoresState {
                                     status: status,
                                     id: element.id.toString(),
                                     storeOwnerName: name,
-                                    storeCategoryId:
-                                        int.parse(element.categoryId),
+                                    storeCategoryId: int.parse(id),
                                     image: image,
                                     hasProducts: products ? 1 : 0,
                                     privateOrders: privateOrder ? 1 : 0,

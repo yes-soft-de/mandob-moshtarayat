@@ -9,6 +9,7 @@ class UpdateStoreRequest {
   int? hasProducts;
   String? closingTime;
   String? openingTime;
+  String? baseImage;
   UpdateStoreRequest(
       {this.id,
       this.status,
@@ -20,6 +21,7 @@ class UpdateStoreRequest {
       this.hasProducts,
       this.closingTime,
       this.openingTime,
+      this.baseImage
       });
 
   UpdateStoreRequest.fromJson(dynamic json) {

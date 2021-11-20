@@ -174,8 +174,9 @@ class StoresInActiveLoadedState extends States {
                               backgroundColor:
                                   Theme.of(context).scaffoldBackgroundColor,
                               body: UpdateStoreWidget(
+                                categories: getChoices(),
                                 request: UpdateStoreRequest(
-                                    id: element.categoryId,
+                                    id: element.id.toString(),
                                     storeOwnerName: element.storeOwnerName,
                                     hasProducts: element.hasProducts ? 1 : 0,
                                     privateOrders:
@@ -185,7 +186,10 @@ class StoresInActiveLoadedState extends States {
                                         element.openingTime?.toIso8601String(),
                                     closingTime:
                                         element.closingTime?.toIso8601String(),
-                                    status: element.status),
+                                    status: element.status,
+                                    baseImage: element.imageUrl,
+                                    storeCategoryId: int.parse(element.categoryId)
+                                ),
                                 updateStore: (id, name, image, products,
                                     privateOrder, open, close, status) {
                                   Navigator.of(context).pop();
