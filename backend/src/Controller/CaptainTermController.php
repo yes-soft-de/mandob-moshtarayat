@@ -153,6 +153,7 @@ class CaptainTermController extends BaseController
        * @OA\RequestBody(
        *      description="Update New Captain Terms",
        *      @OA\JsonContent(
+       *          @OA\Property(type="string", property="id"),
        *          @OA\Property(type="string", property="content"),
        *      )
        * )

@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\AutoMapping;
-use App\Request\ClientProfileCreateRequest;
 use App\Request\ClientProfileUpdateRequest;
 use App\Request\ClientUpdateFavouriteCategoriesRequest;
 use App\Request\UserRegisterRequest;
@@ -37,7 +36,32 @@ class ClientProfileController extends BaseController
      * @Route("/clientregister", name="clientRegister", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
-     */
+      * @OA\Tag(name="Client")
+      *
+      * @OA\RequestBody(
+      *      description="Create new Client",
+      *      @OA\JsonContent(
+      *          @OA\Property(type="string", property="userName"),
+      *          @OA\Property(type="string", property="userID"),
+      *          @OA\Property(type="string", property="password"),
+      *      )
+      * )
+      *
+      * @OA\Response(
+      *      response=200,
+      *      description="Returns the new client's role and the creation date",
+      *      @OA\JsonContent(
+      *          @OA\Property(type="string", property="status_code"),
+      *          @OA\Property(type="string", property="msg"),
+      *          @OA\Property(type="object", property="Data",
+      *                  @OA\Property(type="array", property="roles",
+      *                      @OA\Items(example="user")),
+      *                  @OA\Property(type="object", property="createdAt")
+      *          )
+      *      )
+      * )
+      *
+      */
     public function clientRegister(Request $request)
     {
         $data = json_decode($request->getContent(), true);
@@ -67,6 +91,36 @@ class ClientProfileController extends BaseController
      * @IsGranted("ROLE_CLIENT")
      * @param Request $request
      * @return JsonResponse
+     * @OA\Tag(name="Client")
+     *
+     * @OA\RequestBody(
+     *      description="Create new Client",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="clientName"),
+     *          @OA\Property(type="string", property="image"),
+     *          @OA\Property(type="object", property="location"),
+     *          @OA\Property(type="string", property="phone"),
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns client",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="integer", property="clientID"),
+     *                  @OA\Property(type="string", property="clientName"),
+     *                  @OA\Property(type="string", property="roomID"),
+     *                  @OA\Property(type="string", property="phone"),
+     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="object", property="location"),
+     *          )
+     *      )
+     * )
+     *
      */
     public function updateClientProfile(Request $request)
     {
@@ -127,6 +181,35 @@ class ClientProfileController extends BaseController
      * @Route("/clientprofilebyid/{id}", name="getClientProfileByIDViewTheLatest25Clients",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Client")
+     *@OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns Client Profile",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="integer", property="clientID"),
+     *                  @OA\Property(type="string", property="clientName"),
+     *                  @OA\Property(type="string", property="roomID"),
+     *                  @OA\Property(type="string", property="phone"),
+     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="string", property="imageURL"),
+     *                  @OA\Property(type="string", property="baseURL"),
+     *                  @OA\Property(type="object", property="location"),
+     *                  @OA\Property(type="object", property="statistics"),
+     *          )
+     *      )
+     * )
+     * @Security(name="Bearer")
      */
     public function getClientProfileByID($id)
     {
@@ -139,6 +222,34 @@ class ClientProfileController extends BaseController
      * @Route("/clientsprofile", name="getClientsProfile",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Client")
+     *@OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns Client Profile",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *     @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="integer", property="clientID"),
+     *                  @OA\Property(type="string", property="clientName"),
+     *                  @OA\Property(type="string", property="phone"),
+     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="string", property="imageURL"),
+     *                  @OA\Property(type="string", property="baseURL"),
+     *              ),
+     *          )
+     *      )
+     * )
+     * @Security(name="Bearer")
      */
     public function getClientsProfile()
     {
@@ -160,6 +271,34 @@ class ClientProfileController extends BaseController
     /**
      * @Route("/clientfilterbyname/{name}", name="getClientsByName", methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
+     * *
+     * @OA\Tag(name="Client")
+     *@OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns Client Profile",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *     @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="integer", property="clientID"),
+     *                  @OA\Property(type="string", property="clientName"),
+     *                  @OA\Property(type="string", property="phone"),
+     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="string", property="imageURL"),
+     *                  @OA\Property(type="string", property="baseURL"),
+     *              ),
+     *          )
+     *      )
+     * )
+     * @Security(name="Bearer")
      */
     public function clientsByName($name): JsonResponse
     {
