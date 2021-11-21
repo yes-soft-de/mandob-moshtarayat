@@ -7,7 +7,8 @@ use App\Service\UserService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
-
+use Nelmio\ApiDocBundle\Annotation\Security;
+use OpenApi\Annotations as OA;
 
 class UserController extends BaseController
 {
@@ -22,9 +23,27 @@ class UserController extends BaseController
 
      /**
      * @Route("/checkUserType/{userType}", name="checkUserType", methods={"POST"})
-     * @param Request $request
      * @return JsonResponse
-     */
+      * *
+      * @OA\Tag(name="Check User")
+      *@OA\Parameter(
+      *      name="token",
+      *      in="header",
+      *      description="token to be passed as a header",
+      *      required=true
+      * )
+      *
+      * @OA\Response(
+      *      response=200,
+      *      description="Return String",
+      *      @OA\JsonContent(
+      *          @OA\Property(type="string", property="status_code"),
+      *          @OA\Property(type="string", property="msg"),
+      *          @OA\Property(type="string", property="Data"),
+      *      )
+      * )
+      * @Security(name="Bearer")
+      */
     public function checkUserType($userType)
     {
         $response = $this->userService->checkUserType($userType,$this->getUserId());
