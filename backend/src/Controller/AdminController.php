@@ -40,14 +40,14 @@ class AdminController extends BaseController
 
         $violations = $this->validator->validate($request);
         if (\count($violations) > 0) {
-            $violationsString = (string) $violations;
+            $violationsString = (string)$violations;
 
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
 
         $response = $this->adminService->createAdmin($request);
-        if(is_array($response)){
-                return $this->response($response, self::ERROR_USER_FOUND);
+        if (isset($response->found)) {
+            return $this->response($response, self::ERROR_USER_FOUND);
         }
 
         return $this->response($response, self::CREATE);

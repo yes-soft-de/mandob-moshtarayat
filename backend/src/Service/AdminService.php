@@ -21,10 +21,17 @@ class AdminService
 
     public function createAdmin(AdminCreateRequest $request)
     {
-        $user = $this->adminManager->createAdmin($request);
-        if ($user instanceof UserEntity) {
+        $user = $this->getUserByUserID($request->getUserID());
+        if ($user == null) {
+            $user = $this->adminManager->createAdmin($request);
             return $this->autoMapping->map(UserEntity::class, AdminCreateResponse::class, $user);
         }
+        $user['found']="yes";
         return $user;
+    }
+
+    public function getUserByUserID($userID)
+    {
+        return $this->adminManager->getUserByUserID($userID);
     }
 }
