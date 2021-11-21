@@ -310,4 +310,18 @@ class ProductService
         return $response;
     }
 
+    public function deleteProductById($request)
+    {
+        $result = $this->productManager->deleteProductById($request);
+
+        if($result == 'productNotFound')
+        {
+            return $result;
+        }
+        else
+        {
+            return $this->autoMapping->map(ProductEntity::class, ProductCreateResponse::class, $result);
+        }
+    }
+
 }
