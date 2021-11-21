@@ -155,9 +155,9 @@ class _AddSubCategoriesWidgetState extends State<AddSubCategoriesWidget> {
         label: S.current.save,
         onTap: () {
           if (_key.currentState!.validate() &&
-              imagePath != '' ) {
+              imagePath != '' && catId != null) {
             if (imagePath.contains('http') && widget.subCategoriesModel != null){
-              imagePath = widget.subCategoriesModel?.baseImage ?? '' ;
+              imagePath = widget.subCategoriesModel?.imageUrl ?? '' ;
           }
             widget.addSubCategories(
                 catId.toString(),
