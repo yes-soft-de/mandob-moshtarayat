@@ -18,7 +18,7 @@ class CategoriesModule extends YesModule {
     return {
       CategoriesRoutes.STORE_CATEGORIES : (context) => storeCategoriesScreen,
       CategoriesRoutes.PRODUCT_CATEGORIES : (context) => productCategoriesScreen,
-      CategoriesRoutes.PRODUCT_STORE_CATEGORIES : (context) => productStoreCategoriesScreen
+      CategoriesRoutes.PRODUCT_STORE : (context) => productStoreCategoriesScreen
     };
   }
 }

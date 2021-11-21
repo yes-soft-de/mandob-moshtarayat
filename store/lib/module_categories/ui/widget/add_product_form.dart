@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mandob_moshtarayat/consts/urls.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_categories/request/update_product_request.dart';
+import 'package:mandob_moshtarayat/module_categories/ui/state/product_category/product_categories_state.dart';
 import 'package:mandob_moshtarayat/module_categories/ui/state/product_store/product_store_state.dart';
 
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
@@ -18,7 +19,7 @@ import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 
 class AddProductsForm extends StatefulWidget {
   final Function(String, String, num,num) addProduct;
-  final ProductStoreState? state;
+  final ProductCategoriesState? state;
 
   AddProductsForm({required this.addProduct, this.state});
 
@@ -31,8 +32,8 @@ class _AddProductsFormState extends State<AddProductsForm> {
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
+  final TextEditingController _discountController = TextEditingController();
   String? imagePath;
-  String? catId;
 
   @override
   Widget build(BuildContext context) {
@@ -44,34 +45,34 @@ class _AddProductsFormState extends State<AddProductsForm> {
             child: FixedContainer(child: CustomListView.custom(
                 padding: EdgeInsets.only(right: 16,left: 16),
                 children: [
-                  Hider(
-                    active: true,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(25),
-                          color: Theme.of(context).backgroundColor
-                      ),
-                      child: Center(
-                        child: DropdownButton(
-                          value:catId,
-                          items:widget.state!.getChoices(),
-                          onChanged: (v){
-                            catId = v.toString();
-                            setState(() {
-                            });
-                          },
-                          hint: Text(S.current.chooseCategory,style: TextStyle(
-                              fontWeight: FontWeight.bold
-                          ),),
-                          underline: SizedBox(),
-                          icon: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Icon(Icons.arrow_drop_down_rounded),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+//                  Hider(
+//                    active: true,
+//                    child: Container(
+//                      decoration: BoxDecoration(
+//                          borderRadius: BorderRadius.circular(25),
+//                          color: Theme.of(context).backgroundColor
+//                      ),
+//                      child: Center(
+//                        child: DropdownButton(
+//                          value:catId,
+//                          items:widget.state!.get(),
+//                          onChanged: (v){
+//                            catId = v.toString();
+//                            setState(() {
+//                            });
+//                          },
+//                          hint: Text(S.current.chooseCategory,style: TextStyle(
+//                              fontWeight: FontWeight.bold
+//                          ),),
+//                          underline: SizedBox(),
+//                          icon: Padding(
+//                            padding: const EdgeInsets.all(4.0),
+//                            child: Icon(Icons.arrow_drop_down_rounded),
+//                          ),
+//                        ),
+//                      ),
+//                    ),
+//                  ),
                   Padding(
                     padding: const EdgeInsets.only(left: 12.0,bottom: 8,right: 12,top: 16.0),
                     child: Text(S.current.productName,style: TextStyle(fontWeight: FontWeight.bold),textAlign: TextAlign.start,),
@@ -89,6 +90,17 @@ class _AddProductsFormState extends State<AddProductsForm> {
                     hintText: S.current.productPrice,
                     numbers: true,
                   ),
+
+                  Padding(
+                    padding: const EdgeInsets.only(left: 12.0,bottom: 8,right: 12,top: 16.0),
+                    child: Text(S.current.discount,style: TextStyle(fontWeight: FontWeight.bold),textAlign: TextAlign.start,),
+                  ),
+                  CustomFormField(
+                    controller: _discountController,
+                    hintText: S.current.discount,
+                    numbers: true,
+                  ),
+
                   SizedBox(height:32),
                   InkWell(
                     onTap: () {
@@ -123,8 +135,8 @@ class _AddProductsFormState extends State<AddProductsForm> {
           ),
           label: S.current.save,
           onTap: () {
-            if (_key.currentState!.validate() && imagePath != null && catId != null) {
-              widget.addProduct(_nameController.text,imagePath!,int.parse(_priceController.text),int.parse(catId??'-1'));
+            if (_key.currentState!.validate() && imagePath != null ) {
+              widget.addProduct(_nameController.text,imagePath!,int.parse(_priceController.text),double.parse(_discountController.text));
             } else {
               CustomFlushBarHelper.createError(
                   title: S.current.warnning,

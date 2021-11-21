@@ -1,22 +1,24 @@
 class CreateProductRequest {
   String? productName;
   String? productImage;
+  String? description;
   num? productPrice;
-  int? storeOwnerProfileID;
+  num? discount;
   int? storeProductCategoryID;
 
   CreateProductRequest({
       this.productName, 
       this.productImage, 
       this.productPrice, 
-      this.storeOwnerProfileID, 
+      this.discount, this.description,
       this.storeProductCategoryID});
 
   CreateProductRequest.fromJson(dynamic json) {
     productName = json['productName'];
     productImage = json['productImage'];
     productPrice = json['productPrice'];
-    storeOwnerProfileID = json['storeOwnerProfileID'];
+    discount = json['discount'];
+    description = json['description'];
     storeProductCategoryID = json['storeProductCategoryID'];
   }
 
@@ -25,7 +27,8 @@ class CreateProductRequest {
     map['productName'] = productName;
     map['productImage'] = productImage;
     map['productPrice'] = productPrice;
-    map['storeOwnerProfileID'] = storeOwnerProfileID;
+    map['discount'] = discount;
+    map['description'] = description;
     map['storeProductCategoryID'] = storeProductCategoryID;
     return map;
   }

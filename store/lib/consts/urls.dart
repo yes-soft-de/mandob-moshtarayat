@@ -42,7 +42,7 @@ class Urls {
   static const GET_PRODUCTS_CATEGORY = BASE_API + '/storeProductsCategory/';
   static const GET_PRODUCTS = BASE_API + '/productsStoreByProfileId/';
   static const CREATE_PRODUCTS_CATEGORY = BASE_API + '/StoreProductCategory';
-  static const CREATE_PRODUCTS = BASE_API + '/createproductbyadmin';
+  static const CREATE_PRODUCTS = BASE_API + '/createproductbystore';
   static const CREATE_PRODUCTS_CATEGORY_FOR_STORE = '/StoreProductCategory';
   static const GET_IN_ACTIVE_CAPTAINS = BASE_API + '/getcaptainsinactive';
   static const CAPTAIN_FILTER = BASE_API + '/captainFilter/';
@@ -83,6 +83,9 @@ class Urls {
   static const GET_PRODUCTS_REPORT = BASE_API + '/countOrdersEveryProductInLastMonth';
   static const CATEGORY_LEVEL_ONE = BASE_API + '/storeproductscategorylevelone/';
   static const CATEGORY_LEVEL_TWO = BASE_API + '/storeproductscategoryleveltwo/';
+  static const GET_STORE_PRODUCT_BY_Category = BASE_API + '/productsbystoreproductcategoryid/';
+  static const GET_STORE_PRODUCT = BASE_API + '/getproductsstore';
+
 
 
 

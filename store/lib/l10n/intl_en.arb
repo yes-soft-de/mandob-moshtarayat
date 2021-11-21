@@ -519,7 +519,10 @@
   "specific": "Specific",
   "clients": "Clients",
   "storeAvailable": "Store Availability",
-  "storesInActive": "Store Account In Active , Please wait the administration to activate your account"
+  "storesInActive": "Store Account In Active , Please wait the administration to activate your account",
+
+  "discount": "discount",
+  "productCreatedSuccessfully": "Product Created Successfully"
 
 
 

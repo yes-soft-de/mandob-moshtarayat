@@ -518,5 +518,8 @@
   "specific": "محدد",
   "clients": "العملاء",
   "storeAvailable": "المتجر متوفر",
-  "storesInActive": "حساب المتجر غير مفعل ، يرجى انتظار الإدارة لتفعيل حسابك"
+  "storesInActive": "حساب المتجر غير مفعل ، يرجى انتظار الإدارة لتفعيل حسابك",
+  "discount": "الخصم",
+
+  "productCreatedSuccessfully": "تم إنشاء المنتح بنجاح"
 }

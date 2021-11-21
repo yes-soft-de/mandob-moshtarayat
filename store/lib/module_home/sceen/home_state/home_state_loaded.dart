@@ -43,8 +43,8 @@ class HomeLoadedState extends States {
           });
     }
     print('fgfgfgfgfgfgf');
-    print(profileModel!.categoryId);
-    constCategoryID.id= profileModel!.categoryId;
+    print(profileModel!.storeCategoryId);
+    constCategoryID.id= profileModel!.storeCategoryId;
     print(constCategoryID.id);
     return SingleChildScrollView(
       physics:
@@ -71,7 +71,7 @@ class HomeLoadedState extends States {
               color: Theme.of(context).primaryColor.withOpacity(0.3),
             ),
           ),
-          widgetTile(model?.countClients.toString() ?? '',S.current.countClients),
+//          widgetTile(model?.countClients.toString() ?? '',S.current.countClients),
           widgetTile(model?.countProducts.toString() ?? '',S.current.countProducts),
             ]),
       ),

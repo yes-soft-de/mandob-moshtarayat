@@ -45,9 +45,8 @@ class HomeStateManager {
       } else {
         ReportModel report = ReportModel(countCaptains: 5,countClients: 2,countCompletedOrders: 2,countOngoingOrders: 1,countProducts: 2,countStores: 2);
         StoreProfileModel model = value as StoreProfileModel;
-        print('in staet');
-        print(model.categoryId);
-        _stateSubject.add(HomeLoadedState(screenState, report,model));
+
+        _stateSubject.add(HomeLoadedState(screenState, report,model.data));
       }
     });
   }
