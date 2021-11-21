@@ -28,7 +28,7 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
   void didChangeMetrics() {
     setState(() {});
   }
-
+  int pop = 2;
   @override
   Widget build(BuildContext context) {
     if (ScreenType.isDesktop()) {
@@ -55,21 +55,34 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
         ),
       );
     }
-    return Scaffold(
-      key: GlobalVariable.mainScreenScaffold,
-      drawer: NavigatorMenu(
-        width: ScreenType.isTablet()
-            ? MediaQuery.of(context).size.width * 0.4
-            : MediaQuery.of(context).size.width * 0.75,
-        currentPage: selectedPage,
-        onTap: (selectedClass) {
-          selectedPage = selectedClass;
-          setState(() {});
+    return WillPopScope(
+      onWillPop: () async {
+        pop = pop - 1 ;
+        return pop <= 0;
+      },
+      child: GestureDetector(
+        onTap: (){
+          if (pop < 2){
+            pop = 2;
+          }
         },
-      ),
-      body: AnimatedSwitcher(
-        duration: Duration(milliseconds: 50),
-        child: selectedPage,
+        child: Scaffold(
+          key: GlobalVariable.mainScreenScaffold,
+          drawer: NavigatorMenu(
+            width: ScreenType.isTablet()
+                ? MediaQuery.of(context).size.width * 0.4
+                : MediaQuery.of(context).size.width * 0.75,
+            currentPage: selectedPage,
+            onTap: (selectedClass) {
+              selectedPage = selectedClass;
+              setState(() {});
+            },
+          ),
+          body: AnimatedSwitcher(
+            duration: Duration(milliseconds: 50),
+            child: selectedPage,
+          ),
+        ),
       ),
     );
   }
