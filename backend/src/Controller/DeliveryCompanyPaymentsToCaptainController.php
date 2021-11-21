@@ -13,6 +13,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Nelmio\ApiDocBundle\Annotation\Security;
+use OpenApi\Annotations as OA;
 
 
 class DeliveryCompanyPaymentsToCaptainController extends BaseController
@@ -34,6 +36,39 @@ class DeliveryCompanyPaymentsToCaptainController extends BaseController
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Delivery Company Payment To Captain")
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     * @OA\RequestBody(
+     *      description="Create Delivery Company Payment To Captain",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="integer", property="captainId"),
+     *          @OA\Property(type="integer", property="amount"),
+     *          @OA\Property(type="string", property="note"),
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Return Object of payment",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="integer", property="captainId"),
+     *                  @OA\Property(type="integer", property="amount"),
+     *                  @OA\Property(type="object", property="date"),
+     *                  @OA\Property(type="string", property="note"),
+     *          )
+     *      )
+     * )
+     * @Security(name="Bearer")
      */
     public function createDeliveryCompanyPaymentsToCaptain(Request $request)
     {
@@ -58,6 +93,33 @@ class DeliveryCompanyPaymentsToCaptainController extends BaseController
       * @IsGranted("ROLE_CAPTAIN")
       * @param Request $request
       * @return JsonResponse
+      * *
+      * @OA\Tag(name="Delivery Company Payment To Captain")
+      * @OA\Parameter(
+      *      name="token",
+      *      in="header",
+      *      description="token to be passed as a header",
+      *      required=true
+      * )
+      *
+      * @OA\Response(
+      *      response=200,
+      *      description="Return Array of payments",
+      *      @OA\JsonContent(
+      *          @OA\Property(type="string", property="status_code"),
+      *          @OA\Property(type="string", property="msg"),
+      *          @OA\Property(type="array", property="Data",
+      *             @OA\Items(
+      *                  @OA\Property(type="integer", property="id"),
+      *                  @OA\Property(type="string", property="captainId"),
+      *                  @OA\Property(type="integer", property="amount"),
+      *                  @OA\Property(type="object", property="date"),
+      *                  @OA\Property(type="string", property="note"),
+      *              )
+      *         )
+      *      )
+      * )
+      * @Security(name="Bearer")
       */
       public function deliveryCompanyPaymentsToCaptain()
       {

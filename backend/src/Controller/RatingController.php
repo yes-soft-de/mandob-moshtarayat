@@ -12,6 +12,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Nelmio\ApiDocBundle\Annotation\Security;
+use OpenApi\Annotations as OA;
 
 class RatingController extends BaseController
 {
@@ -48,8 +51,44 @@ class RatingController extends BaseController
 
     /**
      * @Route("ratingCaptainByClient", name="createCaptainRatingByClient", methods={"POST"})
+     * @IsGranted("ROLE_CLIENT")
      * @param Request $request
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Rating")
+     *@OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     * @OA\RequestBody(
+     *      description="Create Captain Rating By Client",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="integer", property="itemID"),
+     *          @OA\Property(type="integer", property="rating"),
+     *          @OA\Property(type="integer", property="orderNumber"),
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the new Rating",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="integer", property="itemID"),
+     *                  @OA\Property(type="string", property="itemType"),
+     *                  @OA\Property(type="integer", property="rating"),
+     *                  @OA\Property(type="string", property="userID"),
+     *                  @OA\Property(type="integer", property="orderNumber"),
+     *                  @OA\Property(type="string", property="userType"),
+     *          )
+     *      )
+     * )
+     * @Security(name="Bearer")
      */
     public function createCaptainRatingByClient(Request $request)
     {
@@ -74,8 +113,44 @@ class RatingController extends BaseController
 
     /**
      * @Route("ratingStoreByClient", name="createStoreRatingByClient", methods={"POST"})
+     * @IsGranted("ROLE_CLIENT")
      * @param Request $request
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Rating")
+     *@OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     * @OA\RequestBody(
+     *      description="Create Store Rating By Client",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="integer", property="itemID"),
+     *          @OA\Property(type="integer", property="rating"),
+     *          @OA\Property(type="integer", property="orderNumber"),
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the new Rating",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="integer", property="itemID"),
+     *                  @OA\Property(type="string", property="itemType"),
+     *                  @OA\Property(type="integer", property="rating"),
+     *                  @OA\Property(type="string", property="userID"),
+     *                  @OA\Property(type="integer", property="orderNumber"),
+     *                  @OA\Property(type="string", property="userType"),
+     *          )
+     *      )
+     * )
+     * @Security(name="Bearer")
      */
     public function createStoreRatingByClient(Request $request)
     {
@@ -100,8 +175,44 @@ class RatingController extends BaseController
 
     /**
      * @Route("ratingProductByClient", name="createProductRatingByClient", methods={"POST"})
+     * @IsGranted("ROLE_CLIENT")
      * @param Request $request
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Rating")
+     *@OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     * @OA\RequestBody(
+     *      description="Create Product Rating By Client",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="integer", property="itemID"),
+     *          @OA\Property(type="integer", property="rating"),
+     *          @OA\Property(type="integer", property="orderNumber"),
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the new Rating",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="integer", property="itemID"),
+     *                  @OA\Property(type="string", property="itemType"),
+     *                  @OA\Property(type="integer", property="rating"),
+     *                  @OA\Property(type="string", property="userID"),
+     *                  @OA\Property(type="integer", property="orderNumber"),
+     *                  @OA\Property(type="string", property="userType"),
+     *          )
+     *      )
+     * )
+     * @Security(name="Bearer")
      */
     public function createProductRatingByClient(Request $request)
     {

@@ -16,7 +16,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-
+use Nelmio\ApiDocBundle\Annotation\Security;
+use OpenApi\Annotations as OA;
 
 class CaptainProfileController extends BaseController
 {
@@ -37,7 +38,32 @@ class CaptainProfileController extends BaseController
      * @Route("/captainregister", name="captainRegister", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
-     */
+      * @OA\Tag(name="Captain Profile")
+      *
+      * @OA\RequestBody(
+      *      description="Create new Captain",
+      *      @OA\JsonContent(
+      *          @OA\Property(type="string", property="userName"),
+      *          @OA\Property(type="string", property="userID"),
+      *          @OA\Property(type="string", property="password"),
+      *      )
+      * )
+      *
+      * @OA\Response(
+      *      response=200,
+      *      description="Returns the new captain's role and the creation date",
+      *      @OA\JsonContent(
+      *          @OA\Property(type="string", property="status_code"),
+      *          @OA\Property(type="string", property="msg"),
+      *          @OA\Property(type="object", property="Data",
+      *                  @OA\Property(type="array", property="roles",
+      *                      @OA\Items(example="user")),
+      *                  @OA\Property(type="object", property="createdAt")
+      *          )
+      *      )
+      * )
+      *
+      */
     public function captainRegister(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
@@ -68,6 +94,54 @@ class CaptainProfileController extends BaseController
      * @IsGranted("ROLE_CAPTAIN")
      * @param Request $request
      * @return JsonResponse
+     * @OA\Tag(name="Captain Profile")
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     * @OA\RequestBody(
+     *      description="Update Captain",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="captainName"),
+     *          @OA\Property(type="string", property="drivingLicence"),
+     *          @OA\Property(type="string", property="image"),
+     *          @OA\Property(type="string", property="mechanicLicense"),
+     *          @OA\Property(type="string", property="identity"),
+     *          @OA\Property(type="integer", property="age"),
+     *          @OA\Property(type="string", property="car"),
+     *          @OA\Property(type="string", property="bankName"),
+     *          @OA\Property(type="string", property="bankAccountNumber"),
+     *          @OA\Property(type="string", property="stcPay"),
+     *          @OA\Property(type="string", property="phone"),
+     *          @OA\Property(type="string", property="isOnline"),
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns captain profile",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="string", property="captainName"),
+     *              @OA\Property(type="string", property="drivingLicence"),
+     *              @OA\Property(type="string", property="image"),
+     *              @OA\Property(type="string", property="mechanicLicense"),
+     *              @OA\Property(type="string", property="identity"),
+     *              @OA\Property(type="integer", property="age"),
+     *              @OA\Property(type="string", property="car"),
+     *              @OA\Property(type="string", property="bankName"),
+     *              @OA\Property(type="string", property="bankAccountNumber"),
+     *              @OA\Property(type="string", property="stcPay"),
+     *              @OA\Property(type="string", property="phone"),
+
+     *          )
+     *      )
+     * )
+     * @Security(name="Bearer")
      */
     public function updateCaptainProfile(Request $request): JsonResponse
     {
@@ -84,6 +158,45 @@ class CaptainProfileController extends BaseController
      * @IsGranted("ROLE_CAPTAIN")
      * @param Request $request
      * @return JsonResponse
+     * @OA\Tag(name="Captain Profile")
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     * @OA\RequestBody(
+     *      description="Update Location",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="object", property="location"),
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns captain profile",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="string", property="id"),
+     *              @OA\Property(type="string", property="captainName"),
+     *              @OA\Property(type="object", property="location"),
+     *              @OA\Property(type="string", property="drivingLicence"),
+     *              @OA\Property(type="string", property="image"),
+     *              @OA\Property(type="string", property="mechanicLicense"),
+     *              @OA\Property(type="string", property="identity"),
+     *              @OA\Property(type="integer", property="age"),
+     *              @OA\Property(type="string", property="car"),
+     *              @OA\Property(type="string", property="bankName"),
+     *              @OA\Property(type="string", property="bankAccountNumber"),
+     *              @OA\Property(type="string", property="stcPay"),
+     *              @OA\Property(type="string", property="phone"),
+
+     *          )
+     *      )
+     * )
+     * @Security(name="Bearer")
      */
     public function captainProfileUpdateLocation(Request $request): JsonResponse
     {
@@ -107,6 +220,48 @@ class CaptainProfileController extends BaseController
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
+     * @OA\Tag(name="Captain Profile")
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     * @OA\RequestBody(
+     *      description="Update Captain Profile By Admin",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="captainID"),
+     *          @OA\Property(type="string", property="salary"),
+     *          @OA\Property(type="string", property="status"),
+     *          @OA\Property(type="integer", property="bounce"),
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns captain profile",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="string", property="id"),
+     *              @OA\Property(type="string", property="captainName"),
+     *              @OA\Property(type="object", property="location"),
+     *              @OA\Property(type="string", property="drivingLicence"),
+     *              @OA\Property(type="string", property="image"),
+     *              @OA\Property(type="string", property="mechanicLicense"),
+     *              @OA\Property(type="string", property="identity"),
+     *              @OA\Property(type="integer", property="age"),
+     *              @OA\Property(type="string", property="car"),
+     *              @OA\Property(type="string", property="bankName"),
+     *              @OA\Property(type="string", property="bankAccountNumber"),
+     *              @OA\Property(type="string", property="stcPay"),
+     *              @OA\Property(type="string", property="phone"),
+
+     *          )
+     *      )
+     * )
+     * @Security(name="Bearer")
      */
     public function updateCaptainProfileByAdmin(Request $request): JsonResponse
     {
@@ -131,6 +286,48 @@ class CaptainProfileController extends BaseController
      * @Route("/captainprofile", name="getCaptainprofileByCaptainID",methods={"GET"})
      * @IsGranted("ROLE_CAPTAIN")
      *  @return JsonResponse
+     * @OA\Tag(name="Captain Profile")
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns captain profile",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="string", property="id"),
+     *              @OA\Property(type="string", property="captainID"),
+     *              @OA\Property(type="string", property="captainName"),
+     *              @OA\Property(type="object", property="location"),
+     *              @OA\Property(type="integer", property="age"),
+     *              @OA\Property(type="string", property="car"),
+     *              @OA\Property(type="string", property="drivingLicence"),
+     *              @OA\Property(type="string", property="drivingLicenceURL"),
+     *              @OA\Property(type="integer", property="salary"),
+     *              @OA\Property(type="string", property="status"),
+     *              @OA\Property(type="string", property="image"),
+     *              @OA\Property(type="string", property="imageURL"),
+     *              @OA\Property(type="string", property="baseURL"),
+     *              @OA\Property(type="string", property="phone"),
+     *              @OA\Property(type="string", property="isOnline"),
+     *              @OA\Property(type="string", property="bankName"),
+     *              @OA\Property(type="string", property="bankAccountNumber"),
+     *              @OA\Property(type="string", property="stcPay"),
+     *              @OA\Property(type="string", property="vacationStatus"),
+     *              @OA\Property(type="string", property="mechanicLicense"),
+     *              @OA\Property(type="string", property="identity"),
+     *              @OA\Property(type="object", property="createDate"),
+*)
+     *          )
+     *      )
+     * )
+     * @Security(name="Bearer")
      */
     public function getCaptainProfileByCaptainID(): JsonResponse
     {
