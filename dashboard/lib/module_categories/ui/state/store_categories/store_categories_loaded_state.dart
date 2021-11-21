@@ -83,7 +83,7 @@ class StoreCategoriesLoadedState extends StoreCategoriesState {
                   description: '',
                   storeCategoryName: element.categoryName,
                   image: element.image,
-                  baseImage: element.baseImage
+                  baseImage: element.imageUrl
                 )),
       ));
     }

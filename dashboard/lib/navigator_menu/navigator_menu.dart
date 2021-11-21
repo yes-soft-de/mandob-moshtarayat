@@ -15,6 +15,7 @@ import 'package:mandob_moshtarayat_dashboad/module_settings/settings_module.dart
 import 'package:mandob_moshtarayat_dashboad/module_stores/stores_module.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_list_view.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/customIcon/custom_icons.dart';
+import 'package:mandob_moshtarayat_dashboad/utils/customIcon/mandob_icons_icons.dart';
 
 // current last index is 19
 class NavigatorMenu extends StatefulWidget {
@@ -47,13 +48,10 @@ class _NavigatorMenuState extends State<NavigatorMenu> {
               width: 75,
               child: CircleAvatar(
                 backgroundColor: Theme.of(context).primaryColor,
-                child: Padding(
-                  padding: EdgeInsets.only(left: 12.5),
-                  child: Icon(
-                    CustomIcon.logo,
-                    size: 50,
-                    color: Colors.white,
-                  ),
+                child: Icon(
+                  MandobIcons.logo,
+                  size: 40,
+                  color: Colors.white,
                 ),
               ),
             ),
