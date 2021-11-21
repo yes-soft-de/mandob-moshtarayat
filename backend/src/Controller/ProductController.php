@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\AutoMapping;
+use App\Request\DeleteRequest;
 use App\Request\ProductCancelByStoreOwnerRequest;
 use App\Request\ProductCreateRequest;
 use App\Request\ProductUpdateByStoreOwnerRequest;
@@ -587,6 +588,42 @@ class ProductController extends BaseController
         $result = $this->productService->getSimilarProductsByStoreProductCategoryIdOfLevelTwo($storeProductCategoryID);
 
         return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("product/{id}", name="deleteProductByID", methods={"DELETE"})
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Product")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the info of the deleted product",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="integer", property="id"),
+     *              @OA\Property(type="string", property="productName"),
+     *              @OA\Property(type="string", property="productImage"),
+     *              @OA\Property(type="number", property="productPrice"),
+     *              @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *              @OA\Property(type="integer", property="storeProductCategoryID"),
+     *              @OA\Property(type="integer", property="discount"),
+     *              @OA\Property(type="string", property="description"),
+     *              @OA\Property(type="string", property="status")
+     *          )
+     *      )
+     * )
+     */
+    public function deleteProductById(Request $request)
+    {
+        $request = new DeleteRequest($request->get('id'));
+
+        $result = $this->productService->deleteProductById($request);
+
+        return $this->response($result, self::DELETE);
     }
 
 }

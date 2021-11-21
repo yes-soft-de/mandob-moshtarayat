@@ -5,6 +5,7 @@ namespace App\Manager;
 use App\AutoMapping;
 use App\Entity\ProductEntity;
 use App\Repository\ProductEntityRepository;
+use App\Request\DeleteRequest;
 use App\Request\ProductCancelByStoreOwnerRequest;
 use App\Request\ProductCreateRequest;
 use App\Request\ProductUpdateByStoreOwnerRequest;
@@ -181,5 +182,22 @@ class ProductManager
         $this->entityManager->flush();
 
         return $entity;
+    }
+
+    public function deleteProductById(DeleteRequest $request)
+    {
+        $productEntity = $this->productEntityRepository->find($request->getId());
+
+        if(!$productEntity)
+        {
+            return 'productNotFound';
+        }
+        else
+        {
+            $this->entityManager->remove($productEntity);
+            $this->entityManager->flush();
+
+            return $productEntity;
+        }
     }
 }
