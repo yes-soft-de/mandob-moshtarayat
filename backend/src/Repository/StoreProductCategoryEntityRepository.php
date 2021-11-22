@@ -83,6 +83,35 @@ class StoreProductCategoryEntityRepository extends ServiceEntityRepository
             ;
     }
 
+    public function getCategoriesLevel1ById($id)
+    {
+        return $this->createQueryBuilder('storeProductCategory')
+            ->select('storeProductCategory.id', 'storeProductCategory.productCategoryName', 'storeProductCategory.isLevel1', 'storeProductCategory.productCategoryImage')
+
+
+            ->andWhere('storeProductCategory.id = :id')
+
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getStoreProductsCategoriesIdLevelOneByStoreOwnerProfileID($storeOwnerProfileID)
+    {
+        return $this->createQueryBuilder('storeProductCategory')
+            ->select('storeProductCategory.storeProductCategoryID')
+
+            ->leftJoin(ProductEntity::class, 'ProductEntity', Join::WITH, 'ProductEntity.storeProductCategoryID = storeProductCategory.id')
+
+            ->andWhere('ProductEntity.storeOwnerProfileID = :storeOwnerProfileID')
+
+            ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
+            ->groupBy('storeProductCategory.storeProductCategoryID')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     public function isItRelatedToProducts($id)
     {
         return $this->createQueryBuilder('storeProductCategory')

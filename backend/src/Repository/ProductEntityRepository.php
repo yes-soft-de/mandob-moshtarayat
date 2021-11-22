@@ -197,7 +197,7 @@ class ProductEntityRepository extends ServiceEntityRepository
     public function getProductsByStoreProfileIDAndStoreProductCategoryID($storeOwnerProfileID, $storeProductCategoryID)
     {
         return $this->createQueryBuilder('product')
-        ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount','product.description')
+        ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount', 'product.description', 'product.status')
 
         ->andWhere('product.storeProductCategoryID = :storeProductCategoryID')
         ->andWhere('product.storeOwnerProfileID = :storeOwnerProfileID')

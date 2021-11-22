@@ -17,6 +17,8 @@ use App\Response\StoreProductCategoryLevelOneCreateResponse;
 use App\Response\StoreProductCategoryLevelTwoCreateResponse;
 use App\Response\StoreProductCategoryUpdateLevelOneResponse;
 use App\Response\StoreProductCategoryUpdateLevelTwoResponse;
+use App\Response\StoreProductsCategoriesResponse;
+use App\Response\StoreProductsCategoryAndProductsResponse;
 use App\Response\StoreProductsCategoryLevelTwoAndStoreProductsResponse;
 use App\Response\StoreProductsCategoryResponse;
 use App\Response\StoreProductsCategoryWithProductsResponse;
@@ -121,6 +123,18 @@ class StoreProductCategoryService
        return $response;
     }
 
+    public function getStoreProductsCategoryLeveltwoAndProductsByStoreProductCategoryIDAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId)
+    {
+       $response = [];
+       $items = $this->storeProductCategoryManager->getStoreProductsCategoryLevelTwoByStoreProductCategoryID($storeProductCategoryID);
+       foreach($items as $item) {
+           $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params.$item['productCategoryImage'], $this->params);
+           $item['products'] = $this->productService->getProductsByStoreProfileIDAndStoreProductCategoryID($storeOwnerProfileId, $item['id']);
+           $response[] = $this->autoMapping->map('array', StoreProductsCategoryAndProductsResponse::class, $item);
+      }
+       return $response;
+    }
+
     public function getStoreProductsCategoryLevelTwoByStoreProductCategoryIDForAdmin($storeProductCategoryID)
     {
         $response = [];
@@ -156,6 +170,22 @@ class StoreProductCategoryService
              $category['products'] = $this->productService->getProductsByStoreProfileIDAndStoreProductCategoryID($storeOwnerProfileId, $category['id']);
              $response[] = $this->autoMapping->map('array', StoreProductsCategoryLevelTwoAndStoreProductsResponse::class, $category);
          }
+        return $response;
+    }
+
+    public function getStoreProductsCategoriesAndProductsByStoreOwnerProfileID($userID): array
+    {
+        $response = [];
+        $storeOwnerProfileId = $this->userManager->getStoreProfileId($userID);
+        $categoriesIdsLevel1 = $this->storeProductCategoryManager->getStoreProductsCategoriesIdLevelOneByStoreOwnerProfileID($storeOwnerProfileId);
+        foreach($categoriesIdsLevel1 as $id) {
+            $categoriesLevel1 = $this->storeProductCategoryManager->getCategoriesLevel1ById($id['storeProductCategoryID']);
+            foreach($categoriesLevel1 as $item) {
+                $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params.$item['productCategoryImage'], $this->params);
+                $item['productCategoriesLevel2'] = $this->getStoreProductsCategoryLeveltwoAndProductsByStoreProductCategoryIDAndStoreOwnerProfileId($item['id'], $storeOwnerProfileId);
+                $response[] = $this->autoMapping->map('array', StoreProductsCategoriesResponse::class, $item);
+            }
+        }
         return $response;
     }
 
