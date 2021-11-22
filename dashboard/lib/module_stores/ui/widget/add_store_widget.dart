@@ -437,13 +437,13 @@ class _UpdateStoreWidgetState extends State<UpdateStoreWidget> {
                     children: [
                       // categories
                       Hider(
-                        active: widget.categories != null,
+                        active: widget.categories != null && widget.categories!.length > 0,
                         child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(25),
                               color: Theme.of(context).backgroundColor),
                           child: Center(
-                            child: DropdownButton(
+                            child:DropdownButton(
                               value: catId,
                               items: widget.categories,
                               onChanged: (v) {
@@ -759,7 +759,9 @@ class _UpdateStoreWidgetState extends State<UpdateStoreWidget> {
       closingTime = TimeOfDay.fromDateTime(DateTime.parse(
           widget.request?.closingTime ?? DateTime.now().toString()));
       status = widget.request?.status ?? 'active';
+      if (widget.request?.storeCategoryId != -1) {
       catId = widget.request?.storeCategoryId.toString();
+      }
     }
     super.initState();
   }

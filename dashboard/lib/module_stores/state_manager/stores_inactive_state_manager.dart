@@ -12,6 +12,7 @@ import 'package:mandob_moshtarayat_dashboad/module_stores/ui/screen/stores_inact
 import 'package:mandob_moshtarayat_dashboad/module_stores/ui/state/stores_inactive/stores_inactive_state_loaded.dart';
 import 'package:mandob_moshtarayat_dashboad/module_upload/service/image_upload/image_upload_service.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/helpers/custom_flushbar.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/model/StoreCategoriesModel.dart';
 
 @injectable
 class StoresInActiveStateManager {
@@ -27,18 +28,31 @@ class StoresInActiveStateManager {
       this._uploadService, this._categoriesService);
 
   void getStores(StoresInActiveScreenState screenState) {
-    _storesService.getStoresInActive().then((value) {
-      if (value.hasError) {
+    _categoriesService.getStoreCategories().then((categories) {
+      if (categories.hasError) {
         _stateSubject.add(StoresInActiveLoadedState(screenState, null, null,
-            error: value.error));
-      } else if (value.isEmpty) {
-        _stateSubject.add(StoresInActiveLoadedState(screenState, [], null));
+            error: categories.error));
+      } else if (categories.isEmpty) {
+        _stateSubject.add(StoresInActiveLoadedState(screenState, null, null,
+            empty: categories.isEmpty));
       } else {
-        StoresModel model = value as StoresModel;
-        _stateSubject
-            .add(StoresInActiveLoadedState(screenState, model.data, null));
+        _storesService.getStoresInActive().then((value) {
+          if (value.hasError) {
+            _stateSubject.add(StoresInActiveLoadedState(screenState, null, null,
+                error: value.error));
+          } else if (value.isEmpty) {
+            _stateSubject.add(StoresInActiveLoadedState(screenState, [], null));
+          } else {
+            StoreCategoriesModel categoriesModel =
+                categories as StoreCategoriesModel;
+            StoresModel model = value as StoresModel;
+            _stateSubject
+                .add(StoresInActiveLoadedState(screenState, model.data, categoriesModel.data));
+          }
+        });
       }
     });
+
   }
 
   void getStoresFilter(

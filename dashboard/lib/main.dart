@@ -186,7 +186,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         ],
         theme: activeTheme,
         supportedLocales: S.delegate.supportedLocales,
-        title: 'Twaslna Dashboard',
+        title: 'Mandoob Dashboard',
         routes: fullRoutesList,
         initialRoute: SplashRoutes.SPLASH_SCREEN,
       ),
