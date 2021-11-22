@@ -54,12 +54,18 @@ class CategoriesRepository {
   }
   Future<StoreProductsResponse?> getProducts(int id) async {
     var token = await _authService.getToken();
-    dynamic response = await _apiClient.get(Urls.GET_PRODUCTS + '$id',
+    dynamic response = await _apiClient.get(Urls.GET_STORE_PRODUCT_BY_Category + '$id',
         headers: {'Authorization': 'Bearer ' + token.toString()});
     if (response == null) return null;
     return StoreProductsResponse.fromJson(response);
   }
-
+  Future<StoreProductsResponse?> getStoreProducts() async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.get(Urls.GET_STORE_PRODUCT,
+        headers: {'Authorization': 'Bearer ' + token.toString()});
+    if (response == null) return null;
+    return StoreProductsResponse.fromJson(response);
+  }
   Future<ActionResponse?> createProductsCategory(CreateProductsCategoriesRequest request) async {
     var token = await _authService.getToken();
     dynamic response = await _apiClient.post(Urls.CREATE_PRODUCTS_CATEGORY,request.toJson(),

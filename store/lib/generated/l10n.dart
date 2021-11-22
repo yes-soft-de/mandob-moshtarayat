@@ -5229,6 +5229,26 @@ class S {
       args: [],
     );
   }
+
+  /// `discount`
+  String get discount {
+    return Intl.message(
+      'discount',
+      name: 'discount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Product Created Successfully`
+  String get productCreatedSuccessfully {
+    return Intl.message(
+      'Product Created Successfully',
+      name: 'productCreatedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

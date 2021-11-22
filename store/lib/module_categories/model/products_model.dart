@@ -1,11 +1,12 @@
 import 'package:mandob_moshtarayat/abstracts/data_model/data_model.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_categories/response/store_products_response.dart';
+import 'package:mandob_moshtarayat/utils/images/images.dart';
 
 class ProductsModel extends DataModel{
   int  id = -1;
   String productName = '';
-  String productImage = '';
+  ImageUrl productImage = ImageUrl();
   num productPrice = 0;
   num discount = 0;
   int storeProductCategoryID = -1;
@@ -22,7 +23,7 @@ class ProductsModel extends DataModel{
       _model.add(ProductsModel(
         id:element.id ?? -1,
         productName: element.productName ?? S.current.productCategory,
-        productImage : element.productImage ?? '',
+        productImage : element.productImage ??ImageUrl(image:ImageAsset.PLACEHOLDER ),
         productPrice : element.productPrice ?? 0,
           discount:element.discount ?? 0,
         storeProductCategoryID: element.storeProductCategoryID ?? -1

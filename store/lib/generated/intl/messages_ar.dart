@@ -234,6 +234,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "destinationPoint":
             MessageLookupByLibrary.simpleMessage("موقع التسليم"),
         "directSupport": MessageLookupByLibrary.simpleMessage("دعم مباشر"),
+        "discount": MessageLookupByLibrary.simpleMessage("الخصم"),
         "distance": MessageLookupByLibrary.simpleMessage("يبعد عنك"),
         "driverLicence": MessageLookupByLibrary.simpleMessage("رخصة القيادة"),
         "earnCash": MessageLookupByLibrary.simpleMessage("اكسب المال"),
@@ -531,6 +532,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "productCategories":
             MessageLookupByLibrary.simpleMessage("أصناف منتجات"),
         "productCategory": MessageLookupByLibrary.simpleMessage("صنف منتج"),
+        "productCreatedSuccessfully":
+            MessageLookupByLibrary.simpleMessage("تم إنشاء المنتح بنجاح"),
         "productName": MessageLookupByLibrary.simpleMessage("اسم المنتج"),
         "productOrdered": MessageLookupByLibrary.simpleMessage("تم طلب المنتج"),
         "productPrice": MessageLookupByLibrary.simpleMessage("سعر المنتج"),

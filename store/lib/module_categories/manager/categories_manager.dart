@@ -28,6 +28,7 @@ class CategoriesManager {
   Future<ProductsCategoryResponse?> getProductCategoriesLevelTwo(int id) => _categoriesRepository.getProductsCategoryLevelTwo(id);
 
   Future<StoreProductsResponse?> getProducts(int id) => _categoriesRepository.getProducts(id);
+  Future<StoreProductsResponse?> getStoreProducts() => _categoriesRepository.getStoreProducts();
 
 
   Future<ActionResponse?> createProductsCategory(CreateProductsCategoriesRequest request) => _categoriesRepository.createProductsCategory(request);

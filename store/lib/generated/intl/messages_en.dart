@@ -237,6 +237,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "destinationPoint":
             MessageLookupByLibrary.simpleMessage("Destination Location"),
         "directSupport": MessageLookupByLibrary.simpleMessage("Direct Support"),
+        "discount": MessageLookupByLibrary.simpleMessage("discount"),
         "distance": MessageLookupByLibrary.simpleMessage("Distance"),
         "driverLicence": MessageLookupByLibrary.simpleMessage("Driver Licence"),
         "earnCash": MessageLookupByLibrary.simpleMessage("Earn Cash"),
@@ -542,6 +543,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Product Categories"),
         "productCategory":
             MessageLookupByLibrary.simpleMessage("Product Category"),
+        "productCreatedSuccessfully": MessageLookupByLibrary.simpleMessage(
+            "Product Created Successfully"),
         "productName": MessageLookupByLibrary.simpleMessage("Product Name"),
         "productOrdered":
             MessageLookupByLibrary.simpleMessage("Request product"),

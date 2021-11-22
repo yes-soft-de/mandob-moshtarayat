@@ -44,7 +44,7 @@ class Data {
   bool? free;
 
   String? phone;
-  String? imageURL;
+  ImageUrl? imageURL;
   String? baseURL;
   dynamic? deliveryCost;
   bool? privateOrders;
@@ -82,7 +82,7 @@ class Data {
     free = json['free'];
 
     phone = json['phone'];
-    imageURL = json['imageURL'];
+    imageURL = json['image'] != null ?ImageUrl.fromJson(json['image']) : null;
     baseURL = json['baseURL'];
     deliveryCost = json['deliveryCost'];
     privateOrders = json['privateOrders'];
@@ -298,4 +298,15 @@ class Transitions {
     return map;
   }
 
+}
+
+class ImageUrl {
+  String? image;
+  ImageUrl({
+    this.image,
+  });
+
+  ImageUrl.fromJson(dynamic json) {
+    image = json['image'];
+  }
 }

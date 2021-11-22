@@ -10,6 +10,7 @@ import 'package:mandob_moshtarayat/module_home/state_manager/home_state_manager.
 import 'package:mandob_moshtarayat/module_home/widget/drawer.dart';
 import 'package:mandob_moshtarayat/module_main/ui/screen/main_screen.dart';
 import 'package:mandob_moshtarayat/module_profile/model/store_profile_model.dart';
+import 'package:mandob_moshtarayat/module_profile/response/store_profile_response.dart';
 import 'package:mandob_moshtarayat/module_theme/service/theme_service/theme_service.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat/utils/images/images.dart';
@@ -29,9 +30,9 @@ class HomeScreen extends StatefulWidget {
 class HomeScreenState extends State<HomeScreen> {
   StoreProfileModel model = StoreProfileModel(id: 0,
       storeOwnerName: 'storeOwnerName', phone: '323230',
-      deliveryCost: 0, image: '', privateOrders: true,
+      deliveryCost: 0, image: ImageUrl(image: ''), privateOrders: true,
       storeCategoryName: '',
-      hasProducts: true, categoryId: -1);
+      hasProducts: true, storeCategoryId: -1);
 
   @override
   Widget build(BuildContext context) {

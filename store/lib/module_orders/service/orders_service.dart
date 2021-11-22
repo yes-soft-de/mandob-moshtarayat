@@ -38,7 +38,10 @@ class OrdersService {
       return DataModel.withError(
           StatusCodeHelper.getStatusCodeMessages(_ordersResponse.statusCode));
     }
-    if (_ordersResponse.data == null) return DataModel.empty();
+    if (_ordersResponse.data == null) {
+      print('nnn');
+      return DataModel.empty();
+    }
     return OrderModel.withData(_ordersResponse);
   }
 

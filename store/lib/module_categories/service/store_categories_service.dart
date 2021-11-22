@@ -97,6 +97,20 @@ class CategoriesService {
 
     return ProductsModel.withData(_productCategories.data!);
   }
+  Future<DataModel> getStoreProducts() async {
+
+    StoreProductsResponse? _productCategories = await _categoriesManager.getStoreProducts();
+    if (_productCategories == null) {
+      return DataModel.withError(S.current.networkError);
+    }
+    if (_productCategories.statusCode != '200') {
+      return DataModel.withError(
+          StatusCodeHelper.getStatusCodeMessages(_productCategories.statusCode));
+    }
+    if (_productCategories.data == null) return DataModel.empty();
+
+    return ProductsModel.withData(_productCategories.data!);
+  }
 
   Future<DataModel> createProductCategories(CreateProductsCategoriesRequest request) async {
     ActionResponse? actionResponse =

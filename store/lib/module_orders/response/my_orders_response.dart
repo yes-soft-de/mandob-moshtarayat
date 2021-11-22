@@ -22,7 +22,7 @@ class MyOrdersResponse {
     try {
       statusCode = json['status_code'];
       msg = json['msg'];
-      if (json['Data'] != null && statusCode ==200) {
+      if (json['Data'] != null && statusCode =="200") {
         data = [];
         json['Data'].forEach((v) {
           data?.add(Data.fromJson(v));
@@ -65,6 +65,7 @@ class Data {
       this.deliveryCost});
 
   Data.fromJson(dynamic json) {
+    print('now parse');
     deliveryDate = json['deliveryDate'] != null
         ? DeliveryDate.fromJson(json['deliveryDate'])
         : null;

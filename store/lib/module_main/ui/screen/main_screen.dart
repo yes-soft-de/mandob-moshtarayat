@@ -9,11 +9,7 @@ import 'package:mandob_moshtarayat/module_categories/categories_routes.dart';
 import 'package:mandob_moshtarayat/module_home/sceen/home_screen.dart';
 import 'package:mandob_moshtarayat/module_home/widget/drawer.dart';
 import 'package:mandob_moshtarayat/module_orders/ui/screen/OngoingOrdersScreen.dart';
-import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
-import 'package:mandob_moshtarayat/utils/customIcon/custom_icons.dart';
-import 'package:share/share.dart';
 
-import '../../../global_nav_key.dart';
 
 @injectable
 class MainScreen extends StatefulWidget {

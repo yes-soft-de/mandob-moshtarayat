@@ -41,7 +41,7 @@ class StoreProductsResponse {
 class Data {
   int? id;
   String? productName;
-  String? productImage;
+  ImageUrl? productImage;
   num? productPrice;
   num? discount;
   int? storeProductCategoryID;
@@ -57,7 +57,7 @@ class Data {
   Data.fromJson(dynamic json) {
     id = json['id'];
     productName = json['productName'];
-    productImage = json['productImage'];
+    productImage = json['image'] != null ?ImageUrl.fromJson(json['image']) : null;
     productPrice = json['productPrice'];
     discount = json['discount'];
     storeProductCategoryID = json['storeProductCategoryID'];
@@ -74,4 +74,14 @@ class Data {
     return map;
   }
 
+}
+class ImageUrl {
+  String? image;
+  ImageUrl({
+    this.image,
+  });
+
+  ImageUrl.fromJson(dynamic json) {
+    image = json['image'];
+  }
 }

@@ -36,13 +36,15 @@ class StoreProfileLoadedState extends States {
             screenState.getStore(screenState.model?.id ?? -1);
           });
     }
+    print("ruuunnn");
+    print(profile?.image.image);
     return FixedContainer(
         child: CustomListView.custom(children: [
       Container(
         width: double.maxFinite,
         height: MediaQuery.of(context).size.height * 0.30,
         child: CustomNetworkImage(
-          imageSource: profile?.image ?? '',
+          imageSource: profile?.image.image ?? '',
           width: double.maxFinite,
           height: MediaQuery.of(context).size.height * 0.30,
         ),

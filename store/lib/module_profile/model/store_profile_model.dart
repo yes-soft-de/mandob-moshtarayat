@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:mandob_moshtarayat/abstracts/data_model/data_model.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
@@ -9,11 +10,11 @@ import 'package:mandob_moshtarayat/utils/images/images.dart';
 class StoreProfileModel extends DataModel {
   int id = -1;
   String storeOwnerName = '';
-  int categoryId = 1;
+  int storeCategoryId = -1;
   String phone = '';
   String storeCategoryName = '';
   num deliveryCost = 0;
-  String image = '';
+  ImageUrl image = ImageUrl(image: null);
   bool privateOrders = false;
   bool hasProducts = false;
   String? closingTime;
@@ -30,23 +31,21 @@ class StoreProfileModel extends DataModel {
       required this.image,
       required this.privateOrders,
       required this.hasProducts,
-      required this.categoryId,
+      required this.storeCategoryId,
       this.closingTime,
       this.openingTime
       });
 
   StoreProfileModel.withData(Data data) : super.withData() {
-    print(data.storeCategoryId);
-    print('fgdhsjk');
     _models = StoreProfileModel(
       storeCategoryName: data.storeCategoryName??'',
         id: data.id ?? -1,
-        categoryId: data.storeCategoryId ??1,
+        storeCategoryId: data.storeCategoryId ??-1,
         storeOwnerName: data.storeOwnerName ?? S.current.store,
         deliveryCost: data.deliveryCost ?? 0,
         hasProducts: data.hasProducts ?? false,
         privateOrders: data.privateOrders ?? false,
-        image:  ImageAsset.PLACEHOLDER,
+        image:data.imageURL ??ImageUrl(image:ImageAsset.PLACEHOLDER ),
         phone: data.phone ?? '',
        openingTime:DateFormat.jm().format(DateHelper.convert(data.openingTime?.timestamp)),
        closingTime:DateFormat.jm().format(DateHelper.convert(data.closingTime?.timestamp)),
