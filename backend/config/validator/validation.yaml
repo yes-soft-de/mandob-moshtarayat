@@ -370,8 +370,8 @@ App\Request\StoreOwnerUpdateByAdminRequest:
       - NotBlank: ~
     status:
       - NotBlank: ~
-    is_best:
-      - NotBlank: ~
+#    is_best:
+#      - NotBlank: ~
     image:
       - NotBlank: ~
     storeCategoryId:
