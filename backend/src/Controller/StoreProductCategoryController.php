@@ -498,6 +498,68 @@ class StoreProductCategoryController extends BaseController
         return $this->response($result, self::FETCH);
       }
 
+     /**
+     * @Route("/storeproductscategoriesandstoreproducts", name="getStoreProductsCategoriesAndStoreProductsByStoreOwnerProfile",methods={"GET"})
+     * @return JsonResponse
+      *@IsGranted("ROLE_OWNER")
+      * @OA\Tag(name="Store Product Category")
+      *
+      * @OA\Response(
+      *      response=200,
+      *      description="Returns categories level one and two and products of store owner ",
+      *      @OA\JsonContent(
+      *          @OA\Property(type="string", property="status_code"),
+      *          @OA\Property(type="string", property="msg"),
+      *          @OA\Property(type="array", property="Data",
+      *              @OA\Items(
+      *                @OA\Property(type="integer", property="id"),
+      *                @OA\Property(type="string", property="productCategoryName"),
+      *                @OA\Property(type="object", property="productCategoryImage",
+      *                      @OA\Property(type="string", property="imageURL"),
+      *                      @OA\Property(type="string", property="image"),
+      *                      @OA\Property(type="string", property="baseURL"),
+      *                  ),
+      *                @OA\Property(type="string", property="isLevel1"),
+      *                @OA\Property(type="array", property="productCategoriesLevel2",
+      *                @OA\Items(
+      *                  @OA\Property(type="integer", property="id"),
+      *                  @OA\Property(type="string", property="productCategoryName"),
+      *                  @OA\Property(type="object", property="productCategoryImage",
+      *                      @OA\Property(type="string", property="imageURL"),
+      *                      @OA\Property(type="string", property="image"),
+      *                      @OA\Property(type="string", property="baseURL"),
+      *                  ),
+      *          @OA\Property(type="array", property="products",
+      *              @OA\Items(
+      *                  @OA\Property(type="integer", property="id"),
+      *                  @OA\Property(type="string", property="productName"),
+      *                  @OA\Property(type="number", property="productPrice"),
+      *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
+      *                  @OA\Property(type="integer", property="storeProductCategoryID"),
+      *                  @OA\Property(type="integer", property="discount"),
+      *                  @OA\Property(type="string", property="description"),
+      *                  @OA\Property(type="object", property="image",
+      *                      @OA\Property(type="string", property="imageURL"),
+      *                      @OA\Property(type="string", property="image"),
+      *                      @OA\Property(type="string", property="baseURL"),
+      *                     )
+      *                  )
+      *               )
+      *             )
+      *           )
+      *         )
+      *      )
+      *    )
+      * )
+      *
+      */
+      public function getStoreProductsCategoriesAndProductsByStoreOwnerProfileID()
+      {
+        $result = $this->storeProductCategoryService->getStoreProductsCategoriesAndProductsByStoreOwnerProfileID($this->getUserId());
+
+        return $this->response($result, self::FETCH);
+      }
+
     /**
      * @Route("storeproductscategoryleveltwowithproducts/{storeProductCategoryID}", name="getStoreProductsCategoryLevelTwoWithProductsByStoreProductCategoryID", methods={"GET"})
      * @return JsonResponse

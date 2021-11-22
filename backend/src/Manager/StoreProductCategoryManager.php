@@ -104,6 +104,16 @@ class StoreProductCategoryManager
        return $this->storeProductCategoryEntityRepository->getStoreProductsCategoryLevelTwoByStoreOwnerProfile($storeOwnerProfileID);
     }
 
+    public function getCategoriesLevel1ById($id)
+    {
+       return $this->storeProductCategoryEntityRepository->getCategoriesLevel1ById($id);
+    }
+
+    public function getStoreProductsCategoriesIdLevelOneByStoreOwnerProfileID($storeOwnerProfileID)
+    {
+       return $this->storeProductCategoryEntityRepository->getStoreProductsCategoriesIdLevelOneByStoreOwnerProfileID($storeOwnerProfileID);
+    }
+
     public function isItRelatedToProducts($id):string
     {
         $items = $this->storeProductCategoryEntityRepository->isItRelatedToProducts($id);
