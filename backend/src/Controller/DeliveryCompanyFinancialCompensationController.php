@@ -35,13 +35,16 @@ class DeliveryCompanyFinancialCompensationController extends BaseController
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
+     * *
      * @OA\Tag(name="Delivery Company Financial Compensation")
-     *@OA\Parameter(
+     *
+     * @OA\Parameter(
      *      name="token",
      *      in="header",
      *      description="token to be passed as a header",
      *      required=true
      * )
+     *
      * @OA\RequestBody(
      *      description="Create Delivery Company Financial Compensation",
      *      @OA\JsonContent(

@@ -56,12 +56,14 @@ class RatingController extends BaseController
      * @return JsonResponse
      * *
      * @OA\Tag(name="Rating")
-     *@OA\Parameter(
+     *
+     * @OA\Parameter(
      *      name="token",
      *      in="header",
      *      description="token to be passed as a header",
      *      required=true
      * )
+     *
      * @OA\RequestBody(
      *      description="Create Captain Rating By Client",
      *      @OA\JsonContent(
@@ -118,12 +120,14 @@ class RatingController extends BaseController
      * @return JsonResponse
      * *
      * @OA\Tag(name="Rating")
-     *@OA\Parameter(
+     *
+     * @OA\Parameter(
      *      name="token",
      *      in="header",
      *      description="token to be passed as a header",
      *      required=true
      * )
+     *
      * @OA\RequestBody(
      *      description="Create Store Rating By Client",
      *      @OA\JsonContent(
@@ -180,12 +184,14 @@ class RatingController extends BaseController
      * @return JsonResponse
      * *
      * @OA\Tag(name="Rating")
-     *@OA\Parameter(
+     *
+     * @OA\Parameter(
      *      name="token",
      *      in="header",
      *      description="token to be passed as a header",
      *      required=true
      * )
+     *
      * @OA\RequestBody(
      *      description="Create Product Rating By Client",
      *      @OA\JsonContent(

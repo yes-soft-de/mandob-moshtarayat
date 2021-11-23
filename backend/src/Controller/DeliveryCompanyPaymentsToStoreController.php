@@ -35,13 +35,16 @@ class DeliveryCompanyPaymentsToStoreController extends BaseController
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
+     * *
      * @OA\Tag(name="Delivery Company Payments To Store")
+     *
      * @OA\Parameter(
      *      name="token",
      *      in="header",
      *      description="token to be passed as a header",
      *      required=true
      * )
+     *
      * @OA\RequestBody(
      *      description="Create Delivery Company Payments To store",
      *      @OA\JsonContent(
@@ -91,7 +94,9 @@ class DeliveryCompanyPaymentsToStoreController extends BaseController
       * @IsGranted("ROLE_OWNER")
       * @param Request $request
       * @return JsonResponse
+      * *
       * @OA\Tag(name="Delivery Company Payments To Store")
+      *
       * @OA\Parameter(
       *      name="token",
       *      in="header",

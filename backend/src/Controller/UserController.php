@@ -26,13 +26,15 @@ class UserController extends BaseController
      * @return JsonResponse
       * *
       * @OA\Tag(name="Check User")
+      *
       * @OA\Parameter(
       *      name="token",
       *      in="header",
       *      description="token to be passed as a header",
       *      required=true
       * )
-      * * @OA\Parameter(
+      *
+      * @OA\Parameter(
       *      name="userType",
       *      in="path",
       *      description="ROLE_CLIENT or ROLE_CAPTAIN"

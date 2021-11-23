@@ -36,13 +36,16 @@ class StoreCategoryController extends BaseController
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
+     * *
      * @OA\Tag(name="Store Category")
+     *
      * @OA\Parameter(
      *      name="token",
      *      in="header",
      *      description="token to be passed as a header",
      *      required=true
      * )
+     *
      * @OA\RequestBody(
      *      description="Create new Store Category",
      *      @OA\JsonContent(
@@ -92,13 +95,16 @@ class StoreCategoryController extends BaseController
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
+     * *
      * @OA\Tag(name="Store Category")
+     *
      * @OA\Parameter(
      *      name="token",
      *      in="header",
      *      description="token to be passed as a header",
      *      required=true
      * )
+     *
      * @OA\RequestBody(
      *      description="Update Store Category if not have has store product category",
      *      @OA\JsonContent(
@@ -149,7 +155,7 @@ class StoreCategoryController extends BaseController
     /**
      * @Route("storecategories", name="getStoreCategories", methods={"GET"})
      * @return JsonResponse
-     *
+     **
      * @OA\Tag(name="Store Category")
      *
      * @OA\Response(
@@ -181,7 +187,9 @@ class StoreCategoryController extends BaseController
       * @Route("/storecategory/{id}", name="getStoreCategory", methods={"GET"})
       * @param Request $request
       * @return JsonResponse
+     * *
      * @OA\Tag(name="Store Category")
+     *
      * @OA\Response(
      *      response=200,
      *      description="Get Store Categories",
@@ -201,4 +209,63 @@ class StoreCategoryController extends BaseController
   
           return $this->response($result, self::FETCH);
       }
+
+
+    /**
+     * @Route("storecategoriesandstores", name="getStoreCategoriesAndLast15Stores", methods={"GET"})
+     * @return JsonResponse
+     * *
+     * @OA\Tag(name="Store Category")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Get Store Categories And Stores",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                 @OA\Property(type="array", property="categories",
+     *                  @OA\Items(
+     *                       @OA\Property(type="integer", property="id"),
+     *                       @OA\Property(type="string", property="storeCategoryName"),
+     *                       @OA\Property(type="object", property="image",
+     *                          @OA\Property(type="string", property="imageURL"),
+     *                          @OA\Property(type="string", property="image"),
+     *                          @OA\Property(type="string", property="baseURL"),
+     *                          ),
+     *                      ),
+     *                  ),
+     *                 @OA\Property(type="array", property="stores",
+     *                  @OA\Items(
+     *                       @OA\Property(type="integer", property="id"),
+     *                       @OA\Property(type="string", property="storeCategoryName"),
+     *                       @OA\Property(type="object", property="image",
+     *                          @OA\Property(type="string", property="imageURL"),
+     *                          @OA\Property(type="string", property="image"),
+     *                          @OA\Property(type="string", property="baseURL"),
+     *                          ),
+     *                       @OA\Property(type="string", property="phone"),
+     *                       @OA\Property(type="object", property="location"),
+     *                       @OA\Property(type="boolean", property="privateOrders"),
+     *                       @OA\Property(type="boolean", property="hasProducts"),
+     *                       @OA\Property(type="integer", property="storeCategoryId"),
+     *                       @OA\Property(type="string", property="rating"),
+     *                       @OA\Property(type="object", property="closingTime"),
+     *                       @OA\Property(type="object", property="openingTime"),
+     *                       @OA\Property(type="string", property="status"),
+     *
+     *                      ),
+     *                   ),
+     *                )
+     *             )
+     *          )
+     *       )
+     */
+    public function getStoreCategoriesAndStores(): JsonResponse
+    {
+        $result = $this->storeCategoryService->getStoreCategoriesAndStores();
+
+        return $this->response($result, self::FETCH);
+    }
 }

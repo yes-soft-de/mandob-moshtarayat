@@ -39,7 +39,8 @@ class StoreOwnerProfileController extends BaseController
      * @Route("storeownerregister", name="storeOwnerRegister", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
-     * @OA\Tag(name="user_register")
+     * *
+     * @OA\Tag(name="Store Owner Profile")
      *
      * @OA\RequestBody(
      *      description="Create new store owner",
@@ -148,12 +149,14 @@ class StoreOwnerProfileController extends BaseController
      * @return JsonResponse
      * *
      * @OA\Tag(name="Store Owner Profile")
+     *
      * @OA\Parameter(
      *      name="token",
      *      in="header",
      *      description="token to be passed as a header",
      *      required=true
      * )
+     *
      * @OA\RequestBody(
      *      description="Update Store Owner Profile",
      *      @OA\JsonContent(
@@ -252,12 +255,14 @@ class StoreOwnerProfileController extends BaseController
      * @return JsonResponse
      * *
      * @OA\Tag(name="Store Owner Profile")
+     *
      * @OA\Parameter(
      *      name="token",
      *      in="header",
      *      description="token to be passed as a header",
      *      required=true
      * )
+     *
      * @OA\RequestBody(
      *      description="Update Store Owner Status",
      *      @OA\JsonContent(
@@ -496,6 +501,7 @@ class StoreOwnerProfileController extends BaseController
      * @IsGranted("ROLE_OWNER")
      * @return JsonResponse
      * @OA\Tag(name="Store Owner Profile")
+     * *
      * @OA\Parameter(
      *      name="token",
      *      in="header",
@@ -538,7 +544,9 @@ class StoreOwnerProfileController extends BaseController
      * @Route("/storefinancialaccountforstoreinspecificdate/{fromDate}/{toDate}", name="storeFinancialAccountForStoreInSpecificDate",methods={"GET"})
      * @IsGranted("ROLE_OWNER")
      * @return JsonResponse
+     * *
      * @OA\Tag(name="Store Owner Profile")
+     *
      * @OA\Parameter(
      *      name="token",
      *      in="header",
@@ -581,7 +589,9 @@ class StoreOwnerProfileController extends BaseController
      * @Route("/storefinancialaccountforadmin/{storeOwnerProfileID}", name="storeFinancialAccountForAdmin",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
+     * *
      * @OA\Tag(name="Store Owner Profile")
+     *
      * @OA\Parameter(
      *      name="token",
      *      in="header",

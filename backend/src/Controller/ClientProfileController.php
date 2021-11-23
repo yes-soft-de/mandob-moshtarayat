@@ -36,6 +36,7 @@ class ClientProfileController extends BaseController
      * @Route("/clientregister", name="clientRegister", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
+      * *
       * @OA\Tag(name="Client")
       *
       * @OA\RequestBody(
@@ -90,13 +91,16 @@ class ClientProfileController extends BaseController
      * @IsGranted("ROLE_CLIENT")
      * @param Request $request
      * @return JsonResponse
+     * *
      * @OA\Tag(name="Client")
-     *@OA\Parameter(
+     *
+     * @OA\Parameter(
      *      name="token",
      *      in="header",
      *      description="token to be passed as a header",
      *      required=true
      * )
+     *
      * @OA\RequestBody(
      *      description="Create new Client",
      *      @OA\JsonContent(
@@ -144,12 +148,14 @@ class ClientProfileController extends BaseController
      * @return JsonResponse
      * *
      * @OA\Tag(name="Client")
-     *@OA\Parameter(
+     *
+     * @OA\Parameter(
      *      name="token",
      *      in="header",
      *      description="token to be passed as a header",
      *      required=true
      * )
+     *
      * @OA\Response(
      *      response=200,
      *      description="Returns Client Profile",
@@ -168,7 +174,7 @@ class ClientProfileController extends BaseController
      *                  @OA\Property(type="jsone", property="location"),
      *                  @OA\Property(type="array", property="favouriteCategories",
      *                      @OA\Items(),
-     *     ),
+     *              ),
      *          )
      *      )
      * )
@@ -187,12 +193,14 @@ class ClientProfileController extends BaseController
      * @return JsonResponse
      * *
      * @OA\Tag(name="Client")
-     *@OA\Parameter(
+     *
+     * @OA\Parameter(
      *      name="token",
      *      in="header",
      *      description="token to be passed as a header",
      *      required=true
      * )
+     *
      * @OA\Response(
      *      response=200,
      *      description="Returns Client Profile",
@@ -228,12 +236,14 @@ class ClientProfileController extends BaseController
      * @return JsonResponse
      * *
      * @OA\Tag(name="Client")
-     *@OA\Parameter(
+     *
+     * @OA\Parameter(
      *      name="token",
      *      in="header",
      *      description="token to be passed as a header",
      *      required=true
      * )
+     *
      * @OA\Response(
      *      response=200,
      *      description="Returns Client Profile",
@@ -277,12 +287,14 @@ class ClientProfileController extends BaseController
      * @IsGranted("ROLE_ADMIN")
      * *
      * @OA\Tag(name="Client")
-     *@OA\Parameter(
+     *
+     * @OA\Parameter(
      *      name="token",
      *      in="header",
      *      description="token to be passed as a header",
      *      required=true
      * )
+     *
      * @OA\Response(
      *      response=200,
      *      description="Returns Client Profile",
@@ -319,12 +331,14 @@ class ClientProfileController extends BaseController
      * @return JsonResponse
      * *
      * @OA\Tag(name="Client")
-     *@OA\Parameter(
+     *
+     * @OA\Parameter(
      *      name="token",
      *      in="header",
      *      description="token to be passed as a header",
      *      required=true
      * )
+     *
      * @OA\RequestBody(
      *      description="Update Client Favourite Categories",
      *      @OA\JsonContent(
@@ -342,7 +356,7 @@ class ClientProfileController extends BaseController
      *                  @OA\Property(type="integer", property="id"),
      *                  @OA\Property(type="array", property="favouriteCategories",
      *                        @OA\Items( ),
-     * ),
+     *              ),
      *          )
      *      )
      * )
@@ -359,5 +373,4 @@ class ClientProfileController extends BaseController
 
         return $this->response($response, self::UPDATE);
     }
-
 }

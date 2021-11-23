@@ -38,13 +38,16 @@ class StoreProductCategoryController extends BaseController
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
+     * *
      * @OA\Tag(name="Store Product Category")
+     *
      * @OA\Parameter(
      *      name="token",
      *      in="header",
      *      description="token to be passed as a header",
      *      required=true
      * )
+     *
      * @OA\RequestBody(
      *      description="Create Store Product Category Level One",
      *      @OA\JsonContent(
@@ -92,13 +95,16 @@ class StoreProductCategoryController extends BaseController
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
+     * *
      * @OA\Tag(name="Store Product Category")
+     *
      * @OA\Parameter(
      *      name="token",
      *      in="header",
      *      description="token to be passed as a header",
      *      required=true
      * )
+     *
      * @OA\RequestBody(
      *      description="Create Store Product Category Level Two",
      *      @OA\JsonContent(
@@ -145,13 +151,16 @@ class StoreProductCategoryController extends BaseController
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
+     * *
      * @OA\Tag(name="Store Product Category")
+     *
      * @OA\Parameter(
      *      name="token",
      *      in="header",
      *      description="token to be passed as a header",
      *      required=true
      * )
+     *
      * @OA\RequestBody(
      *      description="Update Store Product Category Level One",
      *      @OA\JsonContent(
@@ -201,13 +210,16 @@ class StoreProductCategoryController extends BaseController
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
+     * *
      * @OA\Tag(name="Store Product Category")
+     *
      * @OA\Parameter(
      *      name="token",
      *      in="header",
      *      description="token to be passed as a header",
      *      required=true
      * )
+     *
      * @OA\RequestBody(
      *      description="Update Store Product Category Level Two",
      *      @OA\JsonContent(
@@ -266,7 +278,7 @@ class StoreProductCategoryController extends BaseController
     /**
      * @Route("/storeproductscategorylevelone/{storeCategoryID}", name="getStoreProductsCategoryLevelOneByStoreCategoryID",methods={"GET"})
      * @return JsonResponse
-     * *  * *
+     * *
      * @OA\Tag(name="Store Product Category")
      *
      * @OA\Response(
@@ -301,13 +313,16 @@ class StoreProductCategoryController extends BaseController
      * @Route("/storeproductscategorylevelonefroadmin/{storeCategoryID}", name="getStoreProductsCategoryLevelOneByStoreCategoryIDForAdmin",methods={"GET"})
      * @return JsonResponse
      * @IsGranted("ROLE_ADMIN")
+     * *
      * @OA\Tag(name="Store Product Category")
+     *
      * @OA\Parameter(
      *      name="token",
      *      in="header",
      *      description="token to be passed as a header",
      *      required=true
      * )
+     *
      * @OA\Response(
      *      response=200,
      *      description="Returns array of categories level one for admin ",
@@ -339,7 +354,7 @@ class StoreProductCategoryController extends BaseController
     /**
      * @Route("/storeproductscategoryleveltwo/{storeProductCategoryID}", name="getStoreProductsCategoryLevelTwoByStoreProductCategoryID",methods={"GET"})
      * @return JsonResponse
-     *  * *
+     *  *
      * @OA\Tag(name="Store Product Category")
      *
      * @OA\Response(
@@ -373,14 +388,16 @@ class StoreProductCategoryController extends BaseController
     /**
      * @Route("/storeproductscategoryleveltwoforadmin/{storeProductCategoryID}", name="getStoreProductsCategoryLevelTwoByStoreProductCategoryIDForAdmin",methods={"GET"})
      * @return JsonResponse
-     *  * *
+     *  *
      * @OA\Tag(name="Store Product Category")
+     *
      * @OA\Parameter(
      *      name="token",
      *      in="header",
      *      description="token to be passed as a header",
      *      required=true
      * )
+     *
      * @OA\Response(
      *      response=200,
      *      description="Returns array of categories level two for admin ",
@@ -412,7 +429,9 @@ class StoreProductCategoryController extends BaseController
      /**
      * @Route("/subcategoriesbystorecategoryid/{storeCategoryID}", name="getSubCategoriesByStoreCategoryID",methods={"GET"})
      * @return JsonResponse
+      * *
       * @OA\Tag(name="Store Product Category")
+      *
       * @OA\Response(
       *      response=200,
       *      description="Returns SubCategories",
@@ -434,8 +453,9 @@ class StoreProductCategoryController extends BaseController
       *                 @OA\Property(type="string", property="productCategoryName"),
       *                 @OA\Property(type="boolean", property="isLevel2"),
       *                 @OA\Property(type="string", property="productCategoryImage"),
-      *             ))
-      * )
+      *                     )
+      *                 )
+      *             )
       *          )
       *      )
       * )
@@ -450,7 +470,8 @@ class StoreProductCategoryController extends BaseController
      /**
      * @Route("/storeproductscategoryleveltwoandstoreproduct", name="getStoreProductsCategoryLevelTwoAndStoreProductsByStoreOWnerProfile",methods={"GET"})
      * @return JsonResponse
-      *@IsGranted("ROLE_OWNER")
+     * @IsGranted("ROLE_OWNER")
+      * *
       * @OA\Tag(name="Store Product Category")
       *
       * @OA\Response(
@@ -501,9 +522,9 @@ class StoreProductCategoryController extends BaseController
      /**
      * @Route("/storeproductscategoriesandstoreproducts", name="getStoreProductsCategoriesAndStoreProductsByStoreOwnerProfile",methods={"GET"})
      * @return JsonResponse
-      *@IsGranted("ROLE_OWNER")
+     * @IsGranted("ROLE_OWNER")
       * @OA\Tag(name="Store Product Category")
-      *
+      * *
       * @OA\Response(
       *      response=200,
       *      description="Returns categories level one and two and products of store owner ",
@@ -563,7 +584,7 @@ class StoreProductCategoryController extends BaseController
     /**
      * @Route("storeproductscategoryleveltwowithproducts/{storeProductCategoryID}", name="getStoreProductsCategoryLevelTwoWithProductsByStoreProductCategoryID", methods={"GET"})
      * @return JsonResponse
-     *
+     * *
      * @OA\Tag(name="Store Product Category")
      *
      * @OA\Response(

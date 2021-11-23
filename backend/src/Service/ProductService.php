@@ -326,4 +326,18 @@ class ProductService
         }
     }
 
+    public function getLast30Products(): ?array
+    {
+        $response = [];
+        $items = $this->productManager->getLast30Products();
+        foreach ($items as $item) {
+            $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
+            $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
+            $item['soldCount'] = $this->getProductsSoldCount($item['id']);
+            $item['store'] = $this->storeOwnerProfileService->getStoreNameById($item['storeOwnerProfileID']);
+
+            $response[] = $this->autoMapping->map('array', ProductsByProductCategoryIdResponse::class, $item);
+        }
+        return $response;
+    }
 }

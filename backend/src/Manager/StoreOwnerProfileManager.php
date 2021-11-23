@@ -154,6 +154,11 @@ class StoreOwnerProfileManager
         return $this->storeOwnerProfileEntityRepository->storeOwnerProfileByRoomID($roomID);
     }
 
+    public function getLast15Stores()
+    {
+        return $this->storeOwnerProfileEntityRepository->getLast15Stores();
+    }
+
     public function getSumInvoicesForStore($storeOwnerProfileId)
     {
         return $this->orderManager->getSumInvoicesForStore($storeOwnerProfileId);

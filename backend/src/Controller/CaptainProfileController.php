@@ -38,6 +38,7 @@ class CaptainProfileController extends BaseController
      * @Route("/captainregister", name="captainRegister", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
+      * *
       * @OA\Tag(name="Captain Profile")
       *
       * @OA\RequestBody(
@@ -94,6 +95,7 @@ class CaptainProfileController extends BaseController
      * @IsGranted("ROLE_CAPTAIN")
      * @param Request $request
      * @return JsonResponse
+     * *
      * @OA\Tag(name="Captain Profile")
      * @OA\Parameter(
      *      name="token",
@@ -158,6 +160,7 @@ class CaptainProfileController extends BaseController
      * @IsGranted("ROLE_CAPTAIN")
      * @param Request $request
      * @return JsonResponse
+     * *
      * @OA\Tag(name="Captain Profile")
      * @OA\Parameter(
      *      name="token",
@@ -165,6 +168,7 @@ class CaptainProfileController extends BaseController
      *      description="token to be passed as a header",
      *      required=true
      * )
+     *
      * @OA\RequestBody(
      *      description="Update Location",
      *      @OA\JsonContent(
@@ -220,13 +224,16 @@ class CaptainProfileController extends BaseController
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
+     **
      * @OA\Tag(name="Captain Profile")
+     *
      * @OA\Parameter(
      *      name="token",
      *      in="header",
      *      description="token to be passed as a header",
      *      required=true
      * )
+     *
      * @OA\RequestBody(
      *      description="Update Captain Profile By Admin",
      *      @OA\JsonContent(
@@ -286,7 +293,9 @@ class CaptainProfileController extends BaseController
      * @Route("/captainprofile", name="getCaptainprofileByCaptainID",methods={"GET"})
      * @IsGranted("ROLE_CAPTAIN")
      *  @return JsonResponse
+     * *
      * @OA\Tag(name="Captain Profile")
+     *
      * @OA\Parameter(
      *      name="token",
      *      in="header",
@@ -323,7 +332,7 @@ class CaptainProfileController extends BaseController
      *              @OA\Property(type="string", property="mechanicLicense"),
      *              @OA\Property(type="string", property="identity"),
      *              @OA\Property(type="object", property="createDate"),
-*)
+     *               )
      *          )
      *      )
      * )
@@ -341,6 +350,51 @@ class CaptainProfileController extends BaseController
      * @IsGranted("ROLE_ADMIN")
      * @param $captainID
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Captain Profile")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns captain profile for admin",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="string", property="id"),
+     *              @OA\Property(type="string", property="captainID"),
+     *              @OA\Property(type="string", property="captainName"),
+     *              @OA\Property(type="object", property="location"),
+     *              @OA\Property(type="integer", property="age"),
+     *              @OA\Property(type="string", property="car"),
+     *              @OA\Property(type="string", property="drivingLicence"),
+     *              @OA\Property(type="string", property="drivingLicenceURL"),
+     *              @OA\Property(type="integer", property="salary"),
+     *              @OA\Property(type="string", property="status"),
+     *              @OA\Property(type="string", property="rating"),
+     *              @OA\Property(type="string", property="image"),
+     *              @OA\Property(type="string", property="imageURL"),
+     *              @OA\Property(type="string", property="baseURL"),
+     *              @OA\Property(type="string", property="phone"),
+     *              @OA\Property(type="string", property="isOnline"),
+     *              @OA\Property(type="string", property="bankName"),
+     *              @OA\Property(type="string", property="bankAccountNumber"),
+     *              @OA\Property(type="string", property="stcPay"),
+     *              @OA\Property(type="string", property="vacationStatus"),
+     *              @OA\Property(type="string", property="mechanicLicense"),
+     *              @OA\Property(type="string", property="identity"),
+     *              @OA\Property(type="object", property="createDate"),
+     *               )
+     *          )
+     *      )
+     * )
+     * @Security(name="Bearer")
      */
     public function getCaptainProfileByCaptainIDForAdmin($captainID): JsonResponse
     {

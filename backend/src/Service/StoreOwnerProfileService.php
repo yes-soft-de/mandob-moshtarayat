@@ -15,6 +15,7 @@ use App\Request\UserRegisterRequest;
 use App\Response\CaptainIsActiveResponse;
 use App\Response\StoreFinancialAccountForStoreResponse;
 use App\Response\StoreNameResponse;
+use App\Response\StoreOwnerLast15Response;
 use App\Response\StoreOwnerProfileCreateResponse;
 use App\Response\StoreOwnerProfileResponse;
 use App\Response\StoreOwnerByCategoryIdResponse;
@@ -22,6 +23,7 @@ use App\Response\StoresFilterByNameResponse;
 use App\Response\UserRegisterResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use App\Service\DeliveryCompanyPaymentsToStoreService;
+use App\Service\RatingService;
 
 class StoreOwnerProfileService
 {
@@ -276,5 +278,17 @@ class StoreOwnerProfileService
         $item['total'] = $item['sumPaymentsToStore'] - $item['amountOwedToStore'];
         $item['paymentsToStore'] = $this->deliveryCompanyPaymentsToStoreService->deliveryCompanyPaymentsToStore($storeOwnerProfileId);
         return $this->autoMapping->map('array',StoreFinancialAccountForStoreResponse::class, $item);
+    }
+
+    public function getLast15Stores(): array
+    {
+        $response = [];
+        $items = $this->storeOwnerProfileManager->getLast15Stores();
+        foreach ($items as $item) {
+            $item['image'] = $this->getImageParams($item['image'], $this->params.$item['image'], $this->params);
+            $item['rating'] = $this->ratingService->getAvgRating( $item['id'], 'store');
+            $response[] = $this->autoMapping->map('array', StoreOwnerLast15Response::class, $item);
+        }
+        return $response;
     }
 }
