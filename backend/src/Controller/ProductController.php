@@ -326,6 +326,7 @@ class ProductController extends BaseController
      *      description="token to be passed as a header",
      *      required=true
      * )
+     *
      * @OA\RequestBody(
      *      description="Create New Product",
      *      @OA\JsonContent(
@@ -386,20 +387,21 @@ class ProductController extends BaseController
      * @return JsonResponse
      * *
      * @OA\Tag(name="Product")
-     *@OA\Parameter(
+     *
+     * @OA\Parameter(
      *      name="token",
      *      in="header",
      *      description="token to be passed as a header",
      *      required=true
      * )
+     *
      * @OA\RequestBody(
      *      description="Update Product",
      *      @OA\JsonContent(
      *          @OA\Property(type="integer", property="id"),
      *          @OA\Property(type="string", property="productName"),
      *          @OA\Property(type="string", property="productImage"),
-     *          @OA\Property(type="number", property="productPrice"),     *
-     *          @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *          @OA\Property(type="number", property="productPrice"),
      *          @OA\Property(type="integer", property="storeProductCategoryID"),
      *          @OA\Property(type="integer", property="discount"),
      *          @OA\Property(type="string", property="description"),
@@ -449,6 +451,7 @@ class ProductController extends BaseController
     /**
      * @Route("/productsbystorecategory/{storeCategoryID}", name="getProductsByStoreCategoryID", methods={"GET"})
      * @return JsonResponse
+     * *
      * @OA\Tag(name="Product")
      *
      * @OA\Response(
@@ -498,7 +501,8 @@ class ProductController extends BaseController
      * @return JsonResponse
      * *
      * @OA\Tag(name="Product")
-     *@OA\Parameter(
+     *
+     * @OA\Parameter(
      *      name="token",
      *      in="header",
      *      description="token to be passed as a header",
@@ -544,10 +548,10 @@ class ProductController extends BaseController
         return $this->response($result, self::UPDATE);
     }
 
-
     /**
      * @Route("/productssimilar/{storeProductCategoryID}", name="getSimilarProductsByStoreProductCategoryIdOfLevelTwo", methods={"GET"})
      * @return JsonResponse
+     * *
      * @OA\Tag(name="Product")
      *
      * @OA\Response(
@@ -594,7 +598,7 @@ class ProductController extends BaseController
      * @Route("product/{id}", name="deleteProductByID", methods={"DELETE"})
      * @param Request $request
      * @return JsonResponse
-     *
+     **
      * @OA\Tag(name="Product")
      *
      * @OA\Response(
@@ -629,6 +633,7 @@ class ProductController extends BaseController
     /**
      * @Route("/productslast30", name="getLast30Products", methods={"GET"})
      * @return JsonResponse
+     * *
      * @OA\Tag(name="Product")
      *
      * @OA\Response(

@@ -37,12 +37,14 @@ class DeliveryCompanyProfileController extends BaseController
      * @return JsonResponse
      * *
      * @OA\Tag(name="Company Info")
-     *@OA\Parameter(
+     *
+     * @OA\Parameter(
      *      name="token",
      *      in="header",
      *      description="token to be passed as a header",
      *      required=true
      * )
+     *
      * @OA\RequestBody(
      *      description="Create Company Info",
      *      @OA\JsonContent(
@@ -105,12 +107,14 @@ class DeliveryCompanyProfileController extends BaseController
      * @return JsonResponse
       * *
       * @OA\Tag(name="Company Info")
-      *@OA\Parameter(
+      *
+      * @OA\Parameter(
       *      name="token",
       *      in="header",
       *      description="token to be passed as a header",
       *      required=true
       * )
+      *
       * @OA\RequestBody(
       *      description="Update Company Info",
       *      @OA\JsonContent(
@@ -179,6 +183,7 @@ class DeliveryCompanyProfileController extends BaseController
      /**
      * @Route("companyinfoall", name="getcompanyinfoAll", methods={"GET"})
      * @return JsonResponse
+      * *
       * @OA\Tag(name="Company Info")
       *
       * @OA\Response(

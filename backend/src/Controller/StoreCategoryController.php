@@ -36,13 +36,16 @@ class StoreCategoryController extends BaseController
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
+     * *
      * @OA\Tag(name="Store Category")
+     *
      * @OA\Parameter(
      *      name="token",
      *      in="header",
      *      description="token to be passed as a header",
      *      required=true
      * )
+     *
      * @OA\RequestBody(
      *      description="Create new Store Category",
      *      @OA\JsonContent(
@@ -92,13 +95,16 @@ class StoreCategoryController extends BaseController
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
+     * *
      * @OA\Tag(name="Store Category")
+     *
      * @OA\Parameter(
      *      name="token",
      *      in="header",
      *      description="token to be passed as a header",
      *      required=true
      * )
+     *
      * @OA\RequestBody(
      *      description="Update Store Category if not have has store product category",
      *      @OA\JsonContent(
@@ -149,7 +155,7 @@ class StoreCategoryController extends BaseController
     /**
      * @Route("storecategories", name="getStoreCategories", methods={"GET"})
      * @return JsonResponse
-     *
+     **
      * @OA\Tag(name="Store Category")
      *
      * @OA\Response(
@@ -181,7 +187,9 @@ class StoreCategoryController extends BaseController
       * @Route("/storecategory/{id}", name="getStoreCategory", methods={"GET"})
       * @param Request $request
       * @return JsonResponse
+     * *
      * @OA\Tag(name="Store Category")
+     *
      * @OA\Response(
      *      response=200,
      *      description="Get Store Categories",
@@ -206,7 +214,7 @@ class StoreCategoryController extends BaseController
     /**
      * @Route("storecategoriesandstores", name="getStoreCategoriesAndLast15Stores", methods={"GET"})
      * @return JsonResponse
-     *
+     * *
      * @OA\Tag(name="Store Category")
      *
      * @OA\Response(
