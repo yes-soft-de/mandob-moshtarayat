@@ -265,4 +265,21 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function getLast15Stores()
+    {
+        return $this->createQueryBuilder('profile')
+            ->select('profile.id', 'profile.storeOwnerName', 'profile.image', 'profile.story', 'profile.free', 'profile.status', 'profile.phone', 'profile.privateOrders', 'profile.hasProducts', 'profile.openingTime', 'profile.closingTime', 'profile.storeCategoryId')
+            ->addSelect('StoreOwnerBranchEntity.location')
+
+            ->leftJoin(StoreOwnerBranchEntity::class, 'StoreOwnerBranchEntity', Join::WITH, 'StoreOwnerBranchEntity.storeOwnerProfileID = profile.id ')
+
+            ->andWhere('profile.status = :active')
+            ->setParameter('active','active')
+
+            ->addOrderBy('profile.id','DESC')
+            ->setMaxResults(15)
+            ->getQuery()
+            ->getResult();
+    }
 }

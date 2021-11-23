@@ -6,22 +6,25 @@ use App\AutoMapping;
 use App\Entity\StoreCategoryEntity;
 use App\Manager\StoreCategoryManager;
 use App\Request\StoreCategoryCreateRequest;
+use App\Response\StoreCategoriesAndStoresResponse;
 use App\Response\StoreCategoryCreateResponse;
 use App\Response\StoreCategoryByIdResponse;
 use App\Response\StoreCategoryGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-
+use App\Service\StoreOwnerProfileService;
 
 class StoreCategoryService
 {
     private $autoMapping;
     private $storeCategoryManager;
     private $params;
+    private $storeOwnerProfileService;
 
-    public function __construct(AutoMapping $autoMapping, StoreCategoryManager $storeCategoryManager, ParameterBagInterface $params)
+    public function __construct(AutoMapping $autoMapping, StoreCategoryManager $storeCategoryManager, ParameterBagInterface $params, StoreOwnerProfileService $storeOwnerProfileService)
     {
         $this->autoMapping = $autoMapping;
         $this->storeCategoryManager = $storeCategoryManager;
+        $this->storeOwnerProfileService = $storeOwnerProfileService;
         $this->params = $params->get('upload_base_url') . '/';
     }
 
@@ -71,5 +74,17 @@ class StoreCategoryService
         $item['baseURL'] = $baseURL;
 
         return $item;
+    }
+
+    public function getStoreCategoriesAndStores(): array
+    {
+        $response = [];
+
+        $item['categories'] = $this->getStoreCategories();
+        $item['stores'] = $this->storeOwnerProfileService->getLast15Stores();
+
+        $response[]=  $this->autoMapping->map("array", StoreCategoriesAndStoresResponse::class, $item);
+
+        return $response;
     }
 }
