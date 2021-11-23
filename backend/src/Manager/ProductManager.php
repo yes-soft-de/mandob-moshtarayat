@@ -200,4 +200,10 @@ class ProductManager
             return $productEntity;
         }
     }
+
+    public function getLast30Products()
+    {
+        return $this->productEntityRepository->getLast30Products();
+    }
+
 }

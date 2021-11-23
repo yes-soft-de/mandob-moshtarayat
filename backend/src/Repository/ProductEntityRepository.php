@@ -308,4 +308,17 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
+    public function getLast30Products()
+    {
+        return $this->createQueryBuilder('product')
+            ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount','product.description','product.status')
+
+            ->andWhere('product.status = :active')
+            ->setParameter('active','active')
+
+            ->addOrderBy('product.id','DESC')
+            ->setMaxResults(30)
+            ->getQuery()
+            ->getResult();
+    }
 }
