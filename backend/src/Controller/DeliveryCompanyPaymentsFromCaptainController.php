@@ -37,12 +37,14 @@ class DeliveryCompanyPaymentsFromCaptainController extends BaseController
      * @return JsonResponse
      * *
      * @OA\Tag(name="Delivery Company Payment From Captain")
+     *
      * @OA\Parameter(
      *      name="token",
      *      in="header",
      *      description="token to be passed as a header",
      *      required=true
      * )
+     *
      * @OA\RequestBody(
      *      description="Create Delivery Company Payment From Captain",
      *      @OA\JsonContent(
@@ -94,6 +96,7 @@ class DeliveryCompanyPaymentsFromCaptainController extends BaseController
       * @return JsonResponse
       * *
       * @OA\Tag(name="Delivery Company Payment From Captain")
+      *
       * @OA\Parameter(
       *      name="token",
       *      in="header",
