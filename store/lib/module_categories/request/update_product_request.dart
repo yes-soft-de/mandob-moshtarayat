@@ -2,6 +2,7 @@ class UpdateProductRequest {
   int? id;
   String? productName;
   String? productImage;
+  num? discount;
   double? productPrice;
   int? storeOwnerProfileID;
   int? storeProductCategoryID;
@@ -10,7 +11,8 @@ class UpdateProductRequest {
       this.id, 
       this.productName, 
       this.productImage, 
-      this.productPrice, 
+      this.productPrice,
+      this.discount,
       this.storeOwnerProfileID, 
       this.storeProductCategoryID});
 
@@ -29,6 +31,7 @@ class UpdateProductRequest {
     map['productName'] = productName;
     map['productImage'] = productImage;
     map['productPrice'] = productPrice;
+    map['discount'] = discount;
     map['storeOwnerProfileID'] = storeOwnerProfileID;
     map['storeProductCategoryID'] = storeProductCategoryID;
     return map;

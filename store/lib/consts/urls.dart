@@ -56,7 +56,7 @@ class Urls {
   static const UPDATE_STORE_CATEGORY = BASE_API + '/updateStorecategory';
   static const UPDATE_STORE = BASE_API + '/storeownerprofileupdatebyadmin';
   static const UPDATE_PRODUCT_CATEGORY = BASE_API + '/storeProductCategory';
-  static const UPDATE_PRODUCT = BASE_API + '/updateProductByAdmin';
+  static const UPDATE_PRODUCT = BASE_API + '/updateproductbystore';
   static const GET_PROFILE_COMPANY = BASE_API + '/companyinfoall';
   static const GET_FINANCIAL_COMPANY = BASE_API + '/financialCompensations';
   static const UPDATE_FINANCIAL_COMPANY = BASE_API + '/financialCompensation';

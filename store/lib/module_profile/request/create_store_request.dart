@@ -1,6 +1,3 @@
-
-import 'package:mandob_moshtarayat/module_init/request/create_captain_profile/create_captain_profile_request.dart';
-
 class CreateStoreRequest {
   String? storeOwnerName;
   String? image;
@@ -40,7 +37,7 @@ class CreateStoreRequest {
     var map = <String, dynamic>{};
     map['storeOwnerName'] = storeOwnerName;
     map['phone'] = phone;
-//    map['deliveryCost'] = deliveryCost;
+    map['branchName'] = 'default';
     map['image'] = image;
     map['storeCategoryId'] = storeCategoryId;
     map['privateOrders'] = privateOrders;
@@ -52,4 +49,24 @@ class CreateStoreRequest {
     return map;
   }
 
+}
+class GeoJson {
+  num? lat;
+  num? long;
+
+  GeoJson({this.lat, this.long});
+
+  GeoJson.fromJson(dynamic json) {
+    lat = json['lat'];
+    long = json['lon'];
+  }
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> data = {};
+
+    data['lat'] = lat;
+    data['lon'] = long;
+
+    return data;
+  }
 }

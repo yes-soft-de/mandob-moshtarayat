@@ -258,48 +258,48 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
                     ),
                   ],
                 ),
-                Container()
-//                InkWell(
-//                  customBorder: CircleBorder(),
-//                  onTap: (){
-//                    showDialog(context: screenState.context, builder:(context){
-//                      return UpdateProductsForm(
-//                        request: UpdateProductRequest(
-//                            productName: element.productName,
-//                            productImage: element.productImage.image??'',
-//                            productPrice: element.productPrice.toDouble()
-//                        ),
-//                        addProduct: (name,price,image){
-//                          Navigator.of(context).pop();
-//                          screenState.updateProduct(UpdateProductRequest(
-//                            id: element.id,
-//                            productName: name,
-//                            productImage: image,
-//                            productPrice:double.parse(price),
-//                            storeProductCategoryID:element.storeProductCategoryID,
-//                            // storeOwnerProfileID: element.storeOwnerProfileID
-//                          ));
-//                        },
-//                      );
-//                    });
-//                  },
-//                  child: Padding(
-//                    padding: const EdgeInsets.all(16.0),
-//                    child: Container(
-//                      decoration: BoxDecoration(
-//                        shape: BoxShape.circle,
-//                        color: Theme.of(screenState.context).backgroundColor.withOpacity(0.2),
-//                      ),
-//                      child: Padding(
-//                        padding: const EdgeInsets.all(8.0),
-//                        child: Icon(
-//                          Icons.edit,
-//                          color: Colors.white,
-//                        ),
-//                      ),
-//                    ),
-//                  ),
-//                ),
+                InkWell(
+                  customBorder: CircleBorder(),
+                  onTap: (){
+                    showDialog(context: screenState.context, builder:(context){
+                      return UpdateProductsForm(
+                        request: UpdateProductRequest(
+                            productName: element.productName,
+                            productImage: element.productImage.image??'',
+                            productPrice: element.productPrice.toDouble()
+                        ),
+                        addProduct: (name,price,image,discount){
+                          Navigator.of(context).pop();
+                          screenState.updateProduct(UpdateProductRequest(
+                            id: element.id,
+                            productName: name,
+                            productImage: image,
+                            discount: double.parse(discount),
+                            productPrice:double.parse(price),
+                            storeProductCategoryID:element.storeProductCategoryID,
+                            // storeOwnerProfileID: element.storeOwnerProfileID
+                          ),categoriesOne??[],categoriesTwo??[]);
+                        },
+                      );
+                    });
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Theme.of(screenState.context).backgroundColor.withOpacity(0.2),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          Icons.edit,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

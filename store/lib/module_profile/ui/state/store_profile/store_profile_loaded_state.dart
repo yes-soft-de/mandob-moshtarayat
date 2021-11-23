@@ -1,9 +1,12 @@
 import 'package:mandob_moshtarayat/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_profile/model/store_profile_model.dart';
+import 'package:mandob_moshtarayat/module_profile/request/create_store_request.dart';
 import 'package:mandob_moshtarayat/module_profile/ui/screen/store_info_screen.dart';
 
 import 'package:flutter/material.dart';
+import 'package:mandob_moshtarayat/module_profile/ui/widget/add_store_widget.dart';
+import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_list_view.dart';
 import 'package:mandob_moshtarayat/utils/components/empty_screen.dart';
 import 'package:mandob_moshtarayat/utils/components/error_screen.dart';
@@ -36,8 +39,8 @@ class StoreProfileLoadedState extends States {
             screenState.getStore(screenState.model?.id ?? -1);
           });
     }
-    print("ruuunnn");
-    print(profile?.image.image);
+    print(profile!.closingTime);
+    print(DateTime.now().toString());
     return FixedContainer(
         child: CustomListView.custom(children: [
       Container(
@@ -56,12 +59,84 @@ class StoreProfileLoadedState extends States {
           padding:
               const EdgeInsets.only(top: 16.0, bottom: 16, left: 8, right: 8),
           child: Center(
-            child: Text(
-              S.current.storeInfo,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).disabledColor,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Container(),
+                Text(
+                  S.current.storeInfo,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).disabledColor,
+                  ),
+                ),
+                            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: InkWell(
+                customBorder: CircleBorder(),
+                onTap: () {
+                  showDialog(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (context) {
+                        return Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height,
+                          child: Scaffold(
+                            appBar: CustomMandopAppBar.appBar(context,
+                                title: S.current.updateStore),
+                            backgroundColor:
+                            Theme.of(context).scaffoldBackgroundColor,
+                            body: UpdateStoreWidget(
+                              request: CreateStoreRequest(
+                                  storeCategoryId: profile!.storeCategoryId,
+                                  storeOwnerName: profile!.storeOwnerName,
+                                  hasProducts: profile!.hasProducts ? 1 : 0,
+                                  privateOrders: profile!.privateOrders ? 1 : 0,
+                                  image: profile!.image.image,
+                                  phone: profile!.phone,
+                                  openingTime:null ,
+                                  closingTime:null,
+                              ),
+                              updateStore:
+                                  (name,phone,image,products, privateOrder,open,close,status) {
+                                Navigator.of(context).pop();
+                                screenState.updateStore(CreateStoreRequest(
+                                  status: status,
+                                  storeOwnerName: name,
+                                  storeCategoryId: profile!.storeCategoryId,
+                                  image: image,
+                                  hasProducts: products ? 1 : 0,
+                                  privateOrders: privateOrder ? 1 : 0,
+                                  openingTime: open,
+                                  closingTime: close,
+                                  phone: phone,
+                                  location: GeoJson(lat: 2215,long: 5641)
+
+                                ));
+                              },
+                            ),
+                          ),
+                        );
+                      });
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Theme
+                          .of(context)
+                          .primaryColor,
+                      shape: BoxShape.circle),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      Icons.edit,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
               ),
+            ),
+              ],
             ),
           ),
         ),

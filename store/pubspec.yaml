@@ -118,6 +118,7 @@ dependencies:
   pinch_zoom: ^1.0.0
   fl_chart: ^0.40.0
   titled_navigation_bar: ^5.0.0-nullsafety.0
+  is_first_run: ^1.0.0
 
 
 dev_dependencies:

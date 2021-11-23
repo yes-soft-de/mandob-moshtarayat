@@ -34,6 +34,7 @@ class _AddProductsFormState extends State<AddProductsForm> {
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _discountController = TextEditingController();
   String? imagePath;
+  final ImagePicker _imagePicker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
@@ -104,15 +105,7 @@ class _AddProductsFormState extends State<AddProductsForm> {
                   SizedBox(height:32),
                   InkWell(
                     onTap: () {
-                      ImagePicker.platform
-                          .getImage(source: ImageSource.gallery, imageQuality: 70)
-                          .then((value) {
-                        if (value != null) {
-                          imagePath = value.path;
-                          setState(() {
-                          });
-                        }
-                      });
+                      _showPicker(context);
                     },
                     child: Checked(
                       child: Icon(
@@ -146,10 +139,60 @@ class _AddProductsFormState extends State<AddProductsForm> {
           }),
     );
   }
+
+
+  void _openCamera() async {
+
+    _imagePicker.getImage(source: ImageSource.camera ,imageQuality: 70).then((value){
+     if(value != null)
+      setState(() {
+        imagePath = value.path;
+      });
+    });
+  }
+  void _openGallery() async {
+
+    _imagePicker.getImage(source: ImageSource.gallery ,imageQuality: 70).then((value){
+      if(value != null)
+        setState(() {
+          imagePath = value.path;
+        });
+    });
+  }
+  void _showPicker(context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return SafeArea(
+            child: Container(
+              child: new Wrap(
+                children: <Widget>[
+                  new ListTile(
+                      leading: new Icon(Icons.photo_library),
+                      title: new Text(S.of(context).gallery),
+                      onTap: () {
+                        _openGallery();
+                        Navigator.of(context).pop();
+                      }),
+                  new ListTile(
+                    leading: new Icon(Icons.photo_camera),
+                    title: new Text(S.of(context).camera),
+                    onTap: () {
+                      _openCamera();
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+    );
+  }
 }
 
 class UpdateProductsForm extends StatefulWidget {
-  final Function(String,String,String) addProduct;
+  final Function(String,String,String,String) addProduct;
   final UpdateProductRequest? request;
   UpdateProductsForm({required this.addProduct,this.request});
   @override
@@ -161,7 +204,9 @@ class _UpdateProductsFormState extends State<UpdateProductsForm> {
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
  final TextEditingController _priceController = TextEditingController();
+ final TextEditingController _discountController = TextEditingController();
   String? imagePath;
+  final ImagePicker _imagePicker = ImagePicker();
 
 
   @override
@@ -170,10 +215,58 @@ class _UpdateProductsFormState extends State<UpdateProductsForm> {
       _nameController.text = widget.request?.productName ?? '';
       imagePath = widget.request?.productImage;
       _priceController.text = widget.request?.productPrice?.toString() ?? '0';
+      _discountController.text = widget.request?.discount?.toString() ?? '0';
     }
     super.initState();
   }
+  void _openCamera() async {
 
+    _imagePicker.getImage(source: ImageSource.camera ,imageQuality: 70).then((value){
+      if(value != null)
+        setState(() {
+          imagePath = value.path;
+        });
+    });
+  }
+  void _openGallery() async {
+
+    _imagePicker.getImage(source: ImageSource.gallery ,imageQuality: 70).then((value){
+      if(value != null)
+        setState(() {
+          imagePath = value.path;
+        });
+    });
+  }
+  void _showPicker(context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return SafeArea(
+            child: Container(
+              child: new Wrap(
+                children: <Widget>[
+                  new ListTile(
+                      leading: new Icon(Icons.photo_library),
+                      title: new Text(S.of(context).gallery),
+                      onTap: () {
+                        _openGallery();
+                        Navigator.of(context).pop();
+                      }),
+                  new ListTile(
+                    leading: new Icon(Icons.photo_camera),
+                    title: new Text(S.of(context).camera),
+                    onTap: () {
+                      _openCamera();
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -201,18 +294,21 @@ class _UpdateProductsFormState extends State<UpdateProductsForm> {
                     hintText: S.current.productPrice,
                     numbers: true,
                   ),
+
+                  Padding(
+                    padding: const EdgeInsets.only(left: 12.0,bottom: 8,right: 12,top: 16.0),
+                    child: Text(S.current.discount,style: TextStyle(fontWeight: FontWeight.bold),textAlign: TextAlign.start,),
+                  ),
+                  CustomFormField(
+                    controller: _discountController,
+                    hintText: S.current.discount,
+                    numbers: true,
+                  ),
+
                   SizedBox(height:32),
                   InkWell(
                     onTap: () {
-                      ImagePicker.platform
-                          .getImage(source: ImageSource.gallery, imageQuality: 70)
-                          .then((value) {
-                        if (value != null) {
-                          imagePath = value.path;
-                          setState(() {
-                          });
-                        }
-                      });
+                      _showPicker(context);
                     },
                     child: Checked(
                       child: Icon(
@@ -236,7 +332,10 @@ class _UpdateProductsFormState extends State<UpdateProductsForm> {
           label: S.current.save,
           onTap: () {
             if (_key.currentState!.validate() && imagePath != null) {
-              widget.addProduct(_nameController.text,_priceController.text,imagePath!);
+             if(imagePath!=null && imagePath!.contains('http')){
+               imagePath = imagePath!.split('upload/').last;
+             }
+              widget.addProduct(_nameController.text,_priceController.text,imagePath!,_discountController.text);
             } else {
               CustomFlushBarHelper.createError(
                   title: S.current.warnning,
@@ -247,3 +346,5 @@ class _UpdateProductsFormState extends State<UpdateProductsForm> {
     );
   }
 }
+
+

@@ -57,4 +57,49 @@ class _SplashScreenState extends State<SplashScreen> {
     }
     return AuthorizationRoutes.LOGIN_SCREEN;
   }
+
+
+//  _showAlertDialog() {
+//    return showDialog<void>(
+//      context: context,
+//      barrierDismissible: false, // user must tap button!
+//      builder: (BuildContext context) {
+//        return    AlertDialog(
+//          title: Text(S.of(context).language , textAlign: TextAlign.center,),
+//          content: Row(
+//            mainAxisAlignment: MainAxisAlignment.center,
+//            children: [
+//              CustomAppButton(
+//                elevation: 0,
+//                color: Colors.white,
+//                onTap: (){
+//                  if(dataStore.lang == "en"){
+//                    genBloc.f_changeLang("ar");
+//                    Navigator.of(context).pop(true);
+//                  }
+//                },
+//                child: Text(AppLocalizations.of(context).trans("arabic"),style: AppTextStyle.normalBlackBold.copyWith(
+//                    color: dataStore.lang == 'ar'? AppColors.black : AppColors.gray194
+//                ),),
+//              ),
+//              SizedBox(width: 16,),
+//              CustomAppButton(
+//                elevation: 0,
+//                color: AppColors.white,
+//                onTap: (){
+//                  if(dataStore.lang == "ar"){
+//                    genBloc.f_changeLang("en");
+//                    Navigator.of(context).pop(true);
+//                  }
+//                },
+//                child: Text(AppLocalizations.of(context).trans("english"),style: AppTextStyle.normalBlackBold.copyWith(
+//                    color: dataStore.lang == 'en'? AppColors.black : AppColors.gray194
+//                ),),
+//              ),
+//            ],
+//          ),
+//        );
+//      },
+//    );
+//  }
 }

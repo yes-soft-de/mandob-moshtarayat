@@ -7,7 +7,6 @@ import 'package:mandob_moshtarayat/module_categories/request/create_store_catego
 import 'package:mandob_moshtarayat/module_categories/request/store_categories_request.dart';
 import 'package:mandob_moshtarayat/module_categories/request/update_product_category_request.dart';
 import 'package:mandob_moshtarayat/module_categories/request/update_product_request.dart';
-import 'package:mandob_moshtarayat/module_categories/request/update_store_request.dart';
 import 'package:mandob_moshtarayat/module_categories/response/products_category_response.dart';
 import 'package:mandob_moshtarayat/module_categories/response/response.dart';
 import 'package:mandob_moshtarayat/module_categories/response/store_categories_response.dart';
@@ -37,7 +36,6 @@ class CategoriesManager {
 
   Future<ActionResponse?> updateStoreCategories(UpdateStoreCategoriesRequest request) => _categoriesRepository.updateStoreCategories(request);
 
-  Future<ActionResponse?> updateStore(UpdateStoreRequest request) => _categoriesRepository.updateStore(request);
   Future<ActionResponse?> updateProductCategory(UpdateProductCategoryRequest request) => _categoriesRepository.updateProductCategory(request);
 
   Future<ActionResponse?> updateProduct(UpdateProductRequest request) => _categoriesRepository.updateProduct(request);
