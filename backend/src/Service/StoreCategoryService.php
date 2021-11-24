@@ -76,14 +76,14 @@ class StoreCategoryService
         return $item;
     }
 
-    public function getStoreCategoriesAndStores(): array
+    public function getStoreCategoriesAndStores()
     {
         $response = [];
 
         $item['categories'] = $this->getStoreCategories();
         $item['stores'] = $this->storeOwnerProfileService->getLast15Stores();
 
-        $response[]=  $this->autoMapping->map("array", StoreCategoriesAndStoresResponse::class, $item);
+        $response=  $this->autoMapping->map("array", StoreCategoriesAndStoresResponse::class, $item);
 
         return $response;
     }
