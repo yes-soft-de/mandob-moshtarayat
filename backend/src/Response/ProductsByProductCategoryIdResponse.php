@@ -10,6 +10,8 @@ class ProductsByProductCategoryIdResponse
 
     public $productPrice;
 
+    public $productQuantity;
+
     public $storeOwnerProfileID;
 
     public $storeProductCategoryID;
@@ -27,4 +29,5 @@ class ProductsByProductCategoryIdResponse
     public $status;
 
     public $store;
+
 }

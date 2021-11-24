@@ -20,6 +20,8 @@ class ProductCreateRequest
 
     private $status;
 
+    private $productQuantity;
+
     /**
      * @return mixed
      */

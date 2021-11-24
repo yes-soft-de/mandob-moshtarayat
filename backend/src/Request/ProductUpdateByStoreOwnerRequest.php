@@ -18,25 +18,7 @@ class ProductUpdateByStoreOwnerRequest
 
     private $description;
 
-    /**
-     * Get the value of ProductCategoryID
-     */
-    public function getProductCategoryID()
-    {
-        return $this->ProductCategoryID;
-    }
-
-    /**
-     * Set the value of ProductCategoryID
-     *
-     * @return  self
-     */
-    public function setProductCategoryID($ProductCategoryID)
-    {
-        $this->ProductCategoryID = $ProductCategoryID;
-
-        return $this;
-    }
+    private $productQuantity;
 
     /**
      * Get the value of id
@@ -45,4 +27,5 @@ class ProductUpdateByStoreOwnerRequest
     {
         return $this->id;
     }
+
 }
