@@ -97,13 +97,24 @@ class StoreProductCategoryService
 
     public function getStoreProductsCategoryLevelOneByStoreCategoryIDFroAdmin($storeCategoryID)
     {
-        $response = [];
+       $response = [];
+
        $items = $this->storeProductCategoryManager->getSubCategoriesByStoreCategoryID($storeCategoryID);
-       foreach($items as $item) {
-           $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params.$item['productCategoryImage'], $this->params);
+
+       foreach($items as $item)
+       {
+           if($item['productCategoryImage'])
+           {
+               $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params . $item['productCategoryImage'], $this->params);
+           }
+           else
+           {
+               $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $item['productCategoryImage'], $this->params);
+           }
 
            $response[] = $this->autoMapping->map('array', StoreProductsCategoryResponse::class, $item);
-      }
+       }
+
        return $response;
     }
 
@@ -133,13 +144,24 @@ class StoreProductCategoryService
 
     public function getStoreProductsCategoryLevelTwoByStoreProductCategoryIDForAdmin($storeProductCategoryID)
     {
-        $response = [];
+       $response = [];
+
        $items = $this->storeProductCategoryManager->getStoreProductsCategoryLevelTwoByStoreProductCategoryID($storeProductCategoryID);
-       foreach($items as $item) {
-           $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params.$item['productCategoryImage'], $this->params);
+
+       foreach($items as $item)
+       {
+           if($item['productCategoryImage'])
+           {
+               $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params.$item['productCategoryImage'], $this->params);
+           }
+           else
+           {
+               $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $item['productCategoryImage'], $this->params);
+           }
 
            $response[] = $this->autoMapping->map('array', StoreProductsCategoryResponse::class, $item);
-      }
+       }
+
        return $response;
     }
 
