@@ -32,19 +32,13 @@ class StoresFilterModel extends DataModel {
   StoresFilterModel.withData(List<Data> data) : super.withData() {
     _models = [];
     for (var element in data) {
-      if (element.image != null &&
-          (element.image?.contains('original-image') ?? false) == false) {
-        int f = Random().nextInt(1600);
-        int s = Random().nextInt(900);
-        element.image = 'https://source.unsplash.com/${f}x${s}/?store';
-      }
       _models.add(StoresFilterModel(
         id: element.id ?? -1,
         categoryId: element.storeCategoryId?.toString() ?? '-1',
         storeOwnerName: element.storeOwnerName ?? S.current.store,
         hasProducts: element.hasProducts ?? false,
         privateOrders: element.privateOrders ?? false,
-        image: element.image ?? ImageAsset.PLACEHOLDER,
+        image: element.image?.image ?? ImageAsset.PLACEHOLDER,
         phone: element.phone ?? '',
       ));
     }

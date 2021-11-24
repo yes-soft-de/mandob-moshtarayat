@@ -45,13 +45,7 @@ class StoreCategoriesStateManager {
   void createCategory(StoreCategoriesScreenState screenState,
       CreateStoreCategoryRequest request) {
     _stateSubject.add(StoreCategoriesLoadingState(screenState));
-    _uploadService.uploadImage(request.image!).then((value) {
-      if (value == null) {
-        getStoreCategories(screenState);
-        CustomFlushBarHelper.createError(
-            title: S.current.warnning, message: S.current.errorUploadingImages)
-          ..show(screenState.context);
-      } else {
+    _uploadService.uploadImage(request.image).then((value) {
         request.image = value;
         _categoriesService.createCategory(request).then((value) {
           if (value.hasError) {
@@ -67,13 +61,12 @@ class StoreCategoriesStateManager {
               ..show(screenState.context);
           }
         });
-      }
     });
   }
 
   void updateCategory(StoreCategoriesScreenState screenState,
       UpdateStoreCategoriesRequest request) {
-    if (request.image!.contains('/original-image/')) {
+    if (request.image?.contains('/original-image/') == true || request.image == null) {
       _stateSubject.add(StoreCategoriesLoadingState(screenState));
       _categoriesService.updateStoreCategory(request).then((value) {
         if (value.hasError) {
@@ -90,16 +83,8 @@ class StoreCategoriesStateManager {
       });
     } else {
       _stateSubject.add(StoreCategoriesLoadingState(screenState));
-      _uploadService.uploadImage(request.image!).then((value) {
-        if (value == null) {
-          getStoreCategories(screenState);
-          CustomFlushBarHelper.createError(
-              title: S.current.warnning,
-              message: S.current.errorUploadingImages)
-            ..show(screenState.context);
-        } else {
+      _uploadService.uploadImage(request.image).then((value) {
           request.image = value;
-
           _categoriesService.updateStoreCategory(request).then((value) {
             if (value.hasError) {
               getStoreCategories(screenState);
@@ -114,7 +99,6 @@ class StoreCategoriesStateManager {
                 ..show(screenState.context);
             }
           });
-        }
       });
     }
   }

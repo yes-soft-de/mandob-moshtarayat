@@ -60,13 +60,7 @@ class SubCategoriesStateManager {
   void createSubCategory(
       SubCategoriesScreenState screenState, SubCategoriesRequest request) {
     _stateSubject.add(LoadingState(screenState));
-    _uploadService.uploadImage(request.productCategoryImage!).then((value) {
-      if (value == null) {
-        getStoreCategories(screenState);
-        CustomFlushBarHelper.createError(
-            title: S.current.warnning, message: S.current.errorUploadingImages)
-          ..show(screenState.context);
-      } else {
+    _uploadService.uploadImage(request.productCategoryImage).then((value) {
         request.productCategoryImage = value;
         _categoriesService.createSubCategories(request).then((value) {
           if (value.hasError) {
@@ -82,13 +76,13 @@ class SubCategoriesStateManager {
               ..show(screenState.context);
           }
         });
-      }
+
     });
   }
 
   void updateSubCategory(SubCategoriesScreenState screenState,
       SubCategoriesRequest request) {
-    if (request.productCategoryImage!.contains('/original-image/')) {
+    if (request.productCategoryImage?.contains('/original-image/') == true || request.productCategoryImage == null) {
       _stateSubject.add(LoadingState(screenState));
       _categoriesService.updateSubCategories(request).then((value) {
         if (value.hasError) {
@@ -105,14 +99,7 @@ class SubCategoriesStateManager {
       });
     } else {
       _stateSubject.add(LoadingState(screenState));
-      _uploadService.uploadImage(request.productCategoryImage!).then((value) {
-        if (value == null) {
-          getStoreCategories(screenState);
-          CustomFlushBarHelper.createError(
-              title: S.current.warnning,
-              message: S.current.errorUploadingImages)
-            ..show(screenState.context);
-        } else {
+      _uploadService.uploadImage(request.productCategoryImage).then((value) {
           request.productCategoryImage = value;
           _categoriesService.updateSubCategories(request).then((value) {
             if (value.hasError) {
@@ -128,7 +115,6 @@ class SubCategoriesStateManager {
                 ..show(screenState.context);
             }
           });
-        }
       });
     }
   }

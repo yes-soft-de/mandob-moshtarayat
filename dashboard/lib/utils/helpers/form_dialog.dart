@@ -105,11 +105,6 @@ class _InsertFormState extends State<InsertForm> {
                       if (value != null) {
                         imagePath = value.path;
                         setState(() {});
-                      } else {
-                        CustomFlushBarHelper.createError(
-                                title: S.current.warnning,
-                                message: S.current.badFormat)
-                            .show(context);
                       }
                     });
                   },
