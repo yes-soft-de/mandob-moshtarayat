@@ -167,7 +167,6 @@ class StoreProductCategoryController extends BaseController
      *          @OA\Property(type="integer", property="id"),
      *          @OA\Property(type="string", property="productCategoryName"),
      *          @OA\Property(type="string", property="productCategoryImage"),
-     *          @OA\Property(type="integer", property="storeCategoryID"),
      *      )
      * )
      *
@@ -199,9 +198,7 @@ class StoreProductCategoryController extends BaseController
              return new JsonResponse($violationsString, Response::HTTP_OK);
          }
         $result = $this->storeProductCategoryService->updateStoreProductCategoryLevelOne($request);
-         if($result =="related"){
-             return $this->response($result, self::ERROR_RELATED);
-         }
+
         return $this->response($result, self::UPDATE);
      }
 
@@ -225,8 +222,7 @@ class StoreProductCategoryController extends BaseController
      *      @OA\JsonContent(
      *          @OA\Property(type="integer", property="id"),
      *          @OA\Property(type="string", property="productCategoryName"),
-     *          @OA\Property(type="string", property="productCategoryImage"),
-     *          @OA\Property(type="integer", property="storeProductCategoryID"),
+     *          @OA\Property(type="string", property="productCategoryImage")
      *      )
      * )
      *
@@ -258,9 +254,7 @@ class StoreProductCategoryController extends BaseController
              return new JsonResponse($violationsString, Response::HTTP_OK);
          }
         $result = $this->storeProductCategoryService->updateStoreProductCategoryLevelTwo($request);
-        if($result =="related"){
-             return $this->response($result, self::ERROR_RELATED);
-         }
+
         return $this->response($result, self::UPDATE);
      }
 

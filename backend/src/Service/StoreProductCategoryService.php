@@ -62,18 +62,14 @@ class StoreProductCategoryService
      public function updateStoreProductCategoryLevelOne(StoreProductCategoryLevelOneUpdateRequest $request)
      {
          $item = $this->storeProductCategoryManager->updateStoreProductCategoryLevelOne($request);
-         if($item =="related"){
-             return $item;
-         }
+
          return $this->autoMapping->map(StoreProductCategoryEntity::class, StoreProductCategoryUpdateLevelOneResponse::class, $item);
      }
 
      public function updateStoreProductCategoryLevelTwo(StoreProductCategoryLevelTwoUpdateRequest $request)
      {
          $item = $this->storeProductCategoryManager->updateStoreProductCategoryLevelTwo($request);
-         if($item =="related"){
-             return $item;
-         }
+
          return $this->autoMapping->map(StoreProductCategoryEntity::class, StoreProductCategoryUpdateLevelTwoResponse::class, $item);
      }
 
