@@ -42,7 +42,6 @@ class ProductEntity
      */
     private $storeProductCategoryID;
 
-
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
@@ -57,6 +56,11 @@ class ProductEntity
      * @ORM\Column(type="string", length=100)
      */
     private $status;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $productQuantity;
     
     public function getId(): ?int
     {
@@ -155,6 +159,18 @@ class ProductEntity
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getProductQuantity(): ?int
+    {
+        return $this->productQuantity;
+    }
+
+    public function setProductQuantity(?int $productQuantity): self
+    {
+        $this->productQuantity = $productQuantity;
 
         return $this;
     }

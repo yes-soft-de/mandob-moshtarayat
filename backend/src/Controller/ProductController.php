@@ -231,7 +231,7 @@ class ProductController extends BaseController
     }
 
     /**
-     * @Route("/productsbystoreproductcategoryid/{storeProductCategoryID}", name="getProductsByStoreProductCategoryID", methods={"GET"})
+     * @Route("productsbystoreproductcategoryid/{storeProductCategoryID}", name="getProductsByStoreProductCategoryID", methods={"GET"})
      * @return JsonResponse
      * *
      * @OA\Tag(name="Product")
@@ -247,6 +247,7 @@ class ProductController extends BaseController
      *                  @OA\Property(type="integer", property="id"),
      *                  @OA\Property(type="string", property="productName"),
      *                  @OA\Property(type="number", property="productPrice"),
+     *                  @OA\Property(type="number", property="productQuantity"),
      *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
      *                  @OA\Property(type="integer", property="storeProductCategoryID"),
      *                  @OA\Property(type="string", property="description"),
@@ -276,13 +277,12 @@ class ProductController extends BaseController
     }
 
     /**
-     * @Route("/getproductsstore", name="getStoreProducts", methods={"GET"})
+     * @Route("getproductsstore", name="getStoreProducts", methods={"GET"})
      * @IsGranted("ROLE_OWNER")
      * @return JsonResponse
      */
     public function getStoreProducts(): JsonResponse
     {
-
         $result = $this->productService->getStoreProducts($this->getUserId());
 
         return $this->response($result, self::FETCH);
@@ -314,13 +314,14 @@ class ProductController extends BaseController
     }
 
     /**
-     * @Route("/createproductbystore", name="createProductByStore", methods={"POST"})
+     * @Route("createproductbystore", name="createProductByStore", methods={"POST"})
      * @IsGranted("ROLE_OWNER")
      * @param Request $request
      * @return JsonResponse
-     * *
+     *
      * @OA\Tag(name="Product")
-     *@OA\Parameter(
+     *
+     * @OA\Parameter(
      *      name="token",
      *      in="header",
      *      description="token to be passed as a header",
@@ -336,6 +337,7 @@ class ProductController extends BaseController
      *          @OA\Property(type="integer", property="storeProductCategoryID"),
      *          @OA\Property(type="integer", property="discount"),
      *          @OA\Property(type="string", property="description"),
+     *          @OA\Property(type="integer", property="productQuantity")
      *      )
      * )
      *
@@ -358,6 +360,7 @@ class ProductController extends BaseController
      *          )
      *      )
      * )
+     *
      * @Security(name="Bearer")
      */
     public function createProductByStore(Request $request): JsonResponse
@@ -381,11 +384,11 @@ class ProductController extends BaseController
     }
 
     /**
-     * @Route("/updateproductbystore", name="updateProductByStore", methods={"PUT"})
+     * @Route("updateproductbystore", name="updateProductByStore", methods={"PUT"})
      * @IsGranted("ROLE_OWNER")
      * @param Request $request
      * @return JsonResponse
-     * *
+     *
      * @OA\Tag(name="Product")
      *
      * @OA\Parameter(
@@ -405,6 +408,7 @@ class ProductController extends BaseController
      *          @OA\Property(type="integer", property="storeProductCategoryID"),
      *          @OA\Property(type="integer", property="discount"),
      *          @OA\Property(type="string", property="description"),
+     *          @OA\Property(type="integer", property="productQuantity")
      *      )
      * )
      *
@@ -427,6 +431,7 @@ class ProductController extends BaseController
      *          )
      *      )
      * )
+     *
      * @Security(name="Bearer")
      */
     public function updateProductByStore(Request $request)

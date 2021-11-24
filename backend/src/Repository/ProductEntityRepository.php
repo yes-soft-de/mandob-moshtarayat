@@ -173,10 +173,12 @@ class ProductEntityRepository extends ServiceEntityRepository
     public function getStoreProducts($storeOwnerProfileId)
     {
         return $this->createQueryBuilder('product')
-        ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount','product.description','product.status')
+        ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount',
+            'product.description', 'product.status', 'product.productQuantity')
 
         ->andWhere('product.storeOwnerProfileID = :storeOwnerProfileId')
         ->setParameter('storeOwnerProfileId',$storeOwnerProfileId)
+
         ->getQuery()
         ->getResult();
     }
@@ -184,12 +186,15 @@ class ProductEntityRepository extends ServiceEntityRepository
     public function getProductsByStoreProductCategoryID($storeProductCategoryID)
     {
         return $this->createQueryBuilder('product')
-        ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount','product.description','product.status')
+        ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount','product.description','product.status',
+         'product.productQuantity')
 
         ->andWhere('product.storeProductCategoryID = :storeProductCategoryID')
+        ->setParameter('storeProductCategoryID', $storeProductCategoryID)
+
         ->andWhere('product.status = :status')
-        ->setParameter('storeProductCategoryID',$storeProductCategoryID)
-        ->setParameter('status','active')
+        ->setParameter('status', 'active')
+
         ->getQuery()
         ->getResult();
     }
