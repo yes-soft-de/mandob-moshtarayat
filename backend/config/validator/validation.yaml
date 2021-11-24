@@ -234,8 +234,6 @@ App\Request\StoreCategoryCreateRequest:
   properties:
     storeCategoryName:
       - NotBlank: ~
-    image:
-      - NotBlank: ~
 
 App\Request\StoreCategoryUpdateRequest:
   properties:
