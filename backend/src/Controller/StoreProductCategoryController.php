@@ -259,7 +259,7 @@ class StoreProductCategoryController extends BaseController
      }
 
     /**
-     * @Route("/storeProductsCategory/{storeOwnerProfileId}", name="getStoreProductsCategoryForStoreSpecific",methods={"GET"})
+     * @Route("/storeProductsCategory/{storeOwnerProfileId}", name="getStoreProductsCategoryForStoreSpecific", methods={"GET"})
      * @return JsonResponse
      */
       public function getStoreProductsCategoryForStoreSpecific($storeOwnerProfileId)
@@ -270,7 +270,7 @@ class StoreProductCategoryController extends BaseController
       }
 
     /**
-     * @Route("/storeproductscategorylevelone/{storeCategoryID}", name="getStoreProductsCategoryLevelOneByStoreCategoryID",methods={"GET"})
+     * @Route("/storeproductscategorylevelone/{storeCategoryID}", name="getStoreProductsCategoryLevelOneByStoreCategoryID", methods={"GET"})
      * @return JsonResponse
      * *
      * @OA\Tag(name="Store Product Category")
@@ -304,10 +304,10 @@ class StoreProductCategoryController extends BaseController
       }
 
     /**
-     * @Route("/storeproductscategorylevelonefroadmin/{storeCategoryID}", name="getStoreProductsCategoryLevelOneByStoreCategoryIDForAdmin",methods={"GET"})
+     * @Route("/storeproductscategorylevelonefroadmin/{storeCategoryID}", name="getStoreProductsCategoryLevelOneByStoreCategoryIDForAdmin", methods={"GET"})
      * @return JsonResponse
      * @IsGranted("ROLE_ADMIN")
-     * *
+     *
      * @OA\Tag(name="Store Product Category")
      *
      * @OA\Parameter(
@@ -336,6 +336,7 @@ class StoreProductCategoryController extends BaseController
      *          )
      *      )
      * )
+     *
      * @Security(name="Bearer")
      */
       public function getStoreProductsCategoryLevelOneByStoreCategoryIDFroAdmin($storeCategoryID)
@@ -346,7 +347,7 @@ class StoreProductCategoryController extends BaseController
       }
 
     /**
-     * @Route("/storeproductscategoryleveltwo/{storeProductCategoryID}", name="getStoreProductsCategoryLevelTwoByStoreProductCategoryID",methods={"GET"})
+     * @Route("/storeproductscategoryleveltwo/{storeProductCategoryID}", name="getStoreProductsCategoryLevelTwoByStoreProductCategoryID", methods={"GET"})
      * @return JsonResponse
      *  *
      * @OA\Tag(name="Store Product Category")
@@ -380,9 +381,9 @@ class StoreProductCategoryController extends BaseController
       }
 
     /**
-     * @Route("/storeproductscategoryleveltwoforadmin/{storeProductCategoryID}", name="getStoreProductsCategoryLevelTwoByStoreProductCategoryIDForAdmin",methods={"GET"})
+     * @Route("/storeproductscategoryleveltwoforadmin/{storeProductCategoryID}", name="getStoreProductsCategoryLevelTwoByStoreProductCategoryIDForAdmin", methods={"GET"})
      * @return JsonResponse
-     *  *
+     *
      * @OA\Tag(name="Store Product Category")
      *
      * @OA\Parameter(
@@ -411,6 +412,7 @@ class StoreProductCategoryController extends BaseController
      *          )
      *      )
      * )
+     *
      * @Security(name="Bearer")
      */
       public function getStoreProductsCategoryLevelTwoByStoreProductCategoryIDForAdmin($storeProductCategoryID)
@@ -462,7 +464,7 @@ class StoreProductCategoryController extends BaseController
       }
 
      /**
-     * @Route("/storeproductscategoryleveltwoandstoreproduct", name="getStoreProductsCategoryLevelTwoAndStoreProductsByStoreOWnerProfile",methods={"GET"})
+     * @Route("/storeproductscategoryleveltwoandstoreproduct", name="getStoreProductsCategoryLevelTwoAndStoreProductsByStoreOWnerProfile", methods={"GET"})
      * @return JsonResponse
      * @IsGranted("ROLE_OWNER")
       * *
@@ -514,7 +516,7 @@ class StoreProductCategoryController extends BaseController
       }
 
      /**
-     * @Route("/storeproductscategoriesandstoreproducts", name="getStoreProductsCategoriesAndStoreProductsByStoreOwnerProfile",methods={"GET"})
+     * @Route("/storeproductscategoriesandstoreproducts", name="getStoreProductsCategoriesAndStoreProductsByStoreOwnerProfile", methods={"GET"})
      * @return JsonResponse
      * @IsGranted("ROLE_OWNER")
       * @OA\Tag(name="Store Product Category")
