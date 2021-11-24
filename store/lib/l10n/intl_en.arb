@@ -522,8 +522,9 @@
   "storesInActive": "Store Account In Active , Please wait the administration to activate your account",
 
   "discount": "discount",
-  "productCreatedSuccessfully": "Product Created Successfully"
+  "productCreatedSuccessfully": "Product Created Successfully",
 
-
+  "gallery": "Gallery",
+  "camera": "Camera"
 
 }

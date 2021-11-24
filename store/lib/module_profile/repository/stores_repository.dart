@@ -1,7 +1,9 @@
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/consts/urls.dart';
 import 'package:mandob_moshtarayat/module_auth/service/auth_service/auth_service.dart';
+import 'package:mandob_moshtarayat/module_categories/response/response.dart';
 import 'package:mandob_moshtarayat/module_network/http_client/http_client.dart';
+import 'package:mandob_moshtarayat/module_profile/request/create_store_request.dart';
 import 'package:mandob_moshtarayat/module_profile/response/store_profile_response.dart';
 
 @injectable
@@ -21,6 +23,13 @@ class StoresRepository {
     return StoreProfileResponse.fromJson(response);
   }
 
+  Future<ActionResponse?> updateStore(CreateStoreRequest request) async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.put(Urls.CREATE_STORE_PROFILE,request.toJson(),
+        headers: {'Authorization': 'Bearer ' + token.toString()});
+    if (response == null) return null;
+    return ActionResponse.fromJson(response);
+  }
 
 
 }

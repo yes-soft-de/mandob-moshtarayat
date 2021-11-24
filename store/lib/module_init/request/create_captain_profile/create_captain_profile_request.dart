@@ -37,7 +37,7 @@ class CreateStoreRequest {
     var map = <String, dynamic>{};
     map['storeOwnerName'] = storeOwnerName;
     map['phone'] = phone;
-//    map['deliveryCost'] = deliveryCost;
+    map['branchName'] = 'default';
     map['image'] = image;
     map['storeCategoryId'] = storeCategoryId;
     map['privateOrders'] = privateOrders;

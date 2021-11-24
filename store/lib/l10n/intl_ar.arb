@@ -521,5 +521,8 @@
   "storesInActive": "حساب المتجر غير مفعل ، يرجى انتظار الإدارة لتفعيل حسابك",
   "discount": "الخصم",
 
-  "productCreatedSuccessfully": "تم إنشاء المنتح بنجاح"
+  "productCreatedSuccessfully": "تم إنشاء المنتح بنجاح",
+
+  "gallery": "المعرض",
+  "camera": "الكاميرا"
 }

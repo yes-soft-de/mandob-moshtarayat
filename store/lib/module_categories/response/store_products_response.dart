@@ -77,11 +77,16 @@ class Data {
 }
 class ImageUrl {
   String? image;
+  String? imageURL;
+  String? baseURL;
   ImageUrl({
     this.image,
+    this.imageURL,this.baseURL
   });
 
   ImageUrl.fromJson(dynamic json) {
     image = json['image'];
+    imageURL = json['imageURL'];
+    baseURL = json['baseURL'];
   }
 }

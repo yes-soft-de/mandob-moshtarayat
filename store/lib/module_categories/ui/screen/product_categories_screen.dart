@@ -56,8 +56,8 @@ class ProductCategoriesScreenState extends State<ProductCategoriesScreen> {
     widget._stateManager.getStoreProduct(this,categoriesOne,categoriesTwo,categoryID,levelOneName,levelTwoName);
   }
 
-  void updateProduct(UpdateProductRequest request) {
-    widget._stateManager.updateProduct(this,request);
+  void updateProduct(UpdateProductRequest request,List<ProductsCategoryModel> levelOne,List<ProductsCategoryModel> levelTwo) {
+    widget._stateManager.updateProduct(this,request,levelOne ,levelTwo);
   }
   void createProduct(CreateProductRequest request,List<ProductsCategoryModel> levelOne,List<ProductsCategoryModel> levelTwo) {
     widget._stateManager.createProduct(this,request,levelOne,levelTwo);

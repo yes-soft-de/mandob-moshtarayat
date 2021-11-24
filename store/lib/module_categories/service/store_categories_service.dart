@@ -12,7 +12,6 @@ import 'package:mandob_moshtarayat/module_categories/request/create_store_catego
 import 'package:mandob_moshtarayat/module_categories/request/store_categories_request.dart';
 import 'package:mandob_moshtarayat/module_categories/request/update_product_category_request.dart';
 import 'package:mandob_moshtarayat/module_categories/request/update_product_request.dart';
-import 'package:mandob_moshtarayat/module_categories/request/update_store_request.dart';
 import 'package:mandob_moshtarayat/module_categories/response/products_category_response.dart';
 import 'package:mandob_moshtarayat/module_categories/response/response.dart';
 import 'package:mandob_moshtarayat/module_categories/response/store_categories_response.dart';
@@ -40,20 +39,6 @@ class CategoriesService {
     return StoreCategoriesModel.withData(_ordersResponse.data!);
   }
 
-  Future<DataModel> createCategory(CreateStoreCategoryRequest request) async {
-    ActionResponse? actionResponse =
-
-    await _categoriesManager.createCategory(request);
-
-    if (actionResponse == null) {
-      return DataModel.withError(S.current.networkError);
-    }
-    if (actionResponse.statusCode != '201') {
-      return DataModel.withError(StatusCodeHelper.getStatusCodeMessages(
-          actionResponse.statusCode));
-    }
-    return DataModel.empty();
-  }
 
   Future<DataModel> getProductsCategoryLevelOne(int id) async {
 
@@ -112,20 +97,6 @@ class CategoriesService {
     return ProductsModel.withData(_productCategories.data!);
   }
 
-  Future<DataModel> createProductCategories(CreateProductsCategoriesRequest request) async {
-    ActionResponse? actionResponse =
-
-    await _categoriesManager.createProductsCategory(request);
-
-    if (actionResponse == null) {
-      return DataModel.withError(S.current.networkError);
-    }
-    if (actionResponse.statusCode != '201') {
-      return DataModel.withError(StatusCodeHelper.getStatusCodeMessages(
-          actionResponse.statusCode));
-    }
-    return DataModel.empty();
-  }
   Future<DataModel> createProduct(CreateProductRequest request) async {
     ActionResponse? actionResponse =
 
@@ -141,45 +112,6 @@ class CategoriesService {
     return DataModel.empty();
   }
 
-  Future<DataModel> updateStoreCategory(UpdateStoreCategoriesRequest request) async {
-    ActionResponse? actionResponse =
-    await _categoriesManager.updateStoreCategories(request);
-
-    if (actionResponse == null) {
-      return DataModel.withError(S.current.networkError);
-    }
-    if (actionResponse.statusCode != '201') {
-      return DataModel.withError(StatusCodeHelper.getStatusCodeMessages(
-          actionResponse.statusCode));
-    }
-    return DataModel.empty();
-  }
-  Future<DataModel> updateStore(UpdateStoreRequest request) async {
-    ActionResponse? actionResponse =
-    await _categoriesManager.updateStore(request);
-
-    if (actionResponse == null) {
-      return DataModel.withError(S.current.networkError);
-    }
-    if (actionResponse.statusCode != '204') {
-      return DataModel.withError(StatusCodeHelper.getStatusCodeMessages(
-          actionResponse.statusCode));
-    }
-    return DataModel.empty();
-  }
-  Future<DataModel> updateProductCategory(UpdateProductCategoryRequest request) async {
-    ActionResponse? actionResponse =
-    await _categoriesManager.updateProductCategory(request);
-
-    if (actionResponse == null) {
-      return DataModel.withError(S.current.networkError);
-    }
-    if (actionResponse.statusCode != '201') {
-      return DataModel.withError(StatusCodeHelper.getStatusCodeMessages(
-          actionResponse.statusCode));
-    }
-    return DataModel.empty();
-  }
   Future<DataModel> updateProduct(UpdateProductRequest request) async {
     ActionResponse? actionResponse =
     await _categoriesManager.updateProduct(request);
@@ -187,7 +119,7 @@ class CategoriesService {
     if (actionResponse == null) {
       return DataModel.withError(S.current.networkError);
     }
-    if (actionResponse.statusCode != '201') {
+    if (actionResponse.statusCode != '204') {
       return DataModel.withError(StatusCodeHelper.getStatusCodeMessages(
           actionResponse.statusCode));
     }
