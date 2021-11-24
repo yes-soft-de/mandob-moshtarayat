@@ -146,9 +146,7 @@ class StoreCategoryController extends BaseController
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
         $result = $this->storeCategoryService->updateStoreCategory($request);
-        if($result =="related"){
-              return $this->response($result, self::ERROR_RELATED);
-          }
+
         return $this->response($result, self::UPDATE);
     }
 

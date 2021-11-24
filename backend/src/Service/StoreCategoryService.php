@@ -38,9 +38,7 @@ class StoreCategoryService
     public function updateStoreCategory($request)
     {
         $item = $this->storeCategoryManager->updateStoreCategory($request);
-        if($item =="related"){
-            return $item;
-        }
+
         return $this->autoMapping->map(StoreCategoryEntity::class, StoreCategoryCreateResponse::class, $item);
     }
 
