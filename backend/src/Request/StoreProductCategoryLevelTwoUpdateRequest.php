@@ -10,8 +10,6 @@ class StoreProductCategoryLevelTwoUpdateRequest
 
     private $productCategoryImage;
 
-    private $storeProductCategoryID;
-
     /**
      * @return mixed
      */

@@ -52,36 +52,28 @@ class StoreProductCategoryManager
 
      public function updateStoreProductCategoryLevelOne(StoreProductCategoryLevelOneUpdateRequest $request)
      {
-         $isRelated = $this->isItRelatedToCategoryLevelTwo($request->getId());
-         if ($isRelated == 'not related') {
-             $entity = $this->storeProductCategoryEntityRepository->find($request->getId());
-             if (!$entity) {
-                 return $entity;
-             }
-             $entity = $this->autoMapping->mapToObject(StoreProductCategoryLevelOneUpdateRequest::class, StoreProductCategoryEntity::class, $request, $entity);
+       $entity = $this->storeProductCategoryEntityRepository->find($request->getId());
+       if (!$entity) {
+           return $entity;
+       }
+       $entity = $this->autoMapping->mapToObject(StoreProductCategoryLevelOneUpdateRequest::class, StoreProductCategoryEntity::class, $request, $entity);
 
-             $this->entityManager->flush();
+       $this->entityManager->flush();
 
-             return $entity;
-         }
-         return $isRelated;
+       return $entity;
      }
 
      public function updateStoreProductCategoryLevelTwo(StoreProductCategoryLevelTwoUpdateRequest $request)
      {
-         $isRelated = $this->isItRelatedToProducts($request->getId());
-         if ($isRelated == 'not related') {
-             $entity = $this->storeProductCategoryEntityRepository->find($request->getId());
-             if (!$entity) {
-                 return $entity;
-             }
-             $entity = $this->autoMapping->mapToObject(StoreProductCategoryLevelTwoUpdateRequest::class, StoreProductCategoryEntity::class, $request, $entity);
+       $entity = $this->storeProductCategoryEntityRepository->find($request->getId());
+       if (!$entity) {
+           return $entity;
+       }
+       $entity = $this->autoMapping->mapToObject(StoreProductCategoryLevelTwoUpdateRequest::class, StoreProductCategoryEntity::class, $request, $entity);
 
-             $this->entityManager->flush();
+       $this->entityManager->flush();
 
-             return $entity;
-         }
-         return $isRelated;
+       return $entity;
      }
 
     public function getStoreProductsCategoryForStoreSpecific($storeOwnerProfileId)

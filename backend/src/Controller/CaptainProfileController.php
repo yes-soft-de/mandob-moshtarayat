@@ -407,6 +407,34 @@ class CaptainProfileController extends BaseController
      * @Route("/getcaptainsinactive", name="getCaptainsPending",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      *  @return JsonResponse
+     * *
+     * @OA\Tag(name="Captain Profile")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns Inactive Captains",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *            @OA\Items(
+     *              @OA\Property(type="integer", property="id"),
+     *              @OA\Property(type="string", property="captainID"),
+     *              @OA\Property(type="string", property="captainName"),
+     *              @OA\Property(type="string", property="image"),
+     *                   )
+     *              )
+     *          )
+     *      )
+     * )
+     * @Security(name="Bearer")
      */
     public function getCaptainsInactive(): JsonResponse
     {
@@ -443,6 +471,36 @@ class CaptainProfileController extends BaseController
      * @Route("/captains", name="getCaptains",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Captain Profile")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns Captains",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *            @OA\Items(
+     *              @OA\Property(type="integer", property="id"),
+     *              @OA\Property(type="string", property="captainID"),
+     *              @OA\Property(type="string", property="captainName"),
+     *              @OA\Property(type="string", property="image"),
+     *              @OA\Property(type="string", property="imageURL"),
+     *              @OA\Property(type="string", property="baseURL"),
+     *                   )
+     *              )
+     *          )
+     *      )
+     * )
+     * @Security(name="Bearer")
      */
     public function getAllCaptains(): JsonResponse
     {
@@ -455,7 +513,38 @@ class CaptainProfileController extends BaseController
      * @Route("/captainsRemainingForItAmount", name="captainsRemainingForItAmount",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
-     */
+      * *
+      * @OA\Tag(name="Captain Profile")
+      *
+      * @OA\Parameter(
+      *      name="token",
+      *      in="header",
+      *      description="token to be passed as a header",
+      *      required=true
+      * )
+      *
+      * @OA\Response(
+      *      response=200,
+      *      description="Returns  Captains Remaining For It Amount",
+      *      @OA\JsonContent(
+      *          @OA\Property(type="string", property="status_code"),
+      *          @OA\Property(type="string", property="msg"),
+      *          @OA\Property(type="array", property="Data",
+      *            @OA\Items(
+      *              @OA\Property(type="integer", property="id"),
+      *              @OA\Property(type="string", property="captainID"),
+      *              @OA\Property(type="string", property="captainName"),
+      *              @OA\Property(type="string", property="roomID"),
+      *              @OA\Property(type="string", property="image"),
+      *              @OA\Property(type="string", property="phone"),
+      *              @OA\Property(type="string", property="remainingAmountForCaptain"),
+      *                   )
+      *              )
+      *          )
+      *      )
+      * )
+      * @Security(name="Bearer")
+      */
     public function captainsRemainingForItAmount(): JsonResponse
     {
         $response = $this->captainProfileService->captainsRemainingForItAmount();
@@ -467,7 +556,41 @@ class CaptainProfileController extends BaseController
      * @Route("/captainsRemainingOnItAmount ", name="captainsRemainingOnItAmount",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
-     */
+      * *
+      * @OA\Tag(name="Captain Profile")
+      *
+      * @OA\Parameter(
+      *      name="token",
+      *      in="header",
+      *      description="token to be passed as a header",
+      *      required=true
+      * )
+      *
+      * @OA\Response(
+      *      response=200,
+      *      description="Returns Captains Remaining On It Amount",
+      *      @OA\JsonContent(
+      *          @OA\Property(type="string", property="status_code"),
+      *          @OA\Property(type="string", property="msg"),
+      *          @OA\Property(type="object", property="Data",
+      *              @OA\Property(type="integer", property="totalAmountForCompany"),
+      *              @OA\Property(type="array", property="captains",
+      *             @OA\Items(
+      *              @OA\Property(type="integer", property="id"),
+      *              @OA\Property(type="string", property="captainID"),
+      *              @OA\Property(type="string", property="captainName"),
+      *              @OA\Property(type="string", property="roomID"),
+      *              @OA\Property(type="string", property="image"),
+      *              @OA\Property(type="string", property="phone"),
+      *              @OA\Property(type="string", property="remainingAmountForCompany"),
+      *                     ),
+      *                 )
+      *              )
+      *          )
+      *      )
+      * )
+      * @Security(name="Bearer")
+      */
     public function captainsRemainingOnItAmount(): JsonResponse
     {
         $response = $this->captainProfileService->captainsRemainingOnItAmount();
@@ -495,6 +618,39 @@ class CaptainProfileController extends BaseController
     /**
      * @Route("/gettop5captains", name="GetTop5Captains",methods={"GET"})
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Captain Profile")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns Captains Remaining On It Amount",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *             @OA\Items(
+     *              @OA\Property(type="integer", property="id"),
+     *              @OA\Property(type="string", property="captainID"),
+     *              @OA\Property(type="string", property="captainName"),
+     *              @OA\Property(type="string", property="car"),
+     *              @OA\Property(type="string", property="age"),
+     *              @OA\Property(type="string", property="salary"),
+     *              @OA\Property(type="string", property="bounce"),
+     *              @OA\Property(type="string", property="image"),
+     *              @OA\Property(type="string", property="countOrdersDeliverd"),
+     *                     ),
+     *              )
+     *          )
+     *      )
+     * )
+     * @Security(name="Bearer")
      */
     public function getTop5Captains(): JsonResponse
     {
@@ -519,6 +675,42 @@ class CaptainProfileController extends BaseController
      * @Route("/captainFinancialAccount", name="getCaptainMyBalance",methods={"GET"})
      * @IsGranted("ROLE_CAPTAIN")
      *  @return JsonResponse
+     * *
+     * @OA\Tag(name="Captain Profile")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns Captain's Balance",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *             @OA\Items(
+     *              @OA\Property(type="number", property="sumPaymentsFromCompany"),
+     *              @OA\Property(type="number", property="sumPaymentsToCompany"),
+     *              @OA\Property(type="integer", property="countOrdersDelivered"),
+     *              @OA\Property(type="number", property="sumInvoiceAmount"),
+     *              @OA\Property(type="number", property="deliveryCost"),
+     *              @OA\Property(type="number", property="amountYouOwn"),
+     *              @OA\Property(type="number", property="remainingAmountForCompany"),
+     *              @OA\Property(type="number", property="salary"),
+     *              @OA\Property(type="number", property="bounce"),
+     *              @OA\Property(type="number", property="kilometerBonus"),
+     *              @OA\Property(type="number", property="netProfit"),
+     *              @OA\Property(type="number", property="total"),
+     *                   ),
+     *              )
+     *          )
+     *      )
+     * )
+     * @Security(name="Bearer")
      */
     public function getCaptainFinancialAccountDetailsByCaptainId(): JsonResponse
     {
@@ -531,6 +723,49 @@ class CaptainProfileController extends BaseController
      * @Route("/captainFinancialAccountInLastMonth", name="captainFinancialAccountInLastMonth",methods={"GET"})
      * @IsGranted("ROLE_CAPTAIN")
      *  @return JsonResponse
+     * *
+     * @OA\Tag(name="Captain Profile")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns Captain's Financial Account In Last Month",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *             @OA\Items(
+     *              @OA\Property(type="number", property="sumPaymentsFromCompany"),
+     *              @OA\Property(type="number", property="sumPaymentsToCompany"),
+     *              @OA\Property(type="integer", property="countOrdersDelivered"),
+     *              @OA\Property(type="number", property="sumInvoiceAmount"),
+     *              @OA\Property(type="number", property="deliveryCost"),
+     *              @OA\Property(type="array", property="paymentsFromCompany",
+     *                  @OA\Items(
+     *                          @OA\Property(type="integer", property="id"),
+     *                          @OA\Property(type="string", property="captainId"),
+     *                          @OA\Property(type="number", property="amount"),
+     *                          @OA\Property(type="object", property="date"),
+     *                          @OA\Property(type="string", property="note"),
+     *                  ),),
+     *              @OA\Property(type="number", property="amountYouOwn"),
+     *              @OA\Property(type="number", property="remainingAmountForCompany"),
+     *              @OA\Property(type="number", property="bounce"),
+     *              @OA\Property(type="number", property="kilometerBonus"),
+     *              @OA\Property(type="number", property="netProfit"),
+     *              @OA\Property(type="number", property="total"),
+     *                   ),
+     *              )
+     *          )
+     *      )
+     * )
+     * @Security(name="Bearer")
      */
     public function captainFinancialAccountInLastMonth(): JsonResponse
     {
@@ -555,6 +790,30 @@ class CaptainProfileController extends BaseController
      * @Route("/countOrdersCaptainDeliveredInToday", name="countOrdersCaptainDeliveredInToday",methods={"GET"})
      * @IsGranted("ROLE_CAPTAIN")
      *  @return JsonResponse
+     * *
+     * @OA\Tag(name="Captain Profile")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns Count Orders Captain Delivered In Today",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *          @OA\Property(type="integer", property="countOrdersDeliveredInToday"),
+     *
+     *              )
+     *          )
+     *      )
+     * )
+     * @Security(name="Bearer")
      */
     public function countOrdersCaptainDeliveredInToday(): JsonResponse
     {
@@ -568,6 +827,57 @@ class CaptainProfileController extends BaseController
      * @IsGranted("ROLE_ADMIN")
      * @param $captainID
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Captain Profile")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns Captain's Financial Account For Admin",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *             @OA\Items(
+     *              @OA\Property(type="number", property="sumPaymentsToCaptain"),
+     *              @OA\Property(type="number", property="sumPaymentsFromCaptain"),
+     *              @OA\Property(type="integer", property="countOrdersDelivered"),
+     *              @OA\Property(type="number", property="sumInvoiceAmount"),
+     *              @OA\Property(type="number", property="amountWithCaptain"),
+     *              @OA\Property(type="number", property="deliveryCost"),
+     *              @OA\Property(type="number", property="remainingAmountForCompany"),
+     *              @OA\Property(type="number", property="bounce"),
+     *              @OA\Property(type="number", property="kilometerBonus"),
+     *              @OA\Property(type="number", property="salary"),
+     *              @OA\Property(type="number", property="NetProfit"),
+     *              @OA\Property(type="number", property="total"),
+     *              @OA\Property(type="array", property="paymentsToCaptain",
+     *                  @OA\Items(
+     *                          @OA\Property(type="integer", property="id"),
+     *                          @OA\Property(type="string", property="captainId"),
+     *                          @OA\Property(type="number", property="amount"),
+     *                          @OA\Property(type="object", property="date"),
+     *                          @OA\Property(type="string", property="note"),
+     *                  ),),
+    *              @OA\Property(type="array", property="paymentsFromCaptain",
+     *                  @OA\Items(
+     *                          @OA\Property(type="integer", property="id"),
+     *                          @OA\Property(type="string", property="captainId"),
+     *                          @OA\Property(type="number", property="amount"),
+     *                          @OA\Property(type="object", property="date"),
+     *                          @OA\Property(type="string", property="note"),
+     *                  ),),
+     *                   )
+     *              )
+     *          )
+     * )
+     * @Security(name="Bearer")
      */
     public function getCaptainFinancialAccountDetailsByCaptainIdForAdmin($captainID): JsonResponse
     {
@@ -581,6 +891,57 @@ class CaptainProfileController extends BaseController
      * @IsGranted("ROLE_ADMIN")
      * @param $captainID
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Captain Profile")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns Captain's Financial Account In Last Month For Admin",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *             @OA\Items(
+     *              @OA\Property(type="number", property="sumPaymentsToCaptain"),
+     *              @OA\Property(type="number", property="sumPaymentsFromCaptain"),
+     *              @OA\Property(type="integer", property="countOrdersDelivered"),
+     *              @OA\Property(type="number", property="sumInvoiceAmount"),
+     *              @OA\Property(type="number", property="amountWithCaptain"),
+     *              @OA\Property(type="number", property="deliveryCost"),
+     *              @OA\Property(type="number", property="remainingAmountForCompany"),
+     *              @OA\Property(type="number", property="bounce"),
+     *              @OA\Property(type="number", property="kilometerBonus"),
+     *              @OA\Property(type="number", property="salary"),
+     *              @OA\Property(type="number", property="NetProfit"),
+     *              @OA\Property(type="number", property="total"),
+     *              @OA\Property(type="array", property="paymentsToCaptain",
+     *                  @OA\Items(
+     *                          @OA\Property(type="integer", property="id"),
+     *                          @OA\Property(type="string", property="captainId"),
+     *                          @OA\Property(type="number", property="amount"),
+     *                          @OA\Property(type="object", property="date"),
+     *                          @OA\Property(type="string", property="note"),
+     *                  ),),
+     *              @OA\Property(type="array", property="paymentsFromCaptain",
+     *                  @OA\Items(
+     *                          @OA\Property(type="integer", property="id"),
+     *                          @OA\Property(type="string", property="captainId"),
+     *                          @OA\Property(type="number", property="amount"),
+     *                          @OA\Property(type="object", property="date"),
+     *                          @OA\Property(type="string", property="note"),
+     *                  ),),
+     *                   )
+     *              )
+     *          )
+     * )
+     * @Security(name="Bearer")
      */
     public function captainFinancialAccountInLastMonthForAdmin($captainID): JsonResponse
     {
@@ -593,7 +954,58 @@ class CaptainProfileController extends BaseController
      * @Route("/captainFinancialAccountInSpecificDateForAdmin/{captainID}/{fromDate}/{toDate}", name="captainFinancialAccountInSpecificDateForAdmin",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      *  @return JsonResponse
-     */
+      * *
+      * @OA\Tag(name="Captain Profile")
+      *
+      * @OA\Parameter(
+      *      name="token",
+      *      in="header",
+      *      description="token to be passed as a header",
+      *      required=true
+      * )
+      *
+      * @OA\Response(
+      *      response=200,
+      *      description="Returns Captain's Financial Account In Specific Date For Admin",
+      *      @OA\JsonContent(
+      *          @OA\Property(type="string", property="status_code"),
+      *          @OA\Property(type="string", property="msg"),
+      *          @OA\Property(type="array", property="Data",
+      *             @OA\Items(
+      *              @OA\Property(type="number", property="sumPaymentsToCaptain"),
+      *              @OA\Property(type="number", property="sumPaymentsFromCaptain"),
+      *              @OA\Property(type="integer", property="countOrdersDelivered"),
+      *              @OA\Property(type="number", property="sumInvoiceAmount"),
+      *              @OA\Property(type="number", property="amountWithCaptain"),
+      *              @OA\Property(type="number", property="deliveryCost"),
+      *              @OA\Property(type="number", property="remainingAmountForCompany"),
+      *              @OA\Property(type="number", property="bounce"),
+      *              @OA\Property(type="number", property="kilometerBonus"),
+      *              @OA\Property(type="number", property="salary"),
+      *              @OA\Property(type="number", property="NetProfit"),
+      *              @OA\Property(type="number", property="total"),
+      *              @OA\Property(type="array", property="paymentsToCaptain",
+      *                  @OA\Items(
+      *                          @OA\Property(type="integer", property="id"),
+      *                          @OA\Property(type="string", property="captainId"),
+      *                          @OA\Property(type="number", property="amount"),
+      *                          @OA\Property(type="object", property="date"),
+      *                          @OA\Property(type="string", property="note"),
+      *                  ),),
+      *              @OA\Property(type="array", property="paymentsFromCaptain",
+      *                  @OA\Items(
+      *                          @OA\Property(type="integer", property="id"),
+      *                          @OA\Property(type="string", property="captainId"),
+      *                          @OA\Property(type="number", property="amount"),
+      *                          @OA\Property(type="object", property="date"),
+      *                          @OA\Property(type="string", property="note"),
+      *                  ),),
+      *                   )
+      *              )
+      *          )
+      * )
+      * @Security(name="Bearer")
+      */
     public function captainFinancialAccountInSpecificDateForAdmin($captainID, $fromDate, $toDate)
     {
         $response = $this->captainProfileService->captainFinancialAccountInSpecificDateForAdmin($captainID, $fromDate, $toDate);
@@ -604,6 +1016,35 @@ class CaptainProfileController extends BaseController
     /**
      * @Route("/captainFilter/{name}", name="getCaptainsByName", methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
+     * *
+     * @OA\Tag(name="Captain Profile")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns Captains By Name",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *          @OA\Property(type="array", property="captains",
+     *            @OA\Items(
+     *              @OA\Property(type="number", property="id"),
+     *              @OA\Property(type="number", property="captainID"),
+     *              @OA\Property(type="integer", property="captainName"),
+     *              @OA\Property(type="number", property="image"),
+     *                  )
+     *              )
+     *         )
+     * )
+     *)
+     * @Security(name="Bearer")
      */
     public function captainFilter($name): JsonResponse
     {
