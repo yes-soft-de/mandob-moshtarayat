@@ -531,20 +531,22 @@ class OrderController extends BaseController
     }
 
     /**
-     * @Route("/countreportforstoreowner", name="countReportForStoreOwner",methods={"GET"})
+     * @Route("countreportforstoreowner", name="countReportForStoreOwner", methods={"GET"})
      * @IsGranted("ROLE_OWNER")
      * @return JsonResponse
-     *  * *
+     *
      * @OA\Tag(name="Order")
+     *
      * @OA\Parameter(
      *      name="token",
      *      in="header",
      *      description="token to be passed as a header",
      *      required=true
      * )
+     *
      * @OA\Response(
      *      response=200,
-     *      description="Returns object of count orders (Completed- Ongoing - InToday) For StoreOwner ",
+     *      description="Returns object of count orders (Completed - Ongoing - InToday) For Store Owner",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -555,6 +557,7 @@ class OrderController extends BaseController
      *          )
      *      )
      * )
+     *
      * @Security(name="Bearer")
      */
     public function countReportForStoreOwner()

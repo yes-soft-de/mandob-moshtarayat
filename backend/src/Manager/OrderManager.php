@@ -16,7 +16,6 @@ use App\Request\OrderUpdateSpecialByClientRequest;
 use App\Request\OrderUpdateSendByClientRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
-
 class OrderManager
 {
     private $autoMapping;
@@ -73,7 +72,7 @@ class OrderManager
 
     public function countOngoingOrdersForStoreOwner($storeOwnerProfileId)
     {
-        return $this->orderEntityRepository->countOngoingOrders();
+        return $this->orderEntityRepository->countOngoingOrdersForStoreOwner($storeOwnerProfileId);
     }
 
     public function countCancelledOrders()
@@ -365,7 +364,7 @@ class OrderManager
 
     public function countCompletedOrdersForStoreOwner($storeOwnerProfileId)
     {
-        return $this->orderEntityRepository->countCompletedOrders();
+        return $this->orderEntityRepository->countCompletedOrdersForStoreOwner($storeOwnerProfileId);
     }
 
     public function getOrdersForSpecificClient($clientID)
