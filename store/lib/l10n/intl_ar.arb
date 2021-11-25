@@ -84,7 +84,7 @@
   "requestMeeting": "اطلب موعدا للقاء",
   "toFindOutMorePleaseLeaveYourPhonenandWeWill": "للمزيد من المعلومات خذ موعدا بترك رقم هاتفك، وسيتم التواصل معك",
   "weWillContactYouSoon": "تم تسجيل الطلب، سنتواصل معك بأقرب وقت ممكن",
-  "welcomeTomandob_moshtarayat": "اهلا بك في mandob_moshtarayat",
+  "welcomeTomandob_moshtarayat": "اهلا بك في مندوب مشتريات",
   "initData": "تعيين البيانات",
   "saveLocationAsBranch01": "احفظ مكان الفرع 01",
   "welcomeToOrdersScreen": "اهلا في قسم الطلبات",
@@ -524,5 +524,11 @@
   "productCreatedSuccessfully": "تم إنشاء المنتح بنجاح",
 
   "gallery": "المعرض",
-  "camera": "الكاميرا"
+  "camera": "الكاميرا",
+
+  "selectLanguage": "اختر اللغة",
+  "lastProduct": "المنتجات الأحدث",
+  "anotherStore": "متاجر ومنتجات أخرى",
+
+  "productQuantity": "كمية المنتج"
 }

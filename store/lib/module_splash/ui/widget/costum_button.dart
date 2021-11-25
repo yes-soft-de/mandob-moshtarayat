@@ -26,7 +26,7 @@ class CustomAppButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: margin ?? EdgeInsets.zero,
+      padding: EdgeInsets.zero,
       child: Material(
         elevation: elevation,
         color: color,

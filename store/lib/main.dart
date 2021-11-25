@@ -33,6 +33,8 @@ import 'package:timeago/timeago.dart' as timeago;
 import 'package:feature_discovery/feature_discovery.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
+import 'module_stores/stores_module.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   timeago.setLocaleMessages('ar', timeago.ArMessages());
@@ -79,6 +81,7 @@ class MyApp extends StatefulWidget {
   final StoresModule _storesModule;
   final OrdersModule _ordersModule;
   final CategoriesModule _categoriesModule;
+  final StoresProfileModule _profileModule;
   MyApp(
     this._themeDataService,
     this._localizationService,
@@ -93,7 +96,8 @@ class MyApp extends StatefulWidget {
       this._mainModule,
       this._storesModule,
       this._ordersModule,
-      this._categoriesModule
+      this._categoriesModule,
+      this._profileModule,
   );
 
   @override

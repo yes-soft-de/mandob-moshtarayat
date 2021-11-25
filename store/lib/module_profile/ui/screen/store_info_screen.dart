@@ -3,11 +3,12 @@ import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/abstracts/states/loading_state.dart';
 import 'package:mandob_moshtarayat/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
+import 'package:mandob_moshtarayat/module_auth/authorization_routes.dart';
 import 'package:mandob_moshtarayat/module_profile/model/store_profile_model.dart';
 import 'package:mandob_moshtarayat/module_profile/request/create_store_request.dart';
 import 'package:mandob_moshtarayat/module_profile/state_manager/store_profile_state_manager.dart';
-import 'package:mandob_moshtarayat/module_profile/ui/widget/add_store_widget.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
+import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 
 
 
@@ -33,13 +34,16 @@ class StoreInfoScreenState extends State<StoreInfoScreen> {
   @override
   void initState() {
     currentState = LoadingState(this);
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      widget.stateManager.getStore(this);
+    });
     widget.stateManager.stateStream.listen((event) {
       currentState = event;
       if (mounted) {
         setState(() {});
       }
     });
-    widget.stateManager.getStore(this);
+
     super.initState();
   }
   void refresh(){
@@ -50,7 +54,10 @@ class StoreInfoScreenState extends State<StoreInfoScreen> {
   void updateStore(CreateStoreRequest request){
     widget.stateManager.updateStore(this,request);
   }
-
+  void goToLogin(){
+    Navigator.of(context).pushReplacementNamed(AuthorizationRoutes.LOGIN_SCREEN,arguments:1);
+    CustomFlushBarHelper.createError(title:S.current.warnning, message:S.current.pleaseLoginToContinue).show(context);
+  }
   @override
   Widget build(BuildContext context) {
 

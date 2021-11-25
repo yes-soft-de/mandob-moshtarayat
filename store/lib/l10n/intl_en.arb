@@ -525,6 +525,11 @@
   "productCreatedSuccessfully": "Product Created Successfully",
 
   "gallery": "Gallery",
-  "camera": "Camera"
+  "camera": "Camera",
 
+  "selectLanguage": "Select language",
+  "lastProduct": "Last product",
+  "anotherStore": "Another stores and products",
+
+  "productQuantity": "Product Quantity"
 }

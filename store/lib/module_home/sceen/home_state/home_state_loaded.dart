@@ -1,11 +1,9 @@
-import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:mandob_moshtarayat/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat/consts/order_status.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_home/model/report_model.dart';
 import 'package:mandob_moshtarayat/module_home/widget/animation.dart';
 import 'package:mandob_moshtarayat/module_profile/model/store_profile_model.dart';
-import 'package:mandob_moshtarayat/utils/components/custom_list_view.dart';
 import 'package:mandob_moshtarayat/utils/components/empty_screen.dart';
 import 'package:mandob_moshtarayat/utils/components/error_screen.dart';
 import 'package:flutter/material.dart';
