@@ -56,6 +56,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "amountYouOwn":
             MessageLookupByLibrary.simpleMessage("My Actual Balance"),
         "andIAm": MessageLookupByLibrary.simpleMessage("And I am"),
+        "anotherStore":
+            MessageLookupByLibrary.simpleMessage("Another stores and products"),
         "apply": MessageLookupByLibrary.simpleMessage("APPLY"),
         "areYouSureToDisposeThis": MessageLookupByLibrary.simpleMessage(
             "Are you sure about dispose your changes"),
@@ -347,6 +349,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("+100 Employees"),
         "lastDate": MessageLookupByLibrary.simpleMessage("Last Date"),
         "lastMonth": MessageLookupByLibrary.simpleMessage("Last Month"),
+        "lastProduct": MessageLookupByLibrary.simpleMessage("Last product"),
         "lastSeenMessage": MessageLookupByLibrary.simpleMessage("New Messages"),
         "latestUpdates": MessageLookupByLibrary.simpleMessage("Latest Updates"),
         "launch": MessageLookupByLibrary.simpleMessage("Launch our app"),
@@ -551,6 +554,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "productOrdered":
             MessageLookupByLibrary.simpleMessage("Request product"),
         "productPrice": MessageLookupByLibrary.simpleMessage("Product Price"),
+        "productQuantity":
+            MessageLookupByLibrary.simpleMessage("Product Quantity"),
         "products": MessageLookupByLibrary.simpleMessage("Products"),
         "productsReport":
             MessageLookupByLibrary.simpleMessage("Products Report"),
@@ -629,6 +634,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("searching for store"),
         "second": MessageLookupByLibrary.simpleMessage("second"),
         "seconds": MessageLookupByLibrary.simpleMessage("seconds"),
+        "selectLanguage":
+            MessageLookupByLibrary.simpleMessage("Select language"),
         "sendMeCode": MessageLookupByLibrary.simpleMessage("Send me code"),
         "sendToRecordFaild": MessageLookupByLibrary.simpleMessage(
             "Sending record has been failed"),

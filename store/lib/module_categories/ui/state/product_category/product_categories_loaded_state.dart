@@ -4,19 +4,15 @@ import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_categories/model/products_categories_model.dart';
 import 'package:mandob_moshtarayat/module_categories/model/products_model.dart';
 import 'package:mandob_moshtarayat/module_categories/request/create_product_request.dart';
-import 'package:mandob_moshtarayat/module_categories/request/update_product_category_request.dart';
 import 'package:mandob_moshtarayat/module_categories/request/update_product_request.dart';
 import 'package:mandob_moshtarayat/module_categories/ui/screen/product_categories_screen.dart';
 import 'package:mandob_moshtarayat/module_categories/ui/state/product_category/product_categories_state.dart';
 import 'package:mandob_moshtarayat/module_categories/ui/widget/add_product_form.dart';
-// import 'package:mandob_moshtarayat/module_stores/stores_routes.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_list_view.dart';
 import 'package:mandob_moshtarayat/utils/components/empty_screen.dart';
 import 'package:mandob_moshtarayat/utils/components/error_screen.dart';
-import 'package:mandob_moshtarayat/utils/components/fixed_container.dart';
 import 'package:mandob_moshtarayat/utils/components/progresive_image.dart';
-import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
-import 'package:mandob_moshtarayat/utils/helpers/form_dialog.dart';
+
 
 class ProductCategoriesLoadedState extends ProductCategoriesState {
   final ProductCategoriesScreenState screenState;

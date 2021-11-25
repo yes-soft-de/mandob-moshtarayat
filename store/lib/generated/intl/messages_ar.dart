@@ -55,6 +55,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "allcity": MessageLookupByLibrary.simpleMessage("جميع المدن"),
         "amountYouOwn": MessageLookupByLibrary.simpleMessage("مستحقات الشركة"),
         "andIAm": MessageLookupByLibrary.simpleMessage("من أنا"),
+        "anotherStore":
+            MessageLookupByLibrary.simpleMessage("متاجر ومنتجات أخرى"),
         "apply": MessageLookupByLibrary.simpleMessage("حفظ"),
         "areYouSureToDisposeThis": MessageLookupByLibrary.simpleMessage(
             "هل أنت متأكد من إنك تريد تجاهل هذه التغييرات في بياناتك الشخصية"),
@@ -337,6 +339,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("+100 موظف"),
         "lastDate": MessageLookupByLibrary.simpleMessage("حتى تاريخ"),
         "lastMonth": MessageLookupByLibrary.simpleMessage("الماضي"),
+        "lastProduct": MessageLookupByLibrary.simpleMessage("المنتجات الأحدث"),
         "lastSeenMessage": MessageLookupByLibrary.simpleMessage("رسائل جديدة"),
         "latestUpdates": MessageLookupByLibrary.simpleMessage("اخر التحديثات"),
         "launch": MessageLookupByLibrary.simpleMessage("شغل تطبيقنا"),
@@ -539,6 +542,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "productName": MessageLookupByLibrary.simpleMessage("اسم المنتج"),
         "productOrdered": MessageLookupByLibrary.simpleMessage("تم طلب المنتج"),
         "productPrice": MessageLookupByLibrary.simpleMessage("سعر المنتج"),
+        "productQuantity": MessageLookupByLibrary.simpleMessage("كمية المنتج"),
         "products": MessageLookupByLibrary.simpleMessage("منتجات"),
         "productsReport":
             MessageLookupByLibrary.simpleMessage("تقارير المنتجات"),
@@ -615,6 +619,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("البحث عن متجر"),
         "second": MessageLookupByLibrary.simpleMessage("ثانية"),
         "seconds": MessageLookupByLibrary.simpleMessage("ثواني"),
+        "selectLanguage": MessageLookupByLibrary.simpleMessage("اختر اللغة"),
         "sendMeCode": MessageLookupByLibrary.simpleMessage("ارسل رمز التأكيد"),
         "sendToRecordFaild":
             MessageLookupByLibrary.simpleMessage("فشلت عملية إرسال التقرير"),
@@ -776,8 +781,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("اهلا في قسم الطلبات"),
         "welcomeToOurApp":
             MessageLookupByLibrary.simpleMessage("أهلا بك في تطبيق تواصلنا"),
-        "welcomeTomandob_moshtarayat": MessageLookupByLibrary.simpleMessage(
-            "اهلا بك في mandob_moshtarayat"),
+        "welcomeTomandob_moshtarayat":
+            MessageLookupByLibrary.simpleMessage("اهلا بك في مندوب مشتريات"),
         "whatsapp": MessageLookupByLibrary.simpleMessage("واتساب"),
         "whatsappWithCaptain": MessageLookupByLibrary.simpleMessage("الكابتن"),
         "whatsappWithClient": MessageLookupByLibrary.simpleMessage("الزبون"),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
-import 'package:mandob_moshtarayat/utils/text_style/text_style.dart';
 
 class CustomLoginFormField extends StatefulWidget {
   final double height;

@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import 'package:mandob_moshtarayat/consts/order_status.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
-import 'package:mandob_moshtarayat/global_nav_key.dart';
 import 'package:mandob_moshtarayat/module_categories/model/products_categories_model.dart';
 import 'package:mandob_moshtarayat/module_categories/request/create_product_request.dart';
-import 'package:mandob_moshtarayat/module_categories/request/create_products_request.dart';
-import 'package:mandob_moshtarayat/module_categories/request/update_product_category_request.dart';
 import 'package:mandob_moshtarayat/module_categories/request/update_product_request.dart';
 import 'package:mandob_moshtarayat/module_categories/state_manager/products_category_state_manager.dart';
 import 'package:mandob_moshtarayat/module_categories/ui/state/product_category/product_categories_loading_state.dart';
 import 'package:mandob_moshtarayat/module_categories/ui/state/product_category/product_categories_state.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
-import 'package:mandob_moshtarayat/utils/components/floated_button.dart';
-import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
-import 'package:mandob_moshtarayat/utils/helpers/form_dialog.dart';
+
 
 @injectable
 class ProductCategoriesScreen extends StatefulWidget {

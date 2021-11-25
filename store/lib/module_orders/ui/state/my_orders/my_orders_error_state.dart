@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mandob_moshtarayat/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
-import 'package:mandob_moshtarayat/module_orders/ui/screen/my_orders_screen.dart';
-import 'package:mandob_moshtarayat/module_orders/ui/state/my_orders/my_orders_state.dart';
 import 'package:mandob_moshtarayat/utils/images/images.dart';
 
 

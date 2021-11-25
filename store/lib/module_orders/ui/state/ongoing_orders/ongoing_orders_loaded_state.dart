@@ -1,6 +1,4 @@
 import 'package:intl/intl.dart';
-import 'package:simple_moment/simple_moment.dart';
-import 'package:mandob_moshtarayat/abstracts/states/state.dart';
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat/module_orders/model/order_model.dart';
 import 'package:mandob_moshtarayat/module_orders/ui/screen/OngoingOrdersScreen.dart';

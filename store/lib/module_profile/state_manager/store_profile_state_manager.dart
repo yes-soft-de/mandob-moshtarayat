@@ -2,6 +2,7 @@ import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/abstracts/states/loading_state.dart';
 import 'package:mandob_moshtarayat/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
+import 'package:mandob_moshtarayat/module_auth/service/auth_service/auth_service.dart';
 import 'package:mandob_moshtarayat/module_profile/model/store_profile_model.dart';
 import 'package:mandob_moshtarayat/module_profile/request/create_store_request.dart';
 import 'package:mandob_moshtarayat/module_profile/service/store_service.dart';
@@ -15,24 +16,32 @@ import 'package:rxdart/rxdart.dart';
 class StoreProfileStateManager {
   final StoresService _storesService;
   final ImageUploadService _uploadService;
+  final AuthService _authService;
+
   final PublishSubject<States> _stateSubject = PublishSubject();
 
   Stream<States> get stateStream => _stateSubject.stream;
 
-  StoreProfileStateManager(this._storesService, this._uploadService);
+  StoreProfileStateManager(this._storesService, this._uploadService, this._authService);
 
   void getStore(StoreInfoScreenState screenState) {
+    if (_authService.isLoggedIn) {
     _stateSubject.add(LoadingState(screenState));
     _storesService.getStoreProfile().then((value) {
       if (value.hasError) {
-        _stateSubject.add(StoreProfileLoadedState(screenState,null,error: value.error));
+        _stateSubject.add(
+            StoreProfileLoadedState(screenState, null, error: value.error));
       } else if (value.isEmpty) {
-        _stateSubject.add(StoreProfileLoadedState(screenState,null,empty:true));
+        _stateSubject.add(
+            StoreProfileLoadedState(screenState, null, empty: true));
       } else {
         StoreProfileModel model = value as StoreProfileModel;
-        _stateSubject.add(StoreProfileLoadedState(screenState,model.data));
+        _stateSubject.add(StoreProfileLoadedState(screenState, model.data));
       }
     });
+  }else{
+      screenState.goToLogin();
+    }
   }
   void updateStore(StoreInfoScreenState screenState,CreateStoreRequest request){
     if (request.image!.contains('/original-image/')) {

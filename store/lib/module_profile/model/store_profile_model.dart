@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:mandob_moshtarayat/abstracts/data_model/data_model.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';

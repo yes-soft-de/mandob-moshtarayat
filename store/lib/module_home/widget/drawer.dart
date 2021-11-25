@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:mandob_moshtarayat/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_categories/categories_routes.dart';
 import 'package:mandob_moshtarayat/module_orders/orders_routes.dart';
 import 'package:mandob_moshtarayat/module_profile/model/store_profile_model.dart';
 import 'package:mandob_moshtarayat/module_profile/stores_routes.dart';
 import 'package:mandob_moshtarayat/module_settings/setting_routes.dart';
+import 'package:mandob_moshtarayat/module_stores/stores_routes.dart';
 import 'package:mandob_moshtarayat/module_theme/service/theme_service/theme_service.dart';
-import 'package:mandob_moshtarayat/utils/components/progresive_image.dart';
 import 'package:mandob_moshtarayat/utils/text_style/text_style.dart';
 
 class MenuScreen extends StatelessWidget {
   final StoreProfileModel profileModel;
-  MenuScreen( this.profileModel);
+  final bool isLoggedIn;
+  MenuScreen( this.profileModel, this.isLoggedIn);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class MenuScreen extends StatelessWidget {
               ListTile(
                 onTap: () {
                   Navigator.of(context)
-                      .pushNamed(StoresRoutes.STORE_INFO);
+                      .pushNamed(StoresProfileRoutes.STORE_INFO);
                 },
                 leading: Container(
                     decoration: BoxDecoration(
@@ -100,6 +100,33 @@ class MenuScreen extends StatelessWidget {
                     )),
 
               ),
+
+              isLoggedIn?  ListTile(
+                onTap: () {
+                  Navigator.of(context)
+                      .pushNamed(StoresRoutes.STORES_SCREEN);
+                },
+                leading: Container(
+                    decoration: BoxDecoration(
+                        color: AppThemeDataService.PrimaryColor,
+                        borderRadius: BorderRadius.circular(8)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Icon(Icons.store,color: Colors.white,),
+                    )),
+                title: Text('${S.of(context).anotherStore}'),
+                trailing: Container(
+                    decoration: BoxDecoration(
+                        color: StyleText.geyApp,
+                        borderRadius: BorderRadius.circular(8)),
+
+                    child: Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: Icon(Icons.arrow_forward),
+                    )),
+
+              ):Container(),
+
               ListTile(
                 onTap: () {
                   // if (screenState.currentState is CaptainOrdersListStateOrdersLoaded){

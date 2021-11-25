@@ -1,4 +1,3 @@
-import 'package:analyzer_plugin/protocol/protocol.dart';
 import 'package:injectable/injectable.dart';
 
 import 'package:mandob_moshtarayat/module_home/repository/home_repository.dart';

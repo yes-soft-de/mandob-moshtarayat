@@ -1,10 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
 import 'package:lottie/lottie.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
-import 'package:soundpool/soundpool.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_auth/service/auth_service/auth_service.dart';
 import 'package:mandob_moshtarayat/module_chat/model/chat/chat_model.dart';
@@ -39,7 +37,7 @@ class ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
   bool down = false;
   late AutoScrollController chatScrollController;
   bool empty = true;
-  late Soundpool pool;
+//  late Soundpool pool;
   int? receive_message;
   int? lastSeenIndex;
   int? send_message;
@@ -47,22 +45,22 @@ class ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
   @override
   void initState() {
     _chatMessagesList = [];
-    pool = Soundpool.fromOptions();
+//    pool = Soundpool.fromOptions();
     chatScrollController = AutoScrollController(
       axis: Axis.vertical,
     );
-    WidgetsBinding.instance?.addPostFrameCallback((_) async {
-      receive_message = await rootBundle
-          .load('assets/sounds/receive_message.mp3')
-          .then((ByteData soundData) {
-        return pool.load(soundData);
-      });
-      send_message = await rootBundle
-          .load('assets/sounds/send_message.mp3')
-          .then((ByteData soundData) {
-        return pool.load(soundData);
-      });
-    });
+//    WidgetsBinding.instance?.addPostFrameCallback((_) async {
+//      receive_message = await rootBundle
+//          .load('assets/sounds/receive_message.mp3')
+//          .then((ByteData soundData) {
+//        return pool.load(soundData);
+//      });
+//      send_message = await rootBundle
+//          .load('assets/sounds/send_message.mp3')
+//          .then((ByteData soundData) {
+//        return pool.load(soundData);
+//      });
+//    });
     streamSubscription =
         widget._chatStateManager.chatBlocStream.listen((event) {
       currentState = event.first;
@@ -82,17 +80,17 @@ class ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
               preferPosition: AutoScrollPosition.end,
             )
                 .whenComplete(() async {
-              bool me =
-                  _chatMessagesList.last.sender == widget._authService.username;
-              if (sound && receive_message != null && me == false) {
-                await pool.play(receive_message ?? -1);
-              } else if (sound && send_message != null && me) {
-                await pool.play(send_message ?? -1);
-              }
-              if (empty) {
-                empty = false;
-                setState(() {});
-              }
+//              bool me =
+//                  _chatMessagesList.last.sender == widget._authService.username;
+//              if (sound && receive_message != null && me == false) {
+//                await pool.play(receive_message ?? -1);
+//              } else if (sound && send_message != null && me) {
+//                await pool.play(send_message ?? -1);
+//              }
+//              if (empty) {
+//                empty = false;
+//                setState(() {});
+//              }
             });
           });
         }
@@ -136,7 +134,7 @@ class ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
   @override
   void dispose() {
     WidgetsBinding.instance?.removeObserver(this);
-    pool.release();
+//    pool.release();
     streamSubscription.cancel();
     super.dispose();
   }

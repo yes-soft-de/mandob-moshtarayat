@@ -86,6 +86,9 @@ class Urls {
   static const GET_STORE_PRODUCT_BY_Category = BASE_API + '/productsbystoreproductcategoryid/';
   static const GET_STORE_PRODUCT = BASE_API + '/getproductsstore';
 
+  static const GET_LAST_PRODUCT = BASE_API + '/productslast30';
+  static const GET_CAT_AND_STORE = BASE_API + '/storecategoriesandstores';
+
 
 
 

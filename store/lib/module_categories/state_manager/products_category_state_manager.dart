@@ -8,8 +8,6 @@ import 'package:rxdart/rxdart.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_auth/service/auth_service/auth_service.dart';
 import 'package:mandob_moshtarayat/module_categories/model/products_categories_model.dart';
-import 'package:mandob_moshtarayat/module_categories/request/create_products_request.dart';
-import 'package:mandob_moshtarayat/module_categories/request/update_product_category_request.dart';
 import 'package:mandob_moshtarayat/module_categories/service/store_categories_service.dart';
 import 'package:mandob_moshtarayat/module_categories/ui/screen/product_categories_screen.dart';
 import 'package:mandob_moshtarayat/module_categories/ui/state/product_category/product_categories_loaded_state.dart';

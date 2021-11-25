@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:injectable/injectable.dart';
-import 'package:mandob_moshtarayat/abstracts/states/loading_state.dart';
 import 'package:mandob_moshtarayat/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
-import 'package:mandob_moshtarayat/global_nav_key.dart';
-import 'package:mandob_moshtarayat/module_home/model/report_model.dart';
+import 'package:mandob_moshtarayat/module_auth/service/auth_service/auth_service.dart';
 import 'package:mandob_moshtarayat/module_home/state_manager/home_state_manager.dart';
 import 'package:mandob_moshtarayat/module_home/widget/drawer.dart';
 import 'package:mandob_moshtarayat/module_main/ui/screen/main_screen.dart';
 import 'package:mandob_moshtarayat/module_profile/model/store_profile_model.dart';
 import 'package:mandob_moshtarayat/module_profile/response/store_profile_response.dart';
-import 'package:mandob_moshtarayat/module_theme/service/theme_service/theme_service.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat/utils/images/images.dart';
 
@@ -20,8 +17,8 @@ import 'home_state/home_state_loaded.dart';
 @injectable
 class HomeScreen extends StatefulWidget {
   final HomeStateManager _stateManager;
-
-  HomeScreen(this._stateManager);
+  final AuthService _authService;
+  HomeScreen(this._stateManager, this._authService);
 
   @override
   HomeScreenState createState() => HomeScreenState();
@@ -69,7 +66,7 @@ class HomeScreenState extends State<HomeScreen> {
                 state.getUI(context)
               ],
             ),),
-        drawer: MenuScreen(model),
+        drawer: MenuScreen(model,widget._authService.isLoggedIn),
       ),
     );
   }

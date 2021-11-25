@@ -5269,6 +5269,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Select language`
+  String get selectLanguage {
+    return Intl.message(
+      'Select language',
+      name: 'selectLanguage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Last product`
+  String get lastProduct {
+    return Intl.message(
+      'Last product',
+      name: 'lastProduct',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Another stores and products`
+  String get anotherStore {
+    return Intl.message(
+      'Another stores and products',
+      name: 'anotherStore',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Product Quantity`
+  String get productQuantity {
+    return Intl.message(
+      'Product Quantity',
+      name: 'productQuantity',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

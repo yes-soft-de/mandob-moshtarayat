@@ -2,12 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
-import 'package:mandob_moshtarayat/global_nav_key.dart';
-import 'package:mandob_moshtarayat/module_orders/model/order_time_line_model.dart';
-import 'package:mandob_moshtarayat/module_orders/response/order_time_line_response.dart';
 import 'package:mandob_moshtarayat/module_orders/state_manager/order_tim_line_state_manager.dart';
 import 'package:mandob_moshtarayat/module_orders/ui/state/my_orders/my_orders_loading_state.dart';
-import 'package:mandob_moshtarayat/module_orders/ui/state/order_timeline/order_time_line_state.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
 
 @injectable

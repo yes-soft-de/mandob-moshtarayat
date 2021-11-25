@@ -2,11 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mandob_moshtarayat/consts/urls.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_categories/request/update_product_request.dart';
 import 'package:mandob_moshtarayat/module_categories/ui/state/product_category/product_categories_state.dart';
-import 'package:mandob_moshtarayat/module_categories/ui/state/product_store/product_store_state.dart';
 
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_feild.dart';
@@ -14,7 +12,6 @@ import 'package:mandob_moshtarayat/utils/components/custom_list_view.dart';
 import 'package:mandob_moshtarayat/utils/components/fixed_container.dart';
 import 'package:mandob_moshtarayat/utils/components/stacked_form.dart';
 import 'package:mandob_moshtarayat/utils/effect/checked.dart';
-import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 
 class AddProductsForm extends StatefulWidget {
@@ -32,6 +29,7 @@ class _AddProductsFormState extends State<AddProductsForm> {
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
+  final TextEditingController _quantityController = TextEditingController();
   final TextEditingController _discountController = TextEditingController();
   String? imagePath;
   final ImagePicker _imagePicker = ImagePicker();
@@ -89,6 +87,15 @@ class _AddProductsFormState extends State<AddProductsForm> {
                   CustomFormField(
                     controller: _priceController,
                     hintText: S.current.productPrice,
+                    numbers: true,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 12.0,bottom: 8,right: 12,top: 16.0),
+                    child: Text(S.current.productQuantity,style: TextStyle(fontWeight: FontWeight.bold),textAlign: TextAlign.start,),
+                  ),
+                  CustomFormField(
+                    controller: _quantityController,
+                    hintText: S.current.productQuantity,
                     numbers: true,
                   ),
 
