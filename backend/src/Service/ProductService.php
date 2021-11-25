@@ -167,6 +167,7 @@ class ProductService
     {
         $response = [];
         $items = $this->productManager->getProductsByStoreProductCategoryID($storeProductCategoryID);
+
         foreach ($items as $item) {
 
             $item['store'] = $this->storeOwnerProfileService->getStoreNameById($item['storeOwnerProfileID']);

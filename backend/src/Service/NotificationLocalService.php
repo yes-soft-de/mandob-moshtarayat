@@ -29,10 +29,12 @@ class NotificationLocalService
     public function createNotificationLocal($userID, $title, $message, $orderNumber)
     {
         $request = new NotificationLocalCreateRequest();
+
         $request->setUserID($userID);
         $request->setTitle($title);
         $request->setMessage($message);
         $request->setOrderNumber($orderNumber);
+
         $item = $this->notificationLocalManager->createNotificationLocal($request);
 
         return $this->autoMapping->map(NotificationLocalEntity::class, NotificationLocalResponse::class, $item);
@@ -41,17 +43,20 @@ class NotificationLocalService
     public function getLocalNotificationById($id)
     {
         $item = $this->notificationLocalManager->getLocalNotificationById($id);
-        return $this->autoMapping->map(NotificationLocalEntity::class, NotificationLocalResponse::class, $item);
 
+        return $this->autoMapping->map(NotificationLocalEntity::class, NotificationLocalResponse::class, $item);
     }
 
     public function getLocalNotifications($userID)
     {
         $response = [];
+
         $items = $this->notificationLocalManager->getLocalNotifications($userID);
+
         foreach ($items as $item) {
             $response[] = $this->autoMapping->map("array", NotificationLocalResponse::class, $item);
         }
+
         return $response;
     }
 }
