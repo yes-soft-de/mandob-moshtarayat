@@ -234,6 +234,7 @@ class StoreOwnerProfileService
     }
 
     public function getStoresFilterByName($name) {
+        $response = [];
         $items = $this->userManager->getStoresByName($name);
         foreach ($items as $item) {
             $item['image'] = $this->getImageParams($item['image'], $this->params.$item['image'], $this->params);
