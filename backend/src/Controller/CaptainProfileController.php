@@ -151,7 +151,9 @@ class CaptainProfileController extends BaseController
 
         $request = $this->autoMapping->map(stdClass::class, CaptainProfileUpdateRequest::class, (object)$data);
         $request->setUserID($this->getUserId());
+
         $response = $this->captainProfileService->updateCaptainProfile($request);
+
         return $this->response($response, self::UPDATE);  
     }
 
@@ -212,10 +214,12 @@ class CaptainProfileController extends BaseController
 
         $lon = isset($request->getLocation()["lon"]);
         $lat = isset($request->getLocation()["lat"]);
+
         if( $lon == true && $lat == true) {
             $response = $this->captainProfileService->captainProfileUpdateLocation($request);
             return $this->response($response, self::UPDATE);
         }
+
         return $this->response($response, self::ERROR);
     }
   

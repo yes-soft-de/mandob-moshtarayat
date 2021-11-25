@@ -301,7 +301,6 @@ class ProductController extends BaseController
         $request = $this->autoMapping->map(stdClass::class, ProductUpdateRequest::class, (object)$data);
 
         $violations = $this->validator->validate($request);
-
         if (\count($violations) > 0) {
             $violationsString = (string) $violations;
 
@@ -370,7 +369,6 @@ class ProductController extends BaseController
         $request = $this->autoMapping->map(stdClass::class, ProductCreateRequest::class, (object)$data);
 
         $violations = $this->validator->validate($request);
-
         if(\count($violations) > 0)
         {
             $violationsString = (string) $violations;
@@ -441,7 +439,6 @@ class ProductController extends BaseController
         $request = $this->autoMapping->map(stdClass::class, ProductUpdateByStoreOwnerRequest::class, (object)$data);
 
         $violations = $this->validator->validate($request);
-
         if (\count($violations) > 0) {
             $violationsString = (string) $violations;
 
@@ -548,6 +545,7 @@ class ProductController extends BaseController
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class, ProductCancelByStoreOwnerRequest::class, (object)$data);
+
         $result = $this->productService->updateProductStatusByStore($request);
 
         return $this->response($result, self::UPDATE);
