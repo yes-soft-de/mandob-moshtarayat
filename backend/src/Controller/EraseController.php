@@ -3,6 +3,10 @@
 
 namespace App\Controller;
 
+use App\Entity\StoreCategoryEntity;
+use App\Entity\StoreOwnerBranchEntity;
+use App\Entity\StoreOwnerProfileEntity;
+use App\Entity\StoreProductCategoryEntity;
 use Doctrine\ORM\Tools\SchemaTool;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\OrderEntity;
@@ -61,4 +65,61 @@ class EraseController extends BaseController
 
         return $this->response("", self::DELETE);
     }
+
+    /**
+     * @Route("erasecategories", name="deleteAllCategories", methods={"DELETE"})
+     */
+    public function deleteAllCategories()
+    {
+        try
+        {
+            $em = $this->getDoctrine()->getManager();
+
+            $em->getRepository(StoreCategoryEntity::class)->createQueryBuilder('store_category_entity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(StoreProductCategoryEntity::class)->createQueryBuilder('store_product_category_entity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+        }
+        catch (\Exception $ex)
+        {
+            return $this->json($ex);
+        }
+
+        return $this->response("", self::DELETE);
+    }
+
+    /**
+     * @Route("erasestores", name="deleteAllStores", methods={"DELETE"})
+     */
+    public function deleteAllStores()
+    {
+        try
+        {
+            $em = $this->getDoctrine()->getManager();
+
+            $em->getRepository(StoreOwnerProfileEntity::class)->createQueryBuilder('store_owner_profile_entity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(StoreOwnerBranchEntity::class)->createQueryBuilder('store_owner_branch_entity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+        }
+        catch (\Exception $ex)
+        {
+            return $this->json($ex);
+        }
+
+        return $this->response("", self::DELETE);
+    }
+
 }
