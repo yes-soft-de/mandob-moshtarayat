@@ -78,13 +78,13 @@ class StoreCategoryController extends BaseController
         $request = $this->autoMapping->map(stdClass::class, StoreCategoryCreateRequest::class, (object)$data);
 
         $violations = $this->validator->validate($request);
-
         if(\count($violations) > 0)
         {
             $violationsString = (string) $violations;
 
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
+
         $result = $this->storeCategoryService->createStoreCategory($request);
 
         return $this->response($result, self::CREATE);
@@ -138,13 +138,13 @@ class StoreCategoryController extends BaseController
         $request = $this->autoMapping->map(stdClass::class, StoreCategoryUpdateRequest::class, (object)$data);
 
         $violations = $this->validator->validate($request);
-
         if(\count($violations) > 0)
         {
             $violationsString = (string) $violations;
 
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
+
         $result = $this->storeCategoryService->updateStoreCategory($request);
 
         return $this->response($result, self::UPDATE);

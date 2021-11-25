@@ -79,12 +79,14 @@ class StoreProductCategoryController extends BaseController
     {
         $data = json_decode($request->getContent(), true);
         $request = $this->autoMapping->map(stdClass::class, StoreProductCategoryCreateRequest::class, (object)$data);
+
         $violations = $this->validator->validate($request);
         if (\count($violations) > 0) {
             $violationsString = (string) $violations;
 
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
+
         $result = $this->storeProductCategoryService->createStoreProductCategoryLevelOne($request);
 
         return $this->response($result, self::CREATE);
@@ -135,12 +137,14 @@ class StoreProductCategoryController extends BaseController
     {
         $data = json_decode($request->getContent(), true);
         $request = $this->autoMapping->map(stdClass::class, StoreProductCategoryLevelTwoCreateRequest::class, (object)$data);
+
         $violations = $this->validator->validate($request);
         if (\count($violations) > 0) {
             $violationsString = (string) $violations;
 
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
+
         $result = $this->storeProductCategoryService->createStoreProductCategoryLevelTwo($request);
 
         return $this->response($result, self::CREATE);
@@ -191,12 +195,14 @@ class StoreProductCategoryController extends BaseController
      {
         $data = json_decode($request->getContent(), true);
         $request = $this->autoMapping->map(stdClass::class, StoreProductCategoryLevelOneUpdateRequest::class, (object)$data);
+
         $violations = $this->validator->validate($request);
          if (\count($violations) > 0) {
              $violationsString = (string) $violations;
 
              return new JsonResponse($violationsString, Response::HTTP_OK);
          }
+
         $result = $this->storeProductCategoryService->updateStoreProductCategoryLevelOne($request);
 
         return $this->response($result, self::UPDATE);
@@ -247,12 +253,14 @@ class StoreProductCategoryController extends BaseController
      {
         $data = json_decode($request->getContent(), true);
         $request = $this->autoMapping->map(stdClass::class, StoreProductCategoryLevelTwoUpdateRequest::class, (object)$data);
+
         $violations = $this->validator->validate($request);
          if (\count($violations) > 0) {
              $violationsString = (string) $violations;
 
              return new JsonResponse($violationsString, Response::HTTP_OK);
          }
+
         $result = $this->storeProductCategoryService->updateStoreProductCategoryLevelTwo($request);
 
         return $this->response($result, self::UPDATE);
