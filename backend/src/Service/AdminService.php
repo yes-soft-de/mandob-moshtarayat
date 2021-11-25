@@ -26,6 +26,7 @@ class AdminService
             $user = $this->adminManager->createAdmin($request);
             return $this->autoMapping->map(UserEntity::class, AdminCreateResponse::class, $user);
         }
+
         $user['found']="yes";
         return $user;
     }

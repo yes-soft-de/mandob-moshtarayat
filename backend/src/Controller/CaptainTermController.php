@@ -67,20 +67,20 @@ class CaptainTermController extends BaseController
      */
     public function createCaptainTerm(Request $request)
     {
-            $data = json_decode($request->getContent(), true);
+       $data = json_decode($request->getContent(), true);
 
-            $request = $this->autoMapping->map(stdClass::class, CaptainTermCreateRequest::class, (object)$data);
+       $request = $this->autoMapping->map(stdClass::class, CaptainTermCreateRequest::class, (object)$data);
 
-            $violations = $this->validator->validate($request);
+       $violations = $this->validator->validate($request);
+       if (\count($violations) > 0) {
+            $violationsString = (string) $violations;
 
-            if (\count($violations) > 0) {
-                $violationsString = (string) $violations;
-
-                return new JsonResponse($violationsString, Response::HTTP_OK);
+            return new JsonResponse($violationsString, Response::HTTP_OK);
             }
-            $result = $this->captainTermService->createCaptainTerm($request);
 
-        return $this->response($result, self::CREATE);
+       $result = $this->captainTermService->createCaptainTerm($request);
+
+       return $this->response($result, self::CREATE);
     }
 
     /**

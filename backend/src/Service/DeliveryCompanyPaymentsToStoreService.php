@@ -32,6 +32,7 @@ class DeliveryCompanyPaymentsToStoreService
     public function deliveryCompanyPaymentsToStoreByUserID($userID)
     {
       $storeOwnerProfileID =  $this->userService->getStoreProfileId($userID);
+
       return $this->deliveryCompanyPaymentsToStoreManager->deliveryCompanyPaymentsToStore($storeOwnerProfileID);
     }
 

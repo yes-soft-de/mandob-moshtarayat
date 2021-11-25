@@ -275,6 +275,52 @@ class ProductController extends BaseController
 
         return $this->response($result, self::FETCH);
     }
+    /**
+     * @Route("productsbystoreproductcategoryidforstore/{storeProductCategoryID}", name="getProductsByStoreProductCategoryIDForStore", methods={"GET"})
+     * @return JsonResponse
+     * @IsGranted("ROLE_OWNER")
+     * *
+     * @OA\Tag(name="Product")
+
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns array of Products for store ",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="productName"),
+     *                  @OA\Property(type="number", property="productPrice"),
+     *                  @OA\Property(type="number", property="productQuantity"),
+     *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                  @OA\Property(type="integer", property="storeProductCategoryID"),
+     *                  @OA\Property(type="string", property="description"),
+     *                  @OA\Property(type="string", property="rate"),
+     *                  @OA\Property(type="string", property="soldCount"),
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="object", property="image",
+     *                      @OA\Property(type="string", property="imageURL"),
+     *                      @OA\Property(type="string", property="image"),
+     *                      @OA\Property(type="string", property="baseURL"),
+     *                  ),
+     *                  @OA\Property(type="object", property="store",
+     *                      @OA\Property(type="integer", property="id"),
+     *                      @OA\Property(type="string", property="storeOwnerName"),
+     *                  ),
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     */
+    public function getProductsByStoreProductCategoryIDForStore($storeProductCategoryID): JsonResponse
+    {
+        $result = $this->productService->getProductsByStoreProductCategoryIDForStore($storeProductCategoryID, $this->getUserId());
+
+        return $this->response($result, self::FETCH);
+    }
 
     /**
      * @Route("getproductsstore", name="getStoreProducts", methods={"GET"})
@@ -301,7 +347,6 @@ class ProductController extends BaseController
         $request = $this->autoMapping->map(stdClass::class, ProductUpdateRequest::class, (object)$data);
 
         $violations = $this->validator->validate($request);
-
         if (\count($violations) > 0) {
             $violationsString = (string) $violations;
 
@@ -370,7 +415,6 @@ class ProductController extends BaseController
         $request = $this->autoMapping->map(stdClass::class, ProductCreateRequest::class, (object)$data);
 
         $violations = $this->validator->validate($request);
-
         if(\count($violations) > 0)
         {
             $violationsString = (string) $violations;
@@ -441,7 +485,6 @@ class ProductController extends BaseController
         $request = $this->autoMapping->map(stdClass::class, ProductUpdateByStoreOwnerRequest::class, (object)$data);
 
         $violations = $this->validator->validate($request);
-
         if (\count($violations) > 0) {
             $violationsString = (string) $violations;
 
@@ -548,6 +591,7 @@ class ProductController extends BaseController
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class, ProductCancelByStoreOwnerRequest::class, (object)$data);
+
         $result = $this->productService->updateProductStatusByStore($request);
 
         return $this->response($result, self::UPDATE);

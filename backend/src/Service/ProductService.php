@@ -167,12 +167,33 @@ class ProductService
     {
         $response = [];
         $items = $this->productManager->getProductsByStoreProductCategoryID($storeProductCategoryID);
+
         foreach ($items as $item) {
 
             $item['store'] = $this->storeOwnerProfileService->getStoreNameById($item['storeOwnerProfileID']);
             $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
             $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
             $item['soldCount'] = $this->getProductsSoldCount($item['id']);
+            $response[] = $this->autoMapping->map('array', ProductsByProductCategoryIdResponse::class, $item);
+        }
+        return $response;
+    }
+
+    public function getProductsByStoreProductCategoryIDForStore($storeProductCategoryID, $userID): ?array
+    {
+        $response = [];
+
+        $storeOwnerProfileId = $this->userManager->getStoreProfileId($userID);
+
+        $items = $this->productManager->getProductsByStoreProductCategoryIDForStore($storeProductCategoryID, $storeOwnerProfileId);
+
+        foreach ($items as $item) {
+
+            $item['store'] = $this->storeOwnerProfileService->getStoreNameById($item['storeOwnerProfileID']);
+            $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
+            $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
+            $item['soldCount'] = $this->getProductsSoldCount($item['id']);
+
             $response[] = $this->autoMapping->map('array', ProductsByProductCategoryIdResponse::class, $item);
         }
         return $response;

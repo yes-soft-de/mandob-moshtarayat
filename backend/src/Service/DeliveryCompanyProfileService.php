@@ -22,9 +22,12 @@ class DeliveryCompanyProfileService
     public function createDeliveryCompanyInfo(DeliveryCompanyInfoRequest $request)
     {
         $item = $this->deliveryCompanyProfileManager->createDeliveryCompanyInfo($request);
+
         if ($item instanceof DeliveryCompanyProfileEntity) {
-        return $this->autoMapping->map(DeliveryCompanyProfileEntity::class, DeliveryCompanyInfoResponse::class, $item);
+
+             return $this->autoMapping->map(DeliveryCompanyProfileEntity::class, DeliveryCompanyInfoResponse::class, $item);
         }
+
         if ($item == true) {
           
             return $this->getcompanyinfoAll();
@@ -49,35 +52,45 @@ class DeliveryCompanyProfileService
     public function  getcompanyinfoAll()
     {
         $respons=[];
+
         $results = $this->deliveryCompanyProfileManager->getcompanyinfoAll();
        
         foreach ($results as  $result) {
+
            $respons[]= $this->autoMapping->map('array', DeliveryCompanyInfoResponse::class, $result);
+
         }
+
         return $respons;
-       
     }
 
      public function  getAllCompanyInfoForStoreOwner($userId)
     {
         $respons=[];
+
         $results = $this->deliveryCompanyProfileManager->getAllCompanyInfoForStoreOwner($userId);
        
         foreach ($results as  $result) {
+
            $respons[]= $this->autoMapping->map('array', DeliveryCompanyInfoResponse::class, $result);
+
         }
+
         return $respons;
-       
     }
 
     public function  getAllCompanyInfoForCaptain($userId)
     {
         $respons=[];
+
         $results = $this->deliveryCompanyProfileManager->getAllCompanyInfoForCaptain($userId);
        
         foreach ($results as  $result) {
+
            $respons[]= $this->autoMapping->map('array', DeliveryCompanyInfoResponse::class, $result);
+
         }
+
         return $respons;
     }
 }

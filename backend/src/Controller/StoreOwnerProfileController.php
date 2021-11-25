@@ -73,7 +73,6 @@ class StoreOwnerProfileController extends BaseController
         $request = $this->autoMapping->map(stdClass::class, UserRegisterRequest::class, (object)$data);
 
         $violations = $this->validator->validate($request);
-
         if(\count($violations) > 0)
         {
             $violationsString = (string) $violations;
@@ -82,7 +81,6 @@ class StoreOwnerProfileController extends BaseController
         }
 
         $response = $this->storeOwnerProfileService->storeOwnerRegister($request);
-
         if($response->found == 1)
         {
             return $this->response($response, self::ERROR_USER_FOUND);
@@ -129,7 +127,6 @@ class StoreOwnerProfileController extends BaseController
         $request = $this->autoMapping->map(stdClass::class, UserRegisterRequest::class, (object)$data);
 
         $violations = $this->validator->validate($request);
-
         if(\count($violations) > 0)
         {
             $violationsString = (string) $violations;
@@ -211,7 +208,6 @@ class StoreOwnerProfileController extends BaseController
         $request->setUserID($this->getUserId());
 
         $violations = $this->validator->validate($request);
-
         if(\count($violations) > 0)
         {
             $violationsString = (string) $violations;
@@ -236,7 +232,6 @@ class StoreOwnerProfileController extends BaseController
         $request = $this->autoMapping->map(stdClass::class, StoreOwnerUpdateByAdminRequest::class, (object)$data);
 
         $violations = $this->validator->validate($request);
-
         if(\count($violations) > 0)
         {
             $violationsString = (string) $violations;
@@ -295,7 +290,6 @@ class StoreOwnerProfileController extends BaseController
         $request = $this->autoMapping->map(stdClass::class, storeOwnerProfileStatusUpdateByAdminRequest::class, (object)$data);
 
         $violations = $this->validator->validate($request);
-
         if(\count($violations) > 0)
         {
             $violationsString = (string) $violations;

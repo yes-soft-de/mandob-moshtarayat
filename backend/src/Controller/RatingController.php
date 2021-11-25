@@ -41,7 +41,6 @@ class RatingController extends BaseController
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class, RatingCreateRequest::class, (object)$data);
-
         $request->setUserID($this->getUserId());
 
         $result = $this->ratingService->createRatingByCaptainOrClient($request);
@@ -101,7 +100,6 @@ class RatingController extends BaseController
         $request->setUserID($this->getUserId());
 
         $violations = $this->validator->validate($request);
-
         if (\count($violations) > 0) {
             $violationsString = (string) $violations;
 
@@ -161,11 +159,9 @@ class RatingController extends BaseController
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class, RatingCreateRequest::class, (object)$data);
-
         $request->setUserID($this->getUserId());
 
         $violations = $this->validator->validate($request);
-
         if (\count($violations) > 0) {
             $violationsString = (string) $violations;
 
@@ -225,11 +221,9 @@ class RatingController extends BaseController
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class, RatingCreateRequest::class, (object)$data);
-
         $request->setUserID($this->getUserId());
 
         $violations = $this->validator->validate($request);
-
         if (\count($violations) > 0) {
             $violationsString = (string) $violations;
 

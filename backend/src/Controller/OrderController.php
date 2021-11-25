@@ -61,7 +61,7 @@ class OrderController extends BaseController
      */
     public function getPendingOrders()
     {    
-         $result = $this->orderService->getPendingOrders();
+        $result = $this->orderService->getPendingOrders();
 
         return $this->response($result, self::FETCH);
     }
@@ -80,10 +80,12 @@ class OrderController extends BaseController
 
         $request = $this->autoMapping->map(stdClass::class, OrderUpdateStateByCaptainRequest::class, (object) $data);
         $request->setCaptainID($this->getUserId());
+
         $response = $this->orderService->orderUpdateStateByCaptain($request);
         if(is_string($response)){
             return $this->response($response, self::ERROR);  
           }
+
         return $this->response($response, self::UPDATE);
     }
 
@@ -182,6 +184,7 @@ class OrderController extends BaseController
       public function getAcceptedOrderByCaptainId(): JsonResponse
       {
           $result = $this->orderService->getAcceptedOrderByCaptainId($this->getUserId());
+
           return $this->response($result, self::FETCH);
       }
 
@@ -192,13 +195,16 @@ class OrderController extends BaseController
     public function createClientOrder(Request $request): JsonResponse
     {  
         $data = json_decode($request->getContent(), true);
+
         $request = $this->autoMapping->map(stdClass::class, OrderClientCreateRequest::class, (object)$data);
         $request->setClientID($this->getUserId());
         $request->setProducts($data['products']);
+
         $response = $this->orderService->createClientOrder($request);
         if(is_string($response)){
             return $this->response($response, self::ERROR);  
           }
+
         return $this->response($response, self::CREATE);
     }
 
@@ -212,10 +218,12 @@ class OrderController extends BaseController
       
         $request = $this->autoMapping->map(stdClass::class, OrderClientSendCreateRequest::class, (object)$data);
         $request->setClientID($this->getUserId());
+
         $response = $this->orderService->createClientSendOrder($request);
         if(is_string($response)){
             return $this->response($response, self::ERROR);  
           }
+
         return $this->response($response, self::CREATE);
     }
 
@@ -229,10 +237,12 @@ class OrderController extends BaseController
       
         $request = $this->autoMapping->map(stdClass::class, OrderClientSpecialCreateRequest::class, (object)$data);
         $request->setClientID($this->getUserId());
+
         $response = $this->orderService->createClientSpecialOrder($request);
         if(is_string($response)){
             return $this->response($response, self::ERROR);  
           }
+
         return $this->response($response, self::CREATE);
     }
 
@@ -284,10 +294,12 @@ class OrderController extends BaseController
 
         $request = $this->autoMapping->map(stdClass::class, OrderUpdateByClientRequest::class, (object) $data);
         $request->setProducts($data['products']);
+
         $response = $this->orderService->orderUpdateByClient($request, $this->getUserId());
         if(is_string($response)){
             return $this->response($response, self::ERROR);  
           }
+
         return $this->response($response, self::UPDATE);
     }
     
@@ -302,10 +314,12 @@ class OrderController extends BaseController
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class, OrderUpdateSpecialByClientRequest::class, (object) $data);
+
         $response = $this->orderService->orderSpecialUpdateByClient($request, $this->getUserId());
         if(is_string($response)){
             return $this->response($response, self::ERROR);  
           }
+
         return $this->response($response, self::UPDATE);
     }
     
@@ -320,10 +334,13 @@ class OrderController extends BaseController
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class, OrderUpdateSendByClientRequest::class, (object) $data);
+
         $response = $this->orderService->orderSendUpdateByClient($request, $this->getUserId());
+
         if(is_string($response)){
             return $this->response($response, self::ERROR);  
           }
+
         return $this->response($response, self::UPDATE);
     }
 
@@ -338,6 +355,7 @@ class OrderController extends BaseController
         if(is_string($response)){
             return $this->response($response, self::ERROR);  
         }
+
         return $this->response($response, self::UPDATE);
     }   
     
@@ -377,10 +395,12 @@ class OrderController extends BaseController
 
         $request = $this->autoMapping->map(stdClass::class, OrderUpdateInvoiceByCaptainRequest::class, (object) $data);
         $request->setCaptainID($this->getUserId());
+
         $response = $this->orderService->orderUpdateInvoiceByCaptain($request);
         if(is_string($response)){
             return $this->response($response, self::ERROR);  
           }
+
         return $this->response($response, self::UPDATE);
     }
 
@@ -396,10 +416,12 @@ class OrderController extends BaseController
 
         $request = $this->autoMapping->map(stdClass::class, orderUpdateBillCalculatedByCaptainRequest::class, (object) $data);
         $request->setCaptainID($this->getUserId());
+
         $response = $this->orderService->orderUpdateBillCalculatedByCaptain($request);
         if(is_string($response)){
             return $this->response($response, self::ERROR);
           }
+
         return $this->response($response, self::UPDATE);
     }
 
@@ -450,6 +472,7 @@ class OrderController extends BaseController
         if(is_string($result)){
             return $this->response($result, self::ERROR_STORE_INACTIVE);
         }
+
         return $this->response($result, self::FETCH);
     }
 

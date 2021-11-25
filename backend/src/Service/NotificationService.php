@@ -78,6 +78,7 @@ class NotificationService
     public function updateNewMessageStatusInReport($request)
     {  
         $response=[];
+
         //NewMessageStatus = true
         $item = $this->supportService->update($request,true);
         if($item) {
@@ -89,17 +90,20 @@ class NotificationService
     public function updateNewMessageStatusInCaptain($request)
     {
         $response=[];
+
         //NewMessageStatus = true
         $item = $this->captainProfileService->updateCaptainNewMessageStatus($request,true);
         if($item) {
             $response[] =  $this->autoMapping->map('array', NotificationTokenResponse::class, $item);
         }
+
         return $response;
     }
 
     public function notificationToCaptainFromAdmin($request)
     {
         $response=[];
+
         $item = $this->getCaptainRoomID($request->getRoomID());
        
         if($item) {
@@ -119,6 +123,7 @@ class NotificationService
     public function notificationToReportFromAdmin($request)
     {
         $response=[];
+
         $item = $this->getByReprotRoomID($request->getRoomID());
        
         if($item) {
@@ -131,7 +136,8 @@ class NotificationService
             $this->messaging->sendMulticast($message, $devicesToken);  
             $response[]= $this->autoMapping->map('array',NotificationTokenResponse::class, $devicesToken);
         } 
-        return $response;    
+
+        return $response;
     }
 
     public function notificationTokenCreate(NotificationTokenRequest $request)

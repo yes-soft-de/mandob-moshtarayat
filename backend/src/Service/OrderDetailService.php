@@ -44,12 +44,15 @@ class OrderDetailService
     public function getOrderIdByOrderNumber($orderNumber)
     {
         $response = [];
+
         $items = $this->orderDetailManager->getOrderIdByOrderNumber($orderNumber);
+
         foreach ($items as $item) {
             $item['productImage'] = $this->getImageParams($item['productImage'], $this->params . $item['productImage'], $this->params);
 
             $response[] = $this->autoMapping->map('array', OrderDetailResponse::class, $item);
         }
+
        return $response;
     }
 
@@ -57,9 +60,11 @@ class OrderDetailService
     {
         $response = [];
         $items = $this->orderDetailManager->getOrderIdWithOutStoreProductByOrderNumber($orderNumber);
+
         foreach ($items as $item) {
             $response[] = $this->autoMapping->map('array', OrderDetailResponse::class, $item);
         }
+
        return $response;
     }
 
@@ -67,9 +72,11 @@ class OrderDetailService
     {
         $response = [];
         $items = $this->orderDetailManager->getOrderNumberByOrderId($orderID);
+
         foreach ($items as $item) {
             $response[] = $this->autoMapping->map('array', OrderDetailResponse::class, $item);
         }
+
        return $response;
     }
 

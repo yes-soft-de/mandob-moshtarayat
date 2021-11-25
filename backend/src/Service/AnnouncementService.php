@@ -36,6 +36,7 @@ class AnnouncementService
     public function  getAnnouncementById($id):object
     {
         $result = $this->announcementManager->getAnnouncementById($id);
+
         return $this->autoMapping->map(AnnouncementEntity::class, AnnouncementResponse::class, $result);
   
     }
@@ -48,7 +49,7 @@ class AnnouncementService
         foreach ($results as  $result) {
            $response[]= $this->autoMapping->map('array', AnnouncementResponse::class, $result);
         }
+
         return $response;
-       
     }
 }

@@ -54,11 +54,11 @@ class UserController extends BaseController
     public function checkUserType($userType)
     {
         $response = $this->userService->checkUserType($userType,$this->getUserId());
-       
         if($response == "yes"){
             $response ="yes is"." ".$userType;
             return $this->response($response, self::CREATE); 
           }
+
         if($response == "no"){
             $response ="no not a"." ".$userType;
             return $this->response($response, self::ERROR_USER_CHECK); 
