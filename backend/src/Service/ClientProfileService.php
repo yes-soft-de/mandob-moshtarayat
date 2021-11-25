@@ -85,6 +85,7 @@ class ClientProfileService
         $item['image'] = $this->params.$item['image'];
         $item['baseURL'] = $this->params;
         $item['statistics'] = $this->clientOrdersReport($item['clientID']);
+
         return $this->autoMapping->map('array', ClientProfileResponse::class, $item);
     }
 
@@ -92,16 +93,19 @@ class ClientProfileService
     {
         $response = [];
         $items = $this->userManager->getClientsProfile();
+
         foreach ($items as $item) {
             $item['imageURL'] = $item['image'];
             $item['image'] = $this->params.$item['image'];
             $item['baseURL'] = $this->params;
+
             $response[] = $this->autoMapping->map('array', ClientsProfileResponse::class, $item);
-            }        
+        }
         return $response;
     }
 
     public function clientOrdersReport($clientID) {
+
         $item['clientOrdersCount'] = $this->userManager->clientOrdersCount($clientID);
         $item['clientOrdersCancel'] = $this->userManager->clientOrdersCancel($clientID);
         $item['clientOrdersDelivered'] = $this->userManager->clientOrdersDelivered($clientID);
@@ -110,6 +114,7 @@ class ClientProfileService
     }
 
     public function countClients() {
+
         return $this->userManager->countClients();
     }
 
@@ -118,6 +123,7 @@ class ClientProfileService
         $response = [];
 
         $stores = $this->storeOwnerProfileService->getStoresByName($itemName);
+
         $products = $this->productService->getProductsByName($itemName);
 
         foreach($stores as $store)
@@ -155,13 +161,14 @@ class ClientProfileService
        $response = [];
 
        $clients = $this->userManager->clientsByName($name);
+
        foreach ($clients as $client)
         {
             $client['imageURL'] = $client['image'];
             $client['image'] = $this->params.$client['image'];
             $client['baseURL'] = $this->params;
             $response[]= $this->autoMapping->map('array', ClientsProfileResponse::class, $client);
-           }
+        }
        return $response;
    }
 
@@ -171,5 +178,4 @@ class ClientProfileService
 
         return $this->autoMapping->map(ClientProfileEntity ::class, ClientUpdateFavouriteCategoriesResponse::class, $item);
     }
-
 }

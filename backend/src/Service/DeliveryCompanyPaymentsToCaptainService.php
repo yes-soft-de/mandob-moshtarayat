@@ -45,5 +45,4 @@ class DeliveryCompanyPaymentsToCaptainService
     {
        return $this->deliveryCompanyPaymentsToCaptainManager->deliveryCompanyPaymentsToCaptainInSpecificDate($captainId, $ToDate, $toDate);
     }
-
 }
