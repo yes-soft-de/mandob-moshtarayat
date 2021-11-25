@@ -29,12 +29,14 @@ class CaptainTermService
 
     public function getTermsCaptain() {
         $response = [];
+
         $items = $this->captainTermManager->getTermsCaptain();
       
         foreach ($items as $item) {
             $response[] =  $this->autoMapping->map('array', CaptainTermCreateResponse::class, $item);
-            }
-            return $response;
+        }
+
+        return $response;
     }
 
     public function getTermsCaptainById($id) {
@@ -42,7 +44,6 @@ class CaptainTermService
         $item = $this->captainTermManager->getTermsCaptainById($id);
         
         return $this->autoMapping->map(CaptainTermEntity::class, CaptainTermCreateResponse::class, $item);
-            
     }
 
     public function update(CaptainTermUpdateRequest $request)

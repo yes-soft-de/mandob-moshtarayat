@@ -30,9 +30,11 @@ class AppointmentService
     {
         $response = [];
         $items = $this->appointmentManager->getAppointments();
+
         foreach ($items as $item) {
         $response[] =  $this->autoMapping->map('array', AppointmentResponse::class, $item);
         }
+
         return $response;
     }
 
