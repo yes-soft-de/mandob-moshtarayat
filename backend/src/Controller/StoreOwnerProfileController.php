@@ -392,6 +392,36 @@ class StoreOwnerProfileController extends BaseController
     /**
      * @Route("/storeOwners", name="getAllStoreOwners",methods={"GET"})
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Store Owner Profile")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns array of Stores",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *          @OA\Items(
+     *              @OA\Property(type="integer", property="id"),
+     *              @OA\Property(type="string", property="storeOwnerName"),
+     *              @OA\Property(type="string", property="image"),
+     *              @OA\Property(type="string", property="imageURL"),
+     *              @OA\Property(type="string", property="baseURL"),
+     *             @OA\Property(type="string", property="phone"),
+     *             @OA\Property(type="object", property="location"),
+     *             @OA\Property(type="number", property="deliveryCost"),
+     *             @OA\Property(type="boolean", property="privateOrders"),
+     *             @OA\Property(type="boolean", property="hasProducts"),
+     *             @OA\Property(type="integer", property="storeCategoryId"),
+     *             @OA\Property(type="string", property="rating"),
+     *             @OA\Property(type="object", property="closingTime"),
+     *             @OA\Property(type="object", property="openingTime"),
+     *             @OA\Property(type="string", property="status"),
+     *              )
+     *           )
+     *        )
+     *    )
      */
     public function getAllStoreOwners(): JsonResponse
     {
@@ -417,6 +447,47 @@ class StoreOwnerProfileController extends BaseController
      * @IsGranted("ROLE_ADMIN")
      * @param $storeCategoryId
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Store Owner Profile")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns Store By Category Id For Admin",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *          @OA\Items(
+     *              @OA\Property(type="integer", property="id"),
+     *              @OA\Property(type="string", property="storeOwnerName"),
+     *              @OA\Property(type="object", property="image",
+     *                  @OA\Property(type="string", property="imageURL"),
+     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="string", property="baseURL"),
+     *                  ),
+     *             @OA\Property(type="string", property="phone"),
+     *             @OA\Property(type="object", property="location"),
+     *             @OA\Property(type="number", property="deliveryCost"),
+     *             @OA\Property(type="boolean", property="privateOrders"),
+     *             @OA\Property(type="boolean", property="hasProducts"),
+     *             @OA\Property(type="integer", property="storeCategoryId"),
+     *             @OA\Property(type="string", property="rating"),
+     *             @OA\Property(type="object", property="closingTime"),
+     *             @OA\Property(type="object", property="openingTime"),
+     *             @OA\Property(type="string", property="status"),
+     *              )
+     *           )
+     *        )
+     *    )
+     *
+     * @Security(name="Bearer")
      */
     public function getStoreOwnerByCategoryIdForAdmin($storeCategoryId): JsonResponse
     {
@@ -428,6 +499,47 @@ class StoreOwnerProfileController extends BaseController
     /**
      * @Route("/storeOwnerBest", name="GetStoreOwnerBest",methods={"GET"})
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Store Owner Profile")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns Store Best",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *          @OA\Items(
+     *              @OA\Property(type="integer", property="id"),
+     *              @OA\Property(type="string", property="storeOwnerName"),
+     *              @OA\Property(type="object", property="image",
+     *                  @OA\Property(type="string", property="imageURL"),
+     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="string", property="baseURL"),
+     *                  ),
+     *             @OA\Property(type="string", property="phone"),
+     *             @OA\Property(type="object", property="location"),
+     *             @OA\Property(type="number", property="deliveryCost"),
+     *             @OA\Property(type="boolean", property="privateOrders"),
+     *             @OA\Property(type="boolean", property="hasProducts"),
+     *             @OA\Property(type="integer", property="storeCategoryId"),
+     *             @OA\Property(type="string", property="rating"),
+     *             @OA\Property(type="object", property="closingTime"),
+     *             @OA\Property(type="object", property="openingTime"),
+     *             @OA\Property(type="string", property="status"),
+     *              )
+     *           )
+     *        )
+     *    )
+     *
+     * @Security(name="Bearer")
      */
     public function getStoreOwnerBest(): JsonResponse
     {
@@ -440,6 +552,44 @@ class StoreOwnerProfileController extends BaseController
      * @Route("/storesinactive", name="GetStoresInactive", methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Store Owner Profile")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns Stores Inactive",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *          @OA\Items(
+     *              @OA\Property(type="integer", property="id"),
+     *              @OA\Property(type="string", property="storeOwnerName"),
+     *              @OA\Property(type="string", property="image"),
+     *              @OA\Property(type="string", property="imageURL"),
+     *              @OA\Property(type="string", property="baseURL"),
+     *             @OA\Property(type="string", property="phone"),
+     *             @OA\Property(type="object", property="location"),
+     *             @OA\Property(type="number", property="deliveryCost"),
+     *             @OA\Property(type="boolean", property="privateOrders"),
+     *             @OA\Property(type="boolean", property="hasProducts"),
+     *             @OA\Property(type="integer", property="storeCategoryId"),
+     *             @OA\Property(type="object", property="closingTime"),
+     *             @OA\Property(type="object", property="openingTime"),
+     *             @OA\Property(type="string", property="status"),
+     *              ),
+     *           )
+     *        )
+     *    )
+     *
+     * @Security(name="Bearer")
      */
     public function getStoreOwnerInactive(): JsonResponse
     {
@@ -488,6 +638,44 @@ class StoreOwnerProfileController extends BaseController
      * @Route("/storeFilter/{name}", name="getStoresByName", methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Store Owner Profile")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns Store By Name",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *          @OA\Items(
+     *              @OA\Property(type="integer", property="id"),
+     *              @OA\Property(type="string", property="storeOwnerName"),
+     *              @OA\Property(type="string", property="storeOwnerID"),
+     *              @OA\Property(type="object", property="image",
+     *                  @OA\Property(type="string", property="imageURL"),
+     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="string", property="baseURL"),
+     *                  ),
+     *             @OA\Property(type="string", property="status"),
+     *             @OA\Property(type="string", property="storeCategoryId"),
+     *             @OA\Property(type="string", property="phone"),
+     *             @OA\Property(type="boolean", property="is_best"),
+     *             @OA\Property(type="boolean", property="privateOrders"),
+     *             @OA\Property(type="boolean", property="hasProducts"),
+     *              )
+     *           )
+     *        )
+     *    )
+     *
+     * @Security(name="Bearer")
      */
     public function getStoresFilterByName($name): JsonResponse
     {

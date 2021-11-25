@@ -138,9 +138,11 @@ class StoreOwnerProfileService
         $response = [];
         $items = $this->userManager->getAllStoreOwners();
         foreach ($items as $item) {
+            $item['rating'] = $this->ratingService->getAvgRating($item['id'], 'store');
             $item['imageURL'] = $item['image'];
             $item['image'] = $this->params.$item['image'];
             $item['baseURL'] = $this->params;
+
             $response[] = $this->autoMapping->map('array', StoreOwnerByCategoryIdResponse::class, $item);
             }        
         return $response;
@@ -162,6 +164,7 @@ class StoreOwnerProfileService
         $response = [];
         $items = $this->userManager->getStoreOwnerByCategoryIdForAdmin($storeCategoryId);
         foreach ($items as $item) {
+            $item['image'] = $this->getImageParams($item['image'], $this->params.$item['image'], $this->params);
             $item['rating'] = $this->ratingService->getAvgRating($item['id'], 'store');
             $response[] = $this->autoMapping->map('array', StoreOwnerByCategoryIdResponse::class, $item);
             }
@@ -173,6 +176,8 @@ class StoreOwnerProfileService
         $response = [];
         $items = $this->userManager->getStoreOwnerBest();
         foreach ($items as $item) {
+            $item['image'] = $this->getImageParams($item['image'], $this->params.$item['image'], $this->params);
+            $item['rating'] = $this->ratingService->getAvgRating($item['id'], 'store');
             $response[] = $this->autoMapping->map('array', StoreOwnerByCategoryIdResponse::class, $item);
             }        
         return $response;
@@ -234,6 +239,7 @@ class StoreOwnerProfileService
     }
 
     public function getStoresFilterByName($name) {
+        $response = [];
         $items = $this->userManager->getStoresByName($name);
         foreach ($items as $item) {
             $item['image'] = $this->getImageParams($item['image'], $this->params.$item['image'], $this->params);

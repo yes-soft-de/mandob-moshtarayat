@@ -98,7 +98,7 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
     public function getStoreOwnerBest()
     {
         return $this->createQueryBuilder('profile')
-            ->select('profile.id', 'profile.storeOwnerName', 'profile.image', 'profile.phone', 'profile.privateOrders', 'profile.hasProducts', 'profile.status')
+            ->select('profile.id', 'profile.storeOwnerName', 'profile.image', 'profile.phone', 'profile.privateOrders', 'profile.hasProducts', 'profile.status', 'profile.openingTime', 'profile.closingTime', 'profile.storeCategoryId')
             ->addSelect('StoreOwnerBranchEntity.location')
             ->addSelect('DeliveryCompanyFinancialEntity.deliveryCost')
 
@@ -118,7 +118,7 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
     public function getStoreOwnerInactive()
     {
         return $this->createQueryBuilder('profile')
-            ->select('profile.id', 'profile.storeOwnerName', 'profile.image', 'profile.phone', 'profile.privateOrders', 'profile.hasProducts', 'profile.status', 'profile.openingTime', 'profile.closingTime', 'profile.storeCategoryId')
+            ->select('profile.id', 'profile.storeOwnerName', 'profile.image', 'profile.phone', 'profile.privateOrders', 'profile.hasProducts', 'profile.status', 'profile.openingTime', 'profile.closingTime', 'profile.storeCategoryId', 'profile.storeCategoryId')
             ->addSelect('StoreOwnerBranchEntity.location')
             ->addSelect('DeliveryCompanyFinancialEntity.deliveryCost')
 
