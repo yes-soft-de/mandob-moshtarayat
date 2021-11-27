@@ -1,0 +1,629 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="de.yessoft.mandoob_distro"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+9        android:targetSdkVersion="30" />
+10    <!--
+11         Flutter needs it to communicate with the running application
+12         to allow setting breakpoints, to provide hot reload, etc.
+13    -->
+14    <uses-permission android:name="android.permission.INTERNET" />
+14-->/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/android/app/src/debug/AndroidManifest.xml:6:5-66
+14-->/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/android/app/src/debug/AndroidManifest.xml:6:22-64
+15    <uses-permission android:name="android.permission.WAKE_LOCK" />
+15-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:8:5-68
+15-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:8:22-65
+16    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+16-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-79
+16-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:9:22-76
+17    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+17-->[:flutter_local_notifications] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:7:5-81
+17-->[:flutter_local_notifications] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:7:22-78
+18    <uses-permission android:name="android.permission.VIBRATE" />
+18-->[:flutter_local_notifications] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:8:5-66
+18-->[:flutter_local_notifications] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:8:22-63
+19    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+19-->[:flutter_local_notifications] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-81
+19-->[:flutter_local_notifications] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:9:22-78
+20    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+20-->[:location] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/location/intermediates/merged_manifest/debug/AndroidManifest.xml:7:5-81
+20-->[:location] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/location/intermediates/merged_manifest/debug/AndroidManifest.xml:7:22-78
+21    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- Required by older versions of Google Play services to create IID tokens -->
+21-->[:location] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/location/intermediates/merged_manifest/debug/AndroidManifest.xml:8:5-79
+21-->[:location] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/location/intermediates/merged_manifest/debug/AndroidManifest.xml:8:22-76
+22    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+22-->[com.google.firebase:firebase-messaging:22.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/132c6e16428b2f30d48e3d7bb3d7fa4e/jetified-firebase-messaging-22.0.0/AndroidManifest.xml:25:5-82
+22-->[com.google.firebase:firebase-messaging:22.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/132c6e16428b2f30d48e3d7bb3d7fa4e/jetified-firebase-messaging-22.0.0/AndroidManifest.xml:25:22-79
+23    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+23-->[com.google.android.gms:play-services-measurement:19.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/e5a8a205342535fd87dfe43f0d7fe5cc/jetified-play-services-measurement-19.0.1/AndroidManifest.xml:26:5-110
+23-->[com.google.android.gms:play-services-measurement:19.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/e5a8a205342535fd87dfe43f0d7fe5cc/jetified-play-services-measurement-19.0.1/AndroidManifest.xml:26:22-107
+24
+25    <application
+25-->/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/android/app/src/main/AndroidManifest.xml:3:4-40:19
+26        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+26-->[androidx.core:core:1.6.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/da2908e489eb7af686f4a521a75f1cd4/core-1.6.0/AndroidManifest.xml:24:18-86
+27        android:debuggable="true"
+28        android:icon="@mipmap/ic_launcher"
+28-->/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/android/app/src/main/AndroidManifest.xml:5:9-43
+29        android:label="mandob_distro" >
+29-->/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/android/app/src/main/AndroidManifest.xml:4:9-38
+30        <activity
+30-->/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/android/app/src/main/AndroidManifest.xml:6:9-34:20
+31            android:name="de.yessoft.mandoob_distro.MainActivity"
+31-->/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/android/app/src/main/AndroidManifest.xml:7:13-41
+32            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+32-->/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/android/app/src/main/AndroidManifest.xml:10:13-163
+33            android:hardwareAccelerated="true"
+33-->/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/android/app/src/main/AndroidManifest.xml:11:13-47
+34            android:launchMode="singleTop"
+34-->/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/android/app/src/main/AndroidManifest.xml:8:13-43
+35            android:theme="@style/LaunchTheme"
+35-->/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/android/app/src/main/AndroidManifest.xml:9:13-47
+36            android:windowSoftInputMode="adjustResize" >
+36-->/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/android/app/src/main/AndroidManifest.xml:12:13-55
+37
+38            <!--
+39                 Specifies an Android theme to apply to this Activity as soon as
+40                 the Android process has started. This theme is visible to the user
+41                 while the Flutter UI initializes. After that, this theme continues
+42                 to determine the Window background behind the Flutter UI.
+43            -->
+44            <meta-data
+44-->/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/android/app/src/main/AndroidManifest.xml:17:13-20:17
+45                android:name="io.flutter.embedding.android.NormalTheme"
+45-->/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/android/app/src/main/AndroidManifest.xml:18:15-70
+46                android:resource="@style/NormalTheme" />
+46-->/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/android/app/src/main/AndroidManifest.xml:19:15-52
+47            <!--
+48                 Displays an Android View that continues showing the launch screen
+49                 Drawable until Flutter paints its first frame, then this splash
+50                 screen fades out. A splash screen is useful to avoid any visual
+51                 gap between the end of Android's launch screen and the painting of
+52                 Flutter's first frame.
+53            -->
+54            <meta-data
+54-->/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/android/app/src/main/AndroidManifest.xml:26:13-29:17
+55                android:name="io.flutter.embedding.android.SplashScreenDrawable"
+55-->/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/android/app/src/main/AndroidManifest.xml:27:15-79
+56                android:resource="@drawable/launch_background" />
+56-->/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/android/app/src/main/AndroidManifest.xml:28:15-61
+57
+58            <intent-filter>
+58-->/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/android/app/src/main/AndroidManifest.xml:30:13-33:29
+59                <action android:name="android.intent.action.MAIN" />
+59-->/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/android/app/src/main/AndroidManifest.xml:31:17-68
+59-->/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/android/app/src/main/AndroidManifest.xml:31:25-66
+60
+61                <category android:name="android.intent.category.LAUNCHER" />
+61-->/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/android/app/src/main/AndroidManifest.xml:32:17-76
+61-->/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/android/app/src/main/AndroidManifest.xml:32:27-74
+62            </intent-filter>
+63        </activity>
+64        <!--
+65             Don't delete the meta-data below.
+66             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+67        -->
+68        <meta-data
+68-->/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/android/app/src/main/AndroidManifest.xml:37:9-39:33
+69            android:name="flutterEmbedding"
+69-->/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/android/app/src/main/AndroidManifest.xml:38:13-44
+70            android:value="2" />
+70-->/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/android/app/src/main/AndroidManifest.xml:39:13-30
+71
+72        <service
+72-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:12:9-15:72
+73            android:name="io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingBackgroundService"
+73-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:13:13-107
+74            android:exported="false"
+74-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:14:13-37
+75            android:permission="android.permission.BIND_JOB_SERVICE" />
+75-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:15:13-69
+76        <service
+76-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:16:9-22:19
+77            android:name="io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingService"
+77-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:17:13-97
+78            android:exported="false" >
+78-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:18:13-37
+79            <intent-filter>
+79-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:19:13-21:29
+80                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+80-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:20:17-78
+80-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:20:25-75
+81            </intent-filter>
+82        </service>
+83
+84        <receiver
+84-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:24:9-31:20
+85            android:name="io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingReceiver"
+85-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:25:13-98
+86            android:exported="true"
+86-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:26:13-36
+87            android:permission="com.google.android.c2dm.permission.SEND" >
+87-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:27:13-73
+88            <intent-filter>
+88-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:28:13-30:29
+89                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+89-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:29:17-81
+89-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:29:25-78
+90            </intent-filter>
+91        </receiver>
+92
+93        <service
+93-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:33:9-37:19
+94            android:name="com.google.firebase.components.ComponentDiscoveryService"
+94-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:33:18-89
+95            android:directBootAware="true"
+95-->[com.google.firebase:firebase-common:20.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/655eb9fd5f9038f83176c8204f07ee8e/jetified-firebase-common-20.0.0/AndroidManifest.xml:35:13-43
+96            android:exported="false" >
+96-->[com.google.firebase:firebase-crashlytics-ktx:18.2.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/01d1210a083c4b792938d60d3b216c61/jetified-firebase-crashlytics-ktx-18.2.1/AndroidManifest.xml:26:13-37
+97            <meta-data
+97-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:34:13-36:85
+98                android:name="com.google.firebase.components:io.flutter.plugins.firebase.messaging.FlutterFirebaseAppRegistrar"
+98-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:35:17-128
+99                android:value="com.google.firebase.components.ComponentRegistrar" />
+99-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:36:17-82
+100            <meta-data
+100-->[:firebase_crashlytics] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_crashlytics/intermediates/merged_manifest/debug/AndroidManifest.xml:9:13-11:85
+101                android:name="com.google.firebase.components:io.flutter.plugins.firebase.crashlytics.FlutterFirebaseAppRegistrar"
+101-->[:firebase_crashlytics] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_crashlytics/intermediates/merged_manifest/debug/AndroidManifest.xml:10:17-130
+102                android:value="com.google.firebase.components.ComponentRegistrar" />
+102-->[:firebase_crashlytics] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_crashlytics/intermediates/merged_manifest/debug/AndroidManifest.xml:11:17-82
+103            <meta-data
+103-->[:cloud_firestore] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/cloud_firestore/intermediates/merged_manifest/debug/AndroidManifest.xml:9:13-11:85
+104                android:name="com.google.firebase.components:io.flutter.plugins.firebase.firestore.FlutterFirebaseFirestoreRegistrar"
+104-->[:cloud_firestore] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/cloud_firestore/intermediates/merged_manifest/debug/AndroidManifest.xml:10:17-134
+105                android:value="com.google.firebase.components.ComponentRegistrar" />
+105-->[:cloud_firestore] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/cloud_firestore/intermediates/merged_manifest/debug/AndroidManifest.xml:11:17-82
+106            <meta-data
+106-->[:firebase_performance] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_performance/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-13:85
+107                android:name="com.google.firebase.components:io.flutter.plugins.firebaseperformance.FlutterFirebaseAppRegistrar"
+107-->[:firebase_performance] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_performance/intermediates/merged_manifest/debug/AndroidManifest.xml:12:17-129
+108                android:value="com.google.firebase.components.ComponentRegistrar" />
+108-->[:firebase_performance] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_performance/intermediates/merged_manifest/debug/AndroidManifest.xml:13:17-82
+109            <meta-data
+109-->[:firebase_analytics] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_analytics/intermediates/merged_manifest/debug/AndroidManifest.xml:13:13-15:85
+110                android:name="com.google.firebase.components:io.flutter.plugins.firebaseanalytics.FlutterFirebaseAppRegistrar"
+110-->[:firebase_analytics] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_analytics/intermediates/merged_manifest/debug/AndroidManifest.xml:14:17-127
+111                android:value="com.google.firebase.components.ComponentRegistrar" />
+111-->[:firebase_analytics] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_analytics/intermediates/merged_manifest/debug/AndroidManifest.xml:15:17-82
+112            <meta-data
+112-->[:firebase_auth] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:9:13-11:85
+113                android:name="com.google.firebase.components:io.flutter.plugins.firebase.auth.FlutterFirebaseAuthRegistrar"
+113-->[:firebase_auth] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:10:17-124
+114                android:value="com.google.firebase.components.ComponentRegistrar" />
+114-->[:firebase_auth] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:11:17-82
+115            <meta-data
+115-->[:firebase_remote_config] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_remote_config/intermediates/merged_manifest/debug/AndroidManifest.xml:9:13-11:85
+116                android:name="com.google.firebase.components:io.flutter.plugins.firebase.firebaseremoteconfig.FlutterFirebaseAppRegistrar"
+116-->[:firebase_remote_config] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_remote_config/intermediates/merged_manifest/debug/AndroidManifest.xml:10:17-139
+117                android:value="com.google.firebase.components.ComponentRegistrar" />
+117-->[:firebase_remote_config] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_remote_config/intermediates/merged_manifest/debug/AndroidManifest.xml:11:17-82
+118            <meta-data
+118-->[:firebase_core] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:9:13-11:85
+119                android:name="com.google.firebase.components:io.flutter.plugins.firebase.core.FlutterFirebaseCoreRegistrar"
+119-->[:firebase_core] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:10:17-124
+120                android:value="com.google.firebase.components.ComponentRegistrar" />
+120-->[:firebase_core] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:11:17-82
+121            <meta-data
+121-->[com.google.firebase:firebase-crashlytics-ktx:18.2.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/01d1210a083c4b792938d60d3b216c61/jetified-firebase-crashlytics-ktx-18.2.1/AndroidManifest.xml:27:13-29:85
+122                android:name="com.google.firebase.components:com.google.firebase.crashlytics.ktx.FirebaseCrashlyticsKtxRegistrar"
+122-->[com.google.firebase:firebase-crashlytics-ktx:18.2.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/01d1210a083c4b792938d60d3b216c61/jetified-firebase-crashlytics-ktx-18.2.1/AndroidManifest.xml:28:17-130
+123                android:value="com.google.firebase.components.ComponentRegistrar" />
+123-->[com.google.firebase:firebase-crashlytics-ktx:18.2.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/01d1210a083c4b792938d60d3b216c61/jetified-firebase-crashlytics-ktx-18.2.1/AndroidManifest.xml:29:17-82
+124            <meta-data
+124-->[com.google.firebase:firebase-analytics-ktx:19.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/bf5cfdbf1356408cd818a10316f82517/jetified-firebase-analytics-ktx-19.0.1/AndroidManifest.xml:11:13-13:85
+125                android:name="com.google.firebase.components:com.google.firebase.analytics.ktx.FirebaseAnalyticsKtxRegistrar"
+125-->[com.google.firebase:firebase-analytics-ktx:19.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/bf5cfdbf1356408cd818a10316f82517/jetified-firebase-analytics-ktx-19.0.1/AndroidManifest.xml:12:17-126
+126                android:value="com.google.firebase.components.ComponentRegistrar" />
+126-->[com.google.firebase:firebase-analytics-ktx:19.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/bf5cfdbf1356408cd818a10316f82517/jetified-firebase-analytics-ktx-19.0.1/AndroidManifest.xml:13:17-82
+127            <meta-data
+127-->[com.google.firebase:firebase-common-ktx:20.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/72068b79a2333b4a78ea2328a13b2cd8/jetified-firebase-common-ktx-20.0.0/AndroidManifest.xml:15:13-17:85
+128                android:name="com.google.firebase.components:com.google.firebase.ktx.FirebaseCommonKtxRegistrar"
+128-->[com.google.firebase:firebase-common-ktx:20.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/72068b79a2333b4a78ea2328a13b2cd8/jetified-firebase-common-ktx-20.0.0/AndroidManifest.xml:16:17-113
+129                android:value="com.google.firebase.components.ComponentRegistrar" />
+129-->[com.google.firebase:firebase-common-ktx:20.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/72068b79a2333b4a78ea2328a13b2cd8/jetified-firebase-common-ktx-20.0.0/AndroidManifest.xml:17:17-82
+130            <meta-data
+130-->[com.google.firebase:firebase-perf:20.0.2] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/daf09155a82abd61fbc09aee6ee7f754/jetified-firebase-perf-20.0.2/AndroidManifest.xml:23:13-25:85
+131                android:name="com.google.firebase.components:com.google.firebase.perf.FirebasePerfRegistrar"
+131-->[com.google.firebase:firebase-perf:20.0.2] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/daf09155a82abd61fbc09aee6ee7f754/jetified-firebase-perf-20.0.2/AndroidManifest.xml:24:17-109
+132                android:value="com.google.firebase.components.ComponentRegistrar" />
+132-->[com.google.firebase:firebase-perf:20.0.2] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/daf09155a82abd61fbc09aee6ee7f754/jetified-firebase-perf-20.0.2/AndroidManifest.xml:25:17-82
+133            <meta-data
+133-->[com.google.firebase:firebase-crashlytics:18.2.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/7baf6280f6a2bed3c07bde83240d7605/jetified-firebase-crashlytics-18.2.1/AndroidManifest.xml:18:13-20:85
+134                android:name="com.google.firebase.components:com.google.firebase.crashlytics.CrashlyticsRegistrar"
+134-->[com.google.firebase:firebase-crashlytics:18.2.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/7baf6280f6a2bed3c07bde83240d7605/jetified-firebase-crashlytics-18.2.1/AndroidManifest.xml:19:17-115
+135                android:value="com.google.firebase.components.ComponentRegistrar" />
+135-->[com.google.firebase:firebase-crashlytics:18.2.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/7baf6280f6a2bed3c07bde83240d7605/jetified-firebase-crashlytics-18.2.1/AndroidManifest.xml:20:17-82
+136            <meta-data
+136-->[com.google.firebase:firebase-messaging:22.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/132c6e16428b2f30d48e3d7bb3d7fa4e/jetified-firebase-messaging-22.0.0/AndroidManifest.xml:52:13-54:85
+137                android:name="com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingRegistrar"
+137-->[com.google.firebase:firebase-messaging:22.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/132c6e16428b2f30d48e3d7bb3d7fa4e/jetified-firebase-messaging-22.0.0/AndroidManifest.xml:53:17-119
+138                android:value="com.google.firebase.components.ComponentRegistrar" />
+138-->[com.google.firebase:firebase-messaging:22.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/132c6e16428b2f30d48e3d7bb3d7fa4e/jetified-firebase-messaging-22.0.0/AndroidManifest.xml:54:17-82
+139            <meta-data
+139-->[com.google.firebase:firebase-datatransport:18.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/641566ce7d9584ca3dc587f4c414cc1b/jetified-firebase-datatransport-18.0.0/AndroidManifest.xml:28:13-30:85
+140                android:name="com.google.firebase.components:com.google.firebase.datatransport.TransportRegistrar"
+140-->[com.google.firebase:firebase-datatransport:18.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/641566ce7d9584ca3dc587f4c414cc1b/jetified-firebase-datatransport-18.0.0/AndroidManifest.xml:29:17-115
+141                android:value="com.google.firebase.components.ComponentRegistrar" />
+141-->[com.google.firebase:firebase-datatransport:18.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/641566ce7d9584ca3dc587f4c414cc1b/jetified-firebase-datatransport-18.0.0/AndroidManifest.xml:30:17-82
+142            <meta-data
+142-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:77:13-79:85
+143                android:name="com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar"
+143-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:78:17-109
+144                android:value="com.google.firebase.components.ComponentRegistrar" />
+144-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:79:17-82
+145            <meta-data
+145-->[com.google.firebase:firebase-firestore:23.0.3] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/d2b3c6c2b1acfa62eab74c33a8cafdca/jetified-firebase-firestore-23.0.3/AndroidManifest.xml:20:13-22:85
+146                android:name="com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar"
+146-->[com.google.firebase:firebase-firestore:23.0.3] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/d2b3c6c2b1acfa62eab74c33a8cafdca/jetified-firebase-firestore-23.0.3/AndroidManifest.xml:21:17-111
+147                android:value="com.google.firebase.components.ComponentRegistrar" />
+147-->[com.google.firebase:firebase-firestore:23.0.3] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/d2b3c6c2b1acfa62eab74c33a8cafdca/jetified-firebase-firestore-23.0.3/AndroidManifest.xml:22:17-82
+148            <meta-data
+148-->[com.google.firebase:firebase-config:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/4421eaab513085d0d599634c120d1412/jetified-firebase-config-21.0.1/AndroidManifest.xml:32:13-34:85
+149                android:name="com.google.firebase.components:com.google.firebase.remoteconfig.RemoteConfigRegistrar"
+149-->[com.google.firebase:firebase-config:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/4421eaab513085d0d599634c120d1412/jetified-firebase-config-21.0.1/AndroidManifest.xml:33:17-117
+150                android:value="com.google.firebase.components.ComponentRegistrar" />
+150-->[com.google.firebase:firebase-config:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/4421eaab513085d0d599634c120d1412/jetified-firebase-config-21.0.1/AndroidManifest.xml:34:17-82
+151            <meta-data
+151-->[com.google.android.gms:play-services-measurement-api:19.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/4d2a827d0f6c06efd495619984549fd5/jetified-play-services-measurement-api-19.0.1/AndroidManifest.xml:30:13-32:85
+152                android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar"
+152-->[com.google.android.gms:play-services-measurement-api:19.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/4d2a827d0f6c06efd495619984549fd5/jetified-play-services-measurement-api-19.0.1/AndroidManifest.xml:31:17-139
+153                android:value="com.google.firebase.components.ComponentRegistrar" />
+153-->[com.google.android.gms:play-services-measurement-api:19.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/4d2a827d0f6c06efd495619984549fd5/jetified-play-services-measurement-api-19.0.1/AndroidManifest.xml:32:17-82
+154            <meta-data
+154-->[com.google.firebase:firebase-installations:17.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/38f4ece21a484ceaa267e516abd435d0/jetified-firebase-installations-17.0.0/AndroidManifest.xml:18:13-20:85
+155                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar"
+155-->[com.google.firebase:firebase-installations:17.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/38f4ece21a484ceaa267e516abd435d0/jetified-firebase-installations-17.0.0/AndroidManifest.xml:19:17-127
+156                android:value="com.google.firebase.components.ComponentRegistrar" />
+156-->[com.google.firebase:firebase-installations:17.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/38f4ece21a484ceaa267e516abd435d0/jetified-firebase-installations-17.0.0/AndroidManifest.xml:20:17-82
+157            <meta-data
+157-->[com.google.firebase:firebase-abt:21.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/9881484b7f4c06377b28eba10a2cbf60/jetified-firebase-abt-21.0.0/AndroidManifest.xml:13:13-15:85
+158                android:name="com.google.firebase.components:com.google.firebase.abt.component.AbtRegistrar"
+158-->[com.google.firebase:firebase-abt:21.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/9881484b7f4c06377b28eba10a2cbf60/jetified-firebase-abt-21.0.0/AndroidManifest.xml:14:17-109
+159                android:value="com.google.firebase.components.ComponentRegistrar" />
+159-->[com.google.firebase:firebase-abt:21.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/9881484b7f4c06377b28eba10a2cbf60/jetified-firebase-abt-21.0.0/AndroidManifest.xml:15:17-82
+160        </service>
+161
+162        <provider
+162-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:39:9-43:38
+163            android:name="io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingInitProvider"
+163-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:40:13-102
+164            android:authorities="de.yessoft.mandoob_distro.flutterfirebasemessaginginitprovider"
+164-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:41:13-88
+165            android:exported="false"
+165-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:42:13-37
+166            android:initOrder="99" />
+166-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:43:13-35
+167        <provider
+167-->[:image_picker] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/image_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:8:9-16:20
+168            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
+168-->[:image_picker] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/image_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:9:13-82
+169            android:authorities="de.yessoft.mandoob_distro.flutter.image_provider"
+169-->[:image_picker] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/image_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:10:13-74
+170            android:exported="false"
+170-->[:image_picker] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/image_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-37
+171            android:grantUriPermissions="true" >
+171-->[:image_picker] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/image_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:12:13-47
+172            <meta-data
+172-->[:image_picker] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/image_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:13:13-15:75
+173                android:name="android.support.FILE_PROVIDER_PATHS"
+173-->[:image_picker] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/image_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:14:17-67
+174                android:resource="@xml/flutter_image_picker_file_paths" />
+174-->[:image_picker] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/image_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:15:17-72
+175        </provider>
+176
+177        <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
+177-->[:flutter_local_notifications] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:12:9-106
+177-->[:flutter_local_notifications] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:12:19-103
+178        <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver" >
+178-->[:flutter_local_notifications] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:13:9-20:20
+178-->[:flutter_local_notifications] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:13:19-107
+179            <intent-filter>
+179-->[:flutter_local_notifications] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:14:13-19:29
+180                <action android:name="android.intent.action.BOOT_COMPLETED" />
+180-->[:flutter_local_notifications] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:15:17-79
+180-->[:flutter_local_notifications] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:15:25-76
+181                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+181-->[:flutter_local_notifications] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:16:17-84
+181-->[:flutter_local_notifications] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:16:25-81
+182                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+182-->[:flutter_local_notifications] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:17:17-82
+182-->[:flutter_local_notifications] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:17:25-79
+183                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
+183-->[:flutter_local_notifications] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:18:17-82
+183-->[:flutter_local_notifications] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:18:25-79
+184            </intent-filter>
+185        </receiver>
+186
+187        <provider
+187-->[:share] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/share/intermediates/merged_manifest/debug/AndroidManifest.xml:8:9-16:20
+188            android:name="io.flutter.plugins.share.ShareFileProvider"
+188-->[:share] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/share/intermediates/merged_manifest/debug/AndroidManifest.xml:9:13-70
+189            android:authorities="de.yessoft.mandoob_distro.flutter.share_provider"
+189-->[:share] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/share/intermediates/merged_manifest/debug/AndroidManifest.xml:10:13-74
+190            android:exported="false"
+190-->[:share] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/share/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-37
+191            android:grantUriPermissions="true" >
+191-->[:share] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/share/intermediates/merged_manifest/debug/AndroidManifest.xml:12:13-47
+192            <meta-data
+192-->[:image_picker] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/image_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:13:13-15:75
+193                android:name="android.support.FILE_PROVIDER_PATHS"
+193-->[:image_picker] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/image_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:14:17-67
+194                android:resource="@xml/flutter_share_file_paths" />
+194-->[:image_picker] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/image_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:15:17-72
+195        </provider>
+196
+197        <activity
+197-->[:url_launcher] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/url_launcher/intermediates/merged_manifest/debug/AndroidManifest.xml:8:9-11:74
+198            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
+198-->[:url_launcher] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/url_launcher/intermediates/merged_manifest/debug/AndroidManifest.xml:9:13-74
+199            android:exported="false"
+199-->[:url_launcher] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/url_launcher/intermediates/merged_manifest/debug/AndroidManifest.xml:10:13-37
+200            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+200-->[:url_launcher] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/url_launcher/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-71
+201
+202        <service
+202-->[:location] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/location/intermediates/merged_manifest/debug/AndroidManifest.xml:11:9-15:56
+203            android:name="com.lyokone.location.FlutterLocationService"
+203-->[:location] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/location/intermediates/merged_manifest/debug/AndroidManifest.xml:12:13-71
+204            android:enabled="true"
+204-->[:location] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/location/intermediates/merged_manifest/debug/AndroidManifest.xml:13:13-35
+205            android:exported="false"
+205-->[:location] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/location/intermediates/merged_manifest/debug/AndroidManifest.xml:14:13-37
+206            android:foregroundServiceType="location" />
+206-->[:location] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/location/intermediates/merged_manifest/debug/AndroidManifest.xml:15:13-53
+207
+208        <provider
+208-->[com.google.firebase:firebase-perf:20.0.2] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/daf09155a82abd61fbc09aee6ee7f754/jetified-firebase-perf-20.0.2/AndroidManifest.xml:14:9-18:39
+209            android:name="com.google.firebase.perf.provider.FirebasePerfProvider"
+209-->[com.google.firebase:firebase-perf:20.0.2] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/daf09155a82abd61fbc09aee6ee7f754/jetified-firebase-perf-20.0.2/AndroidManifest.xml:15:13-82
+210            android:authorities="de.yessoft.mandoob_distro.firebaseperfprovider"
+210-->[com.google.firebase:firebase-perf:20.0.2] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/daf09155a82abd61fbc09aee6ee7f754/jetified-firebase-perf-20.0.2/AndroidManifest.xml:16:13-72
+211            android:exported="false"
+211-->[com.google.firebase:firebase-perf:20.0.2] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/daf09155a82abd61fbc09aee6ee7f754/jetified-firebase-perf-20.0.2/AndroidManifest.xml:17:13-37
+212            android:initOrder="101" />
+212-->[com.google.firebase:firebase-perf:20.0.2] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/daf09155a82abd61fbc09aee6ee7f754/jetified-firebase-perf-20.0.2/AndroidManifest.xml:18:13-36
+213
+214        <receiver
+214-->[com.google.firebase:firebase-messaging:22.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/132c6e16428b2f30d48e3d7bb3d7fa4e/jetified-firebase-messaging-22.0.0/AndroidManifest.xml:28:9-35:20
+215            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+215-->[com.google.firebase:firebase-messaging:22.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/132c6e16428b2f30d48e3d7bb3d7fa4e/jetified-firebase-messaging-22.0.0/AndroidManifest.xml:29:13-78
+216            android:exported="true"
+216-->[com.google.firebase:firebase-messaging:22.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/132c6e16428b2f30d48e3d7bb3d7fa4e/jetified-firebase-messaging-22.0.0/AndroidManifest.xml:30:13-36
+217            android:permission="com.google.android.c2dm.permission.SEND" >
+217-->[com.google.firebase:firebase-messaging:22.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/132c6e16428b2f30d48e3d7bb3d7fa4e/jetified-firebase-messaging-22.0.0/AndroidManifest.xml:31:13-73
+218            <intent-filter>
+218-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:28:13-30:29
+219                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+219-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:29:17-81
+219-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:29:25-78
+220            </intent-filter>
+221        </receiver>
+222        <!--
+223             FirebaseMessagingService performs security checks at runtime,
+224             but set to not exported to explicitly avoid allowing another app to call it.
+225        -->
+226        <service
+226-->[com.google.firebase:firebase-messaging:22.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/132c6e16428b2f30d48e3d7bb3d7fa4e/jetified-firebase-messaging-22.0.0/AndroidManifest.xml:41:9-48:19
+227            android:name="com.google.firebase.messaging.FirebaseMessagingService"
+227-->[com.google.firebase:firebase-messaging:22.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/132c6e16428b2f30d48e3d7bb3d7fa4e/jetified-firebase-messaging-22.0.0/AndroidManifest.xml:42:13-82
+228            android:directBootAware="true"
+228-->[com.google.firebase:firebase-messaging:22.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/132c6e16428b2f30d48e3d7bb3d7fa4e/jetified-firebase-messaging-22.0.0/AndroidManifest.xml:43:13-43
+229            android:exported="false" >
+229-->[com.google.firebase:firebase-messaging:22.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/132c6e16428b2f30d48e3d7bb3d7fa4e/jetified-firebase-messaging-22.0.0/AndroidManifest.xml:44:13-37
+230            <intent-filter android:priority="-500" >
+230-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:19:13-21:29
+231                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+231-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:20:17-78
+231-->[:firebase_messaging] /Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:20:25-75
+232            </intent-filter>
+233        </service>
+234        <service
+234-->[com.google.android.datatransport:transport-backend-cct:3.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/cfb9da265c033f7d35cdc8d53e981d25/jetified-transport-backend-cct-3.0.0/AndroidManifest.xml:29:9-35:19
+235            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+235-->[com.google.android.datatransport:transport-backend-cct:3.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/cfb9da265c033f7d35cdc8d53e981d25/jetified-transport-backend-cct-3.0.0/AndroidManifest.xml:30:13-103
+236            android:exported="false" >
+236-->[com.google.android.datatransport:transport-backend-cct:3.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/cfb9da265c033f7d35cdc8d53e981d25/jetified-transport-backend-cct-3.0.0/AndroidManifest.xml:31:13-37
+237            <meta-data
+237-->[com.google.android.datatransport:transport-backend-cct:3.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/cfb9da265c033f7d35cdc8d53e981d25/jetified-transport-backend-cct-3.0.0/AndroidManifest.xml:32:13-34:39
+238                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+238-->[com.google.android.datatransport:transport-backend-cct:3.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/cfb9da265c033f7d35cdc8d53e981d25/jetified-transport-backend-cct-3.0.0/AndroidManifest.xml:33:17-94
+239                android:value="cct" />
+239-->[com.google.android.datatransport:transport-backend-cct:3.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/cfb9da265c033f7d35cdc8d53e981d25/jetified-transport-backend-cct-3.0.0/AndroidManifest.xml:34:17-36
+240        </service>
+241
+242        <activity
+242-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:27:9-44:20
+243            android:name="com.google.firebase.auth.internal.GenericIdpActivity"
+243-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:28:13-80
+244            android:excludeFromRecents="true"
+244-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:29:13-46
+245            android:exported="true"
+245-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:30:13-36
+246            android:launchMode="singleTask"
+246-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:31:13-44
+247            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+247-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:32:13-72
+248            <intent-filter>
+248-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:33:13-43:29
+249                <action android:name="android.intent.action.VIEW" />
+249-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:34:17-69
+249-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:34:25-66
+250
+251                <category android:name="android.intent.category.DEFAULT" />
+251-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:36:17-76
+251-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:36:27-73
+252                <category android:name="android.intent.category.BROWSABLE" />
+252-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:37:17-78
+252-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:37:27-75
+253
+254                <data
+254-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:39:17-42:51
+255                    android:host="firebase.auth"
+255-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:40:21-49
+256                    android:path="/"
+256-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:41:21-37
+257                    android:scheme="genericidp" />
+257-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:42:21-48
+258            </intent-filter>
+259        </activity>
+260        <activity
+260-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:45:9-62:20
+261            android:name="com.google.firebase.auth.internal.RecaptchaActivity"
+261-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:46:13-79
+262            android:excludeFromRecents="true"
+262-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:47:13-46
+263            android:exported="true"
+263-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:48:13-36
+264            android:launchMode="singleTask"
+264-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:49:13-44
+265            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+265-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:50:13-72
+266            <intent-filter>
+266-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:51:13-61:29
+267                <action android:name="android.intent.action.VIEW" />
+267-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:34:17-69
+267-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:34:25-66
+268
+269                <category android:name="android.intent.category.DEFAULT" />
+269-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:36:17-76
+269-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:36:27-73
+270                <category android:name="android.intent.category.BROWSABLE" />
+270-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:37:17-78
+270-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:37:27-75
+271
+272                <data
+272-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:39:17-42:51
+273                    android:host="firebase.auth"
+273-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:40:21-49
+274                    android:path="/"
+274-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:41:21-37
+275                    android:scheme="recaptcha" />
+275-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:42:21-48
+276            </intent-filter>
+277        </activity>
+278
+279        <service
+279-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:64:9-73:19
+280            android:name="com.google.firebase.auth.api.fallback.service.FirebaseAuthFallbackService"
+280-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:65:13-101
+281            android:enabled="true"
+281-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:66:13-35
+282            android:exported="false" >
+282-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:67:13-37
+283            <intent-filter>
+283-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:68:13-72:29
+284                <action android:name="com.google.firebase.auth.api.gms.service.START" />
+284-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:69:17-89
+284-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:69:25-86
+285
+286                <category android:name="android.intent.category.DEFAULT" />
+286-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:36:17-76
+286-->[com.google.firebase:firebase-auth:21.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/748d2926c06564ad9ae69caad1a0c4d4/jetified-firebase-auth-21.0.1/AndroidManifest.xml:36:27-73
+287            </intent-filter>
+288        </service>
+289
+290        <provider
+290-->[com.google.firebase:firebase-common:20.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/655eb9fd5f9038f83176c8204f07ee8e/jetified-firebase-common-20.0.0/AndroidManifest.xml:26:9-31:39
+291            android:name="com.google.firebase.provider.FirebaseInitProvider"
+291-->[com.google.firebase:firebase-common:20.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/655eb9fd5f9038f83176c8204f07ee8e/jetified-firebase-common-20.0.0/AndroidManifest.xml:27:13-77
+292            android:authorities="de.yessoft.mandoob_distro.firebaseinitprovider"
+292-->[com.google.firebase:firebase-common:20.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/655eb9fd5f9038f83176c8204f07ee8e/jetified-firebase-common-20.0.0/AndroidManifest.xml:28:13-72
+293            android:directBootAware="true"
+293-->[com.google.firebase:firebase-common:20.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/655eb9fd5f9038f83176c8204f07ee8e/jetified-firebase-common-20.0.0/AndroidManifest.xml:29:13-43
+294            android:exported="false"
+294-->[com.google.firebase:firebase-common:20.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/655eb9fd5f9038f83176c8204f07ee8e/jetified-firebase-common-20.0.0/AndroidManifest.xml:30:13-37
+295            android:initOrder="100" />
+295-->[com.google.firebase:firebase-common:20.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/655eb9fd5f9038f83176c8204f07ee8e/jetified-firebase-common-20.0.0/AndroidManifest.xml:31:13-36
+296
+297        <activity
+297-->[com.google.android.gms:play-services-auth:16.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/42c3a6f36c01b948e784a3a565383138/jetified-play-services-auth-16.0.1/AndroidManifest.xml:23:9-27:75
+298            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+298-->[com.google.android.gms:play-services-auth:16.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/42c3a6f36c01b948e784a3a565383138/jetified-play-services-auth-16.0.1/AndroidManifest.xml:24:13-93
+299            android:excludeFromRecents="true"
+299-->[com.google.android.gms:play-services-auth:16.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/42c3a6f36c01b948e784a3a565383138/jetified-play-services-auth-16.0.1/AndroidManifest.xml:25:13-46
+300            android:exported="false"
+300-->[com.google.android.gms:play-services-auth:16.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/42c3a6f36c01b948e784a3a565383138/jetified-play-services-auth-16.0.1/AndroidManifest.xml:26:13-37
+301            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+301-->[com.google.android.gms:play-services-auth:16.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/42c3a6f36c01b948e784a3a565383138/jetified-play-services-auth-16.0.1/AndroidManifest.xml:27:13-72
+302        <!--
+303            Service handling Google Sign-In user revocation. For apps that do not integrate with
+304            Google Sign-In, this service will never be started.
+305        -->
+306        <service
+306-->[com.google.android.gms:play-services-auth:16.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/42c3a6f36c01b948e784a3a565383138/jetified-play-services-auth-16.0.1/AndroidManifest.xml:33:9-36:110
+307            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
+307-->[com.google.android.gms:play-services-auth:16.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/42c3a6f36c01b948e784a3a565383138/jetified-play-services-auth-16.0.1/AndroidManifest.xml:34:13-89
+308            android:exported="true"
+308-->[com.google.android.gms:play-services-auth:16.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/42c3a6f36c01b948e784a3a565383138/jetified-play-services-auth-16.0.1/AndroidManifest.xml:35:13-36
+309            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION" />
+309-->[com.google.android.gms:play-services-auth:16.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/42c3a6f36c01b948e784a3a565383138/jetified-play-services-auth-16.0.1/AndroidManifest.xml:36:13-107
+310
+311        <activity
+311-->[com.google.android.gms:play-services-base:17.1.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/56b32f5318db7d4809f58bb9b78d7ae5/jetified-play-services-base-17.1.0/AndroidManifest.xml:23:9-26:75
+312            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+312-->[com.google.android.gms:play-services-base:17.1.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/56b32f5318db7d4809f58bb9b78d7ae5/jetified-play-services-base-17.1.0/AndroidManifest.xml:24:13-79
+313            android:exported="false"
+313-->[com.google.android.gms:play-services-base:17.1.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/56b32f5318db7d4809f58bb9b78d7ae5/jetified-play-services-base-17.1.0/AndroidManifest.xml:25:13-37
+314            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+314-->[com.google.android.gms:play-services-base:17.1.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/56b32f5318db7d4809f58bb9b78d7ae5/jetified-play-services-base-17.1.0/AndroidManifest.xml:26:13-72
+315
+316        <receiver
+316-->[com.google.android.gms:play-services-measurement:19.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/e5a8a205342535fd87dfe43f0d7fe5cc/jetified-play-services-measurement-19.0.1/AndroidManifest.xml:29:9-33:20
+317            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
+317-->[com.google.android.gms:play-services-measurement:19.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/e5a8a205342535fd87dfe43f0d7fe5cc/jetified-play-services-measurement-19.0.1/AndroidManifest.xml:30:13-85
+318            android:enabled="true"
+318-->[com.google.android.gms:play-services-measurement:19.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/e5a8a205342535fd87dfe43f0d7fe5cc/jetified-play-services-measurement-19.0.1/AndroidManifest.xml:31:13-35
+319            android:exported="false" >
+319-->[com.google.android.gms:play-services-measurement:19.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/e5a8a205342535fd87dfe43f0d7fe5cc/jetified-play-services-measurement-19.0.1/AndroidManifest.xml:32:13-37
+320        </receiver>
+321
+322        <service
+322-->[com.google.android.gms:play-services-measurement:19.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/e5a8a205342535fd87dfe43f0d7fe5cc/jetified-play-services-measurement-19.0.1/AndroidManifest.xml:35:9-38:40
+323            android:name="com.google.android.gms.measurement.AppMeasurementService"
+323-->[com.google.android.gms:play-services-measurement:19.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/e5a8a205342535fd87dfe43f0d7fe5cc/jetified-play-services-measurement-19.0.1/AndroidManifest.xml:36:13-84
+324            android:enabled="true"
+324-->[com.google.android.gms:play-services-measurement:19.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/e5a8a205342535fd87dfe43f0d7fe5cc/jetified-play-services-measurement-19.0.1/AndroidManifest.xml:37:13-35
+325            android:exported="false" />
+325-->[com.google.android.gms:play-services-measurement:19.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/e5a8a205342535fd87dfe43f0d7fe5cc/jetified-play-services-measurement-19.0.1/AndroidManifest.xml:38:13-37
+326        <service
+326-->[com.google.android.gms:play-services-measurement:19.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/e5a8a205342535fd87dfe43f0d7fe5cc/jetified-play-services-measurement-19.0.1/AndroidManifest.xml:39:9-43:72
+327            android:name="com.google.android.gms.measurement.AppMeasurementJobService"
+327-->[com.google.android.gms:play-services-measurement:19.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/e5a8a205342535fd87dfe43f0d7fe5cc/jetified-play-services-measurement-19.0.1/AndroidManifest.xml:40:13-87
+328            android:enabled="true"
+328-->[com.google.android.gms:play-services-measurement:19.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/e5a8a205342535fd87dfe43f0d7fe5cc/jetified-play-services-measurement-19.0.1/AndroidManifest.xml:41:13-35
+329            android:exported="false"
+329-->[com.google.android.gms:play-services-measurement:19.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/e5a8a205342535fd87dfe43f0d7fe5cc/jetified-play-services-measurement-19.0.1/AndroidManifest.xml:42:13-37
+330            android:permission="android.permission.BIND_JOB_SERVICE" />
+330-->[com.google.android.gms:play-services-measurement:19.0.1] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/e5a8a205342535fd87dfe43f0d7fe5cc/jetified-play-services-measurement-19.0.1/AndroidManifest.xml:43:13-69
+331
+332        <meta-data
+332-->[com.google.android.gms:play-services-basement:17.3.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/3513b26780aad1af31d349a045ec2e42/jetified-play-services-basement-17.3.0/AndroidManifest.xml:23:9-25:69
+333            android:name="com.google.android.gms.version"
+333-->[com.google.android.gms:play-services-basement:17.3.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/3513b26780aad1af31d349a045ec2e42/jetified-play-services-basement-17.3.0/AndroidManifest.xml:24:13-58
+334            android:value="@integer/google_play_services_version" />
+334-->[com.google.android.gms:play-services-basement:17.3.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/3513b26780aad1af31d349a045ec2e42/jetified-play-services-basement-17.3.0/AndroidManifest.xml:25:13-66
+335
+336        <service
+336-->[com.google.android.datatransport:transport-runtime:3.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/c5e2e2f4dd56d73c18ab5be418c29059/jetified-transport-runtime-3.0.0/AndroidManifest.xml:26:9-30:19
+337            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+337-->[com.google.android.datatransport:transport-runtime:3.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/c5e2e2f4dd56d73c18ab5be418c29059/jetified-transport-runtime-3.0.0/AndroidManifest.xml:27:13-117
+338            android:exported="false"
+338-->[com.google.android.datatransport:transport-runtime:3.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/c5e2e2f4dd56d73c18ab5be418c29059/jetified-transport-runtime-3.0.0/AndroidManifest.xml:28:13-37
+339            android:permission="android.permission.BIND_JOB_SERVICE" >
+339-->[com.google.android.datatransport:transport-runtime:3.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/c5e2e2f4dd56d73c18ab5be418c29059/jetified-transport-runtime-3.0.0/AndroidManifest.xml:29:13-69
+340        </service>
+341
+342        <receiver
+342-->[com.google.android.datatransport:transport-runtime:3.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/c5e2e2f4dd56d73c18ab5be418c29059/jetified-transport-runtime-3.0.0/AndroidManifest.xml:32:9-34:40
+343            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+343-->[com.google.android.datatransport:transport-runtime:3.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/c5e2e2f4dd56d73c18ab5be418c29059/jetified-transport-runtime-3.0.0/AndroidManifest.xml:33:13-132
+344            android:exported="false" />
+344-->[com.google.android.datatransport:transport-runtime:3.0.0] /Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/c5e2e2f4dd56d73c18ab5be418c29059/jetified-transport-runtime-3.0.0/AndroidManifest.xml:34:13-37
+345    </application>
+346
+347</manifest>
