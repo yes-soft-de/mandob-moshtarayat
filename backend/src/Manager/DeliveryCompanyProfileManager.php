@@ -25,8 +25,8 @@ class DeliveryCompanyProfileManager
 
     public function createDeliveryCompanyInfo(DeliveryCompanyInfoRequest $request)
     {
-       $isfound = $this->getcompanyinfoAll();
-        if ($isfound == null) {
+       $isFound = $this->getcompanyinfoAll();
+        if ($isFound == null) {
         $entity = $this->autoMapping->map(DeliveryCompanyInfoRequest::class, DeliveryCompanyProfileEntity::class, $request);
 
         $this->entityManager->persist($entity);
@@ -42,7 +42,6 @@ class DeliveryCompanyProfileManager
 
     public function updateCompanyInfo(DeliveryCompanyInfoRequest $request)
     {
-        // $entity = $this->deliveryCompanyProfileEntityRepository->find($request->getId());
         $profile = $this->getcompanyinfoAll();
         $entity = $this->deliveryCompanyProfileEntityRepository->find($profile[0]['id']);
         if (!$entity) {

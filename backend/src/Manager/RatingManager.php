@@ -27,6 +27,7 @@ class RatingManager
         if ($request->getUserType() == null) {
             $request->setUserType("not store");
         }
+
         $entity = $this->autoMapping->map(RatingCreateRequest::class, RatingEntity::class, $request);
        
         $this->entityManager->persist($entity);
@@ -40,6 +41,7 @@ class RatingManager
     {
         $request->setItemType("captain");
         $request->setUserType("not store");
+
         $entity = $this->autoMapping->map(RatingCreateRequest::class, RatingEntity::class, $request);
        
         $this->entityManager->persist($entity);
@@ -53,6 +55,7 @@ class RatingManager
     {
         $request->setItemType("store");
         $request->setUserType("not store");
+
         $entity = $this->autoMapping->map(RatingCreateRequest::class, RatingEntity::class, $request);
        
         $this->entityManager->persist($entity);
@@ -66,6 +69,7 @@ class RatingManager
     {
         $request->setItemType("product");
         $request->setUserType("not store");
+
         $entity = $this->autoMapping->map(RatingCreateRequest::class, RatingEntity::class, $request);
        
         $this->entityManager->persist($entity);

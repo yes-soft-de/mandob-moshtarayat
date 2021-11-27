@@ -127,6 +127,7 @@ class ProductManager
     public function createProductByStore(ProductCreateRequest $request)
     {
         $request->setStatus('active');
+
         $entity = $this->autoMapping->map(ProductCreateRequest::class, ProductEntity::class, $request);
 
         $this->entityManager->persist($entity);
@@ -139,7 +140,6 @@ class ProductManager
     public function updateProductByStore(ProductUpdateByStoreOwnerRequest $request)
     {
         $entity = $this->productEntityRepository->find($request->getId());
-
         if (!$entity) {
             return $entity;
         }
@@ -210,5 +210,4 @@ class ProductManager
     {
         return $this->productEntityRepository->getLast30Products();
     }
-
 }
