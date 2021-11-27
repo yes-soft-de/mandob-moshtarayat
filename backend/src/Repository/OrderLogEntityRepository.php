@@ -24,13 +24,19 @@ class OrderLogEntityRepository extends ServiceEntityRepository
     public function getOrderLogByOrderNumber($orderNumber)
     {
         return $this->createQueryBuilder('OrderLogEntity')
+
             ->select('OrderLogEntity.id, OrderLogEntity.orderNumber, OrderLogEntity.state, OrderLogEntity.startTime')
             
             ->andWhere("OrderLogEntity.orderNumber =:orderNumber")
+
             ->setParameter('orderNumber', $orderNumber)
+
             ->setMaxResults(1)
+
             ->addOrderBy('OrderLogEntity.id','DESC')
+
             ->groupBy('OrderLogEntity.id')
+
             ->getQuery()
             ->getResult();
     }
@@ -38,10 +44,13 @@ class OrderLogEntityRepository extends ServiceEntityRepository
     public function getOrderLogsByOrderNumber($orderNumber)
     {
         return $this->createQueryBuilder('OrderLogEntity')
+
             ->select('OrderLogEntity.id, OrderLogEntity.orderNumber, OrderLogEntity.state, OrderLogEntity.createdAt')
             
             ->andWhere("OrderLogEntity.orderNumber =:orderNumber")
+
             ->setParameter('orderNumber', $orderNumber)
+
             ->getQuery()
             ->getResult();
     }
@@ -49,11 +58,15 @@ class OrderLogEntityRepository extends ServiceEntityRepository
     public function orderLogsByCaptainId($captainId)
     {
         return $this->createQueryBuilder('OrderLogEntity')
+
             ->select('OrderLogEntity.id, OrderLogEntity.orderNumber')
             
             ->andWhere("OrderLogEntity.userID =:userID")
+
             ->setParameter('userID', $captainId)
+
             ->groupBy('OrderLogEntity.orderNumber')
+
             ->getQuery()
             ->getResult();
     }
@@ -61,11 +74,15 @@ class OrderLogEntityRepository extends ServiceEntityRepository
     public function orderLogsByStoreProfileId($storeProfileId)
     {
         return $this->createQueryBuilder('OrderLogEntity')
+
             ->select('OrderLogEntity.id, OrderLogEntity.orderNumber')
             
             ->andWhere("OrderLogEntity.storeOwnerProfileID =:storeProfileId")
+
             ->setParameter('storeProfileId', $storeProfileId)
+
             ->groupBy('OrderLogEntity.orderNumber')
+
             ->getQuery()
             ->getResult();
     }
@@ -73,12 +90,17 @@ class OrderLogEntityRepository extends ServiceEntityRepository
     public function getFirstDate($orderNumber)
     {
         return $this->createQueryBuilder('OrderLogEntity')
+
             ->select('OrderLogEntity.id, OrderLogEntity.state, OrderLogEntity.createdAt')
             
             ->andWhere("OrderLogEntity.orderNumber =:orderNumber")
+
             ->setParameter('orderNumber', $orderNumber)
+
             ->setMaxResults(1)
+
             ->addOrderBy('OrderLogEntity.id','ASC')
+
             ->getQuery()
             ->getResult();
     }
@@ -90,10 +112,15 @@ class OrderLogEntityRepository extends ServiceEntityRepository
             
             ->andWhere("OrderLogEntity.orderNumber =:orderNumber")
             ->andWhere("OrderLogEntity.state =:on_way")
+
             ->setParameter('orderNumber', $orderNumber)
-             ->setParameter('on_way', self::ON_WAY)
+
+            ->setParameter('on_way', self::ON_WAY)
+
             ->setMaxResults(1)
+
             ->addOrderBy('OrderLogEntity.id','ASC')
+
             ->getQuery()
             ->getResult();
     }
@@ -101,12 +128,17 @@ class OrderLogEntityRepository extends ServiceEntityRepository
     public function getLastDate($orderNumber)
     {
         return $this->createQueryBuilder('OrderLogEntity')
+
             ->select('OrderLogEntity.id, OrderLogEntity.state, OrderLogEntity.createdAt')
             
             ->andWhere("OrderLogEntity.orderNumber =:orderNumber")
+
             ->setParameter('orderNumber', $orderNumber)
+
             ->setMaxResults(1)
+
             ->addOrderBy('OrderLogEntity.id','DESC')
+
             ->getQuery()
             ->getResult();
     }
@@ -114,9 +146,13 @@ class OrderLogEntityRepository extends ServiceEntityRepository
     public function getOrderNumberByOwnerId($ownerID)
     {
         return $this->createQueryBuilder('OrderLogEntity')
+
             ->select('OrderLogEntity.id, OrderLogEntity.state, OrderLogEntity.date, OrderLogEntity.userID, OrderLogEntity.orderNumber')
+
             ->andWhere("OrderLogEntity.userID = :ownerID ")
-            ->setParameter('ownerID', $ownerID) 
+
+            ->setParameter('ownerID', $ownerID)
+
             ->getQuery()
             ->getResult();
     }
@@ -124,9 +160,13 @@ class OrderLogEntityRepository extends ServiceEntityRepository
     public function getOrderNumberByCaptainId($captainID)
     {
         return $this->createQueryBuilder('OrderLogEntity')
+
             ->select('OrderLogEntity.id, OrderLogEntity.state, OrderLogEntity.date, OrderLogEntity.userID, OrderLogEntity.orderNumber')
+
             ->andWhere("OrderLogEntity.userID = :captainID ")
-            ->setParameter('captainID', $captainID) 
+
+            ->setParameter('captainID', $captainID)
+
             ->getQuery()
             ->getResult();
     }
@@ -134,10 +174,15 @@ class OrderLogEntityRepository extends ServiceEntityRepository
     public function getOrderNumberUserID($userID)
     {
         return $this->createQueryBuilder('OrderLogEntity')
+
             ->select('OrderLogEntity.id, OrderLogEntity.state, OrderLogEntity.createdAt, OrderLogEntity.userID, OrderLogEntity.orderNumber')
+
             ->andWhere("OrderLogEntity.userID = :userID ")
-            ->setParameter('userID', $userID) 
+
+            ->setParameter('userID', $userID)
+
             ->groupBy('OrderLogEntity.orderNumber')
+
             ->getQuery()
             ->getResult();
     }
