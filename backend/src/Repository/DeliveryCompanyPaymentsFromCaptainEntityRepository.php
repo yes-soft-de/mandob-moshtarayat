@@ -22,6 +22,7 @@ class DeliveryCompanyPaymentsFromCaptainEntityRepository extends ServiceEntityRe
     public function  deliveryCompanyPaymentsFromCaptain($captainId)
     {
         return $this->createQueryBuilder('paymentsFromCaptain')
+
                ->select('paymentsFromCaptain.id, paymentsFromCaptain.captainId, paymentsFromCaptain.amount, paymentsFromCaptain.date, paymentsFromCaptain.note')
 
                ->andWhere('paymentsFromCaptain.captainId = :captainId')
@@ -35,8 +36,11 @@ class DeliveryCompanyPaymentsFromCaptainEntityRepository extends ServiceEntityRe
     public function deliveryCompanySumPaymentsFromCaptain($captainId)
     {
         return $this->createQueryBuilder('paymentsFromCaptain')
+
                ->select('sum(paymentsFromCaptain.amount) as sumPaymentsToCompany')
+
                ->andWhere('paymentsFromCaptain.captainId = :captainId')
+
                ->setParameter('captainId', $captainId)
 
                ->getQuery()
@@ -46,7 +50,9 @@ class DeliveryCompanyPaymentsFromCaptainEntityRepository extends ServiceEntityRe
     public function deliveryCompanySumPaymentsFromCaptains()
     {
         return $this->createQueryBuilder('paymentsFromCaptain')
+
                ->select('sum(paymentsFromCaptain.amount) as sumPaymentsToCompany')
+
                ->getQuery()
                ->getResult();
     }
@@ -63,6 +69,7 @@ class DeliveryCompanyPaymentsFromCaptainEntityRepository extends ServiceEntityRe
                ->setParameter('captainId', $captainId)
                ->setParameter('fromDate', $fromDate)
                ->setParameter('toDate', $toDate)
+
                ->getQuery()
                ->getResult();
     }
@@ -70,16 +77,18 @@ class DeliveryCompanyPaymentsFromCaptainEntityRepository extends ServiceEntityRe
     public function deliveryCompanyPaymentsFromCaptainInSpecificDate($captainId, $fromDate, $toDate)
     {
         return $this->createQueryBuilder('paymentsFromCaptain')
+
                ->select('paymentsFromCaptain.id, paymentsFromCaptain.captainId, paymentsFromCaptain.amount, paymentsFromCaptain.date, paymentsFromCaptain.note')
 
                ->where('paymentsFromCaptain.captainId = :captainId')
                ->andWhere('paymentsFromCaptain.date >= :fromDate')
                ->andWhere('paymentsFromCaptain.date < :toDate')
+
                ->setParameter('captainId', $captainId)
                ->setParameter('fromDate', $fromDate)
                ->setParameter('toDate', $toDate)
+
                ->getQuery()
                ->getResult();
     }
-
 }

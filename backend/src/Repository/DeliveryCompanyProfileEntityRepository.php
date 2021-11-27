@@ -25,8 +25,11 @@ class DeliveryCompanyProfileEntityRepository extends ServiceEntityRepository
     public function  getcompanyinfoById($id)
     {
         return $this->createQueryBuilder('CompanyInfoEntity') 
+
             ->andWhere("CompanyInfoEntity.id = :id ")
+
             ->setParameter('id',$id)
+
             ->getQuery()
             ->getOneOrNullResult();
     }
@@ -34,7 +37,9 @@ class DeliveryCompanyProfileEntityRepository extends ServiceEntityRepository
     public function  getcompanyinfoAll()
     {
         return $this->createQueryBuilder('CompanyInfoEntity') 
+
             ->select('CompanyInfoEntity.id, CompanyInfoEntity.phone, CompanyInfoEntity.phone2, CompanyInfoEntity.whatsapp, CompanyInfoEntity.fax, CompanyInfoEntity.bank, CompanyInfoEntity.stc, CompanyInfoEntity.email')
+
             ->getQuery()
             ->getResult();
     }
@@ -44,8 +49,11 @@ class DeliveryCompanyProfileEntityRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('CompanyInfoEntity') 
             ->select('CompanyInfoEntity.id, CompanyInfoEntity.phone, CompanyInfoEntity.phone2, CompanyInfoEntity.whatsapp, CompanyInfoEntity.fax, CompanyInfoEntity.bank, CompanyInfoEntity.stc, CompanyInfoEntity.email')
             ->addSelect('userProfileEntity.roomID')
+
             ->leftJoin(StoreOwnerProfileEntity::class, 'userProfileEntity', Join::WITH, 'userProfileEntity.storeOwnerID = :storeOwnerID')
+
             ->setParameter('storeOwnerID',$storeOwnerID)
+
             ->getQuery()
             ->getResult();
     }
@@ -55,8 +63,10 @@ class DeliveryCompanyProfileEntityRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('CompanyInfoEntity') 
             ->select('CompanyInfoEntity.id, CompanyInfoEntity.phone, CompanyInfoEntity.phone2, CompanyInfoEntity.whatsapp, CompanyInfoEntity.fax, CompanyInfoEntity.bank, CompanyInfoEntity.stc, CompanyInfoEntity.email')
             ->addSelect('captainProfileEntity.roomID')
+
             ->leftJoin(CaptainProfileEntity::class, 'captainProfileEntity', Join::WITH, 'captainProfileEntity.captainID = :captainID')
             ->setParameter('captainID',$captainID)
+
             ->getQuery()
             ->getResult();
     }

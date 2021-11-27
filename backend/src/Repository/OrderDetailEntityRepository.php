@@ -27,9 +27,13 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
     public function getLastOrderNumber()
     {
         return $this->createQueryBuilder('OrderDetailEntity')
+
             ->select('OrderDetailEntity.orderNumber','OrderDetailEntity.orderID')
+
             ->setMaxResults(1)
+
             ->addOrderBy('OrderDetailEntity.orderID','DESC')
+
             ->getQuery()
             ->getOneOrNullResult();
     }
@@ -37,12 +41,14 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
     public function getOrderIdByOrderNumber($orderNumber)
     {
         return $this->createQueryBuilder('OrderDetailEntity')
+
             ->select('OrderDetailEntity.id','OrderDetailEntity.orderID', 'OrderDetailEntity.productID', 'OrderDetailEntity.countProduct', 'OrderDetailEntity.orderNumber')
             ->addSelect('ProductEntity.id as productID', 'ProductEntity.productName', 'ProductEntity.productImage', 'ProductEntity.storeProductCategoryID as ProductCategoryID', 'ProductEntity.productPrice', 'ProductEntity.storeOwnerProfileID')
 
             ->leftJoin(ProductEntity::class, 'ProductEntity', Join::WITH, 'ProductEntity.id = OrderDetailEntity.productID')
             
             ->andWhere('OrderDetailEntity.orderNumber = :orderNumber')
+
             ->setParameter('orderNumber', $orderNumber)
             
             ->getQuery()
@@ -51,13 +57,16 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
     public function getOrderIdWithOutStoreProductByOrderNumber($orderNumber)
     {
         return $this->createQueryBuilder('OrderDetailEntity')
+
             ->select('OrderDetailEntity.id','OrderDetailEntity.orderID', 'OrderDetailEntity.productID', 'OrderDetailEntity.countProduct', 'OrderDetailEntity.orderNumber')
             ->addSelect('ProductEntity.id as productID', 'ProductEntity.productName', 'ProductEntity.productImage', 'ProductEntity.storeProductCategoryID', 'ProductEntity.productPrice')
 
             ->leftJoin(ProductEntity::class, 'ProductEntity', Join::WITH, 'ProductEntity.id = OrderDetailEntity.productID')
 
             ->andWhere('OrderDetailEntity.orderNumber = :orderNumber')
+
             ->setParameter('orderNumber', $orderNumber)
+
             ->getQuery()
             ->getResult();
     }
@@ -65,13 +74,16 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
     public function getOrderNumberByOrderId($orderID)
     {
         return $this->createQueryBuilder('OrderDetailEntity')
+
             ->select('OrderDetailEntity.id','OrderDetailEntity.orderID', 'OrderDetailEntity.productID', 'OrderDetailEntity.countProduct', 'OrderDetailEntity.orderNumber')
             ->addSelect('ProductEntity.id as productID', 'ProductEntity.productName', 'ProductEntity.productImage', 'ProductEntity.storeProductCategoryID', 'ProductEntity.productPrice')
 
             ->leftJoin(ProductEntity::class, 'ProductEntity', Join::WITH, 'ProductEntity.id = OrderDetailEntity.productID')
             
             ->andWhere('OrderDetailEntity.orderID = :orderID')
+
             ->setParameter('orderID', $orderID)
+
             ->getQuery()
             ->getResult();
     }
@@ -84,6 +96,7 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
           
           ->leftJoin(OrderEntity::class, 'OrderEntity', Join::WITH, 'OrderEntity.id = OrderDetailEntity.orderID')
           ->leftJoin(ProductEntity::class, 'ProductEntity', Join::WITH, 'ProductEntity.id = OrderDetailEntity.productID')
+
           ->where('OrderEntity.createdAt >= :fromDate')
           ->andWhere('OrderEntity.createdAt < :toDate')
           ->andWhere("OrderEntity.state != :cancelled")
@@ -92,15 +105,17 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
           ->addGroupBy('OrderDetailEntity.productID')
 
           ->having('count(OrderDetailEntity.productID) > 0')
+
           ->setMaxResults(30)
+
           ->addOrderBy('countOrdersInMonth','DESC')
          
           ->setParameter('fromDate', $fromDate)
           ->setParameter('toDate', $toDate)
           ->setParameter('cancelled', self::CANCEL)
           ->setParameter('pending', self::PENDING)
+
           ->getQuery()
           ->getResult();
     }
-    
 }
