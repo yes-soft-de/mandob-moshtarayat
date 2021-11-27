@@ -23,6 +23,7 @@ class DeliveryCompanyPaymentsToStoreEntityRepository extends ServiceEntityReposi
     public function  deliveryCompanyPaymentsToStore($storeOwnerProfileID)
     {
         return $this->createQueryBuilder('paymentsToStore')
+
             ->select('paymentsToStore.id, paymentsToStore.storeOwnerProfileID, paymentsToStore.amount, paymentsToStore.date, paymentsToStore.note')
 
             ->andWhere('paymentsToStore.storeOwnerProfileID = :storeOwnerProfileID')
@@ -36,8 +37,11 @@ class DeliveryCompanyPaymentsToStoreEntityRepository extends ServiceEntityReposi
     public function deliveryCompanySumPaymentsToStore($storeOwnerProfileID)
     {
         return $this->createQueryBuilder('paymentsToStore')
+
             ->select('sum(paymentsToStore.amount) as sumPaymentsFromCompany')
+
             ->andWhere('paymentsToStore.storeOwnerProfileID = :storeOwnerProfileID')
+
             ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
 
             ->getQuery()
@@ -47,6 +51,7 @@ class DeliveryCompanyPaymentsToStoreEntityRepository extends ServiceEntityReposi
     public function deliveryCompanySumPaymentsToStoreInSpecificDate($storeOwnerProfileID, $fromDate, $toDate)
     {
         return $this->createQueryBuilder('paymentsToStore')
+
             ->select('sum(paymentsToStore.amount) as sumPayments ')
 
             ->where('paymentsToStore.storeOwnerProfileID = :storeOwnerProfileID')
@@ -56,6 +61,7 @@ class DeliveryCompanyPaymentsToStoreEntityRepository extends ServiceEntityReposi
             ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
             ->setParameter('fromDate', $fromDate)
             ->setParameter('toDate', $toDate)
+
             ->getQuery()
             ->getSingleScalarResult();
     }
@@ -63,16 +69,18 @@ class DeliveryCompanyPaymentsToStoreEntityRepository extends ServiceEntityReposi
     public function deliveryCompanyPaymentsToStoreInSpecificDate($storeOwnerProfileID, $ToDate, $toDate)
     {
         return $this->createQueryBuilder('paymentsToStore')
+
             ->select('paymentsToStore.id, paymentsToStore.storeOwnerProfileID, paymentsToStore.amount, paymentsToStore.date, paymentsToStore.note')
 
             ->where('paymentsToStore.storeOwnerProfileID = :storeOwnerProfileID')
             ->andWhere('paymentsToStore.date >= :ToDate')
             ->andWhere('paymentsToStore.date < :toDate')
+
             ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
             ->setParameter('ToDate', $ToDate)
             ->setParameter('toDate', $toDate)
+
             ->getQuery()
             ->getResult();
     }
-
 }

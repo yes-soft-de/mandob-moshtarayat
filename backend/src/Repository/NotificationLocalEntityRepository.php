@@ -23,8 +23,11 @@ class NotificationLocalEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('notificationLocal')
             ->select('notificationLocal.id', 'notificationLocal.title', 'notificationLocal.message', 'notificationLocal.userID', 'notificationLocal.createdAt', 'notificationLocal.orderNumber')
+
             ->where('notificationLocal.userID = :userID')
+
             ->setParameter('userID',$userID)
+
             ->getQuery()
             ->getResult();
     }

@@ -41,9 +41,11 @@ class UserEntityRepository extends ServiceEntityRepository implements PasswordUp
     public function getUserByUserID($userID)
     {
         return $this->createQueryBuilder('user')
+
             ->select('user.id', 'user.userID', 'user.email')
 
             ->andWhere('user.userID = :userID')
+
             ->setParameter('userID', $userID)
 
             ->getQuery()
@@ -60,6 +62,7 @@ class UserEntityRepository extends ServiceEntityRepository implements PasswordUp
                 'StoreOwnerProfileEntity.storeOwnerID =:userID')
 
             ->andWhere('user.id=:userID')
+
             ->setParameter('userID', $userID)
 
             ->getQuery()

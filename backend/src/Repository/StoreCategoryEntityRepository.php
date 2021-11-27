@@ -25,6 +25,7 @@ class StoreCategoryEntityRepository extends ServiceEntityRepository
     public function getStoreCategories()
     {
         return $this->createQueryBuilder('storeCategory')
+
             ->select('storeCategory.id', 'storeCategory.storeCategoryName', 'storeCategory.description', 'storeCategory.image')
 
             ->getQuery()
@@ -34,12 +35,16 @@ class StoreCategoryEntityRepository extends ServiceEntityRepository
     public function isItRelatedToSubcategories($id)
     {
         return $this->createQueryBuilder('storeCategory')
+
             ->select('StoreProductCategoryEntity.id')
+
             ->leftJoin(StoreProductCategoryEntity::class, 'StoreProductCategoryEntity', Join::WITH, 'StoreProductCategoryEntity.storeCategoryID = storeCategory.id')
+
             ->andWhere('StoreProductCategoryEntity.storeCategoryID= :id')
+
             ->setParameter('id',$id)
+
             ->getQuery()
             ->getResult();
     }
-
 }

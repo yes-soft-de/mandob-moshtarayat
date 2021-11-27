@@ -56,7 +56,6 @@ class NotificationManager
         {
             $this->entityManager->remove($item);
             $this->entityManager->flush();
-            //return $id;
         }
     }
 

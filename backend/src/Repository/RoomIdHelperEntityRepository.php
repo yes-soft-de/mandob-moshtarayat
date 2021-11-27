@@ -22,9 +22,13 @@ class RoomIdHelperEntityRepository extends ServiceEntityRepository
     function getByRoomID($roomID)
     {
         return $this->createQueryBuilder('RoomIdHelperEntity')
-            ->addSelect('RoomIdHelperEntity.id', 'RoomIdHelperEntity.captainID', 'RoomIdHelperEntity.ownerID') 
+
+            ->addSelect('RoomIdHelperEntity.id', 'RoomIdHelperEntity.captainID', 'RoomIdHelperEntity.ownerID')
+
             ->andWhere('RoomIdHelperEntity.roomID = :roomID')
+
             ->setParameter('roomID',$roomID)
+
             ->getQuery()
             ->getOneOrNullResult();
     }

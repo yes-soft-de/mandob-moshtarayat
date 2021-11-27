@@ -31,8 +31,10 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
      public function getStoreOwnerProfileByID($id)
     {
         return $this->createQueryBuilder('profile')
+
             ->select('profile.id', 'profile.storeOwnerName', 'profile.image', 'profile.story', 'profile.free', 'profile.status', 'profile.phone', 'profile.privateOrders', 'profile.hasProducts', 'profile.openingTime', 'profile.closingTime', 'profile.storeCategoryId')
             ->addSelect('storeCategoryEntity.storeCategoryName')
+
             ->leftJoin(StoreCategoryEntity::class, 'storeCategoryEntity', Join::WITH, 'storeCategoryEntity.id = profile.storeCategoryId ')
             
             ->andWhere('profile.id = :id')
@@ -46,7 +48,9 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
      public function getStoreNameById($id)
     {
         return $this->createQueryBuilder('profile')
+
             ->select('profile.id', 'profile.storeOwnerName')
+
             ->andWhere('profile.id = :id')
 
             ->setParameter('id', $id)
@@ -58,6 +62,7 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
     public function getStoreOwnerByCategoryId($storeCategoryId)
     {
         return $this->createQueryBuilder('profile')
+
             ->select('profile.id', 'profile.storeOwnerName', 'profile.image', 'profile.phone', 'profile.privateOrders', 'profile.hasProducts', 'profile.status')
             ->addSelect('StoreOwnerBranchEntity.location')
             ->addSelect('DeliveryCompanyFinancialEntity.deliveryCost')
@@ -71,6 +76,7 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
 
             ->setParameter('storeCategoryId', $storeCategoryId)
             ->setParameter('status', self::STATUS_ACTIVE)
+
             ->groupBy('profile.id')
             ->getQuery()
             ->getResult();
@@ -79,6 +85,7 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
     public function getStoreOwnerByCategoryIdForAdmin($storeCategoryId)
     {
         return $this->createQueryBuilder('profile')
+
             ->select('profile.id', 'profile.storeOwnerName', 'profile.image', 'profile.phone', 'profile.privateOrders', 'profile.hasProducts', 'profile.status')
             ->addSelect('StoreOwnerBranchEntity.location')
             ->addSelect('DeliveryCompanyFinancialEntity.deliveryCost')
@@ -90,7 +97,9 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
             ->andWhere('profile.storeCategoryId = :storeCategoryId')
 
             ->setParameter('storeCategoryId', $storeCategoryId)
+
             ->groupBy('profile.id')
+
             ->getQuery()
             ->getResult();
     }
@@ -98,19 +107,22 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
     public function getStoreOwnerBest()
     {
         return $this->createQueryBuilder('profile')
+
             ->select('profile.id', 'profile.storeOwnerName', 'profile.image', 'profile.phone', 'profile.privateOrders', 'profile.hasProducts', 'profile.status', 'profile.openingTime', 'profile.closingTime', 'profile.storeCategoryId')
             ->addSelect('StoreOwnerBranchEntity.location')
             ->addSelect('DeliveryCompanyFinancialEntity.deliveryCost')
 
             ->leftJoin(DeliveryCompanyFinancialEntity::class, 'DeliveryCompanyFinancialEntity', Join::WITH, 'profile.id = profile.id')
-
             ->leftJoin(StoreOwnerBranchEntity::class, 'StoreOwnerBranchEntity', Join::WITH, 'StoreOwnerBranchEntity.storeOwnerProfileID = profile.id ')
 
             ->andWhere('profile.is_best = :best')
             ->andWhere('profile.status = :status')
+
             ->setParameter('best','best')
             ->setParameter('status', self::STATUS_ACTIVE)
+
             ->groupBy('profile.id')
+
             ->getQuery()
             ->getResult();
     }
@@ -118,18 +130,20 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
     public function getStoreOwnerInactive()
     {
         return $this->createQueryBuilder('profile')
+
             ->select('profile.id', 'profile.storeOwnerName', 'profile.image', 'profile.phone', 'profile.privateOrders', 'profile.hasProducts', 'profile.status', 'profile.openingTime', 'profile.closingTime', 'profile.storeCategoryId', 'profile.storeCategoryId')
             ->addSelect('StoreOwnerBranchEntity.location')
             ->addSelect('DeliveryCompanyFinancialEntity.deliveryCost')
 
             ->leftJoin(DeliveryCompanyFinancialEntity::class, 'DeliveryCompanyFinancialEntity', Join::WITH, 'profile.id = profile.id')
-
             ->leftJoin(StoreOwnerBranchEntity::class, 'StoreOwnerBranchEntity', Join::WITH, 'StoreOwnerBranchEntity.storeOwnerProfileID = profile.id ')
 
             ->andWhere('profile.status = :status')
 
             ->setParameter('status', self::STATUS_INACTIVE)
+
             ->groupBy('profile.id')
+
             ->getQuery()
             ->getResult();
     }
@@ -142,7 +156,6 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
             ->addSelect('DeliveryCompanyFinancialEntity.deliveryCost')
 
             ->leftJoin(DeliveryCompanyFinancialEntity::class, 'DeliveryCompanyFinancialEntity', Join::WITH, 'profile.id = profile.id')
-
             ->leftJoin(StoreOwnerBranchEntity::class, 'StoreOwnerBranchEntity', Join::WITH, 'StoreOwnerBranchEntity.storeOwnerProfileID = profile.id ')
 
             ->andWhere('profile.status = :status')
@@ -150,7 +163,9 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
 
             ->setParameter('name', '%'.$name.'%')
             ->setParameter('status', self::STATUS_INACTIVE)
+
             ->groupBy('profile.id')
+
             ->getQuery()
             ->getResult();
     }
@@ -174,9 +189,7 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
             ->addSelect('orderEntity.id as orderID', 'orderEntity.date', 'orderEntity.source', 'orderEntity.branchId', 'orderEntity.payment', 'orderEntity.destination','branchesEntity.location','branchesEntity.branchName','branchesEntity.city as branchCity', 'acceptedOrderEntity.captainID','captainProfileEntity.captainName')
        
             ->leftJoin(OrderEntity::class, 'orderEntity', Join::WITH, 'profile.storeOwnerID = orderEntity.ownerID')
-
             ->leftJoin(StoreOwnerBranchEntity::class, 'branchesEntity', Join::WITH, 'orderEntity.branchId = branchesEntity.id')
-
             ->leftJoin(CaptainProfileEntity::class, 'captainProfileEntity', Join::WITH, 'orderEntity.captainID = captainProfileEntity.captainID')
 
             ->getQuery()
@@ -192,10 +205,10 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
             ->addSelect('DeliveryCompanyFinancialEntity.deliveryCost', 'profile.storeCategoryId')
 
             ->leftJoin(DeliveryCompanyFinancialEntity::class, 'DeliveryCompanyFinancialEntity', Join::WITH, 'profile.id = profile.id')
-
             ->leftJoin(StoreOwnerBranchEntity::class, 'StoreOwnerBranchEntity', Join::WITH, 'StoreOwnerBranchEntity.storeOwnerProfileID = profile.id ')
 
             ->groupBy('profile.id')
+
             ->getQuery()
             ->getResult();
     }
@@ -203,12 +216,15 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
     public function getStoresByName($name)
     {
         return $this->createQueryBuilder('profile')
+
             ->select('profile.id', 'profile.storeOwnerName','profile.storeOwnerID', 'profile.image', 'profile.status', 'profile.roomID', 'profile.storeCategoryId', 'profile.phone', 'profile.is_best', 'profile.privateOrders', 'profile.hasProducts')
 
             ->andWhere('profile.storeOwnerName LIKE :name')
 
             ->setParameter('name', '%'.$name.'%')
+
             ->setMaxResults(20)
+
             ->getQuery()
             ->getResult();
     }
@@ -216,9 +232,10 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
     public function countStores()
     {
         return $this->createQueryBuilder('profile')
-        ->select('count(profile.id) as count')
-        ->getQuery()
-        ->getSingleScalarResult();
+            ->select('count(profile.id) as count')
+
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
     public function storeOwnerProfileByStoreID($storeID)
@@ -243,10 +260,12 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
     public function storeOwnerProfileByRoomID($roomID)
     {
         return $this->createQueryBuilder('profile')
+
             ->select('profile.id', 'profile.storeOwnerName', 'profile.storeOwnerID', 'profile.image', 'profile.status', 'profile.roomID', 'profile.storeCategoryId',
                 'profile.phone', 'profile.is_best', 'profile.privateOrders', 'profile.hasProducts')
 
             ->andWhere('profile.roomID = :roomID')
+
             ->setParameter('roomID', $roomID)
 
             ->getQuery()
@@ -256,6 +275,7 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
     public function storeIsActive($storeOwnerID)
     {
         return $this->createQueryBuilder('profile')
+
             ->select('profile.status')
 
             ->andWhere('profile.storeOwnerID = :storeOwnerID')
@@ -269,16 +289,20 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
     public function getLast15Stores()
     {
         return $this->createQueryBuilder('profile')
+
             ->select('profile.id', 'profile.storeOwnerName', 'profile.image', 'profile.story', 'profile.free', 'profile.status', 'profile.phone', 'profile.privateOrders', 'profile.hasProducts', 'profile.openingTime', 'profile.closingTime', 'profile.storeCategoryId')
             ->addSelect('StoreOwnerBranchEntity.location')
 
             ->leftJoin(StoreOwnerBranchEntity::class, 'StoreOwnerBranchEntity', Join::WITH, 'StoreOwnerBranchEntity.storeOwnerProfileID = profile.id ')
 
             ->andWhere('profile.status = :active')
+
             ->setParameter('active','active')
 
             ->addOrderBy('profile.id','DESC')
+
             ->setMaxResults(15)
+
             ->getQuery()
             ->getResult();
     }

@@ -60,10 +60,11 @@ class StoreCategoryManager
     public function isItRelatedToSubcategories($id):string
     {
         $items = $this->storeCategoryEntityRepository->isItRelatedToSubcategories($id);
-
         if($items) {
             return "related";
         }
+
         return "not related";
     }
 }
+

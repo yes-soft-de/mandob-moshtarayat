@@ -47,5 +47,4 @@ class RoomIdHelperManager
     {
         return $this->storeOwnerProfileManager->storeOwnerProfileByRoomID($roomID);
     }
-
 }

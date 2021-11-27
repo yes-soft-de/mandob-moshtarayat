@@ -186,11 +186,14 @@ class UserManager
             if($request->getStoreOwnerName() == null) {
                 $request->setStoreOwnerName($item->getStoreOwnerName());
             }
+
             $item = $this->autoMapping->mapToObject(StoreOwnerProfileUpdateRequest::class, StoreOwnerProfileEntity::class, $request, $item);
             $item->setOpeningTime( $item->getOpeningTime());
             $item->setClosingTime( $item->getClosingTime());
+
             $this->entityManager->flush();
             $this->entityManager->clear();
+
             //update branch
             $branch = $this->storeOwnerBranchManager->update($item->getId(), $request->getLocation(), $request->getBranchName());
 
@@ -206,6 +209,7 @@ class UserManager
             $item = $this->autoMapping->mapToObject(StoreOwnerUpdateByAdminRequest::class, StoreOwnerProfileEntity::class, $request, $item);
             $item->setOpeningTime( $request->getOpeningTime());
             $item->setClosingTime( $request->getClosingTime());
+
             $this->entityManager->flush();
             $this->entityManager->clear();
 
@@ -219,6 +223,7 @@ class UserManager
 
         if ($item) {
             $item = $this->autoMapping->mapToObject(storeOwnerProfileStatusUpdateByAdminRequest::class, StoreOwnerProfileEntity::class, $request, $item);
+
             $this->entityManager->flush();
             $this->entityManager->clear();
 
@@ -268,6 +273,7 @@ class UserManager
             if($request->getCaptainName() == null) {
                 $request->setCaptainName($item->getCaptainName());
             }
+
             $item = $this->autoMapping->mapToObject(CaptainProfileUpdateRequest::class, CaptainProfileEntity::class, $request, $item);
             $this->entityManager->flush();
             $this->entityManager->clear();
@@ -281,6 +287,7 @@ class UserManager
         $item = $this->captainProfileEntityRepository->getByCaptainIDForUpdate($request->getUserID());
         if ($item) {
             $item = $this->autoMapping->mapToObject(CaptainProfileUpdateLocationRequest::class, CaptainProfileEntity::class, $request, $item);
+
             $this->entityManager->flush();
             $this->entityManager->clear();
 
@@ -293,6 +300,7 @@ class UserManager
         $item = $this->captainProfileEntityRepository->getByCaptainIDForUpdate($request->getCaptainID());
         if ($item) {
             $item = $this->autoMapping->mapToObject(CaptainProfileUpdateByAdminRequest::class, CaptainProfileEntity::class, $request, $item);
+
             $this->entityManager->flush();
             $this->entityManager->clear();
 
@@ -306,6 +314,7 @@ class UserManager
         
         if ($item) {
             $item = $this->autoMapping->mapToObject(CaptainVacationCreateRequest::class, CaptainProfileEntity::class, $request, $item);
+
             $this->entityManager->flush();
             $this->entityManager->clear();
 
@@ -318,11 +327,6 @@ class UserManager
         return $this->captainProfileEntityRepository->getCaptainProfileByCaptainID($captainID);
     }
 
-//    public function storeOwnerProfileByStoreID($storeID)
-//    {
-//        return $this->storeOwnerProfileEntityRepository->storeOwnerProfileByStoreID($storeID);
-//    }
-    
     public function getCaptainProfileByID($captainProfileId)
     {
         return $this->captainProfileEntityRepository->getCaptainProfileByID($captainProfileId);
@@ -330,7 +334,7 @@ class UserManager
 
     public function getCaptainsInactive()
     {
-            return $this->captainProfileEntityRepository->getCaptainsInactive();
+        return $this->captainProfileEntityRepository->getCaptainsInactive();
     }
 
     public function captainIsActive($captainID)
@@ -401,20 +405,19 @@ class UserManager
     public function updateCaptainNewMessageStatus($request, $NewMessageStatus)
     {
         if ($request) {
-           
             $entity = $this->captainProfileEntityRepository->find($request->getId());
-        
             if (!$entity) {
                 return null;
             }
+
             $entity->setNewMessageStatus($NewMessageStatus);
-        
             $entity = $this->autoMapping->mapToObject(CaptainProfileEntity::class, CaptainProfileEntity::class, $entity, $entity);
           
             $this->entityManager->flush();
 
             return $entity;
         }
+
         return null;
     }
 
@@ -442,6 +445,7 @@ class UserManager
 
             $this->entityManager->flush();
             $this->entityManager->clear();
+
             return $item;
         }
     }
@@ -529,6 +533,7 @@ class UserManager
         if ($user->getRoles()[0] != $userType){
             return "no";
         }
+
         return "yes";
     }
 
@@ -567,6 +572,7 @@ class UserManager
 
             $this->entityManager->flush();
             $this->entityManager->clear();
+
             return $item;
         }
     }

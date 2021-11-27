@@ -129,7 +129,7 @@ class OrderManager
     {
         return $this->orderEntityRepository->getOrdersInSpecificDate($fromDate, $toDate);
     }
-//
+
     public function countOrdersInDay($ownerID, $fromDate, $toDate)
     {
         return $this->orderEntityRepository->countOrdersInDay($ownerID, $fromDate, $toDate);
@@ -198,6 +198,7 @@ class OrderManager
     public function createClientOrder(OrderClientCreateRequest $request, $roomID)
     {
         $request->setRoomID($roomID);
+
         $item = $this->autoMapping->map(OrderClientCreateRequest::class, OrderEntity::class, $request);
 
         $item->setDeliveryDate($item->getDeliveryDate());
@@ -215,6 +216,7 @@ class OrderManager
     public function createClientSendOrder(OrderClientSendCreateRequest $request, $roomID)
     {
         $request->setRoomID($roomID);
+
         $item = $this->autoMapping->map(OrderClientSendCreateRequest::class, OrderEntity::class, $request);
 
         $item->setDeliveryDate($item->getDeliveryDate());
@@ -232,6 +234,7 @@ class OrderManager
     public function createClientSpecialOrder(OrderClientSpecialCreateRequest $request, $roomID)
     {
         $request->setRoomID($roomID);
+
         $item = $this->autoMapping->map(OrderClientSpecialCreateRequest::class, OrderEntity::class, $request);
 
         $item->setDeliveryDate($item->getDeliveryDate());
@@ -249,7 +252,6 @@ class OrderManager
     public function orderUpdateByClient(OrderUpdateByClientRequest $request, $id)
     {
         $item = $this->orderEntityRepository->find($id);
-        
         if ($item) {
             $item = $this->autoMapping->mapToObject(OrderUpdateByClientRequest::class, OrderEntity::class, $request, $item);
            

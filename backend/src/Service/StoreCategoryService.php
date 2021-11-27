@@ -61,6 +61,7 @@ class StoreCategoryService
     public function getStoreCategory($id)
     {
        $item = $this->storeCategoryManager->getStoreCategory($id);
+
        return $this->autoMapping->map(StoreCategoryEntity::class, StoreCategoryByIdResponse::class, $item);
        
     }
@@ -84,13 +85,9 @@ class StoreCategoryService
 
     public function getStoreCategoriesAndStores()
     {
-        $response = [];
-
         $item['categories'] = $this->getStoreCategories();
         $item['stores'] = $this->storeOwnerProfileService->getLast15Stores();
 
-        $response=  $this->autoMapping->map("array", StoreCategoriesAndStoresResponse::class, $item);
-
-        return $response;
+        return $this->autoMapping->map("array", StoreCategoriesAndStoresResponse::class, $item);
     }
 }

@@ -47,6 +47,7 @@ class DeliveryCompanyFinancialManager
         if (!$entity) {
             return null;
         }
+
         $entity = $this->autoMapping->mapToObject(DeliveryCompanyFinancialUpdateRequest::class, DeliveryCompanyFinancialEntity::class, $request, $entity);
 
         $this->entityManager->flush();

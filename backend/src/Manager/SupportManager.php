@@ -25,6 +25,7 @@ class SupportManager
     public function createSupport(SupportCreateRequest $request, $roomID)
     {
         $request->setRoomID($roomID);
+
         $entity = $this->autoMapping->map(SupportCreateRequest::class, SupportEntity::class, $request);
 
         $this->entityManager->persist($entity);
