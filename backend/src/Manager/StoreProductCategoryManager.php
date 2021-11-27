@@ -31,6 +31,7 @@ class StoreProductCategoryManager
         $entity = $this->autoMapping->map(StoreProductCategoryCreateRequest::class, StoreProductCategoryEntity::class, $request);
         $entity->setIsLevel1(true);
         $entity->setIsLevel2(false);
+
         $this->entityManager->persist($entity);
         $this->entityManager->flush();
         $this->entityManager->clear();
@@ -43,6 +44,7 @@ class StoreProductCategoryManager
         $entity = $this->autoMapping->map(StoreProductCategoryLevelTwoCreateRequest::class, StoreProductCategoryEntity::class, $request);
         $entity->setIsLevel2(true);
         $entity->setIsLevel1(false);
+
         $this->entityManager->persist($entity);
         $this->entityManager->flush();
         $this->entityManager->clear();
@@ -122,6 +124,7 @@ class StoreProductCategoryManager
         if($items) {
             return "related";
         }
+
         return "not related";
     }
 }
