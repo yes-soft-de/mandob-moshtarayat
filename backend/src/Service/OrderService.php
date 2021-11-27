@@ -85,12 +85,13 @@ class OrderService
        $captain = $this->captainProfileService->captainIsActive($userId);
     
        $response = "captain inactive";
+
        if ($captain->getStatus() == 'active') {
-            $response =[];
             $orders = $this->orderManager->closestOrders();
             return $this->getOrdersWithStore($orders);
         }
-        return $response;
+
+       return $response;
     }
     
     public function getPendingOrders():?array
@@ -108,8 +109,10 @@ class OrderService
                     $order['branches']=$order['storeOwner']->branches;
                 }
             }
+
             $response[] = $this->autoMapping->map('array', OrderPendingResponse::class, $order);
         }
+
         return $response;
     }
     
@@ -146,6 +149,7 @@ class OrderService
             if ($request->getState() == "delivered"){
                 $state =  LocalNotificationList::$STATE_DELIVERED;
             }
+
             $this->notificationLocalService->createNotificationLocal($item->getClientID(),  LocalNotificationList::$STATE_TITLE, $state, $request->getOrderNumber());
 
             $response = $this->autoMapping->map(OrderEntity::class, OrderUpdateStateResponse::class, $item);
@@ -159,18 +163,21 @@ class OrderService
         //notification <------end
         //
        }
+
         return $response;
     }
    
     public function getOrdersWithOutPending():?array
     {
        $orders = $this->orderManager->getOrdersWithOutPending();
+
        return $this->getOrdersWithStore($orders);
     }
     
     public function getOrdersWithStore($orders):?array
     {
         $response=[];
+
         foreach ($orders as $order) {
             if ($order['storeOwnerProfileID'] == true) {  
                 $order['storeOwner'] = $this->storeOwnerProfileService->getStoreOwnerProfileById($order['storeOwnerProfileID']);
@@ -180,79 +187,99 @@ class OrderService
                     $order['branches']=$order['storeOwner']->branches;
                 }
             }
+
             $response[] = $this->autoMapping->map('array', OrderClosestResponse::class, $order);
         }
+
         return $response;
     }
 
     public function getOrdersOngoing():?array
     {
         $orders = $this->orderManager->getOrdersOngoing();
+
         return $this->getOrdersWithStore($orders);
     }
 
      public function getOrdersInSpecificDate($fromDate, $toDate):?array
      {
         $date = $this->dateFactoryService->returnSpecificDate($fromDate, $toDate);
+
         $orders = $this->orderManager->getOrdersInSpecificDate($date[0], $date[1]);
+
         return $this->getOrdersWithStore($orders);
     }
 
     public function getCountOrdersEveryStoreInLastMonth():?array
     {
        $response=[];
+
        $date = $this->dateFactoryService->returnLastMonthDate();
  
        $items = $this->orderManager->getCountOrdersEveryStoreInLastMonth($date[0],$date[1]);
-        foreach ($items as $item) {
+
+       foreach ($items as $item) {
             $response[] = $this->autoMapping->map('array', CountOrdersInLastMonthForStoreResponse::class, $item);
-        }
+       }
+
        return $response;
    }
 
     public function getCountOrdersEveryCaptainInLastMonth():?array
     {
        $response=[];
+
        $date = $this->dateFactoryService->returnLastMonthDate();
  
        $items = $this->orderManager->getCountOrdersEveryCaptainInLastMonth($date[0],$date[1]);
+
         foreach ($items as $item) {
             $response[] = $this->autoMapping->map('array', CountOrdersInLastMonthForCaptainResponse::class, $item);
         }
-       return $response;
+
+        return $response;
    }
    
     public function getCountOrdersEveryClientInLastMonth():?array
     {
        $response=[];
+
        $date = $this->dateFactoryService->returnLastMonthDate();
+
        $items = $this->orderManager->getCountOrdersEveryClientInLastMonth($date[0],$date[1]);
-        foreach ($items as $item) {
+
+       foreach ($items as $item) {
             $response[] = $this->autoMapping->map('array', CountOrdersInLastMonthForClientResponse::class, $item);
         }
+
        return $response;
    }
 
     public function getCountOrdersEveryProductInLastMonth():?array
     {
        $response=[];
+
        $date = $this->dateFactoryService->returnLastMonthDate();
+
        $items = $this->orderDetailService->getCountOrdersEveryProductInLastMonth($date[0],$date[1]);
      
         foreach ($items as $item) {
             $response[] = $this->autoMapping->map('array', CountOrdersInLastMonthForProoductResponse::class, $item);
         }
-       return $response;
+
+        return $response;
    }
 
     public function getAcceptedOrderByCaptainId($captainID):array
     {
         $response = [];
+
         $orders = $this->orderManager->getAcceptedOrderByCaptainId($captainID);
    
         foreach ($orders as $order){
           $order['orderDetail'] = $this->orderDetailService->getOrderNumberByOrderId($order['id']);
           $order['orderNumber'] = $order['orderDetail'][0]->orderNumber;
+
           $response[] = $this->autoMapping->map('array', AcceptedOrderResponse::class, $order);
         }
     
@@ -262,69 +289,93 @@ class OrderService
     public function createClientOrder(OrderClientCreateRequest $request)
     {  
         $response = "Not created!!";
+
         $orderNumber = 1;
+
         $lastOrderNumber = $this->orderDetailService->getLastOrderNumber();
         if ($lastOrderNumber) {
             $orderNumber = $lastOrderNumber['orderNumber'] + 1;
        }
+
         $roomID = $this->roomIdHelperService->roomIdGenerate();
+
         $item = $this->orderManager->createClientOrder($request, $roomID);
         if ($item) {
             $products = $request->getProducts();
+
             foreach ($products as $product) {
                $productID = $product['productID'];
                $countProduct = $product['countProduct'];
                $orderDetail = $this->orderDetailService->createOrderDetail($item->getId(), $productID, $countProduct, $orderNumber);
             }
+
             //create log
             $this->orderLogService->createOrderLog($orderNumber, $item->getState(), $request->getClientID(), $request->getStoreOwnerProfileID());
+
             //create notification local
             $this->notificationLocalService->createNotificationLocal($request->getClientID(), LocalNotificationList::$NEW_ORDER_TITLE, LocalNotificationList::$CREATE_ORDER_SUCCESS, $orderNumber);
+
             $response = $this->autoMapping->map(OrderEntity::class, OrderCreateClientResponse::class, $item);
             $response->orderDetail = $orderDetail; 
           }            
+
         return $response;
     }
 
     public function createClientSendOrder(OrderClientSendCreateRequest $request)
     {  
         $response = "Not created!!";
+
         $orderNumber = 1;
+
         $lastOrderNumber = $this->orderDetailService->getLastOrderNumber();
         if ($lastOrderNumber) {
             $orderNumber = $lastOrderNumber['orderNumber'] + 1;
        }
+
         $roomID = $this->roomIdHelperService->roomIdGenerate();
+
         $item = $this->orderManager->createClientSendOrder($request, $roomID);
         if ($item) {
             $orderDetail = $this->orderDetailService->createOrderDetail($item->getId(), null, null, $orderNumber);
+
             //create log
             $this->orderLogService->createOrderLog($orderNumber, $item->getState(), $request->getClientID());
+
             //create notification local
             $this->notificationLocalService->createNotificationLocal($request->getClientID(), LocalNotificationList::$NEW_ORDER_TITLE, LocalNotificationList::$CREATE_ORDER_SUCCESS, $orderNumber);
+
             $response = $this->autoMapping->map(OrderEntity::class, OrderClientSendCreateResponse::class, $item);
             $response->orderDetail['orderNumber'] = $orderDetail->orderNumber;
             $response->orderDetail['orderDetailId'] = $orderDetail->id;
           }
+
         return $response;
     }
 
     public function createClientSpecialOrder(OrderClientSpecialCreateRequest $request)
     {  
         $response = "Not created!!";
+
         $orderNumber = 1;
+
         $lastOrderNumber = $this->orderDetailService->getLastOrderNumber();
         if ($lastOrderNumber) {
             $orderNumber = $lastOrderNumber['orderNumber'] + 1;
        }
+
         $roomID = $this->roomIdHelperService->roomIdGenerate();
+
         $item = $this->orderManager->createClientSpecialOrder($request, $roomID);
         if ($item) {
             $orderDetail = $this->orderDetailService->createOrderDetail($item->getId(), null, null, $orderNumber);
+
             //create log
             $this->orderLogService->createOrderLog($orderNumber, $item->getState(), $request->getClientID(), $request->getStoreOwnerProfileID());
+
             //create notification local
             $this->notificationLocalService->createNotificationLocal($request->getClientID(), LocalNotificationList::$NEW_ORDER_TITLE, LocalNotificationList::$CREATE_ORDER_SUCCESS, $orderNumber);
+
             $response = $this->autoMapping->map(OrderEntity::class, OrderClientSendCreateResponse::class, $item);
             $response->orderDetail['orderNumber'] = $orderDetail->orderNumber;
             $response->orderDetail['orderDetailId'] = $orderDetail->id;
@@ -336,20 +387,19 @@ class OrderService
     public function getOrderStatusByOrderNumber($orderNumber) 
     {
         $response = [];
+
         $orderDetails = $this->orderDetailService->getOrderIdByOrderNumber($orderNumber);
-        
         if($orderDetails) {
-        $order = $this->orderManager->orderStatusByOrderId($orderDetails[0]->orderID);
-        
-        if ($order[0]['storeOwnerProfileID']) {
-            if($orderDetails[0]->storeOwnerProfileID){
-                $storeOwner = $this->storeOwnerProfileService->getStoreOwnerProfileById($orderDetails[0]->storeOwnerProfileID);
-           
-                $response['orderDetails'] = $orderDetails;
-                $response['storeOwner'] = $storeOwner;
+            $order = $this->orderManager->orderStatusByOrderId($orderDetails[0]->orderID);
+            if ($order[0]['storeOwnerProfileID']) {
+                if($orderDetails[0]->storeOwnerProfileID){
+                    $storeOwner = $this->storeOwnerProfileService->getStoreOwnerProfileById($orderDetails[0]->storeOwnerProfileID);
+
+                    $response['orderDetails'] = $orderDetails;
+                    $response['storeOwner'] = $storeOwner;
+                }
             }
-        }
-        $response['order'] = $order[0];
+            $response['order'] = $order[0];
     }
         return $response;
     }
@@ -357,8 +407,11 @@ class OrderService
     public function getOrderDetailsByOrderNumber($orderNumber) 
     {
         $response = [];
+
         $orderDetails = $this->orderDetailService->getOrderIdByOrderNumber($orderNumber);
+
         $deliveryCost = $this->deliveryCompanyFinancialService->getDeliveryCost();
+
         $rate = $this->ratingService->getAvgOrder($orderNumber);
         if($orderDetails) {
             $order = $this->orderManager->orderStatusByOrderId($orderDetails[0]->orderID);
@@ -367,126 +420,160 @@ class OrderService
                     if($orderDetails[0]->storeOwnerProfileID){
                         $response['orderDetails'] = $orderDetails;
                     }
+
                     $response['storeOwner'] = $storeOwner;
             }
+
             $response['deliveryCost'] = $deliveryCost;
             $response['order'] = $order[0];
             $response['invoice']['invoiceAmount'] = $order[0]['invoiceAmount'];
             $response['invoice']['invoiceImage'] = $order[0]['invoiceImage'];
             $response['rating'] = $rate;
     }
+
         return $response;
     }
 
     public function orderUpdateByClient(OrderUpdateByClientRequest $request, $clientID)
     {
         $response = "Not updated!!";
+
         $orderDetails = $this->orderDetailService->getOrderIdWithOutStoreProductByOrderNumber($request->getOrderNumber());
         if($orderDetails) {
             $order = $this->orderManager->orderStatusByOrderId($orderDetails[0]->getOrderID());
             if($order[0]['state'] == 'in store') {
+
                 //notification local
                 $this->notificationLocalService->createNotificationLocal($clientID, LocalNotificationList::$UPDATE_ORDER_TITLE, LocalNotificationList::$UPDATE_ORDER_ERROR_CAPTAIN_IN_STORE, $request->getOrderNumber());
+
                 return $response = "you can't edit, captain in the store.";
             }
+
                 $orderUpdate = $this->orderManager->orderUpdateByClient($request, $orderDetails[0]->getOrderID());
                 if($orderUpdate) {
+
                     foreach ($orderDetails as $orderDetail) {
                     $orderDetailDelete = $this->orderDetailService->orderDetailDelete($orderDetail->getId());
                     }
 
                     if ($orderDetailDelete == "Deleted") {
                         $products = $request->getProducts();
+
                         foreach ($products as $product) {
                             $productID = $product['productID'];
                             $countProduct = $product['countProduct'];
                             $createOrderDetail = $this->orderDetailService->createOrderDetail($orderDetails[0]->getOrderID(), $productID, $countProduct, $request->getOrderNumber());
                         }
+
                         //notification local
                         $this->notificationLocalService->createNotificationLocal($clientID, LocalNotificationList::$UPDATE_ORDER_TITLE, LocalNotificationList::$UPDATE_ORDER_SUCCESS, $request->getOrderNumber());
-                    return $response = $this->getOrderStatusByOrderNumber($request->getOrderNumber());  
+                        return $response = $this->getOrderStatusByOrderNumber($request->getOrderNumber());
                     } 
                 }     
         }       
+
         return $response;
     }
 
     public function orderSpecialUpdateByClient(OrderUpdateSpecialByClientRequest $request, $userID)
     {
         $response = "Not updated!!";
+
         $orderDetails = $this->orderDetailService->getOrderIdWithOutStoreProductByOrderNumber($request->getOrderNumber());
         if($orderDetails) {
             $order = $this->orderManager->orderStatusByOrderId($orderDetails[0]->getOrderID());
             if($order[0]['state'] == 'in store') {
+
                 //notification local
                 $this->notificationLocalService->createNotificationLocal($userID, LocalNotificationList::$UPDATE_ORDER_TITLE, LocalNotificationList::$UPDATE_ORDER_ERROR_CAPTAIN_IN_STORE, $request->getOrderNumber());
+
                 return $response = "you can't edit, captain in the store.";
             }
+
                 $orderUpdate = $this->orderManager->orderSpecialUpdateByClient($request, $orderDetails[0]->getOrderID());
                 if($orderUpdate) {
+
                     foreach ($orderDetails as $orderDetail) {
-                    $orderDetailDelete = $this->orderDetailService->orderDetailDelete($orderDetail->getId());
+
+                        $orderDetailDelete = $this->orderDetailService->orderDetailDelete($orderDetail->getId());
                     }
 
                     if ($orderDetailDelete == "Deleted") {
                         $createOrderDetail = $this->orderDetailService->createOrderDetail($orderDetails[0]->getOrderID(), null, null, $request->getOrderNumber());
+
                         //notification local
                         $this->notificationLocalService->createNotificationLocal($userID, LocalNotificationList::$UPDATE_ORDER_TITLE, LocalNotificationList::$UPDATE_ORDER_SUCCESS, $request->getOrderNumber());
-                        return $response = $this->getOrderStatusByOrderNumber($request->getOrderNumber());  
+
+                        return $response = $this->getOrderStatusByOrderNumber($request->getOrderNumber());
                     } 
                 }     
         }       
+
         return $response;
     }
 
     public function orderSendUpdateByClient(OrderUpdateSendByClientRequest $request, $userID)
     {
         $response = "Not updated!!";
+
         $orderDetails = $this->orderDetailService->getOrderIdWithOutStoreProductByOrderNumber($request->getOrderNumber());
         if($orderDetails) {
             $order = $this->orderManager->orderStatusByOrderId($orderDetails[0]->getOrderID());
             if($order[0]['state'] == 'in store') {
                 //notification local
                 $this->notificationLocalService->createNotificationLocal($userID, LocalNotificationList::$UPDATE_ORDER_TITLE, LocalNotificationList::$UPDATE_ORDER_ERROR_CAPTAIN_IN_STORE, $request->getOrderNumber());
+
                 return $response = "you can't edit, captain in the store.";
             }
+
                 $orderUpdate = $this->orderManager->orderSendUpdateByClient($request, $orderDetails[0]->getOrderID());
                 if($orderUpdate) {
+
                     foreach ($orderDetails as $orderDetail) {
-                    $orderDetailDelete = $this->orderDetailService->orderDetailDelete($orderDetail->getId());
+                         $orderDetailDelete = $this->orderDetailService->orderDetailDelete($orderDetail->getId());
                     }
 
                     if ($orderDetailDelete == "Deleted") {
                         $createOrderDetail = $this->orderDetailService->createOrderDetail($orderDetails[0]->getOrderID(), null, null, $request->getOrderNumber());
+
                         //notification local
                         $this->notificationLocalService->createNotificationLocal($userID, LocalNotificationList::$UPDATE_ORDER_TITLE, LocalNotificationList::$UPDATE_ORDER_SUCCESS, $request->getOrderNumber());
-                        return $response = $this->getOrderStatusByOrderNumber($request->getOrderNumber());  
+
+                        return $response = $this->getOrderStatusByOrderNumber($request->getOrderNumber());
                     } 
                 }     
         }       
+
         return $response;
     }
 
     public function orderCancel($orderNumber, $userID)
     {
         $response= "order Number not found!!";
+
         $orderDetails = $this->orderDetailService->getOrderIdByOrderNumber($orderNumber);
+
         if($orderDetails) {
             $order = $this->orderManager->orderStatusByOrderId($orderDetails[0]->orderID);
      
             $halfHourLaterTime = date_modify($order[0]['createdAt'],'+30 minutes');
+
             $nowDate = new DateTime('now');
             
             if ( $halfHourLaterTime < $nowDate) {
                 //notification local
                 $this->notificationLocalService->createNotificationLocal($userID, LocalNotificationList::$CANCEL_ORDER_TITLE, LocalNotificationList::$CANCEL_ORDER_ERROR_TIME, $orderNumber);
+
                 $response="can not remove it, Exceeded time allowed";
             }
+
             elseif ($order[0]['state'] == 'on way to pick order') {
                 //notification local
                 $this->notificationLocalService->createNotificationLocal($userID, LocalNotificationList::$CANCEL_ORDER_TITLE, LocalNotificationList::$CANCEL_ORDER_ERROR_ACCEPTED, $orderNumber);
+
                 $response = "can not remove it, The captain received the order";
             }            
+
             else {
                 $item = $this->orderManager->orderCancel($orderDetails[0]->orderID);
                 if($item) {
@@ -495,26 +582,33 @@ class OrderService
                     if ($item->getOrderType() == 1 ||  $item->getOrderType() == 2) {
                         $this->orderLogService->createOrderLog($orderNumber, $item->getState(), $userID, $item->getStoreOwnerProfileID());
                     }
+
                     //----> if order type is send order
                     if ($item->getOrderType() == 3) {
                         $this->orderLogService->createOrderLog($orderNumber, $item->getState(), $userID);
                     }
+
                     //notification local
                     $this->notificationLocalService->createNotificationLocal($userID, LocalNotificationList::$CANCEL_ORDER_TITLE, LocalNotificationList::$CANCEL_ORDER_SUCCESS, $orderNumber);
                 }
+
                 $response = $this->autoMapping->map(OrderEntity::class, OrderResponse::class, $item);
             }
         }
+
         return $response;
     }
 
     public function getOrdersByClientID($clientID)
     {
         $response = [];
+
         $orders = $this->orderManager->getOrdersByClientID($clientID);
-       foreach ($orders as $order) {
+
+        foreach ($orders as $order) {
            $order['amount'] = $order['deliveryCost'] + $order['orderCost'];
-            $response[] = $this->autoMapping->map('array', OrdersByClientResponse::class, $order);
+
+           $response[] = $this->autoMapping->map('array', OrdersByClientResponse::class, $order);
        }
 
         return $response;
@@ -523,10 +617,12 @@ class OrderService
     public function getOrdersDeliveredAndCancelledByClientId($clientID)
     {
         $response = [];
+
         $orders = $this->orderManager->getOrdersDeliveredAndCancelledByClientId($clientID);
-       foreach ($orders as $order) {
+        foreach ($orders as $order) {
            $order['amount'] = $order['deliveryCost'] + $order['orderCost'];
-            $response[] = $this->autoMapping->map('array', OrdersByClientResponse::class, $order);
+
+           $response[] = $this->autoMapping->map('array', OrdersByClientResponse::class, $order);
        }
 
         return $response;
@@ -535,22 +631,29 @@ class OrderService
     public function orderUpdateInvoiceByCaptain(OrderUpdateInvoiceByCaptainRequest $request)
     {
         $response = "Not updated!!";
+
         $orderDetails = $this->orderDetailService->getOrderIdByOrderNumber($request->getOrderNumber());
         if($orderDetails){
             $request->setId($orderDetails[0]->orderID);
+
             $item = $this->orderManager->orderUpdateInvoiceByCaptain($request);
+
             $response = $this->autoMapping->map(OrderEntity::class, OrderUpdateInvoiceByCaptainResponse::class, $item);
        }
+
         return $response;
     }
 
     public function orderUpdateBillCalculatedByCaptain(orderUpdateBillCalculatedByCaptainRequest $request)
     {
         $response = "Not updated!!";
+
         $orderDetails = $this->orderDetailService->getOrderIdByOrderNumber($request->getOrderNumber());
         if($orderDetails){
             $request->setId($orderDetails[0]->orderID);
+
             $item = $this->orderManager->orderUpdateBillCalculatedByCaptain($request);
+
             $response = $this->autoMapping->map(OrderEntity::class, orderUpdateBillCalculatedByCaptainResponse::class, $item);
        }
         return $response;
@@ -573,6 +676,7 @@ class OrderService
 
     public function countOrdersInToday() { 
        $date = $this->dateFactoryService->returnTodayDate();
+
        return $this->orderManager->countOrdersInToday($date[0], $date[1]);
     }
 
@@ -586,73 +690,95 @@ class OrderService
     public function getOrdersAndCountByStoreProfileId($storeProfileId)
     {
         $response = [];
+
         $countOrders = $this->orderManager->countStoreOrders($storeProfileId);
+
         $orders = $this->orderManager->getOrdersByStoreProfileId($storeProfileId);
         
         $response['ordersCount'] = $countOrders;
+
         foreach ($orders as $order) {
             $order['amount'] = $order['deliveryCost'] + $order['orderCost'];
             
             $item[] = $this->autoMapping->map('array', OrdersByClientResponse::class, $order);
         }
         $response['orders'] = $item;
+
         return $response;
     }
 
     public function getOrdersAndCountByCaptainId($captainId)
     {
         $response = [];
+
         $countOrders = $this->orderManager->countCaptainOrders($captainId);
+
         $orders = $this->orderManager->getOrdersByCaptainId($captainId);
         
         $response['ordersCount'] = $countOrders;
+
         foreach ($orders as $order) {
             $order['amount'] = $order['deliveryCost'] + $order['orderCost'];
             
             $item[] = $this->autoMapping->map('array', OrdersByClientResponse::class, $order);
         }
+
         $response['orders'] = $item;
+
         return $response;
     }
 
     public function getStoreOrdersOngoingForStoreOwner($userID)
     {
         $response = [];
+
         $item = $this->userService->getStoreProfileId($userID);
+
         $store = $this->storeOwnerProfileService->storeIsActive($userID);
         if ($store->getStatus() == 'inactive') {
             $response = "store inactive";
         }
+
         if ($store->getStatus() == 'active') {
             $orders = $this->orderManager->getStoreOrdersOngoingForStoreOwner($item['id']);
+
             foreach ($orders as $order) {
                 $response[] = $this->autoMapping->map('array', StoreOrdersOngoingResponse::class, $order);
             }
         }
+
         return $response;
     }
 
     public function getStoreOrdersInSpecificDate($fromDate, $toDate, $userID):?array
     {
         $response=[];
+
         $date = $this->dateFactoryService->returnSpecificDate($fromDate, $toDate);
+
         $item = $this->userService->getStoreProfileId($userID);
+
         $orders = $this->orderManager->getStoreOrdersInSpecificDate($date[0], $date[1], $item['id']);
+
         foreach ($orders as $order) {
             $response[] = $this->autoMapping->map('array', StoreOrdersOngoingResponse::class, $order);
         }
+
         return $response;
     }
-
 
     public function getStoreOrders($userID):?array
     {
         $response=[];
+
         $storeOwnerProfileID= $this->userService->getStoreProfileId($userID);
+
         $orders = $this->orderManager->getStoreOrders($storeOwnerProfileID['id']);
+
         foreach ($orders as $order) {
             $response[] = $this->autoMapping->map('array', StoreOrdersResponse::class, $order);
         }
+
         return $response;
     }
 
@@ -672,10 +798,13 @@ class OrderService
     public function getOrderDetailsByOrderNumberForStore($orderNumber)
     {
         $response = [];
+
         $orderDetails = $this->orderDetailService->getOrderIdByOrderNumber($orderNumber);
         if($orderDetails) {
             $order = $this->orderManager->orderStatusByOrderId($orderDetails[0]->orderID);
+
             $rate = $this->ratingService->getAvgRating($order[0]['storeOwnerProfileID'],'store');
+
             $item['orderDetails'] = $orderDetails;
             $item['invoiceAmount'] = $order[0]['invoiceAmount'];
             $item['invoiceImage'] = $this->getImageParams($order[0]['invoiceImage'], $this->params . $order[0]['invoiceImage'], $this->params);
@@ -685,8 +814,10 @@ class OrderService
             $item['note'] = $order[0]['note'];
             $item['state'] = $order[0]['state'];
             $item['rating'] = $rate;
+
             $response = $this->autoMapping->map("array", OrderDetailsByOrderNumberForStoreResponse::class, $item);
         }
+
         return $response;
     }
 

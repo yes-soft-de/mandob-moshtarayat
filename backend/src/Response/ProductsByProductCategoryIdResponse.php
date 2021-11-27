@@ -29,5 +29,4 @@ class ProductsByProductCategoryIdResponse
     public $status;
 
     public $store;
-
 }
