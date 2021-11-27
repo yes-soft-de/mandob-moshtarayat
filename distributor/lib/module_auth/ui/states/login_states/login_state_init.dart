@@ -75,6 +75,7 @@ class LoginStateInit extends LoginState {
                       title: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: CustomLoginFormField(
+                          focusNode: FocusNode(),
                           preIcon: Icon(Icons.lock),
                           last: true,
                           controller: passwordController,
