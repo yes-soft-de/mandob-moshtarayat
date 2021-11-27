@@ -22,8 +22,11 @@ class AnnouncementEntityRepository extends ServiceEntityRepository
     public function  getAnnouncementById($id)
     {
         return $this->createQueryBuilder('UpdateEntity') 
+
             ->andWhere("UpdateEntity.id = :id ")
+
             ->setParameter('id',$id)
+
             ->getQuery()
             ->getOneOrNullResult();
     }
@@ -31,7 +34,9 @@ class AnnouncementEntityRepository extends ServiceEntityRepository
     public function  getAnnouncements()
     {
         return $this->createQueryBuilder('UpdateEntity') 
+
             ->select('UpdateEntity.id, UpdateEntity.title, UpdateEntity.content')
+
             ->getQuery()
             ->getResult();
     }
