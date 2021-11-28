@@ -60,7 +60,10 @@ class _InsertFormState extends State<InsertForm> {
     if (widget.storeCategoriesRequest != null) {
       _nameController.text =
           widget.storeCategoriesRequest?.storeCategoryName ?? '';
-      imagePath = widget.storeCategoriesRequest?.image ?? '';
+      imagePath = widget.storeCategoriesRequest?.image;
+      if (imagePath == '') {
+        imagePath = null;
+      }
     }
     super.initState();
   }
