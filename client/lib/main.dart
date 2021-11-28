@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:device_info/device_info.dart';
 import 'package:injectable/injectable.dart';
+import 'package:lehttp_overrides/lehttp_overrides.dart';
 import 'package:mandob_moshtarayat/module_account/account_module.dart';
 import 'package:mandob_moshtarayat/module_main/main_module.dart';
 import 'package:mandob_moshtarayat/module_my_notifications/my_notifications_module.dart';
@@ -40,6 +42,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   timeago.setLocaleMessages('ar', timeago.ArMessages());
   timeago.setLocaleMessages('en', timeago.EnMessages());
+  if (Platform.isAndroid){
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    if (androidInfo.version.sdkInt < 26) {
+      HttpOverrides.global = LEHttpOverrides();
+    }
+  }
   await HiveSetUp.init();
   await Firebase.initializeApp();
   if (kIsWeb) {
