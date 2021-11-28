@@ -42,7 +42,7 @@ class CaptainProfileController extends BaseController
       * @OA\Tag(name="Captain Profile")
       *
       * @OA\RequestBody(
-      *      description="Create new Captain",
+      *      description="Create new captain",
       *      @OA\JsonContent(
       *          @OA\Property(type="string", property="userName"),
       *          @OA\Property(type="string", property="userID"),
@@ -104,7 +104,7 @@ class CaptainProfileController extends BaseController
      *      required=true
      * )
      * @OA\RequestBody(
-     *      description="Update Captain",
+     *      description="Update captain profile",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="captainName"),
      *          @OA\Property(type="string", property="drivingLicence"),
@@ -172,7 +172,7 @@ class CaptainProfileController extends BaseController
      * )
      *
      * @OA\RequestBody(
-     *      description="Update Location",
+     *      description="Update captain location",
      *      @OA\JsonContent(
      *          @OA\Property(type="object", property="location"),
      *      )
@@ -239,7 +239,7 @@ class CaptainProfileController extends BaseController
      * )
      *
      * @OA\RequestBody(
-     *      description="Update Captain Profile By Admin",
+     *      description="Update captain profile by admin",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="captainID"),
      *          @OA\Property(type="string", property="salary"),
@@ -309,7 +309,7 @@ class CaptainProfileController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns captain profile",
+     *      description="Get captain's profile",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -366,7 +366,7 @@ class CaptainProfileController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns captain profile for admin",
+     *      description="Get captain's profile for admin",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -423,7 +423,7 @@ class CaptainProfileController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns Inactive Captains",
+     *      description="Get inactive captains for admin",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -487,7 +487,7 @@ class CaptainProfileController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns Captains",
+     *      description="Get captains for admin",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -529,7 +529,7 @@ class CaptainProfileController extends BaseController
       *
       * @OA\Response(
       *      response=200,
-      *      description="Returns  Captains Remaining For It Amount",
+      *      description="Get the remaining captains have payments",
       *      @OA\JsonContent(
       *          @OA\Property(type="string", property="status_code"),
       *          @OA\Property(type="string", property="msg"),
@@ -572,7 +572,7 @@ class CaptainProfileController extends BaseController
       *
       * @OA\Response(
       *      response=200,
-      *      description="Returns Captains Remaining On It Amount",
+      *      description="Get captains remaining on it amount",
       *      @OA\JsonContent(
       *          @OA\Property(type="string", property="status_code"),
       *          @OA\Property(type="string", property="msg"),
@@ -634,7 +634,7 @@ class CaptainProfileController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns Captains Remaining On It Amount",
+     *      description="Get top 5 captains",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -691,7 +691,7 @@ class CaptainProfileController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns Captain's Balance",
+     *      description="Get captain's balance",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -739,7 +739,7 @@ class CaptainProfileController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns Captain's Financial Account In Last Month",
+     *      description="Get captain's financial account in last month",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -806,7 +806,7 @@ class CaptainProfileController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns Count Orders Captain Delivered In Today",
+     *      description="Get Count Orders Captain Delivered In Today",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -843,7 +843,7 @@ class CaptainProfileController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns Captain's Financial Account For Admin",
+     *      description="Get captain's financial account ,for admin",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -907,7 +907,7 @@ class CaptainProfileController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns Captain's Financial Account In Last Month For Admin",
+     *      description="Get captain's financial account in last month ,for admin",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -970,7 +970,7 @@ class CaptainProfileController extends BaseController
       *
       * @OA\Response(
       *      response=200,
-      *      description="Returns Captain's Financial Account In Specific Date For Admin",
+      *      description="Get captain's financial account in specific date ,for admin",
       *      @OA\JsonContent(
       *          @OA\Property(type="string", property="status_code"),
       *          @OA\Property(type="string", property="msg"),
@@ -1032,7 +1032,7 @@ class CaptainProfileController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns Captains By Name",
+     *      description="Filter by captain's name",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
