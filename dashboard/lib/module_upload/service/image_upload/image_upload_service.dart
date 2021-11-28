@@ -9,7 +9,7 @@ class ImageUploadService {
   ImageUploadService(this._manager);
 
   Future<String?> uploadImage(String? filePath) async {
-    if (filePath != null) {
+    if (filePath != null && filePath != '') {
       ImgBBResponse? response = await _manager.upload(filePath);
       if (response == null) {
         return null;
