@@ -1,0 +1,26 @@
+{
+  "asset": "asset:skeleton_null_safety2/lib/module_notifications/preferences/notification_preferences/notification_preferences.dart",
+  "summary": {
+    "injector": [],
+    "module": [],
+    "injectable": [
+      {
+        "name": "NotificationsPrefsHelper",
+        "constructor": {
+          "name": "",
+          "kind": "constructor",
+          "injectedType": {
+            "lookupKey": {
+              "root": "asset:skeleton_null_safety2/lib/module_notifications/preferences/notification_preferences/notification_preferences.dart#NotificationsPrefsHelper",
+              "qualifier": null
+            },
+            "isProvider": false
+          },
+          "singleton": false,
+          "asynchronous": false,
+          "dependencies": []
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">937614076619-nmdmhlh4j68kc1ik5ao990jsl4rg38v5.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">937614076619</string>
+    <string name="google_api_key" translatable="false">AIzaSyCW5K4h56wQfKihEKONqOGLvZbG9I8GGiQ</string>
+    <string name="google_app_id" translatable="false">1:937614076619:android:b06731c344957e3d6a094e</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCW5K4h56wQfKihEKONqOGLvZbG9I8GGiQ</string>
+    <string name="google_storage_bucket" translatable="false">mandoob-456f3.appspot.com</string>
+    <string name="project_id" translatable="false">mandoob-456f3</string>
+</resources>
