@@ -69,8 +69,8 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
               showDialog(
                 context: context,
                 builder: (context) => RatingAlertDialog(
-                  title: S.current.rateCaptain,
-                  message: S.current.rateCaptainMessage,
+                  title: S.current.rateProduct,
+                  message: S.current.rateProductMessage,
                   image: (currentState as ProductDetailsLoadedState).model.productImage,
                   onPressed: (rate) {
                     widget._stateManager.rateProduct(RateStoreRequest(
