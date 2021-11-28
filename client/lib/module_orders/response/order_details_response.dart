@@ -1,4 +1,4 @@
-import 'package:mandob_moshtarayat/module_stores/response/rating.dart';
+import 'package:mandob_moshtarayat/module_home/response/products_by_categories_response.dart';
 import 'package:mandob_moshtarayat/utils/logger/logger.dart';
 
 class OrderDetailsResponse {
@@ -436,7 +436,7 @@ class OrderDetails {
   int? productID;
   int? orderID;
   String? productName;
-  String? productImage;
+  Image? productImage;
   double? productPrice;
   int? countProduct;
   int? storeOwnerProfileID;
@@ -460,7 +460,7 @@ class OrderDetails {
     productID = json['productID'];
     orderID = json['orderID'];
     productName = json['productName'];
-    productImage = json['productImage'];
+    productImage = json['productImage'] != null ? Image.fromJson(json['productImage']) : null;
     productPrice = json['productPrice']?.toDouble();
     countProduct = json['countProduct'];
     storeOwnerProfileID = json['storeOwnerProfileID'];
