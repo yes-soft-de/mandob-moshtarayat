@@ -46,7 +46,7 @@ class DeliveryCompanyFinancialCompensationController extends BaseController
      * )
      *
      * @OA\RequestBody(
-     *      description="Create Delivery Company Financial Compensation",
+     *      description="Create financial compensation",
      *      @OA\JsonContent(
      *          @OA\Property(type="integer", property="kilometers"),
      *          @OA\Property(type="integer", property="maxKilometerBonus"),
