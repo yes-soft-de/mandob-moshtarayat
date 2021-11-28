@@ -1,6 +1,5 @@
 import 'package:dotted_line/dotted_line.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:mandob_moshtarayat_dashboad/consts/order_status.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_chat/chat_routes.dart';
 import 'package:mandob_moshtarayat_dashboad/module_orders/model/order_details_model.dart';
@@ -147,43 +146,45 @@ class OrderDetailsLoadedState extends OrderDetailsState {
               ],
             ),
           ),
-          orderDetails.order.roomID.isNotEmpty &&
-                  orderDetails.order.state != OrderStatusEnum.WAITING
-              ? Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
-                        color: Theme.of(context).primaryColor),
-                    child: ListTile(
-                      onTap: () {
-                        Navigator.of(context).pushNamed(ChatRoutes.chatRoute,
-                            arguments: orderDetails.order.roomID);
-                      },
-                      title: Text(
-                        S.of(context).chatWithClient,
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      ),
-                      subtitle: Text(
-                        S.of(context).openChatRoom,
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      leading: Icon(
-                        Icons.sms,
-                        color: Colors.white,
-                        size: 35,
-                      ),
-                      trailing: Icon(
-                        Icons.arrow_forward,
-                        color: Colors.white,
+          /*orderDetails.order.roomID.isNotEmpty &&
+                  orderDetails.order.state != OrderStatusEnum.WAITING*/
+              Hider(
+                active:false,
+                child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25),
+                          color: Theme.of(context).primaryColor),
+                      child: ListTile(
+                        onTap: () {
+                          Navigator.of(context).pushNamed(ChatRoutes.chatRoute,
+                              arguments: orderDetails.order.roomID);
+                        },
+                        title: Text(
+                          S.of(context).chatWithClient,
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                        subtitle: Text(
+                          S.of(context).openChatRoom,
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        leading: Icon(
+                          Icons.sms,
+                          color: Colors.white,
+                          size: 35,
+                        ),
+                        trailing: Icon(
+                          Icons.arrow_forward,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
-                )
-              : SizedBox(),
+              ),
           getOrderTypeWidget(orderDetails.order.orderType),
           SizedBox(
             height: 35,
