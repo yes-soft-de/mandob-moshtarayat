@@ -179,14 +179,14 @@ class OrderModel {
     }
     if (element.orderType != 3 &&
         sortedBranches != null &&
-        (sortedBranches.first.distance ?? 0) < 5500) {
+        (sortedBranches.first.distance ?? 0) > 5500) {
       print('Order ID => ${element.id} for reason store is too far');
       return false;
     }
     if (element.orderType == 3 &&
         element.source != null &&
         initLocation != null &&
-        _getDestination(initLocation, element.source)! < 5500) {
+        _getDestination(initLocation, element.source)! > 5500) {
       print('Order ID => ${element.id} for reason there is no destination or source');
       return false;
     }
