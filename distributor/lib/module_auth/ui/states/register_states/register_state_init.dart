@@ -7,6 +7,7 @@ import 'package:mandob_moshtarayat/module_auth/ui/states/register_states/registe
 import 'package:mandob_moshtarayat/module_auth/ui/widget/login_widgets/custom_field.dart';
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat/utils/components/auth_buttons.dart';
+import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 import 'package:mandob_moshtarayat/utils/images/images.dart';
 
@@ -89,6 +90,7 @@ class RegisterStateInit extends RegisterState {
                       title: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: CustomLoginFormField(
+                          focusNode: FocusNode(),
                           preIcon: Icon(Icons.lock),
                           last: true,
                           controller: passwordController,
@@ -123,24 +125,27 @@ class RegisterStateInit extends RegisterState {
           alignment: Alignment.bottomCenter,
           child: Container(
             constraints: BoxConstraints(maxWidth: 600),
-            child: AuthButtons(
-              firstButtonTitle: S.of(context).register,
-              secondButtonTitle: S.of(context).iHaveAnAccount,
-              loading: screen.loadingSnapshot.connectionState ==
-                  ConnectionState.waiting,
-              secondButtonTab: () => Navigator.of(context).pushReplacementNamed(
-                  AuthorizationRoutes.LOGIN_SCREEN,
-                  arguments: screen.args),
-              firstButtonTab: agreed
-                  ? () {
-                      if (_registerKey.currentState!.validate()) {
-                        screen.registerClient(RegisterRequest(
-                            userID: usernameController.text,
-                            password: passwordController.text,
-                            userName: nameController.text));
+            child: Hider(
+              active: MediaQuery.of(context).viewInsets.bottom == 0,
+              child: AuthButtons(
+                firstButtonTitle: S.of(context).register,
+                secondButtonTitle: S.of(context).iHaveAnAccount,
+                loading: screen.loadingSnapshot.connectionState ==
+                    ConnectionState.waiting,
+                secondButtonTab: () => Navigator.of(context).pushReplacementNamed(
+                    AuthorizationRoutes.LOGIN_SCREEN,
+                    arguments: screen.args),
+                firstButtonTab: agreed
+                    ? () {
+                        if (_registerKey.currentState!.validate()) {
+                          screen.registerClient(RegisterRequest(
+                              userID: usernameController.text,
+                              password: passwordController.text,
+                              userName: nameController.text));
+                        }
                       }
-                    }
-                  : null,
+                    : null,
+              ),
             ),
           ),
         ),
