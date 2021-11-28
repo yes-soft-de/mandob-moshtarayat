@@ -1,3 +1,7 @@
+// Developing Domain ===> 'http://138.197.186.138/';
+// Production Domain ===> 'http://206.189.61.207'
+// Named Domain ===> 'https://mandoob.password-please.com'
+
 class Urls {
   static const String DOMAIN = 'https://mandoob.password-please.com';
   static const String BASE_API = DOMAIN + '';
