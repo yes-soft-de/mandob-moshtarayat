@@ -30,7 +30,7 @@ class StoreCategoryList {
 class Data {
   int? id;
   String? storeOwnerName;
-  String? image;
+  Image? image;
   dynamic phone;
   dynamic location;
   double? deliveryCost;
@@ -53,7 +53,7 @@ class Data {
   Data.fromJson(dynamic json) {
     id = json['id'];
     storeOwnerName = json['storeOwnerName'];
-    image = json['image'];
+    image = json['image'] != null ? Image.fromJson(json['image']) : null;
     phone = json['phone'];
     location = json['location'];
     deliveryCost = json['deliveryCost']?.toDouble();
