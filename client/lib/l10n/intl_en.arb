@@ -366,7 +366,9 @@
   "totalPrice": "Total Price",
   "productQuantity": "Product Quantity",
   "youHaveProductsFromDifferentStore": "You have products from other store , Do you want to clear your cart and add the new ones",
-  "productRated": "Product Rated"
+  "productRated": "Product Rated",
+  "rateProductMessage":"Please rate this product",
+  "rateProduct":"Rate Product"
 
 
 

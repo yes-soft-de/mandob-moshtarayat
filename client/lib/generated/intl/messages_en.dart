@@ -392,6 +392,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "rateCaptain": MessageLookupByLibrary.simpleMessage("Rate Captain"),
         "rateCaptainMessage": MessageLookupByLibrary.simpleMessage(
             "Rate this captain upon your opinion"),
+        "rateProduct": MessageLookupByLibrary.simpleMessage("Rate Product"),
+        "rateProductMessage":
+            MessageLookupByLibrary.simpleMessage("Please rate this product"),
         "rateStore": MessageLookupByLibrary.simpleMessage("Rate Store"),
         "rateStoreMessage": MessageLookupByLibrary.simpleMessage(
             "Rate this store in your opinion"),
