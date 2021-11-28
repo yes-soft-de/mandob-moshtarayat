@@ -178,6 +178,9 @@ class _AddSubCategoriesWidgetState extends State<AddSubCategoriesWidget> {
     if (widget.subCategoriesModel != null) {
       _nameController.text = widget.subCategoriesModel!.categoryName;
       imagePath = widget.subCategoriesModel?.image;
+      if (imagePath == ''){
+        imagePath = null;
+      }
       catId = widget.catID ?? '';
     }
     super.initState();

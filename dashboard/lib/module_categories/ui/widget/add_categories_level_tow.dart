@@ -1,17 +1,14 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mandob_moshtarayat_dashboad/di/di_config.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/model/subCategoriesModel.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/state/product_category/product_categories_loaded_state.dart';
-import 'package:mandob_moshtarayat_dashboad/module_categories/ui/state/sub_categories/sub_categories_loaded_state.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_feild.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_list_view.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/stacked_form.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/effect/checked.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/effect/hidder.dart';
-import 'package:mandob_moshtarayat_dashboad/utils/global/global_state_manager.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/helpers/custom_flushbar.dart';
 
 class AddSubCategoriesLevelTowWidget extends StatefulWidget {
@@ -208,7 +205,10 @@ class _AddSubCategoriesWidgetState extends State<AddSubCategoriesLevelTowWidget>
     _nameController = TextEditingController();
     if (widget.subCategoriesModel != null){
       _nameController.text = widget.subCategoriesModel!.categoryName;
-      imagePath = widget.subCategoriesModel!.image;
+      imagePath = widget.subCategoriesModel?.image;
+      if (imagePath == ''){
+        imagePath = null;
+      }
       catId = widget.catID ?? '';
       subCatId = widget.subCatID ?? '';
     }
