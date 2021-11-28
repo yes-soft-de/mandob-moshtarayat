@@ -50,7 +50,15 @@ class _CustomHomeAppBarState extends State<CustomHomeAppBar> {
                     onTap: (){
                       Navigator.of(context).pushNamed(ProductsRoutes.CART_SCREEN);
                     },
-                    child: Icon(Icons.shopping_cart,color: Theme.of(context).primaryColor,))),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Theme.of(context).primaryColor
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Icon(Icons.shopping_cart,color:Colors.white),
+                      )))),
               ],
             ),
           ),
@@ -83,8 +91,9 @@ class _CustomHomeAppBarState extends State<CustomHomeAppBar> {
     widget.categories.forEach((element) {
       widgets.add(
         CategoriesCard(
+          icon: element.image == '' ? Icons.category : null,
             categoryId: element.id.toString(),
-            title: element.storeCategoryName, selected:id == element.id.toString(), icon: Icons.cable,onTap: (selected){
+            title: element.storeCategoryName, selected:id == element.id.toString(), image: element.image,onTap: (selected){
           id = selected;
           widget.categoriesCallback(id);
           setState(() {

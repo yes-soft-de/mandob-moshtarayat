@@ -20,6 +20,7 @@ class _MainScreenState extends State<MainScreen> {
   int selectedPage = 0;
   PageController homeController = PageController(initialPage: 0);
   bool flagPageIndex = true;
+
   @override
   Widget build(BuildContext context) {
     var args = ModalRoute.of(context)?.settings.arguments;
@@ -30,8 +31,8 @@ class _MainScreenState extends State<MainScreen> {
     }
     return Scaffold(
       body: SafeArea(
-        top: true,
         bottom: true,
+        top: true,
         child: Stack(
           children: [
             PageView(
