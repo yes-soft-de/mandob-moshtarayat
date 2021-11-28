@@ -60,7 +60,7 @@ class ProductController extends BaseController
 
      * @OA\Response(
      *      response=200,
-     *      description="Returns array Products By ProductCategoryId And StoreOwnerProfileId",
+     *      description="Get products of category specific",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -106,7 +106,7 @@ class ProductController extends BaseController
 
      * @OA\Response(
      *      response=200,
-     *      description="Returns array Products By ProductCategoryId And StoreOwnerProfileId",
+     *      description="Get products of store specific and category specific",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -161,7 +161,7 @@ class ProductController extends BaseController
 
      * @OA\Response(
      *      response=200,
-     *      description="Returns information of the product",
+     *      description="Get product specific",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -222,6 +222,36 @@ class ProductController extends BaseController
     /**
      * @Route("/productsStoreByProfileId/{storeOwnerProfileId}", name="getStoreProductsByProfileId", methods={"GET"})
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Product")
+
+     * @OA\Response(
+     *      response=200,
+     *      description="Get products of store specific",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="productName"),
+     *                  @OA\Property(type="number", property="productPrice"),
+     *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                  @OA\Property(type="integer", property="storeProductCategoryID"),
+     *                  @OA\Property(type="string", property="description"),
+     *                  @OA\Property(type="string", property="discount"),
+     *                  @OA\Property(type="string", property="rate"),
+     *                  @OA\Property(type="string", property="soldCount"),
+     *                  @OA\Property(type="object", property="image",
+     *                      @OA\Property(type="string", property="imageURL"),
+     *                      @OA\Property(type="string", property="image"),
+     *                      @OA\Property(type="string", property="baseURL"),
+     *                  )
+     *              )
+     *          )
+     *      )
+     * )
+     *
      */
     public function getStoreProductsByProfileId($storeOwnerProfileId)
     {
@@ -238,7 +268,7 @@ class ProductController extends BaseController
 
      * @OA\Response(
      *      response=200,
-     *      description="Returns array of subcategory products ",
+     *      description="Get products of subcategory of level two ",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -284,7 +314,7 @@ class ProductController extends BaseController
 
      * @OA\Response(
      *      response=200,
-     *      description="Returns array of Products for store ",
+     *      description="Get products of subcategory of level two for specific store",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -326,6 +356,46 @@ class ProductController extends BaseController
      * @Route("getproductsstore", name="getStoreProducts", methods={"GET"})
      * @IsGranted("ROLE_OWNER")
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Product")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Get products of specific store for store",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="productName"),
+     *                  @OA\Property(type="number", property="productPrice"),
+     *                  @OA\Property(type="number", property="productQuantity"),
+     *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                  @OA\Property(type="integer", property="storeProductCategoryID"),
+     *                  @OA\Property(type="string", property="description"),
+     *                  @OA\Property(type="integer", property="discount"),
+     *                  @OA\Property(type="string", property="rate"),
+     *                  @OA\Property(type="string", property="soldCount"),
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="object", property="image",
+     *                      @OA\Property(type="string", property="imageURL"),
+     *                      @OA\Property(type="string", property="image"),
+     *                      @OA\Property(type="string", property="baseURL"),
+     *                  ),
+     *              )
+     *          )
+     *      )
+     * )
+     * @Security(name="Bearer")
+     *
      */
     public function getStoreProducts(): JsonResponse
     {
@@ -339,6 +409,45 @@ class ProductController extends BaseController
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
+     *
+     * @OA\Tag(name="Product")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\RequestBody(
+     *      description="Update product by admin",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="integer", property="id"),
+     *          @OA\Property(type="string", property="productName"),
+     *          @OA\Property(type="string", property="productImage"),
+     *          @OA\Property(type="number", property="productPrice"),
+     *          @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *          @OA\Property(type="integer", property="storeProductCategoryID"),
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns product",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="productName"),
+     *                  @OA\Property(type="string", property="productImage"),
+     *                  @OA\Property(type="number", property="storeOwnerProfileID"),
+     *                  @OA\Property(type="integer", property="storeProductCategoryID"),
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
      */
     public function updateProductByAdmin(Request $request)
     {
@@ -374,7 +483,7 @@ class ProductController extends BaseController
      * )
      *
      * @OA\RequestBody(
-     *      description="Create New Product",
+     *      description="Create new product by store",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="productName"),
      *          @OA\Property(type="string", property="productImage"),
@@ -388,7 +497,7 @@ class ProductController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns the new store owner's role and the creation date",
+     *      description="Returns the new product",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -443,7 +552,7 @@ class ProductController extends BaseController
      * )
      *
      * @OA\RequestBody(
-     *      description="Update Product",
+     *      description="Update product by store",
      *      @OA\JsonContent(
      *          @OA\Property(type="integer", property="id"),
      *          @OA\Property(type="string", property="productName"),
@@ -458,7 +567,7 @@ class ProductController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns the new store owner's role and the creation date",
+     *      description="Returns product",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -504,7 +613,7 @@ class ProductController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns products by store category ",
+     *      description="Get products of subcategory of level one ",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -558,7 +667,7 @@ class ProductController extends BaseController
      * )
      *
      * @OA\RequestBody(
-     *      description="Update Product status",
+     *      description="Update product status for active or inactive",
      *      @OA\JsonContent(
      *          @OA\Property(type="integer", property="id"),
      *          @OA\Property(type="string", property="status")
@@ -584,6 +693,7 @@ class ProductController extends BaseController
      *          )
      *      )
      * )
+     *
      * @Security(name="Bearer")
      */
     public function updateProductStatusByStore(Request $request): JsonResponse
@@ -605,7 +715,7 @@ class ProductController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns Similar Products By Store Product Category Of Level One ",
+     *      description="Get products similar of the first level subcategory",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -652,7 +762,7 @@ class ProductController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns the info of the deleted product",
+     *      description="Delete product",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -687,7 +797,7 @@ class ProductController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns Last 30 Products ",
+     *      description="Get last 30 products",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),

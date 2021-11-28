@@ -20,6 +20,7 @@ use App\Response\OrderDetailsByOrderNumberForStoreResponse;
 use App\Response\OrderResponse;
 use App\Response\OrderClosestResponse;
 use App\Response\OrderPendingResponse;
+use App\Response\OrdersPendingForStoreResponse;
 use App\Response\orderUpdateBillCalculatedByCaptainResponse;
 use App\Response\OrderUpdateStateResponse;
 use App\Response\OrderUpdateInvoiceByCaptainResponse;
@@ -828,5 +829,20 @@ class OrderService
         $item['baseURL'] = $baseURL;
 
         return $item;
+    }
+
+    public function getStorePendingOrders($userId): array
+    {
+        $response = [];
+
+        $storeOwnerProfileID = $this->userService->getStoreProfileId($userId);
+
+        $orders = $this->orderManager->getStorePendingOrders($storeOwnerProfileID);
+
+        foreach ($orders as $order) {
+            $response[] = $this->autoMapping->map('array', OrdersPendingForStoreResponse::class, $order);
+        }
+
+        return $response;
     }
 }

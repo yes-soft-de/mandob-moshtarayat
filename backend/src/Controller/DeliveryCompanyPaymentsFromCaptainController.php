@@ -46,7 +46,7 @@ class DeliveryCompanyPaymentsFromCaptainController extends BaseController
      * )
      *
      * @OA\RequestBody(
-     *      description="Create Delivery Company Payment From Captain",
+     *      description="Create payment from captain to the company",
      *      @OA\JsonContent(
      *          @OA\Property(type="integer", property="captainId"),
      *          @OA\Property(type="integer", property="amount"),

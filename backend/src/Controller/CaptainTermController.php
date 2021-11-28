@@ -45,7 +45,7 @@ class CaptainTermController extends BaseController
      *      required=true
      * )
      * @OA\RequestBody(
-     *      description="Create New Captain Terms",
+     *      description="Create new captain terms",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="content"),
      *      )
@@ -53,7 +53,7 @@ class CaptainTermController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns the new New Captain Terms",
+     *      description="Returns the new captain terms",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -91,7 +91,7 @@ class CaptainTermController extends BaseController
      * @OA\Tag(name="Captain Terms")
      * @OA\Response(
      *      response=200,
-     *      description="Returns New Captain Terms",
+     *      description="Get captain terms",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -119,7 +119,7 @@ class CaptainTermController extends BaseController
      * @OA\Tag(name="Captain Terms")
      * @OA\Response(
      *      response=200,
-     *      description="Returns New Captain Terms",
+     *      description="Get captain terms",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -151,7 +151,7 @@ class CaptainTermController extends BaseController
        *      required=true
        * )
        * @OA\RequestBody(
-       *      description="Update New Captain Terms",
+       *      description="Update captain terms",
        *      @OA\JsonContent(
        *          @OA\Property(type="string", property="id"),
        *          @OA\Property(type="string", property="content"),
@@ -160,7 +160,7 @@ class CaptainTermController extends BaseController
        *
        * @OA\Response(
        *      response=200,
-       *      description="Returns the new New Captain Terms",
+       *      description="Returns captain terms",
        *      @OA\JsonContent(
        *          @OA\Property(type="string", property="status_code"),
        *          @OA\Property(type="string", property="msg"),

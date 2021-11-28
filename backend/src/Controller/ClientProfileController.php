@@ -40,7 +40,7 @@ class ClientProfileController extends BaseController
       * @OA\Tag(name="Client")
       *
       * @OA\RequestBody(
-      *      description="Create new Client",
+      *      description="Create new client",
       *      @OA\JsonContent(
       *          @OA\Property(type="string", property="userName"),
       *          @OA\Property(type="string", property="userID"),
@@ -102,7 +102,7 @@ class ClientProfileController extends BaseController
      * )
      *
      * @OA\RequestBody(
-     *      description="Create new Client",
+     *      description="Update client profile",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="clientName"),
      *          @OA\Property(type="string", property="image"),
@@ -158,7 +158,7 @@ class ClientProfileController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns Client Profile",
+     *      description="Get client profile",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -188,7 +188,7 @@ class ClientProfileController extends BaseController
     }
 
     /**
-     * @Route("/clientprofilebyid/{id}", name="getClientProfileByIDViewTheLatest25Clients",methods={"GET"})
+     * @Route("/clientprofilebyid/{id}", name="getClientProfileByProfileID",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
      * *
@@ -203,7 +203,7 @@ class ClientProfileController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns Client Profile",
+     *      description="Get client's profile by profileID, for admin",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -246,7 +246,7 @@ class ClientProfileController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns Client Profile",
+     *      description="Get client's profile",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -297,7 +297,7 @@ class ClientProfileController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns Client Profile",
+     *      description="Filter client by name, for admin",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -340,7 +340,7 @@ class ClientProfileController extends BaseController
      * )
      *
      * @OA\RequestBody(
-     *      description="Update Client Favourite Categories",
+     *      description="Update client's favourite categories",
      *      @OA\JsonContent(
      *          @OA\Property(type="array", property="favouriteCategories", @OA\Items( ),),
      *      )
@@ -348,7 +348,7 @@ class ClientProfileController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns the new store owner's role and the creation date",
+     *      description="Get client's favourite categories",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),

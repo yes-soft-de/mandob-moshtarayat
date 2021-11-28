@@ -546,7 +546,7 @@ class OrderController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns object of count orders (Completed - Ongoing - InToday) For Store Owner",
+     *      description="Report about count the orders (Completed - Ongoing - InToday) For Store Owner",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -581,7 +581,7 @@ class OrderController extends BaseController
      * )
      * @OA\Response(
      *      response=200,
-     *      description="Returns object of invoice detail",
+     *      description="Get order details for store by order number",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -629,4 +629,46 @@ class OrderController extends BaseController
         return $this->response($result, self::FETCH);
     }
 
+    /**
+     * @Route("storeorderspending",   name="GetStorePendingOrders", methods={"GET"})
+     * @IsGranted("ROLE_OWNER")
+     * @return JsonResponse
+     * *
+     * @OA\Tag(name="Order")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Get store's pending orders",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="object", property="deliveryDate"),
+     *                  @OA\Property(type="string", property="orderNumber"),
+     *                  @OA\Property(type="string", property="detail"),
+     *                  @OA\Property(type="integer", property="orderType"),
+     *                  @OA\Property(type="string", property="note"),
+     *                  @OA\Property(type="integer", property="invoiceAmount"),
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function getStorePendingOrders(): JsonResponse
+    {
+        $response = $this->orderService->getStorePendingOrders($this->getUserId());
+
+        return $this->response($response, self::FETCH);
+    }
 }

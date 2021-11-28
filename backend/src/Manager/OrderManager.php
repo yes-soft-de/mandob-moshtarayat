@@ -433,4 +433,9 @@ class OrderManager
     {
         return $this->orderEntityRepository->getSumInvoicesForStoreInSpecificDate($storeOwnerProfileId, $fromDate, $toDate);
     }
+
+    public function getStorePendingOrders($storeOwnerProfileID)
+    {
+        return $this->orderEntityRepository->getStorePendingOrders($storeOwnerProfileID);
+    }
 }

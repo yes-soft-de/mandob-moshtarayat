@@ -36,7 +36,7 @@ class DeliveryCompanyPaymentsToStoreController extends BaseController
      * @param Request $request
      * @return JsonResponse
      * *
-     * @OA\Tag(name="Delivery Company Payments To Store")
+     * @OA\Tag(name="Delivery Company Payments To Store", description="Create payments to store")
      *
      * @OA\Parameter(
      *      name="token",
@@ -46,7 +46,7 @@ class DeliveryCompanyPaymentsToStoreController extends BaseController
      * )
      *
      * @OA\RequestBody(
-     *      description="Create Delivery Company Payments To store",
+     *      description="Create payments to store",
      *      @OA\JsonContent(
      *          @OA\Property(type="integer", property="storeOwnerProfileID"),
      *          @OA\Property(type="integer", property="amount"),
