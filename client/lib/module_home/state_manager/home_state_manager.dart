@@ -68,7 +68,7 @@ class HomeStateManager {
             .show(screenState.context);
         getHomeData(screenState,false);
       } else if (value.isEmpty){
-        stateSubject.add(HomeEmptyState(screenState, S.current.homeDataEmpty));
+       stateSubject.add(HomeLoadedFilterState(screenState,categories: categories,subCategories: []));
       }
       else {
         SubCategoriesModel model = value as SubCategoriesModel;
