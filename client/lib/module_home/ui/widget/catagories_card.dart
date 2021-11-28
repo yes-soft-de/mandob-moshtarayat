@@ -47,7 +47,7 @@ class CategoriesCard extends StatelessWidget {
               children: [
                 icon != null ? Icon(icon,color: selected ? Colors.white : null,size: 35,) : Image.network(
                   image ?? '',
-                  color: selected ? Colors.white : null,
+                  color: selected ? Colors.white : Theme.of(context).iconTheme.color,
                   width: 35,
                   height: 35,
                 ),
