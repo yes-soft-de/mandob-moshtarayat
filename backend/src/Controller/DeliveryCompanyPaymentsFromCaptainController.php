@@ -95,7 +95,7 @@ class DeliveryCompanyPaymentsFromCaptainController extends BaseController
       * @param Request $request
       * @return JsonResponse
       * *
-      * @OA\Tag(name="Get payments from captain to the company")
+      * @OA\Tag(name="Delivery Company Payment From Captain")
       *
       * @OA\Parameter(
       *      name="token",
