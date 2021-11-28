@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_auth/authorization_routes.dart';
 import 'package:mandob_moshtarayat/module_my_notifications/state_manager/my_notifications_state_manager.dart';
-import 'package:mandob_moshtarayat/module_my_notifications/ui/state/my_notifications/my_notifications_loaded_state.dart';
 import 'package:mandob_moshtarayat/module_my_notifications/ui/state/my_notifications/my_notifications_loading_state.dart';
 import 'package:mandob_moshtarayat/module_my_notifications/ui/state/my_notifications/my_notifications_state.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
@@ -42,10 +40,15 @@ class MyNotificationsScreenState extends State<MyNotificationsScreen> {
   @override
   void initState() {
     currentState = MyNotificationsLoadingState(this);
-    widget._stateManager.getNotifications(this);
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      widget._stateManager.getNotifications(this);
+    });
     widget._stateManager.stateStream.listen((event) {
       currentState = event;
-      refresh();
+      if (mounted){
+        setState(() {
+        });
+      }
     });
     super.initState();
   }
