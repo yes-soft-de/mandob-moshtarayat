@@ -1,0 +1,484 @@
+import 'package:mandob_moshtarayat_captain/module_orders/response/orders/geojson.dart';
+import 'package:mandob_moshtarayat_captain/utils/gobal_response/image_reponse.dart';
+import 'package:mandob_moshtarayat_captain/utils/logger/logger.dart';
+
+class OrderStatusResponse {
+  String? statusCode;
+  String? msg;
+  Data? data;
+
+  OrderStatusResponse({this.statusCode, this.msg, this.data});
+
+  OrderStatusResponse.fromJson(dynamic json) {
+    statusCode = json['status_code'];
+    msg = json['msg'];
+    data = json['Data'] != null ? Data.fromJson(json['Data']) : null;
+
+    try {
+
+    } catch (e) {
+      Logger().error('Order Status Response', e.toString(), StackTrace.current);
+      statusCode = '-1';
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = <String, dynamic>{};
+    map['status_code'] = statusCode;
+    map['msg'] = msg;
+    if (data != null) {
+      map['Data'] = data?.toJson();
+    }
+    return map;
+  }
+}
+
+class Data {
+  List<OrderDetails>? orderDetails;
+  StoreOwner? storeOwner;
+  Order? order;
+
+  Data({this.orderDetails, this.storeOwner, this.order});
+
+  Data.fromJson(dynamic json) {
+    if (json['orderDetails'] != null) {
+      orderDetails = [];
+      json['orderDetails']?.forEach((v) {
+        orderDetails?.add(OrderDetails.fromJson(v));
+      });
+    }
+    storeOwner = json['storeOwner'] != null
+        ? StoreOwner.fromJson(json['storeOwner'])
+        : null;
+    order = json['order'] != null ? Order.fromJson(json['order']) : null;
+    //
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = <String, dynamic>{};
+    if (orderDetails != null) {
+      map['orderDetails'] = orderDetails?.map((v) => v.toJson()).toList();
+    }
+    if (storeOwner != null) {
+      map['storeOwner'] = storeOwner?.toJson();
+    }
+    if (order != null) {
+      map['order'] = order?.toJson();
+    }
+    return map;
+  }
+}
+
+class Order {
+  int? id;
+  int? storeOwnerProfileID;
+  GeoJson? source;
+  GeoJson? destination;
+  DeliveryDate? deliveryDate;
+  dynamic updatedAt;
+  String? note;
+  String? payment;
+  String? recipientName;
+  String? recipientPhone;
+  String? state;
+  String? roomID;
+  dynamic captainID;
+  CreatedAt? createdAt;
+  String? detail;
+  double? deliveryCost;
+  double? orderCost;
+  int? orderType;
+
+  Order(
+      {this.id,
+      this.storeOwnerProfileID,
+      this.source,
+      this.destination,
+      this.deliveryDate,
+      this.updatedAt,
+      this.note,
+      this.payment,
+      this.recipientName,
+      this.recipientPhone,
+      this.state,
+      this.roomID,
+      this.captainID,
+      this.createdAt,
+      this.detail,
+      this.deliveryCost,
+      this.orderCost,
+      this.orderType});
+
+  Order.fromJson(dynamic json) {
+    id = json['id'];
+    storeOwnerProfileID = json['storeOwnerProfileID'];
+    if (json['source'] != null) {
+      if (json['source'] is Map) {
+        source = GeoJson.fromJson(json['source']);
+      }
+    }
+    if (json['destination'] != null) {
+      if (json['destination'] is Map) {
+        destination = GeoJson.fromJson(json['destination']);
+      }
+    }
+    deliveryDate = json['deliveryDate'] != null
+        ? DeliveryDate.fromJson(json['deliveryDate'])
+        : null;
+    updatedAt = json['updatedAt'];
+    note = json['note'];
+    payment = json['payment'];
+    recipientName = json['recipientName'];
+    recipientPhone = json['recipientPhone'];
+    state = json['state'];
+    roomID = json['roomID'];
+    captainID = json['captainID'];
+    createdAt = json['createdAt'] != null
+        ? CreatedAt.fromJson(json['createdAt'])
+        : null;
+    detail = json['detail'];
+    deliveryCost = json['deliveryCost']?.toDouble();
+    orderCost = json['orderCost']?.toDouble();
+    orderType = json['orderType'];
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = <String, dynamic>{};
+    map['id'] = id;
+    map['storeOwnerProfileID'] = storeOwnerProfileID;
+    if (source != null) {
+      map['source'] = source?.toJson();
+    }
+    if (destination != null) {
+      map['destination'] = destination?.toJson();
+    }
+    if (deliveryDate != null) {
+      map['deliveryDate'] = deliveryDate?.toJson();
+    }
+    map['updatedAt'] = updatedAt;
+    map['note'] = note;
+    map['payment'] = payment;
+    map['recipientName'] = recipientName;
+    map['recipientPhone'] = recipientPhone;
+    map['state'] = state;
+    map['roomID'] = roomID;
+    map['captainID'] = captainID;
+    if (createdAt != null) {
+      map['createdAt'] = createdAt?.toJson();
+    }
+    map['detail'] = detail;
+    map['deliveryCost'] = deliveryCost;
+    map['orderCost'] = orderCost;
+    map['orderType'] = orderType;
+    return map;
+  }
+}
+
+class CreatedAt {
+  Timezone? timezone;
+  int? offset;
+  int? timestamp;
+
+  CreatedAt({this.timezone, this.offset, this.timestamp});
+
+  CreatedAt.fromJson(dynamic json) {
+    timezone =
+        json['timezone'] != null ? Timezone.fromJson(json['timezone']) : null;
+    offset = json['offset'];
+    timestamp = json['timestamp'];
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = <String, dynamic>{};
+    if (timezone != null) {
+      map['timezone'] = timezone?.toJson();
+    }
+    map['offset'] = offset;
+    map['timestamp'] = timestamp;
+    return map;
+  }
+}
+
+class Timezone {
+  String? name;
+  List<Transitions>? transitions;
+  Location? location;
+
+  Timezone({this.name, this.transitions, this.location});
+
+  Timezone.fromJson(dynamic json) {
+    name = json['name'];
+    if (json['transitions'] != null) {
+      transitions = [];
+      json['transitions'].forEach((v) {
+        transitions?.add(Transitions.fromJson(v));
+      });
+    }
+    location =
+        json['location'] != null ? Location.fromJson(json['location']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = <String, dynamic>{};
+    map['name'] = name;
+    if (transitions != null) {
+      map['transitions'] = transitions?.map((v) => v.toJson()).toList();
+    }
+    if (location != null) {
+      map['location'] = location?.toJson();
+    }
+    return map;
+  }
+}
+
+class Location {
+  String? countryCode;
+  int? latitude;
+  int? longitude;
+  String? comments;
+
+  Location({this.countryCode, this.latitude, this.longitude, this.comments});
+
+  Location.fromJson(dynamic json) {
+    countryCode = json['country_code'];
+    latitude = json['latitude'];
+    longitude = json['longitude'];
+    comments = json['comments'];
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = <String, dynamic>{};
+    map['country_code'] = countryCode;
+    map['latitude'] = latitude;
+    map['longitude'] = longitude;
+    map['comments'] = comments;
+    return map;
+  }
+}
+
+class Transitions {
+  int? ts;
+  String? time;
+  int? offset;
+  bool? isdst;
+  String? abbr;
+
+  Transitions({this.ts, this.time, this.offset, this.isdst, this.abbr});
+
+  Transitions.fromJson(dynamic json) {
+    ts = json['ts'];
+    time = json['time'];
+    offset = json['offset'];
+    isdst = json['isdst'];
+    abbr = json['abbr'];
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = <String, dynamic>{};
+    map['ts'] = ts;
+    map['time'] = time;
+    map['offset'] = offset;
+    map['isdst'] = isdst;
+    map['abbr'] = abbr;
+    return map;
+  }
+}
+
+class DeliveryDate {
+  Timezone? timezone;
+  int? offset;
+  int? timestamp;
+
+  DeliveryDate({this.timezone, this.offset, this.timestamp});
+
+  DeliveryDate.fromJson(dynamic json) {
+    timezone =
+        json['timezone'] != null ? Timezone.fromJson(json['timezone']) : null;
+    offset = json['offset'];
+    timestamp = json['timestamp'];
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = <String, dynamic>{};
+    if (timezone != null) {
+      map['timezone'] = timezone?.toJson();
+    }
+    map['offset'] = offset;
+    map['timestamp'] = timestamp;
+    return map;
+  }
+}
+
+class StoreOwner {
+  int? id;
+  String? storeOwnerName;
+  String? image;
+  dynamic branch;
+  bool? free;
+  List<Branches>? branches;
+  String? city;
+  String? phone;
+  String? imageURL;
+  String? baseURL;
+  dynamic bank;
+  bool? privateOrders;
+  bool? hasProducts;
+
+  StoreOwner(
+      {this.id,
+      this.storeOwnerName,
+      this.image,
+      this.branch,
+      this.free,
+      this.branches,
+      this.city,
+      this.phone,
+      this.imageURL,
+      this.baseURL,
+      this.bank,
+      this.privateOrders,
+      this.hasProducts});
+
+  StoreOwner.fromJson(dynamic json) {
+    id = json['id'];
+    storeOwnerName = json['storeOwnerName'];
+    image = json['image'];
+    branch = json['branch'];
+    free = json['free'];
+    if (json['branches'] != null) {
+      branches = [];
+      json['branches'].forEach((v) {
+        branches?.add(Branches.fromJson(v));
+      });
+    }
+    city = json['city'];
+    phone = json['phone'];
+    imageURL = json['imageURL'];
+    baseURL = json['baseURL'];
+    bank = json['bank'];
+    privateOrders = json['privateOrders'];
+    hasProducts = json['hasProducts'];
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = <String, dynamic>{};
+    map['id'] = id;
+    map['storeOwnerName'] = storeOwnerName;
+    map['image'] = image;
+    map['branch'] = branch;
+    map['free'] = free;
+    if (branches != null) {
+      map['branches'] = branches?.map((v) => v.toJson()).toList();
+    }
+    map['city'] = city;
+    map['phone'] = phone;
+    map['imageURL'] = imageURL;
+    map['baseURL'] = baseURL;
+    map['bank'] = bank;
+    map['privateOrders'] = privateOrders;
+    map['hasProducts'] = hasProducts;
+    return map;
+  }
+}
+
+class Branches {
+  int? id;
+  int? storeOwnerProfileID;
+  GeoJson? location;
+  String? city;
+  String? branchName;
+  bool? free;
+  String? storeOwnerName;
+  bool? isActive;
+  double? distance;
+  Branches(
+      {this.id,
+      this.storeOwnerProfileID,
+      this.location,
+      this.city,
+      this.branchName,
+      this.free,
+      this.storeOwnerName,
+      this.isActive,
+      this.distance});
+
+  Branches.fromJson(dynamic json) {
+    id = json['id'];
+    storeOwnerProfileID = json['storeOwnerProfileID'];
+    location =
+        json['location'] != null ? GeoJson.fromJson(json['location']) : null;
+    city = json['city'];
+    branchName = json['branchName'];
+    free = json['free'];
+    storeOwnerName = json['storeOwnerName'];
+    isActive = json['isActive'];
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = <String, dynamic>{};
+    map['id'] = id;
+    map['storeOwnerProfileID'] = storeOwnerProfileID;
+    if (location != null) {
+      map['location'] = location?.toJson();
+    }
+    map['city'] = city;
+    map['branchName'] = branchName;
+    map['free'] = free;
+    map['storeOwnerName'] = storeOwnerName;
+    map['isActive'] = isActive;
+    return map;
+  }
+}
+
+class OrderDetails {
+  int? id;
+  int? productID;
+  int? orderID;
+  String? productName;
+  ImageResponse? productImage;
+  double? productPrice;
+  int? countProduct;
+  int? storeOwnerProfileID;
+  int? productCategoryID;
+  String? orderNumber;
+
+  OrderDetails(
+      {this.id,
+      this.productID,
+      this.orderID,
+      this.productName,
+      this.productImage,
+      this.productPrice,
+      this.countProduct,
+      this.storeOwnerProfileID,
+      this.productCategoryID,
+      this.orderNumber});
+
+  OrderDetails.fromJson(dynamic json) {
+    id = json['id'];
+    productID = json['productID'];
+    orderID = json['orderID'];
+    productName = json['productName'];
+    productImage = json['productImage'] != null ? ImageResponse.fromJson(json['productImage']) : null;
+    productPrice = json['productPrice']?.toDouble();
+    countProduct = json['countProduct'];
+    storeOwnerProfileID = json['storeOwnerProfileID'];
+    productCategoryID = json['ProductCategoryID'];
+    orderNumber = json['orderNumber'];
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = <String, dynamic>{};
+    map['id'] = id;
+    map['productID'] = productID;
+    map['orderID'] = orderID;
+    map['productName'] = productName;
+    map['productImage'] = productImage;
+    map['productPrice'] = productPrice;
+    map['countProduct'] = countProduct;
+    map['storeOwnerProfileID'] = storeOwnerProfileID;
+    map['ProductCategoryID'] = productCategoryID;
+    map['orderNumber'] = orderNumber;
+    return map;
+  }
+}
