@@ -25,7 +25,9 @@ class StoreCategoriesLoadedState extends StoreCategoriesState {
       screenState.refresh();
     }
   }
+
   String? search;
+
   @override
   Widget getUI(BuildContext context) {
     if (error != null) {
@@ -79,12 +81,11 @@ class StoreCategoriesLoadedState extends StoreCategoriesState {
               image: image));
         },
                 storeCategoriesRequest: UpdateStoreCategoriesRequest(
-                  id: element.id,
-                  description: '',
-                  storeCategoryName: element.categoryName,
-                  image: element.image,
-                  baseImage: element.imageUrl
-                )),
+                    id: element.id,
+                    description: '',
+                    storeCategoryName: element.categoryName,
+                    image: element.image,
+                    baseImage: element.imageUrl)),
       ));
     }
 
@@ -107,7 +108,9 @@ class StoreCategoriesLoadedState extends StoreCategoriesState {
             ),
           ));
     }
-
+    widgets.add(SizedBox(
+      height: 50,
+    ));
     return widgets;
   }
 }
