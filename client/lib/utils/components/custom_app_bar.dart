@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:mandob_moshtarayat/generated/l10n.dart';
-
 class CustomTwaslnaAppBar {
   static PreferredSizeWidget appBar(BuildContext context,
       {required title,
       GestureTapCallback? onTap,
       Color? colorIcon,
       Color? buttonBackground,
+      Color? background,
       List<Widget>? actions
       }) {
     return AppBar(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor:background ?? Theme.of(context).scaffoldBackgroundColor,
       actions: actions,
       centerTitle: true,
       title: Text(
