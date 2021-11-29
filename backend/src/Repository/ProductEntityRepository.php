@@ -214,7 +214,7 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount','product.description','product.status', 'product.productQuantity')
 
             ->andWhere('product.storeProductCategoryID = :storeProductCategoryID')
-            ->andWhere('product.storeProductCategoryID = :storeOwnerProfileID')
+            ->andWhere('product.storeOwnerProfileID = :storeOwnerProfileID')
 
             ->setParameter('storeProductCategoryID', $storeProductCategoryID)
             ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
