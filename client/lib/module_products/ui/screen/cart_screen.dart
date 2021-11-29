@@ -6,10 +6,10 @@ import 'package:mandob_moshtarayat/hive/objects/cart_model/cart_model.dart';
 import 'package:mandob_moshtarayat/module_orders/model/order_details_model.dart';
 import 'package:mandob_moshtarayat/module_orders/orders_routes.dart';
 import 'package:mandob_moshtarayat/module_orders/request/client_order_request.dart';
+import 'package:mandob_moshtarayat/module_products/ui/widget/cart_appbar.dart';
 import 'package:mandob_moshtarayat/module_stores/model/checkout_model.dart';
 import 'package:mandob_moshtarayat/module_stores/presistance/cart_hive_box_helper.dart';
 import 'package:mandob_moshtarayat/module_stores/ui/state/store_products/store_products_loaded_state.dart';
-import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat/module_orders/ui/widget/order_details/bill.dart';
 import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
 import 'package:mandob_moshtarayat/utils/images/images.dart';
@@ -27,7 +27,6 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomTwaslnaAppBar.appBar(context, title: S.current.order),
         body: Stack(
           children: [
             ListView(
@@ -35,6 +34,7 @@ class _CartScreenState extends State<CartScreen> {
               physics: BouncingScrollPhysics(
                   parent: AlwaysScrollableScrollPhysics()),
               children: [
+                CartAppBar(),
                 ListTile(
                   leading: Icon(Icons.info),
                   title: Text(S.of(context).updateOrderNote),

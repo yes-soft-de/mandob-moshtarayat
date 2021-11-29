@@ -1,6 +1,7 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mandob_moshtarayat/module_products/ui/screen/cart_screen.dart';
 import 'package:share/share.dart';
 import 'package:mandob_moshtarayat/di/di_config.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
@@ -47,7 +48,7 @@ class _MainScreenState extends State<MainScreen> {
               children: [
                 getIt<HomeScreen>(),
                 getIt<MyOrdersScreen>(),
-                getIt<MyNotificationsScreen>(),
+                getIt<CartScreen>(),
                 getIt<AccountScreen>()
               ],
             ),
@@ -80,7 +81,7 @@ class _MainScreenState extends State<MainScreen> {
                     icons: [
                       Icons.home,
                       Icons.list,
-                      Icons.notifications,
+                      Icons.shopping_cart_rounded,
                       Icons.person_pin
                     ],
                     onTap: (int index) {
