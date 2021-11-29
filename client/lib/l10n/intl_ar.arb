@@ -367,6 +367,7 @@
   "youHaveProductsFromDifferentStore": "السلة تحتوي على أصناف من متجر آخر , هل تريد حذف أصناف السلة وإضافة الأصناف الجديدة",
   "productRated": "تم تقييم المنتج",
   "rateProductMessage":"قم بتقييم المنتج من فضلك",
-  "rateProduct":"تقييم منتج"
+  "rateProduct":"تقييم منتج",
+  "cart":"سلة المشتريات"
 
 }
