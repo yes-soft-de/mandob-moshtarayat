@@ -31,6 +31,7 @@ class DeliveryCompanyPaymentsFromCaptainController extends BaseController
     }
     
     /**
+     * admin: Create payment from captain to the company.
      * @Route("/deliveryCompanyPaymentsFromCaptain", name="createDeliveryCompanyPaymentsFromCaptain", methods={"POST"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
@@ -90,6 +91,7 @@ class DeliveryCompanyPaymentsFromCaptainController extends BaseController
     }
 
      /**
+      * captain: Get my payments to the company.
       * @Route("/deliveryCompanyPaymentsFromCaptain", name="getDeliveryCompanyPaymentsFromCaptain", methods={"GET"})
       * @IsGranted("ROLE_CAPTAIN")
       * @param Request $request

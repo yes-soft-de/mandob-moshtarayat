@@ -33,6 +33,7 @@ class OrderLogController extends BaseController
       }
       
     /**
+     * Get order logs timeLine.
       * @Route("/orderLogsTimeLine/{orderNumber}", name="getOrderLogsTimeLine", methods={"GET"})
       * @param Request $request
       * @return JsonResponse

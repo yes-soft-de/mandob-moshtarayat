@@ -32,6 +32,7 @@ class CaptainTermController extends BaseController
     }
     
     /**
+     * admin: Create new captain terms.
      * @Route("/termscaptain", name="createTermsCaptain", methods={"POST"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
@@ -84,6 +85,7 @@ class CaptainTermController extends BaseController
     }
 
     /**
+     * Get captain terms.
       * @Route("/termscaptain", name="GetTermsCaptain", methods={"GET"})
       * @param Request $request
       * @return JsonResponse
@@ -112,9 +114,10 @@ class CaptainTermController extends BaseController
       }
 
     /**
-          * @Route("/termscaptainbyid/{id}", name="GetTermsCaptainById", methods={"GET"})
-      * @param Request $request
-      * @return JsonResponse
+     * Get captain term.
+     * @Route("/termscaptainbyid/{id}", name="GetTermsCaptainById", methods={"GET"})
+     * @param Request $request
+     * @return JsonResponse
      * *
      * @OA\Tag(name="Captain Terms")
      * @OA\Response(
@@ -137,7 +140,8 @@ class CaptainTermController extends BaseController
           return $this->response($result, self::FETCH);
       }
 
-      /**
+     /**
+     * admin: Update captain terms.
      * @Route("/termscaptain", name="termsUpdate", methods={"PUT"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request

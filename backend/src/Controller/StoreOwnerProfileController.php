@@ -36,6 +36,7 @@ class StoreOwnerProfileController extends BaseController
     }
 
     /**
+     * Create new store .
      * @Route("storeownerregister", name="storeOwnerRegister", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
@@ -140,6 +141,7 @@ class StoreOwnerProfileController extends BaseController
     }
 
     /**
+     * store: Update store profile.
      * @Route("/storeowner", name="storeOwnerProfileUpdate", methods={"PUT"})
      * @IsGranted("ROLE_OWNER")
      * @param Request $request
@@ -244,6 +246,7 @@ class StoreOwnerProfileController extends BaseController
         return $this->response($response, self::UPDATE);
     }
     /**
+     * admin: Update store owner status.
      * @Route("/storeownerprofilestatusupdatebyadmin", name="storeOwnerProfileStatusUpdateByAdmin", methods={"PUT"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
@@ -315,6 +318,7 @@ class StoreOwnerProfileController extends BaseController
     }
 
     /**
+     * store: Get store owner profile.
      * @Route("storeownerprofilebyid", name="getStoreOwnerProfile", methods={"GET"})
      * @IsGranted("ROLE_OWNER")
      * @return JsonResponse
@@ -384,6 +388,7 @@ class StoreOwnerProfileController extends BaseController
     }
 
     /**
+     * Get all store owners.
      * @Route("/storeOwners", name="getAllStoreOwners",methods={"GET"})
      * @return JsonResponse
      * *
@@ -437,6 +442,7 @@ class StoreOwnerProfileController extends BaseController
     }
 
     /**
+     * admin: Get store Owner by storeCategoryId.
      * @Route("/storeownerbycategoryidforadmin/{storeCategoryId}", name="getStoreOwnerByCategoryIdForAdmin",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @param $storeCategoryId
@@ -491,6 +497,7 @@ class StoreOwnerProfileController extends BaseController
     }
 
     /**
+     * Get store owner best.
      * @Route("/storeOwnerBest", name="GetStoreOwnerBest",methods={"GET"})
      * @return JsonResponse
      * *
@@ -543,6 +550,7 @@ class StoreOwnerProfileController extends BaseController
     }
 
     /**
+     * admin: Get stores inactive.
      * @Route("/storesinactive", name="GetStoresInactive", methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
@@ -629,6 +637,7 @@ class StoreOwnerProfileController extends BaseController
     }
 
     /**
+     * admin: filter stores by name.
      * @Route("/storeFilter/{name}", name="getStoresByName", methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
@@ -679,6 +688,7 @@ class StoreOwnerProfileController extends BaseController
     }
 
     /**
+     * store: my financial account.
      * @Route("/storefinancialaccountforstore", name="storeFinancialAccountForStore",methods={"GET"})
      * @IsGranted("ROLE_OWNER")
      * @return JsonResponse
@@ -723,6 +733,7 @@ class StoreOwnerProfileController extends BaseController
     }
 
     /**
+     * store: my financial account in specific date .
      * @Route("/storefinancialaccountforstoreinspecificdate/{fromDate}/{toDate}", name="storeFinancialAccountForStoreInSpecificDate",methods={"GET"})
      * @IsGranted("ROLE_OWNER")
      * @return JsonResponse
@@ -768,6 +779,7 @@ class StoreOwnerProfileController extends BaseController
     }
 
     /**
+     * admin: store's financial account.
      * @Route("/storefinancialaccountforadmin/{storeOwnerProfileID}", name="storeFinancialAccountForAdmin",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse

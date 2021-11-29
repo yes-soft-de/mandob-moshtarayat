@@ -33,6 +33,7 @@ class ClientProfileController extends BaseController
     }
 
      /**
+      * Create new client.
      * @Route("/clientregister", name="clientRegister", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
@@ -87,6 +88,7 @@ class ClientProfileController extends BaseController
     }
 
     /**
+     * client: Update client profile.
      * @Route("/clientprofile", name="updateClientProfile", methods={"PUT"})
      * @IsGranted("ROLE_CLIENT")
      * @param Request $request
@@ -143,6 +145,7 @@ class ClientProfileController extends BaseController
     }
 
     /**
+     * client: Get client profile.
      * @Route("/clientProfile", name="getClientProfileByClientID",methods={"GET"})
      * @IsGranted("ROLE_CLIENT")
      * @return JsonResponse
@@ -188,6 +191,7 @@ class ClientProfileController extends BaseController
     }
 
     /**
+     * admin: Get client's profile by profileID.
      * @Route("/clientprofilebyid/{id}", name="getClientProfileByProfileID",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
@@ -231,6 +235,7 @@ class ClientProfileController extends BaseController
     }
 
     /**
+     * admin: Get client's profile.
      * @Route("/clientsprofile", name="getClientsProfile",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
@@ -283,6 +288,7 @@ class ClientProfileController extends BaseController
     }
 
     /**
+     * admin: Filter client by name.
      * @Route("/clientfilterbyname/{name}", name="getClientsByName", methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * *
@@ -325,6 +331,7 @@ class ClientProfileController extends BaseController
 
 
     /**
+     * client: Update client's favourite categories.
      * @Route("/updateclientfavouritecategories", name="updateClientFavouriteCategories", methods={"PUT"})
      * @IsGranted("ROLE_CLIENT")
      * @param Request $request

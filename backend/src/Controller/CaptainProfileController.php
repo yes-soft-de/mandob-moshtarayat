@@ -35,6 +35,7 @@ class CaptainProfileController extends BaseController
     }
 
      /**
+     * Create new captain.
      * @Route("/captainregister", name="captainRegister", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
@@ -91,6 +92,7 @@ class CaptainProfileController extends BaseController
     }
 
     /**
+     * captain: Update captain profile.
      * @Route("/captainprofile", name="captainProfileUpdate", methods={"PUT"})
      * @IsGranted("ROLE_CAPTAIN")
      * @param Request $request
@@ -158,6 +160,7 @@ class CaptainProfileController extends BaseController
     }
 
     /**
+     * captain: Update captain location.
      * @Route("/captainProfileUpdateLocation", name="captainProfileUpdateLocation", methods={"PUT"})
      * @IsGranted("ROLE_CAPTAIN")
      * @param Request $request
@@ -224,6 +227,7 @@ class CaptainProfileController extends BaseController
     }
   
     /**
+     * admin: Update captain profile by admin.
      * @Route("/captainprofileupdatebyadmin", name="captainProfileUpdateByAdmin", methods={"PUT"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
@@ -294,6 +298,7 @@ class CaptainProfileController extends BaseController
     }
     
     /**
+     * captain: Get captain's profile.
      * @Route("/captainprofile", name="getCaptainprofileByCaptainID",methods={"GET"})
      * @IsGranted("ROLE_CAPTAIN")
      *  @return JsonResponse
@@ -350,6 +355,7 @@ class CaptainProfileController extends BaseController
     }
 
     /**
+     * admin:Get captain's profile.
      * @Route("/captainProfile/{captainID}", name="getCaptainProfileByCaptainIDForAdmin",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @param $captainID
@@ -408,6 +414,7 @@ class CaptainProfileController extends BaseController
     }
 
     /**
+     * admin: Get inactive captains.
      * @Route("/getcaptainsinactive", name="getCaptainsPending",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      *  @return JsonResponse
@@ -472,6 +479,7 @@ class CaptainProfileController extends BaseController
     }
 
     /**
+     * admin: Get captains.
      * @Route("/captains", name="getCaptains",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
@@ -514,6 +522,7 @@ class CaptainProfileController extends BaseController
     }
 
      /**
+      * admin:Get the remaining captains have payments.
      * @Route("/captainsRemainingForItAmount", name="captainsRemainingForItAmount",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
@@ -557,6 +566,7 @@ class CaptainProfileController extends BaseController
     }
 
      /**
+      * admin:Get captains remaining on it amount.
      * @Route("/captainsRemainingOnItAmount ", name="captainsRemainingOnItAmount",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
@@ -620,6 +630,7 @@ class CaptainProfileController extends BaseController
     }
 
     /**
+     * Get top 5 captains.
      * @Route("/gettop5captains", name="GetTop5Captains",methods={"GET"})
      * @return JsonResponse
      * *
@@ -676,6 +687,7 @@ class CaptainProfileController extends BaseController
     }
 
     /**
+     * captain: Get captain's balance.
      * @Route("/captainFinancialAccount", name="getCaptainMyBalance",methods={"GET"})
      * @IsGranted("ROLE_CAPTAIN")
      *  @return JsonResponse
@@ -724,6 +736,7 @@ class CaptainProfileController extends BaseController
     }
 
     /**
+     * captain: Get captain's financial account in last month.
      * @Route("/captainFinancialAccountInLastMonth", name="captainFinancialAccountInLastMonth",methods={"GET"})
      * @IsGranted("ROLE_CAPTAIN")
      *  @return JsonResponse
@@ -791,6 +804,7 @@ class CaptainProfileController extends BaseController
     }
 
     /**
+     * captain: Get Count Orders Captain Delivered In Today.
      * @Route("/countOrdersCaptainDeliveredInToday", name="countOrdersCaptainDeliveredInToday",methods={"GET"})
      * @IsGranted("ROLE_CAPTAIN")
      *  @return JsonResponse
@@ -827,6 +841,7 @@ class CaptainProfileController extends BaseController
     }
 
     /**
+     * admin: Get captain's financial account.
      * @Route("/captainFinancialAccountForAdmin/{captainID}", name="captainFinancialAccountForAdmin",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @param $captainID
@@ -891,6 +906,7 @@ class CaptainProfileController extends BaseController
     }
 
     /**
+     * admmin: Get captain's financial account in last month.
      * @Route("/captainFinancialAccountInLastMonthForAdmin/{captainID}", name="captainFinancialAccountInLastMonthForAdmin",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @param $captainID
@@ -955,6 +971,7 @@ class CaptainProfileController extends BaseController
     }
 
      /**
+      * admin: Get captain's financial account in specific date.
      * @Route("/captainFinancialAccountInSpecificDateForAdmin/{captainID}/{fromDate}/{toDate}", name="captainFinancialAccountInSpecificDateForAdmin",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      *  @return JsonResponse
@@ -1018,6 +1035,7 @@ class CaptainProfileController extends BaseController
     }
 
     /**
+     * admin: Filter by captain's name.
      * @Route("/captainFilter/{name}", name="getCaptainsByName", methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * *

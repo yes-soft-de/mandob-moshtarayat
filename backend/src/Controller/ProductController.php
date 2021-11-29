@@ -54,6 +54,7 @@ class ProductController extends BaseController
     }
 
     /**
+     * Get products of category specific.
      * @Route("/productscategory/{storeProductCategoryID}", name="productsByStoreProductCategoryID", methods={"GET"})
      * @param $storeProductCategoryID
      * @return JsonResponse
@@ -98,6 +99,7 @@ class ProductController extends BaseController
     }
 
     /**
+     * Get products of store specific and category specific.
      * @Route("/productsbycategoryidandstoreownerprofileid/{storeProductCategoryID}/{storeOwnerProfileId}", name="getProductsByProductCategoryIdAndStoreOwnerProfileId  ", methods={"GET"})
      * @param $storeProductCategoryID
      * @param $storeOwnerProfileId
@@ -155,6 +157,7 @@ class ProductController extends BaseController
     }
 
     /**
+     * Get product specific.
      * @Route("product/{id}", name="getProductById", methods={"GET"})
      * @return JsonResponse
      *
@@ -221,6 +224,7 @@ class ProductController extends BaseController
     }
 
     /**
+     * Get products of store specific.
      * @Route("/productsStoreByProfileId/{storeOwnerProfileId}", name="getStoreProductsByProfileId", methods={"GET"})
      * @return JsonResponse
      * *
@@ -262,6 +266,7 @@ class ProductController extends BaseController
     }
 
     /**
+     * Get products of subcategory of level two.
      * @Route("productsbystoreproductcategoryid/{storeProductCategoryID}", name="getProductsByStoreProductCategoryID", methods={"GET"})
      * @return JsonResponse
      * *
@@ -269,7 +274,7 @@ class ProductController extends BaseController
 
      * @OA\Response(
      *      response=200,
-     *      description="Get products of subcategory of level two ",
+     *      description="Get products of subcategory of level two",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -307,6 +312,7 @@ class ProductController extends BaseController
         return $this->response($result, self::FETCH);
     }
     /**
+     * store: Get products of subcategory of level two for specific store.
      * @Route("productsbystoreproductcategoryidforstore/{storeProductCategoryID}", name="getProductsByStoreProductCategoryIDForStore", methods={"GET"})
      * @return JsonResponse
      * @IsGranted("ROLE_OWNER")
@@ -412,6 +418,7 @@ class ProductController extends BaseController
     }
 
     /**
+     * admin: Update product by admin.
      * @Route("/updateProductByAdmin", name="updateProductByAdmin", methods={"PUT"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
@@ -475,6 +482,7 @@ class ProductController extends BaseController
     }
 
     /**
+     * store: Create new product by store.
      * @Route("createproductbystore", name="createProductByStore", methods={"POST"})
      * @IsGranted("ROLE_OWNER")
      * @param Request $request
@@ -544,6 +552,7 @@ class ProductController extends BaseController
     }
 
     /**
+     * store: Update product by store.
      * @Route("updateproductbystore", name="updateProductByStore", methods={"PUT"})
      * @IsGranted("ROLE_OWNER")
      * @param Request $request
@@ -613,6 +622,7 @@ class ProductController extends BaseController
     }
 
     /**
+     * Get products of subcategory of level one.
      * @Route("/productsbystorecategory/{storeCategoryID}", name="getProductsByStoreCategoryID", methods={"GET"})
      * @return JsonResponse
      * *
@@ -620,7 +630,7 @@ class ProductController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Get products of subcategory of level one ",
+     *      description="Get products of subcategory of level one",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -659,6 +669,7 @@ class ProductController extends BaseController
     }
 
     /**
+     * store: Update product status for active or inactive.
      * @Route("/updateproductstatusbystore", name="updateProductStatusByStore", methods={"PUT"})
      * @IsGranted("ROLE_OWNER")
      * @param Request $request
@@ -715,6 +726,7 @@ class ProductController extends BaseController
     }
 
     /**
+     * Get products similar of the first level subcategory.
      * @Route("/productssimilar/{storeProductCategoryID}", name="getSimilarProductsByStoreProductCategoryIdOfLevelTwo", methods={"GET"})
      * @return JsonResponse
      * *
@@ -761,6 +773,7 @@ class ProductController extends BaseController
     }
 
     /**
+     * Delete product.
      * @Route("product/{id}", name="deleteProductByID", methods={"DELETE"})
      * @param Request $request
      * @return JsonResponse
@@ -797,7 +810,7 @@ class ProductController extends BaseController
     }
 
     /**
-     * Client: get Last 30 Products.
+     * get Last 30 Products.
      * @Route("/productslast30", name="getLast30Products", methods={"GET"})
      * @return JsonResponse
      * *

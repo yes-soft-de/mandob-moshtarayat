@@ -34,6 +34,7 @@ class StoreProductCategoryController extends BaseController
     }
     
     /**
+     * admin: Create store product category first level.
      * @Route("/storeproductcategorylevelone", name="createStoreProductCategoryLevelOne", methods={"POST"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
@@ -93,6 +94,7 @@ class StoreProductCategoryController extends BaseController
     }
 
     /**
+     * admin: Create store product category second level.
      * @Route("/storeproductcategoryleveltwo", name="createStoreProductCategoryLevelTwo", methods={"POST"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
@@ -151,6 +153,7 @@ class StoreProductCategoryController extends BaseController
     }
 
     /**
+     * admin: Update store product category first level.
      * @Route("/storeproductcategorylevelone", name="updateStoreProductCategoryLevelOne", methods={"PUT"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
@@ -209,6 +212,7 @@ class StoreProductCategoryController extends BaseController
      }
 
     /**
+     * * admin: Update store product category second level.
      * @Route("/storeproductcategoryleveltwo", name="updateStoreProductCategoryLevelTwo", methods={"PUT"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
@@ -278,6 +282,7 @@ class StoreProductCategoryController extends BaseController
       }
 
     /**
+     * Get store products category of first level.
      * @Route("/storeproductscategorylevelone/{storeCategoryID}", name="getStoreProductsCategoryLevelOneByStoreCategoryID", methods={"GET"})
      * @return JsonResponse
      * *
@@ -312,6 +317,7 @@ class StoreProductCategoryController extends BaseController
       }
 
     /**
+     * admin: Get store products category of first level
      * @Route("/storeproductscategorylevelonefroadmin/{storeCategoryID}", name="getStoreProductsCategoryLevelOneByStoreCategoryIDForAdmin", methods={"GET"})
      * @return JsonResponse
      * @IsGranted("ROLE_ADMIN")
@@ -355,6 +361,7 @@ class StoreProductCategoryController extends BaseController
       }
 
     /**
+     *  Get store products category of second level.
      * @Route("/storeproductscategoryleveltwo/{storeProductCategoryID}", name="getStoreProductsCategoryLevelTwoByStoreProductCategoryID", methods={"GET"})
      * @return JsonResponse
      *  *
@@ -389,6 +396,7 @@ class StoreProductCategoryController extends BaseController
       }
 
     /**
+     *  admin: Get store products category of second level.
      * @Route("/storeproductscategoryleveltwoforadmin/{storeProductCategoryID}", name="getStoreProductsCategoryLevelTwoByStoreProductCategoryIDForAdmin", methods={"GET"})
      * @return JsonResponse
      *
@@ -431,6 +439,7 @@ class StoreProductCategoryController extends BaseController
       }
 
      /**
+      * Get subCategories by storeCategoryID.
      * @Route("/subcategoriesbystorecategoryid/{storeCategoryID}", name="getSubCategoriesByStoreCategoryID",methods={"GET"})
      * @return JsonResponse
       * *
@@ -472,6 +481,7 @@ class StoreProductCategoryController extends BaseController
       }
 
      /**
+     * store: Get store products Category second level And store products by store owner profile.
      * @Route("/storeproductscategoryleveltwoandstoreproduct", name="getStoreProductsCategoryLevelTwoAndStoreProductsByStoreOWnerProfile", methods={"GET"})
      * @return JsonResponse
      * @IsGranted("ROLE_OWNER")

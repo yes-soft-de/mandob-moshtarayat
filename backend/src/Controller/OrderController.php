@@ -491,6 +491,7 @@ class OrderController extends BaseController
     }
 
     /**
+     * store: Get store's orders.
      * @Route("/getstoreorders", name="getStoreOrders",methods={"GET"})
      * @IsGranted("ROLE_OWNER")
      * @return JsonResponse
@@ -531,6 +532,7 @@ class OrderController extends BaseController
     }
 
     /**
+     * store: Report about count the orders (Completed - Ongoing - InToday).
      * @Route("countreportforstoreowner", name="countReportForStoreOwner", methods={"GET"})
      * @IsGranted("ROLE_OWNER")
      * @return JsonResponse
@@ -568,6 +570,7 @@ class OrderController extends BaseController
     }
 
     /**
+     * store: Get order details.
      * @Route("orderdetailsforstore/{orderNumber}", name="getOrderDetailsByOrderNumberForStore", methods={"GET"})
      * @IsGranted("ROLE_OWNER")
      * @return JsonResponse
@@ -630,6 +633,7 @@ class OrderController extends BaseController
     }
 
     /**
+     * store: Get store's pending orders.
      * @Route("storeorderspending",   name="GetStorePendingOrders", methods={"GET"})
      * @IsGranted("ROLE_OWNER")
      * @return JsonResponse

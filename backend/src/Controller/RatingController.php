@@ -49,6 +49,7 @@ class RatingController extends BaseController
     }
 
     /**
+     * client: create captain rating.
      * @Route("ratingCaptainByClient", name="createCaptainRatingByClient", methods={"POST"})
      * @IsGranted("ROLE_CLIENT")
      * @param Request $request
@@ -112,6 +113,7 @@ class RatingController extends BaseController
     }
 
     /**
+     * client: Create store rating.
      * @Route("ratingStoreByClient", name="createStoreRatingByClient", methods={"POST"})
      * @IsGranted("ROLE_CLIENT")
      * @param Request $request
@@ -174,6 +176,7 @@ class RatingController extends BaseController
     }
 
     /**
+     * client: create product rating.
      * @Route("ratingProductByClient", name="createProductRatingByClient", methods={"POST"})
      * @IsGranted("ROLE_CLIENT")
      * @param Request $request

@@ -32,6 +32,7 @@ class StoreCategoryController extends BaseController
     }
 
     /**
+     * admin: Create new store category.
      * @Route("/createstorecategory", name="createStoreCategory", methods={"POST"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
@@ -91,6 +92,7 @@ class StoreCategoryController extends BaseController
     }
 
     /**
+     * admin: Update store category.
      * @Route("/updatestorecategory", name="updateStoreCategory", methods={"PUT"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
@@ -106,7 +108,7 @@ class StoreCategoryController extends BaseController
      * )
      *
      * @OA\RequestBody(
-     *      description="Update Store Category if not have has store product category",
+     *      description="Update Store Category.",
      *      @OA\JsonContent(
      *          @OA\Property(type="integer", property="id"),
      *          @OA\Property(type="string", property="storeCategoryName"),
@@ -151,6 +153,7 @@ class StoreCategoryController extends BaseController
     }
 
     /**
+     * Get store categories.
      * @Route("storecategories", name="getStoreCategories", methods={"GET"})
      * @return JsonResponse
      **
@@ -182,6 +185,7 @@ class StoreCategoryController extends BaseController
       }
 
     /**
+      * Get specific store category.
       * @Route("/storecategory/{id}", name="getStoreCategory", methods={"GET"})
       * @param Request $request
       * @return JsonResponse
@@ -190,7 +194,7 @@ class StoreCategoryController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Get Store Categories",
+     *      description="Get Store Category by id",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -210,6 +214,7 @@ class StoreCategoryController extends BaseController
 
 
     /**
+     * Get Store Categories And Stores.
      * @Route("storecategoriesandstores", name="getStoreCategoriesAndLast15Stores", methods={"GET"})
      * @return JsonResponse
      * *

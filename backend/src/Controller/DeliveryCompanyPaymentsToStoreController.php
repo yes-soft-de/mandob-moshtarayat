@@ -31,12 +31,13 @@ class DeliveryCompanyPaymentsToStoreController extends BaseController
     }
     
     /**
+     * admin: Create payments to store.
      * @Route("/deliverycompanypaymentstostore", name="createDeliveryCompanyPaymentsTostore", methods={"POST"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
      * *
-     * @OA\Tag(name="Delivery Company Payments To Store", description="Create payments to store")
+     * @OA\Tag(name="Delivery Company Payments To Store")
      *
      * @OA\Parameter(
      *      name="token",
@@ -90,6 +91,7 @@ class DeliveryCompanyPaymentsToStoreController extends BaseController
     }
 
      /**
+      * store: Get my payments from company.
       * @Route("/deliverycompanypaymentstostore", name="getDeliveryCompanyPaymentsToStore", methods={"GET"})
       * @IsGranted("ROLE_OWNER")
       * @param Request $request
