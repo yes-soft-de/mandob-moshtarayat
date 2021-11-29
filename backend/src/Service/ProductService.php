@@ -65,7 +65,7 @@ class ProductService
     {
         $response = [];
 
-        $items = $this->productManager->getProductsByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId);
+        $items = $this->productManager->getProductsByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId['id']);
 
         foreach ($items as $item) {
             $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
@@ -163,13 +163,20 @@ class ProductService
         return $response;
     }
 
-    public function getStoreProducts($userID): ?array
+    public function getStoreProducts($userID,$request): ?array
     {
-        $response = [];
 
         $storeOwnerProfileId = $this->userManager->getStoreProfileId($userID);
-
+        if($request->getName()) {
+           $items = $this->getProductsByNameAndStoreOwnerProfileId($request->getName(), $storeOwnerProfileId);
+           return $this->returnProduct($items);
+        }
         $items = $this->productManager->getStoreProducts($storeOwnerProfileId);
+        return $this->returnProduct($items);
+    }
+
+    public function returnProduct($items){
+        $response = [];
 
         foreach ($items as $item) {
             $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
@@ -257,6 +264,11 @@ class ProductService
     public function getProductsByName($name)
     {
         return $this->productManager->getProductsByName($name);
+    }
+
+    public function getProductsByNameAndStoreOwnerProfileId($name, $storeOwnerProfileId)
+    {
+        return $this->productManager->getProductsByNameAndStoreOwnerProfileId($name, $storeOwnerProfileId);
     }
 
     public function createProductByStore(ProductCreateRequest $request, $userID)

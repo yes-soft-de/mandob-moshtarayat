@@ -31,6 +31,7 @@ class DeliveryCompanyFinancialCompensationController extends BaseController
     }
 
     /**
+     * admin: Create financial compensation.
      * @Route("financialCompensation", name="createFinancialCompensation", methods={"POST"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request

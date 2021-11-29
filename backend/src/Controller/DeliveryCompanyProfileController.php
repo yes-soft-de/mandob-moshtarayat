@@ -31,6 +31,7 @@ class DeliveryCompanyProfileController extends BaseController
     }
 
     /**
+     * admin: Create Company Info.
      * @Route("companyinfo", name="createCompanyInfo", methods={"POST"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
@@ -101,6 +102,7 @@ class DeliveryCompanyProfileController extends BaseController
     }
 
      /**
+      * admin: Update Company Info.
      * @Route("companyinfo", name="updateCompanyInfo", methods={"PUT"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
@@ -181,6 +183,7 @@ class DeliveryCompanyProfileController extends BaseController
     }
 
      /**
+      * Get company all info.
      * @Route("companyinfoall", name="getcompanyinfoAll", methods={"GET"})
      * @return JsonResponse
       * *
@@ -188,7 +191,7 @@ class DeliveryCompanyProfileController extends BaseController
       *
       * @OA\Response(
       *      response=200,
-      *      description="Returns the new Rating",
+      *      description="Get company info all",
       *      @OA\JsonContent(
       *          @OA\Property(type="string", property="status_code"),
       *          @OA\Property(type="string", property="msg"),

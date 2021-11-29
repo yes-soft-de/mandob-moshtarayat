@@ -124,6 +124,11 @@ class ProductManager
         return $this->productEntityRepository->getProductsByName($name);
     }
 
+    public function getProductsByNameAndStoreOwnerProfileId($name, $storeOwnerProfileId)
+    {
+        return $this->productEntityRepository->getProductsByNameAndStoreOwnerProfileId($name, $storeOwnerProfileId);
+    }
+
     public function createProductByStore(ProductCreateRequest $request)
     {
         $request->setStatus('active');
