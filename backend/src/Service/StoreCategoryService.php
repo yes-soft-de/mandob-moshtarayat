@@ -90,4 +90,32 @@ class StoreCategoryService
 
         return $this->autoMapping->map("array", StoreCategoriesAndStoresResponse::class, $item);
     }
+
+    public function getMainCategoriesAndStores()
+    {
+        $response = [];
+
+        $categories = $this->storeCategoryManager->getMainCategoriesAndStores();
+
+        if($categories)
+        {
+            foreach($categories as $category)
+            {
+                $category['stores'] = $this->storeOwnerProfileService->getStoreOwnerProfileByCategoryID($category['id']);
+
+                if($category['stores'])
+                {
+                    foreach($category['stores'] as $key => $value)
+                    {
+                        $category['stores'][$key]['image'] = $this->getImageParams($value['image'], $this->params.$value['image'], $this->params);
+                    }
+                }
+
+                $response[] = $this->autoMapping->map("array", StoreCategoriesAndStoresResponse::class, $category);
+            }
+        }
+
+        return $response;
+    }
+
 }
