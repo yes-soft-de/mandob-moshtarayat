@@ -37,28 +37,16 @@ class ReportResponse {
 class Data {
   String? countCompletedOrders;
   String? countOngoingOrders;
-  String? countCaptains;
-  String? countClients;
-  String? countStores;
-  String? countProducts;
   String? countOrdersInToday;
 
   Data({
       this.countCompletedOrders, 
-      this.countOngoingOrders, 
-      this.countCaptains, 
-      this.countClients, 
-      this.countStores, 
-      this.countProducts, 
+      this.countOngoingOrders,
       this.countOrdersInToday});
 
   Data.fromJson(dynamic json) {
     countCompletedOrders = json['countCompletedOrders'];
     countOngoingOrders = json['countOngoingOrders'];
-    countCaptains = json['countCaptains'];
-    countClients = json['countClients'];
-    countStores = json['countStores'];
-    countProducts = json['countProducts'];
     countOrdersInToday = json['countOrdersInToday'];
   }
 
@@ -66,10 +54,6 @@ class Data {
     var map = <String, dynamic>{};
     map['countCompletedOrders'] = countCompletedOrders;
     map['countOngoingOrders'] = countOngoingOrders;
-    map['countCaptains'] = countCaptains;
-    map['countClients'] = countClients;
-    map['countStores'] = countStores;
-    map['countProducts'] = countProducts;
     map['countOrdersInToday'] = countOrdersInToday;
     return map;
   }

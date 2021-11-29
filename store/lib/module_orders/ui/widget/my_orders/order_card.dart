@@ -12,16 +12,24 @@ class OrderCard extends StatelessWidget {
   final String orderCost;
   final String? completeTime;
   final GestureTapCallback? onTap;
-  OrderCard({this.onTap, required this.orderId,required this.orderStatus,required this.orderDate,this.orderCost = '0',this.completeTime});
+  OrderCard(
+      {this.onTap,
+      required this.orderId,
+      required this.orderStatus,
+      required this.orderDate,
+      this.orderCost = '0',
+      this.completeTime});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
-        onTap:onTap ?? (){
-          Navigator.pushNamed(context,OrdersRoutes.ORDER_TIME_LINE,arguments:orderId);
-        },
+        onTap: onTap ??
+            () {
+              Navigator.pushNamed(context, OrdersRoutes.ORDER_DETAILS,
+                  arguments: orderId);
+            },
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(25),
@@ -39,7 +47,8 @@ class OrderCard extends StatelessWidget {
                       direction: Axis.vertical,
                       children: [
                         Text(S.of(context).orderNumber,
-                            style: TextStyle(fontSize: 14,color: Colors.white)),
+                            style:
+                                TextStyle(fontSize: 14, color: Colors.white)),
                         Text(
                           '$orderId',
                           style: TextStyle(
@@ -56,7 +65,8 @@ class OrderCard extends StatelessWidget {
                       direction: Axis.vertical,
                       children: [
                         Text(S.of(context).orderDate,
-                            style: TextStyle(fontSize: 14,color:Colors.white)),
+                            style:
+                                TextStyle(fontSize: 14, color: Colors.white)),
                         Text(
                           orderDate,
                           style: TextStyle(
@@ -88,8 +98,7 @@ class OrderCard extends StatelessWidget {
                     Text(
                       StatusHelper.getOrderStatusMessages(orderStatus),
                       style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
+                          fontWeight: FontWeight.bold, color: Colors.white),
                     )
                   ],
                 ),
@@ -105,11 +114,20 @@ class OrderCard extends StatelessWidget {
                   children: [
                     Flex(
                       direction: Axis.vertical,
-                      crossAxisAlignment:completeTime != null ? CrossAxisAlignment.start : CrossAxisAlignment.center,
+                      crossAxisAlignment: completeTime != null
+                          ? CrossAxisAlignment.start
+                          : CrossAxisAlignment.center,
                       children: [
-                        Text(completeTime != null ? S.of(context).completeTime : S.of(context).cost, style: TextStyle(fontSize: 14,color: Colors.white)),
                         Text(
-                            completeTime != null ? '${completeTime.toString()}' : '${orderCost} ${S.of(context).sar}',
+                            completeTime != null
+                                ? S.of(context).completeTime
+                                : S.of(context).cost,
+                            style:
+                                TextStyle(fontSize: 14, color: Colors.white)),
+                        Text(
+                          completeTime != null
+                              ? '${completeTime.toString()}'
+                              : '${orderCost} ${S.of(context).sar}',
                           style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,

@@ -1,17 +1,20 @@
+import 'package:mandob_moshtarayat/utils/logger/logger.dart';
+
 class OrderTimeLineResponse {
   String? statusCode;
   String? msg;
   Data? data;
 
-  OrderTimeLineResponse({
-      this.statusCode, 
-      this.msg, 
-      this.data});
+  OrderTimeLineResponse({this.statusCode, this.msg, this.data});
 
   OrderTimeLineResponse.fromJson(dynamic json) {
     statusCode = json['status_code'];
     msg = json['msg'];
     data = json['Data'] != null ? Data.fromJson(json['Data']) : null;
+    try {} catch (e) {
+      Logger().error('Order Time Line', e.toString(), StackTrace.current);
+      statusCode = '-1';
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -23,20 +26,17 @@ class OrderTimeLineResponse {
     }
     return map;
   }
-
 }
 
 class Data {
   OrderStatus? orderStatus;
   List<Logs>? logs;
 
-  Data({
-      this.orderStatus, 
-      this.logs});
+  Data({this.orderStatus, this.logs});
 
   Data.fromJson(dynamic json) {
     if (json['orderStatus'] != null) {
-  orderStatus = OrderStatus.fromJson(json['orderStatus']);
+      orderStatus = OrderStatus.fromJson(json['orderStatus']);
     }
     if (json['logs'] != null) {
       logs = [];
@@ -49,14 +49,13 @@ class Data {
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
     if (orderStatus != null) {
-    //  map['orderStatus'] = orderStatus?.map((v) => v.toJson()).toList();
+      //  map['orderStatus'] = orderStatus?.map((v) => v.toJson()).toList();
     }
     if (logs != null) {
       map['logs'] = logs?.map((v) => v.toJson()).toList();
     }
     return map;
   }
-
 }
 
 class Logs {
@@ -64,15 +63,14 @@ class Logs {
   String? state;
   CreatedAt? createdAt;
 
-  Logs({
-      this.id, 
-      this.state, 
-      this.createdAt});
+  Logs({this.id, this.state, this.createdAt});
 
   Logs.fromJson(dynamic json) {
     id = json['id'];
     state = json['state'];
-    createdAt = json['createdAt'] != null ? CreatedAt.fromJson(json['createdAt']) : null;
+    createdAt = json['createdAt'] != null
+        ? CreatedAt.fromJson(json['createdAt'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -84,7 +82,6 @@ class Logs {
     }
     return map;
   }
-
 }
 
 class CreatedAt {
@@ -92,13 +89,11 @@ class CreatedAt {
   int? offset;
   int? timestamp;
 
-  CreatedAt({
-      this.timezone, 
-      this.offset, 
-      this.timestamp});
+  CreatedAt({this.timezone, this.offset, this.timestamp});
 
   CreatedAt.fromJson(dynamic json) {
-    timezone = json['timezone'] != null ? Timezone.fromJson(json['timezone']) : null;
+    timezone =
+        json['timezone'] != null ? Timezone.fromJson(json['timezone']) : null;
     offset = json['offset'];
     timestamp = json['timestamp'];
   }
@@ -112,7 +107,6 @@ class CreatedAt {
     map['timestamp'] = timestamp;
     return map;
   }
-
 }
 
 class Timezone {
@@ -120,10 +114,7 @@ class Timezone {
   List<Transitions>? transitions;
   Location? location;
 
-  Timezone({
-      this.name, 
-      this.transitions, 
-      this.location});
+  Timezone({this.name, this.transitions, this.location});
 
   Timezone.fromJson(dynamic json) {
     name = json['name'];
@@ -133,7 +124,8 @@ class Timezone {
         transitions?.add(Transitions.fromJson(v));
       });
     }
-    location = json['location'] != null ? Location.fromJson(json['location']) : null;
+    location =
+        json['location'] != null ? Location.fromJson(json['location']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -147,7 +139,6 @@ class Timezone {
     }
     return map;
   }
-
 }
 
 class Location {
@@ -156,11 +147,7 @@ class Location {
   int? longitude;
   String? comments;
 
-  Location({
-      this.countryCode, 
-      this.latitude, 
-      this.longitude, 
-      this.comments});
+  Location({this.countryCode, this.latitude, this.longitude, this.comments});
 
   Location.fromJson(dynamic json) {
     countryCode = json['country_code'];
@@ -177,7 +164,6 @@ class Location {
     map['comments'] = comments;
     return map;
   }
-
 }
 
 class Transitions {
@@ -187,12 +173,7 @@ class Transitions {
   bool? isdst;
   String? abbr;
 
-  Transitions({
-      this.ts, 
-      this.time, 
-      this.offset, 
-      this.isdst, 
-      this.abbr});
+  Transitions({this.ts, this.time, this.offset, this.isdst, this.abbr});
 
   Transitions.fromJson(dynamic json) {
     ts = json['ts'];
@@ -211,18 +192,13 @@ class Transitions {
     map['abbr'] = abbr;
     return map;
   }
-
 }
 
 class OrderStatus {
   String? completionTime;
   String? currentStage;
   String? deliveredTime;
-  OrderStatus({
-      this.completionTime, 
-      this.currentStage,
-      this.deliveredTime
-  });
+  OrderStatus({this.completionTime, this.currentStage, this.deliveredTime});
 
   OrderStatus.fromJson(dynamic json) {
     completionTime = json['completionTime'];
@@ -236,5 +212,4 @@ class OrderStatus {
     map['currentStage'] = currentStage;
     return map;
   }
-
 }

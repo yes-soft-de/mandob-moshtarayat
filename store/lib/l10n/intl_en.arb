@@ -260,7 +260,7 @@
   "updateYourData": "Update Data",
   "community": "Community",
   "waiting": "waiting",
-  "orderList": "Order List",
+  "orderList": "Product List",
   "bill": "Bill",
   "orderPrice": "order price",
   "sum": "total",
@@ -531,5 +531,7 @@
   "lastProduct": "Last product",
   "anotherStore": "Another stores and products",
 
-  "productQuantity": "Product Quantity"
+  "productQuantity": "Product Quantity",
+  "rating": "Rating",
+  "price": "price"
 }

@@ -23,12 +23,14 @@ class OrderTimeLineStateManager {
     _stateSubject.add(LoadingState(screenState));
     _ordersService.getOrderTimeLine(id).then((value) {
       if (value.hasError) {
-        _stateSubject.add(OrderTimLineLoadedState(screenState,null,error: value.error));
+        _stateSubject.add(
+            OrderTimLineLoadedState(screenState, null, error: value.error));
       } else if (value.isEmpty) {
-        _stateSubject.add(OrderTimLineLoadedState(screenState,null,empty: value.isEmpty));
+        _stateSubject.add(
+            OrderTimLineLoadedState(screenState, null, empty: value.isEmpty));
       } else {
         OrderTimeLineModel model = value as OrderTimeLineModel;
-        _stateSubject.add(OrderTimLineLoadedState(screenState,model));
+        _stateSubject.add(OrderTimLineLoadedState(screenState, model));
       }
     });
   }

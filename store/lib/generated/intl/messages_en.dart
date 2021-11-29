@@ -448,7 +448,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Order is finished"),
         "orderIsInUndefinedState":
             MessageLookupByLibrary.simpleMessage("Order is in undefined State"),
-        "orderList": MessageLookupByLibrary.simpleMessage("Order List"),
+        "orderList": MessageLookupByLibrary.simpleMessage("Product List"),
         "orderLog": MessageLookupByLibrary.simpleMessage("Orders Log"),
         "orderNumber": MessageLookupByLibrary.simpleMessage("Order Number"),
         "orderNumberNotFound":
@@ -541,6 +541,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please provide your address on our map"),
         "pleaseSelectABranch":
             MessageLookupByLibrary.simpleMessage("Please Select a Branch"),
+        "price": MessageLookupByLibrary.simpleMessage("price"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "privateOrder": MessageLookupByLibrary.simpleMessage("Private Order"),
         "product": MessageLookupByLibrary.simpleMessage("product"),
@@ -564,6 +565,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "There is no profile data available"),
         "profileFetchedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "Profile Data Fetched Successfully"),
+        "rating": MessageLookupByLibrary.simpleMessage("Rating"),
         "reasonIsRequired":
             MessageLookupByLibrary.simpleMessage("Reason is Required"),
         "reasonOfTheReport":

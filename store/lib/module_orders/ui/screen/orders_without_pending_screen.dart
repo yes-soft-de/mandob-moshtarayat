@@ -3,9 +3,12 @@ import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
 import 'package:mandob_moshtarayat/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
+import 'package:mandob_moshtarayat/global_nav_key.dart';
 import 'package:mandob_moshtarayat/module_auth/authorization_routes.dart';
+import 'package:mandob_moshtarayat/module_orders/state_manager/my_orders_state_manager.dart';
 import 'package:mandob_moshtarayat/module_orders/state_manager/orders_without_pending_state_manager.dart';
 import 'package:mandob_moshtarayat/module_orders/ui/state/my_orders/my_orders_loading_state.dart';
+import 'package:mandob_moshtarayat/module_orders/ui/state/my_orders/my_orders_state.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 
@@ -16,10 +19,12 @@ class OrdersWithoutPendingScreen extends StatefulWidget {
   OrdersWithoutPendingScreen(this._stateManager);
 
   @override
-  OrdersWithoutPendingScreenState createState() => OrdersWithoutPendingScreenState();
+  OrdersWithoutPendingScreenState createState() =>
+      OrdersWithoutPendingScreenState();
 }
 
-class OrdersWithoutPendingScreenState extends State<OrdersWithoutPendingScreen> {
+class OrdersWithoutPendingScreenState
+    extends State<OrdersWithoutPendingScreen> {
   late States currentState;
 
   void refresh() {
@@ -27,13 +32,16 @@ class OrdersWithoutPendingScreenState extends State<OrdersWithoutPendingScreen> 
       setState(() {});
     }
   }
-  Future <void> getOrders() async {
+
+  Future<void> getOrders() async {
     widget._stateManager.getOrders(this);
   }
+
   void goToLogin(){
     Navigator.of(context).pushReplacementNamed(AuthorizationRoutes.LOGIN_SCREEN,arguments:1);
     CustomFlushBarHelper.createError(title:S.current.warnning, message:S.current.pleaseLoginToContinue).show(context);
   }
+
   @override
   void initState() {
     currentState = MyOrdersLoadingState(this);
@@ -48,13 +56,18 @@ class OrdersWithoutPendingScreenState extends State<OrdersWithoutPendingScreen> 
     });
     super.initState();
   }
+
   DateTime? fDate;
   DateTime? lDate;
-   void getOrderFilteredDate(DateTime  firstDate,DateTime endDate){
+  void getOrderFilteredDate(DateTime firstDate, DateTime endDate) {
     fDate = firstDate;
     lDate = endDate;
-    widget._stateManager.getFilteredDateOrders(this, DateFormat('yyyy-MM-dd','en').format(firstDate.toUtc()), DateFormat('yyyy-MM-dd','en').format(endDate.toUtc()));
-   }
+    widget._stateManager.getFilteredDateOrders(
+        this,
+        DateFormat('yyyy-MM-dd', 'en').format(firstDate.toUtc()),
+        DateFormat('yyyy-MM-dd', 'en').format(endDate.toUtc()));
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -75,7 +88,7 @@ class OrdersWithoutPendingScreenState extends State<OrdersWithoutPendingScreen> 
   }
 
   @override
-  void dispose(){
+  void dispose() {
     widget._stateManager.newActionSubscription?.cancel();
     super.dispose();
   }

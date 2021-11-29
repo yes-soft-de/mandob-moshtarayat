@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mandob_moshtarayat/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
+import 'package:mandob_moshtarayat/module_orders/ui/screen/my_orders_screen.dart';
+import 'package:mandob_moshtarayat/module_orders/ui/state/my_orders/my_orders_state.dart';
 import 'package:mandob_moshtarayat/utils/images/images.dart';
-
 
 class MyOrdersEmptyState extends States {
   final String empty;
   State<StatefulWidget> screenState;
   final Function() refresh;
-  MyOrdersEmptyState(this.screenState, this.empty,{required this.refresh}) : super(screenState);
+  MyOrdersEmptyState(this.screenState, this.empty, {required this.refresh})
+      : super(screenState);
 
   @override
   Widget getUI(BuildContext context) {
@@ -18,7 +20,9 @@ class MyOrdersEmptyState extends States {
       child: Flex(
         direction: Axis.vertical,
         children: [
-          Container(height: 75,),
+          Container(
+            height: 75,
+          ),
           Padding(
             padding: const EdgeInsets.all(16),
             child: Center(
@@ -39,7 +43,7 @@ class MyOrdersEmptyState extends States {
                           borderRadius: BorderRadius.circular(10)),
                       elevation: 0),
                   onPressed: () async {
-                  refresh();
+                    refresh();
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),

@@ -439,7 +439,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تم انهاء الطلب"),
         "orderIsInUndefinedState":
             MessageLookupByLibrary.simpleMessage("الطلب في مرحلة غير معروفة"),
-        "orderList": MessageLookupByLibrary.simpleMessage("قائمة الطلبات"),
+        "orderList": MessageLookupByLibrary.simpleMessage("قائمة المنتجات"),
         "orderLog": MessageLookupByLibrary.simpleMessage("سجل الطلبات"),
         "orderNumber": MessageLookupByLibrary.simpleMessage("رقم الطلب"),
         "orderNumberNotFound":
@@ -531,6 +531,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "من فضلك قم بتزويدنا بموقع التسليم على الخارطة"),
         "pleaseSelectABranch":
             MessageLookupByLibrary.simpleMessage("الرجاء اختيار فرع تجاري"),
+        "price": MessageLookupByLibrary.simpleMessage("سعر"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("شروط الخصوصية"),
         "privateOrder": MessageLookupByLibrary.simpleMessage("طلب خاص"),
         "product": MessageLookupByLibrary.simpleMessage("منتج"),
@@ -551,6 +552,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "لايوجد بيانات شخصية متوفرة بعد"),
         "profileFetchedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "تم جلب بياناتك الشخصية بنجاح"),
+        "rating": MessageLookupByLibrary.simpleMessage("التقييم"),
         "reasonIsRequired":
             MessageLookupByLibrary.simpleMessage("الرجاء تزويدنا بسبب الابلاغ"),
         "reasonOfTheReport":

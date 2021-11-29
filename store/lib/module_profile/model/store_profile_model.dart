@@ -18,6 +18,7 @@ class StoreProfileModel extends DataModel {
   bool hasProducts = false;
   String? closingTime;
   String? openingTime;
+  List<BranchesModel>? branches;
 
   StoreProfileModel? _models;
 
@@ -32,10 +33,17 @@ class StoreProfileModel extends DataModel {
       required this.hasProducts,
       required this.storeCategoryId,
       this.closingTime,
-      this.openingTime
+      this.openingTime,
+        this.branches
       });
 
   StoreProfileModel.withData(Data data) : super.withData() {
+    List<BranchesModel> branches =[];
+    data.branches!.forEach((v) {
+      print('ss');
+      print(v.location!.lon??0);
+      branches.add(BranchesModel(isActive: v.isActive??false,location: Location(lat: v.location?.lat,lon: v.location?.lon)));
+    });
     _models = StoreProfileModel(
       storeCategoryName: data.storeCategoryName??'',
         id: data.id ?? -1,
@@ -48,10 +56,36 @@ class StoreProfileModel extends DataModel {
         phone: data.phone ?? '',
        openingTime:DateFormat.jm().format(DateHelper.convert(data.openingTime?.timestamp)),
        closingTime:DateFormat.jm().format(DateHelper.convert(data.closingTime?.timestamp)),
+      branches: branches
     );
   }
 
   StoreProfileModel get data {
+    if (_models != null) {
+      return _models!;
+    }
+    else {
+      throw Exception('There is no data');
+    }
+  }
+}
+
+class BranchesModel extends DataModel{
+  Location location=Location(lat: 0,lon: 0);
+  bool isActive=false;
+
+  BranchesModel? _models;
+
+  BranchesModel({required this.location, required this.isActive});
+
+  BranchesModel.withData(Branches data) : super.withData() {
+    _models = BranchesModel(
+      location: data.location??Location(lat: 0,lon: 0),
+      isActive: data.isActive??false
+    );
+  }
+
+  BranchesModel get data {
     if (_models != null) {
       return _models!;
     }

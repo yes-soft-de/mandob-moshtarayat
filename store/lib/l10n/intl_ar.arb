@@ -258,7 +258,7 @@
   "updateYourData": "تحديث البيانات",
   "community": "مواقع التواصل الاجتماعي",
   "waiting": "في الانتظار",
-  "orderList": "قائمة الطلبات",
+  "orderList": "قائمة المنتجات",
   "bill": "الفاتورة",
   "orderPrice": "سعر الطلب",
   "sum": "المجموع",
@@ -530,5 +530,7 @@
   "lastProduct": "المنتجات الأحدث",
   "anotherStore": "متاجر ومنتجات أخرى",
 
-  "productQuantity": "كمية المنتج"
+  "productQuantity": "كمية المنتج",
+  "rating": "التقييم",
+  "price": "سعر"
 }

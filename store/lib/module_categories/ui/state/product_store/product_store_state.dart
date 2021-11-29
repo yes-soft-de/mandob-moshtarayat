@@ -3,6 +3,7 @@ import 'package:mandob_moshtarayat/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_categories/model/products_model.dart';
 import 'package:mandob_moshtarayat/module_categories/ui/screen/store_products_screen.dart';
+import 'package:mandob_moshtarayat/module_categories/ui/widget/product_component.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_list_view.dart';
 import 'package:mandob_moshtarayat/utils/components/empty_screen.dart';
 import 'package:mandob_moshtarayat/utils/components/error_screen.dart';
@@ -57,104 +58,8 @@ class ProductStoreState extends States {
       if (id != null && id != element.storeProductCategoryID.toString()) {
         continue;
       }
-      widgets.add(Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: InkWell(
-          borderRadius:BorderRadius.circular(25),
-          onTap: (){
-            //   Navigator.of(screenState.context).pushNamed(StoresRoutes.STORES,arguments: element.id.toString());
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              color: Theme.of(screenState.context).primaryColor,
-              borderRadius: BorderRadius.circular(25),
-            ),
-            child: Flex(
-              direction: Axis.horizontal,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(25),
-                    child: SizedBox(
-                      height: 100,
-                      width: 100,
-                      child: CustomNetworkImage(
-                        imageSource: element.productImage.image??'',
-                        width: 100,
-                        height: 100,
-                      ),
-                    ),
-                  ),
-                ),
-                Column(
-                  children: [
-                    Text(
-                      element.productName,
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold
-                      ),
-                    ),
-                    SizedBox(height: 10,),
-                    Text(
-                      element.productPrice.toString() +' S.R',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold
-                      ),
-                    ),
-                  ],
-                ),
-                    Container()
-
-//                InkWell(
-//                  customBorder: CircleBorder(),
-//                  onTap: (){
-//                    showDialog(context: screenState.context, builder:(context){
-//                      return UpdateProductsForm(
-//                        request: UpdateProductRequest(
-//                          productName: element.productName,
-//                          productImage: element.productImage.image??'',
-//                          productPrice: element.productPrice.toDouble()
-//                        ),
-//                        addProduct: (name,price,image){
-//                          Navigator.of(context).pop();
-////                         screenState.updateProduct(UpdateProductRequest(
-////                              id: element.id,
-////                              productName: name,
-////                              productImage: image,
-////                              productPrice:double.parse(price),
-////                              storeProductCategoryID:element.storeProductCategoryID,
-////                              // storeOwnerProfileID: element.storeOwnerProfileID
-////                          ));
-//                        },
-//                      );
-//                    });
-//                  },
-//                  child: Padding(
-//                    padding: const EdgeInsets.all(16.0),
-//                    child: Container(
-//                      decoration: BoxDecoration(
-//                        shape: BoxShape.circle,
-//                        color: Theme.of(screenState.context).backgroundColor.withOpacity(0.2),
-//                      ),
-//                      child: Padding(
-//                        padding: const EdgeInsets.all(8.0),
-//                        child: Icon(
-//                          Icons.edit,
-//                          color: Colors.white,
-//                        ),
-//                      ),
-//                    ),
-//                  ),
-//                ),
-              ],
-            ),
-          ),
-        ),
-      ));
+      widgets.add(          ProductComponent(discount: element.discount.toString(),description: '',image: element.productImage.image??'',rating: 0,title: element.productName, productId: element.id.toString(),price: element.productPrice.toString())
+      );
     }
     return widgets;
   }

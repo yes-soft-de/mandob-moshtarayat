@@ -2630,10 +2630,10 @@ class S {
     );
   }
 
-  /// `Order List`
+  /// `Product List`
   String get orderList {
     return Intl.message(
-      'Order List',
+      'Product List',
       name: 'orderList',
       desc: '',
       args: [],
@@ -5305,6 +5305,26 @@ class S {
     return Intl.message(
       'Product Quantity',
       name: 'productQuantity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rating`
+  String get rating {
+    return Intl.message(
+      'Rating',
+      name: 'rating',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `price`
+  String get price {
+    return Intl.message(
+      'price',
+      name: 'price',
       desc: '',
       args: [],
     );
