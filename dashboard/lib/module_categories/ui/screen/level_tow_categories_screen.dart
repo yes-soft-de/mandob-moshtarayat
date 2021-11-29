@@ -6,8 +6,6 @@ import 'package:mandob_moshtarayat_dashboad/di/di_config.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/global_nav_key.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/category_level_tow_request.dart';
-import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_products_request.dart';
-import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_product_category_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/state_manager/products_category_state_manager.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/state/product_category/product_categories_loaded_state.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/widget/add_categories_level_tow.dart';
@@ -15,7 +13,6 @@ import 'package:mandob_moshtarayat_dashboad/utils/components/custom_app_bar.dart
 import 'package:mandob_moshtarayat_dashboad/utils/components/floated_button.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/effect/hidder.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/global/global_state_manager.dart';
-import 'package:mandob_moshtarayat_dashboad/utils/helpers/form_dialog.dart';
 
 @injectable
 class LevelTowCategoriesScreen extends StatefulWidget {
@@ -54,6 +51,7 @@ class LevelTowCategoriesScreenState extends State<LevelTowCategoriesScreen> {
   }
 
   void getSubCategories(categories) {
+    subCatId = null;
     widget.stateManager.getCategoriesLevelOne(this,int.parse(mainCatId ?? '0'),categories);
   }
 

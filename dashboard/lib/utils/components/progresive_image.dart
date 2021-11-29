@@ -1,10 +1,8 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:mandob_moshtarayat_dashboad/utils/customIcon/mandob_icons_icons.dart';
 import 'package:pinch_zoom/pinch_zoom.dart';
 import 'package:progressive_image/progressive_image.dart';
 import 'package:mandob_moshtarayat_dashboad/consts/urls.dart';
-import 'package:mandob_moshtarayat_dashboad/utils/customIcon/custom_icons.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/images/images.dart';
 
 class CustomNetworkImage extends StatelessWidget {
@@ -44,7 +42,7 @@ class CustomNetworkImage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0),
                   child: Icon(
-                    CustomIcon.logo,
+                    MandobIcons.logo,
                     size: 30,
                   ),
                 ),
@@ -131,7 +129,7 @@ class CustomNetworkImage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0),
                     child: Icon(
-                      CustomIcon.logo,
+                      MandobIcons.logo,
                       size: 30,
                     ),
                   ),

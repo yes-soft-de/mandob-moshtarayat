@@ -1,21 +1,18 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mandob_moshtarayat_dashboad/di/di_config.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/model/subCategoriesModel.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/state/product_category/product_categories_loaded_state.dart';
-import 'package:mandob_moshtarayat_dashboad/module_categories/ui/state/sub_categories/sub_categories_loaded_state.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_feild.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_list_view.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/stacked_form.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/effect/checked.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/effect/hidder.dart';
-import 'package:mandob_moshtarayat_dashboad/utils/global/global_state_manager.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/helpers/custom_flushbar.dart';
 
 class AddSubCategoriesLevelTowWidget extends StatefulWidget {
-  final Function(String, String, String,String) addSubCategories;
+  final Function(String, String, String,String?) addSubCategories;
   final ProductCategoriesLoadedState? state;
   final SubCategoriesModel? subCategoriesModel;
   final String? catID;
@@ -32,7 +29,7 @@ class _AddSubCategoriesWidgetState extends State<AddSubCategoriesLevelTowWidget>
   late TextEditingController _nameController;
   String? catId;
   String? subCatId;
-  late String imagePath = '';
+  String? imagePath;
 
   @override
   Widget build(BuildContext context) {
@@ -136,13 +133,8 @@ class _AddSubCategoriesWidgetState extends State<AddSubCategoriesLevelTowWidget>
                                 .getImage(source: ImageSource.gallery, imageQuality: 70,)
                                 .then((value) {
                               if (value != null) {
-                                if (value.path.contains('.png')) {
                                   imagePath = value.path;
                                   setState(() {});
-                                }
-                                else {
-                                  CustomFlushBarHelper.createError(title: S.current.warnning, message: S.current.badFormat).show(context);
-                                }
                               }
                             });
                           },
@@ -151,15 +143,15 @@ class _AddSubCategoriesWidgetState extends State<AddSubCategoriesLevelTowWidget>
                               Icons.image,
                               size: 125,
                             ),
-                            checked: imagePath != '',
+                            checked: imagePath != null,
                             checkedWidget: SizedBox(
                                 height: 250,
                                 child: ClipRRect(
                                     borderRadius: BorderRadius.circular(25),
-                                    child: imagePath.contains('http')
-                                        ? Image.network(imagePath)
+                                    child: imagePath?.contains('http') == true
+                                        ? Image.network(imagePath ?? '')
                                         : Image.file(
-                                      File(imagePath),
+                                      File(imagePath ?? ''),
                                       fit: BoxFit.scaleDown,
                                     ))),
                           ),
@@ -189,15 +181,14 @@ class _AddSubCategoriesWidgetState extends State<AddSubCategoriesLevelTowWidget>
             )),
         label: S.current.save,
         onTap: () {
-          if (_key.currentState!.validate() &&
-              imagePath != '' ) {
+          if (_key.currentState!.validate() && catId != null && subCatId != null) {
             Navigator.of(context).pop();
             widget.addSubCategories(
                 catId.toString(),
                 subCatId.toString(),
                 _nameController.text.trim(),
                 imagePath);
-            if (imagePath.contains('http') && widget.subCategoriesModel != null){
+            if (imagePath?.contains('http') == true && widget.subCategoriesModel != null){
               imagePath = widget.subCategoriesModel?.baseImage ?? '' ;
             }
           } else {
@@ -214,7 +205,10 @@ class _AddSubCategoriesWidgetState extends State<AddSubCategoriesLevelTowWidget>
     _nameController = TextEditingController();
     if (widget.subCategoriesModel != null){
       _nameController.text = widget.subCategoriesModel!.categoryName;
-      imagePath = widget.subCategoriesModel!.image;
+      imagePath = widget.subCategoriesModel?.image;
+      if (imagePath == ''){
+        imagePath = null;
+      }
       catId = widget.catID ?? '';
       subCatId = widget.subCatID ?? '';
     }

@@ -80,13 +80,7 @@ class ProductsCategoryStateManager {
   void createProductCategory(LevelTowCategoriesScreenState screenState,
       CategoryLevelTowRequest request) {
     _stateSubject.add(LoadingState(screenState));
-    _uploadService.uploadImage(request.productCategoryImage!).then((value) {
-      if (value == null) {
-        getProductCategory(screenState);
-        CustomFlushBarHelper.createError(
-            title: S.current.warnning, message: S.current.errorUploadingImages)
-          ..show(screenState.context);
-      } else {
+    _uploadService.uploadImage(request.productCategoryImage).then((value) {
         request.productCategoryImage = value;
         _categoriesService.createProductCategories(request).then((value) {
           if (value.hasError) {
@@ -102,7 +96,6 @@ class ProductsCategoryStateManager {
               ..show(screenState.context);
           }
         });
-      }
     });
   }
 
@@ -126,13 +119,7 @@ class ProductsCategoryStateManager {
       });
     }
     else
-    _uploadService.uploadImage(request.productCategoryImage!).then((value) {
-      if (value == null) {
-        getProductCategory(screenState);
-        CustomFlushBarHelper.createError(
-            title: S.current.warnning, message: S.current.errorUploadingImages)
-          ..show(screenState.context);
-      } else {
+    _uploadService.uploadImage(request.productCategoryImage).then((value) {
         request.productCategoryImage = value;
         _categoriesService.updateProductCategory(request).then((value) {
           if (value.hasError) {
@@ -148,7 +135,6 @@ class ProductsCategoryStateManager {
               ..show(screenState.context);
           }
         });
-      }
     });
   }
 }

@@ -1,3 +1,4 @@
+import 'package:mandob_moshtarayat_dashboad/module_categories/response/store_categories_response.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/logger/logger.dart';
 
 class StoresFilterResponse {
@@ -8,15 +9,16 @@ class StoresFilterResponse {
   StoresFilterResponse({this.statusCode, this.msg, this.data});
 
   StoresFilterResponse.fromJson(dynamic json) {
+    statusCode = json['status_code'];
+    msg = json['msg'];
+    if (json['Data'] != null) {
+      data = [];
+      json['Data'].forEach((v) {
+        data?.add(Data.fromJson(v));
+      });
+    }
     try {
-      statusCode = json['status_code'];
-      msg = json['msg'];
-      if (json['Data'] != null) {
-        data = [];
-        json['Data'].forEach((v) {
-          data?.add(Data.fromJson(v));
-        });
-      }
+
     } catch (e) {
       Logger()
           .error('Stores Filter Response', e.toString(), StackTrace.current);
@@ -38,8 +40,8 @@ class StoresFilterResponse {
 class Data {
   int? id;
   String? storeOwnerName;
-  int? storeOwnerID;
-  String? image;
+  String? storeOwnerID;
+  Image? image;
   String? status;
   dynamic roomID;
   int? storeCategoryId;
@@ -65,7 +67,7 @@ class Data {
     id = json['id'];
     storeOwnerName = json['storeOwnerName'];
     storeOwnerID = json['storeOwnerID'];
-    image = json['image'];
+    image = json['image'] != null ? Image.fromJson(json['image']) : null;
     status = json['status'];
     roomID = json['roomID'];
     storeCategoryId = json['storeCategoryId'];

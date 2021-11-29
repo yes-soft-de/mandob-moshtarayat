@@ -12,23 +12,26 @@ import 'package:mandob_moshtarayat_dashboad/utils/effect/hidder.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/helpers/custom_flushbar.dart';
 
 class AddSubCategoriesWidget extends StatefulWidget {
-  final Function(String, String, String) addSubCategories;
+  final Function(String, String, String?) addSubCategories;
   final SubCategoriesLoadedState? state;
   final SubCategoriesModel? subCategoriesModel;
   final String? catID;
 
-  AddSubCategoriesWidget({required this.addSubCategories, this.state,this.subCategoriesModel,this.catID});
+  AddSubCategoriesWidget(
+      {required this.addSubCategories,
+      this.state,
+      this.subCategoriesModel,
+      this.catID});
 
   @override
   _AddSubCategoriesWidgetState createState() => _AddSubCategoriesWidgetState();
 }
 
 class _AddSubCategoriesWidgetState extends State<AddSubCategoriesWidget> {
-
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   late TextEditingController _nameController;
   String? catId;
-  late String imagePath = '';
+  String? imagePath;
 
   @override
   Widget build(BuildContext context) {
@@ -91,23 +94,20 @@ class _AddSubCategoriesWidgetState extends State<AddSubCategoriesWidget> {
                           padding: const EdgeInsets.all(16.0),
                           child: Center(
                               child: Text(
-                                S.current.categoryImage,
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              )),
+                            S.current.categoryImage,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          )),
                         ),
                         InkWell(
                           onTap: () {
                             ImagePicker.platform
-                                .getImage(source: ImageSource.gallery, imageQuality: 70,)
-                                .then((value) {
+                                .getImage(
+                              source: ImageSource.gallery,
+                              imageQuality: 70,
+                            ).then((value) {
                               if (value != null) {
-                                if (value.path.contains('.png')) {
-                                  imagePath = value.path;
-                                  setState(() {});
-                                }
-                                else {
-                                  CustomFlushBarHelper.createError(title: S.current.warnning, message: S.current.badFormat).show(context);
-                                }
+                                imagePath = value.path;
+                                setState(() {});
                               }
                             });
                           },
@@ -116,17 +116,17 @@ class _AddSubCategoriesWidgetState extends State<AddSubCategoriesWidget> {
                               Icons.image,
                               size: 125,
                             ),
-                            checked: imagePath != '',
+                            checked: imagePath != null,
                             checkedWidget: SizedBox(
                                 height: 250,
                                 child: ClipRRect(
                                     borderRadius: BorderRadius.circular(25),
-                                    child: imagePath.contains('http')
-                                        ? Image.network(imagePath)
+                                    child: imagePath?.contains('http') == true
+                                        ? Image.network(imagePath ?? '')
                                         : Image.file(
-                                      File(imagePath),
-                                      fit: BoxFit.scaleDown,
-                                    ))),
+                                            File(imagePath ?? ''),
+                                            fit: BoxFit.scaleDown,
+                                          ))),
                           ),
                         ),
                         Padding(
@@ -134,8 +134,9 @@ class _AddSubCategoriesWidgetState extends State<AddSubCategoriesWidget> {
                           child: Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(25),
-                                color: Theme.of(context).primaryColor.withOpacity(0.4)
-                            ),
+                                color: Theme.of(context)
+                                    .primaryColor
+                                    .withOpacity(0.4)),
                             child: Padding(
                               padding: const EdgeInsets.all(16.0),
                               child: Text(
@@ -155,18 +156,17 @@ class _AddSubCategoriesWidgetState extends State<AddSubCategoriesWidget> {
         label: S.current.save,
         onTap: () {
           if (_key.currentState!.validate() &&
-              imagePath != '' && catId != null) {
-            if (imagePath.contains('http') && widget.subCategoriesModel != null){
-              imagePath = widget.subCategoriesModel?.imageUrl ?? '' ;
-          }
+              catId != null) {
+            if (imagePath?.contains('http')  == true &&
+                widget.subCategoriesModel != null) {
+              imagePath = widget.subCategoriesModel?.imageUrl ?? '';
+            }
             widget.addSubCategories(
-                catId.toString(),
-                _nameController.text.trim(),
-                imagePath);
+                catId.toString(), _nameController.text.trim(), imagePath);
           } else {
             CustomFlushBarHelper.createError(
-                title: S.current.warnning,
-                message: S.current.pleaseCompleteTheForm)
+                    title: S.current.warnning,
+                    message: S.current.pleaseCompleteTheForm)
                 .show(context);
           }
         });
@@ -175,9 +175,12 @@ class _AddSubCategoriesWidgetState extends State<AddSubCategoriesWidget> {
   @override
   void initState() {
     _nameController = TextEditingController();
-    if (widget.subCategoriesModel != null){
+    if (widget.subCategoriesModel != null) {
       _nameController.text = widget.subCategoriesModel!.categoryName;
-      imagePath = widget.subCategoriesModel!.image;
+      imagePath = widget.subCategoriesModel?.image;
+      if (imagePath == ''){
+        imagePath = null;
+      }
       catId = widget.catID ?? '';
     }
     super.initState();
