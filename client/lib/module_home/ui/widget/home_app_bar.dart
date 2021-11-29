@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_home/ui/widget/catagories_card.dart';
+import 'package:mandob_moshtarayat/module_my_notifications/my_notifications_routes.dart';
 import 'package:mandob_moshtarayat/module_products/products_routes.dart';
 import 'package:mandob_moshtarayat/module_search/search_routes.dart';
 import 'package:mandob_moshtarayat/utils/components/costom_search.dart';
@@ -48,7 +49,7 @@ class _CustomHomeAppBarState extends State<CustomHomeAppBar> {
                 ),
                 Expanded(child: GestureDetector(
                     onTap: (){
-                      Navigator.of(context).pushNamed(ProductsRoutes.CART_SCREEN);
+                      Navigator.of(context).pushNamed(MyNotificationsRoutes.MY_NOTIFICATIONS);
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -57,7 +58,7 @@ class _CustomHomeAppBarState extends State<CustomHomeAppBar> {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(12.0),
-                        child: Icon(Icons.shopping_cart,color:Colors.white),
+                        child: Icon(Icons.notifications,color:Colors.white),
                       )))),
               ],
             ),
