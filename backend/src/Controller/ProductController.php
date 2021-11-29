@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Request\DeleteRequest;
 use App\Request\ProductCancelByStoreOwnerRequest;
 use App\Request\ProductCreateRequest;
+use App\Request\ProductFilterByNameRequest;
 use App\Request\ProductUpdateByStoreOwnerRequest;
 use App\Request\ProductUpdateRequest;
 use App\Service\ProductService;
@@ -353,6 +354,7 @@ class ProductController extends BaseController
     }
 
     /**
+     * store: Get products of specific store for store , or filter by product name.
      * @Route("getproductsstore", name="getStoreProducts", methods={"GET"})
      * @IsGranted("ROLE_OWNER")
      * @return JsonResponse
@@ -377,7 +379,7 @@ class ProductController extends BaseController
      *                  @OA\Property(type="integer", property="id"),
      *                  @OA\Property(type="string", property="productName"),
      *                  @OA\Property(type="number", property="productPrice"),
-     *                  @OA\Property(type="number", property="productQuantity"),
+     *                  @OA\Property(type="integer", property="productQuantity"),
      *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
      *                  @OA\Property(type="integer", property="storeProductCategoryID"),
      *                  @OA\Property(type="string", property="description"),
@@ -397,9 +399,14 @@ class ProductController extends BaseController
      * @Security(name="Bearer")
      *
      */
-    public function getStoreProducts(): JsonResponse
+    public function getStoreProducts(Request $request): JsonResponse
     {
-        $result = $this->productService->getStoreProducts($this->getUserId());
+
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, ProductFilterByNameRequest::class, (object)$data);
+
+        $result = $this->productService->getStoreProducts($this->getUserId(),$request);
 
         return $this->response($result, self::FETCH);
     }
@@ -790,6 +797,7 @@ class ProductController extends BaseController
     }
 
     /**
+     * Client: get Last 30 Products.
      * @Route("/productslast30", name="getLast30Products", methods={"GET"})
      * @return JsonResponse
      * *

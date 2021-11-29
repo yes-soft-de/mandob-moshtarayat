@@ -252,7 +252,7 @@ class ProductEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('product')
 
-            ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID')
+            ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID','product.discount', 'product.description', 'product.productQuantity', 'product.status')
             ->addSelect('storeOwnerProfile.id as storeOwnerProfileID', 'storeOwnerProfile.storeOwnerName as storeOwnerName', 'storeOwnerProfile.image as storeImage')
             ->addSelect('DeliveryCompanyFinancialEntity.deliveryCost')
             
@@ -262,6 +262,27 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->andWhere('product.productName LIKE :productName')
 
             ->setParameter('productName', '%'.$name.'%')
+
+            ->setMaxResults(20)
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getProductsByNameAndStoreOwnerProfileId($name, $storeOwnerProfileId)
+    {
+        return $this->createQueryBuilder('product')
+
+            ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID','product.discount', 'product.description', 'product.productQuantity', 'product.status')
+            ->addSelect('storeOwnerProfile.id as storeOwnerProfileID', 'storeOwnerProfile.storeOwnerName as storeOwnerName', 'storeOwnerProfile.image as storeImage')
+
+            ->leftJoin(StoreOwnerProfileEntity::class, 'storeOwnerProfile', Join::WITH, 'storeOwnerProfile.id = product.storeOwnerProfileID')
+
+            ->andWhere('product.productName LIKE :productName')
+            ->andWhere('product.storeOwnerProfileID = :storeOwnerProfileId')
+
+            ->setParameter('productName', '%'.$name.'%')
+            ->setParameter('storeOwnerProfileId', $storeOwnerProfileId)
 
             ->setMaxResults(20)
 
