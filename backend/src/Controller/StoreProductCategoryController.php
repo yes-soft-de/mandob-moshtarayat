@@ -630,5 +630,48 @@ class StoreProductCategoryController extends BaseController
 
         return $this->response($result, self::FETCH);
     }
+    /**
+     * client: Get the products of the first subcategory
+     * @Route("productsbystorecategroylevelone/{storeProductCategoryID}", name="getProductsByStoreCategroyLevelOne", methods={"GET"})
+     * @return JsonResponse
+     * @IsGranted("ROLE_OWNER")
+     * *
+     * @OA\Tag(name="Store Product Category")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Get the products of the first subcategory ",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="productName"),
+     *                  @OA\Property(type="number", property="productPrice"),
+     *                  @OA\Property(type="integer", property="productQuantity"),
+     *                  @OA\Property(type="integer", property="storeProductCategoryID"),
+     *                  @OA\Property(type="object", property="image",
+     *                      @OA\Property(type="string", property="imageURL"),
+     *                      @OA\Property(type="string", property="image"),
+     *                      @OA\Property(type="string", property="baseURL"),
+     *                  ),
+     *                  @OA\Property(type="integer", property="discount"),
+     *                  @OA\Property(type="string", property="description"),
+     *                  @OA\Property(type="string", property="rate"),
+     *                  @OA\Property(type="string", property="soldCount"),
+     *                  @OA\Property(type="string", property="status"),
+     *              )
+     *          )
+     *      )
+     *  )
+     *
+     */
+    public function getProductsByStoreCategroyLevelOne($storeProductCategoryID)
+    {
+        $result = $this->storeProductCategoryService->getProductsByStoreCategroyLevelOne($storeProductCategoryID, $this->getUserId());
+
+        return $this->response($result, self::FETCH);
+    }
 
 }
