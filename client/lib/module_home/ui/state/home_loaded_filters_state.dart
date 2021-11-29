@@ -94,7 +94,8 @@ class HomeLoadedFilterState extends HomeState {
             id: element.subCategoriesID.toString(),
             title: element.productCategoryName,
             selected: subCategory ==  element.subCategoriesID.toString(),
-            icon: Icons.phone_android_rounded,
+             icon: element.productCategoryImage == '' ? Icons.category : null,
+            image: element.productCategoryImage,
             onTap: (selected) {
               subCategory = selected;
               catsLevel2 = element.productCategoriesLevel2;
@@ -115,7 +116,8 @@ class HomeLoadedFilterState extends HomeState {
             id: element.id.toString(),
             title: element.name,
             selected: subCategoryLevel2ID == element.id.toString(),
-            icon: Icons.phone_android_rounded,
+            icon: element.image == '' ? Icons.category : null,
+            image: element.image,
             onTap: (selected) {
               subCategoryLevel2ID = selected;
               screenState.getProducts(selected);

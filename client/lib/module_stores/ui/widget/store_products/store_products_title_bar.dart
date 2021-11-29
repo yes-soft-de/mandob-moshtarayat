@@ -27,7 +27,7 @@ class StoreProductsTitleBar extends StatelessWidget {
               title,
               style: TextStyle(
                   color: Colors.white,
-                  fontSize: 25,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold),
             ),
             Flex(

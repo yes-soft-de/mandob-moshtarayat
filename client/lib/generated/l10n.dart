@@ -3709,6 +3709,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Please rate this product`
+  String get rateProductMessage {
+    return Intl.message(
+      'Please rate this product',
+      name: 'rateProductMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rate Product`
+  String get rateProduct {
+    return Intl.message(
+      'Rate Product',
+      name: 'rateProduct',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

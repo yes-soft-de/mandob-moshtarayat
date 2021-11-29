@@ -143,7 +143,7 @@ List<Item> toCartList(List<OrderDetails> ordersItems) {
         productID: element.productID ?? -1,
         productName: element.productName ?? S.current.product,
         //element.productImage ??
-        productImage: element.productImage ?? '',
+        productImage: element.productImage?.image ?? '',
         productPrice: element.productPrice ?? 0,
         countProduct: element.countProduct ?? 1,
         storeOwnerProfileID: element.storeOwnerProfileID ?? -1,

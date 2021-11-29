@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="de.yessoft.mandob_moshtarayat">
+    package="de.yessoft.mandob_moshtarayat_client">
    <application
-        android:label="mandob_moshtarayat"
-        android:icon="@mipmap/ic_launcher">
+        android:label="@string/app_name"
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
