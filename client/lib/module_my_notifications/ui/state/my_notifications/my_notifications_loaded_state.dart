@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat/module_my_notifications/notification_model.dart';
 import 'package:mandob_moshtarayat/module_my_notifications/ui/screen/my_notifications_screen.dart';
 import 'package:mandob_moshtarayat/module_my_notifications/ui/widget/my_notifications/my_notifications_app_bar.dart';
+import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
 
 import 'package:mandob_moshtarayat/utils/text_style/text_style.dart';
 import 'my_notifications_state.dart';
@@ -15,45 +16,48 @@ class MyNotificationsLoadedState extends MyNotificationsState {
 
   @override
   Widget getUI(BuildContext context) {
-    return Container(
-      color: Theme.of(context).cardColor,
-      child: RefreshIndicator(
-        onRefresh: () {
-          return screenState.getNotifications();
-        },
-        child: ListView(
-          physics:
-              BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-          children: [
-            MyNotificationsAppBar(),
-            Padding(
-              padding: const EdgeInsets.only(
-                right: 10.0,
-                left: 10,
-              ),
-              child: ListTile(
-                leading: FaIcon(
-                  FontAwesomeIcons.sortAmountDown,
-                  color: Theme.of(context).primaryColor,
-                  size: 18,
+    return Scaffold(
+      appBar: CustomTwaslnaAppBar.appBar(context, title: S.current.notifications,background: Theme.of(context).cardColor),
+      body: Container(
+        color: Theme.of(context).cardColor,
+        child: RefreshIndicator(
+          onRefresh: () {
+            return screenState.getNotifications();
+          },
+          child: ListView(
+            physics:
+                BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+            children: [
+              MyNotificationsAppBar(),
+              Padding(
+                padding: const EdgeInsets.only(
+                  right: 10.0,
+                  left: 10,
                 ),
-                title: Text(
-                  S.of(context).sortByEarlier,
-                  style: StyleText.categoryStyle,
+                child: ListTile(
+                  leading: FaIcon(
+                    FontAwesomeIcons.sortAmountDown,
+                    color: Theme.of(context).primaryColor,
+                    size: 18,
+                  ),
+                  title: Text(
+                    S.of(context).sortByEarlier,
+                    style: StyleText.categoryStyle,
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-              child: ListView(
-                  shrinkWrap: true,
-                  physics: ScrollPhysics(),
-                  children: getNotification(context)),
-            ),
-            SizedBox(
-              height: 75,
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                child: ListView(
+                    shrinkWrap: true,
+                    physics: ScrollPhysics(),
+                    children: getNotification(context)),
+              ),
+              SizedBox(
+                height: 75,
+              ),
+            ],
+          ),
         ),
       ),
     );
