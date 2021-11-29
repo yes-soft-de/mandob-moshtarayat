@@ -52,6 +52,11 @@ class StoreCategoryManager
        return $this->storeCategoryEntityRepository->getStoreCategories();
     }
 
+    public function getMainCategoriesAndStores()
+    {
+        return $this->storeCategoryEntityRepository->getStoreCategories();
+    }
+
     public function getStoreCategory($id): ?StoreCategoryEntity
     {
        return $this->storeCategoryEntityRepository->find($id);

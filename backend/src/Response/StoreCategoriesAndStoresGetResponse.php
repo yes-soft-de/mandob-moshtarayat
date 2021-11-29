@@ -2,12 +2,10 @@
 
 namespace App\Response;
 
-class StoreCategoriesAndStoresResponse
+class StoreCategoriesAndStoresGetResponse
 {
     public $id;
 
     public $storeCategoryName;
-
-    public $stores;
 
 }

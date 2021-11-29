@@ -212,7 +212,6 @@ class StoreCategoryController extends BaseController
           return $this->response($result, self::FETCH);
       }
 
-
     /**
      * Get Store Categories And Stores.
      * @Route("storecategoriesandstores", name="getStoreCategoriesAndLast15Stores", methods={"GET"})
@@ -269,4 +268,48 @@ class StoreCategoryController extends BaseController
 
         return $this->response($result, self::FETCH);
     }
+
+    /**
+     * Client: Get Main Categories And its Stores.
+     * @Route("maincategoriesandstores", name="getMainCategoriesAndStores", methods={"GET"})
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Store Category")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Get Store Categories And Stores",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="storeCategoryName"),
+     *                  @OA\Property(type="array", property="stores",
+     *                      @OA\Items(
+     *                          @OA\Property(type="integer", property="id"),
+     *                          @OA\Property(type="string", property="storeOwnerName"),
+     *                          @OA\Property(type="object", property="image",
+     *                              @OA\Property(type="string", property="imageURL"),
+     *                              @OA\Property(type="string", property="image"),
+     *                              @OA\Property(type="string", property="baseURL"),
+     *                          ),
+     *                          @OA\Property(type="string", property="phone"),
+     *                          @OA\Property(type="string", property="status")
+     *                      )
+     *                  )
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     */
+    public function getMainCategoriesAndStores(): JsonResponse
+    {
+        $result = $this->storeCategoryService->getMainCategoriesAndStores();
+
+        return $this->response($result, self::FETCH);
+    }
+
 }

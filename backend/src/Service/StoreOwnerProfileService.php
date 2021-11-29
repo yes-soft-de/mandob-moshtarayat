@@ -153,6 +153,11 @@ class StoreOwnerProfileService
         return $response;
     }
 
+    public function getStoreOwnerProfileByCategoryID($storeCategoryID)
+    {
+        return $this->storeOwnerProfileManager->getStoreOwnerProfileByCategoryID($storeCategoryID);
+    }
+
     public function getStoreOwnerByCategoryId($storeCategoryId):array
     {
         $response = [];
