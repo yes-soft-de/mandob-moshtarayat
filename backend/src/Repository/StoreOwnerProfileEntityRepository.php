@@ -63,7 +63,7 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('profile')
 
-            ->select('profile.id', 'profile.storeOwnerName', 'profile.image', 'profile.phone', 'profile.privateOrders', 'profile.hasProducts', 'profile.status')
+            ->select('profile.id', 'profile.storeOwnerName', 'profile.image', 'profile.phone', 'profile.privateOrders', 'profile.hasProducts', 'profile.status', 'profile.openingTime', 'profile.closingTime')
             ->addSelect('StoreOwnerBranchEntity.location')
             ->addSelect('DeliveryCompanyFinancialEntity.deliveryCost')
 
