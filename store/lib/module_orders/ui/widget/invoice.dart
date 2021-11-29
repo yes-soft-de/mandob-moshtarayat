@@ -5,6 +5,7 @@ import 'package:mandob_moshtarayat/consts/urls.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/utils/components/progresive_image.dart';
 import 'package:mandob_moshtarayat/utils/effect/scaling.dart';
+
 class CustomInvoiceAlert extends StatelessWidget {
   final String image;
   final String cost;
@@ -37,7 +38,8 @@ class CustomInvoiceAlert extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top:8.0,bottom:8,right:32,left:32),
+                  padding: const EdgeInsets.only(
+                      top: 8.0, bottom: 8, right: 32, left: 32),
                   child: DottedLine(
                     dashColor: Theme.of(context).disabledColor.withOpacity(0.1),
                     lineThickness: 2.5,
@@ -46,9 +48,12 @@ class CustomInvoiceAlert extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text('${S.current.invoiceImage}',style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),),
+                  child: Text(
+                    '${S.current.invoiceImage}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -68,7 +73,7 @@ class CustomInvoiceAlert extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Padding(
-                          padding: const EdgeInsets.only(top:90.0),
+                          padding: const EdgeInsets.only(top: 90.0),
                           child: Align(
                             alignment: AlignmentDirectional.bottomEnd,
                             child: InkWell(
@@ -78,24 +83,30 @@ class CustomInvoiceAlert extends StatelessWidget {
                                     context: context,
                                     builder: (_) {
                                       return Scaffold(
-                                        appBar:AppBar(
-                                          backgroundColor: Colors.transparent.withOpacity(0),
+                                        appBar: AppBar(
+                                          backgroundColor:
+                                              Colors.transparent.withOpacity(0),
                                           elevation: 0,
                                           leading: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: InkWell(
                                               customBorder: CircleBorder(),
-                                              onTap: (){
+                                              onTap: () {
                                                 Navigator.of(context).pop();
                                               },
                                               child: Container(
-                                                decoration:BoxDecoration(
+                                                decoration: BoxDecoration(
                                                   color: Colors.black38,
                                                   shape: BoxShape.circle,
                                                 ),
                                                 child: Padding(
-                                                  padding: const EdgeInsets.all(8.0),
-                                                  child: Icon(Icons.cancel_presentation_rounded,color: Colors.white,),
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Icon(
+                                                    Icons
+                                                        .cancel_presentation_rounded,
+                                                    color: Colors.white,
+                                                  ),
                                                 ),
                                               ),
                                             ),
@@ -105,8 +116,10 @@ class CustomInvoiceAlert extends StatelessWidget {
                                         body: PinchZoom(
                                           child: Hero(
                                               tag: 'Invoice',
-                                              child: Image.network(Urls.IMAGES_ROOT + image)),
-                                          resetDuration: const Duration(milliseconds: 100),
+                                              child: Image.network(
+                                                  Urls.IMAGES_ROOT + image)),
+                                          resetDuration:
+                                              const Duration(milliseconds: 100),
                                           maxScale: 2.5,
                                           onZoomStart: () {},
                                           onZoomEnd: () {},
@@ -115,13 +128,16 @@ class CustomInvoiceAlert extends StatelessWidget {
                                     });
                               },
                               child: Container(
-                                decoration:BoxDecoration(
+                                decoration: BoxDecoration(
                                   color: Colors.black38,
                                   shape: BoxShape.circle,
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Icon(Icons.fullscreen,color: Colors.white,),
+                                  child: Icon(
+                                    Icons.fullscreen,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             ),
@@ -133,12 +149,14 @@ class CustomInvoiceAlert extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text('${S.current.invoiceCost}',style: TextStyle(
-                      fontWeight: FontWeight.bold
-                  ),),
+                  child: Text(
+                    '${S.current.invoiceCost}',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top:8.0,bottom:8,right:32,left:32),
+                  padding: const EdgeInsets.only(
+                      top: 8.0, bottom: 8, right: 32, left: 32),
                   child: DottedLine(
                     dashColor: Theme.of(context).disabledColor.withOpacity(0.1),
                     lineThickness: 2.5,
@@ -147,12 +165,12 @@ class CustomInvoiceAlert extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text('$cost ${S.current.sar}',style: TextStyle(
-                      color: Colors.red,
-                      fontWeight: FontWeight.bold
-                  ),),
+                  child: Text(
+                    '$cost ${S.current.sar}',
+                    style: TextStyle(
+                        color: Colors.red, fontWeight: FontWeight.bold),
+                  ),
                 ),
-
               ],
             ),
           ),

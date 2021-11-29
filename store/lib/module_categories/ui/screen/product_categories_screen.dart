@@ -28,7 +28,9 @@ class ProductCategoriesScreenState extends State<ProductCategoriesScreen> {
   void initState() {
 
     currentState = ProductCategoriesLoadingState(this);
-
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      widget._stateManager.getProductsCategoryLevelOne(this);
+    });
     widget._stateManager.stateStream.listen((event) {
       currentState = event;
       refresh();
@@ -67,15 +69,15 @@ class ProductCategoriesScreenState extends State<ProductCategoriesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var args = ModalRoute.of(context)?.settings.arguments;
-    print('ddff');
-    if (args != null && flagArgs){
-      if (args is int) {
-        storeId = args;
-        flagArgs = false;
-        widget._stateManager.getProductsCategoryLevelOne(this);
-      }
-    }
+//    var args = ModalRoute.of(context)?.settings.arguments;
+//    print('ddff');
+//    if (args != null && flagArgs){
+//      if (args is int) {
+//        storeId = args;
+//        flagArgs = false;
+//        widget._stateManager.getProductsCategoryLevelOne(this);
+//      }
+//    }
     return Scaffold(
       appBar: CustomMandopAppBar.appBar(context,
           title: S.of(context).productCategories,),

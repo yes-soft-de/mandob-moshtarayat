@@ -20,35 +20,36 @@ class HomeStateManager {
   HomeStateManager(this._homeService,this._storesService);
 
   void getReport(HomeScreenState screenState) {
+    print('dddfff');
     _stateSubject.add(LoadingState(screenState));
     _homeService.getReport().then((value) {
       if (value.hasError) {
         _stateSubject
-            .add(HomeLoadedState(screenState,null, null, error: value.error));
+            .add(HomeLoadedState(screenState,null, error: value.error));
       } else if (value.isEmpty) {
-        _stateSubject.add(HomeLoadedState(screenState,null ,null));
+        _stateSubject.add(HomeLoadedState(screenState,null));
       } else {
         ReportModel data = value as ReportModel;
-        StoreProfileModel model = value as StoreProfileModel;
-        _stateSubject.add(HomeLoadedState(screenState,null, model));
+//        StoreProfileModel model = value as StoreProfileModel;
+        _stateSubject.add(HomeLoadedState(screenState,data));
       }
     });
   }
-  void getProfileStore(HomeScreenState screenState) {
-    _stateSubject.add(LoadingState(screenState));
-    _storesService.getStoreProfile().then((value) {
-      if (value.hasError) {
-        _stateSubject
-            .add(HomeLoadedState(screenState, null,null, error: value.error));
-      } else if (value.isEmpty) {
-        _stateSubject.add(HomeLoadedState(screenState, null,null));
-      } else {
-        ReportModel report = ReportModel(countCaptains: 5,countClients: 2,countCompletedOrders: 2,countOngoingOrders: 1,countProducts: 2,countStores: 2);
-        StoreProfileModel model = value as StoreProfileModel;
-
-        _stateSubject.add(HomeLoadedState(screenState, report,model.data));
-      }
-    });
-  }
+//  void getProfileStore(HomeScreenState screenState) {
+//    _stateSubject.add(LoadingState(screenState));
+//    _storesService.getStoreProfile().then((value) {
+//      if (value.hasError) {
+//        _stateSubject
+//            .add(HomeLoadedState(screenState, null,null, error: value.error));
+//      } else if (value.isEmpty) {
+//        _stateSubject.add(HomeLoadedState(screenState, null,null));
+//      } else {
+//        ReportModel data = value as ReportModel;
+//        StoreProfileModel model = value as StoreProfileModel;
+//
+//        _stateSubject.add(HomeLoadedState(screenState, report,model.data));
+//      }
+//    });
+//  }
 
 }

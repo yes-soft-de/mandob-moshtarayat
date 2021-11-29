@@ -51,6 +51,15 @@ class LoginScreenState extends State<LoginScreen> {
   }
 
   dynamic args;
+  bool canBack = false;
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    var args = ModalRoute.of(context)?.settings.arguments;
+    if (args != null && args ==1) {
+      canBack = true;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +72,7 @@ class LoginScreenState extends State<LoginScreen> {
       },
       child: Scaffold(
         appBar: CustomMandopAppBar.appBar(context,
-            title: S.of(context).login, canGoBack: false),
+            title: S.of(context).login, canGoBack: canBack),
 
         body: loadingSnapshot.connectionState != ConnectionState.waiting
             ? _currentStates.getUI(context)

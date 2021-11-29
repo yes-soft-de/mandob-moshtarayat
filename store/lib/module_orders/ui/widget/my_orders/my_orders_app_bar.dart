@@ -28,7 +28,7 @@ class MyOrdersAppBar extends StatelessWidget {
           ),
         ),
         Hider(
-          active:false,
+          active: false,
           child: Padding(
             padding: const EdgeInsets.only(right: 25.0, left: 25, top: 16),
             child: CustomDeliverySearch(

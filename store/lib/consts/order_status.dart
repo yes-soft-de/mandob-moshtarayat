@@ -7,6 +7,3 @@ enum OrderStatusEnum {
   CANCELLED,
   GOT_CASH
 }
-class constCategoryID{
-  static  int id=1;
-}

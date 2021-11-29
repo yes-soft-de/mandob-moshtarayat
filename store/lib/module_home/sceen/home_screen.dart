@@ -81,7 +81,6 @@ class HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    // ReportModel model =ReportModel(countOngoingOrders: 5,countCaptains: 5,countClients: 8,countCompletedOrders: 3,countProducts: 6,countStores: 2);
     state = HomeLoadingState(this);
     widget._stateManager.stateStream.listen((event) {
       state = event;
@@ -94,7 +93,7 @@ class HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
-  void getReport() {
-    widget._stateManager.getProfileStore(this);
+  Future<void> getReport() async {
+    widget._stateManager.getReport(this);
   }
 }

@@ -1,3 +1,5 @@
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:mandob_moshtarayat/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_profile/model/store_profile_model.dart';
@@ -22,7 +24,7 @@ class StoreProfileLoadedState extends States {
   StoreProfileLoadedState(this.screenState, this.profile,
       {this.error, this.empty = false})
       : super(screenState);
-
+ late LatLng clientAddress;
   @override
   Widget getUI(BuildContext context) {
     if (error != null) {
@@ -39,8 +41,9 @@ class StoreProfileLoadedState extends States {
             screenState.getStore(screenState.model?.id ?? -1);
           });
     }
-    print(profile!.closingTime);
-    print(DateTime.now().toString());
+    clientAddress =LatLng(profile!.branches![0].location.lat!.toDouble(), profile!.branches![0].location.lon!.toDouble());
+//    clientAddress = LatLng(0, 0);
+    print(clientAddress.latitude);
     return FixedContainer(
         child: CustomListView.custom(children: [
       Container(
@@ -141,6 +144,24 @@ class StoreProfileLoadedState extends States {
           ),
         ),
       ),
+          SizedBox(
+            height: 200,
+            child: FlutterMap(
+              options: MapOptions(
+                center: clientAddress,
+                zoom: 17.0,
+              ),
+              layers: [
+                TileLayerOptions(
+                  urlTemplate: 'https://mt.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
+                  subdomains: ['a', 'b', 'c'],
+                ),
+                MarkerLayerOptions(
+                  markers:  _getMarkers(context),
+                ),
+              ],
+            ),
+          ),
       CustomListTile(
         title: S.current.storeName,
         subTitle: profile?.storeOwnerName,
@@ -169,6 +190,7 @@ class StoreProfileLoadedState extends States {
       CustomListTile(title: S.current.products, serve: profile?.hasProducts),
       CustomListTile(
           title: S.current.privateOrder, serve: profile?.privateOrders),
+
       Container(
         width: double.maxFinite,
         color: Theme.of(context).backgroundColor,
@@ -276,5 +298,20 @@ class StoreProfileLoadedState extends States {
         ))
       ],
     );
+  }
+
+  List<Marker> _getMarkers(BuildContext context) {
+    return [
+      Marker(
+        point: clientAddress,
+        builder: (ctx) => Container(
+          child: Icon(
+            Icons.location_pin,
+            color: Colors.red,
+            size: 35,
+          ),
+        ),
+      )
+    ];
   }
 }

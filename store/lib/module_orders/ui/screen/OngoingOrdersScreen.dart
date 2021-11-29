@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mandob_moshtarayat/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
+import 'package:mandob_moshtarayat/global_nav_key.dart';
 import 'package:mandob_moshtarayat/module_auth/authorization_routes.dart';
 import 'package:mandob_moshtarayat/module_main/ui/screen/main_screen.dart';
 import 'package:mandob_moshtarayat/module_orders/state_manager/ongoing_orders_state_manager.dart';
-import 'package:mandob_moshtarayat/module_orders/ui/state/ongoing_orders/onGoing_orders_loading_state.dart';
-import 'package:mandob_moshtarayat/module_orders/ui/state/ongoing_orders/ongoing_orders_state.dart';
+import 'package:mandob_moshtarayat/module_orders/ui/state/my_orders/my_orders_loading_state.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 
@@ -20,23 +21,27 @@ class OnGoingOrdersScreen extends StatefulWidget {
 }
 
 class OnGoingOrdersScreenState extends State<OnGoingOrdersScreen> {
-  late OngoingState currentState;
+  late States currentState;
+  bool fromDrawer = false;
 
   void refresh() {
     if (mounted) {
       setState(() {});
     }
   }
-  Future <void> getOrders() async {
+
+  Future<void> getOrders() async {
     widget._stateManager.getOrders(this);
   }
+
   void goToLogin(){
-    Navigator.of(context).pushNamed(AuthorizationRoutes.LOGIN_SCREEN,arguments:1);
+    Navigator.of(context).pushReplacementNamed(AuthorizationRoutes.LOGIN_SCREEN,arguments:1);
     CustomFlushBarHelper.createError(title:S.current.warnning, message:S.current.pleaseLoginToContinue).show(context);
   }
+
   @override
   void initState() {
-    currentState = OnGoingOrdersLoadingState(this);
+    currentState = MyOrdersLoadingState(this);
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
       widget._stateManager.getOrders(this);
     });
@@ -59,7 +64,12 @@ class OnGoingOrdersScreenState extends State<OnGoingOrdersScreen> {
         }
       },
       child: Scaffold(
-        appBar: CustomMandopAppBar.appBar(context,
+        appBar:fromDrawer ?
+        CustomMandopAppBar.appBar(context,
+            title: S.of(context).ongoingOrders, icon: Icons.arrow_back, onTap: () {
+             Navigator.pop(context);
+            }):
+        CustomMandopAppBar.appBar(context,
             title: S.of(context).ongoingOrders, icon: Icons.menu, onTap: () {
              MainScreenState.advancedController.showDrawer();
             }),
@@ -68,8 +78,18 @@ class OnGoingOrdersScreenState extends State<OnGoingOrdersScreen> {
     );
   }
 
+
   @override
-  void dispose(){
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    var args = ModalRoute.of(context)?.settings.arguments;
+    if (args is bool) {
+      fromDrawer = true;
+    }
+  }
+
+  @override
+  void dispose() {
     widget._stateManager.newActionSubscription?.cancel();
     super.dispose();
   }

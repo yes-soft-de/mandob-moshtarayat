@@ -10,14 +10,15 @@ class OrderTimeLineModel extends DataModel {
 
   OrderTimeLineModel.withData(Data data) : super.withData() {
     orderStatus = OrderStatusTimeLine(
-        deliveredTime:data.orderStatus?.deliveredTime ?? '' ,
+        deliveredTime: data.orderStatus?.deliveredTime ?? '',
         completionTime: data.orderStatus?.completionTime ?? '',
-        currentStage: StatusHelper.getStatusEnum(
-            data.orderStatus?.currentStage));
+        currentStage:
+            StatusHelper.getStatusEnum(data.orderStatus?.currentStage));
     data.logs?.forEach((element) {
-      logs.add(
-        Logs(id: element.id ?? -1, state: StatusHelper.getStatusEnum(element.state), createdAt: DateHelper.convert(element.createdAt?.timestamp))
-      );
+      logs.add(Logs(
+          id: element.id ?? -1,
+          state: StatusHelper.getStatusEnum(element.state),
+          createdAt: DateHelper.convert(element.createdAt?.timestamp)));
     });
   }
 }
@@ -27,10 +28,11 @@ class OrderStatusTimeLine {
   OrderStatusEnum currentStage = OrderStatusEnum.WAITING;
   String deliveredTime = '';
   OrderStatusTimeLine(
-      {required this.completionTime, required this.currentStage,required this.deliveredTime});
+      {required this.completionTime,
+      required this.currentStage,
+      required this.deliveredTime});
 
   OrderStatusTimeLine.empty();
-
 }
 
 class Logs {
@@ -39,5 +41,4 @@ class Logs {
   DateTime createdAt;
 
   Logs({required this.id, required this.state, required this.createdAt});
-
 }

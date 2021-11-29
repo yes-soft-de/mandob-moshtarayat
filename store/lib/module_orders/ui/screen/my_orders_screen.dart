@@ -6,6 +6,7 @@ import 'package:mandob_moshtarayat/global_nav_key.dart';
 import 'package:mandob_moshtarayat/module_auth/authorization_routes.dart';
 import 'package:mandob_moshtarayat/module_orders/state_manager/my_orders_state_manager.dart';
 import 'package:mandob_moshtarayat/module_orders/ui/state/my_orders/my_orders_loading_state.dart';
+import 'package:mandob_moshtarayat/module_orders/ui/state/my_orders/my_orders_state.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 
@@ -27,13 +28,16 @@ class OrdersScreenState extends State<OrdersScreen> {
       setState(() {});
     }
   }
- Future <void> getOrders() async {
-   widget._stateManager.getOrders(this);
- }
+
+  Future<void> getOrders() async {
+    widget._stateManager.getOrders(this);
+  }
+
   void goToLogin(){
-    Navigator.of(context).pushNamed(AuthorizationRoutes.LOGIN_SCREEN,arguments:1);
+    Navigator.of(context).pushReplacementNamed(AuthorizationRoutes.LOGIN_SCREEN,arguments:1);
     CustomFlushBarHelper.createError(title:S.current.warnning, message:S.current.pleaseLoginToContinue).show(context);
   }
+
   @override
   void initState() {
     currentState = MyOrdersLoadingState(this);
@@ -60,8 +64,8 @@ class OrdersScreenState extends State<OrdersScreen> {
       },
       child: Scaffold(
         appBar: CustomMandopAppBar.appBar(context,
-            title: S.of(context).orderPending, icon: Icons.menu, onTap: () {
-              GlobalVariable.mainScreenScaffold.currentState?.openDrawer();
+            title: S.of(context).orderPending,  icon: Icons.arrow_back, onTap: () {
+              Navigator.pop(context);
             }),
         body: currentState.getUI(context),
       ),
@@ -69,7 +73,7 @@ class OrdersScreenState extends State<OrdersScreen> {
   }
 
   @override
-  void dispose(){
+  void dispose() {
     widget._stateManager.newActionSubscription?.cancel();
     super.dispose();
   }

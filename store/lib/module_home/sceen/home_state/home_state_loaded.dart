@@ -16,9 +16,9 @@ class HomeLoadedState extends States {
   final String? error;
   final bool empty;
   final ReportModel? model;
-  final StoreProfileModel? profileModel;
+//  final StoreProfileModel? profileModel;
 
-  HomeLoadedState(this.screenState, this.model, this.profileModel,
+  HomeLoadedState(this.screenState, this.model,
       {this.empty = false, this.error})
       : super(screenState);
 
@@ -40,14 +40,13 @@ class HomeLoadedState extends States {
                     screenState.getReport();
           });
     }
-    print('fgfgfgfgfgfgf');
-    print(profileModel!.storeCategoryId);
-    constCategoryID.id= profileModel!.storeCategoryId;
-    print(constCategoryID.id);
-    return SingleChildScrollView(
-      physics:
-      BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-      child: SizedBox(
+    return RefreshIndicator(
+      onRefresh: (){
+        return screenState.getReport();
+      },
+      child: SingleChildScrollView(
+        physics:
+        BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         child: Wrap(
           alignment: WrapAlignment.center,
           direction: Axis.horizontal,
@@ -62,15 +61,15 @@ class HomeLoadedState extends States {
               ),
               widgetTile(model?.countCompletedOrders.toString() ?? '',S.current.countCompletedOrders),
           widgetTile(model?.countOngoingOrders.toString() ?? '',S.current.countOngoingOrders),
-          Padding(
-            padding: const EdgeInsets.only(right:32,left: 32),
-            child: Divider(
-              thickness: 2.5,
-              color: Theme.of(context).primaryColor.withOpacity(0.3),
-            ),
-          ),
-//          widgetTile(model?.countClients.toString() ?? '',S.current.countClients),
-          widgetTile(model?.countProducts.toString() ?? '',S.current.countProducts),
+//          Padding(
+//            padding: const EdgeInsets.only(right:32,left: 32),
+//            child: Divider(
+//              thickness: 2.5,
+//              color: Theme.of(context).primaryColor.withOpacity(0.3),
+//            ),
+//          ),
+////          widgetTile(model?.countClients.toString() ?? '',S.current.countClients),
+//          widgetTile(model?.countProducts.toString() ?? '',S.current.countProducts),
             ]),
       ),
     );

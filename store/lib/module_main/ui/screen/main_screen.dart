@@ -74,7 +74,7 @@ class MainScreenState extends State<MainScreen> {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.pushNamed(context, CategoriesRoutes.PRODUCT_CATEGORIES,arguments: constCategoryID.id);
+                      Navigator.pushNamed(context, CategoriesRoutes.PRODUCT_CATEGORIES);
                       // Share.share('${S.current.downloadTwaslnaApp} https://play.google.com/store/apps/details?id=de.yes_soft.twaslna');
                     },
                   ),

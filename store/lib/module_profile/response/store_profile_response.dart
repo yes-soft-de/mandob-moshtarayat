@@ -51,6 +51,7 @@ class Data {
   bool? hasProducts;
   Date? openingTime;
   Date? closingTime;
+  List<Branches>? branches;
 
   Data({
       this.id,
@@ -71,7 +72,9 @@ class Data {
       this.hasProducts, 
 
       this.openingTime, 
-      this.closingTime});
+      this.closingTime,
+  this.branches,
+  });
 
   Data.fromJson(dynamic json) {
     id = json['id'];
@@ -91,6 +94,12 @@ class Data {
     // openingTime=DateTime.now();
     openingTime = json['openingTime'] != null ? Date.fromJson(json['openingTime']) : null;
     closingTime = json['closingTime'] != null ? Date.fromJson(json['closingTime']) : null;
+    if (json['branches'] != null) {
+      branches = [];
+      json['branches'].forEach((v) {
+        branches?.add(Branches.fromJson(v));
+      });
+    }
   }
 
   // Map<String, dynamic> toJson() {
@@ -156,7 +165,7 @@ class Branches {
   Branches.fromJson(dynamic json) {
     id = json['id'];
     storeOwnerProfileID = json['storeOwnerProfileID'];
-    location = json['location'] != null ? Location.fromJson(json['location']) : null;
+    location = json['geoLocation'] != null ? Location.fromJson(json['geoLocation']) : null;
     city = json['city'];
     branchName = json['branchName'];
     free = json['free'];
@@ -182,8 +191,8 @@ class Branches {
 }
 
 class Location {
-  double? lat;
-  double? lon;
+  num? lat;
+  num? lon;
 
   Location({
       this.lat, 

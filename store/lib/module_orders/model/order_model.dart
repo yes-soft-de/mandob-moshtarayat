@@ -11,22 +11,27 @@ class OrderModel extends DataModel {
   late DateTime dateTime;
   late double orderCost;
   List<OrderModel> models = [];
-  OrderModel({required this.orderDate,required this.orderId,required this.orderStatus,required this.orderCost,required this.dateTime});
-
+  OrderModel(
+      {required this.orderDate,
+      required this.orderId,
+      required this.orderStatus,
+      required this.orderCost,
+      required this.dateTime});
 
   OrderModel.withData(MyOrdersResponse orders) {
     var data = orders.data;
     data?.forEach((element) {
-      String date = DateFormat('dd-MM-yyyy').format(DateTime.fromMillisecondsSinceEpoch(
-          (element.deliveryDate?.timestamp ??
-              DateTime.now().millisecondsSinceEpoch) *
-              1000));
-      models.add(OrderModel(
-          dateTime:DateTime.fromMillisecondsSinceEpoch(
+      String date = DateFormat('dd-MM-yyyy').format(
+          DateTime.fromMillisecondsSinceEpoch(
               (element.deliveryDate?.timestamp ??
-                  DateTime.now().millisecondsSinceEpoch) *
+                      DateTime.now().millisecondsSinceEpoch) *
+                  1000));
+      models.add(OrderModel(
+          dateTime: DateTime.fromMillisecondsSinceEpoch(
+              (element.deliveryDate?.timestamp ??
+                      DateTime.now().millisecondsSinceEpoch) *
                   1000),
-          orderDate:date,
+          orderDate: date,
           orderId: element.orderNumber ?? '-1',
           orderStatus: StatusHelper.getStatusEnum(element.state),
           orderCost: element.orderCost ?? 0));
@@ -34,7 +39,7 @@ class OrderModel extends DataModel {
   }
 
   List<OrderModel> get data {
-    models.sort((order1,order2){
+    models.sort((order1, order2) {
       DateTime date1 = order1.dateTime;
       DateTime date2 = order2.dateTime;
       return date1.compareTo(date2);

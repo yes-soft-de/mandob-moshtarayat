@@ -119,7 +119,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 .setLanguage(newLang.toString());
                           }),
                     ),
-                    ListTile(
+                widget._authService.isLoggedIn ?
+                ListTile(
                       leading: Icon(Icons.person_rounded, color: Colors.white),
                       title: Text(
                         S.of(context).signOut,
@@ -140,7 +141,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               (route) => false);
                         });
                       },
+                    ) :
+                ListTile(
+                  leading: Icon(Icons.person_rounded, color: Colors.white),
+                  title: Text(
+                    S.of(context).login,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  trailing: Padding(
+                    padding: const EdgeInsets.only(right: 10.0, left: 10.0),
+                    child: Icon(
+                      Icons.login_outlined,
+                      color: Colors.white,
                     ),
+                  ),
+                  onTap: () {
+                    widget._authService.logout().then((value) {
+                      Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          AuthorizationRoutes.LOGIN_SCREEN,
+                              (route) => false);
+                    });
+                  },
+                ),
                     SizedBox(
                       height: 16,
                     ),

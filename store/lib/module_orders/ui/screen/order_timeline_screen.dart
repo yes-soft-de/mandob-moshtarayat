@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
+import 'package:mandob_moshtarayat/global_nav_key.dart';
 import 'package:mandob_moshtarayat/module_orders/state_manager/order_tim_line_state_manager.dart';
 import 'package:mandob_moshtarayat/module_orders/ui/state/my_orders/my_orders_loading_state.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
@@ -18,9 +19,10 @@ class OrderTimLineScreen extends StatefulWidget {
 
 class OrderTimLineScreenState extends State<OrderTimLineScreen> {
   late States currentState;
-void getOrder(){
-  widget._stateManager.getOrderTimeLine(orderId ?? -1, this);
-}
+  void getOrder() {
+    widget._stateManager.getOrderTimeLine(orderId ?? -1, this);
+  }
+
   void refresh() {
     if (mounted) {
       setState(() {});
@@ -29,9 +31,6 @@ void getOrder(){
 
   @override
   void initState() {
-  // OrderStatus status = OrderStatus(completionTime: '30',currentStage: '50',deliveredTime: '45');
-  // Data v = Data(logs: [],orderStatus:status );
-  //   OrderTimeLineModel model = OrderTimeLineModel.withData(v);
     currentState = MyOrdersLoadingState(this);
     widget._stateManager.stateStream.listen((event) {
       currentState = event;
@@ -47,14 +46,11 @@ void getOrder(){
 
   @override
   Widget build(BuildContext context) {
-    var args = ModalRoute
-        .of(context)
-        ?.settings
-        .arguments;
+    var args = ModalRoute.of(context)?.settings.arguments;
     if (args != null && flagArgs) {
-        orderId = int.parse(args.toString());
-        flagArgs = false;
-        widget._stateManager.getOrderTimeLine(orderId ?? -1,this);
+      orderId = int.parse(args.toString());
+      flagArgs = false;
+      widget._stateManager.getOrderTimeLine(orderId ?? -1, this);
     }
     return GestureDetector(
       onTap: () {
@@ -72,7 +68,7 @@ void getOrder(){
   }
 
   @override
-  void dispose(){
+  void dispose() {
     widget._stateManager.newActionSubscription?.cancel();
     super.dispose();
   }

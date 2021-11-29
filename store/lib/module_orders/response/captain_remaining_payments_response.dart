@@ -5,21 +5,18 @@ class CaptainRemainingPaymentsResponse {
   String? msg;
   Data? data;
 
-  CaptainRemainingPaymentsResponse({
-      this.statusCode, 
-      this.msg, 
-      this.data});
+  CaptainRemainingPaymentsResponse({this.statusCode, this.msg, this.data});
 
   CaptainRemainingPaymentsResponse.fromJson(dynamic json) {
-    try{
+    try {
       statusCode = json['status_code'];
       msg = json['msg'];
       data = json['Data'] != null ? Data.fromJson(json['Data']) : null;
-    }catch (e) {
-      Logger().error('Captain Remaining Response', e.toString(), StackTrace.current);
+    } catch (e) {
+      Logger().error(
+          'Captain Remaining Response', e.toString(), StackTrace.current);
       statusCode = '-1';
     }
-
   }
 
   Map<String, dynamic> toJson() {
@@ -31,16 +28,13 @@ class CaptainRemainingPaymentsResponse {
     }
     return map;
   }
-
 }
 
 class Data {
   int? totalAmountForCompany;
   List<Captains>? captains;
 
-  Data({
-      this.totalAmountForCompany, 
-      this.captains});
+  Data({this.totalAmountForCompany, this.captains});
 
   Data.fromJson(dynamic json) {
     totalAmountForCompany = json['totalAmountForCompany'];
@@ -60,7 +54,6 @@ class Data {
     }
     return map;
   }
-
 }
 
 class Captains {
@@ -72,13 +65,13 @@ class Captains {
   String? phone;
   num? remainingAmountForCompany;
 
-  Captains({
-      this.id, 
-      this.captainID, 
-      this.captainName, 
-      this.roomID, 
-      this.image, 
-      this.phone, 
+  Captains(
+      {this.id,
+      this.captainID,
+      this.captainName,
+      this.roomID,
+      this.image,
+      this.phone,
       this.remainingAmountForCompany});
 
   Captains.fromJson(dynamic json) {
@@ -102,5 +95,4 @@ class Captains {
     map['remainingAmountForCompany'] = remainingAmountForCompany;
     return map;
   }
-
 }
