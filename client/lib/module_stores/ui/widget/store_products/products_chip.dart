@@ -5,7 +5,7 @@ class ProductsChips extends StatelessWidget {
   final String title;
   final bool active;
   final Function(String, int) onChange;
-  ProductsChips(
+  const ProductsChips(
       {required this.id,
       required this.title,
       required this.active,

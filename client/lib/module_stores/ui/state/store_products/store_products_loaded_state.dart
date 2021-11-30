@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
-import 'package:mandob_moshtarayat/module_orders/orders_routes.dart';
 import 'package:mandob_moshtarayat/module_orders/request/client_order_request.dart';
 import 'package:mandob_moshtarayat/hive/objects/cart_model/cart_model.dart';
 import 'package:mandob_moshtarayat/module_products/products_routes.dart';
@@ -23,7 +22,6 @@ import 'package:mandob_moshtarayat/utils/components/progresive_image.dart';
 import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 import 'package:mandob_moshtarayat/utils/models/product.dart';
-import 'package:mandob_moshtarayat/utils/models/store.dart';
 
 class StoreProductsLoadedState extends StoreProductsState {
   StoreProductsScreenState screenState;
@@ -55,7 +53,6 @@ class StoreProductsLoadedState extends StoreProductsState {
   Widget getUI(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-
     title = storeProfile.storeOwnerName;
     backgroundImage = storeProfile.image;
     storeId = storeProfile.id;
@@ -102,7 +99,8 @@ class StoreProductsLoadedState extends StoreProductsState {
               Container(
                 height: height * 0.65,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(18)),
+                  borderRadius:
+                      const BorderRadius.vertical(top: Radius.circular(18)),
                   color: Theme.of(context).cardColor,
                 ),
                 child: Stack(
@@ -110,7 +108,7 @@ class StoreProductsLoadedState extends StoreProductsState {
                     Padding(
                       padding: const EdgeInsets.only(top: 4.0),
                       child: ListView(
-                        physics: BouncingScrollPhysics(
+                        physics: const BouncingScrollPhysics(
                             parent: AlwaysScrollableScrollPhysics()),
                         children: [
                           Hider(
@@ -125,10 +123,10 @@ class StoreProductsLoadedState extends StoreProductsState {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(bottom: 25.0),
-                            child: Container(
+                            child: SizedBox(
                               height: 44,
                               child: ListView(
-                                physics: BouncingScrollPhysics(
+                                physics: const BouncingScrollPhysics(
                                     parent: AlwaysScrollableScrollPhysics()),
                                 padding: EdgeInsets.zero,
                                 scrollDirection: Axis.horizontal,
@@ -145,7 +143,7 @@ class StoreProductsLoadedState extends StoreProductsState {
                                       : screenState.snapshot.data ??
                                           <ProductModel>[]),
                               snapshot: screenState.snapshot),
-                          SizedBox(
+                          const SizedBox(
                             height: 75,
                           ),
                         ],
@@ -164,11 +162,11 @@ class StoreProductsLoadedState extends StoreProductsState {
                                       countProduct: element.quantity));
                                 });
 
-                                CheckoutModel checkoutModel = CheckoutModel(
-                                    ownerId: storeId,
-                                    cart: items,
-                                    orderCost: double.parse(getTotal()),
-                                    deliveryCost: deliveryCost);
+                                // CheckoutModel checkoutModel = CheckoutModel(
+                                //     ownerId: storeId,
+                                //     cart: items,
+                                //     orderCost: double.parse(getTotal()),
+                                //     deliveryCost: deliveryCost);
 
                                 if (fromEditingOrder) {
                                   CartHiveHelper().setCart(carts);
@@ -183,9 +181,9 @@ class StoreProductsLoadedState extends StoreProductsState {
                               }
                             : () {
                                 CustomFlushBarHelper.createError(
-                                    title: S.of(context).warnning,
-                                    message: S.of(context).yourCartEmpty)
-                                  ..show(context);
+                                        title: S.of(context).warnning,
+                                        message: S.of(context).yourCartEmpty)
+                                    .show(context);
                               },
                         total: getTotal(),
                         currency: S.of(context).sar,
@@ -259,6 +257,7 @@ class StoreProductsLoadedState extends StoreProductsState {
           onChange: (value, id) {
             defaultValue = value;
             categoryId = id;
+            screenState.snapshot = const AsyncSnapshot.nothing();
             screenState.refresh();
           },
           title: S.current.mostWanted,
@@ -272,6 +271,7 @@ class StoreProductsLoadedState extends StoreProductsState {
       onChange: (value, id) {
         defaultValue = value;
         categoryId = id;
+        screenState.snapshot = const AsyncSnapshot.nothing();
         screenState.refresh();
       },
       title: S.current.mostWanted,

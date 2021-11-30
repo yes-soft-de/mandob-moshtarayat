@@ -6,13 +6,13 @@ import 'package:mandob_moshtarayat/utils/components/progresive_image.dart';
 class ProductsCard extends StatefulWidget {
   final String title;
   final String image;
-  final price;
+  final num price;
   final String currency;
   final Function(CartModel) quantity;
   final GestureTapCallback? onTap;
   final int defaultQuantity;
-  final id;
-  ProductsCard(
+  final int id;
+  const ProductsCard(
       {required this.title,
       required this.image,
       required this.price,
@@ -34,7 +34,7 @@ class _ProductsCardState extends State<ProductsCard> {
     cartModel = CartModel(
         id: widget.id,
         quantity: widget.defaultQuantity,
-        price: widget.price,
+        price: widget.price.toDouble(),
         name: widget.title,
         image: widget.image);
   }
@@ -57,7 +57,7 @@ class _ProductsCardState extends State<ProductsCard> {
                   color: Theme.of(context).backgroundColor,
                   spreadRadius: 7,
                   blurRadius: 4,
-                  offset: Offset(1, 1), // changes position of shadow
+                  offset: const Offset(1, 1), // changes position of shadow
                 ),
               ]),
           child: Flex(
@@ -67,7 +67,7 @@ class _ProductsCardState extends State<ProductsCard> {
                 padding: const EdgeInsets.all(8.0),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(18),
-                  child: Container(
+                  child: SizedBox(
                     width: 100,
                     height: 100,
                     child: CustomNetworkImage(
@@ -85,7 +85,7 @@ class _ProductsCardState extends State<ProductsCard> {
                       alignment: Alignment.bottomCenter,
                       child: Text(
                         '${widget.price} ${widget.currency}',
-                        style: TextStyle(fontWeight: FontWeight.w600),
+                        style: const TextStyle(fontWeight: FontWeight.w600),
                       )),
                 ),
               ),
@@ -96,12 +96,15 @@ class _ProductsCardState extends State<ProductsCard> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Center(
-                      child: Text(
-                        widget.title,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 17),
-                        textAlign: TextAlign.center,
-                        overflow: TextOverflow.ellipsis,
+                      child: SizedBox(
+                        width: 200,
+                        child: Text(
+                          widget.title,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 17),
+                          textAlign: TextAlign.center,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ),
                     Container(
@@ -120,13 +123,13 @@ class _ProductsCardState extends State<ProductsCard> {
                                       left: Localizations.localeOf(context)
                                                   .languageCode ==
                                               'en'
-                                          ? Radius.circular(25)
+                                          ? const Radius.circular(25)
                                           : Radius.zero,
                                       right: Localizations.localeOf(context)
                                                   .languageCode ==
                                               'en'
                                           ? Radius.zero
-                                          : Radius.circular(25)),
+                                          : const Radius.circular(25)),
                                 ),
                               ),
                             ),
@@ -138,7 +141,7 @@ class _ProductsCardState extends State<ProductsCard> {
                                 });
                               }
                             },
-                            child: Icon(Icons.remove),
+                            child: const Icon(Icons.remove),
                           ),
                           Padding(
                             padding:
@@ -154,11 +157,11 @@ class _ProductsCardState extends State<ProductsCard> {
                                                   .languageCode ==
                                               'en'
                                           ? Radius.zero
-                                          : Radius.circular(25),
+                                          : const Radius.circular(25),
                                       right: Localizations.localeOf(context)
                                                   .languageCode ==
                                               'en'
-                                          ? Radius.circular(25)
+                                          ? const Radius.circular(25)
                                           : Radius.zero),
                                 ),
                               ),
@@ -169,7 +172,7 @@ class _ProductsCardState extends State<ProductsCard> {
                                 widget.quantity(cartModel);
                               });
                             },
-                            child: Icon(Icons.add),
+                            child: const Icon(Icons.add),
                           ),
                         ],
                       ),
@@ -188,9 +191,9 @@ class _ProductsCardState extends State<ProductsCard> {
 class ProductsSearchCard extends StatefulWidget {
   final String title;
   final String image;
-  final price;
+  final num price;
   final VoidCallback onTap;
-  ProductsSearchCard(
+  const ProductsSearchCard(
       {required this.title,
       required this.image,
       required this.price,
@@ -218,7 +221,7 @@ class _ProductsSearchCardState extends State<ProductsSearchCard> {
                   color: Theme.of(context).backgroundColor,
                   spreadRadius: 7,
                   blurRadius: 4,
-                  offset: Offset(1, 1), // changes position of shadow
+                  offset: const Offset(1, 1), // changes position of shadow
                 ),
               ]),
           child: Flex(
@@ -229,7 +232,7 @@ class _ProductsSearchCardState extends State<ProductsSearchCard> {
                 padding: const EdgeInsets.all(8.0),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(18),
-                  child: Container(
+                  child: SizedBox(
                     height: 100,
                     width: 100,
                     child: CustomNetworkImage(
@@ -244,7 +247,7 @@ class _ProductsSearchCardState extends State<ProductsSearchCard> {
                 child: Center(
                   child: Text(
                     widget.title,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
                   ),
                 ),
               ),
@@ -254,7 +257,7 @@ class _ProductsSearchCardState extends State<ProductsSearchCard> {
                     alignment: Alignment.bottomCenter,
                     child: Text(
                       '${widget.price} ${S.current.sar}',
-                      style: TextStyle(fontWeight: FontWeight.w600),
+                      style: const TextStyle(fontWeight: FontWeight.w600),
                     )),
               ),
             ],

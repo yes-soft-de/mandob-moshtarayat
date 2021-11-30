@@ -8,13 +8,13 @@ class ProductsZone extends StatelessWidget {
   final bool loading;
   final List<Widget> children;
   final AsyncSnapshot snapshot;
-  ProductsZone(
+  const ProductsZone(
       {required this.loading, required this.children, required this.snapshot});
 
   @override
   Widget build(BuildContext context) {
     if (loading) {
-      return Container(
+      return const SizedBox(
           height: 125,
           width: double.maxFinite,
           child: Align(
@@ -32,7 +32,7 @@ class ProductsZone extends StatelessWidget {
             child: Flushbar(
               title: S.of(context).thisErrorHappened,
               message: snapshot.error.toString(),
-              icon: Icon(
+              icon: const Icon(
                 Icons.info,
                 size: 28.0,
                 color: Colors.white,
@@ -46,7 +46,7 @@ class ProductsZone extends StatelessWidget {
       );
     } else if (snapshot.hasData || children.isNotEmpty) {
       return ListView(
-        physics: ScrollPhysics(),
+        physics: const ScrollPhysics(),
         shrinkWrap: true,
         children: children,
       );
@@ -59,7 +59,7 @@ class ProductsZone extends StatelessWidget {
             child: Center(
               child: Text(
                 S.of(context).homeDataEmpty,
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+                style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
               ),
             ),
           ),
