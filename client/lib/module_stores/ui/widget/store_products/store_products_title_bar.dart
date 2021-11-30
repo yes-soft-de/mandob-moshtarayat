@@ -45,9 +45,7 @@ class StoreProductsTitleBar extends StatelessWidget {
                     child: Text(
                       '${S.of(context).views} $views',
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white
-                      ),
+                          fontWeight: FontWeight.bold, color: Colors.white),
                     ),
                   ),
                 ),
@@ -57,9 +55,7 @@ class StoreProductsTitleBar extends StatelessWidget {
                   child: Text(
                     rate.toStringAsFixed(1),
                     style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white
-                    ),
+                        fontWeight: FontWeight.bold, color: Colors.white),
                   ),
                 ),
                 Padding(
@@ -73,15 +69,17 @@ class StoreProductsTitleBar extends StatelessWidget {
                 Container(
                   width: 8,
                 ),
-                Icon(Icons.circle, size: 18,color: Colors.white,),
+                Icon(
+                  Icons.circle,
+                  size: 18,
+                  color: Colors.white,
+                ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     '${S.of(context).deliverPrice} $deliveryCost ${S.of(context).sar}',
                     style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white
-                    ),
+                        fontWeight: FontWeight.bold, color: Colors.white),
                   ),
                 ),
               ],

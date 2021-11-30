@@ -3,19 +3,19 @@ import 'package:mandob_moshtarayat/utils/logger/logger.dart';
 
 class StoreProfileResponse {
   StoreProfileResponse({
-      this.statusCode, 
-      this.msg, 
-      this.data,});
+    this.statusCode,
+    this.msg,
+    this.data,
+  });
 
   StoreProfileResponse.fromJson(dynamic json) {
     statusCode = json['status_code'];
     msg = json['msg'];
     data = json['Data'] != null ? Data.fromJson(json['Data']) : null;
 
-    try {
-    }
-    catch (e){
-      Logger().error('Store Profile Response', e.toString(), StackTrace.current);
+    try {} catch (e) {
+      Logger()
+          .error('Store Profile Response', e.toString(), StackTrace.current);
       statusCode = '-1';
     }
   }
@@ -32,58 +32,60 @@ class StoreProfileResponse {
     }
     return map;
   }
-
 }
 
 class Data {
   Data({
-      this.id, 
-      this.storeOwnerName, 
-      this.image, 
-      this.branch, 
-      this.free, 
-      this.branches, 
-      this.city, 
-      this.phone, 
-      this.imageURL, 
-      this.baseURL, 
-      this.deliveryCost, 
-      this.privateOrders, 
-      this.hasProducts, 
-      this.rating, 
-      this.openingTime, 
-      this.closingTime, 
-      this.storeCategoryId, 
-      this.storeCategoryName, 
-      this.status,});
+    this.id,
+    this.storeOwnerName,
+    this.image,
+    this.branch,
+    this.free,
+    this.branches,
+    this.city,
+    this.phone,
+    this.imageURL,
+    this.baseURL,
+    this.deliveryCost,
+    this.privateOrders,
+    this.hasProducts,
+    this.rating,
+    this.openingTime,
+    this.closingTime,
+    this.storeCategoryId,
+    this.storeCategoryName,
+    this.status,
+  });
 
   Data.fromJson(dynamic json) {
-
-      id = json['id'];
-      storeOwnerName = json['storeOwnerName'];
-      image = json['image'];
-      branch = json['branch'];
-      free = json['free'];
-      if (json['branches'] != null) {
-        branches = [];
-        json['branches'].forEach((v) {
-          branches?.add(Branches.fromJson(v));
-        });
-      }
-      city = json['city'];
-      phone = json['phone'];
-      imageURL = json['imageURL'];
-      baseURL = json['baseURL'];
-      deliveryCost = json['deliveryCost'];
-      privateOrders = json['privateOrders'];
-      hasProducts = json['hasProducts'];
-      rating = json['rating'];
-      openingTime = json['openingTime'] != null ? OpeningTime.fromJson(json['openingTime']) : null;
-      closingTime = json['closingTime'] != null ? ClosingTime.fromJson(json['closingTime']) : null;
-      storeCategoryId = json['storeCategoryId'];
-      storeCategoryName = json['storeCategoryName'];
-      status = json['status'];
-
+    id = json['id'];
+    storeOwnerName = json['storeOwnerName'];
+    image = json['image'];
+    branch = json['branch'];
+    free = json['free'];
+    if (json['branches'] != null) {
+      branches = [];
+      json['branches'].forEach((v) {
+        branches?.add(Branches.fromJson(v));
+      });
+    }
+    city = json['city'];
+    phone = json['phone'];
+    imageURL = json['imageURL'];
+    baseURL = json['baseURL'];
+    deliveryCost = json['deliveryCost'];
+    privateOrders = json['privateOrders'];
+    hasProducts = json['hasProducts'];
+    rating = json['rating'];
+    openingTime = json['openingTime'] != null
+        ? OpeningTime.fromJson(json['openingTime'])
+        : null;
+    closingTime = json['closingTime'] != null
+        ? ClosingTime.fromJson(json['closingTime'])
+        : null;
+    storeCategoryId = json['storeCategoryId'];
+    storeCategoryName = json['storeCategoryName'];
+    status = json['status'];
   }
   int? id;
   String? storeOwnerName;
@@ -133,17 +135,18 @@ class Data {
     map['status'] = status;
     return map;
   }
-
 }
 
 class ClosingTime {
   ClosingTime({
-      this.timezone, 
-      this.offset, 
-      this.timestamp,});
+    this.timezone,
+    this.offset,
+    this.timestamp,
+  });
 
   ClosingTime.fromJson(dynamic json) {
-    timezone = json['timezone'] != null ? Timezone.fromJson(json['timezone']) : null;
+    timezone =
+        json['timezone'] != null ? Timezone.fromJson(json['timezone']) : null;
     offset = json['offset'];
     timestamp = json['timestamp'];
   }
@@ -160,14 +163,14 @@ class ClosingTime {
     map['timestamp'] = timestamp;
     return map;
   }
-
 }
 
 class Timezone {
   Timezone({
-      this.name, 
-      this.transitions, 
-      this.location,});
+    this.name,
+    this.transitions,
+    this.location,
+  });
 
   Timezone.fromJson(dynamic json) {
     name = json['name'];
@@ -177,7 +180,8 @@ class Timezone {
         transitions?.add(Transitions.fromJson(v));
       });
     }
-    location = json['location'] != null ? Location.fromJson(json['location']) : null;
+    location =
+        json['location'] != null ? Location.fromJson(json['location']) : null;
   }
   String? name;
   List<Transitions>? transitions;
@@ -194,15 +198,15 @@ class Timezone {
     }
     return map;
   }
-
 }
 
 class Location {
   Location({
-      this.countryCode, 
-      this.latitude, 
-      this.longitude, 
-      this.comments,});
+    this.countryCode,
+    this.latitude,
+    this.longitude,
+    this.comments,
+  });
 
   Location.fromJson(dynamic json) {
     countryCode = json['country_code'];
@@ -223,16 +227,16 @@ class Location {
     map['comments'] = comments;
     return map;
   }
-
 }
 
 class Transitions {
   Transitions({
-      this.ts, 
-      this.time, 
-      this.offset, 
-      this.isdst, 
-      this.abbr,});
+    this.ts,
+    this.time,
+    this.offset,
+    this.isdst,
+    this.abbr,
+  });
 
   Transitions.fromJson(dynamic json) {
     ts = json['ts'];
@@ -256,17 +260,18 @@ class Transitions {
     map['abbr'] = abbr;
     return map;
   }
-
 }
 
 class OpeningTime {
   OpeningTime({
-      this.timezone, 
-      this.offset, 
-      this.timestamp,});
+    this.timezone,
+    this.offset,
+    this.timestamp,
+  });
 
   OpeningTime.fromJson(dynamic json) {
-    timezone = json['timezone'] != null ? Timezone.fromJson(json['timezone']) : null;
+    timezone =
+        json['timezone'] != null ? Timezone.fromJson(json['timezone']) : null;
     offset = json['offset'];
     timestamp = json['timestamp'];
   }
@@ -283,12 +288,12 @@ class OpeningTime {
     map['timestamp'] = timestamp;
     return map;
   }
-
 }
 
 class Rating {
   Rating({
-      this.rate,});
+    this.rate,
+  });
 
   Rating.fromJson(dynamic json) {
     rate = json['rate'];
@@ -300,19 +305,19 @@ class Rating {
     map['rate'] = rate;
     return map;
   }
-
 }
 
 class Branches {
   Branches({
-      this.id, 
-      this.storeOwnerProfileID, 
-      this.location, 
-      this.city, 
-      this.branchName, 
-      this.free, 
-      this.storeOwnerName, 
-      this.isActive,});
+    this.id,
+    this.storeOwnerProfileID,
+    this.location,
+    this.city,
+    this.branchName,
+    this.free,
+    this.storeOwnerName,
+    this.isActive,
+  });
 
   Branches.fromJson(dynamic json) {
     id = json['id'];
@@ -320,7 +325,7 @@ class Branches {
     if (json['location'] != null) {
       location = [];
       json['location'].forEach((v) {
-       // location?.add(dynamic.fromJson(v));
+        // location?.add(dynamic.fromJson(v));
       });
     }
     city = json['city'];
@@ -352,5 +357,4 @@ class Branches {
     map['isActive'] = isActive;
     return map;
   }
-
 }

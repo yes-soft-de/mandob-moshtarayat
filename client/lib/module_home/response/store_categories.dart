@@ -44,6 +44,7 @@ class Data {
     image = json['image'] != null ? Image.fromJson(json['image']) : null;
   }
 }
+
 class Image {
   String? imageURL;
   String? baseURL;

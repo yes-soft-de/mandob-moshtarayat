@@ -7,13 +7,13 @@ class PrivateOrderRequest {
   String? deliveryDate;
   int? storeOwnerProfileID;
 
-  PrivateOrderRequest({
-      this.destination, 
-      this.note, 
-      this.payment, 
-      this.ownerID, 
-      this.detail, 
-      this.deliveryDate, 
+  PrivateOrderRequest(
+      {this.destination,
+      this.note,
+      this.payment,
+      this.ownerID,
+      this.detail,
+      this.deliveryDate,
       this.storeOwnerProfileID});
 
   PrivateOrderRequest.fromJson(dynamic json) {
@@ -28,7 +28,8 @@ class PrivateOrderRequest {
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
-    map['destination'] = destination is String ? destination : destination.toJson();
+    map['destination'] =
+        destination is String ? destination : destination.toJson();
     map['note'] = note;
     map['payment'] = payment;
     //map['ownerID'] = ownerID;
@@ -37,8 +38,8 @@ class PrivateOrderRequest {
     map['storeOwnerProfileID'] = storeOwnerProfileID;
     return map;
   }
-
 }
+
 class GeoJson {
   double? long;
   double? lat;

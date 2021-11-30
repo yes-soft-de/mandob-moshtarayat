@@ -39,7 +39,7 @@ class OrderDetailsLoadedState extends OrderDetailsState {
       },
       child: Stack(
         children: [
-         orderDetails.order.orderType != 3
+          orderDetails.order.orderType != 3
               ? Container(
                   height: height,
                   width: width,
@@ -57,14 +57,15 @@ class OrderDetailsLoadedState extends OrderDetailsState {
                       ),
                     ],
                   ),
-                ) : SizedBox(),
-
-          orderDetails.order.orderType != 3 ? SizedBox() :  Container(
+                )
+              : SizedBox(),
+          orderDetails.order.orderType != 3
+              ? SizedBox()
+              : Container(
                   color: Theme.of(context).primaryColor,
                   height: height,
                   width: width,
                 ),
-
           CustomOrderDetailsAppBar(
             editTap: false
                 ? () {
@@ -87,19 +88,20 @@ class OrderDetailsLoadedState extends OrderDetailsState {
             alignment: Alignment.bottomCenter,
             child: orderDetails.order.orderType != 3
                 ? Container(
-              height:height * 0.78 ,
+                    height: height * 0.78,
                     decoration: BoxDecoration(
                         borderRadius:
                             BorderRadius.vertical(top: Radius.circular(25)),
                         color: Colors.black54),
                     child: Padding(
-                      padding:  EdgeInsets.all(16),
+                      padding: EdgeInsets.all(16),
                       child: OrderDetailsTitleBar(
                         title: orderDetails.storeInfo.storeOwnerName,
                         rate: orderDetails.storeInfo.rating,
                       ),
                     ),
-                  ) : SizedBox(),
+                  )
+                : SizedBox(),
           ),
           Align(
             alignment: Alignment.bottomCenter,

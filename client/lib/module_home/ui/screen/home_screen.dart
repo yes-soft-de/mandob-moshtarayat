@@ -27,22 +27,24 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> getHomeData([bool loading = true]) async {
-    widget._homeStateManager.getHomeData(this,loading);
+    widget._homeStateManager.getHomeData(this, loading);
   }
 
-  void getCategories(catId,categories) async {
-    widget._homeStateManager.getHomeFilterData(this,catId,categories);
-  }
-  void getProducts(catId)  {
-    widget._homeStateManager.getFilteredProducts(this,catId);
-  }
-  void getSubCategoriesProducts(catId)  {
-    widget._homeStateManager.getSubCategoriesProducts(this,catId);
-  }
-  void getMainCategoryProducts(catId)  {
-    widget._homeStateManager.getMainCategoryProducts(this,catId);
+  void getCategories(catId, categories) async {
+    widget._homeStateManager.getHomeFilterData(this, catId, categories);
   }
 
+  void getProducts(catId) {
+    widget._homeStateManager.getFilteredProducts(this, catId);
+  }
+
+  void getSubCategoriesProducts(catId) {
+    widget._homeStateManager.getSubCategoriesProducts(this, catId);
+  }
+
+  void getMainCategoryProducts(catId) {
+    widget._homeStateManager.getMainCategoryProducts(this, catId);
+  }
 
   @override
   void initState() {

@@ -15,9 +15,15 @@ class HomeManager {
   Future<StoreCategoriesResponse?> getStoreCategories() =>
       _homeRepository.getStoreCategories();
   Future<StoreCategoryList?> getBestStores() => _homeRepository.getBestStores();
-  Future<SubCategoriesResponse?> getSubCategories(String categoriesID) => _homeRepository.getSubCategories(categoriesID);
-  Future<ProductsByCategoriesResponse?> getCategoriesProducts(String categoriesID) => _homeRepository.getCategoriesProducts(categoriesID);
-  Future<ProductsByCategoriesResponse?> getSubCategoriesProducts(String categoriesID) => _homeRepository.getSubCategoriesProducts(categoriesID);
-  Future<ProductsByCategoriesResponse?> getMainCategoryProducts(String categoriesID) => _homeRepository.getMainCategoryProducts(categoriesID);
-
+  Future<SubCategoriesResponse?> getSubCategories(String categoriesID) =>
+      _homeRepository.getSubCategories(categoriesID);
+  Future<ProductsByCategoriesResponse?> getCategoriesProducts(
+          String categoriesID) =>
+      _homeRepository.getCategoriesProducts(categoriesID);
+  Future<ProductsByCategoriesResponse?> getSubCategoriesProducts(
+          String categoriesID) =>
+      _homeRepository.getSubCategoriesProducts(categoriesID);
+  Future<ProductsByCategoriesResponse?> getMainCategoryProducts(
+          String categoriesID) =>
+      _homeRepository.getMainCategoryProducts(categoriesID);
 }

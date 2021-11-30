@@ -32,25 +32,33 @@ class HomeRepository {
   }
 
   Future<SubCategoriesResponse?> getSubCategories(String categoriesID) async {
-    dynamic response = await _apiClient.get(Urls.GET_SUBCATEGORIES_API + categoriesID);
+    dynamic response =
+        await _apiClient.get(Urls.GET_SUBCATEGORIES_API + categoriesID);
     if (response == null) return null;
     return SubCategoriesResponse.fromJson(response);
   }
 
-  Future<ProductsByCategoriesResponse?> getCategoriesProducts(String categoriesID) async {
-    dynamic response = await _apiClient.get(Urls.GET_PRODUCTS_BY_CATEGORIES + categoriesID);
-    if (response == null) return null;
-    return ProductsByCategoriesResponse.fromJson(response);
-  }
-  Future<ProductsByCategoriesResponse?> getSubCategoriesProducts(String categoriesID) async {
-    dynamic response = await _apiClient.get(Urls.GET_PRODUCTS_BY_SUBCATEGORIES + categoriesID);
-    if (response == null) return null;
-    return ProductsByCategoriesResponse.fromJson(response);
-  }
-  Future<ProductsByCategoriesResponse?> getMainCategoryProducts(String categoriesID) async {
-    dynamic response = await _apiClient.get(Urls.GET_PRODUCTS_BY_MAIN_CATEGORIES + categoriesID);
+  Future<ProductsByCategoriesResponse?> getCategoriesProducts(
+      String categoriesID) async {
+    dynamic response =
+        await _apiClient.get(Urls.GET_PRODUCTS_BY_CATEGORIES + categoriesID);
     if (response == null) return null;
     return ProductsByCategoriesResponse.fromJson(response);
   }
 
+  Future<ProductsByCategoriesResponse?> getSubCategoriesProducts(
+      String categoriesID) async {
+    dynamic response =
+        await _apiClient.get(Urls.GET_PRODUCTS_BY_SUBCATEGORIES + categoriesID);
+    if (response == null) return null;
+    return ProductsByCategoriesResponse.fromJson(response);
+  }
+
+  Future<ProductsByCategoriesResponse?> getMainCategoryProducts(
+      String categoriesID) async {
+    dynamic response = await _apiClient
+        .get(Urls.GET_PRODUCTS_BY_MAIN_CATEGORIES + categoriesID);
+    if (response == null) return null;
+    return ProductsByCategoriesResponse.fromJson(response);
+  }
 }

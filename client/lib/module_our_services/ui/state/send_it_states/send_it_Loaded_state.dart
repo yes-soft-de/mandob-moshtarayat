@@ -149,7 +149,8 @@ class SendItLoadedState extends SendItState {
             alignment: Alignment.bottomCenter,
             child: MakeOrderButton(
               onPressed: () {
-                if (_sendIt.currentState!.validate() && screenState.payments != null) {
+                if (_sendIt.currentState!.validate() &&
+                    screenState.payments != null) {
                   var request = SendItRequest(
                       recipientName: screenState.receiptNameController.text,
                       recipientPhone: screenState.phoneNumberController.text,

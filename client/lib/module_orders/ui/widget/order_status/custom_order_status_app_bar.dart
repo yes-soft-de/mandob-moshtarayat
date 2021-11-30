@@ -51,21 +51,23 @@ class CustomOrderStatusAppBar extends StatelessWidget {
                     fontSize: 20),
               ),
               Opacity(
-                opacity:hide ? 0 : 1,
+                opacity: hide ? 0 : 1,
                 child: InkWell(
-                  onTap:hide ? null : () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => RatingAlertDialog(
-                        title: S.current.rateCaptain,
-                        message: S.current.rateCaptainMessage,
-                        image: ImageAsset.DELIVERY_MOTOR,
-                        onPressed: (rate) {
-                          onRate(rate);
+                  onTap: hide
+                      ? null
+                      : () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => RatingAlertDialog(
+                              title: S.current.rateCaptain,
+                              message: S.current.rateCaptainMessage,
+                              image: ImageAsset.DELIVERY_MOTOR,
+                              onPressed: (rate) {
+                                onRate(rate);
+                              },
+                            ),
+                          );
                         },
-                      ),
-                    );
-                  },
                   child: Container(
                     decoration: BoxDecoration(
                       color: Theme.of(context).cardColor.withOpacity(0.5),

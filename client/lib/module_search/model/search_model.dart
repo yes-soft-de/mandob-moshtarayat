@@ -30,7 +30,7 @@ class SearchModel {
 
     data.stores?.forEach((element) {
       store.add(StoreModel(
-          rating: num.parse(element.rating ?? '0') ,
+          rating: num.parse(element.rating ?? '0'),
           deliveryCost: 0,
           id: element.id ?? 0,
           storeOwnerName: element.storeOwnerName ?? '',

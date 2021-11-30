@@ -17,10 +17,13 @@ class Urls {
   static const NOTIFICATIONTOADMIN_API = BASE_API + '/notificationtoadmin';
   static const GET_TOP_PRODUCTS_API = BASE_API + '/productstopwanted';
   static const GET_STORE_CATEGORIES_API = BASE_API + '/storecategories';
-  static const GET_STORE_CATEGORY_LIST_API = BASE_API + '/storeownerbycategoryid/';
-  static const GET_MOST_WANTED_STORE_PRODUCTS = BASE_API + '/productstopwantedofspecificstoreowner';
+  static const GET_STORE_CATEGORY_LIST_API =
+      BASE_API + '/storeownerbycategoryid/';
+  static const GET_MOST_WANTED_STORE_PRODUCTS =
+      BASE_API + '/productstopwantedofspecificstoreowner';
   static const GET_PRODUCTS_CATEGORY_API = BASE_API + '/storeProductsCategory';
-  static const GET_PRODUCTS_BY_CATEGORY_API = BASE_API + '/productsbycategoryidandstoreownerprofileid';
+  static const GET_PRODUCTS_BY_CATEGORY_API =
+      BASE_API + '/productsbycategoryidandstoreownerprofileid';
   static const GET_BEST_STORES_API = BASE_API + '/storeOwnerBest';
   static const GET_STORE_PROFILE = BASE_API + '/storeownerprofilebyid/';
   static const GET_MY_ORDERS = BASE_API + '/ordersbyclientid';
@@ -32,8 +35,10 @@ class Urls {
   static const POST_CLIENT_PRIVATE_ORDER_API = BASE_API + '/clientSpecialOrder';
   static const DELETE_CLIENT_ORDER_API = BASE_API + '/ordercancel';
   static const UPDATE_CLIENT_ORDER_API = BASE_API + '/orderUpdatebyclient';
-  static const UPDATE_SPECIAL_CLIENT_ORDER_API = BASE_API + '/orderSpecialUpdateByClient';
-  static const UPDATE_SEND_CLIENT_ORDER_API = BASE_API + '/orderSendUpdateByClient';
+  static const UPDATE_SPECIAL_CLIENT_ORDER_API =
+      BASE_API + '/orderSpecialUpdateByClient';
+  static const UPDATE_SEND_CLIENT_ORDER_API =
+      BASE_API + '/orderSendUpdateByClient';
   static const GET_PROFILE_API = BASE_API + '/clientProfile';
   static const POST_PROFILE_API = BASE_API + '/clientprofile';
   static const CHECK_USER_ROLE = BASE_API + '/checkUserType';
@@ -42,11 +47,13 @@ class Urls {
   static const RATE_PRODUCT = BASE_API + '/ratingProductByClient';
 
   static const RATE_CAPTAIN = BASE_API + '/ratingCaptainByClient';
-  static const GET_SUBCATEGORIES_API = BASE_API + '/subcategoriesbystorecategoryid/';
-  static const GET_PRODUCTS_BY_CATEGORIES = BASE_API + '/productsbystoreproductcategoryid/';
-  static const GET_PRODUCTS_BY_SUBCATEGORIES = BASE_API + '/storeproductscategoryleveltwowithproducts/';
-  static const GET_PRODUCTS_BY_MAIN_CATEGORIES = BASE_API + '/productsbystorecategory/';
+  static const GET_SUBCATEGORIES_API =
+      BASE_API + '/subcategoriesbystorecategoryid/';
+  static const GET_PRODUCTS_BY_CATEGORIES =
+      BASE_API + '/productsbystoreproductcategoryid/';
+  static const GET_PRODUCTS_BY_SUBCATEGORIES =
+      BASE_API + '/storeproductscategoryleveltwowithproducts/';
+  static const GET_PRODUCTS_BY_MAIN_CATEGORIES =
+      BASE_API + '/productsbystorecategory/';
   static const GET_PRODUCT_DETAILS_API = BASE_API + '/product';
-
-
 }

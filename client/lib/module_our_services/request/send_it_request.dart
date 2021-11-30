@@ -8,14 +8,14 @@ class SendItRequest {
   String? recipientPhone;
   String? detail;
 
-  SendItRequest({
-      this.destination, 
-      this.note, 
-      this.payment, 
-      this.source, 
-      this.deliveryDate, 
-      this.recipientName, 
-      this.recipientPhone, 
+  SendItRequest(
+      {this.destination,
+      this.note,
+      this.payment,
+      this.source,
+      this.deliveryDate,
+      this.recipientName,
+      this.recipientPhone,
       this.detail});
 
   SendItRequest.fromJson(dynamic json) {
@@ -31,7 +31,8 @@ class SendItRequest {
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
-    map['destination'] = destination is String ? destination : destination.toJson();
+    map['destination'] =
+        destination is String ? destination : destination.toJson();
     map['note'] = note;
     map['payment'] = payment;
     map['source'] = source;
@@ -41,8 +42,8 @@ class SendItRequest {
     map['detail'] = detail;
     return map;
   }
-
 }
+
 class GeoJson {
   double? long;
   double? lat;

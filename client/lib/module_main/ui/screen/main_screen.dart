@@ -1,13 +1,11 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mandob_moshtarayat/module_our_services/services_routes.dart';
 import 'package:mandob_moshtarayat/module_products/ui/screen/cart_screen.dart';
-import 'package:share/share.dart';
 import 'package:mandob_moshtarayat/di/di_config.dart';
-import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_account/ui/screen/account_screen.dart';
 import 'package:mandob_moshtarayat/module_home/ui/screen/home_screen.dart';
-import 'package:mandob_moshtarayat/module_my_notifications/ui/screen/my_notifications_screen.dart';
 import 'package:mandob_moshtarayat/module_orders/ui/screen/my_orders_screen.dart';
 import 'package:mandob_moshtarayat/utils/customIcon/mandob_icons_icons.dart';
 
@@ -37,13 +35,13 @@ class _MainScreenState extends State<MainScreen> {
         child: Stack(
           children: [
             PageView(
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               controller: homeController,
               onPageChanged: (index) {
                 selectedPage = index;
                 setState(() {});
                 homeController.animateToPage(index,
-                    duration: Duration(milliseconds: 15), curve: Curves.linear);
+                    duration: const Duration(milliseconds: 15), curve: Curves.linear);
               },
               children: [
                 getIt<HomeScreen>(),
@@ -54,20 +52,19 @@ class _MainScreenState extends State<MainScreen> {
             ),
             Align(
               alignment: Alignment.bottomCenter,
-              child: Container(
+              child: SizedBox(
                 height: 65,
                 child: Scaffold(
                   backgroundColor: Colors.transparent.withOpacity(0.0),
                   floatingActionButton: FloatingActionButton(
                     backgroundColor: Theme.of(context).primaryColor,
-                    child: Icon(
+                    child: const Icon(
                       MandobIcons.logo,
                       color: Colors.white,
                       size: 30,
                     ),
                     onPressed: () {
-                      Share.share(
-                          '${S.current.downloadTwaslnaApp} https://play.google.com/store/apps/details?id=de.yes_soft.twaslna');
+                      Navigator.of(context).pushNamed(ServicesRoutes.SEND_IT);
                     },
                   ),
                   floatingActionButtonLocation:
@@ -78,7 +75,7 @@ class _MainScreenState extends State<MainScreen> {
                     gapLocation: GapLocation.center,
                     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                     notchSmoothness: NotchSmoothness.defaultEdge,
-                    icons: [
+                    icons: const [
                       Icons.home,
                       Icons.list,
                       Icons.shopping_cart_rounded,
@@ -87,7 +84,7 @@ class _MainScreenState extends State<MainScreen> {
                     onTap: (int index) {
                       selectedPage = index;
                       homeController.animateToPage(index,
-                          duration: Duration(milliseconds: 15),
+                          duration: const Duration(milliseconds: 15),
                           curve: Curves.linear);
                     },
                     activeIndex: selectedPage,

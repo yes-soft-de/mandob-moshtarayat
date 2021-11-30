@@ -368,6 +368,7 @@
   "productRated": "تم تقييم المنتج",
   "rateProductMessage":"قم بتقييم المنتج من فضلك",
   "rateProduct":"تقييم منتج",
-  "cart":"سلة المشتريات"
+  "cart":"سلة المشتريات",
+  "saller": "البائع"
 
 }

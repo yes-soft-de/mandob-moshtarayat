@@ -20,8 +20,7 @@ class ProductsCard extends StatefulWidget {
       required this.quantity,
       this.defaultQuantity = 0,
       required this.id,
-      this.onTap
-      });
+      this.onTap});
 
   @override
   _ProductsCardState createState() => _ProductsCardState();
@@ -45,7 +44,7 @@ class _ProductsCardState extends State<ProductsCard> {
     return Padding(
       padding: const EdgeInsets.all(8),
       child: InkWell(
-        onTap:widget.onTap,
+        onTap: widget.onTap,
         borderRadius: BorderRadius.circular(18),
         child: Container(
           width: double.maxFinite,
@@ -99,8 +98,8 @@ class _ProductsCardState extends State<ProductsCard> {
                     Center(
                       child: Text(
                         widget.title,
-                        style:
-                            TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 17),
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -142,7 +141,8 @@ class _ProductsCardState extends State<ProductsCard> {
                             child: Icon(Icons.remove),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                            padding:
+                                const EdgeInsets.only(left: 8.0, right: 8.0),
                             child: Text(cartModel.quantity.toString()),
                           ),
                           TextButton(

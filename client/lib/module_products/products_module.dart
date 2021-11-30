@@ -9,13 +9,13 @@ import 'package:mandob_moshtarayat/module_products/ui/screen/products_details_sc
 class ProductsModule extends YesModule {
   final ProductDetailsScreen _productDetailsScreen;
   final CartScreen _cartScreen;
-  ProductsModule(this._productDetailsScreen,this._cartScreen) {
+  ProductsModule(this._productDetailsScreen, this._cartScreen) {
     YesModule.RoutesMap.addAll(getRoutes());
   }
   Map<String, WidgetBuilder> getRoutes() {
     return {
       ProductsRoutes.PRODUCT_DETAILS_SCREEN: (context) => _productDetailsScreen,
-      ProductsRoutes.CART_SCREEN : (context) => _cartScreen
+      ProductsRoutes.CART_SCREEN: (context) => _cartScreen
     };
   }
 }

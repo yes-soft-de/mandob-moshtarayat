@@ -32,13 +32,13 @@ class LoginStateInit extends LoginState {
             children: [
               MediaQuery.of(context).viewInsets.bottom == 0
                   ? Padding(
-                    padding: const EdgeInsets.only(bottom: 32.0,top: 16),
-                    child: Image.asset(
+                      padding: const EdgeInsets.only(bottom: 32.0, top: 16),
+                      child: Image.asset(
                         ImageAsset.LOGO,
                         width: 150,
                         height: 150,
                       ),
-                  )
+                    )
                   : Container(),
               Padding(
                 padding: const EdgeInsets.only(

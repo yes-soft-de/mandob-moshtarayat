@@ -28,111 +28,111 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Stack(
+      children: [
+        ListView(
+          padding: EdgeInsets.all(8),
+          physics:
+              BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           children: [
-            ListView(
-              padding: EdgeInsets.all(8),
-              physics: BouncingScrollPhysics(
-                  parent: AlwaysScrollableScrollPhysics()),
+            CartAppBar(),
+            ListTile(
+              leading: Icon(Icons.info),
+              title: Text(S.of(context).updateOrderNote),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(right: 16.0, left: 16.0),
+              child: Divider(
+                color: Theme.of(context).backgroundColor,
+                thickness: 2.5,
+              ),
+            ),
+            Flex(
+              direction: Axis.vertical,
               children: [
-                CartAppBar(),
-                ListTile(
-                  leading: Icon(Icons.info),
-                  title: Text(S.of(context).updateOrderNote),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 16.0, left: 16.0),
-                  child: Divider(
-                    color: Theme.of(context).backgroundColor,
-                    thickness: 2.5,
+                Hider(
+                  active: CartHiveHelper().getCart().isNotEmpty,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 16, right: 16),
+                    child: ListTile(
+                      leading: Icon(
+                        Icons.shopping_cart_rounded,
+                        color: Theme.of(context).disabledColor,
+                        size: 25,
+                      ),
+                      title: Text(
+                        S.of(context).orderList,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 18),
+                      ),
+                    ),
                   ),
                 ),
-                Flex(
-                  direction: Axis.vertical,
-                  children: [
-                    Hider(
-                      active: CartHiveHelper().getCart().isNotEmpty,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 16, right: 16),
-                        child: ListTile(
-                          leading: Icon(
-                            Icons.shopping_cart_rounded,
-                            color: Theme.of(context).disabledColor,
-                            size: 25,
-                          ),
-                          title: Text(
-                            S.of(context).orderList,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 18),
-                          ),
-                        ),
-                      ),
-                    ),
-                    ListView(
-                      physics: ScrollPhysics(),
-                      shrinkWrap: true,
-                      children: getOrdersList(
-                          CartHiveHelper().getProduct() ?? [], context),
-                    ),
-                    Container(
-                      height: 8,
-                    ),
-                    Container(
-                      width: double.maxFinite,
-                      child: TextButton(
-                          style: TextButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          onPressed: CartHiveHelper().getCart().isEmpty
-                              ? null
-                              : () {
-                                  List<Products> items = [];
-
-                                  CartHiveHelper().getCart().forEach((element) {
-                                    items.add(Products(
-                                        productID: element.id,
-                                        countProduct: element.quantity));
-                                  });
-
-                                  CheckoutModel checkoutModel = CheckoutModel(
-                                      ownerId: CartHiveHelper().getStoreID(),
-                                      cart: items,
-                                      orderCost: double.parse(getTotal()),
-                                      deliveryCost: 0);
-
-                                  Navigator.of(context).pushNamed(
-                                      OrdersRoutes.CLIENT_ORDER,
-                                      arguments: checkoutModel);
-                                },
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              S.current.checkout,
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          )),
-                    ),
-                    Hider(
-                      active: CartHiveHelper().getCart().isNotEmpty,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: BillCard(
-                          id: null,
-                          deliveryCost: 0,
-                          orderCost: total,
-                        ),
-                      ),
-                    ),
-                  ],
+                ListView(
+                  physics: ScrollPhysics(),
+                  shrinkWrap: true,
+                  children: getOrdersList(
+                      CartHiveHelper().getProduct() ?? [], context),
                 ),
-                SizedBox(
-                  height: 75,
+                Container(
+                  height: 8,
+                ),
+                Container(
+                  width: double.maxFinite,
+                  child: TextButton(
+                      style: TextButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      onPressed: CartHiveHelper().getCart().isEmpty
+                          ? null
+                          : () {
+                              List<Products> items = [];
+
+                              CartHiveHelper().getCart().forEach((element) {
+                                items.add(Products(
+                                    productID: element.id,
+                                    countProduct: element.quantity));
+                              });
+
+                              CheckoutModel checkoutModel = CheckoutModel(
+                                  ownerId: CartHiveHelper().getStoreID(),
+                                  cart: items,
+                                  orderCost: double.parse(getTotal()),
+                                  deliveryCost: 0);
+
+                              Navigator.of(context).pushNamed(
+                                  OrdersRoutes.CLIENT_ORDER,
+                                  arguments: checkoutModel);
+                            },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          S.current.checkout,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      )),
+                ),
+                Hider(
+                  active: CartHiveHelper().getCart().isNotEmpty,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: BillCard(
+                      id: null,
+                      deliveryCost: 0,
+                      orderCost: total,
+                    ),
+                  ),
                 ),
               ],
             ),
+            SizedBox(
+              height: 75,
+            ),
           ],
-        ));
+        ),
+      ],
+    ));
   }
 
   List<Widget> getOrdersList(List<Products>? carts, context) {

@@ -13,14 +13,21 @@ class ErrorState extends States {
   final bool hasAppbar;
   final VoidCallback onPressed;
   State<StatefulWidget> screenState;
-  ErrorState(this.screenState, {this.error , this.errors,required this.onPressed ,required this.title,this.hasAppbar = true})
+  ErrorState(this.screenState,
+      {this.error,
+      this.errors,
+      required this.onPressed,
+      required this.title,
+      this.hasAppbar = true})
       : super(screenState);
 
   @override
   Widget getUI(BuildContext context) {
     return Scaffold(
-      appBar:hasAppbar ? CustomTwaslnaAppBar.appBar(context,
-          title: title, buttonBackground: Colors.red) : null,
+      appBar: hasAppbar
+          ? CustomTwaslnaAppBar.appBar(context,
+              title: title, buttonBackground: Colors.red)
+          : null,
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         child: Container(
@@ -60,7 +67,7 @@ class ErrorState extends States {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
                           elevation: 0),
-                      onPressed:onPressed,
+                      onPressed: onPressed,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(

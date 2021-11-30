@@ -3,8 +3,8 @@ import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/utils/components/costom_search.dart';
 import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
 import 'package:mandob_moshtarayat/utils/text_style/text_style.dart';
-class CartAppBar extends StatelessWidget {
 
+class CartAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Flex(
       direction: Axis.vertical,

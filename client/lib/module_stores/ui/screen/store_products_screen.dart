@@ -64,7 +64,7 @@ class StoreProductsScreenState extends State<StoreProductsScreen> {
   }
 
   bool flag = true;
-  int storeId  = -1;
+  int storeId = -1;
   late String backgroundImage;
   @override
   Widget build(BuildContext context) {
@@ -73,8 +73,7 @@ class StoreProductsScreenState extends State<StoreProductsScreen> {
       storeId = args.id;
       widget.stateManager.getStoresProducts(args.id, this);
       flag = false;
-    }
-    else if (flag && args is Map){
+    } else if (flag && args is Map) {
       storeId = int.parse(args['storeId']);
       widget.stateManager.getStoresProducts(int.parse(args['storeId']), this);
       flag = false;

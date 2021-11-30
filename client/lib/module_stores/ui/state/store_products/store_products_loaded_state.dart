@@ -157,7 +157,6 @@ class StoreProductsLoadedState extends StoreProductsState {
                         quantity: getItemsCount(),
                         onPressed: carts.isNotEmpty
                             ? () {
-
                                 List<Products> items = [];
                                 carts.forEach((element) {
                                   items.add(Products(
@@ -175,8 +174,8 @@ class StoreProductsLoadedState extends StoreProductsState {
                                   CartHiveHelper().setCart(carts);
                                   Navigator.of(context).pop();
                                 } else {
-                                  Navigator.of(context).pushNamed(
-                                      ProductsRoutes.CART_SCREEN);
+                                  Navigator.of(context)
+                                      .pushNamed(ProductsRoutes.CART_SCREEN);
                                   // Navigator.of(context).pushNamed(
                                   //     OrdersRoutes.CLIENT_ORDER,
                                   //     arguments: checkoutModel);
@@ -207,9 +206,11 @@ class StoreProductsLoadedState extends StoreProductsState {
     List<ProductsCard> prods = [];
     topWantedProducts.forEach((element) {
       prods.add(ProductsCard(
-        onTap: (){
-          Navigator.of(screenState.context).pushNamed(ProductsRoutes.PRODUCT_DETAILS_SCREEN,arguments:element.id);
-        },
+          onTap: () {
+            Navigator.of(screenState.context).pushNamed(
+                ProductsRoutes.PRODUCT_DETAILS_SCREEN,
+                arguments: element.id);
+          },
           id: element.id,
           title: element.title,
           image: element.image,
@@ -220,16 +221,17 @@ class StoreProductsLoadedState extends StoreProductsState {
               if (CartHiveHelper().getCart().isEmpty) {
                 CartHiveHelper().setStoreId(screenState.storeId);
                 addToCart(cartModel);
-              }
-              else {
+              } else {
                 if (CartHiveHelper().getStoreID() == screenState.storeId) {
                   addToCart(cartModel);
-                }
-                else {
-                  CustomAlertDialog(content: S.current.youHaveProductsFromDifferentStore, onPressed: () async {
-                   await CartHiveHelper().deleteCart();
-                   addToCart(cartModel);
-                  },);
+                } else {
+                  CustomAlertDialog(
+                    content: S.current.youHaveProductsFromDifferentStore,
+                    onPressed: () async {
+                      await CartHiveHelper().deleteCart();
+                      addToCart(cartModel);
+                    },
+                  );
                 }
               }
             }
@@ -242,11 +244,13 @@ class StoreProductsLoadedState extends StoreProductsState {
     });
     return prods;
   }
-  void addToCart(cartModel){
+
+  void addToCart(cartModel) {
     carts.removeWhere((e) => e.id == cartModel.id);
     carts.add(cartModel);
     CartHiveHelper().addProductsToCart(cartModel);
   }
+
   List<Widget> getCategories(List<CategoryModel> categoriesModel) {
     if (categoriesModel.isEmpty) {
       return [
@@ -310,6 +314,7 @@ dynamic getTotal() {
   }
   return total.toString();
 }
+
 String getItemsCount() {
   List<CartModel> carts = CartHiveHelper().getCart();
   return carts.length.toString();
