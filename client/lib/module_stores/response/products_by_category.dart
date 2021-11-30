@@ -58,7 +58,9 @@ class Data {
   Data.fromJson(dynamic json) {
     id = json['id'];
     productName = json['productName'];
-    productImage = json['productImage'] != null ? Image.fromJson(json['productImage']): null;
+    productImage = json['productImage'] != null
+        ? Image.fromJson(json['productImage'])
+        : null;
     productPrice = json['productPrice']?.toDouble();
     storeOwnerProfileID = json['storeOwnerProfileID'];
     productCategoryID = json['storeProductCategoryID'];
@@ -75,11 +77,13 @@ class Data {
     return map;
   }
 }
+
 class Image {
   Image({
     this.imageURL,
     this.image,
-    this.baseURL,});
+    this.baseURL,
+  });
 
   Image.fromJson(dynamic json) {
     imageURL = json['imageURL'];
@@ -97,5 +101,4 @@ class Image {
     map['baseURL'] = baseURL;
     return map;
   }
-
 }
