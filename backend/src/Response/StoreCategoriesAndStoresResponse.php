@@ -4,9 +4,7 @@ namespace App\Response;
 
 class StoreCategoriesAndStoresResponse
 {
-    public $id;
-
-    public $storeCategoryName;
+    public $categories;
 
     public $stores;
 

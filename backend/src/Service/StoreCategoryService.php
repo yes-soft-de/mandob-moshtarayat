@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\StoreCategoryEntity;
 use App\Manager\StoreCategoryManager;
 use App\Request\StoreCategoryCreateRequest;
+use App\Response\ClientFavouriteStoreCategoriesAndStoresGetResponse;
 use App\Response\StoreCategoriesAndStoresResponse;
 use App\Response\StoreCategoryCreateResponse;
 use App\Response\StoreCategoryByIdResponse;
@@ -111,7 +112,7 @@ class StoreCategoryService
                     }
                 }
 
-                $response[] = $this->autoMapping->map("array", StoreCategoriesAndStoresResponse::class, $category);
+                $response[] = $this->autoMapping->map("array", ClientFavouriteStoreCategoriesAndStoresGetResponse::class, $category);
             }
         }
 
