@@ -83,6 +83,11 @@ class StoreProductCategoryManager
        return $this->storeProductCategoryEntityRepository->getStoreProductsCategoryForStoreSpecific($storeOwnerProfileId);
     }
 
+    public function getStoreProductCategoryStoreSpecific($storeOwnerProfileId)
+    {
+       return $this->storeProductCategoryEntityRepository->getStoreProductCategoryStoreSpecific($storeOwnerProfileId);
+    }
+
     public function getSubCategoriesByStoreCategoryID($storeCategoryID)
     {
        return $this->storeProductCategoryEntityRepository->getSubCategoriesByStoreCategoryID($storeCategoryID);

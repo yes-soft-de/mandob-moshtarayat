@@ -281,6 +281,17 @@ class StoreProductCategoryController extends BaseController
         return $this->response($result, self::FETCH);
       }
 
+      /**
+     * @Route("storeproductforstorespecific/{storeOwnerProfileId}", name="getStoreProductsCategoryStoreSpecific", methods={"GET"})
+     * @return JsonResponse
+     */
+      public function getStoreProductCategoryStoreSpecific($storeOwnerProfileId)
+      {
+        $result = $this->storeProductCategoryService->getStoreProductCategoryStoreSpecific($storeOwnerProfileId);
+
+        return $this->response($result, self::FETCH);
+      }
+
     /**
      * Get store products category of first level.
      * @Route("/storeproductscategorylevelone/{storeCategoryID}", name="getStoreProductsCategoryLevelOneByStoreCategoryID", methods={"GET"})
