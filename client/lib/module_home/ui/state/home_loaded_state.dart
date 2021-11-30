@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_home/model/top_wanted_products_model.dart';
 import 'package:mandob_moshtarayat/module_home/ui/screen/home_screen.dart';
-import 'package:mandob_moshtarayat/module_home/ui/state/home_loaded_filters_state.dart';
 import 'package:mandob_moshtarayat/module_home/ui/state/home_state.dart';
 import 'package:mandob_moshtarayat/module_home/ui/widget/home_app_bar.dart';
 import 'package:mandob_moshtarayat/module_home/ui/widget/product_card.dart';
@@ -12,7 +11,6 @@ import 'package:mandob_moshtarayat/module_stores/store_routes.dart';
 import 'package:mandob_moshtarayat/module_stores/ui/widget/store_list/order_type.dart';
 import 'package:mandob_moshtarayat/utils/customIcon/custom_icons.dart';
 import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
-import 'package:mandob_moshtarayat/utils/images/images.dart';
 import 'package:mandob_moshtarayat/utils/models/store.dart';
 import 'package:mandob_moshtarayat/utils/models/store_category.dart';
 import 'package:mandob_moshtarayat/utils/text_style/text_style.dart';
@@ -25,8 +23,8 @@ class HomeLoadedState extends HomeState {
 
   HomeLoadedState(this.screenState,
       {required this.topProducts,
-        required this.categories,
-        required this.bestStores})
+      required this.categories,
+      required this.bestStores})
       : super(screenState);
 
   @override
@@ -36,44 +34,19 @@ class HomeLoadedState extends HomeState {
         return screenState.getHomeData();
       },
       child: ListView(
-        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+        physics:const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         children: [
-          CustomHomeAppBar(categoriesCallback: (categoriesId){
-            if (categoriesId != '0') {
-              screenState.getCategories(categoriesId, categories);
-              screenState.getMainCategoryProducts(categoriesId);
-              screenState.refresh();
-            }
-          },categories: categories,),
-          ListTile(
-            leading: Icon(
-              CustomIcon.our_service,
-              color: Theme.of(context).primaryColor,
-              size: 18,
-            ),
-            title: Text(
-              S.of(context).ourService,
-              style: StyleText.categoryStyle,
-            ),
+          CustomHomeAppBar(
+            categoriesCallback: (categoriesId) {
+              if (categoriesId != '0') {
+                screenState.getCategories(categoriesId, categories);
+                screenState.getMainCategoryProducts(categoriesId);
+                screenState.refresh();
+              }
+            },
+            categories: categories,
           ),
-          SizedBox(
-            height: 125,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              physics: BouncingScrollPhysics(
-                  parent: AlwaysScrollableScrollPhysics()),
-              children: [
-                HomeCard(
-                  title: S.of(context).deliverForMe,
-                  image: ImageAsset.SEND_ON_ME,
-                  onTap: () {
-                    Navigator.of(context).pushNamed(ServicesRoutes.SEND_IT);
-                  },
-                ),
-              ],
-            ),
-          ),
-          Hider(
+         Hider(
             active: topProducts.isNotEmpty,
             child: ListTile(
               leading: Icon(
@@ -93,7 +66,7 @@ class HomeLoadedState extends HomeState {
             child: SizedBox(
               height: 125,
               child: ListView(
-                physics: BouncingScrollPhysics(
+                physics:const BouncingScrollPhysics(
                     parent: AlwaysScrollableScrollPhysics()),
                 scrollDirection: Axis.horizontal,
                 children: _getTopProducts(topProducts),
@@ -120,7 +93,7 @@ class HomeLoadedState extends HomeState {
             child: SizedBox(
               height: 125,
               child: ListView(
-                physics: BouncingScrollPhysics(
+                physics: const BouncingScrollPhysics(
                     parent: AlwaysScrollableScrollPhysics()),
                 scrollDirection: Axis.horizontal,
                 children: getBestStores(bestStores),
@@ -147,15 +120,15 @@ class HomeLoadedState extends HomeState {
             child: SizedBox(
               height: 125,
               child: ListView.builder(
-                physics: BouncingScrollPhysics(
+                physics: const BouncingScrollPhysics(
                     parent: AlwaysScrollableScrollPhysics()),
                 scrollDirection: Axis.horizontal,
                 itemCount: 10,
                 itemBuilder: (_, index) {
-                  return HomeCard(
+                  return const HomeCard(
                       title: 'متجر',
                       image:
-                      'https://media-cdn.tripadvisor.com/media/photo-s/17/75/3f/d1/restaurant-in-valkenswaard.jpg');
+                          'https://media-cdn.tripadvisor.com/media/photo-s/17/75/3f/d1/restaurant-in-valkenswaard.jpg');
                 },
               ),
             ),
@@ -176,17 +149,17 @@ class HomeLoadedState extends HomeState {
           Hider(
             active: categories.isNotEmpty,
             child: GridView(
-              physics: ScrollPhysics(),
+              physics: const ScrollPhysics(),
               shrinkWrap: true,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   mainAxisSpacing: 8.0,
                   childAspectRatio:
-                  (MediaQuery.of(context).size.width / 2) / 135),
+                      (MediaQuery.of(context).size.width / 2) / 135),
               children: getCategories(categories),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 75,
           ),
         ],
@@ -244,9 +217,9 @@ class HomeLoadedState extends HomeState {
           if (element.hasProducts && element.privateOrders) {
             // Navigator.of(screenState.context).pushNamed(StoreRoutes.STORE_PRODUCTS,arguments: element);
             showModalBottomSheet(
-                shape: RoundedRectangleBorder(
+                shape: const RoundedRectangleBorder(
                     borderRadius:
-                    BorderRadius.vertical(top: Radius.circular(10))),
+                        BorderRadius.vertical(top: Radius.circular(10))),
                 context: screenState.context,
                 builder: (context) {
                   return OrderType(element);

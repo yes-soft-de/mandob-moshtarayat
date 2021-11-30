@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
-import 'package:mandob_moshtarayat/module_home/model/productsByCategoriesModel.dart';
+import 'package:mandob_moshtarayat/module_home/model/products_by_categories_model.dart';
 import 'package:mandob_moshtarayat/module_home/model/subCategoriesModel.dart';
 import 'package:mandob_moshtarayat/module_home/ui/screen/home_screen.dart';
 import 'package:mandob_moshtarayat/module_home/ui/state/home_state.dart';
@@ -72,8 +72,10 @@ class HomeLoadedFilterState extends HomeState {
             ),
           ),
           Checked(
-            checked: screenState.snapshot.hasData && screenState.snapshot.connectionState != ConnectionState.waiting,
-            child: Lottie.asset(LottieAsset.LOADING_CART,repeat: true,width: 125,height: 125),
+            checked: screenState.snapshot.hasData &&
+                screenState.snapshot.connectionState != ConnectionState.waiting,
+            child: Lottie.asset(LottieAsset.LOADING_CART,
+                repeat: true, width: 125, height: 125),
             checkedWidget: Column(
               children: _getProductsByCategories(),
             ),
@@ -93,8 +95,8 @@ class HomeLoadedFilterState extends HomeState {
         SubCategoryCard(
             id: element.subCategoriesID.toString(),
             title: element.productCategoryName,
-            selected: subCategory ==  element.subCategoriesID.toString(),
-             icon: element.productCategoryImage == '' ? Icons.category : null,
+            selected: subCategory == element.subCategoriesID.toString(),
+            icon: element.productCategoryImage == '' ? Icons.category : null,
             image: element.productCategoryImage,
             onTap: (selected) {
               subCategory = selected;
@@ -133,6 +135,7 @@ class HomeLoadedFilterState extends HomeState {
     if (!screenState.snapshot.hasData) return widgets;
     screenState.snapshot.data.forEach((ProductsByCategoriesModel element) {
       widgets.add(ProductComponent(
+        storeName: element.storeName,
         productId: element.id.toString(),
         storeId: element.storeOwnerProfileID.toString(),
         image: element.image,
