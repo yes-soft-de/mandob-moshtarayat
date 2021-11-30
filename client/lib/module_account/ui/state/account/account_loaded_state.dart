@@ -1,3 +1,5 @@
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mandob_moshtarayat/consts/social_type.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_account/account_routes.dart';
 import 'package:mandob_moshtarayat/module_account/model/profile_model.dart';
@@ -7,6 +9,7 @@ import 'package:mandob_moshtarayat/module_account/ui/state/account/account_state
 import 'package:mandob_moshtarayat/module_account/ui/widget/account_app_bar.dart';
 import 'package:mandob_moshtarayat/module_account/ui/widget/account_tile.dart';
 import 'package:mandob_moshtarayat/module_account/ui/widget/account_unsigned_app_bar.dart';
+import 'package:mandob_moshtarayat/module_account/ui/widget/social_widget.dart';
 import 'package:mandob_moshtarayat/module_orders/orders_routes.dart';
 import 'package:mandob_moshtarayat/module_settings/setting_routes.dart';
 import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
@@ -24,7 +27,7 @@ class AccountLoadedState extends AccountState {
     return Container(
       color: Theme.of(context).cardColor,
       child: ListView(
-        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+        physics:const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         children: [
           signIn ? AccountAppBar(profileModel) : AccountUnsignedAppBar(),
           Padding(
@@ -69,10 +72,6 @@ class AccountLoadedState extends AccountState {
             ),
           ),
           AccountTile(
-            text: S.of(context).community,
-            icon: Icons.people,
-          ),
-          AccountTile(
             text: S.of(context).termsOfService,
             icon: Icons.sticky_note_2_rounded,
           ),
@@ -81,10 +80,28 @@ class AccountLoadedState extends AccountState {
             icon: Icons.info,
           ),
           SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize:MainAxisSize.max,
+                children: const [
+                  SocialWidget(image:FontAwesomeIcons.whatsapp, type:SocialType.whatsapp,color: Colors.green,),
+                  SocialWidget(image:FontAwesomeIcons.telegram, type:SocialType.telegram,color: Colors.lightBlue,),
+                  SocialWidget(image:FontAwesomeIcons.instagram, type:SocialType.instagram,color: Colors.pink,),
+                  SocialWidget(image:FontAwesomeIcons.facebook, type:SocialType.facebook,color: Colors.blue,),
+                ],
+              ),
+            ),
+          ),
+         const SizedBox(
             height: 75,
           ),
         ],
       ),
     );
   }
+  
 }
