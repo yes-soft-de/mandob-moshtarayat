@@ -29,7 +29,7 @@ class ProductCategoriesScreenState extends State<ProductCategoriesScreen> {
 
     currentState = ProductCategoriesLoadingState(this);
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-      widget._stateManager.getProductsCategoryLevelOne(this);
+      widget._stateManager.getCategoryLevelOne(this);
     });
     widget._stateManager.stateStream.listen((event) {
       currentState = event;
@@ -40,23 +40,26 @@ class ProductCategoriesScreenState extends State<ProductCategoriesScreen> {
 
   void getStoreCategoriesLevelTwo(List<ProductsCategoryModel> categoriesOne,int id,String levelOneName) {
 
-    widget._stateManager.getProductsCategoryLevelTwo(this,categoriesOne,id,levelOneName);
+    widget._stateManager.getCategoryLevelTwo(this,categoriesOne,id,levelOneName);
 
   }
   void getStoreCategoriesLevelOne() {
 
-    widget._stateManager.getProductsCategoryLevelOne(this);
+    widget._stateManager.getCategoryLevelOne(this);
 
   }
-  void getStoreProduct(List<ProductsCategoryModel> categoriesOne,List<ProductsCategoryModel> categoriesTwo,int categoryID,String levelOneName,String levelTwoName) {
-    widget._stateManager.getStoreProduct(this,categoriesOne,categoriesTwo,categoryID,levelOneName,levelTwoName);
+  void getStoreProductLevelTwo(List<ProductsCategoryModel> categoriesOne,List<ProductsCategoryModel> categoriesTwo,int categoryID,String levelOneName,String levelTwoName) {
+    widget._stateManager.getStoreProductLevelTwo(this,categoriesOne,categoriesTwo,categoryID,levelOneName,levelTwoName);
   }
 
-  void updateProduct(UpdateProductRequest request,List<ProductsCategoryModel> levelOne,List<ProductsCategoryModel> levelTwo) {
-    widget._stateManager.updateProduct(this,request,levelOne ,levelTwo);
+  void updateProduct(UpdateProductRequest request,List<ProductsCategoryModel> levelOne,List<ProductsCategoryModel> levelTwo,{String? nameOne ,String? nameTwo}) {
+    print('names');
+    print(nameOne);
+    print(nameTwo);
+    widget._stateManager.updateProduct(this,request,levelOne ,levelTwo,nameOne: nameOne,nameTwo: nameTwo);
   }
-  void createProduct(CreateProductRequest request,List<ProductsCategoryModel> levelOne,List<ProductsCategoryModel> levelTwo) {
-    widget._stateManager.createProduct(this,request,levelOne,levelTwo);
+  void createProduct(CreateProductRequest request,List<ProductsCategoryModel> levelOne,List<ProductsCategoryModel> levelTwo , {String? nameOne ,String? nameTwo}) {
+    widget._stateManager.createProduct(this,request,levelOne,levelTwo,nameOne: nameOne,nameTwo: nameTwo);
   }
 
   void refresh() {

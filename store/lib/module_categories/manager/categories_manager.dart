@@ -17,10 +17,11 @@ class CategoriesManager {
   Future<StoreCategoriesResponse?> getStoreCategories() => _categoriesRepository.getStoreCategories();
 
 
-  Future<ProductsCategoryResponse?> getProductCategoriesLevelOne(int id) => _categoriesRepository.getProductsCategoryLevelOne(id);
-  Future<ProductsCategoryResponse?> getProductCategoriesLevelTwo(int id) => _categoriesRepository.getProductsCategoryLevelTwo(id);
+  Future<ProductsCategoryResponse?> getCategoriesLevelOne(int id) => _categoriesRepository.getCategoryLevelOne(id);
+  Future<ProductsCategoryResponse?> getCategoriesLevelTwo(int id) => _categoriesRepository.getCategoryLevelTwo(id);
 
-  Future<StoreProductsResponse?> getProducts(int id) => _categoriesRepository.getProducts(id);
+  Future<StoreProductsResponse?> getProductsLevelTwo(int id) => _categoriesRepository.getProductsLevelTwo(id);
+  Future<StoreProductsResponse?> getProductsLevelOne(int id) => _categoriesRepository.getProductsLevelOne(id);
   Future<StoreProductsResponse?> getStoreProducts() => _categoriesRepository.getStoreProducts();
 
   Future<ActionResponse?> createStoreProduct(CreateProductRequest request) => _categoriesRepository.createProduct(request);

@@ -8,7 +8,10 @@ import 'package:mandob_moshtarayat/module_categories/request/update_product_requ
 import 'package:mandob_moshtarayat/module_categories/ui/screen/product_categories_screen.dart';
 import 'package:mandob_moshtarayat/module_categories/ui/state/product_category/product_categories_state.dart';
 import 'package:mandob_moshtarayat/module_categories/ui/widget/add_product_form.dart';
+import 'package:mandob_moshtarayat/module_categories/ui/widget/category_card.dart';
 import 'package:mandob_moshtarayat/module_categories/ui/widget/product_component.dart';
+import 'package:mandob_moshtarayat/module_stores/ui/widget/catagories_card.dart';
+import 'package:mandob_moshtarayat/module_theme/service/theme_service/theme_service.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_list_view.dart';
 import 'package:mandob_moshtarayat/utils/components/empty_screen.dart';
 import 'package:mandob_moshtarayat/utils/components/error_screen.dart';
@@ -19,15 +22,16 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
   final ProductCategoriesScreenState screenState;
   final String? error;
   final bool empty;
-  final List<ProductsCategoryModel>? categoriesOne;
-  final List<ProductsCategoryModel>? categoriesTwo;
-  final List<ProductsModel>? productsModel;
+  final List<ProductsCategoryModel> categoriesOne;
+  final List<ProductsCategoryModel> categoriesTwo;
+  final List<ProductsModel> productsModel;
   final int storeProductCategoryID;
   final String? nameOne;
   final String? nameTwo;
+  final int? idFirstCat;
 
   ProductCategoriesLoadedState(this.screenState, this.categoriesOne,this.categoriesTwo,this.productsModel, this.storeProductCategoryID,
-      {this.nameOne, this.nameTwo,this.empty = false, this.error})
+      {this.nameOne, this.nameTwo,this.empty = false, this.error,this.idFirstCat,})
       : super(screenState) {
     if (error != null) {
       screenState.canAddCategories = false;
@@ -38,8 +42,10 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
   ProductsCategoryModel? idOne;
   ProductsCategoryModel? idTwo;
 
-  String? NameOne;
-  String? NameTwo;
+//  String? NameOne;
+//  String? NameTwo;
+
+  int selectedIndex = 0;
   @override
   Widget getUI(BuildContext context) {
     if (error != null) {
@@ -56,126 +62,150 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
             screenState.getStoreCategoriesLevelOne();
           });
     }
-    return Container(
-      width: double.maxFinite,
-      child: Center(
-        child: Container(
-          constraints: BoxConstraints(
-              maxWidth: 600
-          ),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                  width: double.maxFinite,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25),
-                      //color: Theme.of(context).backgroundColor,
-                      border: Border.all(
-                          color: Theme.of(context).primaryColor, width: 4)),
-                  child: Center(
-                    child: DropdownButton(
-                      value: idOne,
-                      items: getChoicesCategoriesOne(),
-                      onChanged: (v) {
-                        v as ProductsCategoryModel;
-                        idOne = v;
-                        screenState.getStoreCategoriesLevelTwo(categoriesOne??[], int.parse(idOne!.id.toString()),idOne!.categoryName);
-                      },
-                      hint: Text(
-                      nameOne ??  S.current.chooseCategory,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      underline: SizedBox(),
-                      icon: Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Icon(Icons.arrow_drop_down_rounded),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                  width: double.maxFinite,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25),
-                      //color: Theme.of(context).backgroundColor,
-                      border: Border.all(
-                          color: Theme.of(context).primaryColor, width: 4)),
-                  child: Center(
-                    child: DropdownButton(
-                      value: idTwo,
-                      items: getChoicesCategoriesTwo(),
-                      onChanged: (v) {
-                        v as ProductsCategoryModel;
-                        idTwo = v;
-                         screenState.getStoreProduct(categoriesOne??[], categoriesTwo??[], int.parse(idTwo!.id.toString()),nameOne??'',idTwo!.categoryName);
-                      },
-                      hint: Text(
-                      nameTwo??  S.current.chooseCategory,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      underline: SizedBox(),
-                      icon: Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Icon(Icons.arrow_drop_down_rounded),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: CustomListView.custom(children:getProducts()),
-              ),
-              ElevatedButton(
-                onPressed: (){
-                  if (productsModel != null){
-                    print("storeProductCategoryID" +idTwo.toString());
-                    showDialog(context: context, builder:(_){
-                      return AddProductsForm(
-                        state:this,
-                        addProduct: (name,image,price,discount){
-                          Navigator.of(context).pop();
-                          screenState.createProduct(CreateProductRequest(
-                              productName: name,
-                              productImage: image,
-                              productPrice: price,
-                              discount: discount,
-                              storeProductCategoryID: storeProductCategoryID,
-                          ),categoriesOne??[],categoriesTwo??[]);
-                        },
-                      );
-                    });
-                  }else{
-                    Fluttertoast.showToast(msg: S.of(context).chooseCategory);
-                  }
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+//        SizedBox(
+//          height: 70,
+//          child: ListView.builder(itemBuilder: (context , index){
+//            return CategoryCard(title: categoriesOne[index].categoryName,
+//
+//              selected: categoriesOne[index].categoryName == nameOne ? true :false,
+//
+//              id: categoriesOne[index].id,
+//              onTap: (id){
+//              print('hihih');
+//              idOne = categoriesOne[index];
+//              screenState.getStoreCategoriesLevelTwo(categoriesOne, int.parse(idOne!.id.toString()),idOne!.categoryName);
+//            },
+//            );
+//          },itemCount: categoriesOne.length,  shrinkWrap: true, scrollDirection: Axis.horizontal,),
+//        ),
+//        SizedBox(
+//          height: 70,
+//          child:
+//          ListView.builder(itemBuilder: (context , index){
+//            return CategoryCard(title: categoriesTwo[index].categoryName,
+//                selected: categoriesTwo[index].categoryName == nameTwo ? true :false,
+//              id: categoriesTwo[index].id, onTap: (id){
+//              idTwo = categoriesTwo[index];
+//             screenState.getStoreProductLevelTwo(categoriesOne, categoriesTwo, int.parse(idTwo!.id.toString()),nameOne??'',idTwo!.categoryName);
+//              },
+//            );
+//          },itemCount: categoriesTwo.length,  shrinkWrap: true, scrollDirection: Axis.horizontal,),
+//        ),
+//        Expanded(
+//          child: CustomListView.custom(children:getProducts()),
+//        ),
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Container(
+            width: double.maxFinite,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(25),
+                //color: Theme.of(context).backgroundColor,
+                border: Border.all(
+                    color: Theme.of(context).primaryColor, width: 4)),
+            child: Center(
+              child: DropdownButton(
+                value: idOne,
+                items: getChoicesCategoriesOne(),
+                onChanged: (v) {
+                  v as ProductsCategoryModel;
+                  idOne = v;
+                  screenState.getStoreCategoriesLevelTwo(categoriesOne, int.parse(idOne!.id.toString()),idOne!.categoryName);
                 },
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(S.current.addProducts,style: TextStyle(
-                      color: Colors.white
-                  ),),
+                hint: Text(
+                nameOne ??  S.current.chooseCategory,
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                    elevation: 3
+                underline: SizedBox(),
+                icon: Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Icon(Icons.arrow_drop_down_rounded),
                 ),
               ),
-            ],
+            ),
           ),
         ),
-      ),
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Container(
+            width: double.maxFinite,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(25),
+                //color: Theme.of(context).backgroundColor,
+                border: Border.all(
+                    color: Theme.of(context).primaryColor, width: 4)),
+            child: Center(
+              child: DropdownButton(
+                value: idTwo,
+                items: getChoicesCategoriesTwo(),
+                onChanged: (v) {
+                  v as ProductsCategoryModel;
+                  idTwo = v;
+                   screenState.getStoreProductLevelTwo(categoriesOne, categoriesTwo, int.parse(idTwo!.id.toString()),nameOne??'',idTwo!.categoryName);
+                },
+                hint: Text(
+                nameTwo??  S.current.chooseCategory,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                underline: SizedBox(),
+                icon: Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Icon(Icons.arrow_drop_down_rounded),
+                ),
+              ),
+            ),
+          ),
+        ),
+        Expanded(
+          child: CustomListView.custom(children:getProducts()),
+        ),
+        ElevatedButton(
+          onPressed: (){
+            if (nameOne != null){
+              print("storeProductCategoryID" +idTwo.toString());
+              showDialog(context: context, builder:(_){
+                return AddProductsForm(
+                  state:this,
+                  addProduct: (name,image,price,discount){
+                    Navigator.of(context).pop();
+                    screenState.createProduct(CreateProductRequest(
+                        productName: name,
+                        productImage: image,
+                        productPrice: price,
+                        discount: discount,
+                        storeProductCategoryID: storeProductCategoryID,
+                    ),categoriesOne,categoriesTwo,nameOne: nameOne,nameTwo: nameTwo);
+                  },
+                );
+              });
+            }else{
+              Fluttertoast.showToast(msg: S.of(context).chooseCategory);
+            }
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text(S.current.addProducts,style: TextStyle(
+                color: Colors.white
+            ),),
+          ),
+          style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25),
+              ),
+              elevation: 3
+          ),
+        ),
+        SizedBox(height: 5,)
+      ],
     );
 
   }
   List<DropdownMenuItem<ProductsCategoryModel>> getChoicesCategoriesOne() {
     List<DropdownMenuItem<ProductsCategoryModel>> items = [];
-    categoriesOne?.forEach((element) {
+    categoriesOne.forEach((element) {
       items.add(DropdownMenuItem(
         value: element,
         child: Text(element.categoryName),
@@ -185,7 +215,7 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
   }
   List<DropdownMenuItem<ProductsCategoryModel>> getChoicesCategoriesTwo() {
     List<DropdownMenuItem<ProductsCategoryModel>> items = [];
-    categoriesTwo?.forEach((element) {
+    categoriesTwo.forEach((element) {
       items.add(DropdownMenuItem(
         value: element,
         child: Text(element.categoryName),
@@ -195,18 +225,79 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
   }
 
   List<Widget> getProducts() {
-    List<ProductComponent> widgets = [];
+    List<Widget> widgets = [];
     if (productsModel == null) {
       return widgets;
     }
 
-    if (productsModel!.isEmpty) return widgets;
-    for (var element in productsModel!) {
+    if (productsModel.isEmpty) return widgets;
+    for (var element in productsModel) {
       if (idTwo != null && idTwo != element.storeProductCategoryID.toString()) {
         continue;
       }
       widgets.add(
-          ProductComponent(discount: element.discount.toString(),description: '',image: element.productImage.image??'',rating: 0,title: element.productName, productId: element.id.toString(),price: element.productPrice.toString(),)
+          Row(
+            children: [
+              Expanded(child: ProductComponent(discount: element.discount.toString(),description: '',image: element.productImage.image??'',rating: 0,title: element.productName, productId: element.id.toString(),price: element.productPrice.toString(),)),
+              InkWell(
+                onTap: (){
+                  showDialog(context: screenState.context, builder:(context){
+                    return UpdateProductsForm(
+                      request: UpdateProductRequest(
+                          productName: element.productName,
+                          productImage: element.productImage.image??'',
+                          productPrice: element.productPrice.toDouble(),
+                      ),
+                      addProduct: (name,price,image,discount){
+                        Navigator.of(context).pop();
+
+                        screenState.updateProduct(UpdateProductRequest(
+                          id: element.id,
+                          productName: name,
+                          productImage: image,
+                          discount: double.parse(discount),
+                          productPrice:double.parse(price),
+                          storeProductCategoryID:element.storeProductCategoryID,
+                           storeMainCategoryID: idFirstCat
+                        ),categoriesOne,categoriesTwo,nameTwo: nameTwo,nameOne: nameOne);
+                      },
+                    );
+                  });
+                },
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.only(end: 8),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: AppThemeDataService.AccentColor,
+                   shape: BoxShape.circle),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(Icons.edit),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          )
+      );
+    }
+    return widgets;
+  }
+
+
+  List<Widget> getCategory() {
+    List<CategoryCard> widgets = [];
+    if (productsModel == null) {
+      return widgets;
+    }
+
+    if (productsModel.isEmpty) return widgets;
+    for (var element in categoriesOne) {
+//      if (idTwo != null && idTwo != element.storeProductCategoryID.toString()) {
+//        continue;
+//      }
+      widgets.add(
+          CategoryCard(title: element.categoryName,id: element.id,selected: false,onTap: (id){},)
       );
     }
     return widgets;

@@ -7,6 +7,7 @@ class UpdateProductRequest {
   double? productPrice;
   int? storeOwnerProfileID;
   int? storeProductCategoryID;
+  int? storeMainCategoryID;
 
   UpdateProductRequest({
       this.id, 
@@ -16,7 +17,8 @@ class UpdateProductRequest {
       this.discount,
       this.storeOwnerProfileID, 
       this.storeProductCategoryID,
-    this.productQuantity
+    this.productQuantity,
+    this.storeMainCategoryID
   });
 
   UpdateProductRequest.fromJson(dynamic json) {
@@ -37,7 +39,7 @@ class UpdateProductRequest {
     map['discount'] = discount;
     map['storeOwnerProfileID'] = storeOwnerProfileID;
     map['storeProductCategoryID'] = storeProductCategoryID;
-    map['productQuantity'] = 0;
+    map['productQuantity'] = productQuantity;
     return map;
   }
 

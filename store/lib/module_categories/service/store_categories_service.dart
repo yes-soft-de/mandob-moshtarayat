@@ -35,9 +35,9 @@ class CategoriesService {
   }
 
 
-  Future<DataModel> getProductsCategoryLevelOne(int id) async {
+  Future<DataModel> getCategoryLevelOne(int id) async {
 
-    ProductsCategoryResponse? _productCategories = await _categoriesManager.getProductCategoriesLevelOne(id);
+    ProductsCategoryResponse? _productCategories = await _categoriesManager.getCategoriesLevelOne(id);
     if (_productCategories == null) {
       return DataModel.withError(S.current.networkError);
     }
@@ -49,9 +49,9 @@ class CategoriesService {
 
     return ProductsCategoryModel.withData(_productCategories.data!);
   }
-  Future<DataModel> getProductsCategoryLevelTwo(int id) async {
+  Future<DataModel> getCategoryLevelTwo(int id) async {
 
-    ProductsCategoryResponse? _productCategories = await _categoriesManager.getProductCategoriesLevelTwo(id);
+    ProductsCategoryResponse? _productCategories = await _categoriesManager.getCategoriesLevelTwo(id);
     if (_productCategories == null) {
       return DataModel.withError(S.current.networkError);
     }
@@ -63,9 +63,10 @@ class CategoriesService {
 
     return ProductsCategoryModel.withData(_productCategories.data!);
   }
-  Future<DataModel> getProducts(int id) async {
 
-    StoreProductsResponse? _productCategories = await _categoriesManager.getProducts(id);
+  Future<DataModel> getProductsLevelTwo(int id) async {
+
+    StoreProductsResponse? _productCategories = await _categoriesManager.getProductsLevelTwo(id);
     if (_productCategories == null) {
       return DataModel.withError(S.current.networkError);
     }
@@ -121,4 +122,19 @@ class CategoriesService {
     return DataModel.empty();
   }
 
+
+  Future<DataModel> getProductsLevelOne(int id) async {
+
+    StoreProductsResponse? _productCategories = await _categoriesManager.getProductsLevelOne(id);
+    if (_productCategories == null) {
+      return DataModel.withError(S.current.networkError);
+    }
+    if (_productCategories.statusCode != '200') {
+      return DataModel.withError(
+          StatusCodeHelper.getStatusCodeMessages(_productCategories.statusCode));
+    }
+    if (_productCategories.data == null) return DataModel.empty();
+
+    return ProductsModel.withData(_productCategories.data!);
+  }
 }
