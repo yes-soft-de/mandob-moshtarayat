@@ -82,6 +82,28 @@ class StoreProductCategoryService
        return $response;
     }
 
+    public function getStoreProductCategoryStoreSpecific($storeOwnerProfileId)
+    {
+       $response = [];
+
+       $items = $this->storeProductCategoryManager->getStoreProductCategoryStoreSpecific($storeOwnerProfileId);
+
+       foreach($items as $item) {
+           if($item['productCategoryImage'])
+           {
+               $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params . $item['productCategoryImage'], $this->params);
+           }
+           else
+           {
+               $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $item['productCategoryImage'], $this->params);
+           }
+
+           $response[] = $this->autoMapping->map('array', StoreProductsCategoryResponse::class, $item);
+       }
+
+       return $response;
+    }
+
     public function getStoreProductsCategoryLevelOneByStoreCategoryID($storeCategoryID)
     {
        $response = [];
