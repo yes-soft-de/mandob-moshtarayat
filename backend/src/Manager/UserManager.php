@@ -562,6 +562,24 @@ class UserManager
         return $this->orderManager->clientOrdersDelivered($clientID);
     }
 
+    public function createUser(UserRegisterRequest $request): string
+    {
+        $userRegister = $this->autoMapping->map(UserRegisterRequest::class, UserEntity::class, $request);
+
+        $user = new UserEntity($request->getUserID());
+
+        if ($request->getPassword()) {
+            $userRegister->setPassword($this->encoder->encodePassword($user, $request->getPassword()));
+        }
+
+        $userRegister->setRoles(["ROLE_MANDOB"]);
+
+        $this->entityManager->persist($userRegister);
+        $this->entityManager->flush();
+        $this->entityManager->clear();
+
+        return "register";
+    }
 
     public function updateClientFavouriteCategories(ClientUpdateFavouriteCategoriesRequest $request)
     {
@@ -576,5 +594,4 @@ class UserManager
             return $item;
         }
     }
-
 }
