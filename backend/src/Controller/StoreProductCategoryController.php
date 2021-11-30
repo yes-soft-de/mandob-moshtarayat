@@ -640,12 +640,13 @@ class StoreProductCategoryController extends BaseController
 
         return $this->response($result, self::FETCH);
     }
+
     /**
      * client: Get the products of the first subcategory
      * @Route("productsbystorecategroylevelone/{storeProductCategoryID}", name="getProductsByStoreCategroyLevelOne", methods={"GET"})
      * @return JsonResponse
      * @IsGranted("ROLE_OWNER")
-     * *
+     *
      * @OA\Tag(name="Store Product Category")
      *
      * @OA\Response(

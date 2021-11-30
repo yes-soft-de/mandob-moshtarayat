@@ -9,11 +9,8 @@ use App\Request\StoreProductCategoryCreateRequest;
 use App\Request\StoreProductCategoryLevelOneUpdateRequest;
 use App\Request\StoreProductCategoryLevelTwoCreateRequest;
 use App\Request\StoreProductCategoryLevelTwoUpdateRequest;
-use App\Request\StoreProductCategoryUpdateRequest;
-use App\Response\getProductCategoriesLevel2Response;
 use App\Response\ProductsByProductCategoryIdForStoreResponse;
 use App\Response\ProductsByProductCategoryIdResponse;
-use App\Response\StoreProductCategoryCreateResponse;
 use App\Response\StoreProductCategoryLevelOneCreateResponse;
 use App\Response\StoreProductCategoryLevelTwoCreateResponse;
 use App\Response\StoreProductCategoryUpdateLevelOneResponse;
@@ -24,10 +21,8 @@ use App\Response\StoreProductsCategoryLevelTwoAndStoreProductsResponse;
 use App\Response\StoreProductsCategoryResponse;
 use App\Response\StoreProductsCategoryWithProductsResponse;
 use App\Response\SubCategoriesAndProductsByStoreCategoryIDResponse;
-use App\Service\ProductService;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use App\Manager\UserManager;
-
 
 class StoreProductCategoryService
 {
@@ -266,22 +261,17 @@ class StoreProductCategoryService
     public function getProductsByStoreCategroyLevelOne($storeProductCategoryID, $userID)
     {
         $response = [];
+
         $storeOwnerProfileID = $this->userManager->getStoreProfileId($userID);
-        $items = $this->storeProductCategoryManager->getStoreProductsCategoryLevelTwoByStoreProductCategoryID($storeProductCategoryID);
 
-        foreach($items as $item)
+        $products = $this->productService->getProductsByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileID);
+
+        foreach($products as $product)
         {
-            $item['products'] = $this->productService->getProductsByCategoryIdAndStoreOwnerProfileId($item['id'], $storeOwnerProfileID);
-
-            if($item['products'])
-            {
-                foreach($item['products'] as $product)
-                {
-                    $response[] = $this->autoMapping->map(ProductsByProductCategoryIdResponse::class, ProductsByProductCategoryIdForStoreResponse::class, $product);
-                }
-            }
+            $response[] = $this->autoMapping->map(ProductsByProductCategoryIdResponse::class, ProductsByProductCategoryIdForStoreResponse::class, $product);
         }
 
         return $response;
     }
+
 }
