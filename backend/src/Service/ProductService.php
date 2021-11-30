@@ -65,7 +65,7 @@ class ProductService
     {
         $response = [];
 
-        $items = $this->productManager->getProductsByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId['id']);
+        $items = $this->productManager->getProductsByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId);
 
         foreach ($items as $item) {
             $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
