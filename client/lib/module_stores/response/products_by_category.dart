@@ -58,8 +58,8 @@ class Data {
   Data.fromJson(dynamic json) {
     id = json['id'];
     productName = json['productName'];
-    productImage = json['productImage'] != null
-        ? Image.fromJson(json['productImage'])
+    productImage = json['image'] != null
+        ? Image.fromJson(json['image'])
         : null;
     productPrice = json['productPrice']?.toDouble();
     storeOwnerProfileID = json['storeOwnerProfileID'];
@@ -70,7 +70,7 @@ class Data {
     var map = <String, dynamic>{};
     map['id'] = id;
     map['productName'] = productName;
-    map['productImage'] = productImage;
+    map['image'] = productImage;
     map['productPrice'] = productPrice;
     map['storeOwnerProfileID'] = storeOwnerProfileID;
     map['ProductCategoryID'] = productCategoryID;

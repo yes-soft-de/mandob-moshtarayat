@@ -58,12 +58,6 @@ class Data {
     storeOwnerName = json['storeOwnerName'];
     image = json['image'];
     phone = json['phone'];
-    if (json['location'] != null) {
-      location = [];
-      json['location'].forEach((v) {
-        //  location?.add(dynamic.fromJson(v));
-      });
-    }
     branchName = json['branchName'];
     deliveryCost = json['deliveryCost'];
     discount = json['discount'];
