@@ -31,6 +31,8 @@ class ProductManager
 
     public function createProductByAdmin(ProductCreateRequest $request)
     {
+        $request->setStatus('active');
+
         $entity = $this->autoMapping->map(ProductCreateRequest::class, ProductEntity::class, $request);
 
         $this->entityManager->persist($entity);

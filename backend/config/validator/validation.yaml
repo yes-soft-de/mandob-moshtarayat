@@ -371,3 +371,17 @@ App\Request\storeOwnerProfileStatusUpdateByAdminRequest:
       - NotBlank: ~
     status:
       - NotBlank: ~
+
+App\Request\MandobProfileUpdateRequest:
+  properties:
+    mandobName:
+      - NotBlank: ~
+    phone:
+      - NotBlank: ~
+
+App\Request\ActivateMandobAccountByAdminRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    status:
+      - NotBlank: ~

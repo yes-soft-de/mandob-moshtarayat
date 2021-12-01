@@ -7,9 +7,12 @@ use App\Entity\MandobProfileEntity;
 use App\Entity\UserEntity;
 use App\Manager\UserManager;
 use App\Repository\MandobProfileEntityRepository;
+use App\Request\ActivateMandobAccountByAdminRequest;
 use App\Request\MandobProfileUpdateRequest;
 use App\Request\UserRegisterRequest;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
 
 class MandobProfileManager
 {
@@ -17,23 +20,26 @@ class MandobProfileManager
     private $entityManager;
     private $mandobProfileEntityRepository;
     private $userManager;
+    private $encoder;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager,
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager,UserPasswordEncoderInterface $encoder,
                                 MandobProfileEntityRepository $mandobProfileEntityRepository, UserManager $userManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
         $this->mandobProfileEntityRepository = $mandobProfileEntityRepository;
         $this->userManager = $userManager;
+        $this->encoder = $encoder;
+
     }
 
     public function mandobRegister(UserRegisterRequest $request)
     {
         $user = $this->userManager->getUserByUserID($request->getUserID());
         if ($user == null) {
-            $register = $this->userManager->createUser($request);
-            if($register == "register"){
-               return $this->createProfile($request);
+            $userRegister = $this->userManager->createUser($request);
+            if($userRegister){
+               return $this->createProfile($request, $userRegister);
             }
             else{
                 return 'not created user';
@@ -44,9 +50,7 @@ class MandobProfileManager
          }
     }
 
-    public function createProfile(UserRegisterRequest $request){
-
-        $userRegister = $this->autoMapping->map(UserRegisterRequest::class, UserEntity::class, $request);
+    public function createProfile(UserRegisterRequest $request, $userRegister){
 
         $mandobProfile = $this->mandobProfileEntityRepository->getMandobProfileByMandobID($request->getUserID());
 
@@ -71,7 +75,7 @@ class MandobProfileManager
             $mandobProfile = $this->autoMapping->map(UserRegisterRequest::class, MandobProfileEntity::class, $request);
 
             $mandobProfile->setStatus('inactive');
-            $mandobProfile->setMandobID($mandobProfile->getId());
+            $mandobProfile->setMandobID($user['id']);
             $mandobProfile->setMandobName($request->getUserName());
 
             $this->entityManager->persist($mandobProfile);
@@ -81,7 +85,9 @@ class MandobProfileManager
 
         return 'user is found';
     }
-//    public function mandobRegister(UserRegisterRequest $request)
+//this code is for backup (mandob Register).
+//
+//    public function mandobRegister1(UserRegisterRequest $request)
 //    {
 //        $user = $this->userManager->getUserByUserID($request->getUserID());
 //        if ($user == null) {
@@ -99,7 +105,6 @@ class MandobProfileManager
 //            $this->entityManager->persist($userRegister);
 //            $this->entityManager->flush();
 //            $this->entityManager->clear();
-//
 //            // Second, create the mandob's profile
 //            $mandobProfile = $this->mandobProfileEntityRepository->getMandobProfileByMandobID($request->getUserID());
 //
@@ -140,9 +145,10 @@ class MandobProfileManager
     public function updateMandobProfile(MandobProfileUpdateRequest $request)
     {
         $item = $this->mandobProfileEntityRepository->getMandobProfile($request->getUserID());
+
         if ($item) {
             if($request->getMandobName() == null) {
-                $request->setMandobName($item->getCaptainName());
+                $request->setMandobName($item->getMandobName());
             }
 
             $item = $this->autoMapping->mapToObject(MandobProfileUpdateRequest::class, MandobProfileEntity::class, $request, $item);
@@ -151,6 +157,26 @@ class MandobProfileManager
 
             return $item;
         }
+        return "user is not found";
+    }
+
+    public function mandobFilterByStatus($status)
+    {
+        return $this->mandobProfileEntityRepository->mandobFilterByStatus($status);
+    }
+
+    public function activateMandobAccountByAdmin(ActivateMandobAccountByAdminRequest $request)
+    {
+        $item = $this->mandobProfileEntityRepository->find($request->getId());
+        if ($item) {
+
+            $item = $this->autoMapping->mapToObject(ActivateMandobAccountByAdminRequest::class, MandobProfileEntity::class, $request, $item);
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $item;
+        }
+
         return "user is not found";
     }
 }
