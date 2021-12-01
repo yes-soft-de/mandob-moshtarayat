@@ -562,7 +562,7 @@ class UserManager
         return $this->orderManager->clientOrdersDelivered($clientID);
     }
 
-    public function createUser(UserRegisterRequest $request): string
+    public function createUser(UserRegisterRequest $request)
     {
         $userRegister = $this->autoMapping->map(UserRegisterRequest::class, UserEntity::class, $request);
 
@@ -578,7 +578,7 @@ class UserManager
         $this->entityManager->flush();
         $this->entityManager->clear();
 
-        return "register";
+        return $userRegister;
     }
 
     public function updateClientFavouriteCategories(ClientUpdateFavouriteCategoriesRequest $request)
