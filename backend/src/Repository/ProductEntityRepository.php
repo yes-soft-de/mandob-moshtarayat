@@ -55,6 +55,9 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->setParameter('storeProductCategoryID',$storeProductCategoryID)
             ->setParameter('storeOwnerProfileId',$storeOwnerProfileId)
 
+            ->andWhere('product.status = :status')
+            ->setParameter('status', self::STATUS_ACTIVE)
+
             ->getQuery()
             ->getResult();
     }
@@ -184,8 +187,10 @@ class ProductEntityRepository extends ServiceEntityRepository
             'product.description', 'product.status', 'product.productQuantity')
 
             ->andWhere('product.storeOwnerProfileID = :storeOwnerProfileId')
-
             ->setParameter('storeOwnerProfileId',$storeOwnerProfileId)
+
+            ->andWhere('product.status = :status')
+            ->setParameter('status', self::STATUS_ACTIVE)
 
             ->getQuery()
             ->getResult();
@@ -215,9 +220,11 @@ class ProductEntityRepository extends ServiceEntityRepository
 
             ->andWhere('product.storeProductCategoryID = :storeProductCategoryID')
             ->andWhere('product.storeOwnerProfileID = :storeOwnerProfileID')
+            ->andWhere('product.status = :status')
 
             ->setParameter('storeProductCategoryID', $storeProductCategoryID)
             ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
+            ->setParameter('status', self::STATUS_ACTIVE)
 
             ->getQuery()
             ->getResult();
@@ -283,6 +290,9 @@ class ProductEntityRepository extends ServiceEntityRepository
 
             ->setParameter('productName', '%'.$name.'%')
             ->setParameter('storeOwnerProfileId', $storeOwnerProfileId)
+
+            ->andWhere('product.status = :status')
+            ->setParameter('status', self::STATUS_ACTIVE)
 
             ->setMaxResults(20)
 
