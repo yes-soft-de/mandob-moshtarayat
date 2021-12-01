@@ -54,11 +54,12 @@ class StoreProductsScreenState extends State<StoreProductsScreen> {
       snapshot = event;
       if (mounted) setState(() {});
     });
-    Hive.box('Order').listenable(keys: ['update']).addListener(() {
-      widget.stateManager.getStoresProducts(storeId, this);
-      if (mounted) setState(() {});
-    });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   bool flag = true;
@@ -84,7 +85,8 @@ class StoreProductsScreenState extends State<StoreProductsScreen> {
         }
       },
       child: AnnotatedRegion<SystemUiOverlayStyle>(
-        value:const SystemUiOverlayStyle(statusBarIconBrightness: Brightness.light),
+        value: const SystemUiOverlayStyle(
+            statusBarIconBrightness: Brightness.light),
         child: Scaffold(
           body: currentState.getUI(context),
         ),

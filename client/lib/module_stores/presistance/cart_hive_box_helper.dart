@@ -36,6 +36,7 @@ class CartHiveHelper {
 
   void addProductsToCart(CartModel model) {
     List<CartModel> cartModel = getCart();
+    cartModel.removeWhere((element) => element.id == model.id);
     cartModel.add(model);
     setCart(cartModel);
   }
@@ -86,7 +87,6 @@ class CartHiveHelper {
   Future<void> deleteCart() async {
     await box.delete(cartKey);
     await box.delete('cartJson');
-    await box.delete('update');
     await box.delete('storeId');
   }
 
