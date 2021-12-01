@@ -378,3 +378,10 @@ App\Request\MandobProfileUpdateRequest:
       - NotBlank: ~
     phone:
       - NotBlank: ~
+
+App\Request\ActivateMandobAccountByAdminRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    status:
+      - NotBlank: ~

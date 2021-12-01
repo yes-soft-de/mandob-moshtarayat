@@ -7,6 +7,7 @@ use App\Entity\MandobProfileEntity;
 use App\Entity\UserEntity;
 use App\Manager\UserManager;
 use App\Repository\MandobProfileEntityRepository;
+use App\Request\ActivateMandobAccountByAdminRequest;
 use App\Request\MandobProfileUpdateRequest;
 use App\Request\UserRegisterRequest;
 use Doctrine\ORM\EntityManagerInterface;
@@ -162,5 +163,20 @@ class MandobProfileManager
     public function mandobFilterByStatus($status)
     {
         return $this->mandobProfileEntityRepository->mandobFilterByStatus($status);
+    }
+
+    public function activateMandobAccountByAdmin(ActivateMandobAccountByAdminRequest $request)
+    {
+        $item = $this->mandobProfileEntityRepository->find($request->getId());
+        if ($item) {
+
+            $item = $this->autoMapping->mapToObject(ActivateMandobAccountByAdminRequest::class, MandobProfileEntity::class, $request, $item);
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $item;
+        }
+
+        return "user is not found";
     }
 }

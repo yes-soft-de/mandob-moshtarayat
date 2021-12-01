@@ -5,9 +5,11 @@ namespace App\Service;
 use App\AutoMapping;
 use App\Entity\MandobProfileEntity;
 use App\Entity\UserEntity;
+use App\Request\ActivateMandobAccountByAdminRequest;
 use App\Request\MandobFilterByStatusRequest;
 use App\Request\MandobProfileUpdateRequest;
 use App\Request\UserRegisterRequest;
+use App\Response\ActivateMandobAccountByAdminResponse;
 use App\Response\MandobFilterByStatusResponse;
 use App\Response\MandobProfileCreateResponse;
 use App\Response\UserRegisterResponse ;
@@ -83,5 +85,14 @@ class MandobProfileService
         $item['baseURL'] = $baseURL;
 
         return $item;
+    }
+
+    public function activateMandobAccountByAdmin(ActivateMandobAccountByAdminRequest $request)
+    {
+        $item = $this->mandobProfileManager->activateMandobAccountByAdmin($request);
+        if ($item == "user is not found") {
+            return $item;
+        }
+        return $this->autoMapping->map(MandobProfileEntity::class, ActivateMandobAccountByAdminResponse::class, $item);
     }
 }

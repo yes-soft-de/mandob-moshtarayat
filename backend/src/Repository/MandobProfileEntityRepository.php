@@ -38,13 +38,13 @@ class MandobProfileEntityRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function getMandobProfile($mandob)
+    public function getMandobProfile($mandobID)
     {
         return $this->createQueryBuilder('profile')
 
-            ->andWhere('profile.mandobID = :mandob')
+            ->andWhere('profile.mandobID = :mandobID')
 
-            ->setParameter('mandob', $mandob)
+            ->setParameter('mandobID', $mandobID)
 
             ->getQuery()
             ->getOneOrNullResult();
