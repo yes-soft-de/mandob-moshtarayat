@@ -101,6 +101,7 @@ class MandobProfileController extends BaseController
      *      description="token to be passed as a header",
      *      required=true
      * )
+     *
      * @OA\RequestBody(
      *      description="Update mandob profile",
      *      @OA\JsonContent(
@@ -156,18 +157,26 @@ class MandobProfileController extends BaseController
     }
 
     /**
-     * admin: Filter that fetches mandob by status. send status in body request ( active or inactive).
+     * admin: Filter that fetches mandob by status.
      * @Route("/mandobfilterbystatus", name="mandobFilterByStatus", methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
      * *
      * @OA\Tag(name="Mandob Profile")
+     *
      * @OA\Parameter(
      *      name="token",
      *      in="header",
      *      description="token to be passed as a header",
      *      required=true
+     * )
+     *
+     * @OA\RequestBody(
+     *      description="Send status in body request ( active or inactive)",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status"),
+     *      )
      * )
      *
      * @OA\Response(
