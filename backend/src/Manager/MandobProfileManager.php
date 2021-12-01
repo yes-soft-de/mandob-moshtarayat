@@ -147,7 +147,7 @@ class MandobProfileManager
 
         if ($item) {
             if($request->getMandobName() == null) {
-                $request->setMandobName($item->getCaptainName());
+                $request->setMandobName($item->getMandobName());
             }
 
             $item = $this->autoMapping->mapToObject(MandobProfileUpdateRequest::class, MandobProfileEntity::class, $request, $item);
@@ -157,5 +157,10 @@ class MandobProfileManager
             return $item;
         }
         return "user is not found";
+    }
+
+    public function mandobFilterByStatus($status)
+    {
+        return $this->mandobProfileEntityRepository->mandobFilterByStatus($status);
     }
 }

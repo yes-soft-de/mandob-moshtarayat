@@ -5,8 +5,10 @@ namespace App\Service;
 use App\AutoMapping;
 use App\Entity\MandobProfileEntity;
 use App\Entity\UserEntity;
+use App\Request\MandobFilterByStatusRequest;
 use App\Request\MandobProfileUpdateRequest;
 use App\Request\UserRegisterRequest;
+use App\Response\MandobFilterByStatusResponse;
 use App\Response\MandobProfileCreateResponse;
 use App\Response\UserRegisterResponse ;
 use App\Service\RoomIdHelperService;
@@ -57,5 +59,29 @@ class MandobProfileService
            return $item;
         }
         return $this->autoMapping->map(MandobProfileEntity::class, MandobProfileCreateResponse::class, $item);
+    }
+
+    public function mandobFilterByStatus(MandobFilterByStatusRequest $request)
+    {
+        $response = [];
+
+        $items = $this->mandobProfileManager->mandobFilterByStatus($request->getStatus());
+
+        foreach ($items as $item){
+            $item['image'] = $this->getImageParams($item['image'], $this->params . $item['image'], $this->params);
+
+            $response[] = $this->autoMapping->map('array', MandobFilterByStatusResponse::class, $item);
+        }
+
+        return $response;
+    }
+
+    public function getImageParams($imageURL, $image, $baseURL): array
+    {
+        $item['imageURL'] = $imageURL;
+        $item['image'] = $image;
+        $item['baseURL'] = $baseURL;
+
+        return $item;
     }
 }
