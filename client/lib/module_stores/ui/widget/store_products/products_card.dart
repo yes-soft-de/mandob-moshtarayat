@@ -78,16 +78,20 @@ class _ProductsCardState extends State<ProductsCard> {
                   ),
                 ),
               ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 26.0),
-                  child: Align(
-                      alignment: Alignment.bottomCenter,
+              Padding(
+                padding: const EdgeInsets.only(bottom: 26.0),
+                child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      constraints:const BoxConstraints(
+                        minWidth: 85,
+                      ),
                       child: Text(
-                        '${widget.price} ${widget.currency}',
+                        '${widget.price} ${S.current.sar}',
                         style: const TextStyle(fontWeight: FontWeight.w600),
-                      )),
-                ),
+                        textAlign:TextAlign.start
+                      ),
+                    )),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -96,8 +100,10 @@ class _ProductsCardState extends State<ProductsCard> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Center(
-                      child: SizedBox(
-                        width: 200,
+                      child: Container(
+                        constraints:const BoxConstraints(
+                          maxWidth: 150,
+                        ),
                         child: Text(
                           widget.title,
                           style: const TextStyle(
@@ -247,7 +253,8 @@ class _ProductsSearchCardState extends State<ProductsSearchCard> {
                 child: Center(
                   child: Text(
                     widget.title,
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 17),
                   ),
                 ),
               ),
