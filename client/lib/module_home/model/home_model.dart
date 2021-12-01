@@ -1,4 +1,5 @@
 import 'package:mandob_moshtarayat/generated/l10n.dart';
+import 'package:mandob_moshtarayat/module_home/model/favorite_categories_model.dart';
 import 'package:mandob_moshtarayat/module_home/model/top_wanted_products_model.dart';
 import 'package:mandob_moshtarayat/utils/models/store.dart';
 import 'package:mandob_moshtarayat/utils/models/store_category.dart';
@@ -7,15 +8,14 @@ class HomeModel {
   bool _empty = false;
   List<String> errors = [];
 
-  late List<TopWantedProductsModel> topWanted;
+  late List<FavoriteCategoriesModel> favorite;
   late List<StoreCategoryModel> storeCategory;
-  late List<StoreModel> storeModel;
   HomeModel? homeData;
 
   HomeModel(
-      {required this.topWanted,
+      {required this.favorite,
       required this.storeCategory,
-      required this.storeModel});
+      });
 
   HomeModel.Empty() {
     _empty = true;
@@ -28,19 +28,27 @@ class HomeModel {
   bool get hasErrors => errors.isNotEmpty;
 
   HomeModel.Data(
-      List<TopWantedProductsModel> topWantedProductsModel,
-      List<StoreModel> storeModel,
+      List<FavoriteCategoriesModel> favoriteModel,
       List<StoreCategoryModel> storeCategoryModel,
       List<String> homeErrors) {
     homeData = HomeModel(
-        topWanted: topWantedProductsModel,
-        storeCategory: storeCategoryModel,
-        storeModel: storeModel);
+        favorite: favoriteModel,
+        storeCategory: storeCategoryModel,);
     errors = homeErrors;
   }
-
+  List<FavoriteStore> getFullStores() {
+    List<FavoriteStore> stores = [];
+    favorite.forEach((cats) {
+      cats.stores.forEach((element) {
+        stores.add(
+          FavoriteStore(storeName: element.storeName, storeId: element.storeId, image: element.image)
+        );
+      });
+    });
+    return stores;
+  }
   bool get isEmpty => _empty;
   bool get hasData => homeData != null;
   HomeModel get data =>
-      homeData ?? HomeModel(topWanted: [], storeCategory: [], storeModel: []);
+      homeData ?? HomeModel(favorite: [], storeCategory: []);
 }

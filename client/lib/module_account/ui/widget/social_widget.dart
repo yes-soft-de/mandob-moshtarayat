@@ -15,11 +15,15 @@ class SocialWidget extends StatelessWidget {
       height: 60,
       width: 60,
       child: Card(
-        color: color,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(25),
-        ),
-        child: Icon(image,color: Colors.white,size: 28,)),
+          color: color,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25),
+          ),
+          child: Icon(
+            image,
+            color: Colors.white,
+            size: 28,
+          )),
     );
   }
 }

@@ -38,9 +38,10 @@ class HomeStateManager {
       } else if (value.hasData) {
         var data = value.data;
         stateSubject.add(HomeLoadedState(screenState,
-            topProducts: data.topWanted,
+            favorite: data.favorite,
             categories: data.storeCategory,
-            bestStores: data.storeModel));
+            favoriteStore: data.getFullStores()
+           ));
         if (value.hasErrors) {
           CustomFlushBarHelper.createError(
                   title: S.current.warnning, message: value.errors[0])

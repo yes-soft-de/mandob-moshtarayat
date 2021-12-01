@@ -57,7 +57,8 @@ class Data {
     soldCount = json['soldCount']?.toString();
     description = json['description'];
     image = json['image'] != null ? Image.fromJson(json['image']) : null;
-    store = json['store'] != null ? StoreResponse.fromJson(json['store']) : null;
+    store =
+        json['store'] != null ? StoreResponse.fromJson(json['store']) : null;
   }
 
   int? id;

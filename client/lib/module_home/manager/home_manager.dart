@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/module_home/repository/home_repository.dart';
+import 'package:mandob_moshtarayat/module_home/response/favorite_response/favorite_response.dart';
 import 'package:mandob_moshtarayat/module_home/response/products.dart';
 import 'package:mandob_moshtarayat/module_home/response/products_by_categories_response.dart';
 import 'package:mandob_moshtarayat/module_home/response/store_categories.dart';
@@ -26,4 +27,6 @@ class HomeManager {
   Future<ProductsByCategoriesResponse?> getMainCategoryProducts(
           String categoriesID) =>
       _homeRepository.getMainCategoryProducts(categoriesID);
+        Future<FavoriteResponse?> getFavoriteCategories() =>
+      _homeRepository.getFavoriteCategories();
 }

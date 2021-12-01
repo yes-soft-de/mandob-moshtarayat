@@ -27,7 +27,8 @@ class AccountLoadedState extends AccountState {
     return Container(
       color: Theme.of(context).cardColor,
       child: ListView(
-        physics:const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+        physics: const BouncingScrollPhysics(
+            parent: AlwaysScrollableScrollPhysics()),
         children: [
           signIn ? AccountAppBar(profileModel) : AccountUnsignedAppBar(),
           Padding(
@@ -86,22 +87,37 @@ class AccountLoadedState extends AccountState {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize:MainAxisSize.max,
+                mainAxisSize: MainAxisSize.max,
                 children: const [
-                  SocialWidget(image:FontAwesomeIcons.whatsapp, type:SocialType.whatsapp,color: Colors.green,),
-                  SocialWidget(image:FontAwesomeIcons.telegram, type:SocialType.telegram,color: Colors.lightBlue,),
-                  SocialWidget(image:FontAwesomeIcons.instagram, type:SocialType.instagram,color: Colors.pink,),
-                  SocialWidget(image:FontAwesomeIcons.facebook, type:SocialType.facebook,color: Colors.blue,),
+                  SocialWidget(
+                    image: FontAwesomeIcons.whatsapp,
+                    type: SocialType.whatsapp,
+                    color: Colors.green,
+                  ),
+                  SocialWidget(
+                    image: FontAwesomeIcons.telegram,
+                    type: SocialType.telegram,
+                    color: Colors.lightBlue,
+                  ),
+                  SocialWidget(
+                    image: FontAwesomeIcons.instagram,
+                    type: SocialType.instagram,
+                    color: Colors.pink,
+                  ),
+                  SocialWidget(
+                    image: FontAwesomeIcons.facebook,
+                    type: SocialType.facebook,
+                    color: Colors.blue,
+                  ),
                 ],
               ),
             ),
           ),
-         const SizedBox(
+          const SizedBox(
             height: 75,
           ),
         ],
       ),
     );
   }
-  
 }

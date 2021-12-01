@@ -26,8 +26,7 @@ class ProductsByCategoriesModel extends DataModel {
       required this.rate,
       required this.discount,
       required this.soldCount,
-      required this.storeName
-      });
+      required this.storeName});
 
   List<ProductsByCategoriesModel> _products = [];
 
@@ -44,8 +43,7 @@ class ProductsByCategoriesModel extends DataModel {
           discount: element.discount ?? '0',
           rate: num.parse(element.rate ?? '0'),
           soldCount: element.soldCount ?? '0',
-          storeName: element.store?.storeOwnerName ?? S.current.unknown
-          ));
+          storeName: element.store?.storeOwnerName ?? S.current.unknown));
     });
   }
 
