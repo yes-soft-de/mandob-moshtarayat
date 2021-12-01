@@ -855,7 +855,7 @@ class ProductController extends BaseController
 
     /**
      * get Last 30 Products.
-     * @Route("/productslast30", name="getLast30Products", methods={"GET"})
+     * @Route("productslast30", name="getLast30Products", methods={"GET"})
      * @return JsonResponse
      * *
      * @OA\Tag(name="Product")
@@ -871,6 +871,7 @@ class ProductController extends BaseController
      *                  @OA\Property(type="integer", property="id"),
      *                  @OA\Property(type="string", property="productName"),
      *                  @OA\Property(type="number", property="productPrice"),
+     *                  @OA\Property(type="number", property="productQuantity"),
      *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
      *                  @OA\Property(type="integer", property="storeProductCategoryID"),
      *                  @OA\Property(type="object", property="image",
