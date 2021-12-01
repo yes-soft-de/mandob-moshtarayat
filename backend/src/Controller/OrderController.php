@@ -426,9 +426,38 @@ class OrderController extends BaseController
     }
 
     /**
+     * admin: Report.
      * @Route("/countReport", name="countReport",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Order")
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns array of captain orders",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="string", property="countCompletedOrders"),
+     *              @OA\Property(type="string", property="countOngoingOrders"),
+     *              @OA\Property(type="string", property="countCaptains"),
+     *              @OA\Property(type="string", property="countClients"),
+     *              @OA\Property(type="string", property="countStores"),
+     *              @OA\Property(type="string", property="countProducts"),
+     *              @OA\Property(type="string", property="countOrdersInToday"),
+     *              )
+     *          )
+     *     )
+     * )
+     * @Security(name="Bearer")
      */
     public function countReport()
     {
@@ -450,10 +479,46 @@ class OrderController extends BaseController
       }
 
     /**
-      * @Route("ordersAndCountByCaptainId/{captainId}", name="getOrdersAndCountByCaptainIdForAdmin", methods={"GET"})
-      * @IsGranted("ROLE_ADMIN")
-      * @return JsonResponse
-      */
+     * admin: get captain's orders and count orders.
+     * @Route("ordersAndCountByCaptainId/{captainId}", name="getOrdersAndCountByCaptainIdForAdmin", methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
+     * @return JsonResponse
+     * *
+     * @OA\Tag(name="Order")
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns array of captain orders",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="array", property="orders",
+     *                @OA\Items(
+     *                      @OA\Property(type="integer", property="id"),
+     *                      @OA\Property(type="object", property="deliveryDate"),
+     *                      @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                      @OA\Property(type="integer", property="orderCost"),
+     *                      @OA\Property(type="integer", property="orderType"),
+     *                      @OA\Property(type="object", property="destination"),
+     *                      @OA\Property(type="string", property="note"),
+     *                      @OA\Property(type="string", property="state"),
+     *                      @OA\Property(type="integer", property="orderNumber"),
+     *                      @OA\Property(type="string", property="detail"),
+     *                      ),
+     *                  )
+     *              )
+     *          )
+     *     )
+     * )
+     * @Security(name="Bearer")
+     */
       public function getOrdersAndCountByCaptainId($captainId)
       {
           $result = $this->orderService->getOrdersAndCountByCaptainId($captainId);
@@ -462,9 +527,43 @@ class OrderController extends BaseController
       }
 
     /**
+     * store: Get store's ongoing orders.
      * @Route("/getstoreordersongoing", name="getStoreOrdersOngoingForStoreOwner", methods={"GET"})
      * @IsGranted("ROLE_OWNER")
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Order")
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns array of store orders",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="object", property="deliveryDate"),
+     *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                  @OA\Property(type="integer", property="orderCost"),
+     *                  @OA\Property(type="integer", property="orderType"),
+     *                  @OA\Property(type="object", property="destination"),
+     *                  @OA\Property(type="string", property="note"),
+     *                  @OA\Property(type="string", property="state"),
+     *                  @OA\Property(type="integer", property="orderNumber"),
+     *                  @OA\Property(type="string", property="detail"),
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
      */
     public function getStoreOrdersOngoingForStoreOwner()
     {
@@ -477,11 +576,45 @@ class OrderController extends BaseController
     }
 
     /**
+     * store:get store's orders in specific date.
      * @Route("/getstoreordersinspecificdate/{fromDate}/{toDate}", name="getStoreOrdersInSpecificDate",methods={"GET"})
      * @IsGranted("ROLE_OWNER")
      * @param $fromDate
      * @param $toDate
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Order")
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns array of store orders",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="object", property="deliveryDate"),
+     *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                  @OA\Property(type="integer", property="orderCost"),
+     *                  @OA\Property(type="integer", property="orderType"),
+     *                  @OA\Property(type="object", property="destination"),
+     *                  @OA\Property(type="string", property="note"),
+     *                  @OA\Property(type="string", property="state"),
+     *                  @OA\Property(type="integer", property="orderNumber"),
+     *                  @OA\Property(type="string", property="detail"),
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
      */
     public function getStoreOrdersInSpecificDate($fromDate, $toDate): JsonResponse
     {
@@ -495,6 +628,7 @@ class OrderController extends BaseController
      * @Route("/getstoreorders", name="getStoreOrders",methods={"GET"})
      * @IsGranted("ROLE_OWNER")
      * @return JsonResponse
+     * *
      * @OA\Tag(name="Order")
      * @OA\Parameter(
      *      name="token",
@@ -502,6 +636,7 @@ class OrderController extends BaseController
      *      description="token to be passed as a header",
      *      required=true
      * )
+     *
      * @OA\Response(
      *      response=200,
      *      description="Returns array of store orders",
@@ -522,6 +657,7 @@ class OrderController extends BaseController
      *          )
      *      )
      * )
+     *
      * @Security(name="Bearer")
      */
     public function getStoreOrders(): JsonResponse
@@ -536,7 +672,7 @@ class OrderController extends BaseController
      * @Route("countreportforstoreowner", name="countReportForStoreOwner", methods={"GET"})
      * @IsGranted("ROLE_OWNER")
      * @return JsonResponse
-     *
+     * *
      * @OA\Tag(name="Order")
      *
      * @OA\Parameter(
@@ -574,7 +710,7 @@ class OrderController extends BaseController
      * @Route("orderdetailsforstore/{orderNumber}", name="getOrderDetailsByOrderNumberForStore", methods={"GET"})
      * @IsGranted("ROLE_OWNER")
      * @return JsonResponse
-     *  * *
+     * *
      * @OA\Tag(name="Order")
      * @OA\Parameter(
      *      name="token",

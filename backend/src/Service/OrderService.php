@@ -712,6 +712,8 @@ class OrderService
     {
         $response = [];
 
+        $item = [];
+
         $countOrders = $this->orderManager->countCaptainOrders($captainId);
 
         $orders = $this->orderManager->getOrdersByCaptainId($captainId);

@@ -919,13 +919,9 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->leftJoin(OrderDetailEntity::class, 'orderDetailEntity', Join::WITH, 'orderDetailEntity.orderID = OrderEntity.id')
 
             ->andWhere("OrderEntity.storeOwnerProfileID = :storeOwnerProfileID ")
-            ->andWhere("OrderEntity.state != :pending ")
-            ->andWhere("OrderEntity.state != :cancel ")
-            ->andWhere("OrderEntity.state != :delivered ")
+            ->andWhere("OrderEntity.state = :delivered ")
 
             ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
-            ->setParameter('pending', self::PENDING)
-            ->setParameter('cancel', self::CANCEL)
             ->setParameter('delivered', self::DELIVERED)
 
             ->addGroupBy('OrderEntity.id')
