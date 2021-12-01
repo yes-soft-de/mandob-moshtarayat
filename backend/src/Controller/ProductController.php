@@ -36,11 +36,55 @@ class ProductController extends BaseController
     }
     
     /**
+     * admin:Create product.
      * @Route("/createproductbyadmin", name="createProductByAdmin", methods={"POST"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Product")
      *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\RequestBody(
+     *      description="Create new product by store",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="productName"),
+     *          @OA\Property(type="string", property="productImage"),
+     *          @OA\Property(type="number", property="productPrice"),
+     *          @OA\Property(type="integer", property="storeProductCategoryID"),
+     *          @OA\Property(type="integer", property="discount"),
+     *          @OA\Property(type="string", property="description"),
+     *          @OA\Property(type="integer", property="productQuantity")
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the new product",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="productName"),
+     *                  @OA\Property(type="string", property="productImage"),
+     *                  @OA\Property(type="number", property="productPrice"),
+     *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                  @OA\Property(type="integer", property="storeProductCategoryID"),
+     *                  @OA\Property(type="integer", property="discount"),
+     *                  @OA\Property(type="string", property="description"),
+     *                  @OA\Property(type="string", property="status"),
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
      */
     public function createProductByAdmin(Request $request)
     {
