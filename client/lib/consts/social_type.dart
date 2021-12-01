@@ -1,6 +1,1 @@
-enum SocialType {
-  whatsapp,
-  telegram,
-  facebook,
-  instagram
-}
+enum SocialType { whatsapp, telegram, facebook, instagram }
