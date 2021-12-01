@@ -29,8 +29,8 @@ class ProductDetailsStateManager {
     _stateSubject.add(LoadingState(screenState));
     _productsService.getProductsDetails(id).then((store) {
       if (store.hasError) {
-        _stateSubject
-            .add(ErrorState(screenState, error: store.error, hasAppbar: false,onPressed: () {
+        _stateSubject.add(ErrorState(screenState,
+            error: store.error, hasAppbar: false, onPressed: () {
           getProducts(id, screenState);
         }, title: S.current.product));
       } else if (store.isEmpty) {

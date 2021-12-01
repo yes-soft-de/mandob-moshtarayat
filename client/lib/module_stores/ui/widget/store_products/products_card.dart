@@ -83,14 +83,12 @@ class _ProductsCardState extends State<ProductsCard> {
                 child: Align(
                     alignment: Alignment.bottomCenter,
                     child: Container(
-                      constraints:const BoxConstraints(
+                      constraints: const BoxConstraints(
                         minWidth: 85,
                       ),
-                      child: Text(
-                        '${widget.price} ${S.current.sar}',
-                        style: const TextStyle(fontWeight: FontWeight.w600),
-                        textAlign:TextAlign.start
-                      ),
+                      child: Text('${widget.price} ${S.current.sar}',
+                          style: const TextStyle(fontWeight: FontWeight.w600),
+                          textAlign: TextAlign.start),
                     )),
               ),
               Padding(
@@ -101,7 +99,7 @@ class _ProductsCardState extends State<ProductsCard> {
                   children: [
                     Center(
                       child: Container(
-                        constraints:const BoxConstraints(
+                        constraints: const BoxConstraints(
                           maxWidth: 150,
                         ),
                         child: Text(

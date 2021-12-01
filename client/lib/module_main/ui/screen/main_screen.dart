@@ -41,7 +41,8 @@ class _MainScreenState extends State<MainScreen> {
                 selectedPage = index;
                 setState(() {});
                 homeController.animateToPage(index,
-                    duration: const Duration(milliseconds: 15), curve: Curves.linear);
+                    duration: const Duration(milliseconds: 15),
+                    curve: Curves.linear);
               },
               children: [
                 getIt<HomeScreen>(),

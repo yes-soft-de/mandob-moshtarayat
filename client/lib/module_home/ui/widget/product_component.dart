@@ -99,10 +99,9 @@ class ProductComponent extends StatelessWidget {
                         Text(
                           storeName,
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                            color: Theme.of(context).disabledColor
-                          ),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                              color: Theme.of(context).disabledColor),
                         )
                       ],
                     ),

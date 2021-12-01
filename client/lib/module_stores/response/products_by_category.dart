@@ -58,9 +58,7 @@ class Data {
   Data.fromJson(dynamic json) {
     id = json['id'];
     productName = json['productName'];
-    productImage = json['image'] != null
-        ? Image.fromJson(json['image'])
-        : null;
+    productImage = json['image'] != null ? Image.fromJson(json['image']) : null;
     productPrice = json['productPrice']?.toDouble();
     storeOwnerProfileID = json['storeOwnerProfileID'];
     productCategoryID = json['storeProductCategoryID'];

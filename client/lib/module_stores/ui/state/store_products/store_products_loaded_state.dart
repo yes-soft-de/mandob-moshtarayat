@@ -172,7 +172,10 @@ class StoreProductsLoadedState extends StoreProductsState {
                                   Navigator.of(context).pop();
                                 } else {
                                   Navigator.of(context)
-                                      .pushNamed(ProductsRoutes.CART_SCREEN).then((value) => screenState.getStoresProducts(screenState.storeId));
+                                      .pushNamed(ProductsRoutes.CART_SCREEN)
+                                      .then((value) =>
+                                          screenState.getStoresProducts(
+                                              screenState.storeId));
                                   // Navigator.of(context).pushNamed(
                                   //     OrdersRoutes.CLIENT_ORDER,
                                   //     arguments: checkoutModel);
@@ -203,7 +206,7 @@ class StoreProductsLoadedState extends StoreProductsState {
     List<Widget> prods = [];
     topWantedProducts.forEach((element) {
       prods.add(SizedBox(
-        key:ObjectKey(element),
+        key: ObjectKey(element),
         child: ProductsCard(
             onTap: () {
               Navigator.of(screenState.context).pushNamed(
@@ -230,7 +233,8 @@ class StoreProductsLoadedState extends StoreProductsState {
                         context: screenState.context,
                         builder: (context) {
                           return CustomAlertDialog(
-                            content: S.current.youHaveProductsFromDifferentStore,
+                            content:
+                                S.current.youHaveProductsFromDifferentStore,
                             onPressed: () async {
                               await CartHiveHelper().deleteCart();
                               cartModel.quantity = timperQuantity;

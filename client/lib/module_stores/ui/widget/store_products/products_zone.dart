@@ -59,7 +59,8 @@ class ProductsZone extends StatelessWidget {
             child: Center(
               child: Text(
                 S.of(context).homeDataEmpty,
-                style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+                style:
+                    const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
               ),
             ),
           ),
