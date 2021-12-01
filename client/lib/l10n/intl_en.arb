@@ -370,7 +370,11 @@
   "rateProductMessage":"Please rate this product",
   "rateProduct":"Rate Product",
   "cart":"Cart",
-  "saller": "Saller"
+  "saller": "Saller",
+  "favoriteCategories":"Favorite Categories",
+  "favoriteStores":"Favorite Stores"
+
+
   
 
 

@@ -183,6 +183,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "externalOrder": MessageLookupByLibrary.simpleMessage("External Order"),
         "failureRenew": MessageLookupByLibrary.simpleMessage(
             "Your renew has been failed please try again"),
+        "favoriteCategories":
+            MessageLookupByLibrary.simpleMessage("Favorite Categories"),
+        "favoriteStores":
+            MessageLookupByLibrary.simpleMessage("Favorite Stores"),
         "female": MessageLookupByLibrary.simpleMessage("Female"),
         "finishOrderProvideDistanceInKm": MessageLookupByLibrary.simpleMessage(
             "Finish Order, Provide distance in KM"),

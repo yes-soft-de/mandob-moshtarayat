@@ -179,6 +179,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "exceededAllowedTime": MessageLookupByLibrary.simpleMessage(
             "لقد تجاوزت الوقت المسموح لإزالة الطلب"),
         "externalOrder": MessageLookupByLibrary.simpleMessage("طلبية خارجية"),
+        "favoriteCategories":
+            MessageLookupByLibrary.simpleMessage("التصنيفات المفضلة"),
+        "favoriteStores":
+            MessageLookupByLibrary.simpleMessage("المتاجر المفضلة"),
         "female": MessageLookupByLibrary.simpleMessage("أنثى"),
         "finishOrderProvideDistanceInKm": MessageLookupByLibrary.simpleMessage(
             "انهاء الطلب، المسافة المقطوعة"),
@@ -453,7 +457,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("1 - 20 موظف"),
         "socialMedia":
             MessageLookupByLibrary.simpleMessage("مواقع التواصل الاجتماعي"),
-        "sold": MessageLookupByLibrary.simpleMessage("المبيعات"),
+        "sold": MessageLookupByLibrary.simpleMessage("تم البيع"),
         "sortByEarlier":
             MessageLookupByLibrary.simpleMessage("من الأحدث للأقدم"),
         "sortByRate": MessageLookupByLibrary.simpleMessage("الأعلى تقييما"),
