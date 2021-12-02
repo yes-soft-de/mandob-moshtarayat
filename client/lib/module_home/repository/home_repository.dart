@@ -66,11 +66,13 @@ class HomeRepository {
   }
 
   Future<FavoriteResponse?> getFavoriteCategories() async {
-    var token = _authService.getToken();
-    dynamic response =
-        await _apiClient.get(Urls.GET_FAVORITE_CATEGORIES, headers: {'Authorization': 'Bearer ' + token.toString()});
+    var token = await _authService.getToken();
+    dynamic response;
+    if (token != null) {
+      response = await _apiClient.get(Urls.GET_FAVORITE_CATEGORIES,
+          headers: {'Authorization': 'Bearer ' + token.toString()});
+    }
     if (response == null) return null;
     return FavoriteResponse.fromJson(response);
-    
   }
 }

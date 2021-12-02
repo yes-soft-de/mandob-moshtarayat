@@ -85,6 +85,10 @@ class HomeService {
     if (favoriteCategories.isEmpty && storeCategories.isEmpty) {
       return HomeModel.Empty();
     }
+    if (favoriteCategories.hasError || favoriteCategories.isEmpty) {
+      var favs = <FavoriteCategoriesModel>[];
+      return HomeModel.Data(favs, storeCategories.data, errors);
+    }
     favoriteCategories as FavoriteCategoriesModel;
     return HomeModel.Data(
         favoriteCategories.data, storeCategories.data, errors);

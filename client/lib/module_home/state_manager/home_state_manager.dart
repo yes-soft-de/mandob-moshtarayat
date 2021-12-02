@@ -40,21 +40,11 @@ class HomeStateManager {
         stateSubject.add(HomeLoadedState(screenState,
             favorite: data.favorite,
             categories: data.storeCategory,
-            favoriteStore: data.getFullStores()
-           ));
+            favoriteStore: data.getFullStores()));
         if (value.hasErrors) {
           CustomFlushBarHelper.createError(
                   title: S.current.warnning, message: value.errors[0])
-              .show(screenState.context)
-              .whenComplete(() {
-            if (value.errors.length == 2) {
-              CustomFlushBarHelper.createError(
-                      title: S.current.warnning,
-                      message: value.errors[1],
-                      timeout: 3)
-                  .show(screenState.context);
-            }
-          });
+              .show(screenState.context);
         }
       } else {
         stateSubject.add(HomeErrorState(screenState, value.errors));

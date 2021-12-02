@@ -51,7 +51,7 @@ class ApiClient {
             _logger.error(
                 tag, err.message + ', GET: ' + url, StackTrace.current);
             return {
-              'status_code': '${err.response?.statusCode?.toString() ?? '0'}'
+              'status_code': err.response?.statusCode?.toString() ?? '0'
             };
           }
         }
@@ -101,7 +101,7 @@ class ApiClient {
             _logger.error(
                 tag, err.message + ', POST: ' + url, StackTrace.current);
             return {
-              'status_code': '${err.response?.statusCode?.toString() ?? '0'}'
+              'status_code': err.response?.statusCode?.toString() ?? '0'
             };
           }
         }
@@ -153,7 +153,7 @@ class ApiClient {
             _logger.error(
                 tag, err.message + ', PUT: ' + url, StackTrace.current);
             return {
-              'status_code': '${err.response?.statusCode?.toString() ?? '0'}'
+              'status_code': err.response?.statusCode?.toString() ?? '0'
             };
           }
         }
