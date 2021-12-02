@@ -11,6 +11,7 @@ use App\Request\StoreProductCategoryLevelTwoCreateRequest;
 use App\Request\StoreProductCategoryLevelTwoUpdateRequest;
 use App\Response\ProductsByProductCategoryIdForStoreResponse;
 use App\Response\ProductsByProductCategoryIdResponse;
+use App\Response\StoreProductCategoryByIdResponse;
 use App\Response\StoreProductCategoryLevelOneCreateResponse;
 use App\Response\StoreProductCategoryLevelTwoCreateResponse;
 use App\Response\StoreProductCategoryUpdateLevelOneResponse;
@@ -313,4 +314,15 @@ class StoreProductCategoryService
         return $response;
     }
 
+    public function deleteStoreProductCategoryByID($request)
+    {
+        $result = $this->storeProductCategoryManager->deleteStoreProductCategoryByID($request);
+
+        if($result == 'storeProductCategoryNotFound'){
+            return $result;
+        }
+        else{
+            return $this->autoMapping->map(StoreProductCategoryEntity::class, StoreProductCategoryByIdResponse::class, $result);
+        }
+    }
 }
