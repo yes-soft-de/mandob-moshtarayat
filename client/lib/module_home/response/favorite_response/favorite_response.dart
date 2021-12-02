@@ -21,9 +21,7 @@ class FavoriteResponse {
     } catch (e) {
       Logger()
           .error('Favorite Store Response', e.toString(), StackTrace.current);
-      return FavoriteResponse(
-        statusCode: '-1'
-      );
+      return FavoriteResponse(statusCode: '-1');
     }
   }
 

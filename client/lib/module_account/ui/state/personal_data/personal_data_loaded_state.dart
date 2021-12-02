@@ -2,10 +2,12 @@ import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:mandob_moshtarayat/consts/urls.dart';
+import 'package:mandob_moshtarayat/di/di_config.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_account/model/profile_model.dart';
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat/module_account/request/profile_request.dart';
+import 'package:mandob_moshtarayat/module_account/ui/screen/favourite_screen.dart';
 import 'package:mandob_moshtarayat/module_account/ui/screen/presonal_data_screen.dart';
 import 'package:mandob_moshtarayat/module_account/ui/state/personal_data/personal_data_state.dart';
 import 'package:mandob_moshtarayat/module_account/ui/widget/update_button.dart';
@@ -85,7 +87,7 @@ class PersonalDataLoadedState extends PersonalDataState {
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     color: Theme.of(context).backgroundColor),
-                                child: Center(
+                                child: const Center(
                                     child: Icon(
                                   Icons.info,
                                   size: 50,
@@ -107,13 +109,12 @@ class PersonalDataLoadedState extends PersonalDataState {
                                       child: Center(
                                         child: Text(
                                           S.current.errorDownloadingImage,
-                                          style: TextStyle(fontSize: 10),
+                                          style: const TextStyle(fontSize: 10),
                                         ),
                                       ),
                                     ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.only(bottom: 16.0),
+                                    const Padding(
+                                      padding: EdgeInsets.only(bottom: 16.0),
                                       child: Icon(
                                         Icons.info,
                                         size: 50,
@@ -142,8 +143,8 @@ class PersonalDataLoadedState extends PersonalDataState {
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(18),
                                     color: Theme.of(context).primaryColor),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                child: const Padding(
+                                  padding: EdgeInsets.all(8.0),
                                   child: Icon(
                                     Icons.add_a_photo_rounded,
                                     color: Colors.white,
@@ -172,13 +173,13 @@ class PersonalDataLoadedState extends PersonalDataState {
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           S.of(context).name,
-                          style: TextStyle(fontWeight: FontWeight.w600),
+                          style: const TextStyle(fontWeight: FontWeight.w600),
                         ),
                       ),
                       subtitle: CustomFormField(
                         controller: nameController,
-                        contentPadding: EdgeInsets.fromLTRB(0, 15, 0, 0),
-                        preIcon: Icon(Icons.person),
+                        contentPadding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+                        preIcon: const Icon(Icons.person),
                         hintText: S.of(context).nameHint,
                       ),
                     ),
@@ -187,101 +188,49 @@ class PersonalDataLoadedState extends PersonalDataState {
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           S.of(context).address,
-                          style: TextStyle(fontWeight: FontWeight.w600),
+                          style: const TextStyle(fontWeight: FontWeight.w600),
                         ),
                       ),
                       subtitle: CustomFormField(
                         controller: locationController,
-                        contentPadding: EdgeInsets.fromLTRB(0, 15, 0, 0),
-                        preIcon: Icon(Icons.location_on_rounded),
+                        contentPadding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+                        preIcon: const Icon(Icons.location_on_rounded),
                         hintText: S.of(context).myAddressHint,
                         last: true,
                       ),
                     ),
-
-                    // ListTile(
-                    //   title: Padding(
-                    //     padding: const EdgeInsets.all(8.0),
-                    //     child: Text(
-                    //       S.of(context).birthDate,
-                    //       style: TextStyle(fontWeight: FontWeight.w600),
-                    //     ),
-                    //   ),
-                    //   subtitle: CustomFormField(
-                    //     readOnly: true,
-                    //     preIcon: Icon(Icons.calendar_today_rounded),
-                    //     hintText: S.of(context).birthDateHint,
-                    //     controller: nameController,
-                    //     onTap: () {
-                    //       showDatePicker(
-                    //         context: context,
-                    //         initialDate: DateTime.now(),
-                    //         firstDate: DateTime(1900, 1, 1),
-                    //         lastDate: DateTime.now(),
-                    //       ).then((value) {
-                    //         if (value != null) {
-                    //           nameController.text =
-                    //               DateFormat('yyyy - MM - dd').format(value);
-                    //           screenState.refresh();
-                    //         }
-                    //       });
-                    //     },
-                    //   ),
-                    // ),
-                    // ListTile(
-                    //   title: Padding(
-                    //     padding: const EdgeInsets.all(8.0),
-                    //     child: Text(
-                    //       S.of(context).gender,
-                    //       style: TextStyle(fontWeight: FontWeight.w600),
-                    //     ),
-                    //   ),
-                    //   subtitle:Flex(
-                    //     direction: Axis.horizontal,
-                    //     children: [
-                    //       Expanded(
-                    //         child: Container(
-                    //           decoration: BoxDecoration(
-                    //             borderRadius: BorderRadius.circular(10),
-                    //             color: Theme.of(context).backgroundColor,
-                    //           ),
-                    //           child: RadioListTile(
-                    //             title: Text(S.of(context).male),
-                    //             value:'male',
-                    //             groupValue:genders,
-                    //             onChanged: (String? value){
-                    //               genders = value;
-                    //               screenState.refresh();
-                    //             },
-                    //           ),
-                    //         ),
-                    //       ),
-                    //       SizedBox(width: 16,),
-                    //       Expanded(
-                    //         child: Container(
-                    //           decoration: BoxDecoration(
-                    //             borderRadius: BorderRadius.circular(10),
-                    //             color: Theme.of(context).backgroundColor,
-                    //           ),
-                    //           child: RadioListTile(
-                    //             title: Text(S.of(context).female),
-                    //             value:'female',
-                    //             groupValue:genders,
-                    //             onChanged: (String? value){
-                    //               genders = value;
-                    //               screenState.refresh();
-                    //             },
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
+                    const SizedBox(height: 16,),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        child: ListTile(
+                          trailing: const Icon(Icons.arrow_forward,color: Colors.white,),
+                          leading: const Icon(Icons.favorite,color: Colors.white,),
+                          title: Text(
+                            S.current.favoriteCategories,
+                            style: const TextStyle(
+                              color: Colors.white
+                            ),
+                          ),
+                          onTap: () {
+                            showDialog(
+                                context: context,
+                                builder: (_) {
+                                  return getIt<FavouritScreen>();
+                                });
+                          },
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
           ],

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class FavCategoryCard extends StatelessWidget {
   final String name;
-  
+
   const FavCategoryCard({
     Key? key,
     required this.name,
@@ -18,9 +18,10 @@ class FavCategoryCard extends StatelessWidget {
       child: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Text(name,style: const TextStyle(
-            color: Colors.white
-          ),),
+          child: Text(
+            name,
+            style: const TextStyle(color: Colors.white),
+          ),
         ),
       ),
     );
