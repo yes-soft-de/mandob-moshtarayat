@@ -22,12 +22,11 @@ class HomeLoadedState extends HomeState {
   List<FavoriteStore> favoriteStore;
   List<StoreCategoryModel> categories;
 
-  HomeLoadedState(
-    this.screenState, {
-    required this.favorite,
-    required this.categories,
-    required this.favoriteStore
-  }) : super(screenState);
+  HomeLoadedState(this.screenState,
+      {required this.favorite,
+      required this.categories,
+      required this.favoriteStore})
+      : super(screenState);
 
   @override
   Widget getUI(BuildContext context) {
@@ -77,7 +76,7 @@ class HomeLoadedState extends HomeState {
               ),
             ),
           ),
-          // stores 
+          // stores
           Hider(
             active: favoriteStore.isNotEmpty,
             child: ListTile(
@@ -105,7 +104,7 @@ class HomeLoadedState extends HomeState {
               ),
             ),
           ),
-          // products 
+          // products
           Hider(
             active: false,
             child: ListTile(
@@ -138,7 +137,8 @@ class HomeLoadedState extends HomeState {
                 },
               ),
             ),
-          ), const SizedBox(
+          ),
+          const SizedBox(
             height: 75,
           ),
         ],
@@ -183,8 +183,7 @@ class HomeLoadedState extends HomeState {
       bestStoresCards.add(HomeCard(
         title: element.storeName,
         image: element.image,
-        onTap: () {
-        },
+        onTap: () {},
       ));
     });
     return bestStoresCards;

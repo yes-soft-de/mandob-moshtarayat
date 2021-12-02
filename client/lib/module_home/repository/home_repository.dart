@@ -71,6 +71,10 @@ class HomeRepository {
     if (token != null) {
       response = await _apiClient.get(Urls.GET_FAVORITE_CATEGORIES,
           headers: {'Authorization': 'Bearer ' + token.toString()});
+    } else {
+      response = await _apiClient.get(
+        Urls.GET_FAVORITE_CATEGORIES,
+      );
     }
     if (response == null) return null;
     return FavoriteResponse.fromJson(response);

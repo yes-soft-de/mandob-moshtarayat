@@ -27,6 +27,6 @@ class HomeManager {
   Future<ProductsByCategoriesResponse?> getMainCategoryProducts(
           String categoriesID) =>
       _homeRepository.getMainCategoryProducts(categoriesID);
-        Future<FavoriteResponse?> getFavoriteCategories() =>
+  Future<FavoriteResponse?> getFavoriteCategories() =>
       _homeRepository.getFavoriteCategories();
 }
