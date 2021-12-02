@@ -84,4 +84,16 @@ class ClientProfileEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getFavouriteCategoriesIDsByClientID($clientID)
+    {
+        return $this->createQueryBuilder('clientProfile')
+            ->select('clientProfile.favouriteCategories')
+
+            ->andWhere('clientProfile.clientID = :clientID')
+            ->setParameter('clientID', $clientID)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
