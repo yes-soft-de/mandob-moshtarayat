@@ -406,4 +406,20 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getProductsStoreOwnerProfileId($storeOwnerProfileId)
+    {
+        return $this->createQueryBuilder('product')
+
+            ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount', 'product.description', 'product.status', 'product.productQuantity')
+
+            ->andWhere('product.storeOwnerProfileID =:storeOwnerProfileId')
+            ->andWhere('product.status = :status')
+
+            ->setParameter('storeOwnerProfileId',$storeOwnerProfileId)
+            ->setParameter('status', self::STATUS_ACTIVE)
+
+            ->getQuery()
+            ->getResult();
+    }
 }

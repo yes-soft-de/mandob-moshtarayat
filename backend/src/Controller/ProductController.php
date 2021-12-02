@@ -900,4 +900,64 @@ class ProductController extends BaseController
 
         return $this->response($result, self::FETCH);
     }
+
+    /**
+     * client:Get products of store specific.
+     * @Route("/productsstoreownerprofileid/{storeOwnerProfileId}", name="getProductsStoreOwnerProfileId  ", methods={"GET"})
+     * @IsGranted("ROLE_CLIENT")
+     * @param $storeProductCategoryID
+     * @param $storeOwnerProfileId
+     * @return JsonResponse
+     * *
+     * @OA\Tag(name="Product")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Get products of store specific for client",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="productName"),
+     *                  @OA\Property(type="number", property="productPrice"),
+     *                  @OA\Property(type="integer", property="productQuantity"),
+     *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                  @OA\Property(type="integer", property="storeProductCategoryID"),
+     *                  @OA\Property(type="integer", property="discount"),
+     *                  @OA\Property(type="string", property="description"),
+     *                  @OA\Property(type="string", property="rate"),
+     *                  @OA\Property(type="string", property="soldCount"),
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="object", property="image",
+     *                      @OA\Property(type="string", property="imageURL"),
+     *                      @OA\Property(type="string", property="image"),
+     *                      @OA\Property(type="string", property="baseURL"),
+     *                  ),
+     *                  @OA\Property(type="object", property="store",
+     *                      @OA\Property(type="integer", property="id"),
+     *                      @OA\Property(type="string", property="storeOwnerName"),
+     *                  ),
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function getProductsStoreOwnerProfileId($storeOwnerProfileId): JsonResponse
+    {
+        $result = $this->productService->getProductsStoreOwnerProfileId($storeOwnerProfileId);
+
+        return $this->response($result, self::FETCH);
+    }
+
 }
