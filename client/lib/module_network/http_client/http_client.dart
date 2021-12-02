@@ -50,9 +50,7 @@ class ApiClient {
           if (err.response!.statusCode! < 501) {
             _logger.error(
                 tag, err.message + ', GET: ' + url, StackTrace.current);
-            return {
-              'status_code': err.response?.statusCode?.toString() ?? '0'
-            };
+            return {'status_code': err.response?.statusCode?.toString() ?? '0'};
           }
         }
       } else {
@@ -100,9 +98,7 @@ class ApiClient {
           if (err.response!.statusCode! < 501) {
             _logger.error(
                 tag, err.message + ', POST: ' + url, StackTrace.current);
-            return {
-              'status_code': err.response?.statusCode?.toString() ?? '0'
-            };
+            return {'status_code': err.response?.statusCode?.toString() ?? '0'};
           }
         }
       } else {
@@ -152,9 +148,7 @@ class ApiClient {
           if (err.response!.statusCode! < 501) {
             _logger.error(
                 tag, err.message + ', PUT: ' + url, StackTrace.current);
-            return {
-              'status_code': err.response?.statusCode?.toString() ?? '0'
-            };
+            return {'status_code': err.response?.statusCode?.toString() ?? '0'};
           }
         }
       } else {
