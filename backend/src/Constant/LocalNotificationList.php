@@ -22,7 +22,7 @@ abstract class LocalNotificationList
 
     static $UPDATE_ORDER_SUCCESS = "تم تعديل الطلب بنجاح";
 
-    static $UPDATE_ORDER_ERROR_CAPTAIN_IN_STORE = "عذرا لا تستطيع تعديل الطلب , الكابتن في المتجر.";
+    static $UPDATE_ORDER_ERROR_CAPTAIN_IN_STORE = "عذرا لا تستطيع تعديل الطلب , المندوب في المتجر.";
 
     static $CANCEL_ORDER_TITLE = "حذف طلب";
 
@@ -30,6 +30,6 @@ abstract class LocalNotificationList
 
     static $CANCEL_ORDER_ERROR_TIME = "لا يمكن حذف الطلب, لقد تجاوزت الوقت المسموح به للحذف.";
 
-    static $CANCEL_ORDER_ERROR_ACCEPTED = "لا يمكن حذف الطلب, الكابتن استلم الطلب.";
+    static $CANCEL_ORDER_ERROR_ACCEPTED = "لا يمكن حذف الطلب, المندوب استلم الطلب.";
 
 }
