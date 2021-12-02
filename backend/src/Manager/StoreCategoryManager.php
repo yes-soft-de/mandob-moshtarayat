@@ -70,6 +70,14 @@ class StoreCategoryManager
 
     }
 
+    public function getFavouriteStoreCategories($clientID)
+    {
+        $favouriteCategories = $this->userManager->getFavouriteCategoriesIDsByClientID($clientID);
+
+        return $this->storeCategoryEntityRepository->getStoreCategoriesByClientFavouriteCategoriesIDs($favouriteCategories['favouriteCategories']);
+
+    }
+
     public function getStoreCategory($id): ?StoreCategoryEntity
     {
        return $this->storeCategoryEntityRepository->find($id);

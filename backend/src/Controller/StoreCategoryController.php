@@ -312,4 +312,41 @@ class StoreCategoryController extends BaseController
         return $this->response($result, self::FETCH);
     }
 
+    /**
+     * Client: Get Favourite Store Categories for the signed-in client.
+     * @Route("userfavoritecategories", name="getFavouriteStoreCategories", methods={"GET"})
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Store Category")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Get Store Categories",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="storeCategoryName"),
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function getFavouriteStoreCategories(): JsonResponse
+    {
+        $result = $this->storeCategoryService->getFavouriteStoreCategories($this->getUserId());
+
+        return $this->response($result, self::FETCH);
+    }
 }
