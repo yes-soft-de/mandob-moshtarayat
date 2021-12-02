@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-class CustomPrivateOrderAppBar extends StatelessWidget {
 
+class CustomPrivateOrderAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -2,11 +2,13 @@ import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/abstracts/data_model/data_model.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_home/manager/home_manager.dart';
+import 'package:mandob_moshtarayat/module_home/model/favorite_categories_model.dart';
 import 'package:mandob_moshtarayat/module_home/model/home_model.dart';
-import 'package:mandob_moshtarayat/module_home/model/productsByCategoriesModel.dart';
+import 'package:mandob_moshtarayat/module_home/model/products_by_categories_model.dart';
 import 'package:mandob_moshtarayat/module_home/model/subCategoriesModel.dart';
 import 'package:mandob_moshtarayat/module_home/model/top_wanted_products_model.dart';
 import 'package:mandob_moshtarayat/module_home/response/best_store.dart';
+import 'package:mandob_moshtarayat/module_home/response/favorite_response/favorite_response.dart';
 import 'package:mandob_moshtarayat/module_home/response/products.dart';
 import 'package:mandob_moshtarayat/module_home/response/products_by_categories_response.dart';
 import 'package:mandob_moshtarayat/module_home/response/store_categories.dart';
@@ -66,67 +68,95 @@ class HomeService {
   }
 
   Future<HomeModel> getHomeData() async {
-    var top = await getTopProducts();
     var storeCategories = await getStoreCategories();
-    var bestStores = await getBestStores();
+    var favoriteCategories = await getFavoriteCategories();
+
     List<String> errors = [];
-    if (top.hasError) {
-      errors.add(top.error!);
+
+    if (favoriteCategories.hasError) {
+      errors.add(favoriteCategories.error!);
     }
     if (storeCategories.hasError) {
       errors.add(storeCategories.error!);
     }
-    if (bestStores.hasError) {
-      errors.add(bestStores.error!);
-    }
-    if (errors.isNotEmpty && errors.length == 3) {
+    if (errors.isNotEmpty && errors.length == 2) {
       return HomeModel.Error(errors);
     }
-    if (top.isEmpty && storeCategories.isEmpty && bestStores.isEmpty) {
+    if (favoriteCategories.isEmpty && storeCategories.isEmpty) {
       return HomeModel.Empty();
     }
+    favoriteCategories as FavoriteCategoriesModel;
     return HomeModel.Data(
-        top.data, bestStores.data, storeCategories.data, errors);
+        favoriteCategories.data, storeCategories.data, errors);
   }
+
   Future<DataModel> getSubCategories(String categoriesID) async {
-    SubCategoriesResponse? subCategoriesResponse = await _homeManager.getSubCategories(categoriesID);
-    if (subCategoriesResponse == null) return DataModel.withError(S.current.networkError);
+    SubCategoriesResponse? subCategoriesResponse =
+        await _homeManager.getSubCategories(categoriesID);
+    if (subCategoriesResponse == null) {
+      return DataModel.withError(S.current.networkError);
+    }
     if (subCategoriesResponse.statusCode != '200') {
-      return DataModel.withError(
-          StatusCodeHelper.getStatusCodeMessages(subCategoriesResponse.statusCode ?? '0'));
+      return DataModel.withError(StatusCodeHelper.getStatusCodeMessages(
+          subCategoriesResponse.statusCode ?? '0'));
     }
     if (subCategoriesResponse.data == null) return DataModel.empty();
     return SubCategoriesModel.withData(subCategoriesResponse.data!);
   }
+
   Future<DataModel> getCategoriesProducts(String categoriesID) async {
-    ProductsByCategoriesResponse? productsResponse = await _homeManager.getCategoriesProducts(categoriesID);
-    if (productsResponse == null) return DataModel.withError(S.current.networkError);
+    ProductsByCategoriesResponse? productsResponse =
+        await _homeManager.getCategoriesProducts(categoriesID);
+    if (productsResponse == null) {
+      return DataModel.withError(S.current.networkError);
+    }
     if (productsResponse.statusCode != '200') {
-      return DataModel.withError(
-          StatusCodeHelper.getStatusCodeMessages(productsResponse.statusCode ?? '0'));
+      return DataModel.withError(StatusCodeHelper.getStatusCodeMessages(
+          productsResponse.statusCode ?? '0'));
     }
     if (productsResponse.data == null) return DataModel.empty();
     return ProductsByCategoriesModel.withData(productsResponse.data!);
   }
+
   Future<DataModel> getSubCategoriesProducts(String categoriesID) async {
-    ProductsByCategoriesResponse? productsResponse = await _homeManager.getSubCategoriesProducts(categoriesID);
-    if (productsResponse == null) return DataModel.withError(S.current.networkError);
+    ProductsByCategoriesResponse? productsResponse =
+        await _homeManager.getSubCategoriesProducts(categoriesID);
+    if (productsResponse == null) {
+      return DataModel.withError(S.current.networkError);
+    }
     if (productsResponse.statusCode != '200') {
-      return DataModel.withError(
-          StatusCodeHelper.getStatusCodeMessages(productsResponse.statusCode ?? '0'));
+      return DataModel.withError(StatusCodeHelper.getStatusCodeMessages(
+          productsResponse.statusCode ?? '0'));
     }
     if (productsResponse.data == null) return DataModel.empty();
     return ProductsByCategoriesModel.withData(productsResponse.data!);
   }
 
   Future<DataModel> getMainCategoryProducts(String categoriesID) async {
-    ProductsByCategoriesResponse? productsResponse = await _homeManager.getMainCategoryProducts(categoriesID);
-    if (productsResponse == null) return DataModel.withError(S.current.networkError);
+    ProductsByCategoriesResponse? productsResponse =
+        await _homeManager.getMainCategoryProducts(categoriesID);
+    if (productsResponse == null) {
+      return DataModel.withError(S.current.networkError);
+    }
     if (productsResponse.statusCode != '200') {
-      return DataModel.withError(
-          StatusCodeHelper.getStatusCodeMessages(productsResponse.statusCode ?? '0'));
+      return DataModel.withError(StatusCodeHelper.getStatusCodeMessages(
+          productsResponse.statusCode ?? '0'));
     }
     if (productsResponse.data == null) return DataModel.empty();
     return ProductsByCategoriesModel.withData(productsResponse.data!);
+  }
+
+  Future<DataModel> getFavoriteCategories() async {
+    FavoriteResponse? favoriteResponse =
+        await _homeManager.getFavoriteCategories();
+    if (favoriteResponse == null) {
+      return DataModel.withError(S.current.networkError);
+    }
+    if (favoriteResponse.statusCode != '200') {
+      return DataModel.withError(StatusCodeHelper.getStatusCodeMessages(
+          favoriteResponse.statusCode ?? '0'));
+    }
+    if (favoriteResponse.data == null) return DataModel.empty();
+    return FavoriteCategoriesModel.withData(favoriteResponse.data!);
   }
 }

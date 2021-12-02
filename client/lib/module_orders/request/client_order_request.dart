@@ -12,21 +12,20 @@ class ClientOrderRequest {
   String? recipientName;
   String? recipientPhone;
   int? orderType;
-  ClientOrderRequest({
-      this.destination, 
-      this.note, 
-      this.payment, 
-      this.ownerID, 
-      this.products, 
-      this.deliveryDate, 
-      this.orderCost, 
+  ClientOrderRequest(
+      {this.destination,
+      this.note,
+      this.payment,
+      this.ownerID,
+      this.products,
+      this.deliveryDate,
+      this.orderCost,
       this.deliveryCost,
       this.orderNumber,
       this.detail,
       this.recipientName,
       this.recipientPhone,
-      this.orderType
-  });
+      this.orderType});
 
   ClientOrderRequest.fromJson(dynamic json) {
     destination = json['destination'];
@@ -46,7 +45,7 @@ class ClientOrderRequest {
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
-    if (this.orderNumber != null){
+    if (this.orderNumber != null) {
       map['orderNumber'] = orderNumber;
     }
     map['destination'] = destination?.toJson();
@@ -63,15 +62,15 @@ class ClientOrderRequest {
       map['detail'] = detail;
     }
     if (recipientName != null) {
-    map['recipientName'] = recipientName;
+      map['recipientName'] = recipientName;
     }
-    if (recipientPhone != null){
+    if (recipientPhone != null) {
       map['recipientPhone'] = recipientPhone;
     }
     return map;
   }
-
 }
+
 class GeoJson {
   double? long;
   double? lat;
@@ -85,19 +84,19 @@ class GeoJson {
     return map;
   }
 }
+
 class Products {
   int? productID;
   int? countProduct;
   double? price;
   String? productName;
   String? productsImage;
-  Products({
-      this.productID, 
+  Products(
+      {this.productID,
       this.countProduct,
       this.price,
       this.productName,
-      this.productsImage
-  });
+      this.productsImage});
 
   Products.fromJson(dynamic json) {
     productID = json['productID'];
@@ -110,5 +109,4 @@ class Products {
     map['countProduct'] = countProduct;
     return map;
   }
-
 }

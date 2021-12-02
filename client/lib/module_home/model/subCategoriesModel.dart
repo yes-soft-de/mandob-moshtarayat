@@ -19,7 +19,7 @@ class SubCategoriesModel extends DataModel {
   SubCategoriesModel.withData(List<Data> data) {
     data.forEach((element) {
       _subCategories.add(SubCategoriesModel(
-        subCategoriesID: element.id ?? -1,
+          subCategoriesID: element.id ?? -1,
           productCategoryName: element.productCategoryName ?? S.current.unknown,
           productCategoryImage:
               element.productCategoryImage?.image ?? ImageAsset.PLACEHOLDER,

@@ -29,8 +29,9 @@ class StoreProductsStateManager {
 
   StoreProductsStateManager(this._storeProductsService);
 
-  void getStoresProducts(int id, StoreProductsScreenState screenState ,[bool withoutLoading = false]) {
-    if (!withoutLoading){
+  void getStoresProducts(int id, StoreProductsScreenState screenState,
+      [bool withoutLoading = false]) {
+    if (!withoutLoading) {
       _stateSubject.add(StoreProductsLoadingState(screenState));
     }
     _storeProductsService.getStoreProfile(id).then((store) {
@@ -93,13 +94,13 @@ class StoreProductsStateManager {
     ).show(screenState.context);
     _storeProductsService.rateStore(request).then((value) {
       if (value.hasError) {
-        getStoresProducts(request.itemID!,screenState,true);
+        getStoresProducts(request.itemID!, screenState, true);
         CustomFlushBarHelper.createError(
           title: S.current.warnning,
           message: value.error ?? '',
         ).show(screenState.context);
       } else {
-        getStoresProducts(request.itemID!,screenState,true);
+        getStoresProducts(request.itemID!, screenState, true);
         CustomFlushBarHelper.createSuccess(
                 title: S.current.warnning, message: S.current.storeRated)
             .show(screenState.context);

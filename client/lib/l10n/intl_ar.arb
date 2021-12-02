@@ -360,7 +360,7 @@
   "electronic": "إلكترونيات",
   "rating": "التقييم",
   "discount": "الخصم",
-  "sold": "المبيعات",
+  "sold": "تم البيع",
   "specification": "المواصفات",
   "totalPrice": "المبلغ النهائي",
   "productQuantity": "عدد الوحدات",
@@ -368,6 +368,9 @@
   "productRated": "تم تقييم المنتج",
   "rateProductMessage":"قم بتقييم المنتج من فضلك",
   "rateProduct":"تقييم منتج",
-  "cart":"سلة المشتريات"
+  "cart":"سلة المشتريات",
+  "saller": "البائع",
+  "favoriteCategories":"التصنيفات المفضلة",
+  "favoriteStores":"المتاجر المفضلة"
 
 }

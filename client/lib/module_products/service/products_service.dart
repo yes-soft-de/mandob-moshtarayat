@@ -16,7 +16,6 @@ class ProductsService {
   ProductsService(this._productsManager);
 
   Future<DataModel> getProductsDetails(int id) async {
-
     ProductsDetailsResponse? storeProfileResponse =
         await _productsManager.getProductsDetails(id);
     if (storeProfileResponse == null) {
@@ -28,7 +27,6 @@ class ProductsService {
     }
     if (storeProfileResponse.data == null) return DataModel.empty();
     return ProductsDetailsModel.withData(storeProfileResponse.data!);
-
   }
 
   Future<MyOrderState> rateStore(RateStoreRequest request) async {

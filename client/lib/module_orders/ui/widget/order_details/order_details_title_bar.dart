@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+
 class OrderDetailsTitleBar extends StatelessWidget {
   final String title;
   final num rate;
-  OrderDetailsTitleBar({required this.title,required this.rate});
+  OrderDetailsTitleBar({required this.title, required this.rate});
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +16,7 @@ class OrderDetailsTitleBar extends StatelessWidget {
           Text(
             title,
             style: TextStyle(
-                color: Colors.white,
-                fontSize: 25,
-                fontWeight: FontWeight.bold),
+                color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
           ),
           Container(
             width: 16,
@@ -25,10 +24,7 @@ class OrderDetailsTitleBar extends StatelessWidget {
           Text(
             rate.toString(),
             style: TextStyle(
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
-              color: Colors.white
-            ),
+                fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
           ),
           Container(
             width: 8,

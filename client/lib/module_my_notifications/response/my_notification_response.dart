@@ -3,10 +3,7 @@ class MyNotificationResponse {
   String? msg;
   List<Data>? data;
 
-  MyNotificationResponse({
-      this.statusCode, 
-      this.msg, 
-      this.data});
+  MyNotificationResponse({this.statusCode, this.msg, this.data});
 
   MyNotificationResponse.fromJson(dynamic json) {
     statusCode = json['status_code'];
@@ -28,7 +25,6 @@ class MyNotificationResponse {
     }
     return map;
   }
-
 }
 
 class Data {
@@ -38,19 +34,16 @@ class Data {
   int? orderNumber;
   CreatedAt? createdAt;
 
-  Data({
-      this.id, 
-      this.title, 
-      this.message, 
-      this.orderNumber, 
-      this.createdAt});
+  Data({this.id, this.title, this.message, this.orderNumber, this.createdAt});
 
   Data.fromJson(dynamic json) {
     id = json['id'];
     title = json['title'];
     message = json['message'];
     orderNumber = json['orderNumber'];
-    createdAt = json['createdAt'] != null ? CreatedAt.fromJson(json['createdAt']) : null;
+    createdAt = json['createdAt'] != null
+        ? CreatedAt.fromJson(json['createdAt'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -64,7 +57,6 @@ class Data {
     }
     return map;
   }
-
 }
 
 class CreatedAt {
@@ -72,13 +64,11 @@ class CreatedAt {
   int? offset;
   int? timestamp;
 
-  CreatedAt({
-      this.timezone, 
-      this.offset, 
-      this.timestamp});
+  CreatedAt({this.timezone, this.offset, this.timestamp});
 
   CreatedAt.fromJson(dynamic json) {
-    timezone = json['timezone'] != null ? Timezone.fromJson(json['timezone']) : null;
+    timezone =
+        json['timezone'] != null ? Timezone.fromJson(json['timezone']) : null;
     offset = json['offset'];
     timestamp = json['timestamp'];
   }
@@ -92,7 +82,6 @@ class CreatedAt {
     map['timestamp'] = timestamp;
     return map;
   }
-
 }
 
 class Timezone {
@@ -100,10 +89,7 @@ class Timezone {
   List<Transitions>? transitions;
   Location? location;
 
-  Timezone({
-      this.name, 
-      this.transitions, 
-      this.location});
+  Timezone({this.name, this.transitions, this.location});
 
   Timezone.fromJson(dynamic json) {
     name = json['name'];
@@ -113,7 +99,8 @@ class Timezone {
         transitions?.add(Transitions.fromJson(v));
       });
     }
-    location = json['location'] != null ? Location.fromJson(json['location']) : null;
+    location =
+        json['location'] != null ? Location.fromJson(json['location']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -127,7 +114,6 @@ class Timezone {
     }
     return map;
   }
-
 }
 
 class Location {
@@ -136,11 +122,7 @@ class Location {
   int? longitude;
   String? comments;
 
-  Location({
-      this.countryCode, 
-      this.latitude, 
-      this.longitude, 
-      this.comments});
+  Location({this.countryCode, this.latitude, this.longitude, this.comments});
 
   Location.fromJson(dynamic json) {
     countryCode = json['country_code'];
@@ -157,7 +139,6 @@ class Location {
     map['comments'] = comments;
     return map;
   }
-
 }
 
 class Transitions {
@@ -167,12 +148,7 @@ class Transitions {
   bool? isdst;
   String? abbr;
 
-  Transitions({
-      this.ts, 
-      this.time, 
-      this.offset, 
-      this.isdst, 
-      this.abbr});
+  Transitions({this.ts, this.time, this.offset, this.isdst, this.abbr});
 
   Transitions.fromJson(dynamic json) {
     ts = json['ts'];
@@ -191,5 +167,4 @@ class Transitions {
     map['abbr'] = abbr;
     return map;
   }
-
 }

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
-import 'package:mandob_moshtarayat/module_orders/orders_routes.dart';
 import 'package:mandob_moshtarayat/module_orders/request/client_order_request.dart';
 import 'package:mandob_moshtarayat/hive/objects/cart_model/cart_model.dart';
 import 'package:mandob_moshtarayat/module_products/products_routes.dart';
 import 'package:mandob_moshtarayat/module_stores/model/category_model.dart';
-import 'package:mandob_moshtarayat/module_stores/model/checkout_model.dart';
 import 'package:mandob_moshtarayat/module_stores/model/store_profile_model.dart';
 import 'package:mandob_moshtarayat/module_stores/presistance/cart_hive_box_helper.dart';
 import 'package:mandob_moshtarayat/module_stores/request/rate_store_request.dart';
@@ -23,7 +21,6 @@ import 'package:mandob_moshtarayat/utils/components/progresive_image.dart';
 import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 import 'package:mandob_moshtarayat/utils/models/product.dart';
-import 'package:mandob_moshtarayat/utils/models/store.dart';
 
 class StoreProductsLoadedState extends StoreProductsState {
   StoreProductsScreenState screenState;
@@ -55,7 +52,6 @@ class StoreProductsLoadedState extends StoreProductsState {
   Widget getUI(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-
     title = storeProfile.storeOwnerName;
     backgroundImage = storeProfile.image;
     storeId = storeProfile.id;
@@ -102,7 +98,8 @@ class StoreProductsLoadedState extends StoreProductsState {
               Container(
                 height: height * 0.65,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(18)),
+                  borderRadius:
+                      const BorderRadius.vertical(top: Radius.circular(18)),
                   color: Theme.of(context).cardColor,
                 ),
                 child: Stack(
@@ -110,7 +107,7 @@ class StoreProductsLoadedState extends StoreProductsState {
                     Padding(
                       padding: const EdgeInsets.only(top: 4.0),
                       child: ListView(
-                        physics: BouncingScrollPhysics(
+                        physics: const BouncingScrollPhysics(
                             parent: AlwaysScrollableScrollPhysics()),
                         children: [
                           Hider(
@@ -125,10 +122,10 @@ class StoreProductsLoadedState extends StoreProductsState {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(bottom: 25.0),
-                            child: Container(
+                            child: SizedBox(
                               height: 44,
                               child: ListView(
-                                physics: BouncingScrollPhysics(
+                                physics: const BouncingScrollPhysics(
                                     parent: AlwaysScrollableScrollPhysics()),
                                 padding: EdgeInsets.zero,
                                 scrollDirection: Axis.horizontal,
@@ -145,7 +142,7 @@ class StoreProductsLoadedState extends StoreProductsState {
                                       : screenState.snapshot.data ??
                                           <ProductModel>[]),
                               snapshot: screenState.snapshot),
-                          SizedBox(
+                          const SizedBox(
                             height: 75,
                           ),
                         ],
@@ -157,7 +154,6 @@ class StoreProductsLoadedState extends StoreProductsState {
                         quantity: getItemsCount(),
                         onPressed: carts.isNotEmpty
                             ? () {
-
                                 List<Products> items = [];
                                 carts.forEach((element) {
                                   items.add(Products(
@@ -165,18 +161,21 @@ class StoreProductsLoadedState extends StoreProductsState {
                                       countProduct: element.quantity));
                                 });
 
-                                CheckoutModel checkoutModel = CheckoutModel(
-                                    ownerId: storeId,
-                                    cart: items,
-                                    orderCost: double.parse(getTotal()),
-                                    deliveryCost: deliveryCost);
+                                // CheckoutModel checkoutModel = CheckoutModel(
+                                //     ownerId: storeId,
+                                //     cart: items,
+                                //     orderCost: double.parse(getTotal()),
+                                //     deliveryCost: deliveryCost);
 
                                 if (fromEditingOrder) {
                                   CartHiveHelper().setCart(carts);
                                   Navigator.of(context).pop();
                                 } else {
-                                  Navigator.of(context).pushNamed(
-                                      ProductsRoutes.CART_SCREEN);
+                                  Navigator.of(context)
+                                      .pushNamed(ProductsRoutes.CART_SCREEN)
+                                      .then((value) =>
+                                          screenState.getStoresProducts(
+                                              screenState.storeId));
                                   // Navigator.of(context).pushNamed(
                                   //     OrdersRoutes.CLIENT_ORDER,
                                   //     arguments: checkoutModel);
@@ -184,9 +183,9 @@ class StoreProductsLoadedState extends StoreProductsState {
                               }
                             : () {
                                 CustomFlushBarHelper.createError(
-                                    title: S.of(context).warnning,
-                                    message: S.of(context).yourCartEmpty)
-                                  ..show(context);
+                                        title: S.of(context).warnning,
+                                        message: S.of(context).yourCartEmpty)
+                                    .show(context);
                               },
                         total: getTotal(),
                         currency: S.of(context).sar,
@@ -204,49 +203,68 @@ class StoreProductsLoadedState extends StoreProductsState {
 
   List<Widget> getProducts(List<ProductModel> topWantedProducts) {
     if (topWantedProducts.isEmpty) return [];
-    List<ProductsCard> prods = [];
+    List<Widget> prods = [];
     topWantedProducts.forEach((element) {
-      prods.add(ProductsCard(
-        onTap: (){
-          Navigator.of(screenState.context).pushNamed(ProductsRoutes.PRODUCT_DETAILS_SCREEN,arguments:element.id);
-        },
-          id: element.id,
-          title: element.title,
-          image: element.image,
-          price: element.price,
-          defaultQuantity: getQuantity(element.id),
-          quantity: (cartModel) {
-            if (cartModel.quantity > 0) {
-              if (CartHiveHelper().getCart().isEmpty) {
-                CartHiveHelper().setStoreId(screenState.storeId);
-                addToCart(cartModel);
-              }
-              else {
-                if (CartHiveHelper().getStoreID() == screenState.storeId) {
+      prods.add(SizedBox(
+        key: ObjectKey(element),
+        child: ProductsCard(
+            onTap: () {
+              Navigator.of(screenState.context).pushNamed(
+                  ProductsRoutes.PRODUCT_DETAILS_SCREEN,
+                  arguments: element.id);
+            },
+            id: element.id,
+            title: element.title,
+            image: element.image,
+            price: element.price,
+            defaultQuantity: getQuantity(element.id),
+            quantity: (cartModel) {
+              if (cartModel.quantity > 0) {
+                if (CartHiveHelper().getCart().isEmpty) {
+                  CartHiveHelper().setStoreId(screenState.storeId);
                   addToCart(cartModel);
-                }
-                else {
-                  CustomAlertDialog(content: S.current.youHaveProductsFromDifferentStore, onPressed: () async {
-                   await CartHiveHelper().deleteCart();
-                   addToCart(cartModel);
-                  },);
+                } else {
+                  if (CartHiveHelper().getStoreID() == screenState.storeId) {
+                    addToCart(cartModel);
+                  } else {
+                    int timperQuantity = cartModel.quantity;
+                    cartModel.quantity = 0;
+                    showDialog(
+                        context: screenState.context,
+                        builder: (context) {
+                          return CustomAlertDialog(
+                            content:
+                                S.current.youHaveProductsFromDifferentStore,
+                            onPressed: () async {
+                              await CartHiveHelper().deleteCart();
+                              cartModel.quantity = timperQuantity;
+                              CartHiveHelper().setStoreId(screenState.storeId);
+                              addToCart(cartModel);
+                              Navigator.of(context).pop();
+                              screenState.refresh();
+                            },
+                          );
+                        });
+                  }
                 }
               }
-            }
-            if (cartModel.quantity == 0) {
-              carts.removeWhere((e) => e.id == cartModel.id);
-              CartHiveHelper().removeProductsToCart(cartModel);
-            }
-            screenState.refresh();
-          }));
+              if (cartModel.quantity == 0) {
+                carts.removeWhere((e) => e.id == cartModel.id);
+                CartHiveHelper().removeProductsToCart(cartModel);
+              }
+              screenState.refresh();
+            }),
+      ));
     });
     return prods;
   }
-  void addToCart(cartModel){
+
+  void addToCart(cartModel) {
     carts.removeWhere((e) => e.id == cartModel.id);
     carts.add(cartModel);
     CartHiveHelper().addProductsToCart(cartModel);
   }
+
   List<Widget> getCategories(List<CategoryModel> categoriesModel) {
     if (categoriesModel.isEmpty) {
       return [
@@ -255,6 +273,7 @@ class StoreProductsLoadedState extends StoreProductsState {
           onChange: (value, id) {
             defaultValue = value;
             categoryId = id;
+            screenState.snapshot = const AsyncSnapshot.nothing();
             screenState.refresh();
           },
           title: S.current.mostWanted,
@@ -268,6 +287,7 @@ class StoreProductsLoadedState extends StoreProductsState {
       onChange: (value, id) {
         defaultValue = value;
         categoryId = id;
+        screenState.snapshot = const AsyncSnapshot.nothing();
         screenState.refresh();
       },
       title: S.current.mostWanted,
@@ -310,6 +330,7 @@ dynamic getTotal() {
   }
   return total.toString();
 }
+
 String getItemsCount() {
   List<CartModel> carts = CartHiveHelper().getCart();
   return carts.length.toString();

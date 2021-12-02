@@ -5,13 +5,12 @@ import 'package:mandob_moshtarayat/module_main/main_routes.dart';
 import 'package:mandob_moshtarayat/utils/images/images.dart';
 import 'package:flutter/material.dart';
 
-
 @injectable
 class SplashScreen extends StatefulWidget {
   final AuthService _authService;
   SplashScreen(
-      this._authService,
-      );
+    this._authService,
+  );
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -26,6 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
       });
     });
   }
+
   @override
   Widget build(BuildContext context) {
     var paddingOfImage = MediaQuery.of(context).size.height * 0.20;
@@ -34,12 +34,21 @@ class _SplashScreenState extends State<SplashScreen> {
         direction: Axis.vertical,
         children: [
           Padding(
-            padding: EdgeInsets.only(top:paddingOfImage,bottom: 24),
-            child: Image.asset(ImageAsset.LOGO,height: 200,width: 200,),
+            padding: EdgeInsets.only(top: paddingOfImage, bottom: 24),
+            child: Image.asset(
+              ImageAsset.LOGO,
+              height: 200,
+              width: 200,
+            ),
           ),
-          Spacer(flex: 1,),
-          Image.asset(ImageAsset.DELIVERY_MOTOR,fit: BoxFit.cover,
-            alignment: Alignment.bottomCenter,),
+          Spacer(
+            flex: 1,
+          ),
+          Image.asset(
+            ImageAsset.DELIVERY_MOTOR,
+            fit: BoxFit.cover,
+            alignment: Alignment.bottomCenter,
+          ),
         ],
       ),
     );
@@ -49,5 +58,4 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(Duration(seconds: 2));
     return MainRoutes.MAIN_SCREEN;
   }
-
 }

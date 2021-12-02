@@ -4,7 +4,6 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/module_auth/service/auth_service/auth_service.dart';
-import 'package:mandob_moshtarayat/module_stores/presistance/cart_hive_box_helper.dart';
 import 'package:mandob_moshtarayat/module_stores/request/rate_store_request.dart';
 import 'package:mandob_moshtarayat/module_stores/state_manager/store_products_state_manager.dart';
 import 'package:mandob_moshtarayat/module_stores/ui/state/store_products/store_products_loading_state.dart';
@@ -15,7 +14,7 @@ import 'package:mandob_moshtarayat/utils/models/store.dart';
 class StoreProductsScreen extends StatefulWidget {
   final StoreProductsStateManager stateManager;
   final AuthService _authService;
-  StoreProductsScreen(this.stateManager, this._authService);
+  const StoreProductsScreen(this.stateManager, this._authService);
 
   @override
   StoreProductsScreenState createState() => StoreProductsScreenState();
@@ -23,7 +22,7 @@ class StoreProductsScreen extends StatefulWidget {
 
 class StoreProductsScreenState extends State<StoreProductsScreen> {
   late StoreProductsState currentState;
-  late AsyncSnapshot snapshot = AsyncSnapshot.nothing();
+  late AsyncSnapshot snapshot = const AsyncSnapshot.nothing();
   late AuthService authService;
   void refresh() {
     if (mounted) {
@@ -55,16 +54,16 @@ class StoreProductsScreenState extends State<StoreProductsScreen> {
       snapshot = event;
       if (mounted) setState(() {});
     });
-    Hive.box('Order').listenable(keys: ['update']).addListener(() {
-      widget.stateManager.getStoresProducts(storeId, this);
-      print('++++++++++++++++++++++++++++++++++++++++++++++++++++');
-      if (mounted) setState(() {});
-    });
     super.initState();
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   bool flag = true;
-  int storeId  = -1;
+  int storeId = -1;
   late String backgroundImage;
   @override
   Widget build(BuildContext context) {
@@ -73,8 +72,7 @@ class StoreProductsScreenState extends State<StoreProductsScreen> {
       storeId = args.id;
       widget.stateManager.getStoresProducts(args.id, this);
       flag = false;
-    }
-    else if (flag && args is Map){
+    } else if (flag && args is Map) {
       storeId = int.parse(args['storeId']);
       widget.stateManager.getStoresProducts(int.parse(args['storeId']), this);
       flag = false;
@@ -87,7 +85,8 @@ class StoreProductsScreenState extends State<StoreProductsScreen> {
         }
       },
       child: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle(statusBarIconBrightness: Brightness.light),
+        value: const SystemUiOverlayStyle(
+            statusBarIconBrightness: Brightness.light),
         child: Scaffold(
           body: currentState.getUI(context),
         ),

@@ -369,7 +369,13 @@
   "productRated": "Product Rated",
   "rateProductMessage":"Please rate this product",
   "rateProduct":"Rate Product",
-  "cart":"Cart"
+  "cart":"Cart",
+  "saller": "Saller",
+  "favoriteCategories":"Favorite Categories",
+  "favoriteStores":"Favorite Stores"
+
+
+  
 
 
 

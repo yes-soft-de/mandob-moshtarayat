@@ -17,7 +17,9 @@ class MyNotificationsLoadedState extends MyNotificationsState {
   @override
   Widget getUI(BuildContext context) {
     return Scaffold(
-      appBar: CustomTwaslnaAppBar.appBar(context, title: S.current.notifications,background: Theme.of(context).cardColor),
+      appBar: CustomTwaslnaAppBar.appBar(context,
+          title: S.current.notifications,
+          background: Theme.of(context).cardColor),
       body: Container(
         color: Theme.of(context).cardColor,
         child: RefreshIndicator(

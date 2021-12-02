@@ -3739,6 +3739,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Saller`
+  String get saller {
+    return Intl.message(
+      'Saller',
+      name: 'saller',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Favorite Categories`
+  String get favoriteCategories {
+    return Intl.message(
+      'Favorite Categories',
+      name: 'favoriteCategories',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Favorite Stores`
+  String get favoriteStores {
+    return Intl.message(
+      'Favorite Stores',
+      name: 'favoriteStores',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

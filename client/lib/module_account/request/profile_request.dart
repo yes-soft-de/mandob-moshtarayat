@@ -3,10 +3,7 @@ class ProfileRequest {
   String? image;
   String? location;
 
-  ProfileRequest({
-      this.clientName, 
-      this.image, 
-      this.location});
+  ProfileRequest({this.clientName, this.image, this.location});
 
   ProfileRequest.fromJson(dynamic json) {
     clientName = json['clientName'];
@@ -21,5 +18,4 @@ class ProfileRequest {
     map['location'] = location;
     return map;
   }
-
 }

@@ -17,7 +17,10 @@ class MyNotificationsErrorState extends MyNotificationsState {
   @override
   Widget getUI(BuildContext context) {
     return Scaffold(
-       appBar: CustomTwaslnaAppBar.appBar(context, title: S.current.notifications,background: Theme.of(context).cardColor,colorIcon: Colors.red),
+      appBar: CustomTwaslnaAppBar.appBar(context,
+          title: S.current.notifications,
+          background: Theme.of(context).cardColor,
+          colorIcon: Colors.red),
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         child: Container(

@@ -130,7 +130,13 @@ class OrderCard extends StatelessWidget {
                         )
                       ],
                     ),
-                    Expanded(child: Center(child: Text(S.current.withTaxes + ' % 15 ' ,style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),))),
+                    Expanded(
+                        child: Center(
+                            child: Text(
+                      S.current.withTaxes + ' % 15 ',
+                      style: TextStyle(
+                          color: Colors.red, fontWeight: FontWeight.bold),
+                    ))),
                     FaIcon(
                       Localizations.localeOf(context).languageCode == 'ar'
                           ? FontAwesomeIcons.arrowCircleLeft

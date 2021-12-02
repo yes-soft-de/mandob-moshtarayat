@@ -2,17 +2,18 @@ import 'package:mandob_moshtarayat/utils/logger/logger.dart';
 
 class ProductsDetailsResponse {
   ProductsDetailsResponse({
-      this.statusCode, 
-      this.msg, 
-      this.data,});
+    this.statusCode,
+    this.msg,
+    this.data,
+  });
 
   ProductsDetailsResponse.fromJson(dynamic json) {
     try {
       statusCode = json['status_code'];
       msg = json['msg'];
       data = json['Data'] != null ? Data.fromJson(json['Data']) : null;
-    } catch(e) {
-    Logger().error('Products Response', e.toString(), StackTrace.current);
+    } catch (e) {
+      Logger().error('Products Response', e.toString(), StackTrace.current);
     }
   }
   String? statusCode;
@@ -28,24 +29,24 @@ class ProductsDetailsResponse {
     }
     return map;
   }
-
 }
 
 class Data {
   Data({
-      this.id, 
-      this.productName, 
-      this.productImage, 
-      this.productPrice, 
-      this.storeOwnerProfileID, 
-      this.storeProductCategoryID, 
-      this.storeOwnerName, 
-      this.image, 
-      this.phone, 
-      this.location, 
-      this.branchName, 
-      this.deliveryCost, 
-      this.discount,});
+    this.id,
+    this.productName,
+    this.productImage,
+    this.productPrice,
+    this.storeOwnerProfileID,
+    this.storeProductCategoryID,
+    this.storeOwnerName,
+    this.image,
+    this.phone,
+    this.location,
+    this.branchName,
+    this.deliveryCost,
+    this.discount,
+  });
 
   Data.fromJson(dynamic json) {
     id = json['id'];
@@ -57,19 +58,12 @@ class Data {
     storeOwnerName = json['storeOwnerName'];
     image = json['image'];
     phone = json['phone'];
-    if (json['location'] != null) {
-      location = [];
-      json['location'].forEach((v) {
-      //  location?.add(dynamic.fromJson(v));
-      });
-    }
     branchName = json['branchName'];
     deliveryCost = json['deliveryCost'];
     discount = json['discount'];
     description = json['description'];
     rate = json['rate'];
     soldCount = json['soldCount']?.toString();
-
   }
 
   int? id;
@@ -108,5 +102,4 @@ class Data {
     map['discount'] = discount;
     return map;
   }
-
 }

@@ -30,7 +30,7 @@ class OrderDetailsModel {
         carts: toCartList(response.data?.orderDetails ?? <OrderDetails>[]),
         order: toOrder(response.data?.order),
         storeInfo: StoreOwnerInfo(
-          rating:num.parse(response.data?.storeOwner?.rating ?? '0'),
+          rating: num.parse(response.data?.storeOwner?.rating ?? '0'),
           storeOwnerID: response.data?.storeOwner?.storeOwnerID ?? -1,
           storeOwnerName:
               response.data?.storeOwner?.storeOwnerName ?? S.current.storeOwner,

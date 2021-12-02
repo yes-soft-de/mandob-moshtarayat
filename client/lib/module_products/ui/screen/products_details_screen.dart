@@ -10,7 +10,6 @@ import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat/utils/components/rate_dialog.dart';
 import 'package:mandob_moshtarayat/utils/images/images.dart';
 
-
 @injectable
 class ProductDetailsScreen extends StatefulWidget {
   final ProductDetailsStateManager _stateManager;
@@ -44,7 +43,6 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
       currentState = event;
       if (mounted) setState(() {});
     });
-
   }
 
   @override
@@ -52,7 +50,7 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
     var args = ModalRoute.of(context)?.settings.arguments;
     if (args is int && flagId) {
       productId = args;
-       widget._stateManager.getProducts(args, this);
+      widget._stateManager.getProducts(args, this);
       flagId = false;
     }
     return GestureDetector(
@@ -63,40 +61,47 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
         }
       },
       child: Scaffold(
-        appBar: CustomTwaslnaAppBar.appBar(context, title: S.current.product,actions:currentState is ProductDetailsLoadedState ? [
-          InkWell(
-            onTap:() {
-              showDialog(
-                context: context,
-                builder: (context) => RatingAlertDialog(
-                  title: S.current.rateProduct,
-                  message: S.current.rateProductMessage,
-                  image: (currentState as ProductDetailsLoadedState).model.productImage,
-                  onPressed: (rate) {
-                    widget._stateManager.rateProduct(RateStoreRequest(
-                      rating: rate,
-                      itemType: 'product',
-                      itemID: productId
-                    ), this);
-                  },
-                ),
-              );
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                color: Theme.of(context).cardColor.withOpacity(0.5),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Icon(
-                  Icons.star,
-                  color: Colors.yellow,
-                ),
-              ),
-            ),
-          ),
-        ] : null),
+        appBar: CustomTwaslnaAppBar.appBar(context,
+            title: S.current.product,
+            actions: currentState is ProductDetailsLoadedState
+                ? [
+                    InkWell(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => RatingAlertDialog(
+                            title: S.current.rateProduct,
+                            message: S.current.rateProductMessage,
+                            image: (currentState as ProductDetailsLoadedState)
+                                .model
+                                .productImage,
+                            onPressed: (rate) {
+                              widget._stateManager.rateProduct(
+                                  RateStoreRequest(
+                                      rating: rate,
+                                      itemType: 'product',
+                                      itemID: productId),
+                                  this);
+                            },
+                          ),
+                        );
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).cardColor.withOpacity(0.5),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.star,
+                            color: Colors.yellow,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ]
+                : null),
         body: currentState.getUI(context),
       ),
     );

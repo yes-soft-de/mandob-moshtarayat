@@ -22,22 +22,19 @@ class PrivateOrderTitleBar extends StatelessWidget {
           Text(
             title,
             style: TextStyle(
-                color: Colors.white,
-                fontSize: 25,
-                fontWeight: FontWeight.bold),
+                color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
           ),
           Container(
             width: 16,
           ),
           Padding(
-            padding: const EdgeInsets.only(top:6.0),
+            padding: const EdgeInsets.only(top: 6.0),
             child: Text(
               rate.toString(),
               style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-                fontSize: 18
-              ),
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  fontSize: 18),
             ),
           ),
           Container(
@@ -55,17 +52,19 @@ class PrivateOrderTitleBar extends StatelessWidget {
             width: 8,
           ),
           Padding(
-            padding: const EdgeInsets.only(top:6.0),
-            child: Icon(Icons.circle, size: 18,color: Colors.white,),
+            padding: const EdgeInsets.only(top: 6.0),
+            child: Icon(
+              Icons.circle,
+              size: 18,
+              color: Colors.white,
+            ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top:6.0,left: 8.0,right: 8.0),
+            padding: const EdgeInsets.only(top: 6.0, left: 8.0, right: 8.0),
             child: Text(
               '${S.of(context).deliverPrice} $deliveryCost ${S.of(context).sar}',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.white
-              ),
+              style:
+                  TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
             ),
           ),
         ],

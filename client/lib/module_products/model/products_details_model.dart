@@ -34,10 +34,9 @@ class ProductsDetailsModel extends DataModel {
       required this.discount,
       required this.description,
       required this.rate,
-      required this.soldCount
-      });
+      required this.soldCount});
 
-  ProductsDetailsModel.withData(Data data){
+  ProductsDetailsModel.withData(Data data) {
     _model = ProductsDetailsModel(
       soldCount: data.soldCount ?? '0',
       rate: num.parse(data.rate ?? '0'),

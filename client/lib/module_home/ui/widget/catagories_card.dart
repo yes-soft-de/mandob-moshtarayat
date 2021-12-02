@@ -45,12 +45,20 @@ class CategoriesCard extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                icon != null ? Icon(icon,color: selected ? Colors.white : null,size: 35,) : Image.network(
-                  image ?? '',
-                  color: selected ? Colors.white : Theme.of(context).iconTheme.color,
-                  width: 35,
-                  height: 35,
-                ),
+                icon != null
+                    ? Icon(
+                        icon,
+                        color: selected ? Colors.white : null,
+                        size: 35,
+                      )
+                    : Image.network(
+                        image ?? '',
+                        color: selected
+                            ? Colors.white
+                            : Theme.of(context).iconTheme.color,
+                        width: 35,
+                        height: 35,
+                      ),
                 SizedBox(
                   height: 4,
                 ),

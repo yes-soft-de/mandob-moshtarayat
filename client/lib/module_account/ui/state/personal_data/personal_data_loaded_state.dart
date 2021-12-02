@@ -124,7 +124,10 @@ class PersonalDataLoadedState extends PersonalDataState {
                               );
                             },
                             fit: BoxFit.cover,
-                            image:screenState.fileString != null ? Image.file(File(screenState.fileString!)).image : NetworkImage(image),
+                            image: screenState.fileString != null
+                                ? Image.file(File(screenState.fileString!))
+                                    .image
+                                : NetworkImage(image),
                             width: 150,
                             height: 150,
                           ),

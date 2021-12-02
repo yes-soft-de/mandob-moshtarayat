@@ -33,14 +33,17 @@ class CartHiveHelper {
       box.put('cartJson', json.encode(maps));
     }
   }
-  void addProductsToCart(CartModel model){
+
+  void addProductsToCart(CartModel model) {
     List<CartModel> cartModel = getCart();
+    cartModel.removeWhere((element) => element.id == model.id);
     cartModel.add(model);
     setCart(cartModel);
   }
-  void removeProductsToCart(CartModel model){
+
+  void removeProductsToCart(CartModel model) {
     List<CartModel> cartModel = getCart();
-    if (cartModel.isNotEmpty){
+    if (cartModel.isNotEmpty) {
       cartModel.removeWhere((element) => element.id == model.id);
     }
     setCart(cartModel);
@@ -49,9 +52,11 @@ class CartHiveHelper {
   void setFinish() {
     box.put('update', true);
   }
-  void setStoreId(int id){
+
+  void setStoreId(int id) {
     box.put('storeId', id);
   }
+
   List<CartModel> getCart() {
     dynamic dy = box.get(cartKey);
     List<CartModel> carts = [];
@@ -64,6 +69,7 @@ class CartHiveHelper {
     }
     return box.get(cartKey) ?? [];
   }
+
   List<Products>? getProduct() {
     List<CartModel>? cartModel = getCart();
     List<Products> products = [];
@@ -77,14 +83,14 @@ class CartHiveHelper {
     });
     return products;
   }
+
   Future<void> deleteCart() async {
     await box.delete(cartKey);
     await box.delete('cartJson');
-    await box.delete('update');
     await box.delete('storeId');
-
   }
-  int getStoreID(){
+
+  int getStoreID() {
     return box.get('storeId') ?? -1;
   }
 }

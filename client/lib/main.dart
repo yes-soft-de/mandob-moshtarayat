@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors , unused_field
+
 import 'dart:async';
 import 'dart:io';
 import 'package:device_info/device_info.dart';
@@ -42,7 +44,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   timeago.setLocaleMessages('ar', timeago.ArMessages());
   timeago.setLocaleMessages('en', timeago.EnMessages());
-  if (Platform.isAndroid){
+  if (Platform.isAndroid) {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
     if (androidInfo.version.sdkInt < 26) {
@@ -64,12 +66,12 @@ void main() async {
     FlutterError.onError = (FlutterErrorDetails details) async {
       Logger().error('Main', details.toString(), StackTrace.current);
     };
-    await runZonedGuarded(() {
+    runZonedGuarded(() {
       configureDependencies();
       // Your App Here
       runApp(getIt<MyApp>());
     }, (error, stackTrace) {
-      new Logger().error(
+      Logger().error(
           'Main', error.toString() + stackTrace.toString(), StackTrace.current);
     });
   });
@@ -94,7 +96,7 @@ class MyApp extends StatefulWidget {
   final SearchModule _searchModule;
   final ProductsModule _productsModule;
 
-  MyApp(
+  const MyApp(
       this._themeDataService,
       this._localizationService,
       this._fireNotificationService,
@@ -110,8 +112,7 @@ class MyApp extends StatefulWidget {
       this._servicesModule,
       this._storeModule,
       this._myNotificationsModule,
-      this._productsModule
-      );
+      this._productsModule);
 
   @override
   State<StatefulWidget> createState() => _MyAppState();
@@ -167,7 +168,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         locale: Locale.fromSubtags(
           languageCode: lang,
         ),
-        localizationsDelegates: [
+        localizationsDelegates: const [
           S.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,

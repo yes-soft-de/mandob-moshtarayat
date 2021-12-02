@@ -4,9 +4,9 @@ class RateStoreRequest {
   num? rating;
 
   RateStoreRequest({
-      this.itemID, 
-      this.itemType, 
-      this.rating,
+    this.itemID,
+    this.itemType,
+    this.rating,
   });
 
   RateStoreRequest.fromJson(dynamic json) {
@@ -22,7 +22,6 @@ class RateStoreRequest {
     map['rating'] = rating;
     return map;
   }
-
 }
 
 class RateCaptainRequest {
@@ -49,5 +48,4 @@ class RateCaptainRequest {
     map['rating'] = rating;
     return map;
   }
-
 }

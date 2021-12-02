@@ -1,8 +1,7 @@
 class Rating {
   num? rate;
 
-  Rating({
-      this.rate});
+  Rating({this.rate});
 
   Rating.fromJson(dynamic json) {
     rate = double.parse(json['rate'] ?? '0');
@@ -13,5 +12,4 @@ class Rating {
     map['rate'] = rate;
     return map;
   }
-
 }

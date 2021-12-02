@@ -12,7 +12,6 @@ import 'package:rxdart/rxdart.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_stores/presistance/cart_hive_box_helper.dart';
 import 'package:mandob_moshtarayat/module_stores/request/rate_store_request.dart';
-import 'package:mandob_moshtarayat/module_stores/ui/screen/store_products_screen.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 
 @injectable
@@ -30,13 +29,14 @@ class ProductDetailsStateManager {
     _stateSubject.add(LoadingState(screenState));
     _productsService.getProductsDetails(id).then((store) {
       if (store.hasError) {
-        _stateSubject
-            .add(ErrorState(screenState, error: store.error, onPressed: () {
+        _stateSubject.add(ErrorState(screenState,
+            error: store.error, hasAppbar: false, onPressed: () {
           getProducts(id, screenState);
         }, title: S.current.product));
       } else if (store.isEmpty) {
         _stateSubject.add(EmptyState(screenState,
             title: S.current.product,
+            hasAppbar: false,
             emptyMessage: S.current.homeDataEmpty, onPressed: () {
           getProducts(id, screenState);
         }));

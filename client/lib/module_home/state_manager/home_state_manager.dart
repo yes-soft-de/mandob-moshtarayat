@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import 'package:mandob_moshtarayat/module_home/model/productsByCategoriesModel.dart';
+import 'package:mandob_moshtarayat/module_home/model/products_by_categories_model.dart';
 import 'package:mandob_moshtarayat/module_home/model/subCategoriesModel.dart';
 import 'package:mandob_moshtarayat/module_home/ui/state/home_loaded_filters_state.dart';
 import 'package:mandob_moshtarayat/utils/models/store_category.dart';
@@ -24,12 +24,12 @@ class HomeStateManager {
 
   final PublishSubject<HomeState> stateSubject = PublishSubject<HomeState>();
   final PublishSubject<AsyncSnapshot<Object?>> _productSubject =
-  PublishSubject();
+      PublishSubject();
   Stream<HomeState> get stateStream => stateSubject.stream;
   Stream<AsyncSnapshot<Object?>> get productsStream => _productSubject.stream;
 
-  void getHomeData(HomeScreenState screenState,[bool loading = true]) {
-    if (loading){
+  void getHomeData(HomeScreenState screenState, [bool loading = true]) {
+    if (loading) {
       stateSubject.add(HomeLoadingState(screenState));
     }
     _homeService.getHomeData().then((value) {
@@ -38,9 +38,10 @@ class HomeStateManager {
       } else if (value.hasData) {
         var data = value.data;
         stateSubject.add(HomeLoadedState(screenState,
-            topProducts: data.topWanted,
+            favorite: data.favorite,
             categories: data.storeCategory,
-            bestStores: data.storeModel));
+            favoriteStore: data.getFullStores()
+           ));
         if (value.hasErrors) {
           CustomFlushBarHelper.createError(
                   title: S.current.warnning, message: value.errors[0])
@@ -60,61 +61,69 @@ class HomeStateManager {
       }
     });
   }
-  void getHomeFilterData(HomeScreenState screenState,String categoriesId,List<StoreCategoryModel> categories) {
+
+  void getHomeFilterData(HomeScreenState screenState, String categoriesId,
+      List<StoreCategoryModel> categories) {
     _homeService.getSubCategories(categoriesId).then((value) {
-      if (value.hasError){
+      if (value.hasError) {
         CustomFlushBarHelper.createError(
-            title: S.current.warnning, message: value.error ?? '')
+                title: S.current.warnning, message: value.error ?? '')
             .show(screenState.context);
-        getHomeData(screenState,false);
-      } else if (value.isEmpty){
-       stateSubject.add(HomeLoadedFilterState(screenState,categories: categories,subCategories: []));
-      }
-      else {
+        getHomeData(screenState, false);
+      } else if (value.isEmpty) {
+        stateSubject.add(HomeLoadedFilterState(screenState,
+            categories: categories, subCategories: []));
+      } else {
         SubCategoriesModel model = value as SubCategoriesModel;
-        stateSubject.add(HomeLoadedFilterState(screenState,categories: categories,subCategories: model.data));
+        stateSubject.add(HomeLoadedFilterState(screenState,
+            categories: categories, subCategories: model.data));
       }
     });
   }
-  void getFilteredProducts(HomeScreenState screenState,String categoriesId) {
+
+  void getFilteredProducts(HomeScreenState screenState, String categoriesId) {
     _productSubject.add(AsyncSnapshot.waiting());
     _homeService.getCategoriesProducts(categoriesId).then((value) {
-      if (value.hasError){
+      if (value.hasError) {
         _productSubject.add(AsyncSnapshot.waiting());
-      } else if (value.isEmpty){
+      } else if (value.isEmpty) {
         _productSubject.add(AsyncSnapshot.nothing());
-      }
-      else {
+      } else {
         ProductsByCategoriesModel model = value as ProductsByCategoriesModel;
-        _productSubject.add(AsyncSnapshot.withData(ConnectionState.done, model.data));
+        _productSubject
+            .add(AsyncSnapshot.withData(ConnectionState.done, model.data));
       }
     });
   }
-  void getSubCategoriesProducts(HomeScreenState screenState,String categoriesId) {
+
+  void getSubCategoriesProducts(
+      HomeScreenState screenState, String categoriesId) {
     _productSubject.add(AsyncSnapshot.waiting());
     _homeService.getSubCategoriesProducts(categoriesId).then((value) {
-      if (value.hasError){
+      if (value.hasError) {
         _productSubject.add(AsyncSnapshot.waiting());
-      } else if (value.isEmpty){
+      } else if (value.isEmpty) {
         _productSubject.add(AsyncSnapshot.nothing());
-      }
-      else {
+      } else {
         ProductsByCategoriesModel model = value as ProductsByCategoriesModel;
-        _productSubject.add(AsyncSnapshot.withData(ConnectionState.done, model.data));
+        _productSubject
+            .add(AsyncSnapshot.withData(ConnectionState.done, model.data));
       }
     });
   }
-  void getMainCategoryProducts(HomeScreenState screenState,String categoriesId) {
+
+  void getMainCategoryProducts(
+      HomeScreenState screenState, String categoriesId) {
     _productSubject.add(AsyncSnapshot.waiting());
     _homeService.getMainCategoryProducts(categoriesId).then((value) {
-      if (value.hasError){
+      if (value.hasError) {
         _productSubject.add(AsyncSnapshot.waiting());
-      } else if (value.isEmpty){
+      } else if (value.isEmpty) {
         _productSubject.add(AsyncSnapshot.nothing());
-      }
-      else {
+      } else {
         ProductsByCategoriesModel model = value as ProductsByCategoriesModel;
-        _productSubject.add(AsyncSnapshot.withData(ConnectionState.done, model.data));
+        _productSubject
+            .add(AsyncSnapshot.withData(ConnectionState.done, model.data));
       }
     });
   }

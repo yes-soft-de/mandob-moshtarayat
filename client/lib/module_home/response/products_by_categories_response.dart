@@ -1,3 +1,5 @@
+import 'package:mandob_moshtarayat/module_home/response/store_response/store_response.dart';
+
 class ProductsByCategoriesResponse {
   ProductsByCategoriesResponse({
     this.statusCode,
@@ -55,6 +57,8 @@ class Data {
     soldCount = json['soldCount']?.toString();
     description = json['description'];
     image = json['image'] != null ? Image.fromJson(json['image']) : null;
+    store =
+        json['store'] != null ? StoreResponse.fromJson(json['store']) : null;
   }
 
   int? id;
@@ -67,6 +71,7 @@ class Data {
   String? rate;
   String? soldCount;
   String? description;
+  StoreResponse? store;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

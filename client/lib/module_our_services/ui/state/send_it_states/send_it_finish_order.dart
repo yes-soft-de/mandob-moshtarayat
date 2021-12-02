@@ -94,18 +94,22 @@ class SendItFinishOrderState extends SendItState {
                                   screenState.refresh();
                                 },
                                 trailing: Checked(
-                                  checked:screenState.receiptPoint != null,
+                                  checked: screenState.receiptPoint != null,
                                   checkedWidget: Container(
                                     decoration: BoxDecoration(
                                         shape: BoxShape.circle,
-                                        color: Colors.green
+                                        color: Colors.green),
+                                    child: Icon(
+                                      Icons.check_rounded,
+                                      color: Colors.white,
                                     ),
-                                    child: Icon(Icons.check_rounded,color: Colors.white,),
                                   ),
                                   child: Container(
                                       decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10),
-                                          color: Theme.of(context).primaryColor),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color:
+                                              Theme.of(context).primaryColor),
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(
@@ -137,18 +141,22 @@ class SendItFinishOrderState extends SendItState {
                                   screenState.refresh();
                                 },
                                 trailing: Checked(
-                                  checked:screenState.destinationPoint != null,
+                                  checked: screenState.destinationPoint != null,
                                   checkedWidget: Container(
                                     decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.green
+                                        shape: BoxShape.circle,
+                                        color: Colors.green),
+                                    child: Icon(
+                                      Icons.check_rounded,
+                                      color: Colors.white,
                                     ),
-                                    child: Icon(Icons.check_rounded,color: Colors.white,),
                                   ),
                                   child: Container(
                                       decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10),
-                                          color: Theme.of(context).primaryColor),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color:
+                                              Theme.of(context).primaryColor),
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(

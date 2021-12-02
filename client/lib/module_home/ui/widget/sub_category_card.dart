@@ -43,14 +43,16 @@ class SubCategoryCard extends StatelessWidget {
                         color: selected ? Colors.white : null,
                       )
                     : Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image.network(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image.network(
                           image ?? '',
-                          color: selected ? Colors.white : Theme.of(context).iconTheme.color,
+                          color: selected
+                              ? Colors.white
+                              : Theme.of(context).iconTheme.color,
                           width: 24,
                           height: 24,
                         ),
-                    ),
+                      ),
                 SizedBox(
                   width: 8,
                 ),

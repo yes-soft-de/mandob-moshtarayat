@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
-import 'package:mandob_moshtarayat/module_home/model/top_wanted_products_model.dart';
+import 'package:mandob_moshtarayat/module_home/model/favorite_categories_model.dart';
 import 'package:mandob_moshtarayat/module_home/ui/screen/home_screen.dart';
-import 'package:mandob_moshtarayat/module_home/ui/state/home_loaded_filters_state.dart';
 import 'package:mandob_moshtarayat/module_home/ui/state/home_state.dart';
+import 'package:mandob_moshtarayat/module_home/ui/widget/fav_category_card.dart';
 import 'package:mandob_moshtarayat/module_home/ui/widget/home_app_bar.dart';
 import 'package:mandob_moshtarayat/module_home/ui/widget/product_card.dart';
 import 'package:mandob_moshtarayat/module_home/ui/widget/show_all.dart';
@@ -12,22 +12,22 @@ import 'package:mandob_moshtarayat/module_stores/store_routes.dart';
 import 'package:mandob_moshtarayat/module_stores/ui/widget/store_list/order_type.dart';
 import 'package:mandob_moshtarayat/utils/customIcon/custom_icons.dart';
 import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
-import 'package:mandob_moshtarayat/utils/images/images.dart';
 import 'package:mandob_moshtarayat/utils/models/store.dart';
 import 'package:mandob_moshtarayat/utils/models/store_category.dart';
 import 'package:mandob_moshtarayat/utils/text_style/text_style.dart';
 
 class HomeLoadedState extends HomeState {
   HomeScreenState screenState;
-  List<TopWantedProductsModel> topProducts;
+  List<FavoriteCategoriesModel> favorite;
+  List<FavoriteStore> favoriteStore;
   List<StoreCategoryModel> categories;
-  List<StoreModel> bestStores;
 
-  HomeLoadedState(this.screenState,
-      {required this.topProducts,
-        required this.categories,
-        required this.bestStores})
-      : super(screenState);
+  HomeLoadedState(
+    this.screenState, {
+    required this.favorite,
+    required this.categories,
+    required this.favoriteStore
+  }) : super(screenState);
 
   @override
   Widget getUI(BuildContext context) {
@@ -36,72 +36,50 @@ class HomeLoadedState extends HomeState {
         return screenState.getHomeData();
       },
       child: ListView(
-        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+        physics: const BouncingScrollPhysics(
+            parent: AlwaysScrollableScrollPhysics()),
         children: [
-          CustomHomeAppBar(categoriesCallback: (categoriesId){
-            if (categoriesId != '0') {
-              screenState.getCategories(categoriesId, categories);
-              screenState.getMainCategoryProducts(categoriesId);
-              screenState.refresh();
-            }
-          },categories: categories,),
-          ListTile(
-            leading: Icon(
-              CustomIcon.our_service,
-              color: Theme.of(context).primaryColor,
-              size: 18,
-            ),
-            title: Text(
-              S.of(context).ourService,
-              style: StyleText.categoryStyle,
-            ),
+          CustomHomeAppBar(
+            categoriesCallback: (categoriesId) {
+              if (categoriesId != '0') {
+                screenState.getCategories(categoriesId, categories);
+                screenState.getMainCategoryProducts(categoriesId);
+                screenState.refresh();
+              }
+            },
+            categories: categories,
           ),
-          SizedBox(
-            height: 125,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              physics: BouncingScrollPhysics(
-                  parent: AlwaysScrollableScrollPhysics()),
-              children: [
-                HomeCard(
-                  title: S.of(context).deliverForMe,
-                  image: ImageAsset.SEND_ON_ME,
-                  onTap: () {
-                    Navigator.of(context).pushNamed(ServicesRoutes.SEND_IT);
-                  },
-                ),
-              ],
-            ),
-          ),
+          // favorite categories
           Hider(
-            active: topProducts.isNotEmpty,
+            active: favorite.isNotEmpty,
             child: ListTile(
               leading: Icon(
-                CustomIcon.top_product,
+                Icons.category,
                 color: Theme.of(context).primaryColor,
                 size: 18,
               ),
               title: Text(
-                S.of(context).mostSoldProduct,
+                S.of(context).favoriteCategories,
                 style: StyleText.categoryStyle,
               ),
               trailing: showAll(context),
             ),
           ),
           Hider(
-            active: topProducts.isNotEmpty,
+            active: favorite.isNotEmpty,
             child: SizedBox(
-              height: 125,
+              height: 75,
               child: ListView(
-                physics: BouncingScrollPhysics(
+                physics: const BouncingScrollPhysics(
                     parent: AlwaysScrollableScrollPhysics()),
                 scrollDirection: Axis.horizontal,
-                children: _getTopProducts(topProducts),
+                children: _getFavoriteCategories(favorite),
               ),
             ),
           ),
+          // stores 
           Hider(
-            active: bestStores.isNotEmpty,
+            active: favoriteStore.isNotEmpty,
             child: ListTile(
               leading: Icon(
                 CustomIcon.top_store,
@@ -109,24 +87,25 @@ class HomeLoadedState extends HomeState {
                 size: 18,
               ),
               title: Text(
-                S.of(context).bestStore,
+                S.of(context).favoriteStores,
                 style: StyleText.categoryStyle,
               ),
               trailing: showAll(context),
             ),
           ),
           Hider(
-            active: bestStores.isNotEmpty,
+            active: favoriteStore.isNotEmpty,
             child: SizedBox(
               height: 125,
               child: ListView(
-                physics: BouncingScrollPhysics(
+                physics: const BouncingScrollPhysics(
                     parent: AlwaysScrollableScrollPhysics()),
                 scrollDirection: Axis.horizontal,
-                children: getBestStores(bestStores),
+                children: getFavStores(favoriteStore),
               ),
             ),
           ),
+          // products 
           Hider(
             active: false,
             child: ListTile(
@@ -147,46 +126,19 @@ class HomeLoadedState extends HomeState {
             child: SizedBox(
               height: 125,
               child: ListView.builder(
-                physics: BouncingScrollPhysics(
+                physics: const BouncingScrollPhysics(
                     parent: AlwaysScrollableScrollPhysics()),
                 scrollDirection: Axis.horizontal,
                 itemCount: 10,
                 itemBuilder: (_, index) {
-                  return HomeCard(
+                  return const HomeCard(
                       title: 'متجر',
                       image:
-                      'https://media-cdn.tripadvisor.com/media/photo-s/17/75/3f/d1/restaurant-in-valkenswaard.jpg');
+                          'https://media-cdn.tripadvisor.com/media/photo-s/17/75/3f/d1/restaurant-in-valkenswaard.jpg');
                 },
               ),
             ),
-          ),
-          Hider(
-            active: categories.isNotEmpty,
-            child: ListTile(
-              leading: Icon(
-                Icons.sort,
-                color: Theme.of(context).primaryColor,
-              ),
-              title: Text(
-                S.of(context).categories,
-                style: StyleText.categoryStyle,
-              ),
-            ),
-          ),
-          Hider(
-            active: categories.isNotEmpty,
-            child: GridView(
-              physics: ScrollPhysics(),
-              shrinkWrap: true,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 8.0,
-                  childAspectRatio:
-                  (MediaQuery.of(context).size.width / 2) / 135),
-              children: getCategories(categories),
-            ),
-          ),
-          SizedBox(
+          ), const SizedBox(
             height: 75,
           ),
         ],
@@ -194,27 +146,18 @@ class HomeLoadedState extends HomeState {
     );
   }
 
-  List<Widget> _getTopProducts(List<TopWantedProductsModel> topProducts) {
-    if (topProducts.isEmpty) return [];
-    List<HomeCard> top = [];
-    topProducts.forEach((element) {
-      top.add(HomeCard(
-        title: element.title,
-        image: element.image,
-        onTap: () {
-          Navigator.of(screenState.context).pushNamed(
-              StoreRoutes.STORE_PRODUCTS,
-              arguments: StoreModel(
-                  deliveryCost: element.deliveryCost,
-                  id: element.ownerId,
-                  storeOwnerName: element.storeName,
-                  image: element.storeImage,
-                  privateOrders: false,
-                  hasProducts: true));
-        },
+  List<Widget> _getFavoriteCategories(List<FavoriteCategoriesModel> favs) {
+    if (favs.isEmpty) return [];
+    List<Widget> cats = [];
+    favs.forEach((element) {
+      cats.add(Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: FavCategoryCard(
+          name: element.categoriesName,
+        ),
       ));
     });
-    return top;
+    return cats;
   }
 
   List<Widget> getCategories(List<StoreCategoryModel> categories) {
@@ -233,31 +176,14 @@ class HomeLoadedState extends HomeState {
     return cats;
   }
 
-  List<Widget> getBestStores(List<StoreModel> stores) {
+  List<Widget> getFavStores(List<FavoriteStore> stores) {
     if (stores.isEmpty) return [];
     List<HomeCard> bestStoresCards = [];
     stores.forEach((element) {
       bestStoresCards.add(HomeCard(
-        title: element.storeOwnerName,
+        title: element.storeName,
         image: element.image,
         onTap: () {
-          if (element.hasProducts && element.privateOrders) {
-            // Navigator.of(screenState.context).pushNamed(StoreRoutes.STORE_PRODUCTS,arguments: element);
-            showModalBottomSheet(
-                shape: RoundedRectangleBorder(
-                    borderRadius:
-                    BorderRadius.vertical(top: Radius.circular(10))),
-                context: screenState.context,
-                builder: (context) {
-                  return OrderType(element);
-                });
-          } else if (element.hasProducts) {
-            Navigator.of(screenState.context)
-                .pushNamed(StoreRoutes.STORE_PRODUCTS, arguments: element);
-          } else {
-            Navigator.of(screenState.context)
-                .pushNamed(ServicesRoutes.PRIVATE_ORDER, arguments: element);
-          }
         },
       ));
     });

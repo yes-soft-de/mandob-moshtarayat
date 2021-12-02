@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class CustomTwaslnaAppBar {
   static PreferredSizeWidget appBar(BuildContext context,
       {required title,
@@ -6,10 +7,9 @@ class CustomTwaslnaAppBar {
       Color? colorIcon,
       Color? buttonBackground,
       Color? background,
-      List<Widget>? actions
-      }) {
+      List<Widget>? actions}) {
     return AppBar(
-      backgroundColor:background ?? Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor: background ?? Theme.of(context).scaffoldBackgroundColor,
       actions: actions,
       centerTitle: true,
       title: Text(

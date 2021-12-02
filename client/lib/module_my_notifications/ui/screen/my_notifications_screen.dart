@@ -45,9 +45,8 @@ class MyNotificationsScreenState extends State<MyNotificationsScreen> {
     });
     widget._stateManager.stateStream.listen((event) {
       currentState = event;
-      if (mounted){
-        setState(() {
-        });
+      if (mounted) {
+        setState(() {});
       }
     });
     super.initState();
