@@ -65,6 +65,22 @@ class HomeRepository {
     return ProductsByCategoriesResponse.fromJson(response);
   }
 
+  Future<ProductsByCategoriesResponse?> getProductsByStore(
+      String storeID) async {
+    var token = await _authService.getToken();
+    dynamic response;
+    if (token != null) {
+      response = await _apiClient.get(Urls.GET_PRODUCTS_BY_STORES + storeID,
+          headers: {'Authorization': 'Bearer ' + token.toString()});
+    } else {
+      response = await _apiClient.get(
+        Urls.GET_FAVORITE_CATEGORIES,
+      );
+    }
+    if (response == null) return null;
+    return ProductsByCategoriesResponse.fromJson(response);
+  }
+
   Future<FavoriteResponse?> getFavoriteCategories() async {
     var token = await _authService.getToken();
     dynamic response;

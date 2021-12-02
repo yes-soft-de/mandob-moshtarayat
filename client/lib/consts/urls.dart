@@ -59,6 +59,8 @@ class Urls {
       BASE_API + '/storeproductscategoryleveltwowithproducts/';
   static const GET_PRODUCTS_BY_MAIN_CATEGORIES =
       BASE_API + '/productsbystorecategory/';
+  static const GET_PRODUCTS_BY_STORES =
+      BASE_API + '/productsstoreownerprofileid/';
   static const GET_FAVORITE_CATEGORIES =
       BASE_API + '/favouritestorecategoriesandstores';
   static const GET_PRODUCT_DETAILS_API = BASE_API + '/product';

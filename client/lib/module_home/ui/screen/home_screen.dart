@@ -34,6 +34,10 @@ class HomeScreenState extends State<HomeScreen> {
     widget._homeStateManager.getHomeFilterData(this, catId, categories);
   }
 
+  void getProductsByStore(String storeID) {
+    widget._homeStateManager.getProductsByStore(this, storeID);
+  }
+
   void getProducts(catId) {
     widget._homeStateManager.getFilteredProducts(this, catId);
   }

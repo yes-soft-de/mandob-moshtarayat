@@ -163,4 +163,18 @@ class HomeService {
     if (favoriteResponse.data == null) return DataModel.empty();
     return FavoriteCategoriesModel.withData(favoriteResponse.data!);
   }
+
+    Future<DataModel> getProductsByStore(String storeID) async {
+    ProductsByCategoriesResponse? productsResponse =
+        await _homeManager.getProductsByStore(storeID);
+    if (productsResponse == null) {
+      return DataModel.withError(S.current.networkError);
+    }
+    if (productsResponse.statusCode != '200') {
+      return DataModel.withError(StatusCodeHelper.getStatusCodeMessages(
+          productsResponse.statusCode ?? '0'));
+    }
+    if (productsResponse.data == null) return DataModel.empty();
+    return ProductsByCategoriesModel.withData(productsResponse.data!);
+  }
 }
