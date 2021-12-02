@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\AutoMapping;
+use App\Request\DeleteRequest;
 use App\Request\StoreProductCategoryCreateRequest;
 use App\Request\StoreProductCategoryLevelOneUpdateRequest;
 use App\Request\StoreProductCategoryLevelTwoCreateRequest;
@@ -695,5 +696,48 @@ class StoreProductCategoryController extends BaseController
 
         return $this->response($result, self::FETCH);
     }
+    /**
+     * Delete store product category.
+     * @Route("storeproductcategory/{id}", name="deleteStoreProductCategoryByID", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
+     * @param Request $request
+     * @return JsonResponse
+     **
+     * @OA\Tag(name="Store Product Category")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Delete store product category",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="integer", property="productCategoryName"),
+     *          )
+     *      )
+     * )
+     * or
+     *
+     * @OA\Response(
+     *      response=275,
+     *      description="Returns string",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="string", property="Data"),
+     *      )
+     * )
+     *
+     */
+    public function deleteStoreProductCategoryByID(Request $request): JsonResponse
+    {
+        $request = new DeleteRequest($request->get('id'));
 
+        $result = $this->storeProductCategoryService->deleteStoreProductCategoryByID($request);
+        if ($result == "storeProductCategoryNotFound"){
+            return $this->response($result, self::ERROR_DELETE);
+        }
+
+        return $this->response($result, self::DELETE);
+    }
 }

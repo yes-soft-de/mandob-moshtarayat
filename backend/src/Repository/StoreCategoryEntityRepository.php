@@ -50,15 +50,14 @@ class StoreCategoryEntityRepository extends ServiceEntityRepository
 
     public function getStoreCategoriesByClientFavouriteCategoriesIDs($favouriteCategoriesIDsArray)
     {
-        $query = $this->createQueryBuilder('storeCategory')
-            ->select('storeCategory.id', 'storeCategory.storeCategoryName', 'storeCategory.description', 'storeCategory.image');
+        return $this->createQueryBuilder('storeCategory')
+             ->select('storeCategory.id', 'storeCategory.storeCategoryName', 'storeCategory.description', 'storeCategory.image')
 
-        if($favouriteCategoriesIDsArray)
-        {
-            $query->andWhere("storeCategory.id IN (:categoriesIDs)");
-            $query->setParameter('categoriesIDs', $favouriteCategoriesIDsArray);
-        }
+             ->andWhere("storeCategory.id IN (:categoriesIDs)")
 
-        return $query->getQuery()->getResult();
+             ->setParameter('categoriesIDs', $favouriteCategoriesIDsArray)
+
+             ->getQuery()
+             ->getResult();
     }
 }

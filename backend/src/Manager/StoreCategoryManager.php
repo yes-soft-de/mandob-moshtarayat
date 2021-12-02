@@ -5,6 +5,7 @@ namespace App\Manager;
 use App\AutoMapping;
 use App\Entity\StoreCategoryEntity;
 use App\Repository\StoreCategoryEntityRepository;
+use App\Request\DeleteRequest;
 use App\Request\StoreCategoryCreateRequest;
 use App\Request\StoreCategoryUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
@@ -70,6 +71,14 @@ class StoreCategoryManager
 
     }
 
+    public function getFavouriteStoreCategories($clientID)
+    {
+        $favouriteCategories = $this->userManager->getFavouriteCategoriesIDsByClientID($clientID);
+
+        return $this->storeCategoryEntityRepository->getStoreCategoriesByClientFavouriteCategoriesIDs($favouriteCategories['favouriteCategories']);
+
+    }
+
     public function getStoreCategory($id): ?StoreCategoryEntity
     {
        return $this->storeCategoryEntityRepository->find($id);
@@ -83,6 +92,21 @@ class StoreCategoryManager
         }
 
         return "not related";
+    }
+
+    public function deleteStoreCategoryByID(DeleteRequest $request)
+    {
+        $storeCategoryEntity = $this->storeCategoryEntityRepository->find($request->getId());
+
+        if(!$storeCategoryEntity){
+            return 'storeCategoryNotFound';
+        }
+        else{
+            $this->entityManager->remove($storeCategoryEntity);
+            $this->entityManager->flush();
+
+            return $storeCategoryEntity;
+        }
     }
 }
 

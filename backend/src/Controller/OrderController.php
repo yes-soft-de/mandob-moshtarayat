@@ -283,10 +283,78 @@ class OrderController extends BaseController
       }
 
     /**
+     * client : Update order type product.
      * @Route("/orderUpdatebyclient", name="orderUpdateByClient", methods={"PUT"})
      * @IsGranted("ROLE_CLIENT")
      * @param Request $request
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Order")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     *  @OA\RequestBody (
+     *        description="Update the order invoice",
+     *        @OA\JsonContent(
+     *              @OA\Property(type="string", property="orderNumber"),
+     *              @OA\Property(type="object", property="destination"),
+     *              @OA\Property(type="string", property="note"),
+     *              @OA\Property(type="string", property="payment"),
+     *              @OA\Property(type="string", property="storeOwnerProfileID"),
+     *              @OA\Property(type="array", property="products",
+     *                  @OA\Items(
+     *                       @OA\Property(type="integer", property="productID"),
+     *                       @OA\Property(type="integer", property="countProduct"),
+     *                  ),
+     *              @OA\Property(type="object", property="deliveryDate"),
+     *              @OA\Property(type="number", property="orderCost"),
+     *               ),
+     *         ),
+     *      ),
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns object",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *            @OA\Property(type="object", property="order",
+     *                @OA\Property(type="integer", property="id"),
+     *                @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                @OA\Property(type="object", property="destination"),
+     *                @OA\Property(type="object", property="deliveryDate"),
+     *                @OA\Property(type="string", property="note"),
+     *                @OA\Property(type="string", property="payment"),
+     *                @OA\Property(type="string", property="state"),
+     *                @OA\Property(type="string", property="captainID"),
+     *                @OA\Property(type="string", property="detail"),
+     *                @OA\Property(type="integer", property="deliveryCost"),
+     *                @OA\Property(type="integer", property="orderCost"),
+     *                @OA\Property(type="integer", property="orderType"),
+     *
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * or
+     *
+     * @OA\Response(
+     *      response=425,
+     *      description="Returns string",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="string", property="Data"),
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
      */
     public function orderUpdateByClient(Request $request)
     {
@@ -304,10 +372,71 @@ class OrderController extends BaseController
     }
     
     /**
+     *  client: Update the order type Special.
      * @Route("/orderSpecialUpdateByClient", name="orderSpecialUpdateByClient", methods={"PUT"})
      * @IsGranted("ROLE_CLIENT")
      * @param Request $request
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Order")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     *  @OA\RequestBody (
+     *        description="Update the order invoice",
+     *        @OA\JsonContent(
+     *              @OA\Property(type="string", property="orderNumber"),
+     *              @OA\Property(type="object", property="destination"),
+     *              @OA\Property(type="string", property="note"),
+     *              @OA\Property(type="string", property="payment"),
+     *              @OA\Property(type="string", property="storeOwnerProfileID"),
+     *         ),
+     *      ),
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns object",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *            @OA\Property(type="object", property="order",
+     *                @OA\Property(type="integer", property="id"),
+     *                @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                @OA\Property(type="object", property="destination"),
+     *                @OA\Property(type="object", property="deliveryDate"),
+     *                @OA\Property(type="string", property="note"),
+     *                @OA\Property(type="string", property="payment"),
+     *                @OA\Property(type="string", property="state"),
+     *                @OA\Property(type="string", property="captainID"),
+     *                @OA\Property(type="string", property="detail"),
+     *                @OA\Property(type="integer", property="deliveryCost"),
+     *                @OA\Property(type="integer", property="orderCost"),
+     *                @OA\Property(type="integer", property="orderType"),
+     *
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * or
+     *
+     * @OA\Response(
+     *      response=425,
+     *      description="Returns string",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="string", property="Data"),
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
      */
     public function orderSpecialUpdateByClient(Request $request)
     {
@@ -324,10 +453,75 @@ class OrderController extends BaseController
     }
     
     /**
+     * client: Update the order type Send it about me.
      * @Route("/orderSendUpdateByClient", name="orderSendUpdateByClient", methods={"PUT"})
      * @IsGranted("ROLE_CLIENT")
      * @param Request $request
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Order")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     *  @OA\RequestBody (
+     *        description="Update the order invoice",
+     *        @OA\JsonContent(
+     *              @OA\Property(type="string", property="orderNumber"),
+     *              @OA\Property(type="object", property="destination"),
+     *              @OA\Property(type="string", property="note"),
+     *              @OA\Property(type="string", property="payment"),
+     *              @OA\Property(type="object", property="source"),
+     *              @OA\Property(type="string", property="deliveryDate"),
+     *              @OA\Property(type="string", property="recipientName"),
+     *              @OA\Property(type="string", property="recipientPhone"),
+     *              @OA\Property(type="string", property="detail"),
+     *         ),
+     *      ),
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns object",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *            @OA\Property(type="object", property="order",
+     *                @OA\Property(type="integer", property="id"),
+     *                @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                @OA\Property(type="object", property="destination"),
+     *                @OA\Property(type="object", property="deliveryDate"),
+     *                @OA\Property(type="string", property="note"),
+     *                @OA\Property(type="string", property="payment"),
+     *                @OA\Property(type="string", property="state"),
+     *                @OA\Property(type="string", property="captainID"),
+     *                @OA\Property(type="string", property="detail"),
+     *                @OA\Property(type="integer", property="deliveryCost"),
+     *                @OA\Property(type="integer", property="orderCost"),
+     *                @OA\Property(type="integer", property="orderType"),
+     *
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * or
+     *
+     * @OA\Response(
+     *      response=425,
+     *      description="Returns string",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="string", property="Data"),
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
      */
     public function orderSendUpdateByClient(Request $request)
     {
@@ -345,9 +539,45 @@ class OrderController extends BaseController
     }
 
     /**
+     * client: Cancelling order.
      * @Route("/ordercancel/{orderNumber}", name="orderCancel", methods={"PUT"})
      * @IsGranted("ROLE_CLIENT")
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Order")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns object",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *          )
+     *      )
+     * )
+     *
+     * or
+     *
+     * @OA\Response(
+     *      response=425,
+     *      description="Returns string",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="string", property="Data"),
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
      */
     public function orderCancel($orderNumber)
     {
@@ -360,10 +590,42 @@ class OrderController extends BaseController
     }   
     
     /**
-      * @Route("ordersbyclientid", name="GetOrdersByClientID", methods={"GET"})
-      * @IsGranted("ROLE_CLIENT")
-      * @return JsonResponse
-      */
+     * client: Get client orders.
+     * @Route("ordersbyclientid", name="GetOrdersByClientID", methods={"GET"})
+     * @IsGranted("ROLE_CLIENT")
+     * @return JsonResponse
+     * *
+     * @OA\Tag(name="Order")
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns array of client orders",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="object", property="deliveryDate"),
+     *                  @OA\Property(type="string", property="state"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="string", property="orderNumber"),
+     *                  @OA\Property(type="number", property="amount"),
+     *                  @OA\Property(type="number", property="deliveryCost"),
+     *                  @OA\Property(type="number", property="orderCost"),
+     *                  @OA\Property(type="integer", property="orderType"),
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
       public function getOrdersByClientID()
       {
           $result = $this->orderService->getOrdersByClientID($this->getUserId());
@@ -372,10 +634,42 @@ class OrderController extends BaseController
       }
 
     /**
-      * @Route("ordersDeliveredAndCancelledByClientId", name="ordersDeliveredAndCancelledByClientId", methods={"GET"})
-      * @IsGranted("ROLE_CLIENT")
-      * @return JsonResponse
-      */
+     *  client: orders delivered or cancelled.
+     * @Route("ordersDeliveredAndCancelledByClientId", name="ordersDeliveredAndCancelledByClientId", methods={"GET"})
+     * @IsGranted("ROLE_CLIENT")
+     * @return JsonResponse
+     * *
+     * @OA\Tag(name="Order")
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns array of client orders",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="object", property="deliveryDate"),
+     *                  @OA\Property(type="string", property="state"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="string", property="orderNumber"),
+     *                  @OA\Property(type="number", property="amount"),
+     *                  @OA\Property(type="number", property="deliveryCost"),
+     *                  @OA\Property(type="number", property="orderCost"),
+     *                  @OA\Property(type="integer", property="orderType"),
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
       public function getOrdersDeliveredAndCancelledByClientId()
       {
           $result = $this->orderService->getOrdersDeliveredAndCancelledByClientId($this->getUserId());
@@ -384,10 +678,44 @@ class OrderController extends BaseController
       }
 
     /**
+     * captain: Update the order invoice.
      * @Route("/orderUpdateInvoiceByCaptain", name="orderUpdateInvoiceByCaptain", methods={"PUT"})
      * @IsGranted("ROLE_CAPTAIN")
      * @param Request $request
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Order")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\RequestBody (
+     *        description="Update the order invoice",
+     *        @OA\JsonContent(
+     *              @OA\Property(type="string", property="orderNumber"),
+     *              @OA\Property(type="number", property="invoiceAmount"),
+     *              @OA\Property(type="string", property="invoiceImage"),
+     *         ),
+     *      ),
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Return object.",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="number", property="invoiceAmount"),
+     *              @OA\Property(type="string", property="invoiceImage"),
+     *              )
+     *          )
+     *     )
+     *
+     * @Security(name="Bearer")
      */
     public function orderUpdateInvoiceByCaptain(Request $request): JsonResponse
     {
@@ -404,12 +732,44 @@ class OrderController extends BaseController
         return $this->response($response, self::UPDATE);
     }
 
-     /**
+    /**
+     * captain:Will the invoice value be calculated in favor of the delivery company?
      * @Route("/orderupdatebillcalculatedbycaptain", name="orderUpdateBillCalculatedByCaptain", methods={"PUT"})
      * @IsGranted("ROLE_CAPTAIN")
      * @param Request $request
      * @return JsonResponse
-     */
+      * *
+      * @OA\Tag(name="Order")
+      *
+      * @OA\Parameter(
+      *      name="token",
+      *      in="header",
+      *      description="token to be passed as a header",
+      *      required=true
+      * )
+      *
+      * @OA\RequestBody (
+      *        description="isBillCalculated is boolean.",
+      *        @OA\JsonContent(
+      *              @OA\Property(type="string", property="orderNumber"),
+      *              @OA\Property(type="boolean", property="isBillCalculated"),
+      *         ),
+      *      ),
+      *
+      * @OA\Response(
+      *      response=200,
+      *      description="Return object.",
+      *      @OA\JsonContent(
+      *          @OA\Property(type="string", property="status_code"),
+      *          @OA\Property(type="string", property="msg"),
+      *          @OA\Property(type="object", property="Data",
+      *              @OA\Property(type="boolean", property="isBillCalculated"),
+      *              )
+      *          )
+      *     )
+      *
+      * @Security(name="Bearer")
+      */
     public function orderUpdateBillCalculatedByCaptain(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);

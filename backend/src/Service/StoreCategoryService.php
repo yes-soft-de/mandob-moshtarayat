@@ -7,6 +7,7 @@ use App\Entity\StoreCategoryEntity;
 use App\Manager\StoreCategoryManager;
 use App\Request\StoreCategoryCreateRequest;
 use App\Response\ClientFavouriteStoreCategoriesAndStoresGetResponse;
+use App\Response\ClientFavouriteStoreCategoriesResponse;
 use App\Response\StoreCategoriesAndStoresResponse;
 use App\Response\StoreCategoryCreateResponse;
 use App\Response\StoreCategoryByIdResponse;
@@ -119,4 +120,29 @@ class StoreCategoryService
         return $response;
     }
 
+    public function getFavouriteStoreCategories($clientID): array
+    {
+        $response = [];
+
+        $categories = $this->storeCategoryManager->getFavouriteStoreCategories($clientID);
+
+        foreach($categories as $category){
+            $response[] = $this->autoMapping->map("array", ClientFavouriteStoreCategoriesResponse::class, $category);
+
+        }
+
+        return $response;
+    }
+
+    public function deleteStoreCategoryByID($request)
+    {
+        $result = $this->storeCategoryManager->deleteStoreCategoryByID($request);
+
+        if($result == 'storeCategoryNotFound'){
+            return $result;
+        }
+        else{
+            return $this->autoMapping->map(StoreCategoryEntity::class, StoreCategoryByIdResponse::class, $result);
+        }
+    }
 }

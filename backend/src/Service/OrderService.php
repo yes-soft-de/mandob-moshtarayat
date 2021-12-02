@@ -16,6 +16,7 @@ use App\Request\OrderUpdateByClientRequest;
 use App\Request\OrderUpdateSpecialByClientRequest;
 use App\Request\OrderUpdateSendByClientRequest;
 use App\Response\CountReportForStoreOwnerResponse;
+use App\Response\OrderCancelResponse;
 use App\Response\OrderDetailsByOrderNumberForStoreResponse;
 use App\Response\OrderResponse;
 use App\Response\OrderClosestResponse;
@@ -541,7 +542,7 @@ class OrderService
                         $this->notificationLocalService->createNotificationLocal($userID, LocalNotificationList::$UPDATE_ORDER_TITLE, LocalNotificationList::$UPDATE_ORDER_SUCCESS, $request->getOrderNumber());
 
                         return $response = $this->getOrderStatusByOrderNumber($request->getOrderNumber());
-                    } 
+                    }
                 }     
         }       
 
@@ -593,7 +594,7 @@ class OrderService
                     $this->notificationLocalService->createNotificationLocal($userID, LocalNotificationList::$CANCEL_ORDER_TITLE, LocalNotificationList::$CANCEL_ORDER_SUCCESS, $orderNumber);
                 }
 
-                $response = $this->autoMapping->map(OrderEntity::class, OrderResponse::class, $item);
+                $response = $this->autoMapping->map(OrderEntity::class, OrderCancelResponse::class, $item);
             }
         }
 

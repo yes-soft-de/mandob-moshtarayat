@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\AutoMapping;
+use App\Request\DeleteRequest;
 use App\Request\StoreCategoryCreateRequest;
 use App\Request\StoreCategoryUpdateRequest;
 use App\Service\StoreCategoryService;
@@ -312,4 +313,88 @@ class StoreCategoryController extends BaseController
         return $this->response($result, self::FETCH);
     }
 
+    /**
+     * Client: Get Favourite Store Categories for the signed-in client.
+     * @Route("userfavoritecategories", name="getFavouriteStoreCategories", methods={"GET"})
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Store Category")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Get Store Categories",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="storeCategoryName"),
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function getFavouriteStoreCategories(): JsonResponse
+    {
+        $result = $this->storeCategoryService->getFavouriteStoreCategories($this->getUserId());
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * Delete store category.
+     * @Route("storecategory/{id}", name="deleteStoreCategoryByID", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
+     * @param Request $request
+     * @return JsonResponse
+     **
+     * @OA\Tag(name="Store Category")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Delete store category",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="integer", property="id"),
+     *              @OA\Property(type="string", property="storeCategoryName"),
+     *              @OA\Property(type="string", property="image"),
+     *          )
+     *      )
+     * )
+     *
+     * or
+     *
+     * @OA\Response(
+     *      response=275,
+     *      description="Returns string",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="string", property="Data"),
+     *      )
+     * )
+     */
+    public function deleteStoreCategoryByID(Request $request): JsonResponse
+    {
+        $request = new DeleteRequest($request->get('id'));
+
+        $result = $this->storeCategoryService->deleteStoreCategoryByID($request);
+        if ($result == "storeCategoryNotFound"){
+            return $this->response($result, self::ERROR_DELETE);
+        }
+
+        return $this->response($result, self::DELETE);
+    }
 }

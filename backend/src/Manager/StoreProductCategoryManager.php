@@ -5,6 +5,7 @@ namespace App\Manager;
 use App\AutoMapping;
 use App\Entity\StoreProductCategoryEntity;
 use App\Repository\StoreProductCategoryEntityRepository;
+use App\Request\DeleteRequest;
 use App\Request\StoreProductCategoryCreateRequest;
 use App\Request\StoreProductCategoryLevelOneUpdateRequest;
 use App\Request\StoreProductCategoryLevelTwoCreateRequest;
@@ -131,5 +132,20 @@ class StoreProductCategoryManager
         }
 
         return "not related";
+    }
+
+    public function deleteStoreProductCategoryByID(DeleteRequest $request)
+    {
+        $storeProductCategoryEntity = $this->storeProductCategoryEntityRepository->find($request->getId());
+
+        if(!$storeProductCategoryEntity){
+            return 'storeProductCategoryNotFound';
+        }
+        else{
+            $this->entityManager->remove($storeProductCategoryEntity);
+            $this->entityManager->flush();
+
+            return $storeProductCategoryEntity;
+        }
     }
 }

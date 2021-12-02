@@ -8,6 +8,7 @@ use App\Manager\ProductManager;
 use App\Manager\UserManager;
 use App\Request\ProductCreateRequest;
 use App\Response\ProductCreateResponse;
+use App\Response\ProductsByStoreOwnerProfileIdResponse;
 use App\Response\ProductsByStoreProductCategoryIdResponse;
 use App\Response\ProductsResponse;
 use App\Response\ProductFullInfoResponse;
@@ -400,4 +401,23 @@ class ProductService
         }
         return $response;
     }
+
+    public function getProductsStoreOwnerProfileId($storeOwnerProfileId): array
+    {
+        $response = [];
+
+        $items = $this->productManager->getProductsStoreOwnerProfileId($storeOwnerProfileId);
+
+        foreach ($items as $item) {
+            $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
+            $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
+            $item['soldCount'] = $this->getProductsSoldCount($item['id']);
+            $item['store'] = $this->storeOwnerProfileService->getStoreNameById($item['storeOwnerProfileID']);
+
+            $response[] = $this->autoMapping->map('array', ProductsByStoreOwnerProfileIdResponse::class, $item);
+        }
+
+        return $response;
+    }
 }
+
