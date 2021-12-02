@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\AutoMapping;
+use App\Request\DeleteRequest;
 use App\Request\StoreCategoryCreateRequest;
 use App\Request\StoreCategoryUpdateRequest;
 use App\Service\StoreCategoryService;
@@ -348,5 +349,52 @@ class StoreCategoryController extends BaseController
         $result = $this->storeCategoryService->getFavouriteStoreCategories($this->getUserId());
 
         return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * Delete store category.
+     * @Route("storecategory/{id}", name="deleteStoreCategoryByID", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
+     * @param Request $request
+     * @return JsonResponse
+     **
+     * @OA\Tag(name="Store Category")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Delete store category",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="integer", property="id"),
+     *              @OA\Property(type="string", property="storeCategoryName"),
+     *              @OA\Property(type="string", property="image"),
+     *          )
+     *      )
+     * )
+     *
+     * or
+     *
+     * @OA\Response(
+     *      response=275,
+     *      description="Returns string",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="string", property="Data"),
+     *      )
+     * )
+     */
+    public function deleteStoreCategoryByID(Request $request): JsonResponse
+    {
+        $request = new DeleteRequest($request->get('id'));
+
+        $result = $this->storeCategoryService->deleteStoreCategoryByID($request);
+        if ($result == "storeCategoryNotFound"){
+            return $this->response($result, self::ERROR_DELETE);
+        }
+
+        return $this->response($result, self::DELETE);
     }
 }

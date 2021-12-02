@@ -133,4 +133,16 @@ class StoreCategoryService
 
         return $response;
     }
+
+    public function deleteStoreCategoryByID($request)
+    {
+        $result = $this->storeCategoryManager->deleteStoreCategoryByID($request);
+
+        if($result == 'storeCategoryNotFound'){
+            return $result;
+        }
+        else{
+            return $this->autoMapping->map(StoreCategoryEntity::class, StoreCategoryByIdResponse::class, $result);
+        }
+    }
 }
