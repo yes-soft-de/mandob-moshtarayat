@@ -270,8 +270,8 @@ class StoreCategoryController extends BaseController
     }
 
     /**
-     * Client: Get Main Categories And its Stores.
-     * @Route("maincategoriesandstores", name="getMainCategoriesAndStores", methods={"GET"})
+     * Client: Get Favourite Store Categories And its Stores for the signed-in client.
+     * @Route("favouritestorecategoriesandstores", name="getFavouriteStoreCategoriesAndStores", methods={"GET"})
      * @return JsonResponse
      *
      * @OA\Tag(name="Store Category")
@@ -305,9 +305,9 @@ class StoreCategoryController extends BaseController
      * )
      *
      */
-    public function getMainCategoriesAndStores(): JsonResponse
+    public function getFavouriteStoreCategoriesAndStores(): JsonResponse
     {
-        $result = $this->storeCategoryService->getMainCategoriesAndStores();
+        $result = $this->storeCategoryService->getFavouriteStoreCategoriesAndStores($this->getUserId());
 
         return $this->response($result, self::FETCH);
     }

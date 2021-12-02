@@ -92,11 +92,11 @@ class StoreCategoryService
         return $this->autoMapping->map("array", StoreCategoriesAndStoresResponse::class, $item);
     }
 
-    public function getMainCategoriesAndStores()
+    public function getFavouriteStoreCategoriesAndStores($clientID)
     {
         $response = [];
 
-        $categories = $this->storeCategoryManager->getMainCategoriesAndStores();
+        $categories = $this->storeCategoryManager->getFavouriteStoreCategoriesAndStores($clientID);
 
         if($categories)
         {

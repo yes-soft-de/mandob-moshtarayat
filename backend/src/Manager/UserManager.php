@@ -594,4 +594,9 @@ class UserManager
             return $item;
         }
     }
+
+    public function getFavouriteCategoriesIDsByClientID($clientID)
+    {
+        return $this->clientProfileEntityRepository->getFavouriteCategoriesIDsByClientID($clientID);
+    }
 }

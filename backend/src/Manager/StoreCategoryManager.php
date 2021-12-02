@@ -14,12 +14,15 @@ class StoreCategoryManager
 {
     private $autoMapping;
     private $entityManager;
+    private $userManager;
     private $storeCategoryEntityRepository;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, StoreCategoryEntityRepository $storeCategoryEntityRepository)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, StoreCategoryEntityRepository $storeCategoryEntityRepository,
+     UserManager $userManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
+        $this->userManager = $userManager;
         $this->storeCategoryEntityRepository = $storeCategoryEntityRepository;
     }
 
@@ -52,9 +55,19 @@ class StoreCategoryManager
        return $this->storeCategoryEntityRepository->getStoreCategories();
     }
 
-    public function getMainCategoriesAndStores()
+    public function getFavouriteStoreCategoriesAndStores($clientID)
     {
-        return $this->storeCategoryEntityRepository->getStoreCategories();
+        $favouriteCategories = $this->userManager->getFavouriteCategoriesIDsByClientID($clientID);
+
+        if($favouriteCategories)
+        {
+            return $this->storeCategoryEntityRepository->getStoreCategoriesByClientFavouriteCategoriesIDs($favouriteCategories['favouriteCategories']);
+        }
+        else
+        {
+            return $this->storeCategoryEntityRepository->getStoreCategoriesByClientFavouriteCategoriesIDs($favouriteCategories);
+        }
+
     }
 
     public function getStoreCategory($id): ?StoreCategoryEntity

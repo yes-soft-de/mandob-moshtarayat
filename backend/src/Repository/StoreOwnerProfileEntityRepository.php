@@ -222,6 +222,9 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
             ->leftJoin(DeliveryCompanyFinancialEntity::class, 'DeliveryCompanyFinancialEntity', Join::WITH, 'profile.id = profile.id')
             ->leftJoin(StoreOwnerBranchEntity::class, 'StoreOwnerBranchEntity', Join::WITH, 'StoreOwnerBranchEntity.storeOwnerProfileID = profile.id ')
 
+            ->andWhere('profile.status = :status')
+            ->setParameter('status',self::STATUS_ACTIVE)
+
             ->groupBy('profile.id')
 
             ->getQuery()
