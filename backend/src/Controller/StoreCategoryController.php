@@ -357,7 +357,7 @@ class StoreCategoryController extends BaseController
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
-     **
+     * *
      * @OA\Tag(name="Store Category")
      *
      * @OA\Response(
@@ -373,16 +373,15 @@ class StoreCategoryController extends BaseController
      *          )
      *      )
      * )
-     *
      * or
      *
      * @OA\Response(
-     *      response=275,
-     *      description="Returns string",
+     *      response=404,
+     *      description="Returns storeCategoryNotFound",
      *      @OA\JsonContent(
-     *          @OA\Property(type="string", property="status_code"),
-     *          @OA\Property(type="string", property="msg"),
-     *          @OA\Property(type="string", property="Data"),
+     *          @OA\Property(type="string", property="status_code", description="404"),
+     *          @OA\Property(type="string", property="msg", description="Not found Successfully."),
+     *          @OA\Property(type="string", property="Data", description="storeCategoryNotFound"),
      *      )
      * )
      */
@@ -392,7 +391,7 @@ class StoreCategoryController extends BaseController
 
         $result = $this->storeCategoryService->deleteStoreCategoryByID($request);
         if ($result == "storeCategoryNotFound"){
-            return $this->response($result, self::ERROR_DELETE);
+            return $this->response($result, self::NOTFOUND);
         }
 
         return $this->response($result, self::DELETE);

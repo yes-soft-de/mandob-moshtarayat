@@ -906,7 +906,7 @@ class CaptainProfileController extends BaseController
     }
 
     /**
-     * admmin: Get captain's financial account in last month.
+     * admin: Get captain's financial account in last month.
      * @Route("/captainFinancialAccountInLastMonthForAdmin/{captainID}", name="captainFinancialAccountInLastMonthForAdmin",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @param $captainID

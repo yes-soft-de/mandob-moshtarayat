@@ -735,7 +735,7 @@ class StoreProductCategoryController extends BaseController
 
         $result = $this->storeProductCategoryService->deleteStoreProductCategoryByID($request);
         if ($result == "storeProductCategoryNotFound"){
-            return $this->response($result, self::ERROR_DELETE);
+            return $this->response($result, self::NOTFOUND);
         }
 
         return $this->response($result, self::DELETE);

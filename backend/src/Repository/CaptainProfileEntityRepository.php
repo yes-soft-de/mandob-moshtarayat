@@ -251,6 +251,10 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
 
             ->select('captainProfile.id', 'captainProfile.captainID', 'captainProfile.captainName', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.state', 'captainProfile.roomID', 'captainProfile.bounce', 'captainProfile.specialLink', 'captainProfile.isOnline', 'captainProfile.newMessageStatus', 'captainProfile.bankName', 'captainProfile.bankAccountNumber', 'captainProfile.stcPay', 'captainProfile.phone')
 
+            ->andWhere("captainProfile.status = :active")
+
+            ->setParameter('active', 'active')
+
             ->getQuery()
             ->getResult();
     }

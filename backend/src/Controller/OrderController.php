@@ -177,10 +177,59 @@ class OrderController extends BaseController
     }
 
     /**
-      * @Route("/getAcceptedOrder", name="getAcceptedOrderByCaptainId", methods={"GET"})
-      * @IsGranted("ROLE_CAPTAIN")
-      * @return JsonResponse
-      */
+     * captain: Get the orders received by the captain.
+     * @Route("/getAcceptedOrder", name="getAcceptedOrderByCaptainId", methods={"GET"})
+     * @IsGranted("ROLE_CAPTAIN")
+     * @return JsonResponse
+     * *
+     * @OA\Tag(name="Order")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=201,
+     *      description="Return order.",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="storeOwnerName"),
+     *                  @OA\Property(type="object", property="source"),
+     *                  @OA\Property(type="object", property="destination"),
+     *                  @OA\Property(type="object", property="deliveryDate"),
+     *                  @OA\Property(type="string", property="note"),
+     *                  @OA\Property(type="string", property="payment"),
+     *                  @OA\Property(type="string", property="recipientName"),
+     *                  @OA\Property(type="string", property="recipientPhone"),
+     *                  @OA\Property(type="string", property="state"),
+     *                  @OA\Property(type="array", property="orderDetail",
+     *                      @OA\Items(
+     *                            @OA\Property(type="integer", property="orderDetail"),
+     *                            @OA\Property(type="integer", property="productID"),
+     *                            @OA\Property(type="integer", property="orderID"),
+     *                            @OA\Property(type="integer", property="productName"),
+     *                            @OA\Property(type="integer", property="productImage"),
+     *                            @OA\Property(type="integer", property="productPrice"),
+     *                            @OA\Property(type="integer", property="countProduct"),
+     *                            @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                            @OA\Property(type="integer", property="ProductCategoryID"),
+     *                            @OA\Property(type="integer", property="orderNumber"),
+     *
+     *                      ),
+     *                  ),
+     *              )
+     *          )
+     *     )
+     * )
+     * @Security(name="Bearer")
+     */
       public function getAcceptedOrderByCaptainId(): JsonResponse
       {
           $result = $this->orderService->getAcceptedOrderByCaptainId($this->getUserId());
@@ -189,9 +238,64 @@ class OrderController extends BaseController
       }
 
      /**
-     * @Route("clientorder", name="createClientOrder", methods={"POST"})
-     * @IsGranted("ROLE_CLIENT")
-     */
+      * client: crate order.
+      * @Route("clientorder", name="createClientOrder", methods={"POST"})
+      * @IsGranted("ROLE_CLIENT")
+      * *
+      * @OA\Tag(name="Order")
+      *
+      * @OA\Parameter(
+      *      name="token",
+      *      in="header",
+      *      description="token to be passed as a header",
+      *      required=true
+      * )
+      *
+      * @OA\RequestBody (
+      *        description="create client send order",
+      *        @OA\JsonContent(
+      *              @OA\Property(type="object", property="destination"),
+      *              @OA\Property(type="string", property="note"),
+      *              @OA\Property(type="string", property="payment"),
+      *              @OA\Property(type="integer", property="storeOwnerProfileID"),
+      *              @OA\Property(type="array", property="products",
+      *                 @OA\Items(
+      *                     @OA\Property(type="integer", property="productID"),
+      *                     @OA\Property(type="integer", property="countProduct"),
+      *                     ),
+      *                 ),
+      *              @OA\Property(type="object", property="deliveryDate"),
+      *              @OA\Property(type="integer", property="orderCost"),
+      *              @OA\Property(type="integer", property="deliveryCost"),
+      *         ),
+      *      ),
+      *
+      * @OA\Response(
+      *      response=201,
+      *      description="Return order.",
+      *      @OA\JsonContent(
+      *          @OA\Property(type="string", property="status_code"),
+      *          @OA\Property(type="string", property="msg"),
+      *          @OA\Property(type="object", property="Data",
+      *              @OA\Property(type="integer", property="id"),
+      *              @OA\Property(type="object", property="destination"),
+      *              @OA\Property(type="object", property="deliveryDate"),
+      *              @OA\Property(type="string", property="state"),
+      *              @OA\Property(type="string", property="roomID"),
+      *              @OA\Property(type="object", property="orderDetail",
+      *                 @OA\Property(type="integer", property="id"),
+      *                 @OA\Property(type="integer", property="orderNumber"),
+      *                 @OA\Property(type="integer", property="orderDetailId"),
+      *                 @OA\Property(type="integer", property="productID"),
+      *                 @OA\Property(type="integer", property="countProduct"),
+      *              ),
+      *             @OA\Property(type="integer", property="deliveryCost"),
+      *             @OA\Property(type="integer", property="orderCost"),
+      *          )
+      *     )
+      * )
+      * @Security(name="Bearer")
+      */
     public function createClientOrder(Request $request): JsonResponse
     {  
         $data = json_decode($request->getContent(), true);
@@ -209,9 +313,58 @@ class OrderController extends BaseController
     }
 
      /**
-     * @Route("clientsendorder", name="createClientSendOrder", methods={"POST"})
-     * @IsGranted("ROLE_CLIENT")
-     */
+      * client: create send order.
+      * @Route("clientsendorder", name="createClientSendOrder", methods={"POST"})
+      * @IsGranted("ROLE_CLIENT")
+      * *
+      * @OA\Tag(name="Order")
+      *
+      * @OA\Parameter(
+      *      name="token",
+      *      in="header",
+      *      description="token to be passed as a header",
+      *      required=true
+      * )
+      *
+      * @OA\RequestBody (
+      *        description="create client send order",
+      *        @OA\JsonContent(
+      *              @OA\Property(type="object", property="destination"),
+      *              @OA\Property(type="string", property="note"),
+      *              @OA\Property(type="string", property="payment"),
+      *              @OA\Property(type="object", property="source"),
+      *              @OA\Property(type="object", property="deliveryDate"),
+      *              @OA\Property(type="string", property="recipientName"),
+      *              @OA\Property(type="string", property="recipientPhone"),
+      *              @OA\Property(type="string", property="detail"),
+      *         ),
+      *      ),
+      *
+      * @OA\Response(
+      *      response=201,
+      *      description="Return order.",
+      *      @OA\JsonContent(
+      *          @OA\Property(type="string", property="status_code"),
+      *          @OA\Property(type="string", property="msg"),
+      *          @OA\Property(type="object", property="Data",
+      *              @OA\Property(type="integer", property="id"),
+      *              @OA\Property(type="object", property="source"),
+      *              @OA\Property(type="object", property="destination"),
+      *              @OA\Property(type="object", property="deliveryDate"),
+      *              @OA\Property(type="string", property="recipientName"),
+      *              @OA\Property(type="string", property="recipientPhone"),
+      *              @OA\Property(type="string", property="state"),
+      *              @OA\Property(type="string", property="roomID"),
+      *              @OA\Property(type="string", property="detail"),
+      *              @OA\Property(type="object", property="orderDetail",
+      *                 @OA\Property(type="integer", property="orderNumber"),
+      *                 @OA\Property(type="integer", property="orderDetailId"),
+      *              )
+      *          )
+      *     )
+      *)
+      * @Security(name="Bearer")
+      */
     public function createClientSendOrder(Request $request): JsonResponse
     {  
         $data = json_decode($request->getContent(), true);
@@ -227,10 +380,57 @@ class OrderController extends BaseController
         return $this->response($response, self::CREATE);
     }
 
-     /**
+    /**
+     * client: create client special order.
      * @Route("clientSpecialOrder", name="createClientSpecialOrder", methods={"POST"})
      * @IsGranted("ROLE_CLIENT")
-     */
+      * *
+      * @OA\Tag(name="Order")
+      *
+      * @OA\Parameter(
+      *      name="token",
+      *      in="header",
+      *      description="token to be passed as a header",
+      *      required=true
+      * )
+      *
+      * @OA\RequestBody (
+      *        description="create client special order",
+      *        @OA\JsonContent(
+      *              @OA\Property(type="object", property="destination"),
+      *              @OA\Property(type="string", property="note"),
+      *              @OA\Property(type="string", property="payment"),
+      *              @OA\Property(type="string", property="detail"),
+      *              @OA\Property(type="string", property="deliveryDate"),
+      *              @OA\Property(type="integer", property="storeOwnerProfileID"),
+      *         ),
+      *      ),
+      *
+      * @OA\Response(
+      *      response=201,
+      *      description="Return order.",
+      *      @OA\JsonContent(
+      *          @OA\Property(type="string", property="status_code"),
+      *          @OA\Property(type="string", property="msg"),
+      *          @OA\Property(type="object", property="Data",
+      *              @OA\Property(type="integer", property="id"),
+      *              @OA\Property(type="object", property="source"),
+      *              @OA\Property(type="object", property="destination"),
+      *              @OA\Property(type="object", property="deliveryDate"),
+      *              @OA\Property(type="string", property="recipientName"),
+      *              @OA\Property(type="string", property="recipientPhone"),
+      *              @OA\Property(type="string", property="state"),
+      *              @OA\Property(type="string", property="roomID"),
+      *              @OA\Property(type="string", property="detail"),
+      *              @OA\Property(type="object", property="orderDetail",
+      *                 @OA\Property(type="integer", property="orderNumber"),
+      *                 @OA\Property(type="integer", property="orderDetailId"),
+      *              )
+      *          )
+      *     )
+      *)
+      * @Security(name="Bearer")
+      */
     public function createClientSpecialOrder(Request $request): JsonResponse
     {  
         $data = json_decode($request->getContent(), true);
@@ -257,11 +457,152 @@ class OrderController extends BaseController
         return $this->response($result, self::FETCH);
       }
 
-    /**
+    /** captain: Get order details.
      * @Route("orderDetails/{orderNumber}", name="getOrderDetailsByOrderNumber", methods={"GET"})
      * @IsGranted("ROLE_CAPTAIN")
      * @param $orderNumber
      * @return JsonResponse
+     * *
+     * @TODO this
+     * @OA\Tag(name="Order")
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=201,
+     *      description="Returns objetc of order details. first case type=2",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *          @OA\Property(type="object", property="storeOwner",
+     *                      @OA\Property(type="integer", property="id"),
+     *                      @OA\Property(type="string", property="storeOwnerName"),
+     *                      @OA\Property(type="string", property="image"),
+     *                      @OA\Property(type="string", property="free"),
+     *                      @OA\Property(type="array", property="branches",
+     *                          @OA\Items(
+     *                          @OA\Property(type="integer", property="id"),
+     *                          @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                          @OA\Property(type="object", property="geoLocation"),
+     *                          @OA\Property(type="string", property="branchName"),
+     *                          @OA\Property(type="string", property="free"),
+     *                          @OA\Property(type="string", property="storeOwnerName"),
+     *                          @OA\Property(type="boolean", property="isActive"),
+     *                          ),
+     *                          @OA\Property(type="string", property="city"),
+     *                          @OA\Property(type="string", property="phone"),
+     *                          @OA\Property(type="string", property="imageURL"),
+     *                          @OA\Property(type="string", property="baseURL"),
+     *                          @OA\Property(type="string", property="deliveryCost"),
+     *                          @OA\Property(type="boolean", property="privateOrders"),
+     *                          @OA\Property(type="boolean", property="hasProducts"),
+     *                          @OA\Property(type="string", property="rating"),
+     *                          @OA\Property(type="object", property="openingTime"),
+     *                          @OA\Property(type="object", property="closingTime"),
+     *                          @OA\Property(type="integer", property="storeCategoryId"),
+     *                          @OA\Property(type="string", property="storeCategoryName"),
+     *                          @OA\Property(type="string", property="status"),
+     *
+     *                      ),
+     *
+     *                  ),
+     *              @OA\Property(type="array", property="deliveryCost",
+     *                  @OA\Items(
+     *                      @OA\Property(type="integer", property="id"),
+     *                      @OA\Property(type="integer", property="deliveryCost"),
+     *                  ),
+     *               ),
+     *              @OA\Property(type="object", property="order",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="storeOwnerProfileID"),
+     *                  @OA\Property(type="object", property="source"),
+     *                  @OA\Property(type="object", property="destination"),
+     *                  @OA\Property(type="object", property="deliveryDate"),
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="string", property="note"),
+     *                  @OA\Property(type="string", property="payment"),
+     *                  @OA\Property(type="string", property="recipientName"),
+     *                  @OA\Property(type="string", property="recipientPhone"),
+     *                  @OA\Property(type="string", property="state"),
+     *                  @OA\Property(type="string", property="roomID"),
+     *                  @OA\Property(type="string", property="captainID"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="string", property="detail"),
+     *                  @OA\Property(type="string", property="deliveryCost"),
+     *                  @OA\Property(type="string", property="orderCost"),
+     *                  @OA\Property(type="integer", property="orderType"),
+     *                  @OA\Property(type="string", property="invoiceAmount"),
+     *                  @OA\Property(type="string", property="invoiceImage"),
+     *                  @OA\Property(type="object", property="invoice",
+     *                      @OA\Property(type="string", property="invoiceAmount"),
+     *                      @OA\Property(type="string", property="invoiceImage"),
+     *                        ),
+     *                 @OA\Property(type="array", property="rating",
+     *                       @OA\Items(
+     *                          @OA\Property(type="string", property="rate"),
+     *                      ),
+     *                  ),
+     *              ),
+     *          )
+     *      )
+     * )
+     *
+     * or
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns objetc of order details. third case type=3",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="array", property="deliveryCost",
+     *                  @OA\Items(
+     *                      @OA\Property(type="integer", property="id"),
+     *                      @OA\Property(type="integer", property="deliveryCost"),
+     *                  ),
+     *               ),
+     *              @OA\Property(type="object", property="order",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="storeOwnerProfileID"),
+     *                  @OA\Property(type="object", property="source"),
+     *                  @OA\Property(type="object", property="destination"),
+     *                  @OA\Property(type="object", property="deliveryDate"),
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="string", property="note"),
+     *                  @OA\Property(type="string", property="payment"),
+     *                  @OA\Property(type="string", property="recipientName"),
+     *                  @OA\Property(type="string", property="recipientPhone"),
+     *                  @OA\Property(type="string", property="state"),
+     *                  @OA\Property(type="string", property="roomID"),
+     *                  @OA\Property(type="string", property="captainID"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="string", property="detail"),
+     *                  @OA\Property(type="string", property="deliveryCost"),
+     *                  @OA\Property(type="string", property="orderCost"),
+     *                  @OA\Property(type="integer", property="orderType"),
+     *                  @OA\Property(type="string", property="invoiceAmount"),
+     *                  @OA\Property(type="string", property="invoiceImage"),
+     *                  @OA\Property(type="object", property="invoice",
+     *                      @OA\Property(type="string", property="invoiceAmount"),
+     *                      @OA\Property(type="string", property="invoiceImage"),
+     *                        ),
+     *                 @OA\Property(type="array", property="rating",
+     *                       @OA\Items(
+     *                          @OA\Property(type="string", property="rate"),
+     *                      ),
+     *                  ),
+     *              ),
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
      */
     public function getOrderDetailsByOrderNumber($orderNumber): JsonResponse
     {
