@@ -49,7 +49,7 @@ class StoresStateManager {
           if(products.hasError)
             stateSubject.add(StoresErrorState(screenState,[]));
           else if(products.isEmpty){
-            stateSubject.add(StoresEmptyState(screenState, S.current.homeDataEmpty));
+            stateSubject.add(StoresLoadedState(screenState,bestStores: value.data.storeModel,categories:value.data.storeCategory ,topProducts: []));
           }else{
             stateSubject.add(StoresLoadedState(screenState,bestStores: value.data.storeModel,categories:value.data.storeCategory ,topProducts: products.models));
           }

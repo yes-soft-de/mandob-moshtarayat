@@ -54,9 +54,11 @@ class CategoriesRepository {
     if (response == null) return null;
     return StoreProductsResponse.fromJson(response);
   }
-  Future<StoreProductsResponse?> getStoreProducts() async {
+  Future<StoreProductsResponse?> getStoreProducts(String name) async {
     var token = await _authService.getToken();
-    dynamic response = await _apiClient.get(Urls.GET_STORE_PRODUCT,
+    dynamic response = await _apiClient.post(Urls.GET_STORE_PRODUCT,{
+      'name':name
+    },
         headers: {'Authorization': 'Bearer ' + token.toString()});
     if (response == null) return null;
     return StoreProductsResponse.fromJson(response);

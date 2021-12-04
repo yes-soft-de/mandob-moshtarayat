@@ -312,13 +312,13 @@ class ProductsCategoryStateManager {
       _categoriesService.updateProductStatus(request).then((value) {
         if (value.hasError) {
           print('bssst');
-          getStoreProductLevelTwo(screenState,levelOne,levelTwo,request.storeProductCategoryID??-1,'','');
+          getStoreProductLevelTwo(screenState,levelOne,levelTwo,request.storeProductCategoryID,'','');
           CustomFlushBarHelper.createError(
               title: S.current.warnning, message: value.error ?? '')
             ..show(screenState.context);
         } else {
           if(nameTwo != null){
-            _categoriesService.getProductsLevelTwo(request.storeProductCategoryID??-1).then((products){
+            _categoriesService.getProductsLevelTwo(request.storeProductCategoryID).then((products){
               if (products.hasError) {
                 _stateSubject.add(
                     ProductCategoriesLoadedState(screenState, [],[],[],-1, error: products.error));
@@ -329,11 +329,11 @@ class ProductsCategoryStateManager {
               else {
 //        ProductsCategoryModel model = value as ProductsCategoryModel;
                 ProductsModel storeProducts = products as ProductsModel;
-                _stateSubject.add(ProductCategoriesLoadedState(screenState,levelOne ,levelTwo,storeProducts.data,request.storeProductCategoryID??-1,nameOne: nameOne,nameTwo:nameTwo ));
+                _stateSubject.add(ProductCategoriesLoadedState(screenState,levelOne ,levelTwo,storeProducts.data,request.storeProductCategoryID,nameOne: nameOne,nameTwo:nameTwo ));
               }
             });
           }else{
-            _categoriesService.getProductsLevelOne(request.storeMainCategoryID??-1).then((products){
+            _categoriesService.getProductsLevelOne(request.storeMainCategoryID).then((products){
               if (products.hasError) {
                 _stateSubject.add(
                     ProductCategoriesLoadedState(screenState, [],[],[],-1, error: products.error));
@@ -345,7 +345,7 @@ class ProductsCategoryStateManager {
                 print('levelOneproduct');
                 print(nameOne);
                 ProductsModel storeProducts = products as ProductsModel;
-                _stateSubject.add(ProductCategoriesLoadedState(screenState,levelOne ,levelTwo,storeProducts.data,request.storeProductCategoryID??-1,nameOne: nameOne,nameTwo:nameTwo ));
+                _stateSubject.add(ProductCategoriesLoadedState(screenState,levelOne ,levelTwo,storeProducts.data,request.storeProductCategoryID,nameOne: nameOne,nameTwo:nameTwo ));
               }
             });
           }

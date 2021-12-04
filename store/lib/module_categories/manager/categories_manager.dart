@@ -22,7 +22,7 @@ class CategoriesManager {
 
   Future<StoreProductsResponse?> getProductsLevelTwo(int id) => _categoriesRepository.getProductsLevelTwo(id);
   Future<StoreProductsResponse?> getProductsLevelOne(int id) => _categoriesRepository.getProductsLevelOne(id);
-  Future<StoreProductsResponse?> getStoreProducts() => _categoriesRepository.getStoreProducts();
+  Future<StoreProductsResponse?> getStoreProducts(String name) => _categoriesRepository.getStoreProducts(name);
 
   Future<ActionResponse?> createStoreProduct(CreateProductRequest request) => _categoriesRepository.createProduct(request);
 

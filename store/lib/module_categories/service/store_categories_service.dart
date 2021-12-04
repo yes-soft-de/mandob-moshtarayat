@@ -78,9 +78,9 @@ class CategoriesService {
 
     return ProductsModel.withData(_productCategories.data!);
   }
-  Future<DataModel> getStoreProducts() async {
+  Future<DataModel> getStoreProducts(String name) async {
 
-    StoreProductsResponse? _productCategories = await _categoriesManager.getStoreProducts();
+    StoreProductsResponse? _productCategories = await _categoriesManager.getStoreProducts(name);
     if (_productCategories == null) {
       return DataModel.withError(S.current.networkError);
     }

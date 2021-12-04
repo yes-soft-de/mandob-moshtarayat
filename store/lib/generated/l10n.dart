@@ -1940,10 +1940,10 @@ class S {
     );
   }
 
-  /// `Are you sure about deleting this order , please confirm`
+  /// `Are you sure about deleting this product , please confirm`
   String get sureForDelete {
     return Intl.message(
-      'Are you sure about deleting this order , please confirm',
+      'Are you sure about deleting this product , please confirm',
       name: 'sureForDelete',
       desc: '',
       args: [],

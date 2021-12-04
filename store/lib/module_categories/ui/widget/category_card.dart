@@ -6,7 +6,7 @@ import 'package:mandob_moshtarayat/utils/components/progresive_image.dart';
 class CategoryCard extends StatelessWidget {
   final String title;
   final int id;
-  final Function(String)? onTap;
+  final Function(int)? onTap;
   final bool selected;
 
   CategoryCard({required this.title,required this.selected,required this.id ,required this.onTap});
@@ -15,7 +15,7 @@ class CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        onTap!(id.toString());
+        onTap!(id);
       },
       child: SizedBox(
         height: 100,

@@ -1,3 +1,4 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
@@ -53,16 +54,23 @@ class ProductCategoriesScreenState extends State<ProductCategoriesScreen> {
   }
 
   void updateProduct(UpdateProductRequest request,List<ProductsCategoryModel> levelOne,List<ProductsCategoryModel> levelTwo,{String? nameOne ,String? nameTwo}) {
-    print('names');
-    print(nameOne);
-    print(nameTwo);
     widget._stateManager.updateProduct(this,request,levelOne ,levelTwo,nameOne: nameOne,nameTwo: nameTwo);
   }
+
+  void viewDeleteConfirm(){
+
+  }
+
   void updateProductStatus(UpdateProductStatusRequest request,List<ProductsCategoryModel> levelOne,List<ProductsCategoryModel> levelTwo,{String? nameOne ,String? nameTwo}) {
-    print('names');
-    print(nameOne);
-    print(nameTwo);
-    widget._stateManager.updateProductStatus(this,request,levelOne ,levelTwo,nameOne: nameOne,nameTwo: nameTwo);
+    CoolAlert.show(
+        context: context,
+        type: CoolAlertType.warning,
+        text: S.of(context).sureForDelete,
+        onConfirmBtnTap: (){
+          widget._stateManager.updateProductStatus(this,request,levelOne ,levelTwo,nameOne: nameOne,nameTwo: nameTwo);
+          Navigator.pop(context);
+        }
+    );
   }
   void createProduct(CreateProductRequest request,List<ProductsCategoryModel> levelOne,List<ProductsCategoryModel> levelTwo , {String? nameOne ,String? nameTwo}) {
     widget._stateManager.createProduct(this,request,levelOne,levelTwo,nameOne: nameOne,nameTwo: nameTwo);

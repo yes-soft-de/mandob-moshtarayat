@@ -31,6 +31,7 @@ class Urls {
   static const GET_LAST_PRODUCT = BASE_API + '/productslast30';
   static const GET_CAT_AND_STORE = BASE_API + '/storecategoriesandstores';
   static const UPDATE_PRODUCT_Status = BASE_API + '/updateproductstatusbystore';
+  static const GET_STORE_BALANCE = BASE_API + '/storefinancialaccountforstore';
 
 
 

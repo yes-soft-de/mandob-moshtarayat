@@ -715,7 +715,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sumPaymentsToCompany":
             MessageLookupByLibrary.simpleMessage("Total Payments To Company"),
         "sureForDelete": MessageLookupByLibrary.simpleMessage(
-            "Are you sure about deleting this order , please confirm"),
+            "Are you sure about deleting this product , please confirm"),
         "syria": MessageLookupByLibrary.simpleMessage("Syria"),
         "termsOfService":
             MessageLookupByLibrary.simpleMessage("Terms of Service"),
