@@ -849,6 +849,9 @@ class ProductController extends BaseController
         $request = new DeleteRequest($request->get('id'));
 
         $result = $this->productService->deleteProductById($request);
+        if ($result == "productNotFound"){
+            return $this->response($result, self::NOTFOUND);
+        }
 
         return $this->response($result, self::DELETE);
     }
