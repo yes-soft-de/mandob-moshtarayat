@@ -27,6 +27,7 @@ class CategoriesManager {
   Future<ActionResponse?> createStoreProduct(CreateProductRequest request) => _categoriesRepository.createProduct(request);
 
   Future<ActionResponse?> updateProduct(UpdateProductRequest request) => _categoriesRepository.updateProduct(request);
+  Future<ActionResponse?> updateProductStatus(UpdateProductStatusRequest request) => _categoriesRepository.updateProductStatus(request);
 
 
 }

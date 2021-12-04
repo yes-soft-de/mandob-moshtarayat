@@ -220,7 +220,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "defaultBranch":
             MessageLookupByLibrary.simpleMessage("الفرع الافتراضي"),
         "deleteSuccess":
-            MessageLookupByLibrary.simpleMessage("تمت عملية حذف الطلب بنجاح"),
+            MessageLookupByLibrary.simpleMessage("تمت عملية حذف المنتج بنجاح"),
         "deliver": MessageLookupByLibrary.simpleMessage("وصل طلبات"),
         "deliverDescribtion": MessageLookupByLibrary.simpleMessage(
             "بعد الموافقة على المهمة الموكلة إليك يجب عليك توصيل الطلبية للوجهة الصحيحة"),

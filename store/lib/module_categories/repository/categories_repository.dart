@@ -78,4 +78,14 @@ class CategoriesRepository {
     return ActionResponse.fromJson(response);
   }
 
+
+  Future<ActionResponse?> updateProductStatus(UpdateProductStatusRequest request) async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.put(Urls.UPDATE_PRODUCT_Status,request.toJson(),
+        headers: {'Authorization': 'Bearer ' + token.toString()});
+    if (response == null) return null;
+    return ActionResponse.fromJson(response);
+  }
+
+
 }

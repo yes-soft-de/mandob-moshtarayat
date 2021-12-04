@@ -188,7 +188,7 @@
   "errorLoggingInFirebaseAccountNotFound": "Error logging in, firebase account not found",
   "locationOfCustomer": "موقع العميل",
   "sureForDelete":"هل أنت متأكد من قيامك بحذف هذا الطلب",
-  "deleteSuccess":"تمت عملية حذف الطلب بنجاح",
+  "deleteSuccess":"تمت عملية حذف المنتج بنجاح",
   "ProvideDistanceInKm":"المسافة المقطوعة بالكيلومتر",
   "notVerified":"لم يتم تفعيل الباقة بعد",
   "renewPlan":"كيفية تجديد الإشتراك",

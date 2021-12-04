@@ -44,3 +44,20 @@ class UpdateProductRequest {
   }
 
 }
+
+class UpdateProductStatusRequest{
+  int id;
+  String status;
+  int storeProductCategoryID;
+  int storeMainCategoryID;
+
+
+  UpdateProductStatusRequest({required this.id, required this.status,required this.storeProductCategoryID ,required this.storeMainCategoryID});
+
+  Map<String, dynamic> toJson() {
+    var map = <String, dynamic>{};
+    map['id'] = id;
+    map['status'] = status;
+    return map;
+  }
+}

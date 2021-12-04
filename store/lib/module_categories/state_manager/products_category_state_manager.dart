@@ -304,4 +304,56 @@ class ProductsCategoryStateManager {
   }
 
 
+
+
+  void updateProductStatus(
+      ProductCategoriesScreenState screenState,UpdateProductStatusRequest request,List<ProductsCategoryModel> levelOne,List<ProductsCategoryModel> levelTwo,{String? nameOne  ,String? nameTwo}) {
+    _stateSubject.add(ProductCategoriesLoadingState(screenState));
+      _categoriesService.updateProductStatus(request).then((value) {
+        if (value.hasError) {
+          print('bssst');
+          getStoreProductLevelTwo(screenState,levelOne,levelTwo,request.storeProductCategoryID??-1,'','');
+          CustomFlushBarHelper.createError(
+              title: S.current.warnning, message: value.error ?? '')
+            ..show(screenState.context);
+        } else {
+          if(nameTwo != null){
+            _categoriesService.getProductsLevelTwo(request.storeProductCategoryID??-1).then((products){
+              if (products.hasError) {
+                _stateSubject.add(
+                    ProductCategoriesLoadedState(screenState, [],[],[],-1, error: products.error));
+              } else if (products.isEmpty) {
+//        ProductsCategoryModel model = value as ProductsCategoryModel;
+                _stateSubject.add(ProductCategoriesLoadedState(screenState, [],[],[],-1,
+                    empty: products.isEmpty));      }
+              else {
+//        ProductsCategoryModel model = value as ProductsCategoryModel;
+                ProductsModel storeProducts = products as ProductsModel;
+                _stateSubject.add(ProductCategoriesLoadedState(screenState,levelOne ,levelTwo,storeProducts.data,request.storeProductCategoryID??-1,nameOne: nameOne,nameTwo:nameTwo ));
+              }
+            });
+          }else{
+            _categoriesService.getProductsLevelOne(request.storeMainCategoryID??-1).then((products){
+              if (products.hasError) {
+                _stateSubject.add(
+                    ProductCategoriesLoadedState(screenState, [],[],[],-1, error: products.error));
+              } else if (products.isEmpty) {
+//        ProductsCategoryModel model = value as ProductsCategoryModel;
+                _stateSubject.add(ProductCategoriesLoadedState(screenState, [],[],[],-1,
+                    empty: products.isEmpty));      }
+              else {
+                print('levelOneproduct');
+                print(nameOne);
+                ProductsModel storeProducts = products as ProductsModel;
+                _stateSubject.add(ProductCategoriesLoadedState(screenState,levelOne ,levelTwo,storeProducts.data,request.storeProductCategoryID??-1,nameOne: nameOne,nameTwo:nameTwo ));
+              }
+            });
+          }
+          CustomFlushBarHelper.createSuccess(
+              title: S.current.warnning,
+              message: S.current.deleteSuccess)
+            ..show(screenState.context);
+        }
+      });
+    }
 }

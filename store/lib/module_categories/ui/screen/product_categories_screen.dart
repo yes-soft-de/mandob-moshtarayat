@@ -58,6 +58,12 @@ class ProductCategoriesScreenState extends State<ProductCategoriesScreen> {
     print(nameTwo);
     widget._stateManager.updateProduct(this,request,levelOne ,levelTwo,nameOne: nameOne,nameTwo: nameTwo);
   }
+  void updateProductStatus(UpdateProductStatusRequest request,List<ProductsCategoryModel> levelOne,List<ProductsCategoryModel> levelTwo,{String? nameOne ,String? nameTwo}) {
+    print('names');
+    print(nameOne);
+    print(nameTwo);
+    widget._stateManager.updateProductStatus(this,request,levelOne ,levelTwo,nameOne: nameOne,nameTwo: nameTwo);
+  }
   void createProduct(CreateProductRequest request,List<ProductsCategoryModel> levelOne,List<ProductsCategoryModel> levelTwo , {String? nameOne ,String? nameTwo}) {
     widget._stateManager.createProduct(this,request,levelOne,levelTwo,nameOne: nameOne,nameTwo: nameTwo);
   }

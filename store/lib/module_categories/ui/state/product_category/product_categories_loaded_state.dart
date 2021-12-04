@@ -239,43 +239,71 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
           Row(
             children: [
               Expanded(child: ProductComponent(discount: element.discount.toString(),description: '',image: element.productImage.image??'',rating: 0,title: element.productName, productId: element.id.toString(),price: element.productPrice.toString(),)),
-              InkWell(
-                onTap: (){
-                  showDialog(context: screenState.context, builder:(context){
-                    return UpdateProductsForm(
-                      request: UpdateProductRequest(
-                          productName: element.productName,
-                          productImage: element.productImage.image??'',
-                          productPrice: element.productPrice.toDouble(),
-                      ),
-                      addProduct: (name,price,image,discount){
-                        Navigator.of(context).pop();
+              Column(
+                children: [
+                  InkWell(
+                    onTap: (){
+                      showDialog(context: screenState.context, builder:(context){
+                        return UpdateProductsForm(
+                          request: UpdateProductRequest(
+                              productName: element.productName,
+                              productImage: element.productImage.image??'',
+                              productPrice: element.productPrice.toDouble(),
+                          ),
+                          addProduct: (name,price,image,discount){
+                            Navigator.of(context).pop();
 
-                        screenState.updateProduct(UpdateProductRequest(
-                          id: element.id,
-                          productName: name,
-                          productImage: image,
-                          discount: double.parse(discount),
-                          productPrice:double.parse(price),
-                          storeProductCategoryID:element.storeProductCategoryID,
-                           storeMainCategoryID: idFirstCat
-                        ),categoriesOne,categoriesTwo,nameTwo: nameTwo,nameOne: nameOne);
-                      },
-                    );
-                  });
-                },
-                child: Padding(
-                  padding: const EdgeInsetsDirectional.only(end: 8),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: AppThemeDataService.AccentColor,
-                   shape: BoxShape.circle),
+                            screenState.updateProduct(UpdateProductRequest(
+                              id: element.id,
+                              productName: name,
+                              productImage: image,
+                              discount: double.parse(discount),
+                              productPrice:double.parse(price),
+                              storeProductCategoryID:element.storeProductCategoryID,
+                               storeMainCategoryID: idFirstCat
+                            ),categoriesOne,categoriesTwo,nameTwo: nameTwo,nameOne: nameOne);
+                          },
+                        );
+                      });
+                    },
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(Icons.edit),
+                      padding: const EdgeInsetsDirectional.only(end: 8),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: AppThemeDataService.AccentColor,
+                       shape: BoxShape.circle),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(Icons.edit),
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  SizedBox(height: 8,),
+                  InkWell(
+                    onTap: (){
+                      screenState.updateProductStatus(
+                          UpdateProductStatusRequest(
+                            status: 'inactive',
+                          id: element.id,
+                          storeProductCategoryID:element.storeProductCategoryID,
+                          storeMainCategoryID: idFirstCat??-1
+                      ),categoriesOne,categoriesTwo,nameTwo: nameTwo,nameOne: nameOne);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsetsDirectional.only(end: 8),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: AppThemeDataService.AccentColor,
+                       shape: BoxShape.circle),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(Icons.delete),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               )
             ],
           )
