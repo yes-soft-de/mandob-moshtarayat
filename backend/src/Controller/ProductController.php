@@ -404,8 +404,8 @@ class ProductController extends BaseController
     }
 
     /**
-     * store: Get products of specific store for store , or filter by product name.
-     * @Route("getproductsstore", name="getStoreProducts", methods={"GET"})
+     * store: Get products of specific store for store , if send value for name you get filter.
+     * @Route("getproductsstore", name="getStoreProducts", methods={"POST"})
      * @IsGranted("ROLE_OWNER")
      * @return JsonResponse
      * *
@@ -416,6 +416,13 @@ class ProductController extends BaseController
      *      in="header",
      *      description="token to be passed as a header",
      *      required=true
+     * )
+     *
+     * @OA\RequestBody(
+     *      description="Filter by product name",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="name"),
+     *      )
      * )
      *
      * @OA\Response(
@@ -843,6 +850,19 @@ class ProductController extends BaseController
      *          )
      *      )
      * )
+     *
+     * or
+     *
+     * @OA\Response(
+     *      response=404,
+     *      description="Returns Not found Successfully.",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="string", property="Data"),
+     *      )
+     * )
+     *
      */
     public function deleteProductById(Request $request)
     {
