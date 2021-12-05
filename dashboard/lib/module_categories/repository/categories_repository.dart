@@ -148,4 +148,22 @@ class CategoriesRepository {
     return ActionResponse.fromJson(response);
   }
 
+  Future<ActionResponse?> deleteCategories(String id) async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.delete(
+        Urls.DELETE_CATEGORIES + '$id',
+        headers: {'Authorization': 'Bearer ' + token.toString()});
+    if (response == null) return null;
+    return ActionResponse.fromJson(response);
+  }
+  
+  Future<ActionResponse?> deleteSubCategories(String id) async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.delete(
+        Urls.DELETE_SUB_CATEGORIES + '$id',
+        headers: {'Authorization': 'Bearer ' + token.toString()});
+    if (response == null) return null;
+    return ActionResponse.fromJson(response);
+  }
+
 }

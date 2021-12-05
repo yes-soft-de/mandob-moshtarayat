@@ -224,4 +224,28 @@ class CategoriesService {
     }
     return DataModel.empty();
   }
+
+  Future<DataModel> deleteCategories(String id) async {
+    ActionResponse? actionResponse = await _categoriesManager.deleteCategories(id);
+    if (actionResponse == null) {
+      return DataModel.withError(S.current.networkError);
+    }
+    if (actionResponse.statusCode != '401') {
+      return DataModel.withError(
+          StatusCodeHelper.getStatusCodeMessages(actionResponse.statusCode));
+    }
+    return DataModel.empty();
+  }
+  
+  Future<DataModel> deleteSubCategories(String id) async {
+    ActionResponse? actionResponse = await _categoriesManager.deleteSubCategories(id);
+    if (actionResponse == null) {
+      return DataModel.withError(S.current.networkError);
+    }
+    if (actionResponse.statusCode != '401') {
+      return DataModel.withError(
+          StatusCodeHelper.getStatusCodeMessages(actionResponse.statusCode));
+    }
+    return DataModel.empty();
+  }
 }
