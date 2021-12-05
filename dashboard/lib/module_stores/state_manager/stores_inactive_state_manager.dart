@@ -46,13 +46,12 @@ class StoresInActiveStateManager {
             StoreCategoriesModel categoriesModel =
                 categories as StoreCategoriesModel;
             StoresModel model = value as StoresModel;
-            _stateSubject
-                .add(StoresInActiveLoadedState(screenState, model.data, categoriesModel.data));
+            _stateSubject.add(StoresInActiveLoadedState(
+                screenState, model.data, categoriesModel.data));
           }
         });
       }
     });
-
   }
 
   void getStoresFilter(
@@ -73,7 +72,7 @@ class StoresInActiveStateManager {
 
   void updateStore(
       StoresInActiveScreenState screenState, UpdateStoreRequest request) {
-    if (request.image!.contains('/original-image/')) {
+    if (request.image?.contains('/original-image/') == true) {
       _stateSubject.add(LoadingState(screenState));
       _categoriesService.updateStore(request).then((value) {
         if (value.hasError) {
@@ -91,31 +90,48 @@ class StoresInActiveStateManager {
       });
     } else {
       _stateSubject.add(LoadingState(screenState));
-      _uploadService.uploadImage(request.image!).then((value) {
-        if (value == null) {
-          getStores(screenState);
-          CustomFlushBarHelper.createError(
-              title: S.current.warnning,
-              message: S.current.errorUploadingImages)
-            ..show(screenState.context);
-        } else {
-          request.image = value;
-          _categoriesService.updateStore(request).then((value) {
-            if (value.hasError) {
-              getStores(screenState);
-              CustomFlushBarHelper.createError(
-                  title: S.current.warnning, message: value.error ?? '')
-                ..show(screenState.context);
-            } else {
-              getStores(screenState);
-              CustomFlushBarHelper.createSuccess(
-                  title: S.current.warnning,
-                  message: S.current.storeUpdatedSuccessfully)
-                ..show(screenState.context);
-            }
-          });
-        }
-      });
+      if (request.image == null) {
+        _categoriesService.updateStore(request).then((value) {
+          if (value.hasError) {
+            getStores(screenState);
+            CustomFlushBarHelper.createError(
+                title: S.current.warnning, message: value.error ?? '')
+              ..show(screenState.context);
+          } else {
+            getStores(screenState);
+            CustomFlushBarHelper.createSuccess(
+                title: S.current.warnning,
+                message: S.current.storeUpdatedSuccessfully)
+              ..show(screenState.context);
+          }
+        });
+      } else {
+        _uploadService.uploadImage(request.image).then((value) {
+          if (value == null) {
+            getStores(screenState);
+            CustomFlushBarHelper.createError(
+                title: S.current.warnning,
+                message: S.current.errorUploadingImages)
+              ..show(screenState.context);
+          } else {
+            request.image = value;
+            _categoriesService.updateStore(request).then((value) {
+              if (value.hasError) {
+                getStores(screenState);
+                CustomFlushBarHelper.createError(
+                    title: S.current.warnning, message: value.error ?? '')
+                  ..show(screenState.context);
+              } else {
+                getStores(screenState);
+                CustomFlushBarHelper.createSuccess(
+                    title: S.current.warnning,
+                    message: S.current.storeUpdatedSuccessfully)
+                  ..show(screenState.context);
+              }
+            });
+          }
+        });
+      }
     }
   }
 }

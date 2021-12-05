@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:mandob_moshtarayat_dashboad/consts/urls.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_store_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_stores/response/stores_response.dart';
@@ -394,12 +393,12 @@ class _AddStoreWidgetState extends State<AddStoreWidget> {
 }
 
 class UpdateStoreWidget extends StatefulWidget {
-  final Function(String, String, String, bool, bool, String?, String?, String)
+  final Function(String, String, String?, bool, bool, String?, String?, String)
       updateStore;
   final UpdateStoreRequest? request;
   final List<DropdownMenuItem<String>>? categories;
 
-  UpdateStoreWidget({required this.updateStore, this.request,this.categories});
+  UpdateStoreWidget({required this.updateStore, this.request, this.categories});
 
   @override
   _UpdateStoreWidgetState createState() => _UpdateStoreWidgetState();
@@ -422,6 +421,7 @@ class _UpdateStoreWidgetState extends State<UpdateStoreWidget> {
   var date = DateTime.now();
   @override
   Widget build(BuildContext context) {
+
     return StackedForm(
         child: Form(
           key: _key,
@@ -437,13 +437,14 @@ class _UpdateStoreWidgetState extends State<UpdateStoreWidget> {
                     children: [
                       // categories
                       Hider(
-                        active: widget.categories != null && widget.categories!.length > 0,
+                        active: widget.categories != null &&
+                            widget.categories!.length > 0,
                         child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(25),
                               color: Theme.of(context).backgroundColor),
                           child: Center(
-                            child:DropdownButton(
+                            child: DropdownButton(
                               value: catId,
                               items: widget.categories,
                               onChanged: (v) {
@@ -561,13 +562,13 @@ class _UpdateStoreWidgetState extends State<UpdateStoreWidget> {
                             Icons.image,
                             size: 150,
                           ),
-                          checked: imagePath != null,
+                          checked: imagePath != null && imagePath != '',
                           checkedWidget: SizedBox(
                               height: 150,
                               child: ClipRRect(
                                   borderRadius: BorderRadius.circular(25),
-                                  child: imagePath!.contains('http')
-                                      ? Image.network(imagePath!)
+                                  child: imagePath?.contains('http') == true
+                                      ? Image.network(imagePath ?? '')
                                       : Image.file(
                                           File(imagePath ?? ''),
                                           fit: BoxFit.cover,
@@ -713,17 +714,16 @@ class _UpdateStoreWidgetState extends State<UpdateStoreWidget> {
         label: S.current.update,
         onTap: () {
           if (_key.currentState!.validate() &&
-              imagePath != null &&
               openingTime != null &&
               closingTime != null) {
-            if (imagePath?.contains('http') == true && widget.request != null){
+            if (imagePath?.contains('http') == true && widget.request != null) {
               print(widget.request?.baseImage);
-              imagePath = widget.request?.baseImage ?? '' ;
+              imagePath = widget.request?.baseImage ?? '';
             }
             widget.updateStore(
                 catId.toString(),
                 _nameController.text.trim(),
-                imagePath!,
+                imagePath,
                 products,
                 privateOrder,
                 DateTime(date.year, date.month, date.day, openingTime!.hour,
@@ -751,7 +751,10 @@ class _UpdateStoreWidgetState extends State<UpdateStoreWidget> {
     _phoneController = TextEditingController();
     if (widget.request != null) {
       _nameController.text = widget.request?.storeOwnerName ?? '';
-      imagePath = widget.request?.image ?? '';
+      imagePath = widget.request?.image ?? null;
+      if (imagePath == '' || imagePath?.contains('/original-image/') == false) {
+        imagePath = null;
+      }
       products = widget.request?.hasProducts == 1 ? true : false;
       privateOrder = widget.request?.privateOrders == 1 ? true : false;
       openingTime = TimeOfDay.fromDateTime(DateTime.parse(
@@ -760,7 +763,7 @@ class _UpdateStoreWidgetState extends State<UpdateStoreWidget> {
           widget.request?.closingTime ?? DateTime.now().toString()));
       status = widget.request?.status ?? 'active';
       if (widget.request?.storeCategoryId != -1) {
-      catId = widget.request?.storeCategoryId.toString();
+        catId = widget.request?.storeCategoryId.toString();
       }
     }
     super.initState();
