@@ -20,7 +20,7 @@ class InActiveModel extends DataModel {
     for (var element in data) {
       _model.add(InActiveModel(
           captainID: element.captainID ?? '-1',
-          image: element.image ?? '',
+          image: element.image?.image ?? '',
           captainName: element.captainName ?? '',
           age: element.age?.toString() ?? ''));
     }
