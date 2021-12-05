@@ -323,7 +323,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "imageSpecification": MessageLookupByLibrary.simpleMessage(
             "Please choose image of type (vector) with (96 px) rate with transparent background"),
         "inActiveCaptains":
-            MessageLookupByLibrary.simpleMessage("In Active Captains"),
+            MessageLookupByLibrary.simpleMessage("Inactive Captains"),
         "inactive": MessageLookupByLibrary.simpleMessage(
             "Your subscription not activate yet please wait"),
         "info": MessageLookupByLibrary.simpleMessage("Info"),
@@ -547,6 +547,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please provide your address on our map"),
         "pleaseSelectABranch":
             MessageLookupByLibrary.simpleMessage("Please Select a Branch"),
+        "preferredLanguage":
+            MessageLookupByLibrary.simpleMessage("Preferred Language"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "privateOrder": MessageLookupByLibrary.simpleMessage("Private Order"),
         "product": MessageLookupByLibrary.simpleMessage("product"),
@@ -622,6 +624,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "searchF": MessageLookupByLibrary.simpleMessage("Search for"),
         "searchFor":
             MessageLookupByLibrary.simpleMessage("Search for store , product"),
+        "searchForCaptain":
+            MessageLookupByLibrary.simpleMessage("Search for captain"),
         "searchForNotifications":
             MessageLookupByLibrary.simpleMessage("Search for a notification"),
         "searchForOrder": MessageLookupByLibrary.simpleMessage(
@@ -636,6 +640,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("searching for store"),
         "second": MessageLookupByLibrary.simpleMessage("second"),
         "seconds": MessageLookupByLibrary.simpleMessage("seconds"),
+        "selectLanguage":
+            MessageLookupByLibrary.simpleMessage("Select Language"),
         "sendMeCode": MessageLookupByLibrary.simpleMessage("Send me code"),
         "sendToRecordFaild": MessageLookupByLibrary.simpleMessage(
             "Sending record has been failed"),
@@ -692,7 +698,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Store Updated Successfully"),
         "stores": MessageLookupByLibrary.simpleMessage("Stores"),
         "storesInActive":
-            MessageLookupByLibrary.simpleMessage("Stores In Active"),
+            MessageLookupByLibrary.simpleMessage(" Inactive Stores"),
         "storesList": MessageLookupByLibrary.simpleMessage("Stores List"),
         "storesReports": MessageLookupByLibrary.simpleMessage("Stores Report"),
         "subCategories": MessageLookupByLibrary.simpleMessage("Sub Categories"),
@@ -715,6 +721,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Total Payments To Company"),
         "sureForDelete": MessageLookupByLibrary.simpleMessage(
             "Are you sure about deleting this order , please confirm"),
+        "sureForDeleteCategories": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to delete this category"),
         "syria": MessageLookupByLibrary.simpleMessage("Syria"),
         "termsOfService":
             MessageLookupByLibrary.simpleMessage("Terms of Service"),
@@ -736,7 +744,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "The total cost without delivery cost"),
         "totalBonus": MessageLookupByLibrary.simpleMessage("Total Salary"),
         "twaslnaDashboard":
-            MessageLookupByLibrary.simpleMessage("Twaslna Dashboard"),
+            MessageLookupByLibrary.simpleMessage("Mandoob Dashboard"),
         "unaccept": MessageLookupByLibrary.simpleMessage(
             "Your request not accepted from administration you can contact us to get info"),
         "unknown": MessageLookupByLibrary.simpleMessage("Unknown"),
@@ -798,7 +806,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "welcomeToOrdersScreen":
             MessageLookupByLibrary.simpleMessage("Welcome to Orders Screen"),
         "welcomeToOurApp":
-            MessageLookupByLibrary.simpleMessage("WELCOME TO TWASLNA APP"),
+            MessageLookupByLibrary.simpleMessage("WELCOME TO MANDOOB APP"),
         "welcomeTomandob_moshtarayat_dashboad":
             MessageLookupByLibrary.simpleMessage(
                 "Welcome to mandob_moshtarayat_dashboad"),
