@@ -422,7 +422,11 @@
   "minute": "minute",
   "accountAlreadyExist": "This account already exist",
   "captainAccountInActive": "Captain Account In Active , Please wait the administration to activate your account",
-  "isBilledForCompany": "Is billed on company"
+  "isBilledForCompany": "Is billed on company",
+  "preferredLanguage":"Preferred Language",
+  "selectLanguage":"Select Language",
+  "chooseCaptainProfile":"Choose captain profile photo"
+  
 
 
 }

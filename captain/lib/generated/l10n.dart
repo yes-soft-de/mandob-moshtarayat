@@ -4259,6 +4259,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Preferred Language`
+  String get preferredLanguage {
+    return Intl.message(
+      'Preferred Language',
+      name: 'preferredLanguage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select Language`
+  String get selectLanguage {
+    return Intl.message(
+      'Select Language',
+      name: 'selectLanguage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose captain profile photo`
+  String get chooseCaptainProfile {
+    return Intl.message(
+      'Choose captain profile photo',
+      name: 'chooseCaptainProfile',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.yessoft.mandob_moshtarayat_captain">
    <application
-        android:label="mandob_moshtarayat"
+        android:label="Mandoob Captain"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

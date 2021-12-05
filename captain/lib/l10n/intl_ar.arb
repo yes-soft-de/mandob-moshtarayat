@@ -419,7 +419,10 @@
   "minutes": "دقائق",
   "accountAlreadyExist": "لا يمكنك تسجيل هذا الحساب لوجوده مسبقا",
   "captainAccountInActive": "حساب الكابتن غير مفعل الرجاء انتظار الإدارة لتفعيل الحساب",
-  "isBilledForCompany": "الفاتورة على حساب الشركة"
+  "isBilledForCompany": "الفاتورة على حساب الشركة",
+  "preferredLanguage":"اللغة المفضلة",
+  "selectLanguage":"اختر لغتك المفضلة",
+  "chooseCaptainProfile":"اختر صورة الكابتن الشخصية"
 
 
 }
