@@ -196,7 +196,6 @@ class RatingController extends BaseController
      *      @OA\JsonContent(
      *          @OA\Property(type="integer", property="itemID"),
      *          @OA\Property(type="integer", property="rating"),
-     *          @OA\Property(type="integer", property="orderNumber"),
      *      )
      * )
      *
