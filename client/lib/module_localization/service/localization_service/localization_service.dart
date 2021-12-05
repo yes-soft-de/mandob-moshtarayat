@@ -19,8 +19,13 @@ class LocalizationService {
 
   String getLanguage() {
     String? lang = _preferencesHelper.getLanguage();
-    lang ??= 'en';
+    lang ??= Platform.localeName.substring(0, 2);
     return lang;
+  }
+
+  bool choosed() {
+    String? lang = _preferencesHelper.getLanguage();
+    return lang != null;
   }
 
   void dispose() {
