@@ -7,6 +7,7 @@ import 'package:mandob_moshtarayat_captain/module_auth/service/auth_service/auth
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat_captain/module_init/init_routes.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/orders_routes.dart';
+import 'package:mandob_moshtarayat_captain/module_settings/setting_routes.dart';
 import 'package:mandob_moshtarayat_captain/utils/images/images.dart';
 
 @injectable
@@ -68,7 +69,7 @@ class _SplashScreenState extends State<SplashScreen> {
       if (signIn) {
         return OrdersRoutes.CAPTAIN_ORDERS_SCREEN;
       }
-      return AboutRoutes.ROUTE_ABOUT;
+      return SettingRoutes.CHOOSE_LANGUAGE;
     }
   }
 }
