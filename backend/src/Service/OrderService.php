@@ -692,6 +692,7 @@ class OrderService
     public function getOrdersAndCountByStoreProfileId($storeProfileId)
     {
         $response = [];
+        $item = [];
 
         $countOrders = $this->orderManager->countStoreOrders($storeProfileId);
 
