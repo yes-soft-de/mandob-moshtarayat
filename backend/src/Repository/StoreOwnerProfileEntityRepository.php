@@ -246,7 +246,25 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-    
+
+    public function getActiveStoresByName($name)
+    {
+        return $this->createQueryBuilder('profile')
+
+            ->select('profile.id', 'profile.storeOwnerName','profile.storeOwnerID', 'profile.image', 'profile.status', 'profile.roomID', 'profile.storeCategoryId', 'profile.phone', 'profile.is_best', 'profile.privateOrders', 'profile.hasProducts')
+
+            ->andWhere('profile.storeOwnerName LIKE :name')
+            ->andWhere('profile.status = :status')
+
+            ->setParameter('name', '%'.$name.'%')
+            ->setParameter('status', 'active')
+
+            ->setMaxResults(20)
+
+            ->getQuery()
+            ->getResult();
+    }
+
     public function countStores()
     {
         return $this->createQueryBuilder('profile')
@@ -323,5 +341,19 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
 
             ->getQuery()
             ->getResult();
+    }
+
+    public function getStoreProfileId($userID)
+    {
+        return $this->createQueryBuilder('profile')
+
+            ->select('profile.id')
+
+            ->andWhere('profile.storeOwnerID=:userID')
+
+            ->setParameter('userID', $userID)
+
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 }

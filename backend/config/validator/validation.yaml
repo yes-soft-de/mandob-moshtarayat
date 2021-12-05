@@ -313,8 +313,6 @@ App\Request\RatingCreateRequest:
       - NotBlank: ~
     rating:
       - NotBlank: ~
-    orderNumber:
-      - NotBlank: ~
 
 App\Request\StoreOwnerBranchUpdateRequest:
   properties:

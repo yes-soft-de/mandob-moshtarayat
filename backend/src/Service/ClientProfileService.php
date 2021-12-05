@@ -122,7 +122,7 @@ class ClientProfileService
     {
         $response = [];
 
-        $stores = $this->storeOwnerProfileService->getStoresByName($itemName);
+        $stores = $this->storeOwnerProfileService->getActiveStoresByName($itemName);
 
         $products = $this->productService->getProductsByName($itemName);
 

@@ -267,7 +267,7 @@ class StoreProductCategoryService
 
         foreach($items as $item)
         {
-            $item['products'] = $this->productService->getProductsByProductCategoryId($item['id']);
+            $item['products'] = $this->productService->getactiveProductsByProductCategoryId($item['id']);
 
             if($item['products'])
             {

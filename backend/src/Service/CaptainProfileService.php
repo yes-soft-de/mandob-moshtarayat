@@ -13,6 +13,7 @@ use App\Request\CaptainProfileUpdateByAdminRequest;
 use App\Response\CaptainIsActiveResponse;
 use App\Response\CaptainProfileCreateResponse;
 use App\Response\CaptainFinancialAccountDetailsResponse;
+use App\Response\CaptainsProfilesResponse;
 use App\Response\CaptainTotalFinancialAccountInMonthResponse;
 use App\Response\CaptainTotalFinancialAccountInMonthForAdminResponse;
 use App\Response\CaptainCountOrdersDeliveredInTodayResponse;
@@ -574,13 +575,9 @@ class CaptainProfileService
         $captains = $this->userManager->getAllCaptains();
 
         foreach ($captains as $captain) {
-            $captain['imageURL'] = $captain['image'];
-            $captain['image'] = $this->params.$captain['image'];
-            $captain['drivingLicenceURL'] = $captain['drivingLicence'];
-            $captain['drivingLicence'] = $this->params.$captain['drivingLicence'];
-            $captain['baseURL'] = $this->params;
+            $captain['image'] = $this->getImageParams($captain['image'], $this->params.$captain['image'], $this->params);
 
-            $response[]  = $this->autoMapping->map('array',CaptainProfileCreateResponse::class,  $captain);
+            $response[]  = $this->autoMapping->map('array',CaptainsProfilesResponse::class,  $captain);
             }       
 
         return $response;
@@ -681,4 +678,14 @@ class CaptainProfileService
        
        return $response;
    }
+
+    public function getImageParams($imageURL, $image, $baseURL):array
+    {
+        $item['imageURL'] = $imageURL;
+        $item['image'] = $image;
+        $item['baseURL'] = $baseURL;
+
+        return $item;
+    }
+
 }

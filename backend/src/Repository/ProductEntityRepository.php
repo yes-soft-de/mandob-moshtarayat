@@ -28,7 +28,6 @@ class ProductEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, ProductEntity::class);
     }
 
-
     public function getProductsByProductCategoryId($storeProductCategoryID)
     {
         return $this->createQueryBuilder('product')
@@ -38,6 +37,24 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->andWhere('product.storeProductCategoryID =:storeProductCategoryID')
 
             ->setParameter('storeProductCategoryID',$storeProductCategoryID)
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getactiveProductsByProductCategoryId($storeProductCategoryID)
+    {
+        return $this->createQueryBuilder('product')
+
+            ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID','product.discount','product.description')
+
+            ->andWhere('product.storeProductCategoryID =:storeProductCategoryID')
+
+            ->andWhere('product.status =:status')
+
+            ->setParameter('storeProductCategoryID',$storeProductCategoryID)
+
+            ->setParameter('status',self::STATUS_ACTIVE)
 
             ->getQuery()
             ->getResult();
@@ -206,7 +223,7 @@ class ProductEntityRepository extends ServiceEntityRepository
                 ->andWhere('product.status = :status')
 
                 ->setParameter('storeProductCategoryID', $storeProductCategoryID)
-                ->setParameter('status', 'active')
+                ->setParameter('status', self::STATUS_ACTIVE)
 
                 ->getQuery()
                 ->getResult();
@@ -267,8 +284,10 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->leftJoin(DeliveryCompanyFinancialEntity::class, 'DeliveryCompanyFinancialEntity', Join::WITH, 'product.id = product.id')
            
             ->andWhere('product.productName LIKE :productName')
+            ->andWhere('product.status= :status')
 
             ->setParameter('productName', '%'.$name.'%')
+            ->setParameter('status', self::STATUS_ACTIVE)
 
             ->setMaxResults(20)
 
@@ -397,7 +416,7 @@ class ProductEntityRepository extends ServiceEntityRepository
 
             ->andWhere('product.status = :active')
 
-            ->setParameter('active','active')
+            ->setParameter('active',self::STATUS_ACTIVE)
 
             ->addOrderBy('product.id','DESC')
 
