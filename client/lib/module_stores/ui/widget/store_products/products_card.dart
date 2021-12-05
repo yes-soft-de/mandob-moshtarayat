@@ -84,104 +84,109 @@ class _ProductsCardState extends State<ProductsCard> {
                     alignment: Alignment.bottomCenter,
                     child: Container(
                       constraints: const BoxConstraints(
-                        minWidth: 85,
+                        maxWidth: 85,
                       ),
-                      child: Text('${widget.price} ${S.current.sar}',
-                          style: const TextStyle(fontWeight: FontWeight.w600),
-                          textAlign: TextAlign.start),
+                      child: Text(
+                        '${widget.price} ${S.current.sar}',
+                        style: const TextStyle(fontWeight: FontWeight.w600),
+                        textAlign: TextAlign.start,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     )),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Flex(
-                  direction: Axis.vertical,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Center(
-                      child: Container(
-                        constraints: const BoxConstraints(
-                          maxWidth: 150,
-                        ),
-                        child: Text(
-                          widget.title,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 17),
-                          textAlign: TextAlign.center,
-                          overflow: TextOverflow.ellipsis,
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Flex(
+                    direction: Axis.vertical,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Center(
+                        child: SizedBox(
+                          width: 155,
+                          child: Text(
+                            widget.title,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 17),
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                      height: 40,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
-                        color: Theme.of(context).backgroundColor,
-                      ),
-                      child: Row(
-                        children: [
-                          TextButton(
-                            style: ButtonStyle(
-                              shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.horizontal(
-                                      left: Localizations.localeOf(context)
-                                                  .languageCode ==
-                                              'en'
-                                          ? const Radius.circular(25)
-                                          : Radius.zero,
-                                      right: Localizations.localeOf(context)
-                                                  .languageCode ==
-                                              'en'
-                                          ? Radius.zero
-                                          : const Radius.circular(25)),
+                      Container(
+                        height: 40,
+                        width: 155,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25),
+                          color: Theme.of(context).backgroundColor,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TextButton(
+                              style: ButtonStyle(
+                                shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.horizontal(
+                                        left: Localizations.localeOf(context)
+                                                    .languageCode ==
+                                                'en'
+                                            ? const Radius.circular(25)
+                                            : Radius.zero,
+                                        right: Localizations.localeOf(context)
+                                                    .languageCode ==
+                                                'en'
+                                            ? Radius.zero
+                                            : const Radius.circular(25)),
+                                  ),
                                 ),
                               ),
+                              onPressed: () {
+                                if (cartModel.quantity > 0) {
+                                  cartModel.quantity = cartModel.quantity - 1;
+                                  setState(() {
+                                    widget.quantity(cartModel);
+                                  });
+                                }
+                              },
+                              child: const Icon(Icons.remove),
                             ),
-                            onPressed: () {
-                              if (cartModel.quantity > 0) {
-                                cartModel.quantity = cartModel.quantity - 1;
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 8.0, right: 8.0),
+                              child: Text(cartModel.quantity.toString()),
+                            ),
+                            TextButton(
+                              style: ButtonStyle(
+                                shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.horizontal(
+                                        left: Localizations.localeOf(context)
+                                                    .languageCode ==
+                                                'en'
+                                            ? Radius.zero
+                                            : const Radius.circular(25),
+                                        right: Localizations.localeOf(context)
+                                                    .languageCode ==
+                                                'en'
+                                            ? const Radius.circular(25)
+                                            : Radius.zero),
+                                  ),
+                                ),
+                              ),
+                              onPressed: () {
+                                cartModel.quantity = cartModel.quantity + 1;
                                 setState(() {
                                   widget.quantity(cartModel);
                                 });
-                              }
-                            },
-                            child: const Icon(Icons.remove),
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(left: 8.0, right: 8.0),
-                            child: Text(cartModel.quantity.toString()),
-                          ),
-                          TextButton(
-                            style: ButtonStyle(
-                              shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.horizontal(
-                                      left: Localizations.localeOf(context)
-                                                  .languageCode ==
-                                              'en'
-                                          ? Radius.zero
-                                          : const Radius.circular(25),
-                                      right: Localizations.localeOf(context)
-                                                  .languageCode ==
-                                              'en'
-                                          ? const Radius.circular(25)
-                                          : Radius.zero),
-                                ),
-                              ),
+                              },
+                              child: const Icon(Icons.add),
                             ),
-                            onPressed: () {
-                              cartModel.quantity = cartModel.quantity + 1;
-                              setState(() {
-                                widget.quantity(cartModel);
-                              });
-                            },
-                            child: const Icon(Icons.add),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],
