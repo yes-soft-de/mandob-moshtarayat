@@ -263,8 +263,8 @@ class StoreOwnerProfileService
         return $this->userManager->countStores();
     }
 
-    public function getStoresByName($name) {
-       return $this->userManager->getStoresByName($name);
+    public function getActiveStoresByName($name) {
+       return $this->userManager->getActiveStoresByName($name);
     }
 
     public function getStoresFilterByName($name) {

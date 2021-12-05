@@ -251,6 +251,11 @@ class UserManager
         return $this->storeOwnerProfileEntityRepository->getStoresByName($name);
     }
 
+    public function getActiveStoresByName($name)
+    {
+        return $this->storeOwnerProfileEntityRepository->getActiveStoresByName($name);
+    }
+
     public function captainFilter($name)
     {
         return $this->captainProfileEntityRepository->captainFilter($name);

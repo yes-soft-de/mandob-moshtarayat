@@ -284,8 +284,10 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->leftJoin(DeliveryCompanyFinancialEntity::class, 'DeliveryCompanyFinancialEntity', Join::WITH, 'product.id = product.id')
            
             ->andWhere('product.productName LIKE :productName')
+            ->andWhere('product.status= :status')
 
             ->setParameter('productName', '%'.$name.'%')
+            ->setParameter('status', self::STATUS_ACTIVE)
 
             ->setMaxResults(20)
 
