@@ -371,6 +371,8 @@
   "cart":"سلة المشتريات",
   "saller": "البائع",
   "favoriteCategories":"التصنيفات المفضلة",
-  "favoriteStores":"المتاجر المفضلة"
+  "favoriteStores":"المتاجر المفضلة",
+  "preferredLanguage":"اللغة المفضلة",
+  "selectLanguage":"اختر لغتك المفضلة"
 
 }

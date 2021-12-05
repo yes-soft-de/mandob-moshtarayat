@@ -372,7 +372,10 @@
   "cart":"Cart",
   "saller": "Saller",
   "favoriteCategories":"Favorite Categories",
-  "favoriteStores":"Favorite Stores"
+  "favoriteStores":"Favorite Stores",
+  "preferredLanguage":"Preferred Language",
+  "selectLanguage":"Select Language"
+
 
 
   
