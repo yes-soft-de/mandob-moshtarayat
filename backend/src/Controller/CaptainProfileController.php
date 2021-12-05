@@ -439,7 +439,10 @@ class CaptainProfileController extends BaseController
      *              @OA\Property(type="integer", property="id"),
      *              @OA\Property(type="string", property="captainID"),
      *              @OA\Property(type="string", property="captainName"),
-     *              @OA\Property(type="string", property="image"),
+     *              @OA\Property(type="object", property="image",
+     *                 @OA\Property(type="string", property="imageURL"),
+     *                 @OA\Property(type="string", property="baseURL"),
+     *              ),
      *                   )
      *              )
      *          )
