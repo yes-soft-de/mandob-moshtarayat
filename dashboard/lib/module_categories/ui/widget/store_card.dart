@@ -5,9 +5,9 @@ class StoresCategoryCard extends StatelessWidget {
   final String storeName;
   final String image;
   final Widget dialog;
-
+  final VoidCallback onTap;
   StoresCategoryCard(
-      {required this.storeName, required this.image, required this.dialog});
+      {required this.storeName,required this.onTap ,required this.image, required this.dialog});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,6 @@ class StoresCategoryCard extends StatelessWidget {
           ),
           child: Flex(
             direction: Axis.horizontal,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -43,13 +42,16 @@ class StoresCategoryCard extends StatelessWidget {
                   ),
                 ),
               ),
-              Text(
-                storeName,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
+              Expanded(
+                child: Text(
+                  storeName,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
+              Spacer(flex: 1,),
               InkWell(
                 customBorder: CircleBorder(),
                 onTap: () {
@@ -59,23 +61,39 @@ class StoresCategoryCard extends StatelessWidget {
                         return dialog;
                       });
                 },
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Theme.of(context).backgroundColor.withOpacity(0.2),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(
-                        Icons.edit,
-                        color: Colors.white,
-                      ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Theme.of(context).backgroundColor.withOpacity(0.2),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      Icons.edit,
+                      color: Colors.white,
                     ),
                   ),
                 ),
               ),
+              SizedBox(width: 8,),
+              InkWell(
+                customBorder: CircleBorder(),
+                onTap: onTap,
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Theme.of(context).backgroundColor.withOpacity(0.2),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      Icons.delete,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(width: 8,),
             ],
           ),
         ),
