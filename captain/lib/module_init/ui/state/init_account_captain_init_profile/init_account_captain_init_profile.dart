@@ -85,6 +85,12 @@ class InitAccountCaptainInitProfile extends InitAccountState {
                               )),
                         ),
                       ),
+              Center(
+                child: Text(S.current.chooseCaptainProfile,style:TextStyle(
+                  color: Theme.of(context).disabledColor,
+                  fontWeight: FontWeight.bold
+                )),
+              ),
                 // phone
                 Align(
                     alignment: AlignmentDirectional.bottomStart,
