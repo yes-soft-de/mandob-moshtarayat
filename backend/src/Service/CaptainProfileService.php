@@ -13,6 +13,7 @@ use App\Request\CaptainProfileUpdateByAdminRequest;
 use App\Response\CaptainIsActiveResponse;
 use App\Response\CaptainProfileCreateResponse;
 use App\Response\CaptainFinancialAccountDetailsResponse;
+use App\Response\CaptainProfileInActiveGetResponse;
 use App\Response\CaptainsProfilesResponse;
 use App\Response\CaptainTotalFinancialAccountInMonthResponse;
 use App\Response\CaptainTotalFinancialAccountInMonthForAdminResponse;
@@ -150,12 +151,9 @@ class CaptainProfileService
         $items = $this->userManager->getCaptainsInactive();
 
         foreach( $items as  $item ) {
-            $item['imageURL'] = $item['image'];
-            $item['image'] = $this->params.$item['image'];
-            $item['drivingLicenceURL'] = $item['drivingLicence'];
-            $item['drivingLicence'] = $this->params.$item['drivingLicence'];
-            $item['baseURL'] = $this->params;
-            $response[]  = $this->autoMapping->map('array', CaptainProfileEntity::class, $item);
+            $item['image'] = $this->getImageParams($item['image'], $this->params.$item['image'], $this->params);
+
+            $response[]  = $this->autoMapping->map('array', CaptainProfileInActiveGetResponse::class, $item);
             }
 
         return $response;
