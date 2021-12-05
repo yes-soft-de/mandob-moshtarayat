@@ -231,29 +231,9 @@ class UserManager
         }
     }
 
-    public function getStoreOwnerProfileByID($id)
-    {
-        return $this->storeOwnerProfileEntityRepository->getStoreOwnerProfileByID($id);
-    }
-
-    public function getStoreNameById($id)
-    {
-        return $this->storeOwnerProfileEntityRepository->getStoreOwnerProfileByID($id);
-    }
-
     public function getremainingOrders($userID)
     {
         return $this->storeOwnerProfileEntityRepository->getremainingOrders($userID);
-    }
-
-    public function getStoresByName($name)
-    {
-        return $this->storeOwnerProfileEntityRepository->getStoresByName($name);
-    }
-
-    public function getActiveStoresByName($name)
-    {
-        return $this->storeOwnerProfileEntityRepository->getActiveStoresByName($name);
     }
 
     public function captainFilter($name)
@@ -266,11 +246,6 @@ class UserManager
         return $this->clientProfileEntityRepository->clientsByName($name);
     }
 
-    public function countStores()
-    {
-        return $this->storeOwnerProfileEntityRepository->countStores();
-    }
-    
     public function updateCaptainProfile(CaptainProfileUpdateRequest $request)
     {
         $item = $this->captainProfileEntityRepository->getByCaptainIDForUpdate($request->getUserID());
@@ -347,11 +322,6 @@ class UserManager
         return $this->captainProfileEntityRepository->captainIsActive($captainID);
     }
 
-    public function storeIsActive($storeOwnerID)
-    {
-        return $this->storeOwnerProfileEntityRepository->storeIsActive($storeOwnerID);
-    }
-
     public function getCaptainsState($state)
     {
         return $this->captainProfileEntityRepository->getCaptainsState($state);
@@ -387,11 +357,6 @@ class UserManager
         return $this->captainProfileEntityRepository->getCaptainAsArrayByCaptainId($captainID);
     }
 
-    public function getAllStoreOwners()
-    {
-        return $this->storeOwnerProfileEntityRepository->getAllStoreOwners();
-    }
-    
     public function getAllCaptains()
     {
         return $this->captainProfileEntityRepository->getAllCaptains();
@@ -478,21 +443,6 @@ class UserManager
     public function getStoreOwnerByCategoryIdForAdmin($storeCategoryId)
     {
         return $this->storeOwnerProfileEntityRepository->getStoreOwnerByCategoryIdForAdmin($storeCategoryId);
-    }
-
-    public function getStoreOwnerBest()
-    {
-        return $this->storeOwnerProfileEntityRepository->getStoreOwnerBest();
-    }
-
-    public function getStoreOwnerInactive()
-    {
-        return $this->storeOwnerProfileEntityRepository->getStoreOwnerInactive();
-    }
-
-    public function getStoreOwnerInactiveFilterByName($name)
-    {
-        return $this->storeOwnerProfileEntityRepository->getStoreOwnerInactiveFilterByName($name);
     }
 
     public function createStoreOwnerProfileByAdmin(StoreOwnerProfileCreateByAdminRequest $request)

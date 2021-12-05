@@ -174,4 +174,68 @@ class StoreOwnerProfileManager
         return $this->storeOwnerProfileEntityRepository->getStoreOwnerProfileByCategoryID($storeCategoryID);
     }
 
+    public function getActiveStoresByName($name)
+    {
+        return $this->storeOwnerProfileEntityRepository->getActiveStoresByName($name);
+    }
+
+    public function getStoresByName($name)
+    {
+        return $this->storeOwnerProfileEntityRepository->getStoresByName($name);
+    }
+
+    public function getStoreOwnerProfileByID($id)
+    {
+        return $this->storeOwnerProfileEntityRepository->getStoreOwnerProfileByID($id);
+    }
+
+    public function getStoreNameById($id)
+    {
+        return $this->storeOwnerProfileEntityRepository->getStoreOwnerProfileByID($id);
+    }
+
+    public function getStoreProfileId($userID)
+    {
+        return $this->storeOwnerProfileEntityRepository->getStoreProfileId($userID);
+    }
+    public function countStores()
+    {
+        return $this->storeOwnerProfileEntityRepository->countStores();
+    }
+
+    public function storeIsActive($storeOwnerID)
+    {
+        return $this->storeOwnerProfileEntityRepository->storeIsActive($storeOwnerID);
+    }
+
+    public function getAllStoreOwners()
+    {
+        return $this->storeOwnerProfileEntityRepository->getAllStoreOwners();
+    }
+
+    public function getStoreOwnerByCategoryId($storeCategoryId)
+    {
+        return $this->storeOwnerProfileEntityRepository->getStoreOwnerByCategoryId($storeCategoryId);
+    }
+
+    public function getStoreOwnerByCategoryIdForAdmin($storeCategoryId)
+    {
+        return $this->storeOwnerProfileEntityRepository->getStoreOwnerByCategoryIdForAdmin($storeCategoryId);
+    }
+
+    public function getStoreOwnerBest()
+    {
+        return $this->storeOwnerProfileEntityRepository->getStoreOwnerBest();
+    }
+
+    public function getStoreOwnerInactive()
+    {
+        return $this->storeOwnerProfileEntityRepository->getStoreOwnerInactive();
+    }
+
+    public function getStoreOwnerInactiveFilterByName($name)
+    {
+        return $this->storeOwnerProfileEntityRepository->getStoreOwnerInactiveFilterByName($name);
+    }
+
 }

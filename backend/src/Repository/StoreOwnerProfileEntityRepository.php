@@ -342,4 +342,18 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getStoreProfileId($userID)
+    {
+        return $this->createQueryBuilder('profile')
+
+            ->select('profile.id')
+
+            ->andWhere('profile.storeOwnerID=:userID')
+
+            ->setParameter('userID', $userID)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

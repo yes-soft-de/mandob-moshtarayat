@@ -94,7 +94,7 @@ class StoreOwnerProfileService
     {
         $response = null;
 
-        $item = $this->userManager->getStoreOwnerProfileByID($id);
+        $item = $this->storeOwnerProfileManager->getStoreOwnerProfileByID($id);
         if($item){
             $item['imageURL'] = $item['image'];
             $item['image'] = $this->params.$item['image'];
@@ -109,7 +109,7 @@ class StoreOwnerProfileService
 
     public function getStoreNameById($id)
     {
-        $item = $this->userManager->getStoreNameById($id);
+        $item = $this->storeOwnerProfileManager->getStoreNameById($id);
 
         return $this->autoMapping->map('array', StoreNameResponse::class, $item);
     }
@@ -118,9 +118,9 @@ class StoreOwnerProfileService
     {
         $response = null;
 
-        $storeOwnerProfileId = $this->userManager->getStoreProfileId($userID);
+        $storeOwnerProfileId = $this->storeOwnerProfileManager->getStoreProfileId($userID);
 
-        $item = $this->userManager->getStoreOwnerProfileByID($storeOwnerProfileId);
+        $item = $this->storeOwnerProfileManager->getStoreOwnerProfileByID($storeOwnerProfileId);
 
         if($item)
         {
@@ -140,7 +140,7 @@ class StoreOwnerProfileService
     {
         $response = [];
 
-        $items = $this->userManager->getAllStoreOwners();
+        $items = $this->storeOwnerProfileManager->getAllStoreOwners();
         foreach ($items as $item) {
             $item['rating'] = $this->ratingService->getAvgRating($item['id'], 'store');
             $item['imageURL'] = $item['image'];
@@ -162,7 +162,7 @@ class StoreOwnerProfileService
     {
         $response = [];
 
-        $items = $this->userManager->getStoreOwnerByCategoryId($storeCategoryId);
+        $items = $this->storeOwnerProfileManager->getStoreOwnerByCategoryId($storeCategoryId);
         foreach ($items as $item) {
             $item['rating'] = $this->ratingService->getAvgRating($item['id'], 'store');
             $item['image'] = $this->getImageParams($item['image'], $this->params.$item['image'], $this->params);
@@ -177,7 +177,7 @@ class StoreOwnerProfileService
     {
         $response = [];
 
-        $items = $this->userManager->getStoreOwnerByCategoryIdForAdmin($storeCategoryId);
+        $items = $this->storeOwnerProfileManager->getStoreOwnerByCategoryIdForAdmin($storeCategoryId);
 
         foreach ($items as $item) {
             $item['image'] = $this->getImageParams($item['image'], $this->params.$item['image'], $this->params);
@@ -193,7 +193,7 @@ class StoreOwnerProfileService
     {
         $response = [];
 
-        $items = $this->userManager->getStoreOwnerBest();
+        $items = $this->storeOwnerProfileManager->getStoreOwnerBest();
 
         foreach ($items as $item) {
             $item['image'] = $this->getImageParams($item['image'], $this->params.$item['image'], $this->params);
@@ -208,7 +208,7 @@ class StoreOwnerProfileService
     {
         $response = [];
 
-        $items = $this->userManager->getStoreOwnerInactive();
+        $items = $this->storeOwnerProfileManager->getStoreOwnerInactive();
 
         foreach ($items as $item) {
             $item['imageURL'] = $item['image'];
@@ -225,7 +225,7 @@ class StoreOwnerProfileService
     {
         $response = [];
 
-        $items = $this->userManager->getStoreOwnerInactiveFilterByName($name);
+        $items = $this->storeOwnerProfileManager->getStoreOwnerInactiveFilterByName($name);
 
         foreach ($items as $item) {
             $item['imageURL'] = $item['image'];
@@ -260,17 +260,17 @@ class StoreOwnerProfileService
     }
 
     public function countStores() {
-        return $this->userManager->countStores();
+        return $this->storeOwnerProfileManager->countStores();
     }
 
     public function getActiveStoresByName($name) {
-       return $this->userManager->getActiveStoresByName($name);
+       return $this->storeOwnerProfileManager->getActiveStoresByName($name);
     }
 
     public function getStoresFilterByName($name) {
         $response = [];
 
-        $items = $this->userManager->getStoresByName($name);
+        $items = $this->storeOwnerProfileManager->getStoresByName($name);
 
         foreach ($items as $item) {
             $item['image'] = $this->getImageParams($item['image'], $this->params.$item['image'], $this->params);
@@ -283,14 +283,14 @@ class StoreOwnerProfileService
 
     public function storeIsActive($userID)
     {
-        $item = $this->userManager->storeIsActive($userID);
+        $item = $this->storeOwnerProfileManager->storeIsActive($userID);
 
         return $this->autoMapping->map('array',CaptainIsActiveResponse::class, $item);
     }
 
     public function storeFinancialAccountForStore($userID)
     {
-        $storeOwnerProfileId = $this->userManager->getStoreProfileId($userID);
+        $storeOwnerProfileId = $this->storeOwnerProfileManager->getStoreProfileId($userID);
 
         $item['amountOwedToStore'] = (float)$this->storeOwnerProfileManager->getSumInvoicesForStore($storeOwnerProfileId);
         $item['sumPaymentsToStore'] = (float)$this->deliveryCompanyPaymentsToStoreService->deliveryCompanySumPaymentsToStore($storeOwnerProfileId);
@@ -302,7 +302,7 @@ class StoreOwnerProfileService
 
     public function storeFinancialAccountForStoreInSpecificDate($userID, $fromDate, $toDate)
     {
-        $storeOwnerProfileId = $this->userManager->getStoreProfileId($userID);
+        $storeOwnerProfileId = $this->storeOwnerProfileManager->getStoreProfileId($userID);
 
         $item['amountOwedToStore'] = (float)$this->storeOwnerProfileManager->getSumInvoicesForStoreInSpecificDate($storeOwnerProfileId, $fromDate, $toDate);
         $item['sumPaymentsToStore'] = (float)$this->deliveryCompanyPaymentsToStoreService->deliveryCompanySumPaymentsToStoreInSpecificDate($storeOwnerProfileId, $fromDate, $toDate);
