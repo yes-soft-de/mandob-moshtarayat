@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
+import 'package:mandob_moshtarayat_dashboad/utils/effect/hidder.dart';
 
 class AuthButtons extends StatelessWidget {
   final String firstButtonTitle;
@@ -68,27 +69,30 @@ class AuthButtons extends StatelessWidget {
                   )),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(
-                right: 16.0, left: 16, bottom: 8.0, top: 8.0),
-            child: Container(
-              width: double.maxFinite,
-              height: 50,
-              child: ElevatedButton(
-                  onPressed: secondButtonTab,
-                  style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                    primary: Theme.of(context).backgroundColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25),
+          Hider(
+            active:false,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  right: 16.0, left: 16, bottom: 8.0, top: 8.0),
+              child: Container(
+                width: double.maxFinite,
+                height: 50,
+                child: ElevatedButton(
+                    onPressed: secondButtonTab,
+                    style: ElevatedButton.styleFrom(
+                      elevation: 0,
+                      primary: Theme.of(context).backgroundColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
                     ),
-                  ),
-                  child: Center(
-                    child: Text(
-                      secondButtonTitle,
-                      style: TextStyle(),
-                    ),
-                  )),
+                    child: Center(
+                      child: Text(
+                        secondButtonTitle,
+                        style: TextStyle(),
+                      ),
+                    )),
+              ),
             ),
           ),
         ],
