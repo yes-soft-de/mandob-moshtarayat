@@ -50,6 +50,10 @@ class StoreCategoriesScreenState extends State<StoreCategoriesScreen> {
     widget._stateManager.updateCategory(this, request);
   }
 
+  void deleteCategories(String id) {
+    widget._stateManager.deleteCategories(this,id);
+  }
+
   void refresh() {
     if (mounted) {
       setState(() {});

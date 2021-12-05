@@ -6,6 +6,7 @@ import 'package:mandob_moshtarayat_dashboad/module_categories/model/subCategorie
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/sub_categories_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/screen/sub_categories_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/widget/sub_categories.dart';
+import 'package:mandob_moshtarayat_dashboad/module_orders/ui/widget/order_details/custom_alert_dialog.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_list_view.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/empty_screen.dart';
@@ -120,7 +121,6 @@ class SubCategoriesLoadedState extends States {
           ),
           child: Flex(
             direction: Axis.horizontal,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -175,25 +175,54 @@ class SubCategoriesLoadedState extends States {
                         );
                       });
                 },
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Theme.of(screenState.context)
-                          .backgroundColor
-                          .withOpacity(0.2),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(
-                        Icons.edit,
-                        color: Colors.white,
-                      ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Theme.of(screenState.context)
+                        .backgroundColor
+                        .withOpacity(0.2),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      Icons.edit,
+                      color: Colors.white,
                     ),
                   ),
                 ),
               ),
+              SizedBox(width: 8,), 
+              InkWell(
+                onTap: () {
+                showDialog(
+              context: screenState.context,
+              builder: (context) {
+                return CustomAlertDialog(
+                    message: S.current.sureForDeleteCategories,
+                    onPressed: () {
+                              Navigator.of(context).pop();
+
+                      screenState.deleteSubCategories(element.id.toString());
+                    });
+              });
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Theme.of(screenState.context)
+                        .backgroundColor
+                        .withOpacity(0.2),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      Icons.delete,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(width: 8,), 
             ],
           ),
         ),

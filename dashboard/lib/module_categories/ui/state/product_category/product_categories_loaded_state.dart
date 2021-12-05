@@ -6,6 +6,7 @@ import 'package:mandob_moshtarayat_dashboad/module_categories/model/subCategorie
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/category_level_tow_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/screen/level_tow_categories_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/widget/add_categories_level_tow.dart';
+import 'package:mandob_moshtarayat_dashboad/module_orders/ui/widget/order_details/custom_alert_dialog.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_list_view.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/empty_screen.dart';
@@ -20,8 +21,9 @@ class ProductCategoriesLoadedState extends States {
   final List<StoreCategoriesModel>? categories;
   final List<SubCategoriesModel>? subCategoriesLevelTow;
 
-  ProductCategoriesLoadedState(this.screenState, this.subCategories,this.categories,{this.subCategoriesLevelTow,
-      this.empty = false, this.error})
+  ProductCategoriesLoadedState(
+      this.screenState, this.subCategories, this.categories,
+      {this.subCategoriesLevelTow, this.empty = false, this.error})
       : super(screenState) {
     if (error != null) {
       screenState.canAddCategories = false;
@@ -98,7 +100,8 @@ class ProductCategoriesLoadedState extends States {
                       items: getSubCategories(),
                       onChanged: (v) {
                         screenState.subCatId = v.toString();
-                        screenState.getSubCategoriesLevelTow(categories,subCategories);
+                        screenState.getSubCategoriesLevelTow(
+                            categories, subCategories);
                         screenState.refresh();
                       },
                       hint: Text(
@@ -134,6 +137,7 @@ class ProductCategoriesLoadedState extends States {
     });
     return items;
   }
+
   List<DropdownMenuItem<String>> getSubCategories() {
     List<DropdownMenuItem<String>> items = [];
     subCategories?.forEach((element) {
@@ -161,7 +165,6 @@ class ProductCategoriesLoadedState extends States {
           ),
           child: Flex(
             direction: Axis.horizontal,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -197,43 +200,77 @@ class ProductCategoriesLoadedState extends States {
                             appBar: CustomTwaslnaAppBar.appBar(context,
                                 title: S.current.addNewCategory),
                             backgroundColor:
-                            Theme.of(context).scaffoldBackgroundColor,
+                                Theme.of(context).scaffoldBackgroundColor,
                             body: AddSubCategoriesLevelTowWidget(
                               state: this,
                               catID: screenState.mainCatId,
                               subCatID: screenState.subCatId,
                               subCategoriesModel: element,
-                              addSubCategories: (id,subId,name, image) {
-                                screenState.updateCategoryLevel2(CategoryLevelTowRequest(
-                                    storeProductCategoryID: int.parse(subId),
-                                    productCategoryName: name,
-                                    productCategoryImage: image,
-                                    id: element.id
-                                ));
+                              addSubCategories: (id, subId, name, image) {
+                                screenState.updateCategoryLevel2(
+                                    CategoryLevelTowRequest(
+                                        storeProductCategoryID:
+                                            int.parse(subId),
+                                        productCategoryName: name,
+                                        productCategoryImage: image,
+                                        id: element.id));
                               },
                             ),
                           ),
                         );
                       });
                 },
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Theme.of(screenState.context)
-                          .backgroundColor
-                          .withOpacity(0.2),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(
-                        Icons.edit,
-                        color: Colors.white,
-                      ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Theme.of(screenState.context)
+                        .backgroundColor
+                        .withOpacity(0.2),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      Icons.edit,
+                      color: Colors.white,
                     ),
                   ),
                 ),
+              ),
+              SizedBox(
+                width: 8.0,
+              ),
+              InkWell(
+                onTap: () {
+                  showDialog(
+                      context: screenState.context,
+                      builder: (context) {
+                        return CustomAlertDialog(
+                            message: S.current.sureForDeleteCategories,
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              screenState
+                                  .deleteSubCategories(element.id.toString());
+                            });
+                      });
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Theme.of(screenState.context)
+                        .backgroundColor
+                        .withOpacity(0.2),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      Icons.delete,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 8.0,
               ),
             ],
           ),

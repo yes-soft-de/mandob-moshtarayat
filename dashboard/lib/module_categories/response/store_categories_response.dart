@@ -59,16 +59,22 @@ class Data {
     return map;
   }
 }
+
 class Image {
   Image({
     this.imageURL,
     this.image,
-    this.baseURL,});
+    this.baseURL,
+  });
 
   Image.fromJson(dynamic json) {
-    imageURL = json['imageURL'];
-    image = json['image'];
-    baseURL = json['baseURL'];
+    if (json is Map) {
+      imageURL = json['imageURL'];
+      image = json['image'];
+      baseURL = json['baseURL'];
+    } else {
+      image = json.toString();
+    }
   }
   String? imageURL;
   String? image;
@@ -81,5 +87,4 @@ class Image {
     map['baseURL'] = baseURL;
     return map;
   }
-
 }

@@ -4,18 +4,12 @@ import 'package:mandob_moshtarayat_dashboad/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/model/StoreCategoriesModel.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/model/subCategoriesModel.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/category_level_tow_request.dart';
-import 'package:mandob_moshtarayat_dashboad/module_categories/ui/state/sub_categories/sub_categories_loaded_state.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_auth/service/auth_service/auth_service.dart';
-import 'package:mandob_moshtarayat_dashboad/module_categories/model/products_categories_model.dart';
-import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_products_request.dart';
-import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_product_category_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/service/store_categories_service.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/screen/level_tow_categories_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/state/product_category/product_categories_loaded_state.dart';
-import 'package:mandob_moshtarayat_dashboad/module_categories/ui/state/product_category/product_categories_loading_state.dart';
-import 'package:mandob_moshtarayat_dashboad/module_categories/ui/state/product_category/product_categories_state.dart';
 import 'package:mandob_moshtarayat_dashboad/module_upload/service/image_upload/image_upload_service.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/helpers/custom_flushbar.dart';
 
@@ -137,4 +131,24 @@ class ProductsCategoryStateManager {
         });
     });
   }
+    void deleteSubCategories(LevelTowCategoriesScreenState screenState, String id) {
+    _stateSubject.add(LoadingState(screenState));
+    _categoriesService.deleteSubCategories(id).then((value) {
+      if (value.hasError) {
+            getProductCategory(screenState);
+            CustomFlushBarHelper.createError(
+                title: S.current.warnning, message: value.error ?? '')
+              .show(screenState.context);
+         
+      } else {
+            getProductCategory(screenState);
+            CustomFlushBarHelper.createSuccess(
+                title: S.current.warnning,
+                message: S.current.deleteSuccess)
+              .show(screenState.context);
+          }
+      }
+    );
+  }
+
 }

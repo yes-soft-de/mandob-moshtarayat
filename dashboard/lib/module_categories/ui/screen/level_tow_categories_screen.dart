@@ -67,6 +67,12 @@ class LevelTowCategoriesScreenState extends State<LevelTowCategoriesScreen> {
     widget.stateManager.updateProductCategory(this, request);
   }
 
+  void deleteSubCategories(String id) {
+    mainCatId = null;
+    subCatId = null;
+    widget.stateManager.deleteSubCategories(this,id);
+  }
+  
   void refresh() {
     if (mounted) {
       setState(() {});
