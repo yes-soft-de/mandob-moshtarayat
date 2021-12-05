@@ -62,6 +62,25 @@ class ProductService
         return $response;
     }
 
+    public function getactiveProductsByProductCategoryId($storeProductCategoryID)
+    {
+        $response = [];
+
+        $items = $this->productManager->getactiveProductsByProductCategoryId($storeProductCategoryID);
+
+        foreach ($items as $item) {
+
+            $item['store'] = $this->storeOwnerProfileService->getStoreNameById($item['storeOwnerProfileID']);
+            $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
+            $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
+            $item['soldCount'] = $this->getProductsSoldCount($item['id']);
+
+            $response[] = $this->autoMapping->map('array', ProductsByProductCategoryIdResponse::class, $item);
+        }
+
+        return $response;
+    }
+
     public function getProductsByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId)
     {
         $response = [];

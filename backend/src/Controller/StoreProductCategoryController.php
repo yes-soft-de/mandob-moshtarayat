@@ -608,6 +608,7 @@ class StoreProductCategoryController extends BaseController
       }
 
     /**
+     * get active products by first subcategory.
      * @Route("storeproductscategoryleveltwowithproducts/{storeProductCategoryID}", name="getStoreProductsCategoryLevelTwoWithProductsByStoreProductCategoryID", methods={"GET"})
      * @return JsonResponse
      * *
