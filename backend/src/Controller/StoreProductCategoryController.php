@@ -717,6 +717,7 @@ class StoreProductCategoryController extends BaseController
      *          )
      *      )
      * )
+     *
      * or
      *
      * @OA\Response(
@@ -732,7 +733,7 @@ class StoreProductCategoryController extends BaseController
      * or
      *
      * @OA\Response(
-     *      response=404,
+     *      response="default",
      *      description="Returns the category related to category Or product",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code", description="9201"),

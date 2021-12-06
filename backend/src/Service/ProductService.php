@@ -62,11 +62,11 @@ class ProductService
         return $response;
     }
 
-    public function getactiveProductsByProductCategoryId($storeProductCategoryID)
+    public function getActiveProductsByProductCategoryId($storeProductCategoryID)
     {
         $response = [];
 
-        $items = $this->productManager->getactiveProductsByProductCategoryId($storeProductCategoryID);
+        $items = $this->productManager->getActiveProductsByProductCategoryId($storeProductCategoryID);
 
         foreach ($items as $item) {
 

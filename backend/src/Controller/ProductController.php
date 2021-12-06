@@ -925,9 +925,8 @@ class ProductController extends BaseController
     }
 
     /**
-     * client:Get products of store specific.
+     * Get products of store specific.
      * @Route("/productsstoreownerprofileid/{storeOwnerProfileId}", name="getProductsStoreOwnerProfileId  ", methods={"GET"})
-     * @IsGranted("ROLE_CLIENT")
      * @param $storeProductCategoryID
      * @param $storeOwnerProfileId
      * @return JsonResponse

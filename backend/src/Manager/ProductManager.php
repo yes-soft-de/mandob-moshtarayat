@@ -47,9 +47,9 @@ class ProductManager
         return $this->productEntityRepository->getProductsByProductCategoryId($storeProductCategoryID);
     }
 
-    public function getactiveProductsByProductCategoryId($storeProductCategoryID)
+    public function getActiveProductsByProductCategoryId($storeProductCategoryID)
     {
-        return $this->productEntityRepository->getactiveProductsByProductCategoryId($storeProductCategoryID);
+        return $this->productEntityRepository->getActiveProductsByProductCategoryId($storeProductCategoryID);
     }
 
     public function getProductsByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId)

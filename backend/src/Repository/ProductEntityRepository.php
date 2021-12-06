@@ -42,7 +42,7 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function getactiveProductsByProductCategoryId($storeProductCategoryID)
+    public function getActiveProductsByProductCategoryId($storeProductCategoryID)
     {
         return $this->createQueryBuilder('product')
 
