@@ -89,9 +89,9 @@ class StoreCategoryManager
        return $this->storeCategoryEntityRepository->find($id);
     }
 
-    public function isItRelatedToSubcategories($id):string
+    public function isItRelatedToSubcategoriesOrStore($id):string
     {
-        $items = $this->storeCategoryEntityRepository->isItRelatedToSubcategories($id);
+        $items = $this->storeCategoryEntityRepository->isItRelatedToSubcategoriesOrStore($id);
         if($items) {
             return "related";
         }

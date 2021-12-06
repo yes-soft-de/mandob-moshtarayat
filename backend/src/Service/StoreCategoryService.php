@@ -165,13 +165,19 @@ class StoreCategoryService
 
     public function deleteStoreCategoryByID($request)
     {
-        $result = $this->storeCategoryManager->deleteStoreCategoryByID($request);
+        $isRelated = $this->storeCategoryManager->isItRelatedToSubcategoriesOrStore($request->getID());
+        if($isRelated == "not related"){
+            $result = $this->storeCategoryManager->deleteStoreCategoryByID($request);
 
-        if($result == 'storeCategoryNotFound'){
-            return $result;
+            if($result == 'storeCategoryNotFound'){
+                return $result;
+            }
+
+            else{
+                return $this->autoMapping->map(StoreCategoryEntity::class, StoreCategoryByIdResponse::class, $result);
+            }
         }
-        else{
-            return $this->autoMapping->map(StoreCategoryEntity::class, StoreCategoryByIdResponse::class, $result);
-        }
+
+        return $isRelated;
     }
 }

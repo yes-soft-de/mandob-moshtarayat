@@ -373,6 +373,7 @@ class StoreCategoryController extends BaseController
      *          )
      *      )
      * )
+     *
      * or
      *
      * @OA\Response(
@@ -384,6 +385,18 @@ class StoreCategoryController extends BaseController
      *          @OA\Property(type="string", property="Data", description="storeCategoryNotFound"),
      *      )
      * )
+     *
+     * or
+     *
+     * @OA\Response(
+     *      response=401,
+     *      description="Returns the category Related To Subcategories or store.",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code", description="9201"),
+     *          @OA\Property(type="string", property="msg", description="error related Successfully."),
+     *          @OA\Property(type="string", property="Data", description="related"),
+     *      )
+     * )
      */
     public function deleteStoreCategoryByID(Request $request): JsonResponse
     {
@@ -392,6 +405,10 @@ class StoreCategoryController extends BaseController
         $result = $this->storeCategoryService->deleteStoreCategoryByID($request);
         if ($result == "storeCategoryNotFound"){
             return $this->response($result, self::NOTFOUND);
+        }
+
+        if ($result == "related"){
+            return $this->response($result, self::ERROR_RELATED);
         }
 
         return $this->response($result, self::DELETE);
