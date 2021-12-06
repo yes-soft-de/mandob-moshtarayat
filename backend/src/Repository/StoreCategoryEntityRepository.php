@@ -32,6 +32,20 @@ class StoreCategoryEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getLast15StoreCategories()
+    {
+        return $this->createQueryBuilder('storeCategory')
+
+            ->select('storeCategory.id', 'storeCategory.storeCategoryName', 'storeCategory.description', 'storeCategory.image')
+
+            ->addOrderBy('storeCategory.id','DESC')
+
+            ->setMaxResults(15)
+
+            ->getQuery()
+            ->getResult();
+    }
+
     public function isItRelatedToSubcategories($id)
     {
         return $this->createQueryBuilder('storeCategory')

@@ -97,6 +97,26 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getLast15StoresByCategoryID($storeCategoryID)
+    {
+        return $this->createQueryBuilder('profile')
+            ->select('profile.id', 'profile.storeOwnerName', 'profile.image', 'profile.phone', 'profile.status')
+
+            ->andWhere('profile.storeCategoryId = :storeCategoryId')
+            ->setParameter('storeCategoryId', $storeCategoryID)
+
+            ->andWhere('profile.status = :status')
+
+            ->setParameter('status', self::STATUS_ACTIVE)
+
+            ->addOrderBy('profile.id','DESC')
+
+            ->setMaxResults(15)
+
+            ->getQuery()
+            ->getResult();
+    }
+
     public function getStoreOwnerByCategoryIdForAdmin($storeCategoryId)
     {
         return $this->createQueryBuilder('profile')

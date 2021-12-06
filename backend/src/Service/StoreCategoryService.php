@@ -93,28 +93,57 @@ class StoreCategoryService
         return $this->autoMapping->map("array", StoreCategoriesAndStoresResponse::class, $item);
     }
 
-    public function getFavouriteStoreCategoriesAndStores($clientID)
+    public function getFavouriteStoreCategoriesAndStores($clientID): array
+    {
+        $categories = $this->storeCategoryManager->getFavouriteStoreCategoriesAndStores($clientID);
+
+        if(!$categories) {
+            $categories = $this->storeCategoryManager->getLast15StoreCategories();
+
+            return $this->getCategoriesAndStores($categories);
+        }
+
+        return $this->getLast15StoresByCategoryID($categories);
+    }
+
+    public function getCategoriesAndStores($categories): array
     {
         $response = [];
 
-        $categories = $this->storeCategoryManager->getFavouriteStoreCategoriesAndStores($clientID);
-
-        if($categories)
+        foreach($categories as $category)
         {
-            foreach($categories as $category)
-            {
-                $category['stores'] = $this->storeOwnerProfileService->getStoreOwnerProfileByCategoryID($category['id']);
+            $category['stores'] = $this->storeOwnerProfileService->getStoreOwnerProfileByCategoryID($category['id']);
 
-                if($category['stores'])
-                {
-                    foreach($category['stores'] as $key => $value)
-                    {
-                        $category['stores'][$key]['image'] = $this->getImageParams($value['image'], $this->params.$value['image'], $this->params);
-                    }
+            if($category['stores']){
+                foreach($category['stores'] as $key => $value){
+
+                    $category['stores'][$key]['image'] = $this->getImageParams($value['image'], $this->params.$value['image'], $this->params);
                 }
-
-                $response[] = $this->autoMapping->map("array", ClientFavouriteStoreCategoriesAndStoresGetResponse::class, $category);
             }
+
+            $response[] = $this->autoMapping->map("array", ClientFavouriteStoreCategoriesAndStoresGetResponse::class, $category);
+        }
+
+        return $response;
+    }
+
+
+    public function getLast15StoresByCategoryID($categories): array
+    {
+        $response = [];
+
+        foreach($categories as $category)
+        {
+            $category['stores'] = $this->storeOwnerProfileService->getLast15StoresByCategoryID($category['id']);
+
+            if($category['stores']){
+                foreach($category['stores'] as $key => $value){
+
+                    $category['stores'][$key]['image'] = $this->getImageParams($value['image'], $this->params.$value['image'], $this->params);
+                }
+            }
+
+            $response[] = $this->autoMapping->map("array", ClientFavouriteStoreCategoriesAndStoresGetResponse::class, $category);
         }
 
         return $response;

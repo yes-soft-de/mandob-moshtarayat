@@ -56,6 +56,11 @@ class StoreCategoryManager
        return $this->storeCategoryEntityRepository->getStoreCategories();
     }
 
+    public function getLast15StoreCategories()
+    {
+       return $this->storeCategoryEntityRepository->getLast15StoreCategories();
+    }
+
     public function getFavouriteStoreCategoriesAndStores($clientID)
     {
         $favouriteCategories = $this->userManager->getFavouriteCategoriesIDsByClientID($clientID);

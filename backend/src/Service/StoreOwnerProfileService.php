@@ -158,6 +158,11 @@ class StoreOwnerProfileService
         return $this->storeOwnerProfileManager->getStoreOwnerProfileByCategoryID($storeCategoryID);
     }
 
+    public function getLast15StoresByCategoryID($storeCategoryID)
+    {
+        return $this->storeOwnerProfileManager->getLast15StoresByCategoryID($storeCategoryID);
+    }
+
     public function getStoreOwnerByCategoryId($storeCategoryId):array
     {
         $response = [];

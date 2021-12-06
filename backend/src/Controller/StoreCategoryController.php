@@ -271,7 +271,7 @@ class StoreCategoryController extends BaseController
     }
 
     /**
-     * Client: Get Favourite Store Categories And its Stores for the signed-in client.
+     * Client: Get Favourite Store Categories And its Stores for the signed-in client or Get last 15 Store Categories And its last 15 its Stores.
      * @Route("favouritestorecategoriesandstores", name="getFavouriteStoreCategoriesAndStores", methods={"GET"})
      * @return JsonResponse
      *
