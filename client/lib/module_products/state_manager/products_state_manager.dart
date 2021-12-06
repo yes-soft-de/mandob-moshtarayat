@@ -61,6 +61,7 @@ class ProductDetailsStateManager {
           message: value.error ?? '',
         ).show(screenState.context);
       } else {
+        getProducts(request.itemID ?? -1 ,screenState);
         CustomFlushBarHelper.createSuccess(
                 title: S.current.warnning, message: S.current.productRated)
             .show(screenState.context);
