@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mandob_moshtarayat/utils/components/progresive_image.dart';
 
 class CategoriesCard extends StatelessWidget {
   final String title;
@@ -8,7 +9,7 @@ class CategoriesCard extends StatelessWidget {
   final bool selected;
   final Function(String)? onTap;
 
-  CategoriesCard(
+  const CategoriesCard(
       {required this.title,
       this.image,
       required this.selected,
@@ -28,7 +29,7 @@ class CategoriesCard extends StatelessWidget {
           }
         },
         child: Container(
-          constraints: BoxConstraints(minWidth: 100),
+          constraints: const BoxConstraints(minWidth: 100),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25),
               color: selected
@@ -37,7 +38,7 @@ class CategoriesCard extends StatelessWidget {
               boxShadow: [
                 BoxShadow(
                     color: Theme.of(context).disabledColor,
-                    offset: Offset(0.1, 0.1),
+                    offset: const Offset(0.1, 0.1),
                     spreadRadius: 0.2,
                     blurRadius: 5),
               ]),
@@ -51,15 +52,19 @@ class CategoriesCard extends StatelessWidget {
                         color: selected ? Colors.white : null,
                         size: 35,
                       )
-                    : Image.network(
-                        image ?? '',
-                        color: selected
-                            ? Colors.white
-                            : Theme.of(context).iconTheme.color,
-                        width: 35,
-                        height: 35,
+                    : Container(
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
                       ),
-                SizedBox(
+                      child: ClipOval(
+                        child: CustomNetworkImage(
+                            imageSource:image ?? '',
+                            width: 35,
+                            height: 35,
+                          ),
+                      ),
+                    ),
+                const SizedBox(
                   height: 4,
                 ),
                 Padding(
