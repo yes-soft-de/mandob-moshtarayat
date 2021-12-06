@@ -222,7 +222,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "defaultBranch":
             MessageLookupByLibrary.simpleMessage("الفرع الافتراضي"),
         "deleteSuccess":
-            MessageLookupByLibrary.simpleMessage("تمت عملية حذف الطلب بنجاح"),
+            MessageLookupByLibrary.simpleMessage("تمت عملية حذف العنصر بنجاح"),
         "deliver": MessageLookupByLibrary.simpleMessage("وصل طلبات"),
         "deliverDescribtion": MessageLookupByLibrary.simpleMessage(
             "بعد الموافقة على المهمة الموكلة إليك يجب عليك توصيل الطلبية للوجهة الصحيحة"),
@@ -252,6 +252,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "emptyStaff": MessageLookupByLibrary.simpleMessage("قائمة فارغة"),
         "errOc": MessageLookupByLibrary.simpleMessage("حصلت المشاكل التالية"),
         "error": MessageLookupByLibrary.simpleMessage("تحذير"),
+        "errorDeleteCategory": MessageLookupByLibrary.simpleMessage(
+            "عذرا لا يمكن حذف الصنف لأحتوائه على عناصر"),
         "errorDownloadingImage":
             MessageLookupByLibrary.simpleMessage("لم نستطع تحميل الصورة"),
         "errorHappened": MessageLookupByLibrary.simpleMessage("حدث خطأ ما"),
@@ -262,8 +264,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "errorLoggingInFirebaseAccountNotFound":
             MessageLookupByLibrary.simpleMessage(
                 "Error logging in, firebase account not found"),
-        "errorUpdateCategory": MessageLookupByLibrary.simpleMessage(
-            "عذرا لا يمكن تعديل الصنف لأحتوائه على عناصر"),
         "errorUploadingImages":
             MessageLookupByLibrary.simpleMessage("حدث خطأ عند رفع الصور!!"),
         "exceededAllowedTime": MessageLookupByLibrary.simpleMessage(

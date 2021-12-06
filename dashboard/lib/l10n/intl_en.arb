@@ -529,7 +529,7 @@
   "updateCategory": "Update Category",
   "categoriesLevel2": "Categories Level 2",
   "updateCategorySuccessfully": "Category Updated Successfully",
-  "errorUpdateCategory": "Sorry , We can't complete this action cause this category related with other items",
+  "errorDeleteCategory": "Sorry , We can't complete this action cause this category related with other items",
   "searchForCaptain": "Search for captain",
   "preferredLanguage":"Preferred Language",
   "selectLanguage":"Select Language",

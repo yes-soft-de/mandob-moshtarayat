@@ -256,6 +256,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "errOc":
             MessageLookupByLibrary.simpleMessage("The next problems occurred"),
         "error": MessageLookupByLibrary.simpleMessage("Error"),
+        "errorDeleteCategory": MessageLookupByLibrary.simpleMessage(
+            "Sorry , We can\'t complete this action cause this category related with other items"),
         "errorDownloadingImage":
             MessageLookupByLibrary.simpleMessage("error download image"),
         "errorHappened": MessageLookupByLibrary.simpleMessage("Error Happened"),
@@ -266,8 +268,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "errorLoggingInFirebaseAccountNotFound":
             MessageLookupByLibrary.simpleMessage(
                 "Error logging in, firebase account not found"),
-        "errorUpdateCategory": MessageLookupByLibrary.simpleMessage(
-            "Sorry , We can\'t complete this action cause this category related with other items"),
         "errorUploadingImages":
             MessageLookupByLibrary.simpleMessage("Error Uploading Images!!"),
         "exceededAllowedTime": MessageLookupByLibrary.simpleMessage(

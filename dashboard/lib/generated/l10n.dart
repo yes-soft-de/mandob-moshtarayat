@@ -5321,10 +5321,10 @@ class S {
   }
 
   /// `Sorry , We can't complete this action cause this category related with other items`
-  String get errorUpdateCategory {
+  String get errorDeleteCategory {
     return Intl.message(
       'Sorry , We can\'t complete this action cause this category related with other items',
-      name: 'errorUpdateCategory',
+      name: 'errorDeleteCategory',
       desc: '',
       args: [],
     );
