@@ -32,15 +32,31 @@ class StoreCategoryEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function isItRelatedToSubcategories($id)
+    public function getLast15StoreCategories()
+    {
+        return $this->createQueryBuilder('storeCategory')
+
+            ->select('storeCategory.id', 'storeCategory.storeCategoryName', 'storeCategory.description', 'storeCategory.image')
+
+            ->addOrderBy('storeCategory.id','DESC')
+
+            ->setMaxResults(15)
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function isItRelatedToSubcategoriesOrStore($id)
     {
         return $this->createQueryBuilder('storeCategory')
 
             ->select('StoreProductCategoryEntity.id')
 
             ->leftJoin(StoreProductCategoryEntity::class, 'StoreProductCategoryEntity', Join::WITH, 'StoreProductCategoryEntity.storeCategoryID = storeCategory.id')
+            ->leftJoin(StoreOwnerProfileEntity::class, 'StoreOwnerProfileEntity', Join::WITH, 'StoreOwnerProfileEntity.storeCategoryId = storeCategory.id')
 
             ->andWhere('StoreProductCategoryEntity.storeCategoryID= :id')
+            ->orWhere('StoreOwnerProfileEntity.storeCategoryId= :id')
 
             ->setParameter('id',$id)
 

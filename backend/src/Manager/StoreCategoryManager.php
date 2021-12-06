@@ -56,6 +56,11 @@ class StoreCategoryManager
        return $this->storeCategoryEntityRepository->getStoreCategories();
     }
 
+    public function getLast15StoreCategories()
+    {
+       return $this->storeCategoryEntityRepository->getLast15StoreCategories();
+    }
+
     public function getFavouriteStoreCategoriesAndStores($clientID)
     {
         $favouriteCategories = $this->userManager->getFavouriteCategoriesIDsByClientID($clientID);
@@ -84,9 +89,9 @@ class StoreCategoryManager
        return $this->storeCategoryEntityRepository->find($id);
     }
 
-    public function isItRelatedToSubcategories($id):string
+    public function isItRelatedToSubcategoriesOrStore($id):string
     {
-        $items = $this->storeCategoryEntityRepository->isItRelatedToSubcategories($id);
+        $items = $this->storeCategoryEntityRepository->isItRelatedToSubcategoriesOrStore($id);
         if($items) {
             return "related";
         }

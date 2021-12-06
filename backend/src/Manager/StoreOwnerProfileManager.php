@@ -174,6 +174,11 @@ class StoreOwnerProfileManager
         return $this->storeOwnerProfileEntityRepository->getStoreOwnerProfileByCategoryID($storeCategoryID);
     }
 
+    public function getLast15StoresByCategoryID($storeCategoryID)
+    {
+        return $this->storeOwnerProfileEntityRepository->getLast15StoresByCategoryID($storeCategoryID);
+    }
+
     public function getActiveStoresByName($name)
     {
         return $this->storeOwnerProfileEntityRepository->getActiveStoresByName($name);
