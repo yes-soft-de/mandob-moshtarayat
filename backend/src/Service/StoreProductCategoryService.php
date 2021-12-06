@@ -252,8 +252,16 @@ class StoreProductCategoryService
 
     public function getImageParams($imageURL, $image, $baseURL): array
     {
+        if($imageURL)
+        {
+            $item['image'] = $image;
+        }
+        else
+        {
+            $item['image'] = $imageURL;
+        }
+
         $item['imageURL'] = $imageURL;
-        $item['image'] = $image;
         $item['baseURL'] = $baseURL;
 
         return $item;
