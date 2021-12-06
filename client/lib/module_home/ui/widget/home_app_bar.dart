@@ -38,8 +38,8 @@ class _CustomHomeAppBarState extends State<CustomHomeAppBar> {
                   padding: const EdgeInsets.only(right: 8.0, left: 8.0),
                   child: SvgPicture.asset(SvgAsset.LOGO_SVG, width: 35),
                 ),
-                Container(
-                  width: 250,
+                SizedBox(
+                  width: 235,
                   child: CustomDeliverySearch(
                     onTap: () {
                       Navigator.pushNamed(context, SearchRoutes.SEARCH_SCREEN);
@@ -51,13 +51,13 @@ class _CustomHomeAppBarState extends State<CustomHomeAppBar> {
                 Expanded(
                     child: PopupMenuButton<String>(
                   itemBuilder: (context) => [
-                    PopupMenuItem(
+                    const PopupMenuItem(
                       value: 'ar',
-                      child: Text("العربية"),
+                      child: Text('العربية'),
                     ),
-                    PopupMenuItem(
+                    const PopupMenuItem(
                       value: 'en',
-                      child: Text("English"),
+                      child: Text('English'),
                     ),
                   ],
                   initialValue: getIt<LocalizationService>().getLanguage(),
@@ -71,18 +71,21 @@ class _CustomHomeAppBarState extends State<CustomHomeAppBar> {
                           shape: BoxShape.circle,
                           color: Theme.of(context).primaryColor),
                       child: Center(
-                          child: Text(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
                         getIt<LocalizationService>().getLanguage() == 'ar'
-                            ? 'اب'
-                            : getIt<LocalizationService>().getLanguage(),
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18),
+                              ? 'اب'
+                              : getIt<LocalizationService>().getLanguage(),
+                        style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
                         textAlign: TextAlign.center,
-                      ))),
+                      ),
+                          ))),
                 )),
-                SizedBox(
+                const SizedBox(
                   width: 8,
                 ),
                 Expanded(
@@ -96,19 +99,22 @@ class _CustomHomeAppBarState extends State<CustomHomeAppBar> {
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Theme.of(context).primaryColor),
-                            child: Center(
-                                child: Icon(Icons.notifications,
-                                    color: Colors.white))))),
+                            child: const Center(
+                                child: Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Icon(Icons.notifications,
+                                      color: Colors.white),
+                                ))))),
               ],
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
-            child: Container(
+            child: SizedBox(
               height: 90,
               width: MediaQuery.of(context).size.width,
               child: ListView(
-                physics: BouncingScrollPhysics(
+                physics: const BouncingScrollPhysics(
                     parent: AlwaysScrollableScrollPhysics()),
                 scrollDirection: Axis.horizontal,
                 children: getCategories(),
