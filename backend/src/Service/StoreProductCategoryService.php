@@ -324,13 +324,17 @@ class StoreProductCategoryService
 
     public function deleteStoreProductCategoryByID($request)
     {
-        $result = $this->storeProductCategoryManager->deleteStoreProductCategoryByID($request);
+        $isRelated = $this->storeProductCategoryManager->isItRelatedToProductsOrOtherCategory($request->getID());
+        if($isRelated == "not related") {
+            $result = $this->storeProductCategoryManager->deleteStoreProductCategoryByID($request);
 
-        if($result == 'storeProductCategoryNotFound'){
-            return $result;
+            if ($result == 'storeProductCategoryNotFound') {
+                return $result;
+            }
+            else {
+                return $this->autoMapping->map(StoreProductCategoryEntity::class, StoreProductCategoryByIdResponse::class, $result);
+            }
         }
-        else{
-            return $this->autoMapping->map(StoreProductCategoryEntity::class, StoreProductCategoryByIdResponse::class, $result);
-        }
+        return $isRelated;
     }
 }

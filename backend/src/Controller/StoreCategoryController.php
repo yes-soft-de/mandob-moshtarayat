@@ -390,7 +390,7 @@ class StoreCategoryController extends BaseController
      *
      * @OA\Response(
      *      response=401,
-     *      description="Returns the category Related To Subcategories or store.",
+     *      description="Returns the category related to subcategories or store.",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code", description="9201"),
      *          @OA\Property(type="string", property="msg", description="error related Successfully."),

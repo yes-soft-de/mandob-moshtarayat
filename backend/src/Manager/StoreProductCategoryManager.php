@@ -114,9 +114,9 @@ class StoreProductCategoryManager
        return $this->storeProductCategoryEntityRepository->getStoreProductsCategoriesIdLevelOneByStoreOwnerProfileID($storeOwnerProfileID);
     }
 
-    public function isItRelatedToProducts($id):string
+    public function isItRelatedToProductsOrOtherCategory($id):string
     {
-        $items = $this->storeProductCategoryEntityRepository->isItRelatedToProducts($id);
+        $items = $this->storeProductCategoryEntityRepository->isItRelatedToProductsOrOtherCategory($id);
 
         if($items) {
             return "related";

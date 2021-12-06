@@ -137,7 +137,7 @@ class StoreProductCategoryEntityRepository extends ServiceEntityRepository
             ;
     }
 
-    public function isItRelatedToProducts($id)
+    public function isItRelatedToProductsOrOtherCategory($id)
     {
         return $this->createQueryBuilder('storeProductCategory')
 
@@ -146,6 +146,7 @@ class StoreProductCategoryEntityRepository extends ServiceEntityRepository
             ->leftJoin(ProductEntity::class, 'ProductEntity', Join::WITH, 'ProductEntity.storeProductCategoryID = storeProductCategory.id')
 
             ->andWhere('ProductEntity.storeProductCategoryID= :id')
+            ->orWhere('storeProductCategory.storeProductCategoryID= :id')
 
             ->setParameter('id',$id)
 
