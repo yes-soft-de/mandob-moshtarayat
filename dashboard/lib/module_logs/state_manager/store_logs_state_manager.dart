@@ -4,9 +4,7 @@ import 'package:mandob_moshtarayat_dashboad/abstracts/states/loading_state.dart'
 import 'package:mandob_moshtarayat_dashboad/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat_dashboad/module_logs/model/captain_logs_model.dart';
 import 'package:mandob_moshtarayat_dashboad/module_logs/service/logs_service.dart';
-import 'package:mandob_moshtarayat_dashboad/module_logs/ui/screen/captain_logs_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/module_logs/ui/screen/store_logs_screen.dart';
-import 'package:mandob_moshtarayat_dashboad/module_logs/ui/state/captain_logs_state/captain_logs_state.dart';
 import 'package:mandob_moshtarayat_dashboad/module_logs/ui/state/store_logs_state/store_logs_loaded_state.dart';
 
 @injectable
