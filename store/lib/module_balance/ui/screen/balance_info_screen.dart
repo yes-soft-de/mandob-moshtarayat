@@ -40,6 +40,9 @@ class BalanceScreenState extends State<BalanceScreen> {
     super.initState();
     widget._stateManager.getBalanceStore(this);
   }
+  void getStoreBalance(){
+    widget._stateManager.getBalanceStore(this);
+  }
 
   @override
   Widget build(BuildContext context) {

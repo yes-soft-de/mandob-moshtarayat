@@ -53,13 +53,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "address": MessageLookupByLibrary.simpleMessage("الموقع"),
         "age": MessageLookupByLibrary.simpleMessage("العمر"),
         "allcity": MessageLookupByLibrary.simpleMessage("جميع المدن"),
-        "amountYouOwn": MessageLookupByLibrary.simpleMessage("مستحقات الشركة"),
+        "amountYouOwn": MessageLookupByLibrary.simpleMessage("مستحقات المتجر"),
         "andIAm": MessageLookupByLibrary.simpleMessage("من أنا"),
         "anotherStore":
             MessageLookupByLibrary.simpleMessage("متاجر ومنتجات أخرى"),
         "apply": MessageLookupByLibrary.simpleMessage("حفظ"),
         "areYouSureToDisposeThis": MessageLookupByLibrary.simpleMessage(
             "هل أنت متأكد من إنك تريد تجاهل هذه التغييرات في بياناتك الشخصية"),
+        "at": MessageLookupByLibrary.simpleMessage("في: "),
         "balanceDetails":
             MessageLookupByLibrary.simpleMessage("تفاصيل المدفوعات"),
         "bankAccountNumber":
@@ -483,6 +484,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تم الدفع بنجاح"),
         "paymentToCaptain":
             MessageLookupByLibrary.simpleMessage("دفعة للكابتن"),
+        "payments": MessageLookupByLibrary.simpleMessage("الدفعات: "),
         "paymentsFromCaptain":
             MessageLookupByLibrary.simpleMessage("الدفعات  السابقة من المندوب"),
         "paymentsManagement":
@@ -658,6 +660,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "stcPayCode": MessageLookupByLibrary.simpleMessage("رقم حساب STC PAY"),
         "store": MessageLookupByLibrary.simpleMessage("المتجر"),
         "storeAvailable": MessageLookupByLibrary.simpleMessage("المتجر متوفر"),
+        "storeBalance": MessageLookupByLibrary.simpleMessage("مستحقات المتجر"),
         "storeCategories":
             MessageLookupByLibrary.simpleMessage("أصناف المتاجر"),
         "storeCreatedSuccessfully":

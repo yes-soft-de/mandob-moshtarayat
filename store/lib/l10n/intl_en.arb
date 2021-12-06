@@ -533,5 +533,9 @@
 
   "productQuantity": "Product Quantity",
   "rating": "Rating",
-  "price": "price"
+  "price": "price",
+
+  "storeBalance": "Store balance",
+  "payments": "Payments: ",
+  "at": "At: "
 }

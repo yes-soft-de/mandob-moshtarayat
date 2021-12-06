@@ -29,7 +29,7 @@ class StoreProductScreenState
   void initState() {
     currentState = LoadingState(this);
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-      widget._stateManager.getCategoriesLevelOneWithAllProducts(this);
+      widget._stateManager.getCategoriesLevelOneWithAllProducts(this,'');
     });
     widget._stateManager.stateStream.listen((event) {
       currentState = event;
@@ -44,8 +44,8 @@ class StoreProductScreenState
   void getStoreProductLevelTwo(int idSub,int idMain,List<ProductsCategoryModel>? catOne,List<ProductsCategoryModel>? catTwo){
     widget._stateManager.getStoreProductLevelTwo(this,idSub ,idMain: idMain,catOne: catOne,catTwo: catTwo);
   }
-  void getCategoriesLevelOneWithAllProducts(){
-    widget._stateManager.getCategoriesLevelOneWithAllProducts(this);
+  void getCategoriesLevelOneWithAllProducts(String name){
+    widget._stateManager.getCategoriesLevelOneWithAllProducts(this,name);
   }
 
   void getCategoriesLevelTwoWithProducts(int storeCategoryId,List<ProductsCategoryModel>? catOne) {

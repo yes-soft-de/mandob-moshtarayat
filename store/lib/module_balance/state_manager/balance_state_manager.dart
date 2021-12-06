@@ -23,6 +23,7 @@ class BalanceStateManager{
 
   void getBalanceStore(BalanceScreenState screenState){
     if(_authService.isLoggedIn){
+      _stateSubject.add(BalanceLoadingState(screenState));
     _service.getStorePayments().then((value) {
       if(value.hasError){
         print('ff');
