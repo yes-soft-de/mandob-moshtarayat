@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mandob_moshtarayat/di/di_config.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
+import 'package:mandob_moshtarayat/module_auth/authorization_routes.dart';
+import 'package:mandob_moshtarayat/module_balance/balance_routes.dart';
 import 'package:mandob_moshtarayat/module_categories/categories_routes.dart';
 import 'package:mandob_moshtarayat/module_orders/orders_module.dart';
 import 'package:mandob_moshtarayat/module_orders/orders_routes.dart';
@@ -77,7 +79,8 @@ class MenuScreen extends StatelessWidget {
                       child: Icon(Icons.arrow_forward),
                     )),
               ),
-              isLoggedIn ?Container(): ListTile(
+              isLoggedIn ?Container():
+              ListTile(
                 onTap: () {
                   Navigator.pushNamed(context, CategoriesRoutes.PRODUCT_CATEGORIES,arguments: 1);
                 },
@@ -100,6 +103,30 @@ class MenuScreen extends StatelessWidget {
                       child: Icon(Icons.arrow_forward),
                     )),
               ),
+              ListTile(
+                onTap: () {
+                  Navigator.pushNamed(context, BalanceRoutes.STORE_PAYMENTS ,arguments: 1);
+                },
+                leading: Container(
+                    decoration: BoxDecoration(
+                        color: AppThemeDataService.PrimaryColor,
+                        borderRadius: BorderRadius.circular(8)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Icon(Icons.monetization_on,color: Colors.white,),
+                    )),
+                title: Text('${S.of(context).balanceDetails}'),
+                trailing: Container(
+                    decoration: BoxDecoration(
+                        color: StyleText.geyApp,
+                        borderRadius: BorderRadius.circular(8)),
+
+                    child: Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: Icon(Icons.arrow_forward),
+                    )),
+              ),
+
 //              ListTile(
 //                onTap: () {
 //                  Navigator.of(context)
@@ -255,6 +282,32 @@ class MenuScreen extends StatelessWidget {
                     )
 
                   ]),
+              isLoggedIn ? Container() : ListTile(
+                onTap: () {
+                  Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      AuthorizationRoutes.LOGIN_SCREEN,
+                          (route) => false);
+                },
+                leading: Container(
+                    decoration: BoxDecoration(
+                        color: AppThemeDataService.PrimaryColor,
+                        borderRadius: BorderRadius.circular(8)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Icon(Icons.login_outlined,color: Colors.white,),
+                    )),
+                title: Text('${S.of(context).login}'),
+                trailing: Container(
+                    decoration: BoxDecoration(
+                        color: StyleText.geyApp,
+                        borderRadius: BorderRadius.circular(8)),
+
+                    child: Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: Icon(Icons.arrow_forward),
+                    )),
+              ),
 //              customExpansionTile(
 //                  title: S.current.orders,
 //                  icon: FontAwesomeIcons.box,

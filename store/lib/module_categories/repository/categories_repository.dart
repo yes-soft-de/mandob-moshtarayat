@@ -25,7 +25,7 @@ class CategoriesRepository {
     return StoreCategoriesResponse.fromJson(response);
   }
 
-  Future<ProductsCategoryResponse?> getProductsCategoryLevelTwo(int levelOne) async {
+  Future<ProductsCategoryResponse?> getCategoryLevelTwo(int levelOne) async {
     var token = await _authService.getToken();
     dynamic response = await _apiClient.get(Urls.CATEGORY_LEVEL_TWO + '$levelOne',
         headers: {'Authorization': 'Bearer ' + token.toString()});
@@ -33,23 +33,32 @@ class CategoriesRepository {
     return ProductsCategoryResponse.fromJson(response);
   }
 
-  Future<ProductsCategoryResponse?> getProductsCategoryLevelOne(int mainCat) async {
+  Future<ProductsCategoryResponse?> getCategoryLevelOne(int mainCat) async {
     var token = await _authService.getToken();
     dynamic response = await _apiClient.get(Urls.CATEGORY_LEVEL_ONE + '$mainCat',
         headers: {'Authorization': 'Bearer ' + token.toString()});
     if (response == null) return null;
     return ProductsCategoryResponse.fromJson(response);
   }
-  Future<StoreProductsResponse?> getProducts(int id) async {
+  Future<StoreProductsResponse?> getProductsLevelTwo(int id) async {
     var token = await _authService.getToken();
     dynamic response = await _apiClient.get(Urls.GET_STORE_PRODUCT_BY_Category + '$id',
         headers: {'Authorization': 'Bearer ' + token.toString()});
     if (response == null) return null;
     return StoreProductsResponse.fromJson(response);
   }
-  Future<StoreProductsResponse?> getStoreProducts() async {
+  Future<StoreProductsResponse?> getProductsLevelOne(int id) async {
     var token = await _authService.getToken();
-    dynamic response = await _apiClient.get(Urls.GET_STORE_PRODUCT,
+    dynamic response = await _apiClient.get(Urls.GET_STORE_PRODUCT_BY_Category_LEVEL_ONE + '$id',
+        headers: {'Authorization': 'Bearer ' + token.toString()});
+    if (response == null) return null;
+    return StoreProductsResponse.fromJson(response);
+  }
+  Future<StoreProductsResponse?> getStoreProducts(String name) async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.post(Urls.GET_STORE_PRODUCT,{
+      'name':name
+    },
         headers: {'Authorization': 'Bearer ' + token.toString()});
     if (response == null) return null;
     return StoreProductsResponse.fromJson(response);
@@ -70,5 +79,15 @@ class CategoriesRepository {
     if (response == null) return null;
     return ActionResponse.fromJson(response);
   }
+
+
+  Future<ActionResponse?> updateProductStatus(UpdateProductStatusRequest request) async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.put(Urls.UPDATE_PRODUCT_Status,request.toJson(),
+        headers: {'Authorization': 'Bearer ' + token.toString()});
+    if (response == null) return null;
+    return ActionResponse.fromJson(response);
+  }
+
 
 }

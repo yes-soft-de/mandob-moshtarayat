@@ -223,7 +223,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "dear": MessageLookupByLibrary.simpleMessage("Dear"),
         "defaultBranch": MessageLookupByLibrary.simpleMessage("Default Branch"),
         "deleteSuccess": MessageLookupByLibrary.simpleMessage(
-            "the order has been deleted successfully"),
+            "the product has been deleted successfully"),
         "deliver": MessageLookupByLibrary.simpleMessage("Deliver"),
         "deliverDescribtion": MessageLookupByLibrary.simpleMessage(
             "After accepting your mission you will deliver package to the right destination"),
@@ -715,7 +715,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sumPaymentsToCompany":
             MessageLookupByLibrary.simpleMessage("Total Payments To Company"),
         "sureForDelete": MessageLookupByLibrary.simpleMessage(
-            "Are you sure about deleting this order , please confirm"),
+            "Are you sure about deleting this product , please confirm"),
         "syria": MessageLookupByLibrary.simpleMessage("Syria"),
         "termsOfService":
             MessageLookupByLibrary.simpleMessage("Terms of Service"),

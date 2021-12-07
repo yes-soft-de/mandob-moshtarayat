@@ -23,6 +23,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'generated/l10n.dart';
 import 'module_about/about_module.dart';
+import 'module_balance/balance_module.dart';
 import 'module_categories/categories_module.dart';
 import 'module_init/init_account_module.dart';
 import 'module_main/main_module.dart';
@@ -82,6 +83,7 @@ class MyApp extends StatefulWidget {
   final OrdersModule _ordersModule;
   final CategoriesModule _categoriesModule;
   final StoresProfileModule _profileModule;
+  final BalanceModule _balanceModule;
   MyApp(
     this._themeDataService,
     this._localizationService,
@@ -98,6 +100,7 @@ class MyApp extends StatefulWidget {
       this._ordersModule,
       this._categoriesModule,
       this._profileModule,
+      this._balanceModule
   );
 
   @override

@@ -26,9 +26,12 @@ class Urls {
   static const CATEGORY_LEVEL_ONE = BASE_API + '/storeproductscategorylevelone/';
   static const CATEGORY_LEVEL_TWO = BASE_API + '/storeproductscategoryleveltwo/';
   static const GET_STORE_PRODUCT_BY_Category = BASE_API + '/productsbystoreproductcategoryidforstore/';
+  static const GET_STORE_PRODUCT_BY_Category_LEVEL_ONE = BASE_API + '/productsbystorecategroylevelone/';
   static const GET_STORE_PRODUCT = BASE_API + '/getproductsstore';
   static const GET_LAST_PRODUCT = BASE_API + '/productslast30';
   static const GET_CAT_AND_STORE = BASE_API + '/storecategoriesandstores';
+  static const UPDATE_PRODUCT_Status = BASE_API + '/updateproductstatusbystore';
+  static const GET_STORE_BALANCE = BASE_API + '/storefinancialaccountforstore';
 
 
 

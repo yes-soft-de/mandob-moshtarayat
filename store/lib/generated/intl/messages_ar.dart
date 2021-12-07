@@ -220,7 +220,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "defaultBranch":
             MessageLookupByLibrary.simpleMessage("الفرع الافتراضي"),
         "deleteSuccess":
-            MessageLookupByLibrary.simpleMessage("تمت عملية حذف الطلب بنجاح"),
+            MessageLookupByLibrary.simpleMessage("تمت عملية حذف المنتج بنجاح"),
         "deliver": MessageLookupByLibrary.simpleMessage("وصل طلبات"),
         "deliverDescribtion": MessageLookupByLibrary.simpleMessage(
             "بعد الموافقة على المهمة الموكلة إليك يجب عليك توصيل الطلبية للوجهة الصحيحة"),
@@ -700,7 +700,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sumPaymentsToCompany":
             MessageLookupByLibrary.simpleMessage("إجمالي الدفعات إلى الشركة"),
         "sureForDelete": MessageLookupByLibrary.simpleMessage(
-            "هل أنت متأكد من قيامك بحذف هذا الطلب"),
+            "هل أنت متأكد من قيامك بحذف هذا المنتج"),
         "syria": MessageLookupByLibrary.simpleMessage("سوريا"),
         "termsOfService":
             MessageLookupByLibrary.simpleMessage("شروط الاستخدام"),

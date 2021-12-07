@@ -1940,20 +1940,20 @@ class S {
     );
   }
 
-  /// `Are you sure about deleting this order , please confirm`
+  /// `Are you sure about deleting this product , please confirm`
   String get sureForDelete {
     return Intl.message(
-      'Are you sure about deleting this order , please confirm',
+      'Are you sure about deleting this product , please confirm',
       name: 'sureForDelete',
       desc: '',
       args: [],
     );
   }
 
-  /// `the order has been deleted successfully`
+  /// `the product has been deleted successfully`
   String get deleteSuccess {
     return Intl.message(
-      'the order has been deleted successfully',
+      'the product has been deleted successfully',
       name: 'deleteSuccess',
       desc: '',
       args: [],

@@ -93,4 +93,10 @@ class BranchesModel extends DataModel{
       throw Exception('There is no data');
     }
   }
+// bool checkLatLonValue(Location location){
+//    if(-90 <= location.lon && location.lon <= 90  && -90 <= location.lat && location.lat <= 90  ){
+//      return true;
+//    }
+//    return false;
+//  }
 }

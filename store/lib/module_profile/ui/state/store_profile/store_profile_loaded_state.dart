@@ -41,9 +41,10 @@ class StoreProfileLoadedState extends States {
             screenState.getStore(screenState.model?.id ?? -1);
           });
     }
-    clientAddress =LatLng(profile!.branches![0].location.lat!.toDouble(), profile!.branches![0].location.lon!.toDouble());
+
+//    clientAddress =LatLng(profile!.branches![0].location.lat!.toDouble(), profile!.branches![0].location.lon!.toDouble());
 //    clientAddress = LatLng(0, 0);
-    print(clientAddress.latitude);
+//    print(clientAddress.latitude);
     return FixedContainer(
         child: CustomListView.custom(children: [
       Container(
@@ -144,24 +145,24 @@ class StoreProfileLoadedState extends States {
           ),
         ),
       ),
-          SizedBox(
-            height: 200,
-            child: FlutterMap(
-              options: MapOptions(
-                center: clientAddress,
-                zoom: 17.0,
-              ),
-              layers: [
-                TileLayerOptions(
-                  urlTemplate: 'https://mt.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
-                  subdomains: ['a', 'b', 'c'],
-                ),
-                MarkerLayerOptions(
-                  markers:  _getMarkers(context),
-                ),
-              ],
-            ),
-          ),
+//          SizedBox(
+//            height: 200,
+//            child: FlutterMap(
+//              options: MapOptions(
+//                center: clientAddress,
+//                zoom: 17.0,
+//              ),
+//              layers: [
+//                TileLayerOptions(
+//                  urlTemplate: 'https://mt.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
+//                  subdomains: ['a', 'b', 'c'],
+//                ),
+//                MarkerLayerOptions(
+//                  markers:  _getMarkers(context),
+//                ),
+//              ],
+//            ),
+//          ),
       CustomListTile(
         title: S.current.storeName,
         subTitle: profile?.storeOwnerName,
