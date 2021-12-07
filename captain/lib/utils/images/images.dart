@@ -6,6 +6,10 @@ class ImageAsset {
   static const STORE_CATEGORY_SUPER_MARKET = ROOT + 'super_market.jpg';
   static const DELIVERY_MOTOR = ROOT + 'delivery_splash.png';
   static const NETWORK = 'https://www.erdeundleben.com/wp-content/uploads/2021/02/folgendes-macht-unser-food-personal-wenn-es-fast-zu-mude-ist-um-zu-kochen-0-Yywyr8ju.jpg';
+  static const LANGUAGE = ROOT + 'translate.png' ;
+  static const ARAB_LANGUAGE = ROOT + 'saudi-arabia.png' ;
+  static const ENGLISH_LANGUAGE = ROOT + 'united-kingdom.png' ;
+  
 }
 
 class SvgAsset {

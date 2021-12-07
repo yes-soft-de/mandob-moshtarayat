@@ -124,6 +124,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "checkout": MessageLookupByLibrary.simpleMessage("Checkout"),
         "chooseAddressNote": MessageLookupByLibrary.simpleMessage(
             "Please update your current location if you want to"),
+        "chooseCaptainProfile": MessageLookupByLibrary.simpleMessage(
+            "Choose captain profile photo"),
         "chooseDestinationPoint":
             MessageLookupByLibrary.simpleMessage("Choose Destination Location"),
         "chooseLocation":
@@ -457,6 +459,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please provide your address on our map"),
         "pleaseSelectABranch":
             MessageLookupByLibrary.simpleMessage("Please Select a Branch"),
+        "preferredLanguage":
+            MessageLookupByLibrary.simpleMessage("Preferred Language"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "privateOrder": MessageLookupByLibrary.simpleMessage("Private Order"),
         "product": MessageLookupByLibrary.simpleMessage("product"),
@@ -526,6 +530,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Searching for Captain"),
         "second": MessageLookupByLibrary.simpleMessage("second"),
         "seconds": MessageLookupByLibrary.simpleMessage("seconds"),
+        "selectLanguage":
+            MessageLookupByLibrary.simpleMessage("Select Language"),
         "sendMeCode": MessageLookupByLibrary.simpleMessage("Send me code"),
         "sendToRecordFaild": MessageLookupByLibrary.simpleMessage(
             "Sending record has been failed"),
