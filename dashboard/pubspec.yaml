@@ -84,7 +84,6 @@ dependencies:
   firebase_crashlytics: ^2.0.4
   # Sign In
   google_sign_in: ^5.0.4
-  sign_in_with_apple: ^3.0.0
   # Internationalization
   intl: ^0.17.0
   intl_utils: ^2.3.0
