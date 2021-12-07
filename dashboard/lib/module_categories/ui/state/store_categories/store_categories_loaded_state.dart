@@ -5,6 +5,7 @@ import 'package:mandob_moshtarayat_dashboad/module_categories/request/store_cate
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/screen/store_categories_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/state/store_categories/store_categories_state.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/widget/store_card.dart';
+import 'package:mandob_moshtarayat_dashboad/module_orders/ui/widget/order_details/custom_alert_dialog.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/costom_search.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_list_view.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/empty_screen.dart';
@@ -70,6 +71,19 @@ class StoreCategoriesLoadedState extends StoreCategoriesState {
       widgets.add(StoresCategoryCard(
         image: element.image,
         storeName: element.categoryName,
+        onTap: () {
+          showDialog(
+              context: context,
+              builder: (_) {
+                return CustomAlertDialog(
+                    message: S.current.sureForDeleteCategories,
+                    onPressed: () {
+                              Navigator.of(context).pop();
+
+                      screenState.deleteCategories(element.id.toString());
+                    });
+              });
+        },
         dialog:
             formDialog(context, S.current.storeCategories, S.current.category,
                 (name, image) {

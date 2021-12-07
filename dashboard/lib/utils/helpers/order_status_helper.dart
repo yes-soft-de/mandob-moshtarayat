@@ -97,13 +97,13 @@ class StatusHelper {
   static Color getOrderStatusColor(OrderStatusEnum status) {
     switch (status) {
       case OrderStatusEnum.WAITING:
-        return Colors.amber;
+        return Colors.orange;
       case OrderStatusEnum.IN_STORE:
         return Colors.blue;
       case OrderStatusEnum.DELIVERING:
-        return Colors.orange;
+        return Colors.indigo;
       case OrderStatusEnum.GOT_CAPTAIN:
-        return Colors.yellow;
+        return Colors.purple;
       case OrderStatusEnum.FINISHED:
         return Colors.green;
       default:

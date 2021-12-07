@@ -3090,10 +3090,10 @@ class S {
     );
   }
 
-  /// `WELCOME TO TWASLNA APP`
+  /// `WELCOME TO MANDOOB APP`
   String get welcomeToOurApp {
     return Intl.message(
-      'WELCOME TO TWASLNA APP',
+      'WELCOME TO MANDOOB APP',
       name: 'welcomeToOurApp',
       desc: '',
       args: [],
@@ -4420,10 +4420,10 @@ class S {
     );
   }
 
-  /// `In Active Captains`
+  /// `Inactive Captains`
   String get inActiveCaptains {
     return Intl.message(
-      'In Active Captains',
+      'Inactive Captains',
       name: 'inActiveCaptains',
       desc: '',
       args: [],
@@ -4720,10 +4720,10 @@ class S {
     );
   }
 
-  /// `Twaslna Dashboard`
+  /// `Mandoob Dashboard`
   String get twaslnaDashboard {
     return Intl.message(
-      'Twaslna Dashboard',
+      'Mandoob Dashboard',
       name: 'twaslnaDashboard',
       desc: '',
       args: [],
@@ -5220,10 +5220,10 @@ class S {
     );
   }
 
-  /// `Stores In Active`
+  /// ` Inactive Stores`
   String get storesInActive {
     return Intl.message(
-      'Stores In Active',
+      ' Inactive Stores',
       name: 'storesInActive',
       desc: '',
       args: [],
@@ -5321,10 +5321,50 @@ class S {
   }
 
   /// `Sorry , We can't complete this action cause this category related with other items`
-  String get errorUpdateCategory {
+  String get errorDeleteCategory {
     return Intl.message(
       'Sorry , We can\'t complete this action cause this category related with other items',
-      name: 'errorUpdateCategory',
+      name: 'errorDeleteCategory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search for captain`
+  String get searchForCaptain {
+    return Intl.message(
+      'Search for captain',
+      name: 'searchForCaptain',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Preferred Language`
+  String get preferredLanguage {
+    return Intl.message(
+      'Preferred Language',
+      name: 'preferredLanguage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select Language`
+  String get selectLanguage {
+    return Intl.message(
+      'Select Language',
+      name: 'selectLanguage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to delete this category`
+  String get sureForDeleteCategories {
+    return Intl.message(
+      'Are you sure you want to delete this category',
+      name: 'sureForDeleteCategories',
       desc: '',
       args: [],
     );

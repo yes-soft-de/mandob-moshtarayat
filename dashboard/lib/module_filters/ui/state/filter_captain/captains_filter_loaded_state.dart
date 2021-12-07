@@ -52,7 +52,7 @@ class CaptainsFilterLoadedState extends States {
           padding:
               EdgeInsets.only(left: 18.0, right: 18.0, bottom: 16, top: 16),
           child: CustomDeliverySearch(
-            hintText: S.current.searchingForCaptain,
+            hintText: S.current.searchForCaptain,
             onChanged: (s) {
               if (s == '' || s.isEmpty) {
                 search = null;

@@ -65,4 +65,10 @@ class CategoriesManager {
 
   Future<ActionResponse?> updateSubCategories(SubCategoriesRequest request) =>
       _categoriesRepository.updateSubCategories(request);
+      
+  Future<ActionResponse?> deleteCategories(String id) =>
+      _categoriesRepository.deleteCategories(id);
+      
+Future<ActionResponse?> deleteSubCategories(String id) =>
+      _categoriesRepository.deleteSubCategories(id);
 }

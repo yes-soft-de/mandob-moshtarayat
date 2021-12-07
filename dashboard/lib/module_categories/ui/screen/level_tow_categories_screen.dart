@@ -60,13 +60,23 @@ class LevelTowCategoriesScreenState extends State<LevelTowCategoriesScreen> {
   }
 
   void addCategory(CategoryLevelTowRequest request) {
+    mainCatId = null;
+    subCatId = null;
     widget.stateManager.createProductCategory(this, request);
   }
 
   void updateCategoryLevel2(CategoryLevelTowRequest request) {
+    mainCatId = null;
+    subCatId = null;
     widget.stateManager.updateProductCategory(this, request);
   }
 
+  void deleteSubCategories(String id) {
+    mainCatId = null;
+    subCatId = null;
+    widget.stateManager.deleteSubCategories(this,id);
+  }
+  
   void refresh() {
     if (mounted) {
       setState(() {});

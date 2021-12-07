@@ -3,8 +3,8 @@ import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 
 class CustomAlertDialog extends StatelessWidget {
   final VoidCallback? onPressed;
-
-  CustomAlertDialog({required this.onPressed});
+  final String? message;
+  CustomAlertDialog({required this.onPressed,this.message});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class CustomAlertDialog extends StatelessWidget {
       },
       child: AlertDialog(
         title: Text(S.current.warnning),
-        content: Container(child: Text(S.current.sureForDelete)),
+        content: Container(child: Text(message ?? S.current.sureForDelete)),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),

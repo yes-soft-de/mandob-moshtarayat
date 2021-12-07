@@ -119,4 +119,24 @@ class SubCategoriesStateManager {
     }
   }
 
+  void deleteSubCategories(SubCategoriesScreenState screenState, String id) {
+    _stateSubject.add(LoadingState(screenState));
+    _categoriesService.deleteSubCategories(id).then((value) {
+      if (value.hasError) {
+          getStoreCategories(screenState);
+            CustomFlushBarHelper.createError(
+                title: S.current.warnning, message: value.error ?? '')
+              .show(screenState.context);
+         
+      } else {
+         getStoreCategories(screenState);
+            CustomFlushBarHelper.createSuccess(
+                title: S.current.warnning,
+                message: S.current.deleteSuccess)
+              .show(screenState.context);
+          }
+      }
+    );
+  }
+
 }

@@ -19,7 +19,7 @@ class StoreFilterCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(50),
         onTap: () {
           Navigator.of(context)
-              .pushNamed(LogsRoutes.STORE_LOGS, arguments: storeId);
+              .pushNamed(LogsRoutes.STORE_LOGS, arguments: int.parse(storeId));
         },
         child: Container(
           decoration: BoxDecoration(

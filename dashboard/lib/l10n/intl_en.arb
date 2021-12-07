@@ -306,7 +306,7 @@
   "notAllowedCaptainReceived": "Can not remove it, The captain received the order",
   "updateOrders": "Orders Details",
   "updateOrderNote": "You can update your order item from this interface",
-  "welcomeToOurApp": "WELCOME TO TWASLNA APP",
+  "welcomeToOurApp": "WELCOME TO MANDOOB APP",
   "updateOrderSuccess":"Your order has been updated",
   "username": "Username",
   "registerHint": "username or phone number",
@@ -439,7 +439,7 @@
   "storeManagment": "Store Management",
   "productName": "Product Name",
   "productPrice": "Product Price",
-  "inActiveCaptains": "In Active Captains",
+  "inActiveCaptains": "Inactive Captains",
   "salary": "Salary",
   "captainStatus": "Account Status",
   "status": "Online Status",
@@ -469,7 +469,7 @@
   "companyFinance": "Company Finance",
   "financeProfileUpdateSuccessfully": "Updated Successfully",
   "company": "Company",
-  "twaslnaDashboard": "Twaslna Dashboard",
+  "twaslnaDashboard": "Mandoob Dashboard",
   "ongoingOrders": "OnGoing Orders",
   "categoryImage": "Category Image",
   "storeCreatedSuccessfully": "Store Created Successfully",
@@ -519,7 +519,7 @@
   "specific": "Specific",
   "clients": "Clients",
   "storeAvailable": "Store Availability",
-  "storesInActive": "Stores In Active",
+  "storesInActive": " Inactive Stores",
   "ordersCancel": "Orders Canceled",
   "createDate": "Create Date",
   "mainCategories": "Main Categories",
@@ -529,7 +529,13 @@
   "updateCategory": "Update Category",
   "categoriesLevel2": "Categories Level 2",
   "updateCategorySuccessfully": "Category Updated Successfully",
-  "errorUpdateCategory": "Sorry , We can't complete this action cause this category related with other items"
+  "errorDeleteCategory": "Sorry , We can't complete this action cause this category related with other items",
+  "searchForCaptain": "Search for captain",
+  "preferredLanguage":"Preferred Language",
+  "selectLanguage":"Select Language",
+  "sureForDeleteCategories":"Are you sure you want to delete this category"
+  
+
 
 
 

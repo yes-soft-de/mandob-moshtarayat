@@ -1,3 +1,4 @@
+import 'package:mandob_moshtarayat_dashboad/module_categories/response/store_categories_response.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/logger/logger.dart';
 
 class InActiveCaptainResponse {
@@ -38,7 +39,7 @@ class Data {
   int? id;
   String? captainID;
   String? captainName;
-  String? image;
+  Image? image;
   Location? location;
   String? age;
   String? car;
@@ -86,7 +87,7 @@ class Data {
     id = json['id'];
     captainID = json['captainID'];
     captainName = json['captainName'];
-    image = json['image'];
+    image = json['image'] != null ? Image.fromJson(json['image']) : null;
     location =
         json['location'] != null ? Location.fromJson(json['location']) : null;
     age = json['age']?.toString();
