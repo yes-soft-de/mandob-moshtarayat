@@ -25,7 +25,7 @@ class BalanceLoaded extends BalanceState{
     if (error != null) {
       return ErrorStateWidget(
         onRefresh: () {
-//          screenState.getStoreCategoriesLevelOne();
+          screenState.getStoreBalance();
         },
         error: error,
       );
@@ -33,13 +33,28 @@ class BalanceLoaded extends BalanceState{
       return EmptyStateWidget(
           empty: S.current.emptyStaff,
           onRefresh: () {
-//            screenState.getStoreCategoriesLevelOne();
+            screenState.getStoreBalance();
           });
     }
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Card(child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Text(S.current.storeBalance +': '),
+                  Text(model!.amountOwedToStore.toString(),style: TextStyle(fontWeight: FontWeight.bold),)
+                ],
+              ),
+            ),),
+          ],
+        ),
       Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -56,21 +71,7 @@ class BalanceLoaded extends BalanceState{
           ),),
         ],
       ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Card(child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Text(S.current.amountYouOwn +': '),
-                  Text(model!.amountOwedToStore.toString(),style: TextStyle(fontWeight: FontWeight.bold),)
-                ],
-              ),
-            ),),
-          ],
-        ),
+
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -80,6 +81,10 @@ class BalanceLoaded extends BalanceState{
               child: Text(S.current.total+': '+ model!.total.toString(),style: TextStyle(fontWeight: FontWeight.bold),),
             ),),
           ],
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(S.of(context).payments),
         ),
         Expanded(
           child: CustomListView.custom(children: getProducts()),
@@ -105,13 +110,13 @@ class BalanceLoaded extends BalanceState{
                   children: [
                     Row(
                       children: [
-                        Text(S.current.currentBalance),
+                        Text(S.current.paymentAmount+': '),
                         Text(element.amount.toString()),
                       ],
                     ),
                     Row(
                       children: [
-                        Text('At: '),
+                        Text(S.current.at),
                         Text(element.date.toString().split(' ').first),
                       ],
                     ),

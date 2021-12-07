@@ -5329,6 +5329,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Store balance`
+  String get storeBalance {
+    return Intl.message(
+      'Store balance',
+      name: 'storeBalance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payments: `
+  String get payments {
+    return Intl.message(
+      'Payments: ',
+      name: 'payments',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `At: `
+  String get at {
+    return Intl.message(
+      'At: ',
+      name: 'at',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

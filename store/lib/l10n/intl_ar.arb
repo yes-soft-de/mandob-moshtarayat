@@ -405,7 +405,7 @@
   "sumPaymentsToCaptain" : "إجمالي الدفعات إلى المندوب",
   "sumPaymentsFromCaptain" : "إجمالي الدفعات من المندوب",
   "countOrdersDelivered" : "عدد الطلبات المنجزة",
-  "amountYouOwn" : "مستحقات الشركة",
+  "amountYouOwn" : "مستحقات المتجر",
   "remainingAmountForCompany" : "المبلغ المتبقي للشركة",
   "bounce" : "المكافأة",
   "kilometerBonus" : "تعويض المسافات المقطوعة",
@@ -532,5 +532,9 @@
 
   "productQuantity": "كمية المنتج",
   "rating": "التقييم",
-  "price": "سعر"
+  "price": "سعر",
+  "storeBalance": "مستحقات المتجر",
+  "payments": "الدفعات: ",
+  "at": "في: "
+
 }

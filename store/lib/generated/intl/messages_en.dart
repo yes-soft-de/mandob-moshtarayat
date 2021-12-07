@@ -61,6 +61,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "apply": MessageLookupByLibrary.simpleMessage("APPLY"),
         "areYouSureToDisposeThis": MessageLookupByLibrary.simpleMessage(
             "Are you sure about dispose your changes"),
+        "at": MessageLookupByLibrary.simpleMessage("At: "),
         "balanceDetails":
             MessageLookupByLibrary.simpleMessage("Balance Details"),
         "bankAccountNumber":
@@ -493,6 +494,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Payment has been registered successfully"),
         "paymentToCaptain":
             MessageLookupByLibrary.simpleMessage("Payment To Captain"),
+        "payments": MessageLookupByLibrary.simpleMessage("Payments: "),
         "paymentsFromCaptain":
             MessageLookupByLibrary.simpleMessage("Payments From Captain"),
         "paymentsManagement":
@@ -673,6 +675,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "store": MessageLookupByLibrary.simpleMessage("Store"),
         "storeAvailable":
             MessageLookupByLibrary.simpleMessage("Store Availability"),
+        "storeBalance": MessageLookupByLibrary.simpleMessage("Store balance"),
         "storeCategories":
             MessageLookupByLibrary.simpleMessage("Stores Categories"),
         "storeCreatedSuccessfully":

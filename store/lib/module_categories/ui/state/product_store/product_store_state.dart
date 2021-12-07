@@ -6,6 +6,7 @@ import 'package:mandob_moshtarayat/module_categories/model/products_model.dart';
 import 'package:mandob_moshtarayat/module_categories/ui/screen/store_products_screen.dart';
 import 'package:mandob_moshtarayat/module_categories/ui/widget/category_card.dart';
 import 'package:mandob_moshtarayat/module_categories/ui/widget/product_component.dart';
+import 'package:mandob_moshtarayat/utils/components/costom_search.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_list_view.dart';
 import 'package:mandob_moshtarayat/utils/components/empty_screen.dart';
 import 'package:mandob_moshtarayat/utils/components/error_screen.dart';
@@ -32,12 +33,15 @@ class ProductStoreState extends States {
     }
   }
   String? id;
+  late List<ProductsModel> newDataList = productsModel??[] ;
+   late List<ProductsModel> mainDataList=productsModel??[]  ;
+  TextEditingController nameController = TextEditingController();
   @override
   Widget getUI(BuildContext context) {
     if (error != null) {
       return ErrorStateWidget(
         onRefresh: () {
-          screenState.getCategoriesLevelOneWithAllProducts();
+          screenState.getCategoriesLevelOneWithAllProducts('');
         },
         error: error,
       );
@@ -45,65 +49,75 @@ class ProductStoreState extends States {
       return EmptyStateWidget(
           empty: S.current.emptyStaff,
           onRefresh: () {
-            screenState.getCategoriesLevelOneWithAllProducts();
+            screenState.getCategoriesLevelOneWithAllProducts('');
           });
     }
     return FixedContainer(
-        child: Column(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
       children: [
-        SizedBox(
-          height: 55,
-          child: ListView.builder(
-            itemBuilder: (context, index) {
-              return CategoryCard(
-                title: categoriesOne![index].categoryName,
-                selected: categoriesOne![index].id == idOne ?true :false,
-                id: categoriesOne![index].id,
-                onTap: (id) {
-                  print('hihih');
-              idOne = id;
-              screenState.getCategoriesLevelTwoWithProducts( id,categoriesOne);
-                },
-              );
-            },
-            itemCount: categoriesOne!.length,
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
+          CustomDeliverySearch(hintText: S.of(context).search,onChanged: (name){
+//            newDataList = mainDataList
+//                .where((string) => string.productName.toLowerCase().contains(name.toLowerCase()))
+//                .toList();
+//            screenState.refresh();
+          screenState.getCategoriesLevelOneWithAllProducts(name);
+          },controller: nameController,),
+          SizedBox(
+            height: 55,
+            child: ListView.builder(
+              itemBuilder: (context, index) {
+                return CategoryCard(
+                  title: categoriesOne![index].categoryName,
+                  selected: categoriesOne![index].id == idOne ?true :false,
+                  id: categoriesOne![index].id,
+                  onTap: (id) {
+                    print('hihih');
+                idOne = id;
+                screenState.getCategoriesLevelTwoWithProducts( id,categoriesOne);
+                  },
+                );
+              },
+              itemCount: categoriesOne!.length,
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+            ),
           ),
-        ),
-        SizedBox(
-          height:categoriesTwo!.isEmpty ? 0: 60,
-          child: ListView.builder(
-            itemBuilder: (context, index) {
-              return CategoryCard(
-                title: categoriesTwo![index].categoryName,
-                selected: categoriesTwo![index].id == idTwo ?true :false,
-                id: categoriesTwo![index].id,
-                onTap: (id) {
-              idTwo = id;
-             screenState.getStoreProductLevelTwo(idTwo??-1,idOne??-1 ,categoriesOne, categoriesTwo);
-                },
-              );
-            },
-            itemCount: categoriesTwo!.length,
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
+          SizedBox(
+            height:categoriesTwo!.isEmpty ? 0: 60,
+            child: ListView.builder(
+              itemBuilder: (context, index) {
+                return CategoryCard(
+                  title: categoriesTwo![index].categoryName,
+                  selected: categoriesTwo![index].id == idTwo ?true :false,
+                  id: categoriesTwo![index].id,
+                  onTap: (id) {
+                idTwo = id;
+               screenState.getStoreProductLevelTwo(idTwo??-1,idOne??-1 ,categoriesOne, categoriesTwo);
+                  },
+                );
+              },
+              itemCount: categoriesTwo!.length,
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+            ),
           ),
-        ),
-        Expanded(
-          child: CustomListView.custom(children: getProducts()),
-        )
+          Expanded(
+            child: CustomListView.custom(children: getProducts()),
+          )
       ],
-    ));
+    ),
+        ));
   }
 
   List<Widget> getProducts() {
     List<Widget> widgets = [];
-    if (productsModel == null) {
+    if (newDataList == null) {
       return widgets;
     }
 
-    if (productsModel!.isEmpty) return widgets;
+    if (newDataList.isEmpty) return widgets;
     for (var element in productsModel!) {
       if (id != null && id != element.storeProductCategoryID.toString()) {
         continue;
@@ -120,6 +134,11 @@ class ProductStoreState extends States {
     return widgets;
   }
 
+//  void onItemChanged(String value) {
+//    setState(() {
+//
+//    });
+//  }
 //  List<DropdownMenuItem<String>> getChoices() {
 //    List<DropdownMenuItem<String>> items = [];
 //    model?.forEach((element) {

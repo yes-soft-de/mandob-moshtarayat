@@ -30,7 +30,8 @@ class _CustomDeliverySearchState extends State<CustomDeliverySearch> {
       ),
       child: TextField(
         controller: widget.controller,
-        onChanged: widget.onChanged,
+        textInputAction: TextInputAction.search,
+        onSubmitted: widget.onChanged,
         decoration: InputDecoration(
           border: InputBorder.none,
           hintText: widget.hintText,

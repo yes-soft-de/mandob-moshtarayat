@@ -44,7 +44,7 @@ class StoreProductsStateManager {
     }
       }
 
- void getCategoriesLevelOneWithAllProducts(StoreProductScreenState screenState){
+ void getCategoriesLevelOneWithAllProducts(StoreProductScreenState screenState,String name){
    if(_authService.isLoggedIn){
      print('tfff');
      _storesService.getStoreProfile().then((value){
@@ -66,7 +66,7 @@ class StoreProductsStateManager {
                  empty: value.isEmpty));
            } else {
              ProductsCategoryModel categoryModel = value as ProductsCategoryModel;
-             getStoreProducts(screenState,'',catOne: categoryModel.data,catTwo: []);
+             getStoreProducts(screenState,name,catOne: categoryModel.data,catTwo: []);
 //             _stateSubject.add(ProductCategoriesLoadedState(screenState, model.data,[],[],-1));
            }
          });
