@@ -61,7 +61,7 @@ class StoreProductCategoryController extends BaseController
      * )
      *
      * @OA\Response(
-     *      response=200,
+     *      response=201,
      *      description="Returns store ",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
@@ -120,7 +120,7 @@ class StoreProductCategoryController extends BaseController
      * )
      *
      * @OA\Response(
-     *      response=200,
+     *      response=201,
      *      description="Returns store ",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
@@ -179,7 +179,7 @@ class StoreProductCategoryController extends BaseController
      * )
      *
      * @OA\Response(
-     *      response=200,
+     *      response=204,
      *      description="Returns store ",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
@@ -213,7 +213,7 @@ class StoreProductCategoryController extends BaseController
      }
 
     /**
-     * * admin: Update store product category second level.
+     * admin: Update store product category second level.
      * @Route("/storeproductcategoryleveltwo", name="updateStoreProductCategoryLevelTwo", methods={"PUT"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
@@ -238,7 +238,7 @@ class StoreProductCategoryController extends BaseController
      * )
      *
      * @OA\Response(
-     *      response=200,
+     *      response=204,
      *      description="Returns store ",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),

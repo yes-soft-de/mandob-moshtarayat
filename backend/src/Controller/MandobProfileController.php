@@ -248,7 +248,7 @@ class MandobProfileController extends BaseController
      * )
      *
      * @OA\Response(
-     *      response=200,
+     *      response=204,
      *      description="Returns mandob's profile",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),

@@ -56,7 +56,7 @@ class DeliveryCompanyPaymentsFromCaptainController extends BaseController
      * )
      *
      * @OA\Response(
-     *      response=200,
+     *      response=201,
      *      description="Return Object of payment",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),

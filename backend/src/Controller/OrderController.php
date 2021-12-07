@@ -39,15 +39,74 @@ class OrderController extends BaseController
     }
 
     /**
+     * captain: Get pending orders for captain.
      * @Route("/closestOrders",   name="GetPendingOrdersForCaptain", methods={"GET"})
      * @IsGranted("ROLE_CAPTAIN") 
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Order")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Return pending orders.",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="object", property="source"),
+     *                  @OA\Property(type="object", property="deliveryDate"),
+     *                  @OA\Property(type="string", property="payment"),
+     *                  @OA\Property(type="string", property="orderNumber"),
+     *                  @OA\Property(type="string", property="detail"),
+     *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                  @OA\Property(type="string", property="storeOwnerName"),
+     *                  @OA\Property(type="array", property="branches",
+     *                      @OA\Items(
+     *                              @OA\Property(type="integer", property="id"),
+     *                              @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                              @OA\Property(type="object", property="geoLocation"),
+     *                              @OA\Property(type="string", property="branchName"),
+     *                              @OA\Property(type="boolean", property="free"),
+     *                              @OA\Property(type="string", property="storeOwnerName"),
+     *                              @OA\Property(type="object", property="isActive"),
+     *                                   ),
+     *                      ),
+     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="integer", property="orderType"),
+     *                  @OA\Property(type="object", property="destination"),
+     *                  @OA\Property(type="string", property="note"),
+     *                  ),
+     *            )
+     *       )
+     *  )
+     *
+     * or
+     *
+     * @OA\Response(
+     *      response="default",
+     *      description="Return captain inactive.",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code", description="9002"),
+     *          @OA\Property(type="string", property="msg", description="error captain inactive Successfully."),
+     *          @OA\Property(type="string", property="Data", description="captain inactive"),
+     *      )
+     * )
+     * @Security(name="Bearer")
      */
     public function closestOrders()
     {
         $response = $this->orderService->closestOrders($this->getUserId());
 
-        if(is_string($response)){
+        if($response == "captain inactive"){
           return $this->response($response, self::ERROR_CAPTAIN_INACTIVE);  
         }
         
@@ -55,9 +114,59 @@ class OrderController extends BaseController
     }
 
     /**
+     * admin: Get pending orders for admin.
      * @Route("/getPendingOrders", name="GetPendingOrders", methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Order")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Return pending orders.",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="object", property="source"),
+     *                  @OA\Property(type="object", property="deliveryDate"),
+     *                  @OA\Property(type="string", property="payment"),
+     *                  @OA\Property(type="string", property="orderNumber"),
+     *                  @OA\Property(type="string", property="detail"),
+     *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                  @OA\Property(type="string", property="storeOwnerName"),
+     *                  @OA\Property(type="array", property="branches",
+     *                      @OA\Items(
+     *                              @OA\Property(type="integer", property="id"),
+     *                              @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                              @OA\Property(type="object", property="geoLocation"),
+     *                              @OA\Property(type="string", property="branchName"),
+     *                              @OA\Property(type="boolean", property="free"),
+     *                              @OA\Property(type="string", property="storeOwnerName"),
+     *                              @OA\Property(type="object", property="isActive"),
+     *                                   ),
+     *                      ),
+     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="integer", property="orderType"),
+     *                  @OA\Property(type="integer", property="deliveryCost"),
+     *                  @OA\Property(type="integer", property="orderCost"),
+     *                  @OA\Property(type="object", property="destination"),
+     *                  @OA\Property(type="string", property="note"),
+     *                  ),
+     *            )
+     *       )
+     *  )
+     *
+     * @Security(name="Bearer")
      */
     public function getPendingOrders()
     {    
@@ -65,14 +174,69 @@ class OrderController extends BaseController
 
         return $this->response($result, self::FETCH);
     }
-    
-    //To accept the order AND change state
+
     //state:on way to pick order or in store or picked or ongoing or delivered
     /**
+     * captain: To accept the order AND change state
      * @Route("/orderUpdateState", name="orderUpdateState", methods={"PUT"})
      * @IsGranted("ROLE_CAPTAIN")
      * @param Request $request
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Order")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\RequestBody (
+     *        description="To accept the order AND change state",
+     *        @OA\JsonContent(
+     *              @OA\Property(type="integer", property="orderNumber"),
+     *              @OA\Property(type="string", property="state"),
+     *              @OA\Property(type="number", property="deliveryCost"),
+     *         ),
+     *      ),
+     *
+     * @OA\Response(
+     *      response=204,
+     *      description="Return order.",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="integer", property="orderNumber"),
+     *              @OA\Property(type="object", property="source"),
+     *              @OA\Property(type="object", property="destination"),
+     *              @OA\Property(type="object", property="deliveryDate"),
+     *              @OA\Property(type="object", property="updatedAt"),
+     *              @OA\Property(type="object", property="note"),
+     *              @OA\Property(type="string", property="recipientName"),
+     *              @OA\Property(type="string", property="recipientPhone"),
+     *              @OA\Property(type="string", property="state"),
+     *              @OA\Property(type="string", property="roomID"),
+     *              @OA\Property(type="string", property="detail"),
+     *              @OA\Property(type="string", property="deliveryCost"),
+     *              @OA\Property(type="object", property="createdAt"),
+     *              )
+     *      )
+     * )
+     *
+     * or
+     *
+     * @OA\Response(
+     *      response="default",
+     *      description="Return Not updated.",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code", description="425"),
+     *          @OA\Property(type="string", property="msg", description="error Successfully."),
+     *          @OA\Property(type="string", property="Data", description="Not updated!!"),
+     *      )
+     * )
+     * @Security(name="Bearer")
      */
     public function orderUpdateStateByCaptain(Request $request)
     {
@@ -90,10 +254,61 @@ class OrderController extends BaseController
     }
 
     /**
+      * admin: Get  orders without pending for admin.
       * @Route("/getOrdersWithOutPending", name="getOrdersWithOutPendingForAdmin", methods={"GET"})
       * @IsGranted("ROLE_ADMIN")
       * @return JsonResponse
-      */
+     * *
+     * @OA\Tag(name="Order")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Get  orders without pending for admin",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="object", property="source"),
+     *                  @OA\Property(type="object", property="deliveryDate"),
+     *                  @OA\Property(type="string", property="payment"),
+     *                  @OA\Property(type="string", property="orderNumber"),
+     *                  @OA\Property(type="string", property="detail"),
+     *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                  @OA\Property(type="string", property="storeOwnerName"),
+     *                  @OA\Property(type="array", property="branches",
+     *                      @OA\Items(
+     *                              @OA\Property(type="integer", property="id"),
+     *                              @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                              @OA\Property(type="object", property="geoLocation"),
+     *                              @OA\Property(type="string", property="branchName"),
+     *                              @OA\Property(type="boolean", property="free"),
+     *                              @OA\Property(type="string", property="storeOwnerName"),
+     *                              @OA\Property(type="object", property="isActive"),
+     *                                   ),
+     *                      ),
+     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="integer", property="orderType"),
+     *                  @OA\Property(type="integer", property="deliveryCost"),
+     *                  @OA\Property(type="integer", property="orderCost"),
+     *                  @OA\Property(type="object", property="destination"),
+     *                  @OA\Property(type="string", property="note"),
+     *                  @OA\Property(type="string", property="state"),
+     *                  ),
+     *            )
+     *       )
+     *  )
+     *
+     * @Security(name="Bearer")
+     */
       public function getOrdersWithOutPending()
       {
           $result = $this->orderService->getOrdersWithOutPending();
@@ -102,10 +317,61 @@ class OrderController extends BaseController
       }
 
     /**
+     * admin: Get orders ongoing for admin.
       * @Route("/getOrdersOngoing", name="getOrdersOngoingForAdmin", methods={"GET"})
       * @IsGranted("ROLE_ADMIN")
       * @return JsonResponse
-      */
+     * *
+     * @OA\Tag(name="Order")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Get orders ongoing for admin",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="object", property="source"),
+     *                  @OA\Property(type="object", property="deliveryDate"),
+     *                  @OA\Property(type="string", property="payment"),
+     *                  @OA\Property(type="string", property="orderNumber"),
+     *                  @OA\Property(type="string", property="detail"),
+     *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                  @OA\Property(type="string", property="storeOwnerName"),
+     *                  @OA\Property(type="array", property="branches",
+     *                      @OA\Items(
+     *                              @OA\Property(type="integer", property="id"),
+     *                              @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                              @OA\Property(type="object", property="geoLocation"),
+     *                              @OA\Property(type="string", property="branchName"),
+     *                              @OA\Property(type="boolean", property="free"),
+     *                              @OA\Property(type="string", property="storeOwnerName"),
+     *                              @OA\Property(type="object", property="isActive"),
+     *                                   ),
+     *                      ),
+     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="integer", property="orderType"),
+     *                  @OA\Property(type="integer", property="deliveryCost"),
+     *                  @OA\Property(type="integer", property="orderCost"),
+     *                  @OA\Property(type="object", property="destination"),
+     *                  @OA\Property(type="string", property="note"),
+     *                  @OA\Property(type="string", property="state"),
+     *                  ),
+     *            )
+     *       )
+     *  )
+     *
+     * @Security(name="Bearer")
+     */
       public function getOrdersOngoing()
       {
           $result = $this->orderService->getOrdersOngoing();
@@ -114,11 +380,62 @@ class OrderController extends BaseController
       }
 
     /**
+     * admin: Get orders in specific date.
      * @Route("/getOrdersInSpecificDate/{fromDate}/{toDate}", name="getOrdersInSpecificDate",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @param $fromDate
      * @param $toDate
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Order")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Get orders in specific date",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="object", property="source"),
+     *                  @OA\Property(type="object", property="deliveryDate"),
+     *                  @OA\Property(type="string", property="payment"),
+     *                  @OA\Property(type="string", property="orderNumber"),
+     *                  @OA\Property(type="string", property="detail"),
+     *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                  @OA\Property(type="string", property="storeOwnerName"),
+     *                  @OA\Property(type="array", property="branches",
+     *                      @OA\Items(
+     *                              @OA\Property(type="integer", property="id"),
+     *                              @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                              @OA\Property(type="object", property="geoLocation"),
+     *                              @OA\Property(type="string", property="branchName"),
+     *                              @OA\Property(type="boolean", property="free"),
+     *                              @OA\Property(type="string", property="storeOwnerName"),
+     *                              @OA\Property(type="object", property="isActive"),
+     *                                   ),
+     *                      ),
+     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="integer", property="orderType"),
+     *                  @OA\Property(type="integer", property="deliveryCost"),
+     *                  @OA\Property(type="integer", property="orderCost"),
+     *                  @OA\Property(type="object", property="destination"),
+     *                  @OA\Property(type="string", property="note"),
+     *                  @OA\Property(type="string", property="state"),
+     *                  ),
+     *            )
+     *       )
+     *  )
+     *
+     * @Security(name="Bearer")
      */
     public function getOrdersInSpecificDate($fromDate, $toDate): JsonResponse
     {
@@ -128,11 +445,43 @@ class OrderController extends BaseController
     }
 
    /**
-     * @Route("/countOrdersEveryStoreInLastMonth", name="getCountOrdersEveryStoreInLastMonth",methods={"GET"})
-     * @IsGranted("ROLE_ADMIN")
-     * @param Request $request
-     * @return JsonResponse
-     */
+    * admin: Get count orders every store in last month.
+    * @Route("/countOrdersEveryStoreInLastMonth", name="getCountOrdersEveryStoreInLastMonth",methods={"GET"})
+    * @IsGranted("ROLE_ADMIN")
+    * @return JsonResponse
+    * *
+    * @OA\Tag(name="Order")
+    *
+    * @OA\Parameter(
+    *      name="token",
+    *      in="header",
+    *      description="token to be passed as a header",
+    *      required=true
+    * )
+    *
+    * @OA\Response(
+    *      response=200,
+    *      description="Get count orders every store in last month.",
+    *      @OA\JsonContent(
+    *          @OA\Property(type="string", property="status_code"),
+    *          @OA\Property(type="string", property="msg"),
+    *          @OA\Property(type="array", property="Data",
+    *              @OA\Items(
+    *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
+    *                  @OA\Property(type="integer", property="countOrdersInMonth"),
+    *                  @OA\Property(type="string", property="storeOwnerName"),
+    *                  @OA\Property(type="object", property="image",
+    *                       @OA\Property(type="string", property="imageURL"),
+    *                       @OA\Property(type="string", property="image"),
+    *                       @OA\Property(type="string", property="baseURL"),
+    *
+    *                       ),
+    *            )
+    *       )
+    *  )
+    *)
+    * @Security(name="Bearer")
+    */
     public function getCountOrdersEveryStoreInLastMonth()
     {
         $result = $this->orderService->getCountOrdersEveryStoreInLastMonth();
@@ -141,9 +490,42 @@ class OrderController extends BaseController
     }
 
     /**
+     * admin: Get count orders every captain in last month.
      * @Route("/countOrdersEveryCaptainInLastMonth", name="getCountOrdersEveryCaptainInLastMonth",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Order")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Get count orders every captain in last month.",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="string", property="captainID"),
+     *                  @OA\Property(type="integer", property="countOrdersInMonth"),
+     *                  @OA\Property(type="string", property="captainName"),
+     *                  @OA\Property(type="object", property="image",
+     *                       @OA\Property(type="string", property="imageURL"),
+     *                       @OA\Property(type="string", property="image"),
+     *                       @OA\Property(type="string", property="baseURL"),
+     *
+     *                       ),
+     *            )
+     *       )
+     *  )
+     *)
+     * @Security(name="Bearer")
      */
     public function getCountOrdersEveryCaptainInLastMonth(): JsonResponse
     {
@@ -153,9 +535,43 @@ class OrderController extends BaseController
     }
 
     /**
+     * admin: Get count orders every client in last month.
      * @Route("/countOrdersEveryClientInLastMonth", name="getCountOrdersEveryClientInLastMonth",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Order")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Get count orders every client in last month",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="string", property="clientID"),
+     *                  @OA\Property(type="integer", property="countOrdersInMonth"),
+     *                  @OA\Property(type="string", property="clientName"),
+     *                  @OA\Property(type="object", property="image",
+     *                       @OA\Property(type="string", property="imageURL"),
+     *                       @OA\Property(type="string", property="image"),
+     *                       @OA\Property(type="string", property="baseURL"),
+     *
+     *                       ),
+     *                 )
+     *           )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
      */
     public function getCountOrdersEveryClientInLastMonth(): JsonResponse
     {
@@ -165,9 +581,43 @@ class OrderController extends BaseController
     }
 
     /**
+     * admin: Get count orders every product in last month.
      * @Route("/countOrdersEveryProductInLastMonth", name="getCountOrdersEveryProductInLastMonth",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Order")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Get count orders every product in last month.",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="productID"),
+     *                  @OA\Property(type="string", property="productName"),
+     *                  @OA\Property(type="string", property="clientName"),
+     *                  @OA\Property(type="object", property="productImage",
+     *                       @OA\Property(type="string", property="imageURL"),
+     *                       @OA\Property(type="string", property="image"),
+     *                       @OA\Property(type="string", property="baseURL"),
+     *
+     *                       ),
+     *                 )
+     *           )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
      */
     public function getCountOrdersEveryProductInLastMonth(): JsonResponse
     {
@@ -192,7 +642,7 @@ class OrderController extends BaseController
      * )
      *
      * @OA\Response(
-     *      response=201,
+     *      response=200,
      *      description="Return order.",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
@@ -473,10 +923,10 @@ class OrderController extends BaseController
      * )
      *
      * @OA\Response(
-     *      response=201,
+     *      response=200,
      *      description="Returns objetc of order details. first case type=2",
      *      @OA\JsonContent(
-     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="status_code", description="201"),
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
      *          @OA\Property(type="object", property="storeOwner",
@@ -555,10 +1005,10 @@ class OrderController extends BaseController
      * or
      *
      * @OA\Response(
-     *      response=200,
+     *      response="default",
      *      description="Returns objetc of order details. third case type=3",
      *      @OA\JsonContent(
-     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="status_code", description="201"),
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
      *              @OA\Property(type="array", property="deliveryCost",

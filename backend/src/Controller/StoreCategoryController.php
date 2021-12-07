@@ -58,7 +58,7 @@ class StoreCategoryController extends BaseController
      * )
      *
      * @OA\Response(
-     *      response=200,
+     *      response=201,
      *      description="Returns the new store owner's role and the creation date",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
@@ -119,7 +119,7 @@ class StoreCategoryController extends BaseController
      * )
      *
      * @OA\Response(
-     *      response=200,
+     *      response=204,
      *      description="Returns store ",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),

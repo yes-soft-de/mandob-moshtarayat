@@ -53,7 +53,7 @@ class StoreOwnerProfileController extends BaseController
      * )
      *
      * @OA\Response(
-     *      response=200,
+     *      response=201,
      *      description="Returns the new store owner's role and the creation date",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
@@ -107,7 +107,7 @@ class StoreOwnerProfileController extends BaseController
      * )
      *
      * @OA\Response(
-     *      response=200,
+     *      response=201,
      *      description="Returns the new store owner's role and the creation date",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
@@ -177,7 +177,7 @@ class StoreOwnerProfileController extends BaseController
      * )
      *
      * @OA\Response(
-     *      response=200,
+     *      response=204,
      *      description="Returns the store owner's profile",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
@@ -270,7 +270,7 @@ class StoreOwnerProfileController extends BaseController
      * )
      *
      * @OA\Response(
-     *      response=200,
+     *      response=204,
      *      description="Returns the store owner's profile",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),

@@ -42,7 +42,7 @@ class UserController extends BaseController
       * )
       *
       * @OA\Response(
-      *      response=200,
+      *      response=201,
       *      description="Return String",
       *      @OA\JsonContent(
       *          @OA\Property(type="string", property="status_code"),

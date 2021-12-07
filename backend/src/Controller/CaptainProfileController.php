@@ -52,7 +52,7 @@ class CaptainProfileController extends BaseController
       * )
       *
       * @OA\Response(
-      *      response=200,
+      *      response=201,
       *      description="Returns the new captain's role and the creation date",
       *      @OA\JsonContent(
       *          @OA\Property(type="string", property="status_code"),
@@ -124,7 +124,7 @@ class CaptainProfileController extends BaseController
      * )
      *
      * @OA\Response(
-     *      response=200,
+     *      response=204,
      *      description="Returns captain profile",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
@@ -182,7 +182,7 @@ class CaptainProfileController extends BaseController
      * )
      *
      * @OA\Response(
-     *      response=200,
+     *      response=204,
      *      description="Returns captain profile",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
@@ -253,7 +253,7 @@ class CaptainProfileController extends BaseController
      * )
      *
      * @OA\Response(
-     *      response=200,
+     *      response=204,
      *      description="Returns captain profile",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
