@@ -1,8 +1,6 @@
-import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/module_home/state_manager/home_state_manager.dart';
-import 'package:mandob_moshtarayat/module_home/ui/state/home_loaded_state.dart';
 import 'package:mandob_moshtarayat/module_home/ui/state/home_loading_state.dart';
 import 'package:mandob_moshtarayat/module_home/ui/state/home_state.dart';
 
@@ -10,7 +8,7 @@ import 'package:mandob_moshtarayat/module_home/ui/state/home_state.dart';
 class HomeScreen extends StatefulWidget {
   final HomeStateManager _homeStateManager;
 
-  HomeScreen(this._homeStateManager);
+  const HomeScreen(this._homeStateManager);
 
   @override
   HomeScreenState createState() => HomeScreenState();
@@ -18,7 +16,7 @@ class HomeScreen extends StatefulWidget {
 
 class HomeScreenState extends State<HomeScreen> {
   HomeState? currentState;
-  late AsyncSnapshot snapshot = AsyncSnapshot.nothing();
+  late AsyncSnapshot snapshot = const AsyncSnapshot.nothing();
 
   void refresh() {
     if (mounted) {

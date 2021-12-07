@@ -33,12 +33,13 @@ class HomeLoadedFilterState extends HomeState {
         return screenState.getHomeData();
       },
       child: ListView(
-        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+        physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         children: [
           CustomHomeAppBar(
             categoriesCallback: (categoriesID) {
               if ('0' == categoriesID) {
                 screenState.getHomeData(false);
+                screenState.snapshot = const AsyncSnapshot.nothing();
                 screenState.refresh();
               } else {
                 categoryID = categoriesID;
@@ -51,21 +52,21 @@ class HomeLoadedFilterState extends HomeState {
             },
             categories: categories,
           ),
-          Container(
+          SizedBox(
             height: 65,
             width: MediaQuery.of(context).size.width,
             child: ListView(
-              physics: BouncingScrollPhysics(
+              physics: const BouncingScrollPhysics(
                   parent: AlwaysScrollableScrollPhysics()),
               scrollDirection: Axis.horizontal,
               children: _getSubCategories(),
             ),
           ),
-          Container(
+          SizedBox(
             height: 65,
             width: MediaQuery.of(context).size.width,
             child: ListView(
-              physics: BouncingScrollPhysics(
+              physics: const BouncingScrollPhysics(
                   parent: AlwaysScrollableScrollPhysics()),
               scrollDirection: Axis.horizontal,
               children: _getSubCategoriesLevel2(),
@@ -80,7 +81,7 @@ class HomeLoadedFilterState extends HomeState {
               children: _getProductsByCategories(),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 75,
           ),
         ],

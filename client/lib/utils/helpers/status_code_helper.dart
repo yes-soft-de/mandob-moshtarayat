@@ -1,4 +1,5 @@
 import 'package:mandob_moshtarayat/generated/l10n.dart';
+import 'package:mandob_moshtarayat/module_auth/presistance/auth_prefs_helper.dart';
 
 class StatusCodeHelper {
   static String getStatusCodeMessages(var statusCode) {
@@ -14,6 +15,7 @@ class StatusCodeHelper {
       case '400':
         return S.current.statusCodeBadRequest;
       case '401':
+        AuthPrefsHelper().cleanAll();
         return S.current.statusCodeUnauthorized;
       case '404':
         return S.current.StatusCodeNotFound;

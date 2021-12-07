@@ -2,19 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/abstracts/states/loading_state.dart';
 import 'package:mandob_moshtarayat/abstracts/states/state.dart';
+import 'package:mandob_moshtarayat/di/di_config.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
+import 'package:mandob_moshtarayat/module_auth/service/auth_service/auth_service.dart';
 import 'package:mandob_moshtarayat/module_products/state_manager/products_state_manager.dart';
 import 'package:mandob_moshtarayat/module_products/ui/state/product_details/products_details_loaded_state.dart';
 import 'package:mandob_moshtarayat/module_stores/request/rate_store_request.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat/utils/components/rate_dialog.dart';
-import 'package:mandob_moshtarayat/utils/images/images.dart';
+import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
 
 @injectable
 class ProductDetailsScreen extends StatefulWidget {
   final ProductDetailsStateManager _stateManager;
 
-  ProductDetailsScreen(this._stateManager);
+  const ProductDetailsScreen(this._stateManager);
 
   @override
   ProductDetailsScreenState createState() => ProductDetailsScreenState();
@@ -65,37 +67,40 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
             title: S.current.product,
             actions: currentState is ProductDetailsLoadedState
                 ? [
-                    InkWell(
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) => RatingAlertDialog(
-                            title: S.current.rateProduct,
-                            message: S.current.rateProductMessage,
-                            image: (currentState as ProductDetailsLoadedState)
-                                .model
-                                .productImage,
-                            onPressed: (rate) {
-                              widget._stateManager.rateProduct(
-                                  RateStoreRequest(
-                                      rating: rate,
-                                      itemType: 'product',
-                                      itemID: productId),
-                                  this);
-                            },
+                    Hider(
+                      active:getIt<AuthService>().isLoggedIn,
+                      child: InkWell(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => RatingAlertDialog(
+                              title: S.current.rateProduct,
+                              message: S.current.rateProductMessage,
+                              image: (currentState as ProductDetailsLoadedState)
+                                  .model
+                                  .productImage,
+                              onPressed: (rate) {
+                                widget._stateManager.rateProduct(
+                                    RateStoreRequest(
+                                        rating: rate,
+                                        itemType: 'product',
+                                        itemID: productId),
+                                    this);
+                              },
+                            ),
+                          );
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).cardColor.withOpacity(0.5),
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                        );
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).cardColor.withOpacity(0.5),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Icon(
-                            Icons.star,
-                            color: Colors.yellow,
+                          child: const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Icon(
+                              Icons.star,
+                              color: Colors.yellow,
+                            ),
                           ),
                         ),
                       ),
