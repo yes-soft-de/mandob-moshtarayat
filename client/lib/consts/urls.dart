@@ -5,7 +5,7 @@
 // Named Domain ===> 'https://mandoob.password-please.com'
 
 class Urls {
-  static const String DOMAIN = 'http://138.197.186.138';
+  static const String DOMAIN = 'http://206.189.61.207';
   static const String BASE_API = DOMAIN + '';
   static const String IMAGES_ROOT = DOMAIN + '/upload/';
   static const UPLOAD_API = BASE_API + '/uploadfile';
@@ -43,6 +43,7 @@ class Urls {
   static const UPDATE_SEND_CLIENT_ORDER_API =
       BASE_API + '/orderSendUpdateByClient';
   static const GET_PROFILE_API = BASE_API + '/clientProfile';
+  static const GET_USER_FAVORITE_API = BASE_API + '/';
   static const POST_PROFILE_API = BASE_API + '/clientprofile';
   static const CHECK_USER_ROLE = BASE_API + '/checkUserType';
   static const GET_SEARCH_RESULT = BASE_API + '/clientFilter/';
@@ -58,7 +59,13 @@ class Urls {
       BASE_API + '/storeproductscategoryleveltwowithproducts/';
   static const GET_PRODUCTS_BY_MAIN_CATEGORIES =
       BASE_API + '/productsbystorecategory/';
-        static const GET_FAVORITE_CATEGORIES =
-      BASE_API + '/maincategoriesandstores';
+  static const GET_PRODUCTS_BY_STORES =
+      BASE_API + '/productsstoreownerprofileid/';
+  static const GET_FAVORITE_CATEGORIES =
+      BASE_API + '/favouritestorecategoriesandstores';
   static const GET_PRODUCT_DETAILS_API = BASE_API + '/product';
+  static const UPDATE_FAVORITE_CLIENT_API = BASE_API + '/updateclientfavouritecategories';
+  static const CREATE_FAVORITE_CLIENT_API = BASE_API + '/updateclientfavouritecategories';
+  static const GET_FAVORITE_CLIENT_API = BASE_API + '/userfavoritecategories';
+
 }

@@ -32,6 +32,9 @@ class AuthService {
       username: username,
       password: password,
     ));
+    print('+++++++++++++++++++++++++++++');
+    print(loginResult?.statusCode);
+    print('+++++++++++++++++++++++++++++');
     if (loginResult == null) {
       await logout();
       _authSubject.addError(S.current.networkError);
@@ -80,14 +83,15 @@ class AuthService {
 
   Future<String?> getToken() async {
     try {
-      var tokenDate = this._prefsHelper.getTokenDate();
+      var tokenDate = _prefsHelper.getTokenDate();
       var diff = DateTime.now().difference(tokenDate).inMinutes;
       if (diff.abs() > 55) {
-        throw TokenExpiredException('Token is created ${diff} minutes ago');
+        throw TokenExpiredException('Token is created $diff minutes ago');
       }
-      return await this._prefsHelper.getToken();
+      return _prefsHelper.getToken();
     } on AuthorizationException {
       _prefsHelper.deleteToken();
+      await _prefsHelper.cleanAll();
       return null;
     } on TokenExpiredException {
       return await refreshToken();
@@ -99,19 +103,19 @@ class AuthService {
 
   /// refresh API token, this is done using Firebase Token Refresh
   Future<String?> refreshToken() async {
-    String? username = await _prefsHelper.getUsername();
-    String? password = await _prefsHelper.getPassword();
-    LoginResponse? loginResponse = await _authManager.login(LoginRequest(
-      username: username,
-      password: password,
-    ));
-    if (loginResponse == null) {
-      await _prefsHelper.cleanAll();
-      return null;
+    String? username = _prefsHelper.getUsername();
+    String? password = _prefsHelper.getPassword();
+    if (username != null && password != null) {
+      await loginApi(
+        username,
+        password,
+      );
     }
-    _prefsHelper.setToken(loginResponse.token);
-
-    return loginResponse.token;
+    var token = await getToken();
+    if (token != null) {
+      return token;
+    }
+    throw const AuthorizationException('error getting token');
   }
 
   Future<void> logout() async {

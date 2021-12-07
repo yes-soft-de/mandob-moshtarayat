@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_home/model/favorite_categories_model.dart';
+import 'package:mandob_moshtarayat/module_home/model/products_by_categories_model.dart';
 import 'package:mandob_moshtarayat/module_home/ui/screen/home_screen.dart';
 import 'package:mandob_moshtarayat/module_home/ui/state/home_state.dart';
 import 'package:mandob_moshtarayat/module_home/ui/widget/fav_category_card.dart';
 import 'package:mandob_moshtarayat/module_home/ui/widget/home_app_bar.dart';
 import 'package:mandob_moshtarayat/module_home/ui/widget/product_card.dart';
+import 'package:mandob_moshtarayat/module_home/ui/widget/product_component.dart';
 import 'package:mandob_moshtarayat/module_home/ui/widget/show_all.dart';
 import 'package:mandob_moshtarayat/module_our_services/services_routes.dart';
 import 'package:mandob_moshtarayat/module_stores/store_routes.dart';
@@ -22,13 +24,12 @@ class HomeLoadedState extends HomeState {
   List<FavoriteStore> favoriteStore;
   List<StoreCategoryModel> categories;
 
-  HomeLoadedState(
-    this.screenState, {
-    required this.favorite,
-    required this.categories,
-    required this.favoriteStore
-  }) : super(screenState);
-
+  HomeLoadedState(this.screenState,
+      {required this.favorite,
+      required this.categories,
+      required this.favoriteStore})
+      : super(screenState);
+  String storeID = '';
   @override
   Widget getUI(BuildContext context) {
     return RefreshIndicator(
@@ -77,7 +78,7 @@ class HomeLoadedState extends HomeState {
               ),
             ),
           ),
-          // stores 
+          // stores
           Hider(
             active: favoriteStore.isNotEmpty,
             child: ListTile(
@@ -105,40 +106,36 @@ class HomeLoadedState extends HomeState {
               ),
             ),
           ),
-          // products 
+          // products
           Hider(
-            active: false,
+            active: screenState.snapshot.hasData,
             child: ListTile(
               leading: Icon(
-                CustomIcon.near_me,
+                CustomIcon.top_product,
                 color: Theme.of(context).primaryColor,
                 size: 18,
               ),
               title: Text(
-                S.of(context).nearbyStore,
+                S.of(context).products,
                 style: StyleText.categoryStyle,
               ),
               trailing: showAll(context),
             ),
           ),
           Hider(
-            active: false,
+            active: screenState.snapshot.hasData,
             child: SizedBox(
               height: 125,
-              child: ListView.builder(
+              width: double.maxFinite,
+              child: ListView(
                 physics: const BouncingScrollPhysics(
                     parent: AlwaysScrollableScrollPhysics()),
                 scrollDirection: Axis.horizontal,
-                itemCount: 10,
-                itemBuilder: (_, index) {
-                  return const HomeCard(
-                      title: 'متجر',
-                      image:
-                          'https://media-cdn.tripadvisor.com/media/photo-s/17/75/3f/d1/restaurant-in-valkenswaard.jpg');
-                },
+                children: _getProductsByStore(),
               ),
             ),
-          ), const SizedBox(
+          ),
+          const SizedBox(
             height: 75,
           ),
         ],
@@ -178,15 +175,37 @@ class HomeLoadedState extends HomeState {
 
   List<Widget> getFavStores(List<FavoriteStore> stores) {
     if (stores.isEmpty) return [];
-    List<HomeCard> bestStoresCards = [];
+    List<Widget> bestStoresCards = [];
     stores.forEach((element) {
-      bestStoresCards.add(HomeCard(
-        title: element.storeName,
-        image: element.image,
-        onTap: () {
-        },
+      bestStoresCards.add(Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25),
+          color: element.storeId.toString() == storeID
+            ? Theme.of(screenState.context).primaryColor.withOpacity(0.5)
+            : null,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(2.0),
+          child: HomeCard(
+            title: element.storeName,
+            image: element.image,
+            onTap: () {
+              storeID = element.storeId.toString();
+              screenState.getProductsByStore(element.storeId.toString());
+            },
+          ),
+        ),
       ));
     });
     return bestStoresCards;
+  }
+
+  List<Widget> _getProductsByStore() {
+    List<Widget> widgets = [];
+    if (!screenState.snapshot.hasData) return widgets;
+    screenState.snapshot.data.forEach((ProductsByCategoriesModel element) {
+      widgets.add(HomeCard(title: element.productName, image: element.image));
+    });
+    return widgets;
   }
 }

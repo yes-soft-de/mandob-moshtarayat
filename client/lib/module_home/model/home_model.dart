@@ -12,10 +12,10 @@ class HomeModel {
   late List<StoreCategoryModel> storeCategory;
   HomeModel? homeData;
 
-  HomeModel(
-      {required this.favorite,
-      required this.storeCategory,
-      });
+  HomeModel({
+    required this.favorite,
+    required this.storeCategory,
+  });
 
   HomeModel.Empty() {
     _empty = true;
@@ -27,28 +27,28 @@ class HomeModel {
 
   bool get hasErrors => errors.isNotEmpty;
 
-  HomeModel.Data(
-      List<FavoriteCategoriesModel> favoriteModel,
-      List<StoreCategoryModel> storeCategoryModel,
-      List<String> homeErrors) {
+  HomeModel.Data(List<FavoriteCategoriesModel> favoriteModel,
+      List<StoreCategoryModel> storeCategoryModel, List<String> homeErrors) {
     homeData = HomeModel(
-        favorite: favoriteModel,
-        storeCategory: storeCategoryModel,);
+      favorite: favoriteModel,
+      storeCategory: storeCategoryModel,
+    );
     errors = homeErrors;
   }
   List<FavoriteStore> getFullStores() {
     List<FavoriteStore> stores = [];
     favorite.forEach((cats) {
       cats.stores.forEach((element) {
-        stores.add(
-          FavoriteStore(storeName: element.storeName, storeId: element.storeId, image: element.image)
-        );
+        stores.add(FavoriteStore(
+            storeName: element.storeName,
+            storeId: element.storeId,
+            image: element.image));
       });
     });
     return stores;
   }
+
   bool get isEmpty => _empty;
   bool get hasData => homeData != null;
-  HomeModel get data =>
-      homeData ?? HomeModel(favorite: [], storeCategory: []);
+  HomeModel get data => homeData ?? HomeModel(favorite: [], storeCategory: []);
 }

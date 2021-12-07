@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/module_home/model/products_by_categories_model.dart';
@@ -40,21 +42,11 @@ class HomeStateManager {
         stateSubject.add(HomeLoadedState(screenState,
             favorite: data.favorite,
             categories: data.storeCategory,
-            favoriteStore: data.getFullStores()
-           ));
+            favoriteStore: data.getFullStores()));
         if (value.hasErrors) {
           CustomFlushBarHelper.createError(
                   title: S.current.warnning, message: value.errors[0])
-              .show(screenState.context)
-              .whenComplete(() {
-            if (value.errors.length == 2) {
-              CustomFlushBarHelper.createError(
-                      title: S.current.warnning,
-                      message: value.errors[1],
-                      timeout: 3)
-                  .show(screenState.context);
-            }
-          });
+              .show(screenState.context);
         }
       } else {
         stateSubject.add(HomeErrorState(screenState, value.errors));
@@ -80,7 +72,20 @@ class HomeStateManager {
       }
     });
   }
-
+  void getProductsByStore(HomeScreenState screenState, String storeID) {
+    _productSubject.add(AsyncSnapshot.waiting());
+    _homeService.getProductsByStore(storeID).then((value) {
+      if (value.hasError) {
+        _productSubject.add(AsyncSnapshot.waiting());
+      } else if (value.isEmpty) {
+        _productSubject.add(AsyncSnapshot.nothing());
+      } else {
+        ProductsByCategoriesModel model = value as ProductsByCategoriesModel;
+        _productSubject
+            .add(AsyncSnapshot.withData(ConnectionState.done, model.data));
+      }
+    });
+  }
   void getFilteredProducts(HomeScreenState screenState, String categoriesId) {
     _productSubject.add(AsyncSnapshot.waiting());
     _homeService.getCategoriesProducts(categoriesId).then((value) {
