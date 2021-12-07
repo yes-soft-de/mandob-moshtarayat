@@ -221,7 +221,9 @@ class OrderService
        $items = $this->orderManager->getCountOrdersEveryStoreInLastMonth($date[0],$date[1]);
 
        foreach ($items as $item) {
-            $response[] = $this->autoMapping->map('array', CountOrdersInLastMonthForStoreResponse::class, $item);
+//           $item['image'] = $this->getImageParams($item['image'], $this->params . $item['image'], $this->params);
+
+           $response[] = $this->autoMapping->map('array', CountOrdersInLastMonthForStoreResponse::class, $item);
        }
 
        return $response;
@@ -236,6 +238,8 @@ class OrderService
        $items = $this->orderManager->getCountOrdersEveryCaptainInLastMonth($date[0],$date[1]);
 
         foreach ($items as $item) {
+//            $item['image'] = $this->getImageParams($item['image'], $this->params . $item['image'], $this->params);
+
             $response[] = $this->autoMapping->map('array', CountOrdersInLastMonthForCaptainResponse::class, $item);
         }
 
@@ -251,7 +255,9 @@ class OrderService
        $items = $this->orderManager->getCountOrdersEveryClientInLastMonth($date[0],$date[1]);
 
        foreach ($items as $item) {
-            $response[] = $this->autoMapping->map('array', CountOrdersInLastMonthForClientResponse::class, $item);
+//           $item['image'] = $this->getImageParams($item['image'], $this->params . $item['image'], $this->params);
+
+           $response[] = $this->autoMapping->map('array', CountOrdersInLastMonthForClientResponse::class, $item);
         }
 
        return $response;
@@ -266,6 +272,8 @@ class OrderService
        $items = $this->orderDetailService->getCountOrdersEveryProductInLastMonth($date[0],$date[1]);
      
         foreach ($items as $item) {
+//            $item['productImage'] = $this->getImageParams($item['productImage'], $this->params . $item['productImage'], $this->params);
+
             $response[] = $this->autoMapping->map('array', CountOrdersInLastMonthForProoductResponse::class, $item);
         }
 

@@ -50,7 +50,7 @@ class ClientProfileController extends BaseController
       * )
       *
       * @OA\Response(
-      *      response=200,
+      *      response=201,
       *      description="Returns the new client's role and the creation date",
       *      @OA\JsonContent(
       *          @OA\Property(type="string", property="status_code"),
@@ -114,7 +114,7 @@ class ClientProfileController extends BaseController
      * )
      *
      * @OA\Response(
-     *      response=200,
+     *      response=204,
      *      description="Returns client",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),

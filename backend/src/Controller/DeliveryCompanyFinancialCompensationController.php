@@ -56,7 +56,7 @@ class DeliveryCompanyFinancialCompensationController extends BaseController
      * )
      *
      * @OA\Response(
-     *      response=200,
+     *      response=201,
      *      description="Returns Delivery Company Financial Compensation",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),

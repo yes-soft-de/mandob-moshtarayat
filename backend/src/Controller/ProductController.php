@@ -65,7 +65,7 @@ class ProductController extends BaseController
      * )
      *
      * @OA\Response(
-     *      response=200,
+     *      response=201,
      *      description="Returns the new product",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
@@ -426,7 +426,7 @@ class ProductController extends BaseController
      * )
      *
      * @OA\Response(
-     *      response=200,
+     *      response=201,
      *      description="Get products of specific store for store",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
@@ -497,7 +497,7 @@ class ProductController extends BaseController
      * )
      *
      * @OA\Response(
-     *      response=200,
+     *      response=204,
      *      description="Returns product",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
@@ -562,7 +562,7 @@ class ProductController extends BaseController
      * )
      *
      * @OA\Response(
-     *      response=200,
+     *      response=201,
      *      description="Returns the new product",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
@@ -633,7 +633,7 @@ class ProductController extends BaseController
      * )
      *
      * @OA\Response(
-     *      response=200,
+     *      response=204,
      *      description="Returns product",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
@@ -744,7 +744,7 @@ class ProductController extends BaseController
      * )
      *
      * @OA\Response(
-     *      response=200,
+     *      response=204,
      *      description="Returns product",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
@@ -927,7 +927,6 @@ class ProductController extends BaseController
     /**
      * Get products of store specific.
      * @Route("/productsstoreownerprofileid/{storeOwnerProfileId}", name="getProductsStoreOwnerProfileId  ", methods={"GET"})
-     * @param $storeProductCategoryID
      * @param $storeOwnerProfileId
      * @return JsonResponse
      * *

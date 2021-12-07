@@ -60,7 +60,7 @@ class DeliveryCompanyProfileController extends BaseController
      * )
      *
      * @OA\Response(
-     *      response=200,
+     *      response=201,
      *      description="Returns the new Rating",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
@@ -131,7 +131,7 @@ class DeliveryCompanyProfileController extends BaseController
       * )
       *
       * @OA\Response(
-      *      response=200,
+      *      response=204,
       *      description="Returns the new Rating",
       *      @OA\JsonContent(
       *          @OA\Property(type="string", property="status_code"),
