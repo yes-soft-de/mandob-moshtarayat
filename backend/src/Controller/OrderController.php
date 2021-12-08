@@ -1108,7 +1108,7 @@ class OrderController extends BaseController
      *         ),
      *      ),
      * @OA\Response(
-     *      response=200,
+     *      response=204,
      *      description="Returns object",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
@@ -1190,7 +1190,7 @@ class OrderController extends BaseController
      *      ),
      *
      * @OA\Response(
-     *      response=200,
+     *      response=204,
      *      description="Returns object",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
@@ -1275,7 +1275,7 @@ class OrderController extends BaseController
      *      ),
      *
      * @OA\Response(
-     *      response=200,
+     *      response=204,
      *      description="Returns object",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
@@ -1345,7 +1345,7 @@ class OrderController extends BaseController
      * )
      *
      * @OA\Response(
-     *      response=200,
+     *      response=204,
      *      description="Returns object",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
@@ -1494,7 +1494,7 @@ class OrderController extends BaseController
      *      ),
      *
      * @OA\Response(
-     *      response=200,
+     *      response=204,
      *      description="Return object.",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
@@ -1548,7 +1548,7 @@ class OrderController extends BaseController
       *      ),
       *
       * @OA\Response(
-      *      response=200,
+      *      response=204,
       *      description="Return object.",
       *      @OA\JsonContent(
       *          @OA\Property(type="string", property="status_code"),
