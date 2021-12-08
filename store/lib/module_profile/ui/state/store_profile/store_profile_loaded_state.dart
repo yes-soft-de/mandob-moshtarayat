@@ -1,4 +1,5 @@
 import 'package:flutter_map/flutter_map.dart';
+import 'package:intl/intl.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:mandob_moshtarayat/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
@@ -99,8 +100,8 @@ class StoreProfileLoadedState extends States {
                                   privateOrders: profile!.privateOrders ? 1 : 0,
                                   image: profile!.image.image,
                                   phone: profile!.phone,
-                                  openingTime:null ,
-                                  closingTime:null,
+                                  openingTime:profile!.openingTime!.toIso8601String()  ,
+                                  closingTime:profile!.closingTime!.toIso8601String(),
                               ),
                               updateStore:
                                   (name,phone,image,products, privateOrder,open,close,status) {
@@ -182,11 +183,13 @@ class StoreProfileLoadedState extends States {
       ),
       CustomListTile(
         title: S.current.openingTime,
-        subTitle: profile?.openingTime,
+        subTitle: DateFormat.jm()
+            .format( profile?.openingTime ?? DateTime.now()),
       ),
       CustomListTile(
         title: S.current.closingTime,
-        subTitle: profile?.closingTime,
+        subTitle:DateFormat.jm()
+            .format( profile?.closingTime ?? DateTime.now()),
       ),
       CustomListTile(title: S.current.products, serve: profile?.hasProducts),
       CustomListTile(

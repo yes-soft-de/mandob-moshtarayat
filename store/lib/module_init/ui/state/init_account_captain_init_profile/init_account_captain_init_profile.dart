@@ -388,7 +388,7 @@ class InitAccountCaptainInitProfile extends InitAccountState {
                         if (_initKey.currentState!.validate() &&
                             imagePath != null &&
                         openingTime != null &&
-                        closingTime != null) {
+                        closingTime != null && catId != null) {
                           screen.submitProfile(
                               CreateStoreRequest(
                                 storeCategoryId: int.parse(catId ?? '0'),
