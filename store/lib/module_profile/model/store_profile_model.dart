@@ -16,8 +16,8 @@ class StoreProfileModel extends DataModel {
   ImageUrl image = ImageUrl(image: null);
   bool privateOrders = false;
   bool hasProducts = false;
-  String? closingTime;
-  String? openingTime;
+  DateTime? closingTime;
+  DateTime? openingTime;
   List<BranchesModel>? branches;
 
   StoreProfileModel? _models;
@@ -54,8 +54,8 @@ class StoreProfileModel extends DataModel {
         privateOrders: data.privateOrders ?? false,
         image:data.imageURL ??ImageUrl(image:ImageAsset.PLACEHOLDER ),
         phone: data.phone ?? '',
-       openingTime:DateFormat.jm().format(DateHelper.convert(data.openingTime?.timestamp)),
-       closingTime:DateFormat.jm().format(DateHelper.convert(data.closingTime?.timestamp)),
+       openingTime:DateHelper.convert(data.openingTime?.timestamp),
+       closingTime:DateHelper.convert(data.closingTime?.timestamp),
       branches: branches
     );
   }
