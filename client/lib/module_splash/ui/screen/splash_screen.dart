@@ -58,9 +58,19 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<String> _getNextRoute() async {
     await Future.delayed(const Duration(seconds: 2));
-    if (widget._localizationService.choosed()) {
-      return MainRoutes.MAIN_SCREEN;
+    if (widget._authService.isLoggedIn) {
+      try {
+        await widget._authService.getToken();
+        return MainRoutes.MAIN_SCREEN;
+      } catch (e) {
+        widget._authService.logout();
+        return MainRoutes.MAIN_SCREEN;
+      }
+    } else {
+      if (widget._localizationService.choosed()) {
+        return MainRoutes.MAIN_SCREEN;
+      }
+      return SettingRoutes.CHOOSE_LANGUAGE;
     }
-    return SettingRoutes.CHOOSE_LANGUAGE;
   }
 }
