@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:injectable/injectable.dart';
+import 'package:mandob_moshtarayat/di/di_config.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
+import 'package:mandob_moshtarayat/module_account/ui/screen/favourite_screen.dart';
 import 'package:mandob_moshtarayat/module_auth/state_manager/login_state_manager/login_state_manager.dart';
 import 'package:mandob_moshtarayat/module_auth/ui/states/login_states/login_state.dart';
 import 'package:mandob_moshtarayat/module_auth/ui/states/login_states/login_state_init.dart';
@@ -111,7 +113,12 @@ class LoginScreenState extends State<LoginScreen> {
     if (returnToMainScreen != null) {
       Navigator.of(context).pushNamedAndRemoveUntil(
           MainRoutes.MAIN_SCREEN, (route) => false,
-          arguments: returnToMainScreen);
+          arguments: returnToMainScreen).then((value) {
+        if (returnToMainScreen == 0) {
+          showDialog(
+              context: context, builder: (context) => getIt<FavouritScreen>());
+        }
+      });
     } else if (returnToPreviousScreen != null) {
       Navigator.of(context).pop();
     } else {
