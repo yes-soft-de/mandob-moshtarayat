@@ -8,6 +8,7 @@ use App\Entity\StoreOwnerProfileEntity;
 use App\Entity\UserEntity;
 use App\Repository\StoreOwnerProfileEntityRepository;
 use App\Repository\UserEntityRepository;
+use App\Request\DeleteRequest;
 use App\Request\UserRegisterRequest;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -241,6 +242,23 @@ class StoreOwnerProfileManager
     public function getStoreOwnerInactiveFilterByName($name)
     {
         return $this->storeOwnerProfileEntityRepository->getStoreOwnerInactiveFilterByName($name);
+    }
+
+    public function deleteStoreOwnerProfile(DeleteRequest $request)
+    {
+        $storeOwnerProfileEntity = $this->storeOwnerProfileEntityRepository->find($request->getId());
+
+        if(!$storeOwnerProfileEntity)
+        {
+            return 'storeOwnerProfileNotFound';
+        }
+        else
+        {
+            $this->entityManager->remove($storeOwnerProfileEntity);
+            $this->entityManager->flush();
+
+            return $storeOwnerProfileEntity;
+        }
     }
 
 }

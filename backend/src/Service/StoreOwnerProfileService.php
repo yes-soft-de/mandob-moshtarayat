@@ -17,6 +17,7 @@ use App\Response\StoreFinancialAccountForStoreResponse;
 use App\Response\StoreNameResponse;
 use App\Response\StoreOwnerLast15Response;
 use App\Response\StoreOwnerProfileCreateResponse;
+use App\Response\StoreOwnerProfileDeleteResponse;
 use App\Response\StoreOwnerProfileResponse;
 use App\Response\StoreOwnerByCategoryIdResponse;
 use App\Response\StoresFilterByNameResponse;
@@ -341,5 +342,17 @@ class StoreOwnerProfileService
         }
 
         return $response;
+    }
+
+    public function deleteStoreOwnerProfile($request)
+    {
+        $result = $this->storeOwnerProfileManager->deleteStoreOwnerProfile($request);
+
+        if($result == 'storeOwnerProfileNotFound') {
+            return $result;
+        }
+        else {
+            return $this->autoMapping->map(StoreOwnerProfileEntity::class, StoreOwnerProfileDeleteResponse::class, $result);
+        }
     }
 }

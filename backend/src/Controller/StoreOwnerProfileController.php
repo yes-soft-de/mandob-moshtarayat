@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\AutoMapping;
+use App\Request\DeleteRequest;
 use App\Request\storeOwnerProfileStatusUpdateByAdminRequest;
 use App\Request\StoreOwnerProfileCreateByAdminRequest;
 use App\Request\StoreOwnerProfileUpdateRequest;
@@ -822,5 +823,50 @@ class StoreOwnerProfileController extends BaseController
         $response = $this->storeOwnerProfileService->storeFinancialAccountForAdmin($storeOwnerProfileID);
 
         return $this->response($response, self::FETCH);
+    }
+    /**
+     * Delete delete store owner profile.
+     * @Route("storeownerprofile/{id}", name="deleteStoreOwnerProfile", methods={"DELETE"})
+     * @param Request $request
+     * @return JsonResponse
+     * @IsGranted("ROLE_ADMIN")
+     * *
+     * @OA\Tag(name="Store Owner Profile")
+     *
+     * @OA\Response(
+     *      response=401,
+     *      description="return store owner profile",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="string", property="storeOwnerName"),
+     *          )
+     *      )
+     * )
+     *
+     * or
+     *
+     * @OA\Response(
+     *      response=404,
+     *      description="Returns Not found Successfully.",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="string", property="Data"),
+     *      )
+     * )
+     *
+     */
+    public function deleteStoreOwnerProfile(Request $request): JsonResponse
+    {
+        $request = new DeleteRequest($request->get('id'));
+
+        $result = $this->storeOwnerProfileService->deleteStoreOwnerProfile($request);
+        if ($result == "storeOwnerProfileNotFound"){
+            return $this->response($result, self::NOTFOUND);
+        }
+
+        return $this->response($result, self::DELETE);
     }
 }
