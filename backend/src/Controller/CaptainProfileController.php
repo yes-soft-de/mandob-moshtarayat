@@ -65,6 +65,22 @@ class CaptainProfileController extends BaseController
       *      )
       * )
       *
+      * or
+      *
+      * @OA\Response(
+      *      response="default",
+      *      description="Return user found.",
+      *      @OA\JsonContent(
+      *          @OA\Property(type="string", property="status_code", description="9001"),
+      *          @OA\Property(type="string", property="msg", description="error user found Successfully."),
+      *          @OA\Property(type="object", property="Data",
+      *              @OA\Property(type="array", property="roles",
+      *                      @OA\Items(example="user")),
+      *              @OA\Property(type="object", property="createdAt"),
+      *              @OA\Property(type="string", property="found"),
+      *      )
+      *  )
+      *)
       */
     public function captainRegister(Request $request): JsonResponse
     {

@@ -31,7 +31,6 @@ class BaseController extends AbstractController
     const ERROR_USER_CREATED = ["error, not created user","9010"];
     const ERROR_CAPTAIN_INACTIVE = ["error captain inactive","9002"];
     const ERROR_STORE_INACTIVE = ["error store inactive","9002"];
-    const ERROR_DELETE = ["error delete","275"];
     const NOTFOUND=["Not found", "404"];
 //    const TEST = [
 //        "one"=>[ "error error", "9003"],

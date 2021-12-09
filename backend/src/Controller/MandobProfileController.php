@@ -53,7 +53,7 @@ class MandobProfileController extends BaseController
      * )
      *
      * @OA\Response(
-     *      response=200,
+     *      response=201,
      *      description="Returns the new mandob's role and the creation date",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
@@ -66,6 +66,22 @@ class MandobProfileController extends BaseController
      *      )
      * )
      *
+     * or
+     *
+     * @OA\Response(
+     *      response="default",
+     *      description="Return user found.",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code", description="9001"),
+     *          @OA\Property(type="string", property="msg", description="error user found Successfully."),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="array", property="roles",
+     *                      @OA\Items(example="user")),
+     *              @OA\Property(type="object", property="createdAt"),
+     *              @OA\Property(type="string", property="found"),
+     *      )
+     *  )
+     *)
      */
     public function mandobRegister(Request $request): JsonResponse
     {
