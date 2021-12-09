@@ -2,28 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mandob_moshtarayat/di/di_config.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
+import 'package:mandob_moshtarayat/module_account/hive/favorite_store_category.dart';
 import 'package:mandob_moshtarayat/module_account/ui/screen/favourite_screen.dart';
 import 'package:mandob_moshtarayat/module_auth/authorization_routes.dart';
 import 'package:mandob_moshtarayat/module_auth/service/auth_service/auth_service.dart';
+import 'package:mandob_moshtarayat/module_home/model/subCategoriesModel.dart';
 import 'package:mandob_moshtarayat/module_home/ui/widget/catagories_card.dart';
 import 'package:mandob_moshtarayat/module_my_notifications/my_notifications_routes.dart';
 import 'package:mandob_moshtarayat/module_search/search_routes.dart';
 import 'package:mandob_moshtarayat/utils/components/costom_search.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 import 'package:mandob_moshtarayat/utils/images/images.dart';
-import 'package:mandob_moshtarayat/utils/models/store_category.dart';
 
-class CustomHomeAppBar extends StatefulWidget {
-  final Function(String) categoriesCallback;
-  final List<StoreCategoryModel> categories;
-  const CustomHomeAppBar(
-      {required this.categoriesCallback, required this.categories});
+class FavoriteHomeAppBar extends StatefulWidget {
+  final Function(String, List<SubcategoriesLevel2>) categoriesCallback;
+  final List<SubCategoriesModel> categories;
+  final String? categoryName;
+  final String? categoryImage;
+  const FavoriteHomeAppBar(
+      {required this.categoriesCallback,this.categoryImage,this.categoryName,required this.categories});
 
   @override
-  State<CustomHomeAppBar> createState() => _CustomHomeAppBarState();
+  State<FavoriteHomeAppBar> createState() => _FavoriteHomeAppBarState();
 }
 
-class _CustomHomeAppBarState extends State<CustomHomeAppBar> {
+class _FavoriteHomeAppBarState extends State<FavoriteHomeAppBar> {
   String id = '0';
   @override
   Widget build(BuildContext context) {
@@ -54,7 +57,32 @@ class _CustomHomeAppBarState extends State<CustomHomeAppBar> {
                               .show(context);
                         }
                       },
-                      child: SvgPicture.asset(SvgAsset.LOGO_SVG, width: 35)),
+                      child:
+                          getIt<FavoriteHiveHelper>().getFavoriteCategory() !=
+                                  null
+                              ? Container(
+                                constraints: const BoxConstraints(
+                                  maxWidth: 150,
+                                  maxHeight: 60
+                                ),
+                                child: Column(
+                                    children: [
+                                      Container(
+                                        width: 35,
+                                        height: 35,
+                                        decoration: BoxDecoration(
+                                          color: Theme.of(context).backgroundColor,
+                                          shape: BoxShape.circle
+                                        ),
+                                        child: ClipOval(
+                                          child: Image.network(widget.categoryImage ?? ''),
+                                        ),
+                                      ),
+                                      Text(widget.categoryName ?? ''),
+                                    ],
+                                  ),
+                              )
+                   : SvgPicture.asset(SvgAsset.LOGO_SVG, width: 35)),
                 ),
                 Expanded(
                   child: CustomDeliverySearch(
@@ -108,30 +136,18 @@ class _CustomHomeAppBarState extends State<CustomHomeAppBar> {
   }
 
   List<Widget> getCategories() {
-    List<Widget> widgets = [
-      CategoriesCard(
-        categoryId: '0',
-        title: S.current.home,
-        selected: id == '0',
-        icon: Icons.home,
-        onTap: (selected) {
-          id = selected;
-          widget.categoriesCallback(id);
-          setState(() {});
-        },
-      ),
-    ];
+    List<Widget> widgets = [];
     widget.categories.forEach((element) {
       widgets.add(
         CategoriesCard(
-            icon: element.image == '' ? Icons.category : null,
-            categoryId: element.id.toString(),
-            title: element.storeCategoryName,
-            selected: id == element.id.toString(),
-            image: element.image,
+            icon: element.productCategoryImage == '' ? Icons.category : null,
+            categoryId: element.subCategoriesID.toString(),
+            title: element.productCategoryName,
+            selected: id == element.subCategoriesID.toString(),
+            image: element.productCategoryImage,
             onTap: (selected) {
               id = selected;
-              widget.categoriesCallback(id);
+              widget.categoriesCallback(id, element.productCategoriesLevel2);
               setState(() {});
             }),
       );
