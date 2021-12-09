@@ -37,6 +37,7 @@ class MandobProfileManager
     {
         $user = $this->userManager->getUserByUserID($request->getUserID());
         if ($user == null) {
+            $request->setRoles(["ROLE_MANDOB"]);
             $userRegister = $this->userManager->createUser($request);
             if($userRegister){
                return $this->createProfile($request, $userRegister);

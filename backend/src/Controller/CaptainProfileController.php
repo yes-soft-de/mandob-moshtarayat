@@ -80,16 +80,35 @@ class CaptainProfileController extends BaseController
         }
 
         $response = $this->captainProfileService->captainRegister($request);
-        $isArray = is_array($response);
-        if($isArray){
-            $found = isset($response['found']);
-        
-            if( $found == "yes"){
-                return $this->response($response, self::ERROR_USER_FOUND); 
-          }
+        if (isset($response->found)) {
+            return $this->response($response, self::ERROR_USER_FOUND);
         }
         return $this->response($response, self::CREATE);
     }
+//public function captainRegister(Request $request): JsonResponse
+//    {
+//        $data = json_decode($request->getContent(), true);
+//
+//        $request = $this->autoMapping->map(stdClass::class, UserRegisterRequest::class, (object)$data);
+//
+//        $violations = $this->validator->validate($request);
+//        if (\count($violations) > 0) {
+//            $violationsString = (string) $violations;
+//
+//            return new JsonResponse($violationsString, Response::HTTP_OK);
+//        }
+//
+//        $response = $this->captainProfileService->captainRegister($request);
+//        $isArray = is_array($response);
+//        if($isArray){
+//            $found = isset($response['found']);
+//
+//            if( $found == "yes"){
+//                return $this->response($response, self::ERROR_USER_FOUND);
+//          }
+//        }
+//        return $this->response($response, self::CREATE);
+//    }
 
     /**
      * captain: Update captain profile.

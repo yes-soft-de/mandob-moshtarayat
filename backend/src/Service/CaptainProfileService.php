@@ -29,6 +29,7 @@ use App\Service\CaptainService;
 use App\Service\RatingService;
 use App\Service\DateFactoryService;
 use App\Manager\UserManager;
+use App\Manager\CaptainProfileManager;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use DateTime;
 
@@ -44,9 +45,10 @@ class CaptainProfileService
     private $roomIdHelperService;
     private $dateFactoryService;
     private $captainService;
+    private $captainProfileManager;
 
     public function __construct(AutoMapping $autoMapping, ParameterBagInterface $params, DeliveryCompanyPaymentsFromCaptainService $deliveryCompanyPaymentsFromCaptainService, DeliveryCompanyPaymentsToCaptainService $deliveryCompanyPaymentsToCaptainService,   RoomIdHelperService $roomIdHelperService, UserManager $userManager,
-      RatingService $ratingService, DateFactoryService $dateFactoryService, CaptainService $captainService)
+      RatingService $ratingService, DateFactoryService $dateFactoryService, CaptainService $captainService, CaptainProfileManager $captainProfileManager)
     {
         $this->autoMapping = $autoMapping;
         $this->roomIdHelperService = $roomIdHelperService;
@@ -56,26 +58,39 @@ class CaptainProfileService
         $this->captainService = $captainService;
         $this->deliveryCompanyPaymentsFromCaptainService = $deliveryCompanyPaymentsFromCaptainService;
         $this->deliveryCompanyPaymentsToCaptainService = $deliveryCompanyPaymentsToCaptainService;
+        $this->captainProfileManager = $captainProfileManager;
 
         $this->params = $params->get('upload_base_url') . '/';
     }
     
     public function captainRegister(UserRegisterRequest $request)
     {
-        $roomID = $this->roomIdHelperService->roomIdGenerate();
-        $userRegister = $this->userManager->captainRegister($request, $roomID);
-        if ($userRegister instanceof UserEntity) {
-            
-        return $this->autoMapping->map(UserEntity::class, UserRegisterResponse::class, $userRegister);
+        $request->setRoomID($this->roomIdHelperService->roomIdGenerate());
 
-        }
-        if ($userRegister == true) {
-          
-            $user = $this->userManager->getUserByUserID($request->getUserID());
+        $userRegister = $this->captainProfileManager->captainRegister($request);
+        if ($userRegister == "user is found") {
             $user['found']="yes";
-            return $user;
+
+            return $this->autoMapping->map("array", UserRegisterResponse::class, $user);
         }
+        return $this->autoMapping->map(UserEntity::class, UserRegisterResponse::class, $userRegister);
     }
+//public function captainRegister(UserRegisterRequest $request)
+//    {
+//        $roomID = $this->roomIdHelperService->roomIdGenerate();
+//        $userRegister = $this->userManager->captainRegister($request, $roomID);
+//        if ($userRegister instanceof UserEntity) {
+//
+//        return $this->autoMapping->map(UserEntity::class, UserRegisterResponse::class, $userRegister);
+//
+//        }
+//        if ($userRegister == true) {
+//
+//            $user = $this->userManager->getUserByUserID($request->getUserID());
+//            $user['found']="yes";
+//            return $user;
+//        }
+//    }
 
     public function updateCaptainProfile(CaptainProfileUpdateRequest $request)
     {
