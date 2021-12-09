@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
+import 'package:mandob_moshtarayat/module_products/products_routes.dart';
 import 'package:mandob_moshtarayat/module_stores/store_routes.dart';
 import 'package:mandob_moshtarayat/utils/components/progresive_image.dart';
 import 'package:mandob_moshtarayat/utils/customIcon/mandob_icons_icons.dart';
@@ -16,7 +17,8 @@ class ProductComponent extends StatelessWidget {
   final double rating;
   final String storeId;
   final String storeName;
-  ProductComponent(
+  final String price;
+  const ProductComponent(
       {required this.title,
       required this.image,
       required this.sold,
@@ -25,15 +27,17 @@ class ProductComponent extends StatelessWidget {
       required this.description,
       required this.storeId,
       required this.productId,
-      required this.storeName});
+      required this.storeName,
+      required this.price});
 
   @override
   Widget build(BuildContext context) {
+    num disPrice = (num.parse(price) * (100 - num.parse(discount))) / 100;
     return InkWell(
       borderRadius: BorderRadius.circular(25),
       onTap: () {
-        Navigator.of(context).pushNamed(StoreRoutes.STORE_PRODUCTS,
-            arguments: {'productsId': productId, 'storeId': storeId});
+        Navigator.of(context).pushNamed(ProductsRoutes.PRODUCT_DETAILS_SCREEN,
+            arguments: int.parse(productId));
       },
       child: Card(
         shape: RoundedRectangleBorder(
@@ -52,27 +56,67 @@ class ProductComponent extends StatelessWidget {
                   children: [
                     // title
                     Text(title,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),
                         textAlign: TextAlign.start,
                         overflow: TextOverflow.ellipsis),
-                    SizedBox(
+                    const SizedBox(
                       height: 8,
                     ),
                     // details
                     Container(
-                      constraints: BoxConstraints(maxHeight: 50, maxWidth: 200),
+                      constraints:
+                          const BoxConstraints(maxHeight: 50, maxWidth: 200),
                       child: Text(
                         description,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 14,
                         ),
                         textAlign: TextAlign.start,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    // price
+                    Container(
+                        constraints:
+                            const BoxConstraints(maxHeight: 50, maxWidth: 200),
+                        child: RichText(
+                          text: TextSpan(
+                            style: DefaultTextStyle.of(context).style,
+                            children: <TextSpan>[
+                              TextSpan(
+                                  text: price,
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      decoration: discount != '0'
+                                          ? TextDecoration.lineThrough
+                                          : null)),
+                              const TextSpan(text: ' '),
+                              TextSpan(
+                                  text: discount == '0'
+                                      ? ' '
+                                      : disPrice.toStringAsFixed(2),
+                                  style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.red)),
+                              const TextSpan(text: ' '),
+                              TextSpan(
+                                  text: S.current.sar,
+                                  style:  TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      color: discount != '0' ? Colors.red : null
+                                      )),
+                            ],
+                          ),
+                        )),
+                    const SizedBox(
                       height: 16,
                     ),
                     // store name
@@ -83,17 +127,17 @@ class ProductComponent extends StatelessWidget {
                           color: Theme.of(context).primaryColor,
                           size: 15,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 4.0,
                         ),
                         Text(
                           S.current.saller,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 12,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 8.0,
                         ),
                         Text(
@@ -105,11 +149,12 @@ class ProductComponent extends StatelessWidget {
                         )
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 16,
-                    ),
+                    ),  
+                    // rate & sold & discount
                     Container(
-                      constraints: BoxConstraints(maxWidth: 200),
+                      constraints: const BoxConstraints(maxWidth: 200),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -117,13 +162,13 @@ class ProductComponent extends StatelessWidget {
                             children: [
                               Text(
                                 S.current.rating,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 13,
                                 ),
                                 textAlign: TextAlign.start,
                                 overflow: TextOverflow.ellipsis,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 8,
                               ),
                               RatingBar.builder(
@@ -135,7 +180,7 @@ class ProductComponent extends StatelessWidget {
                                 allowHalfRating: true,
                                 itemCount: 5,
                                 itemPadding:
-                                    EdgeInsets.symmetric(horizontal: 0.0),
+                                    const EdgeInsets.symmetric(horizontal: 0.0),
                                 itemBuilder: (context, _) => Icon(
                                   Icons.star,
                                   color: Theme.of(context).primaryColor,
@@ -148,13 +193,13 @@ class ProductComponent extends StatelessWidget {
                             children: [
                               Text(
                                 S.current.discount,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 13,
                                 ),
                                 textAlign: TextAlign.start,
                                 overflow: TextOverflow.ellipsis,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 8,
                               ),
                               Row(
@@ -166,12 +211,12 @@ class ProductComponent extends StatelessWidget {
                                         ? Colors.red
                                         : Theme.of(context).primaryColor,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 4,
                                   ),
                                   Text(
-                                    '$discount',
-                                    style: TextStyle(
+                                    discount,
+                                    style: const TextStyle(
                                       fontSize: 12,
                                     ),
                                     textAlign: TextAlign.start,
@@ -185,13 +230,13 @@ class ProductComponent extends StatelessWidget {
                             children: [
                               Text(
                                 S.current.sold,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 13,
                                 ),
                                 textAlign: TextAlign.start,
                                 overflow: TextOverflow.ellipsis,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 8,
                               ),
                               Row(
@@ -201,12 +246,12 @@ class ProductComponent extends StatelessWidget {
                                     size: 12,
                                     color: Theme.of(context).primaryColor,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 4,
                                   ),
                                   Text(
-                                    '$sold',
-                                    style: TextStyle(
+                                    sold,
+                                    style: const TextStyle(
                                       fontSize: 12,
                                     ),
                                     textAlign: TextAlign.start,
@@ -219,24 +264,90 @@ class ProductComponent extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 8,
                     ),
+                      // quantity
+                      Container(
+                        height: 40,
+                        width: 155,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25),
+                        //  color: Theme.of(context).backgroundColor,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TextButton(
+                              style: ButtonStyle(
+                                shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.horizontal(
+                                        left: Localizations.localeOf(context)
+                                                    .languageCode ==
+                                                'en'
+                                            ? const Radius.circular(25)
+                                            : Radius.zero,
+                                        right: Localizations.localeOf(context)
+                                                    .languageCode ==
+                                                'en'
+                                            ? Radius.zero
+                                            : const Radius.circular(25)),
+                                  ),
+                                ),
+                              ),
+                              onPressed: () {
+                                
+                              },
+                              child: const Icon(Icons.remove),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 8.0, right: 8.0),
+                              child: Text('0'),
+                            ),
+                            TextButton(
+                              style: ButtonStyle(
+                                shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.horizontal(
+                                        left: Localizations.localeOf(context)
+                                                    .languageCode ==
+                                                'en'
+                                            ? Radius.zero
+                                            : const Radius.circular(25),
+                                        right: Localizations.localeOf(context)
+                                                    .languageCode ==
+                                                'en'
+                                            ? const Radius.circular(25)
+                                            : Radius.zero),
+                                  ),
+                                ),
+                              ),
+                              onPressed: () {
+                                
+                              },
+                              child: const Icon(Icons.add),
+                            ),
+                          ],
+                        ),
+                      ),
+                    const SizedBox(height: 8,),
                   ],
                 ),
               )),
-              SizedBox(
+              const SizedBox(
                 width: 16,
               ),
               SizedBox(
-                height: 125,
-                width: 125,
+                width: 150,
+                height: 150,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(25),
                     child: CustomNetworkImage(
-                        height: 125, width: 125, imageSource: image),
+                        height: 150, width: 150, imageSource: image),
                   ),
                 ),
               ),
