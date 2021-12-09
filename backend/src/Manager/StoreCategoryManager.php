@@ -31,6 +31,13 @@ class StoreCategoryManager
     {
         $entity = $this->autoMapping->map(StoreCategoryCreateRequest::class, StoreCategoryEntity::class, $request);
 
+        $entity->setStoreCategoryName($request->getStoreCategoryName()["ar"]);
+
+        if($request->getDescription())
+        {
+            $entity->setDescription($request->getDescription()["ar"]);
+        }
+
         $this->entityManager->persist($entity);
         $this->entityManager->flush();
         $this->entityManager->clear();

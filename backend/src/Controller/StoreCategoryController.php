@@ -51,8 +51,11 @@ class StoreCategoryController extends BaseController
      * @OA\RequestBody(
      *      description="Create new Store Category",
      *      @OA\JsonContent(
-     *          @OA\Property(type="string", property="storeCategoryName"),
-     *          @OA\Property(type="string", property="description"),
+     *          @OA\Property(type="object", property="storeCategoryName",
+     *              @OA\Property(type="string", property="ar"),
+     *              @OA\Property(type="string", property="en"),
+     *              @OA\Property(type="string", property="urdu"),
+     *          ),
      *          @OA\Property(type="string", property="image"),
      *      )
      * )
