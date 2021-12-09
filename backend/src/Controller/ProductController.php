@@ -832,7 +832,7 @@ class ProductController extends BaseController
      * @OA\Tag(name="Product")
      *
      * @OA\Response(
-     *      response=200,
+     *      response=401,
      *      description="Delete product",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),

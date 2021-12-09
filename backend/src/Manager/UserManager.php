@@ -172,6 +172,68 @@ class UserManager
     }
     
     }
+//
+//    public function captainRegister(UserRegisterRequest $request, $roomID)
+//    {
+//        $user = $this->getUserByUserID($request->getUserID());
+//        if ($user == null) {
+//
+//        $userRegister = $this->autoMapping->map(UserRegisterRequest::class, UserEntity::class, $request);
+//
+//        $user = new UserEntity($request->getUserID());
+//
+//        if ($request->getPassword()) {
+//            $userRegister->setPassword($this->encoder->encodePassword($user, $request->getPassword()));
+//        }
+//
+//        $userRegister->setRoles(["ROLE_CAPTAIN"]);
+//
+//        $this->entityManager->persist($userRegister);
+//        $this->entityManager->flush();
+//        $this->entityManager->clear();
+//
+//        // Second, create the captain's profile
+//        $captainProfile = $this->getCaptainProfileByCaptainID($request->getUserID());
+//
+//        if ($captainProfile == null) {
+//            $captainProfile = $this->autoMapping->map(UserRegisterRequest::class, CaptainProfileEntity::class, $request);
+//              //change setStatus to inactive
+//            $captainProfile->setStatus('inactive');
+//            $captainProfile->setRoomID($roomID);
+//            $captainProfile->setCaptainID($userRegister->getId());
+//            $captainProfile->setCaptainName($request->getUserName());
+//            $captainProfile->setSalary(0);
+//            $captainProfile->setBounce(0);
+//
+//            $this->entityManager->persist($captainProfile);
+//            $this->entityManager->flush();
+//            $this->entityManager->clear();
+//        }
+//        return $userRegister;
+//    }
+//    else
+//    {
+//        $captainProfile = $this->getCaptainProfileByCaptainID($user['id']);
+//
+//        if ($captainProfile == null)
+//        {
+//            $captainProfile = $this->autoMapping->map(UserRegisterRequest::class, CaptainProfileEntity::class, $request);
+//
+//            $captainProfile->setStatus('inactive');
+//            $captainProfile->setRoomID($roomID);
+//            $captainProfile->setCaptainID($user['id']);
+//            $captainProfile->setCaptainName($request->getUserName());
+//            $captainProfile->setSalary(0);
+//            $captainProfile->setBounce(0);
+//
+//            $this->entityManager->persist($captainProfile);
+//            $this->entityManager->flush();
+//            $this->entityManager->clear();
+//        }
+//        return true;
+//    }
+//
+//    }
 
     public function getUserByUserID($userID)
     {
@@ -527,11 +589,9 @@ class UserManager
             $userRegister->setPassword($this->encoder->encodePassword($user, $request->getPassword()));
         }
 
-        $userRegister->setRoles(["ROLE_MANDOB"]);
-
+//        $userRegister->setRoles(["ROLE_MANDOB"]);
         $this->entityManager->persist($userRegister);
         $this->entityManager->flush();
-        $this->entityManager->clear();
 
         return $userRegister;
     }
