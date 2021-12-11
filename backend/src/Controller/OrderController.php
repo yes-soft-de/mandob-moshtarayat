@@ -1008,7 +1008,7 @@ class OrderController extends BaseController
      *      response="default",
      *      description="Returns objetc of order details. third case type=3",
      *      @OA\JsonContent(
-     *          @OA\Property(type="string", property="status_code", description="201"),
+     *          @OA\Property(type="string", property="status_code", description="200"),
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
      *              @OA\Property(type="array", property="deliveryCost",

@@ -111,130 +111,6 @@ class UserManager
         }
     }
 
-    public function captainRegister(UserRegisterRequest $request, $roomID)
-    {
-        $user = $this->getUserByUserID($request->getUserID());
-        if ($user == null) {
-
-        $userRegister = $this->autoMapping->map(UserRegisterRequest::class, UserEntity::class, $request);
-
-        $user = new UserEntity($request->getUserID());
-
-        if ($request->getPassword()) {
-            $userRegister->setPassword($this->encoder->encodePassword($user, $request->getPassword()));
-        }
-
-        $userRegister->setRoles(["ROLE_CAPTAIN"]);
-
-        $this->entityManager->persist($userRegister);
-        $this->entityManager->flush();
-        $this->entityManager->clear();
-
-        // Second, create the captain's profile
-        $captainProfile = $this->getCaptainProfileByCaptainID($request->getUserID());
-            
-        if ($captainProfile == null) {
-            $captainProfile = $this->autoMapping->map(UserRegisterRequest::class, CaptainProfileEntity::class, $request);
-              //change setStatus to inactive
-            $captainProfile->setStatus('inactive');
-            $captainProfile->setRoomID($roomID);
-            $captainProfile->setCaptainID($userRegister->getId());
-            $captainProfile->setCaptainName($request->getUserName());
-            $captainProfile->setSalary(0);
-            $captainProfile->setBounce(0);
-            
-            $this->entityManager->persist($captainProfile);
-            $this->entityManager->flush();
-            $this->entityManager->clear();
-        }
-        return $userRegister;
-    }
-    else
-    {
-        $captainProfile = $this->getCaptainProfileByCaptainID($user['id']);
-
-        if ($captainProfile == null)
-        {
-            $captainProfile = $this->autoMapping->map(UserRegisterRequest::class, CaptainProfileEntity::class, $request);
-             
-            $captainProfile->setStatus('inactive');
-            $captainProfile->setRoomID($roomID);
-            $captainProfile->setCaptainID($user['id']);
-            $captainProfile->setCaptainName($request->getUserName());
-            $captainProfile->setSalary(0);
-            $captainProfile->setBounce(0);
-            
-            $this->entityManager->persist($captainProfile);
-            $this->entityManager->flush();
-            $this->entityManager->clear();
-        }
-        return true;
-    }
-    
-    }
-//
-//    public function captainRegister(UserRegisterRequest $request, $roomID)
-//    {
-//        $user = $this->getUserByUserID($request->getUserID());
-//        if ($user == null) {
-//
-//        $userRegister = $this->autoMapping->map(UserRegisterRequest::class, UserEntity::class, $request);
-//
-//        $user = new UserEntity($request->getUserID());
-//
-//        if ($request->getPassword()) {
-//            $userRegister->setPassword($this->encoder->encodePassword($user, $request->getPassword()));
-//        }
-//
-//        $userRegister->setRoles(["ROLE_CAPTAIN"]);
-//
-//        $this->entityManager->persist($userRegister);
-//        $this->entityManager->flush();
-//        $this->entityManager->clear();
-//
-//        // Second, create the captain's profile
-//        $captainProfile = $this->getCaptainProfileByCaptainID($request->getUserID());
-//
-//        if ($captainProfile == null) {
-//            $captainProfile = $this->autoMapping->map(UserRegisterRequest::class, CaptainProfileEntity::class, $request);
-//              //change setStatus to inactive
-//            $captainProfile->setStatus('inactive');
-//            $captainProfile->setRoomID($roomID);
-//            $captainProfile->setCaptainID($userRegister->getId());
-//            $captainProfile->setCaptainName($request->getUserName());
-//            $captainProfile->setSalary(0);
-//            $captainProfile->setBounce(0);
-//
-//            $this->entityManager->persist($captainProfile);
-//            $this->entityManager->flush();
-//            $this->entityManager->clear();
-//        }
-//        return $userRegister;
-//    }
-//    else
-//    {
-//        $captainProfile = $this->getCaptainProfileByCaptainID($user['id']);
-//
-//        if ($captainProfile == null)
-//        {
-//            $captainProfile = $this->autoMapping->map(UserRegisterRequest::class, CaptainProfileEntity::class, $request);
-//
-//            $captainProfile->setStatus('inactive');
-//            $captainProfile->setRoomID($roomID);
-//            $captainProfile->setCaptainID($user['id']);
-//            $captainProfile->setCaptainName($request->getUserName());
-//            $captainProfile->setSalary(0);
-//            $captainProfile->setBounce(0);
-//
-//            $this->entityManager->persist($captainProfile);
-//            $this->entityManager->flush();
-//            $this->entityManager->clear();
-//        }
-//        return true;
-//    }
-//
-//    }
-
     public function getUserByUserID($userID)
     {
         return $this->userRepository->getUserByUserID($userID);
@@ -297,7 +173,8 @@ class UserManager
     {
         return $this->storeOwnerProfileEntityRepository->getremainingOrders($userID);
     }
-
+//TODO
+// for remove
     public function captainFilter($name)
     {
         return $this->captainProfileEntityRepository->captainFilter($name);
@@ -307,7 +184,8 @@ class UserManager
     {
         return $this->clientProfileEntityRepository->clientsByName($name);
     }
-
+//TODO
+// for remove
     public function updateCaptainProfile(CaptainProfileUpdateRequest $request)
     {
         $item = $this->captainProfileEntityRepository->getByCaptainIDForUpdate($request->getUserID());
@@ -323,7 +201,8 @@ class UserManager
             return $item;
         }
     }
-
+//TODO
+// for remove
     public function captainProfileUpdateLocation(CaptainProfileUpdateLocationRequest $request)
     {
         $item = $this->captainProfileEntityRepository->getByCaptainIDForUpdate($request->getUserID());
@@ -336,7 +215,8 @@ class UserManager
             return $item;
         }
     }
-
+//TODO
+// for remove
     public function updateCaptainProfileByAdmin(CaptainProfileUpdateByAdminRequest $request)
     {
         $item = $this->captainProfileEntityRepository->getByCaptainIDForUpdate($request->getCaptainID());
@@ -349,7 +229,8 @@ class UserManager
             return $item;
         }
     }
-
+//TODO
+// for remove
     public function updateCaptainStateByAdmin(CaptainVacationCreateRequest $request)
     {  
         $item = $this->captainProfileEntityRepository->getByCaptainIDForUpdate($request->getCaptainId());
@@ -363,22 +244,26 @@ class UserManager
             return $item;
         }
     }
-
+//TODO
+// for remove
     public function getCaptainProfileByCaptainID($captainID)
     {
         return $this->captainProfileEntityRepository->getCaptainProfileByCaptainID($captainID);
     }
-
+//TODO
+// for remove
     public function getCaptainProfileByID($captainProfileId)
     {
         return $this->captainProfileEntityRepository->getCaptainProfileByID($captainProfileId);
     }
-
+//TODO
+// for remove
     public function getCaptainsInactive()
     {
         return $this->captainProfileEntityRepository->getCaptainsInactive();
     }
-
+//TODO
+// for remove
     public function captainIsActive($captainID)
     {
         return $this->captainProfileEntityRepository->captainIsActive($captainID);
@@ -403,7 +288,8 @@ class UserManager
     {
         return $this->captainProfileEntityRepository->countDayOfCaptains();
     }
-   
+    //TODO
+   // for remove
     public function getCaptainsInVacation()
     {
         return $this->captainProfileEntityRepository->getCaptainsInVacation();
@@ -413,17 +299,20 @@ class UserManager
     {
         return $this->captainProfileEntityRepository->getCaptainAsArray($id);
     }
-
+    //TODO
+    // for remove
     public function getCaptainAsArrayByCaptainId($captainID)
     {
         return $this->captainProfileEntityRepository->getCaptainAsArrayByCaptainId($captainID);
     }
-
+//TODO
+    // for remove
     public function getAllCaptains()
     {
         return $this->captainProfileEntityRepository->getAllCaptains();
     }
-    
+    //TODO
+    // for remove
     public function countCaptains()
     {
         return $this->captainProfileEntityRepository->countCaptains();
@@ -452,12 +341,14 @@ class UserManager
 
         return null;
     }
-
+    //TODO
+    // for remove
     public function getTop5Captains()
     {        
         return $this->captainProfileEntityRepository->getTop5Captains();
     }
-
+    //TODO
+    // for remove
     public function getTopCaptainsInLastMonthDate($fromDate, $toDate)
     {
         return $this->captainProfileEntityRepository->getTopCaptainsInLastMonthDate($fromDate, $toDate);

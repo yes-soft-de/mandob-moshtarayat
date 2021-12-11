@@ -3,6 +3,10 @@
 namespace App\Manager;
 
 use App\AutoMapping;
+use App\Request\CaptainProfileUpdateByAdminRequest;
+use App\Request\CaptainProfileUpdateLocationRequest;
+use App\Request\CaptainProfileUpdateRequest;
+use App\Request\CaptainVacationCreateRequest;
 use App\Request\UserRegisterRequest;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Manager\UserManager;
@@ -78,4 +82,107 @@ class CaptainProfileManager
 
         return 'user is found';
     }
+
+    public function updateCaptainProfile(CaptainProfileUpdateRequest $request)
+    {
+        $item = $this->captainProfileEntityRepository->getByCaptainIDForUpdate($request->getUserID());
+        if ($item) {
+            if(!$request->getCaptainName()) {
+                $request->setCaptainName($item->getCaptainName());
+            }
+
+            $item = $this->autoMapping->mapToObject(CaptainProfileUpdateRequest::class, CaptainProfileEntity::class, $request, $item);
+            $this->entityManager->flush();
+
+            return $item;
+        }
+    }
+
+    public function captainProfileUpdateLocation(CaptainProfileUpdateLocationRequest $request)
+    {
+        $item = $this->captainProfileEntityRepository->getByCaptainIDForUpdate($request->getUserID());
+        if ($item) {
+            $item = $this->autoMapping->mapToObject(CaptainProfileUpdateLocationRequest::class, CaptainProfileEntity::class, $request, $item);
+
+            $this->entityManager->flush();
+
+            return $item;
+        }
+    }
+
+    public function updateCaptainProfileByAdmin(CaptainProfileUpdateByAdminRequest $request)
+    {
+        $item = $this->captainProfileEntityRepository->getByCaptainIDForUpdate($request->getCaptainID());
+        if ($item) {
+            $item = $this->autoMapping->mapToObject(CaptainProfileUpdateByAdminRequest::class, CaptainProfileEntity::class, $request, $item);
+
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $item;
+        }
+    }
+
+    public function updateCaptainStateByAdmin(CaptainVacationCreateRequest $request)
+    {
+        $item = $this->captainProfileEntityRepository->getByCaptainIDForUpdate($request->getCaptainId());
+
+        if ($item) {
+            $item = $this->autoMapping->mapToObject(CaptainVacationCreateRequest::class, CaptainProfileEntity::class, $request, $item);
+
+            $this->entityManager->flush();
+
+            return $item;
+        }
+    }
+
+    public function getCaptainProfileByCaptainID($captainID)
+    {
+        return $this->captainProfileEntityRepository->getCaptainProfileByCaptainID($captainID);
+    }
+
+    public function getCaptainsInactive()
+    {
+        return $this->captainProfileEntityRepository->getCaptainsInactive();
+    }
+
+    public function captainIsActive($captainID)
+    {
+        return $this->captainProfileEntityRepository->captainIsActive($captainID);
+    }
+
+    public function getCaptainsInVacation()
+    {
+        return $this->captainProfileEntityRepository->getCaptainsInVacation();
+    }
+    public function getCaptainAsArrayByCaptainId($captainID)
+    {
+        return $this->captainProfileEntityRepository->getCaptainAsArrayByCaptainId($captainID);
+    }
+
+    public function getAllCaptains()
+    {
+        return $this->captainProfileEntityRepository->getAllCaptains();
+    }
+
+    public function getTop5Captains()
+    {
+        return $this->captainProfileEntityRepository->getTop5Captains();
+    }
+
+    public function getTopCaptainsInLastMonthDate($fromDate, $toDate)
+    {
+        return $this->captainProfileEntityRepository->getTopCaptainsInLastMonthDate($fromDate, $toDate);
+    }
+
+    public function countCaptains()
+    {
+        return $this->captainProfileEntityRepository->countCaptains();
+    }
+
+    public function captainFilter($name)
+    {
+        return $this->captainProfileEntityRepository->captainFilter($name);
+    }
+
 }
