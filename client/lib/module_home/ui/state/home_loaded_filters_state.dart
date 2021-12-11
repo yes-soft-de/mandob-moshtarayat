@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
+import 'package:mandob_moshtarayat/hive/objects/cart_model/cart_model.dart';
 import 'package:mandob_moshtarayat/module_home/model/products_by_categories_model.dart';
 import 'package:mandob_moshtarayat/module_home/model/subCategoriesModel.dart';
 import 'package:mandob_moshtarayat/module_home/ui/screen/home_screen.dart';
@@ -8,6 +9,7 @@ import 'package:mandob_moshtarayat/module_home/ui/state/home_state.dart';
 import 'package:mandob_moshtarayat/module_home/ui/widget/home_app_bar.dart';
 import 'package:mandob_moshtarayat/module_home/ui/widget/product_component.dart';
 import 'package:mandob_moshtarayat/module_home/ui/widget/sub_category_card.dart';
+import 'package:mandob_moshtarayat/module_stores/presistance/cart_hive_box_helper.dart';
 import 'package:mandob_moshtarayat/utils/effect/checked.dart';
 import 'package:mandob_moshtarayat/utils/images/images.dart';
 import 'package:mandob_moshtarayat/utils/models/store_category.dart';
@@ -33,7 +35,8 @@ class HomeLoadedFilterState extends HomeState {
         return screenState.getHomeData();
       },
       child: ListView(
-        physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+        physics: const BouncingScrollPhysics(
+            parent: AlwaysScrollableScrollPhysics()),
         children: [
           CustomHomeAppBar(
             categoriesCallback: (categoriesID) {
@@ -146,8 +149,30 @@ class HomeLoadedFilterState extends HomeState {
         rating: element.rate.toDouble(),
         description: element.description,
         price: element.productPrice.toStringAsFixed(2),
+        quantity:getQuantity(element.id),
+        onSelect: (cartModel) {
+          if (cartModel.quantity > 0) {
+            CartHiveHelper().addProductsToCart(cartModel);
+          }
+          if (cartModel.quantity == 0) {
+            CartHiveHelper().removeProductsToCart(cartModel);
+          }
+          screenState.refresh();
+        },
       ));
     });
     return widgets;
+  }
+   int getQuantity(int id) {
+    List<CartModel> carts = CartHiveHelper().getCart();
+    if (carts.isEmpty) {
+      return 0;
+    } else {
+      int quantity = 0;
+      carts.forEach((element) {
+        quantity = element.id == id ? element.quantity : quantity;
+      });
+      return quantity;
+    }
   }
 }
