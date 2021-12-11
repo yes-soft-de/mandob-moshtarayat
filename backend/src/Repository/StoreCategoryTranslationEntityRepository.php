@@ -19,4 +19,19 @@ class StoreCategoryTranslationEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, StoreCategoryTranslationEntity::class);
     }
 
+    // return StoreCategoryTranslationEntity
+    public function getByStoreCategoryIdAndLanguage($storeCategoryID, $language)
+    {
+        return $this->createQueryBuilder('storeCategoryTranslationEntity')
+
+            ->andWhere('storeCategoryTranslationEntity.storeCategoryID = :storeCategoryID')
+            ->setParameter('storeCategoryID', $storeCategoryID)
+
+            ->andWhere('storeCategoryTranslationEntity.language = :language')
+            ->setParameter('language', $language)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 }
