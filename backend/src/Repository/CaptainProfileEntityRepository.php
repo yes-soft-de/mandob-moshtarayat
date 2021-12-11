@@ -303,8 +303,8 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
            
             ->leftJoin(OrderEntity::class, 'OrderEntity', Join::WITH, 'OrderEntity.captainID = captainProfileEntity.captainID')
 
-             ->where('OrderEntity.date >= :fromDate')
-             ->andWhere('OrderEntity.date < :toDate')
+             ->where('OrderEntity.createdAt >= :fromDate')
+             ->andWhere('OrderEntity.createdAt < :toDate')
 
             ->addGroupBy('OrderEntity.captainID')
             

@@ -75,47 +75,31 @@ class CaptainProfileService
         }
         return $this->autoMapping->map(UserEntity::class, UserRegisterResponse::class, $userRegister);
     }
-//public function captainRegister(UserRegisterRequest $request)
-//    {
-//        $roomID = $this->roomIdHelperService->roomIdGenerate();
-//        $userRegister = $this->userManager->captainRegister($request, $roomID);
-//        if ($userRegister instanceof UserEntity) {
-//
-//        return $this->autoMapping->map(UserEntity::class, UserRegisterResponse::class, $userRegister);
-//
-//        }
-//        if ($userRegister == true) {
-//
-//            $user = $this->userManager->getUserByUserID($request->getUserID());
-//            $user['found']="yes";
-//            return $user;
-//        }
-//    }
 
     public function updateCaptainProfile(CaptainProfileUpdateRequest $request)
     {
-        $item = $this->userManager->updateCaptainProfile($request);
+        $item = $this->captainProfileManager->updateCaptainProfile($request);
         
         return $this->autoMapping->map(CaptainProfileEntity::class, CaptainProfileCreateResponse::class, $item);
     }
 
     public function captainProfileUpdateLocation(CaptainProfileUpdateLocationRequest $request)
     {
-        $item = $this->userManager->captainProfileUpdateLocation($request);
+        $item = $this->captainProfileManager->captainProfileUpdateLocation($request);
         
         return $this->autoMapping->map(CaptainProfileEntity::class, CaptainProfileCreateResponse::class, $item);
     }
 
     public function updateCaptainProfileByAdmin(CaptainProfileUpdateByAdminRequest $request)
     {
-        $item = $this->userManager->updateCaptainProfileByAdmin($request);
+        $item = $this->captainProfileManager->updateCaptainProfileByAdmin($request);
 
         return $this->autoMapping->map(CaptainProfileEntity::class, CaptainProfileCreateResponse::class, $item);
     }
 
     public function updateCaptainStateByAdmin(CaptainVacationCreateRequest $request)
     {
-        return $this->userManager->updateCaptainStateByAdmin($request);
+        return $this->captainProfileManager->updateCaptainStateByAdmin($request);
 
     }
 
@@ -123,7 +107,7 @@ class CaptainProfileService
     {
         $response=(object)[];
 
-        $item = $this->userManager->getCaptainProfileByCaptainID($captainID);
+        $item = $this->captainProfileManager->getCaptainProfileByCaptainID($captainID);
 
         $bounce = $this->getCaptainFinancialAccountDetailsByCaptainId($captainID);
 
@@ -146,7 +130,7 @@ class CaptainProfileService
 
     public function getCaptainProfileByCaptainIDForAdmin($captainID)
     {
-        $item = $this->userManager->getCaptainProfileByCaptainID($captainID);
+        $item = $this->captainProfileManager->getCaptainProfileByCaptainID($captainID);
         if($item) {
             $item['imageURL'] = $item['image'];
             $item['image'] = $this->params.$item['image'];
@@ -163,7 +147,7 @@ class CaptainProfileService
     {
         $response = [];
 
-        $items = $this->userManager->getCaptainsInactive();
+        $items = $this->captainProfileManager->getCaptainsInactive();
 
         foreach( $items as  $item ) {
             $item['image'] = $this->getImageParams($item['image'], $this->params.$item['image'], $this->params);
@@ -176,7 +160,7 @@ class CaptainProfileService
     
     public function captainIsActive($captainID)
     {
-        $item = $this->userManager->captainIsActive($captainID);
+        $item = $this->captainProfileManager->captainIsActive($captainID);
 
         return $this->autoMapping->map('array',CaptainIsActiveResponse::class, $item);
      }
@@ -206,7 +190,7 @@ class CaptainProfileService
      {
          $response = [];
 
-         $dayOfCaptains = $this->userManager->getCaptainsInVacation();
+         $dayOfCaptains = $this->captainProfileManager->getCaptainsInVacation();
       
          foreach ($dayOfCaptains as $item) {
             $item['imageURL'] = $item['image'];
@@ -273,7 +257,7 @@ class CaptainProfileService
     {
         $response=[];
 
-        $item = $this->userManager->getCaptainAsArrayByCaptainId($captainId);
+        $item = $this->captainProfileManager->getCaptainAsArrayByCaptainId($captainId);
     
         $sumPaymentsFromCaptainToCompany = $this->deliveryCompanyPaymentsFromCaptainService->deliveryCompanySumPaymentsFromCaptain($captainId);
         $sumPaymentsToCaptainFromCompany = $this->deliveryCompanyPaymentsToCaptainService->deliveryCompanySumPaymentsToCaptain($captainId);
@@ -311,7 +295,7 @@ class CaptainProfileService
     {
         $response=[];
 
-        $item = $this->userManager->getCaptainAsArrayByCaptainId($captainId);
+        $item = $this->captainProfileManager->getCaptainAsArrayByCaptainId($captainId);
         
         $sumPaymentsFromCaptainToCompany = $this->deliveryCompanyPaymentsFromCaptainService->deliveryCompanySumPaymentsFromCaptain($captainId);
         $sumPaymentsToCaptainFromCompany = $this->deliveryCompanyPaymentsToCaptainService->deliveryCompanySumPaymentsToCaptain($captainId);
@@ -362,7 +346,7 @@ class CaptainProfileService
 
         $date = $this->dateFactoryService->returnLastMonthDate($year, $month);
 
-        $item = $this->userManager->getCaptainAsArrayByCaptainId($captainId);
+        $item = $this->captainProfileManager->getCaptainAsArrayByCaptainId($captainId);
     
         $sumPaymentsToCaptainFromCompany = $this->deliveryCompanyPaymentsToCaptainService->deliveryCompanySumPaymentsToCaptainInSpecificDate($captainId, $date[0], $date[1]);
         $sumPaymentsFromCaptainToCompany = $this->deliveryCompanyPaymentsFromCaptainService->deliveryCompanySumPaymentsFromCaptainInSpecificDate($captainId, $date[0], $date[1]);
@@ -413,7 +397,7 @@ class CaptainProfileService
 
         $date = $this->dateFactoryService->returnLastMonthDate($year, $month);
 
-        $item = $this->userManager->getCaptainAsArrayByCaptainId($captainID);
+        $item = $this->captainProfileManager->getCaptainAsArrayByCaptainId($captainID);
     
         $sumPaymentsToCaptainFromCompany = $this->deliveryCompanyPaymentsToCaptainService->deliveryCompanySumPaymentsToCaptainInSpecificDate($captainID, $date[0], $date[1]);
         $sumPaymentsFromCaptainToCompany = $this->deliveryCompanyPaymentsFromCaptainService->deliveryCompanySumPaymentsFromCaptainInSpecificDate($captainID, $date[0], $date[1]);
@@ -468,7 +452,7 @@ class CaptainProfileService
 
         $date = $this->dateFactoryService->returnSpecificDate($fromDate, $toDate);
 
-        $item = $this->userManager->getCaptainAsArrayByCaptainId($captainID);
+        $item = $this->captainProfileManager->getCaptainAsArrayByCaptainId($captainID);
     
         $sumPaymentsToCaptainFromCompany = $this->deliveryCompanyPaymentsToCaptainService->deliveryCompanySumPaymentsToCaptainInSpecificDate($captainID, $date[0], $date[1]);
         $sumPaymentsFromCaptainToCompany = $this->deliveryCompanyPaymentsFromCaptainService->deliveryCompanySumPaymentsFromCaptainInSpecificDate($captainID, $date[0], $date[1]);
@@ -524,7 +508,7 @@ class CaptainProfileService
       
         $date = $this->dateFactoryService->returnSpecificDate($fromDate, $toDate);
 
-        $item = $this->userManager->getCaptainAsArrayByCaptainId($captainId);
+        $item = $this->captainProfileManager->getCaptainAsArrayByCaptainId($captainId);
     
         $sumPaymentsToCaptainFromCompany = $this->deliveryCompanyPaymentsToCaptainService->deliveryCompanySumPaymentsToCaptainInSpecificDate($captainId, $date[0], $date[1]);
         $sumPaymentsFromCaptainToCompany = $this->deliveryCompanyPaymentsFromCaptainService->deliveryCompanySumPaymentsFromCaptainInSpecificDate($captainId, $date[0], $date[1]);
@@ -541,7 +525,7 @@ class CaptainProfileService
             
             $countOrdersDelivered = $this->captainService->countOrdersInMonthForCaptain($date[0], $date[1], $item[0]['captainID']);
             $sumInvoiceAmount = $this->captainService->sumInvoiceAmountWithoutOrderTypeSendItInMonthForCaptain($date[0], $date[1], $item[0]['captainID']);
-            $paymentsFromCompany = $this->captainPaymentService->getPaymentsFromCompanyInSpecificDate( $item[0]['captainID'] ,$date[0], $date[1]);
+            $paymentsFromCompany = $this->deliveryCompanyPaymentsToCaptainService->deliveryCompanyPaymentsToCaptainInSpecificDate( $item[0]['captainID'] ,$date[0], $date[1]);
 
              $sumKilometerBonus = $this->getOrderKilometersInThisMonth($captainId, $date[0], $date[1]);
              $item['kilometerBonus'] = $sumKilometerBonus;
@@ -585,7 +569,7 @@ class CaptainProfileService
     {
         $response = [];
 
-        $captains = $this->userManager->getAllCaptains();
+        $captains = $this->captainProfileManager->getAllCaptains();
 
         foreach ($captains as $captain) {
             $captain['image'] = $this->getImageParams($captain['image'], $this->params.$captain['image'], $this->params);
@@ -599,7 +583,7 @@ class CaptainProfileService
     public function captainsRemainingForItAmount(): array
     {
         $response = [];
-        $captains = $this->userManager->getAllCaptains();
+        $captains = $this->captainProfileManager->getAllCaptains();
      
         foreach ($captains as $captain) {
                  $financialAccount = $this->getCaptainFinancialAccountDetailsByCaptainIdForAdmin($captain['captainID']);
@@ -624,7 +608,7 @@ class CaptainProfileService
         $totalAmountForCompany = 
         (float)$sumFinancialAmount[0]['sumInvoiceAmount'] + $sumFinancialAmount[0]['deliveryCost'] - $sumPaymentsToCompany[0]['sumPaymentsToCompany'];
 
-        $captains = $this->userManager->getAllCaptains();
+        $captains = $this->captainProfileManager->getAllCaptains();
         
         foreach ($captains as $captain) {
                  $financialAccount = $this->getCaptainFinancialAccountDetailsByCaptainIdForAdmin($captain['captainID']);
@@ -653,7 +637,7 @@ class CaptainProfileService
 
     public function getTop5Captains()
     {
-       return $this->userManager->getTop5Captains();
+       return $this->captainProfileManager->getTop5Captains();
     }
 
     public function getTopCaptainsInLastMonthDate():array
@@ -661,7 +645,7 @@ class CaptainProfileService
        $response = [];
 
        $date = $this->dateFactoryService->returnLastMonthDate();
-       $topCaptains = $this->userManager->getTopCaptainsInLastMonthDate($date[0],$date[1]);
+       $topCaptains = $this->captainProfileManager->getTopCaptainsInLastMonthDate($date[0],$date[1]);
      
         foreach ($topCaptains as $topCaptain) {
             $topCaptain['imageURL'] = $topCaptain['image'];
@@ -676,14 +660,14 @@ class CaptainProfileService
    }
 
    public function countCaptains() {
-        return $this->userManager->countCaptains();
+        return $this->captainProfileManager->countCaptains();
    }
 
    public function captainFilter($name): array
    {
        $response = [];
 
-       $captains = $this->userManager->captainFilter($name);
+       $captains = $this->captainProfileManager->captainFilter($name);
 
        foreach ($captains as $captain) {
             $response['captains'][]= $this->autoMapping->map('array', CaptainProfileFilterResponse::class, $captain);

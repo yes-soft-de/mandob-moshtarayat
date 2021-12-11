@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\ProductEntity;
 use App\Entity\StoreOwnerProfileEntity;
 use App\Entity\StoreOwnerBranchEntity;
 use App\Entity\OrderEntity;
@@ -375,5 +376,21 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
 
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    public function isItRelatedToProduct($id)
+    {
+        return $this->createQueryBuilder('profile')
+
+            ->select('profile.id')
+
+            ->leftJoin(ProductEntity::class, 'ProductEntity', Join::WITH, 'ProductEntity.storeOwnerProfileID = profile.id')
+
+            ->andWhere('ProductEntity.storeOwnerProfileID= :id')
+
+            ->setParameter('id',$id)
+
+            ->getQuery()
+            ->getResult();
     }
 }
