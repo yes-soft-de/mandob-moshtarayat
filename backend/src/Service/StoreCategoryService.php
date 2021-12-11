@@ -5,7 +5,7 @@ namespace App\Service;
 use App\AutoMapping;
 use App\Entity\StoreCategoryEntity;
 use App\Manager\StoreCategoryManager;
-use App\Request\StoreCategoryCreateRequest;
+use App\Request\StoreCategoryWithTranslationCreateRequest;
 use App\Response\ClientFavouriteStoreCategoriesAndStoresGetResponse;
 use App\Response\ClientFavouriteStoreCategoriesResponse;
 use App\Response\StoreCategoriesAndStoresResponse;
@@ -13,7 +13,6 @@ use App\Response\StoreCategoryCreateResponse;
 use App\Response\StoreCategoryByIdResponse;
 use App\Response\StoreCategoryGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use App\Service\StoreOwnerProfileService;
 
 class StoreCategoryService
 {
@@ -30,11 +29,11 @@ class StoreCategoryService
         $this->params = $params->get('upload_base_url') . '/';
     }
 
-    public function createStoreCategory(StoreCategoryCreateRequest $request)
+    public function createStoreCategory(StoreCategoryWithTranslationCreateRequest $request)
     {
-        $item = $this->storeCategoryManager->createStoreCategory($request);
+        $storeCategoryEntity = $this->storeCategoryManager->createStoreCategory($request);
 
-        return $this->autoMapping->map(StoreCategoryEntity::class, StoreCategoryCreateResponse::class, $item);
+        return $this->autoMapping->map(StoreCategoryEntity::class, StoreCategoryCreateResponse::class, $storeCategoryEntity);
     }
 
     public function updateStoreCategory($request)

@@ -2,15 +2,23 @@
 
 namespace App\Request;
 
-class StoreCategoryCreateRequest
+class StoreCategoryTranslationCreateRequest
 {
+    private $storeCategoryID;
+
     private $storeCategoryName;
   
     private $description;
-  
-    private $image;
 
     private $language;
+
+    /**
+     * @param mixed $storeCategoryID
+     */
+    public function setStoreCategoryID($storeCategoryID): void
+    {
+        $this->storeCategoryID = $storeCategoryID;
+    }
 
     /**
      * Get the value of StoreCategoryName
@@ -53,22 +61,11 @@ class StoreCategoryCreateRequest
     }
 
     /**
-     * Get the value of image
-     */ 
-    public function getImage()
+     * @param mixed $language
+     */
+    public function setLanguage($language): void
     {
-        return $this->image;
+        $this->language = $language;
     }
 
-    /**
-     * Set the value of image
-     *
-     * @return  self
-     */ 
-    public function setImage($image)
-    {
-        $this->image = $image;
-
-        return $this;
-    }
 }
