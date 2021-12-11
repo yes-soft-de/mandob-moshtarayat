@@ -261,4 +261,13 @@ class StoreOwnerProfileManager
         }
     }
 
+    public function isItRelatedToProduct($id):string
+    {
+        $items = $this->storeOwnerProfileEntityRepository->isItRelatedToProduct($id);
+        if($items) {
+            return "related";
+        }
+
+        return "not related";
+    }
 }

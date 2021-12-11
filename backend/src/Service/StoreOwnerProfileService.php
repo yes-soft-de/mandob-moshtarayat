@@ -346,13 +346,17 @@ class StoreOwnerProfileService
 
     public function deleteStoreOwnerProfile($request)
     {
-        $result = $this->storeOwnerProfileManager->deleteStoreOwnerProfile($request);
+        $isRelated = $this->storeOwnerProfileManager->isItRelatedToProduct($request->getID());
+        if($isRelated == "not related") {
+            $result = $this->storeOwnerProfileManager->deleteStoreOwnerProfile($request);
 
-        if($result == 'storeOwnerProfileNotFound') {
-            return $result;
+            if ($result == 'storeOwnerProfileNotFound') {
+                return $result;
+            } else {
+                return $this->autoMapping->map(StoreOwnerProfileEntity::class, StoreOwnerProfileDeleteResponse::class, $result);
+            }
         }
-        else {
-            return $this->autoMapping->map(StoreOwnerProfileEntity::class, StoreOwnerProfileDeleteResponse::class, $result);
-        }
+
+        return $isRelated;
     }
 }

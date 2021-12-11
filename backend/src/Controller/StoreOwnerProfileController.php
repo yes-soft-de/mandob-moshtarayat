@@ -825,7 +825,7 @@ class StoreOwnerProfileController extends BaseController
         return $this->response($response, self::FETCH);
     }
     /**
-     * Delete delete store owner profile.
+     * admin: Delete store owner profile.
      * @Route("storeownerprofile/{id}", name="deleteStoreOwnerProfile", methods={"DELETE"})
      * @param Request $request
      * @return JsonResponse
@@ -857,6 +857,17 @@ class StoreOwnerProfileController extends BaseController
      *      )
      * )
      *
+     * or
+     *
+     * @OA\Response(
+     *      response="default",
+     *      description="Returns the store related to products.",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code", description="9201"),
+     *          @OA\Property(type="string", property="msg", description="error related Successfully."),
+     *          @OA\Property(type="string", property="Data", description="related"),
+     *      )
+     * )
      */
     public function deleteStoreOwnerProfile(Request $request): JsonResponse
     {
@@ -865,6 +876,10 @@ class StoreOwnerProfileController extends BaseController
         $result = $this->storeOwnerProfileService->deleteStoreOwnerProfile($request);
         if ($result == "storeOwnerProfileNotFound"){
             return $this->response($result, self::NOTFOUND);
+        }
+
+        if ($result == "related"){
+            return $this->response($result, self::ERROR_RELATED);
         }
 
         return $this->response($result, self::DELETE);
