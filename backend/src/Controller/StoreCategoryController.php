@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\DeleteRequest;
-use App\Request\StoreCategoryCreateRequest;
 use App\Request\StoreCategoryUpdateRequest;
 use App\Request\StoreCategoryWithTranslationCreateRequest;
 use App\Service\StoreCategoryService;
@@ -170,6 +169,13 @@ class StoreCategoryController extends BaseController
      **
      * @OA\Tag(name="Store Category")
      *
+     * @OA\Parameter(
+     *      name="Accept-Language",
+     *      in="header",
+     *      description="language to be passed as a header",
+     *      required=false
+     * )
+     *
      * @OA\Response(
      *      response=200,
      *      description="Get Store Categories",
@@ -188,20 +194,28 @@ class StoreCategoryController extends BaseController
      *      )
      * )
      */
-      public function getStoreCategories(): JsonResponse
+      public function getStoreCategories(Request $request): JsonResponse
       {
-          $result = $this->storeCategoryService->getStoreCategories();
+          $result = $this->storeCategoryService->getStoreCategories($request->getPreferredLanguage());
   
           return $this->response($result, self::FETCH);
       }
 
     /**
-      * Get specific store category.
-      * @Route("/storecategory/{id}", name="getStoreCategory", methods={"GET"})
-      * @param Request $request
-      * @return JsonResponse
+     * Get specific store category.
+     * @Route("/storecategory/{id}", name="getStoreCategory", methods={"GET"})
+     * @param Request $request
+     * @param $id
+     * @return JsonResponse
      * *
      * @OA\Tag(name="Store Category")
+     *
+     * @OA\Parameter(
+     *      name="Accept-Language",
+     *      in="header",
+     *      description="language to be passed as a header",
+     *      required=false
+     * )
      *
      * @OA\Response(
      *      response=200,
@@ -211,14 +225,15 @@ class StoreCategoryController extends BaseController
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
      *                  @OA\Property(type="string", property="storeCategoryName"),
-     *                  @OA\Property(type="object", property="image")
+     *                  @OA\Property(type="object", property="image"),
+     *                  @OA\Property(type="string", property="language")
      *          )
      *      )
      * )
      */
-      public function getStoreCategory($id)
+      public function getStoreCategoryByID(Request $request, $id)
       {
-          $result = $this->storeCategoryService->getStoreCategory($id);
+          $result = $this->storeCategoryService->getStoreCategoryByID($request->getPreferredLanguage(), $id);
   
           return $this->response($result, self::FETCH);
       }
@@ -229,6 +244,13 @@ class StoreCategoryController extends BaseController
      * @return JsonResponse
      * *
      * @OA\Tag(name="Store Category")
+     *
+     * @OA\Parameter(
+     *      name="Accept-Language",
+     *      in="header",
+     *      description="language to be passed as a header",
+     *      required=false
+     * )
      *
      * @OA\Response(
      *      response=200,
@@ -273,9 +295,9 @@ class StoreCategoryController extends BaseController
      *          )
      *       )
      */
-    public function getStoreCategoriesAndStores(): JsonResponse
+    public function getStoreCategoriesAndStores(Request $request): JsonResponse
     {
-        $result = $this->storeCategoryService->getStoreCategoriesAndStores();
+        $result = $this->storeCategoryService->getStoreCategoriesAndStores($request->getPreferredLanguage());
 
         return $this->response($result, self::FETCH);
     }

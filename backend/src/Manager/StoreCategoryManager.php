@@ -12,7 +12,6 @@ use App\Request\StoreCategoryUpdateRequest;
 use App\Request\StoreCategoryWithTranslationCreateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
-
 class StoreCategoryManager
 {
     private $autoMapping;
@@ -84,9 +83,9 @@ class StoreCategoryManager
       return $entity;
     }
 
-    public function getStoreCategories()
+    public function getStoreCategories($userLocale, $primaryLanguage)
     {
-       return $this->storeCategoryEntityRepository->getStoreCategories();
+       return $this->storeCategoryEntityRepository->getStoreCategories($userLocale, $primaryLanguage);
     }
 
     public function getLast15StoreCategories()
@@ -117,9 +116,9 @@ class StoreCategoryManager
 
     }
 
-    public function getStoreCategory($id): ?StoreCategoryEntity
+    public function getStoreCategoryByID($userLocale, $primaryLanguage, $id)
     {
-       return $this->storeCategoryEntityRepository->find($id);
+       return $this->storeCategoryEntityRepository->getStoreCategoryByID($userLocale, $primaryLanguage, $id);
     }
 
     public function isItRelatedToSubcategoriesOrStore($id):string
