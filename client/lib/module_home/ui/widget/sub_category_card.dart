@@ -35,7 +35,7 @@ class SubCategoryCard extends StatelessWidget {
                 : Theme.of(context).backgroundColor,
           ),
           child: Padding(
-            padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+            padding: const EdgeInsets.only(left: 4.0, right: 4.0),
             child: Row(
               children: [
                 icon != null
@@ -43,22 +43,19 @@ class SubCategoryCard extends StatelessWidget {
                         icon,
                         color: selected ? Colors.white : null,
                       )
-                    : Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                          ),
-                          child: ClipOval(
-                            child: CustomNetworkImage(
-                              imagePreview: false,
-                              imageSource:image ?? '',
-                              width: 24,
-                              height: 24,
-                            ),
-                          ),
+                    : Container(
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                      ),
+                      child: ClipOval(
+                        child: CustomNetworkImage(
+                          imagePreview: false,
+                          imageSource:image ?? '',
+                          width: 40,
+                          height: 40,
                         ),
                       ),
+                    ),
                 const SizedBox(
                   width: 8,
                 ),
@@ -66,6 +63,9 @@ class SubCategoryCard extends StatelessWidget {
                   title,
                   textAlign: TextAlign.center,
                   style: TextStyle(color: selected ? Colors.white : null),
+                ),
+                const SizedBox(
+                  width: 8,
                 ),
               ],
             ),
