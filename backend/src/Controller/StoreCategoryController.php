@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Request\DeleteRequest;
 use App\Request\StoreCategoryUpdateRequest;
 use App\Request\StoreCategoryWithTranslationCreateRequest;
+use App\Request\StoreCategoryWithTranslationUpdateRequest;
 use App\Service\StoreCategoryService;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -58,6 +59,7 @@ class StoreCategoryController extends BaseController
      *          ),
      *          @OA\Property(type="array", property="translate",
      *              @OA\Items(
+     *                  @OA\Property(type="integer", property="storeCategoryID"),
      *                  @OA\Property(type="string", property="storeCategoryName"),
      *                  @OA\Property(type="string", property="description"),
      *                  @OA\Property(type="string", property="language")
@@ -120,10 +122,20 @@ class StoreCategoryController extends BaseController
      * @OA\RequestBody(
      *      description="Update Store Category.",
      *      @OA\JsonContent(
-     *          @OA\Property(type="integer", property="id"),
-     *          @OA\Property(type="string", property="storeCategoryName"),
-     *          @OA\Property(type="string", property="description"),
-     *          @OA\Property(type="string", property="image"),
+     *          @OA\Property(type="object", property="data",
+     *              @OA\Property(type="integer", property="id"),
+     *              @OA\Property(type="string", property="storeCategoryName"),
+     *              @OA\Property(type="string", property="description"),
+     *              @OA\Property(type="string", property="image")
+     *          ),
+     *          @OA\Property(type="array", property="translate",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="storeCategoryID"),
+     *                  @OA\Property(type="string", property="storeCategoryName"),
+     *                  @OA\Property(type="string", property="description"),
+     *                  @OA\Property(type="string", property="language")
+     *              )
+     *          )
      *      )
      * )
      *
@@ -147,7 +159,7 @@ class StoreCategoryController extends BaseController
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class, StoreCategoryUpdateRequest::class, (object)$data);
+        $request = $this->autoMapping->map(stdClass::class, StoreCategoryWithTranslationUpdateRequest::class, (object)$data);
 
         $violations = $this->validator->validate($request);
         if(\count($violations) > 0)

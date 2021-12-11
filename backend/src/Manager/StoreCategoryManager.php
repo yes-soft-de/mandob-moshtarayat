@@ -8,8 +8,10 @@ use App\Repository\StoreCategoryEntityRepository;
 use App\Request\DeleteRequest;
 use App\Request\StoreCategoryCreateRequest;
 use App\Request\StoreCategoryTranslationCreateRequest;
+use App\Request\StoreCategoryTranslationUpdateRequest;
 use App\Request\StoreCategoryUpdateRequest;
 use App\Request\StoreCategoryWithTranslationCreateRequest;
+use App\Request\StoreCategoryWithTranslationUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
 class StoreCategoryManager
@@ -70,17 +72,42 @@ class StoreCategoryManager
         }
     }
 
-    public function updateStoreCategory(StoreCategoryUpdateRequest $request)
+    public function updateStoreCategory(StoreCategoryWithTranslationUpdateRequest $request)
     {
-      $entity = $this->storeCategoryEntityRepository->find($request->getId());
-      if(!$entity){
-          return $entity;
-      }
-      $entity = $this->autoMapping->mapToObject(StoreCategoryUpdateRequest::class, StoreCategoryEntity::class, $request, $entity);
+        // First, update the content in the primary language
+        $storeCategoryUpdateRequest = $this->autoMapping->map('array', StoreCategoryUpdateRequest::class, $request->getData());
 
-      $this->entityManager->flush();
+        $entity = $this->storeCategoryEntityRepository->find($storeCategoryUpdateRequest->getId());
 
-      return $entity;
+        if(!$entity)
+        {
+            return $entity;
+        }
+
+        $entity = $this->autoMapping->mapToObject(StoreCategoryUpdateRequest::class, StoreCategoryEntity::class, $storeCategoryUpdateRequest, $entity);
+
+        $this->entityManager->flush();
+
+        //Second, update the translation data
+        if($request->getTranslate())
+        {
+            $this->updateStoreCategoryTranslation($request->getTranslate());
+        }
+
+        return $entity;
+    }
+
+    public function updateStoreCategoryTranslation($translationArrayRequest)
+    {
+        if($translationArrayRequest)
+        {
+            foreach($translationArrayRequest as $translationRequest)
+            {
+                $storeCategoryTranslationUpdateRequest = $this->autoMapping->map('array', StoreCategoryTranslationUpdateRequest::class, $translationRequest);
+
+                $this->storeCategoryTranslationManager->updateStoreCategoryTranslationByStoreCategoryIdAndLanguage($storeCategoryTranslationUpdateRequest);
+            }
+        }
     }
 
     public function getStoreCategories($userLocale, $primaryLanguage)
