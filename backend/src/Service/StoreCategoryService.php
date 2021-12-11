@@ -19,6 +19,7 @@ class StoreCategoryService
     private $autoMapping;
     private $storeCategoryManager;
     private $params;
+    private $primaryLanguage;
     private $storeOwnerProfileService;
 
     public function __construct(AutoMapping $autoMapping, StoreCategoryManager $storeCategoryManager, ParameterBagInterface $params, StoreOwnerProfileService $storeOwnerProfileService)
@@ -27,6 +28,7 @@ class StoreCategoryService
         $this->storeCategoryManager = $storeCategoryManager;
         $this->storeOwnerProfileService = $storeOwnerProfileService;
         $this->params = $params->get('upload_base_url') . '/';
+        $this->primaryLanguage = $params->get('primary_language');
     }
 
     public function createStoreCategory(StoreCategoryWithTranslationCreateRequest $request)
@@ -43,11 +45,11 @@ class StoreCategoryService
         return $this->autoMapping->map(StoreCategoryEntity::class, StoreCategoryCreateResponse::class, $item);
     }
 
-    public function getStoreCategories(): array
+    public function getStoreCategories($userLocale): array
     {
        $response = [];
 
-       $items = $this->storeCategoryManager->getStoreCategories();
+       $items = $this->storeCategoryManager->getStoreCategories($userLocale, $this->primaryLanguage);
 
        foreach($items as $item)
        {
@@ -84,9 +86,9 @@ class StoreCategoryService
         return $item;
     }
 
-    public function getStoreCategoriesAndStores()
+    public function getStoreCategoriesAndStores($userLocale)
     {
-        $item['categories'] = $this->getStoreCategories();
+        $item['categories'] = $this->getStoreCategories($userLocale);
         $item['stores'] = $this->storeOwnerProfileService->getLast15Stores();
 
         return $this->autoMapping->map("array", StoreCategoriesAndStoresResponse::class, $item);

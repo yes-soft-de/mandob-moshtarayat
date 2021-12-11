@@ -170,6 +170,13 @@ class StoreCategoryController extends BaseController
      **
      * @OA\Tag(name="Store Category")
      *
+     * @OA\Parameter(
+     *      name="Accept-Language",
+     *      in="header",
+     *      description="language to be passed as a header",
+     *      required=false
+     * )
+     *
      * @OA\Response(
      *      response=200,
      *      description="Get Store Categories",
@@ -188,9 +195,9 @@ class StoreCategoryController extends BaseController
      *      )
      * )
      */
-      public function getStoreCategories(): JsonResponse
+      public function getStoreCategories(Request $request): JsonResponse
       {
-          $result = $this->storeCategoryService->getStoreCategories();
+          $result = $this->storeCategoryService->getStoreCategories($request->getPreferredLanguage());
   
           return $this->response($result, self::FETCH);
       }
@@ -229,6 +236,13 @@ class StoreCategoryController extends BaseController
      * @return JsonResponse
      * *
      * @OA\Tag(name="Store Category")
+     *
+     * @OA\Parameter(
+     *      name="Accept-Language",
+     *      in="header",
+     *      description="language to be passed as a header",
+     *      required=false
+     * )
      *
      * @OA\Response(
      *      response=200,
@@ -273,9 +287,9 @@ class StoreCategoryController extends BaseController
      *          )
      *       )
      */
-    public function getStoreCategoriesAndStores(): JsonResponse
+    public function getStoreCategoriesAndStores(Request $request): JsonResponse
     {
-        $result = $this->storeCategoryService->getStoreCategoriesAndStores();
+        $result = $this->storeCategoryService->getStoreCategoriesAndStores($request->getPreferredLanguage());
 
         return $this->response($result, self::FETCH);
     }
