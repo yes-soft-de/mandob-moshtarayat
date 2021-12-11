@@ -29,35 +29,22 @@ class FavouriteStateManager {
 
   void getCategories(FavoritScreenState screenState) {
     _stateSubject.add(LoadingState(screenState));
-    _homeService.getStoreCategories().then((value) => {
-          if (value.hasError)
-            {
-              _stateSubject.add(ErrorState(screenState, onPressed: () {
-                getCategories(screenState);
-              }, title: '', hasAppbar: false))
-            }
-          else if (value.isEmpty)
-            {
-              _stateSubject.add(EmptyState(screenState,
-                  emptyMessage: S.current.homeDataEmpty,
-                  title: '',
-                  hasAppbar: false,
-                  onPressed: () {}))
-            }
-          else
-            {
-              _accountService.getFavoriteCategoires().then((fav) {
-                if (fav.hasError || fav.isEmpty) {
-                  _stateSubject.add(FavoriteLoadedState(screenState,
-                      categories: value.data, userfav: []));
-                } else {
-                  fav as UserFavouriteCategoriesModel;
-                  _stateSubject.add(FavoriteLoadedState(screenState,
-                      categories: value.data, userfav: fav.data));
-                }
-              })
-            }
-        });
+    _homeService.getStoreCategories().then((value) {
+      if (value.hasError) {
+        _stateSubject.add(ErrorState(screenState, onPressed: () {
+          getCategories(screenState);
+        }, title: '', hasAppbar: false));
+      } else if (value.isEmpty) {
+        _stateSubject.add(EmptyState(screenState,
+            emptyMessage: S.current.homeDataEmpty,
+            title: '',
+            hasAppbar: false,
+            onPressed: () {}));
+      } else {
+        _stateSubject
+            .add(FavoriteLoadedState(screenState, categories: value.data));
+      }
+    });
   }
 
   void updateFavoriteCategories(

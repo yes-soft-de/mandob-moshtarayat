@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mandob_moshtarayat/di/di_config.dart';
+import 'package:mandob_moshtarayat/module_account/hive/favorite_store_category.dart';
+import 'package:mandob_moshtarayat/module_account/ui/screen/favourite_screen.dart';
+import 'package:mandob_moshtarayat/module_auth/service/auth_service/auth_service.dart';
 import 'package:mandob_moshtarayat/module_home/state_manager/home_state_manager.dart';
 import 'package:mandob_moshtarayat/module_home/ui/state/home_loading_state.dart';
 import 'package:mandob_moshtarayat/module_home/ui/state/home_state.dart';
+import 'package:mandob_moshtarayat/module_stores/presistance/cart_hive_box_helper.dart';
 
 @injectable
 class HomeScreen extends StatefulWidget {
@@ -51,7 +58,21 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     currentState = HomeLoadingState(this);
-    widget._homeStateManager.getHomeData(this);
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      if (getIt<FavoriteHiveHelper>().getFavoriteCategory() == null &&
+          getIt<AuthService>().isLoggedIn) {
+        showDialog(
+            context: context, builder: (context) => getIt<FavouritScreen>());
+      }
+    });
+    if (getIt<FavoriteHiveHelper>().getFavoriteCategory() != null) {
+      String catID =
+          getIt<FavoriteHiveHelper>().getFavoriteCategory().toString();
+      widget._homeStateManager.getHomeFavoriteData(this, catID);
+      getMainCategoryProducts(catID);
+    } else {
+      widget._homeStateManager.getHomeData(this);
+    }
     widget._homeStateManager.stateStream.listen((event) {
       currentState = event;
       if (mounted) {
@@ -63,6 +84,13 @@ class HomeScreenState extends State<HomeScreen> {
       if (mounted) {
         setState(() {});
       }
+    });
+    Hive.box('Authorization')
+        .listenable(keys: [getIt<FavoriteHiveHelper>().favKey]).addListener(() {
+    String catID =
+          getIt<FavoriteHiveHelper>().getFavoriteCategory().toString();
+      widget._homeStateManager.getHomeFavoriteData(this, catID);
+      getMainCategoryProducts(catID);
     });
     super.initState();
   }

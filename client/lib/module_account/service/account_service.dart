@@ -1,6 +1,8 @@
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/abstracts/data_model/data_model.dart';
+import 'package:mandob_moshtarayat/di/di_config.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
+import 'package:mandob_moshtarayat/module_account/hive/favorite_store_category.dart';
 import 'package:mandob_moshtarayat/module_account/manager/account_manager.dart';
 import 'package:mandob_moshtarayat/module_account/model/profile_model.dart';
 import 'package:mandob_moshtarayat/module_account/model/profile_post_stat.dart';
@@ -31,8 +33,10 @@ class AccountService {
     if (_profileResponse.data == null) return ProfileModel.Empty();
     return ProfileModel.Data(_profileResponse);
   }
-    Future<DataModel> getFavoriteCategoires() async {
-    FavouriteCategoriesResponse? _profileResponse = await _accountManager.getFavoriteCategories();
+
+  Future<DataModel> getFavoriteCategoires() async {
+    FavouriteCategoriesResponse? _profileResponse =
+        await _accountManager.getFavoriteCategories();
     if (_profileResponse == null) {
       return DataModel.withError(S.current.networkError);
     }
@@ -56,16 +60,21 @@ class AccountService {
     }
     return ProfilePostState.empty();
   }
-    Future<DataModel> updatefavCategories(FavoriteCategoriesRequest request) async {
+
+  Future<DataModel> updatefavCategories(
+      FavoriteCategoriesRequest request) async {
     ActionResponse? clientOrderResponse =
         await _accountManager.updateFavoriteCategories(request);
     if (clientOrderResponse == null) {
+      await getIt<FavoriteHiveHelper>().clear();
       return DataModel.withError(S.current.networkError);
     }
     if (clientOrderResponse.statusCode != '204') {
+      await getIt<FavoriteHiveHelper>().clear();
       return DataModel.withError(StatusCodeHelper.getStatusCodeMessages(
           clientOrderResponse.statusCode));
     }
+    getIt<FavoriteHiveHelper>().setFavoriteCategory(request.favouriteCategories!.first);
     return DataModel.empty();
   }
 }

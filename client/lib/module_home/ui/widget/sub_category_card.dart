@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mandob_moshtarayat/utils/components/progresive_image.dart';
 
 class SubCategoryCard extends StatelessWidget {
   final String title;
@@ -7,7 +8,7 @@ class SubCategoryCard extends StatelessWidget {
   final bool selected;
   final Function(String)? onTap;
   final String id;
-  SubCategoryCard(
+  const SubCategoryCard(
       {required this.id,
       this.image,
       required this.title,
@@ -44,16 +45,20 @@ class SubCategoryCard extends StatelessWidget {
                       )
                     : Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Image.network(
-                          image ?? '',
-                          color: selected
-                              ? Colors.white
-                              : Theme.of(context).iconTheme.color,
-                          width: 24,
-                          height: 24,
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                          ),
+                          child: ClipOval(
+                            child: CustomNetworkImage(
+                              imageSource:image ?? '',
+                              width: 24,
+                              height: 24,
+                            ),
+                          ),
                         ),
                       ),
-                SizedBox(
+                const SizedBox(
                   width: 8,
                 ),
                 Text(

@@ -7,14 +7,10 @@ import 'package:mandob_moshtarayat/module_home/ui/state/home_state.dart';
 import 'package:mandob_moshtarayat/module_home/ui/widget/fav_category_card.dart';
 import 'package:mandob_moshtarayat/module_home/ui/widget/home_app_bar.dart';
 import 'package:mandob_moshtarayat/module_home/ui/widget/product_card.dart';
-import 'package:mandob_moshtarayat/module_home/ui/widget/product_component.dart';
 import 'package:mandob_moshtarayat/module_home/ui/widget/show_all.dart';
-import 'package:mandob_moshtarayat/module_our_services/services_routes.dart';
 import 'package:mandob_moshtarayat/module_stores/store_routes.dart';
-import 'package:mandob_moshtarayat/module_stores/ui/widget/store_list/order_type.dart';
 import 'package:mandob_moshtarayat/utils/customIcon/custom_icons.dart';
 import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
-import 'package:mandob_moshtarayat/utils/models/store.dart';
 import 'package:mandob_moshtarayat/utils/models/store_category.dart';
 import 'package:mandob_moshtarayat/utils/text_style/text_style.dart';
 
@@ -181,8 +177,8 @@ class HomeLoadedState extends HomeState {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25),
           color: element.storeId.toString() == storeID
-            ? Theme.of(screenState.context).primaryColor.withOpacity(0.5)
-            : null,
+              ? Theme.of(screenState.context).primaryColor.withOpacity(0.5)
+              : null,
         ),
         child: Padding(
           padding: const EdgeInsets.all(2.0),
@@ -204,7 +200,12 @@ class HomeLoadedState extends HomeState {
     List<Widget> widgets = [];
     if (!screenState.snapshot.hasData) return widgets;
     screenState.snapshot.data.forEach((ProductsByCategoriesModel element) {
-      widgets.add(HomeCard(title: element.productName, image: element.image));
+      widgets.add(GestureDetector(
+          onTap: () {
+            Navigator.of(screenState.context)
+                .pushNamed(StoreRoutes.STORE_PRODUCTS, arguments: {'storeId':element.id.toString()});
+          },
+          child: HomeCard(title: element.productName, image: element.image)));
     });
     return widgets;
   }

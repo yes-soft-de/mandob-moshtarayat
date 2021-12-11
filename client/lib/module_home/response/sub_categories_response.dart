@@ -114,6 +114,10 @@ class ProductCategoryImage {
     imageURL = json['imageURL'];
     image = json['image'];
     baseURL = json['baseURL'];
+    if (imageURL == null) {
+      image = null;
+      baseURL = null;
+    }
   }
 
   String? imageURL;

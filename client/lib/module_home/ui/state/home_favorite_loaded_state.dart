@@ -1,27 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:mandob_moshtarayat/di/di_config.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
+import 'package:mandob_moshtarayat/module_account/hive/favorite_store_category.dart';
 import 'package:mandob_moshtarayat/module_home/model/products_by_categories_model.dart';
 import 'package:mandob_moshtarayat/module_home/model/subCategoriesModel.dart';
 import 'package:mandob_moshtarayat/module_home/ui/screen/home_screen.dart';
 import 'package:mandob_moshtarayat/module_home/ui/state/home_state.dart';
-import 'package:mandob_moshtarayat/module_home/ui/widget/home_app_bar.dart';
+import 'package:mandob_moshtarayat/module_home/ui/widget/favorite_app_bar.dart';
 import 'package:mandob_moshtarayat/module_home/ui/widget/product_component.dart';
 import 'package:mandob_moshtarayat/module_home/ui/widget/sub_category_card.dart';
 import 'package:mandob_moshtarayat/utils/effect/checked.dart';
 import 'package:mandob_moshtarayat/utils/images/images.dart';
-import 'package:mandob_moshtarayat/utils/models/store_category.dart';
 
-class HomeLoadedFilterState extends HomeState {
+class HomeFavoriteLoadedState extends HomeState {
   HomeScreenState screenState;
-  List<StoreCategoryModel> categories;
   List<SubCategoriesModel> subCategories;
-
-  HomeLoadedFilterState(this.screenState,
-      {required this.categories, required this.subCategories})
+  HomeFavoriteLoadedState(this.screenState, {required this.subCategories})
       : super(screenState);
 
-  String categoryID = S.current.home;
   String subCategory = '';
   String? subCategoryLevel2ID;
   List<SubcategoriesLevel2> catsLevel2 = [];
@@ -33,34 +30,20 @@ class HomeLoadedFilterState extends HomeState {
         return screenState.getHomeData();
       },
       child: ListView(
-        physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+        physics: const BouncingScrollPhysics(
+            parent: AlwaysScrollableScrollPhysics()),
         children: [
-          CustomHomeAppBar(
-            categoriesCallback: (categoriesID) {
-              if ('0' == categoriesID) {
-                screenState.getHomeData(false);
-                screenState.snapshot = const AsyncSnapshot.nothing();
-                screenState.refresh();
-              } else {
-                categoryID = categoriesID;
-                subCategory = '';
-                subCategoryLevel2ID = null;
-                screenState.getCategories(categoriesID, categories);
-                screenState.getMainCategoryProducts(categoriesID);
-                screenState.refresh();
-              }
+          FavoriteHomeAppBar(
+            categoriesCallback: (categoriesID,categoriesLevel2) {
+              subCategory = categoriesID;
+              subCategoryLevel2ID = null;
+              catsLevel2 = categoriesLevel2;
+              screenState.getSubCategoriesProducts(categoriesID);
+              screenState.refresh();
             },
-            categories: categories,
-          ),
-          SizedBox(
-            height: 65,
-            width: MediaQuery.of(context).size.width,
-            child: ListView(
-              physics: const BouncingScrollPhysics(
-                  parent: AlwaysScrollableScrollPhysics()),
-              scrollDirection: Axis.horizontal,
-              children: _getSubCategories(),
-            ),
+            categoryName: getIt<FavoriteHiveHelper>().getFavoriteCategoryInfo()?.storeName ?? S.current.unknown,
+            categoryImage: getIt<FavoriteHiveHelper>().getFavoriteCategoryInfo()?.image ?? S.current.unknown,
+            categories: subCategories,
           ),
           SizedBox(
             height: 65,
@@ -87,28 +70,6 @@ class HomeLoadedFilterState extends HomeState {
         ],
       ),
     );
-  }
-
-  List<Widget> _getSubCategories() {
-    List<Widget> widgets = [];
-    subCategories.forEach((element) {
-      widgets.add(
-        SubCategoryCard(
-            id: element.subCategoriesID.toString(),
-            title: element.productCategoryName,
-            selected: subCategory == element.subCategoriesID.toString(),
-            icon: element.productCategoryImage == '' ? Icons.category : null,
-            image: element.productCategoryImage,
-            onTap: (selected) {
-              subCategory = selected;
-              catsLevel2 = element.productCategoriesLevel2;
-              subCategoryLevel2ID = null;
-              screenState.getSubCategoriesProducts(subCategory);
-              screenState.refresh();
-            }),
-      );
-    });
-    return widgets;
   }
 
   List<Widget> _getSubCategoriesLevel2() {

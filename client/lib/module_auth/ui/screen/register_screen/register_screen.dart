@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mandob_moshtarayat/di/di_config.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
+import 'package:mandob_moshtarayat/module_account/account_routes.dart';
+import 'package:mandob_moshtarayat/module_account/ui/screen/favourite_screen.dart';
 import 'package:mandob_moshtarayat/module_auth/request/register_request/register_request.dart';
 import 'package:mandob_moshtarayat/module_auth/state_manager/register_state_manager/register_state_manager.dart';
 import 'package:mandob_moshtarayat/module_auth/ui/states/register_states/register_state.dart';
@@ -104,9 +107,15 @@ class RegisterScreenState extends State<RegisterScreen> {
 
   void moveToNext() {
     if (returnToMainScreen != null) {
-      Navigator.of(context).pushNamedAndRemoveUntil(
-          MainRoutes.MAIN_SCREEN, (route) => false,
-          arguments: returnToMainScreen);
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil(MainRoutes.MAIN_SCREEN, (route) => false,
+              arguments: returnToMainScreen)
+          .then((value) {
+        if (returnToMainScreen == 0) {
+          showDialog(
+              context: context, builder: (context) => getIt<FavouritScreen>());
+        }
+      });
     } else if (returnToPreviousScreen != null) {
       Navigator.of(context).pop();
     } else {

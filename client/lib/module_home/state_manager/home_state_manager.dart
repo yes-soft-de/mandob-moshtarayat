@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/module_home/model/products_by_categories_model.dart';
 import 'package:mandob_moshtarayat/module_home/model/subCategoriesModel.dart';
+import 'package:mandob_moshtarayat/module_home/ui/state/home_favorite_loaded_state.dart';
 import 'package:mandob_moshtarayat/module_home/ui/state/home_loaded_filters_state.dart';
 import 'package:mandob_moshtarayat/utils/models/store_category.dart';
 import 'package:rxdart/rxdart.dart';
@@ -16,7 +17,6 @@ import 'package:mandob_moshtarayat/module_home/ui/state/home_loaded_state.dart';
 import 'package:mandob_moshtarayat/module_home/ui/state/home_loading_state.dart';
 import 'package:mandob_moshtarayat/module_home/ui/state/home_state.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
-import 'package:mandob_moshtarayat/utils/models/product.dart';
 
 @injectable
 class HomeStateManager {
@@ -72,6 +72,25 @@ class HomeStateManager {
       }
     });
   }
+
+  void getHomeFavoriteData(HomeScreenState screenState, String categoriesId) {
+    _homeService.getSubCategories(categoriesId).then((value) {
+      if (value.hasError) {
+        CustomFlushBarHelper.createError(
+                title: S.current.warnning, message: value.error ?? '')
+            .show(screenState.context);
+        getHomeData(screenState, false);
+      } else if (value.isEmpty) {
+        stateSubject
+            .add(HomeFavoriteLoadedState(screenState, subCategories: []));
+      } else {
+        SubCategoriesModel model = value as SubCategoriesModel;
+        stateSubject.add(
+            HomeFavoriteLoadedState(screenState, subCategories: model.data));
+      }
+    });
+  }
+
   void getProductsByStore(HomeScreenState screenState, String storeID) {
     _productSubject.add(AsyncSnapshot.waiting());
     _homeService.getProductsByStore(storeID).then((value) {
@@ -86,6 +105,7 @@ class HomeStateManager {
       }
     });
   }
+
   void getFilteredProducts(HomeScreenState screenState, String categoriesId) {
     _productSubject.add(AsyncSnapshot.waiting());
     _homeService.getCategoriesProducts(categoriesId).then((value) {

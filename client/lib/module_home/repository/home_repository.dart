@@ -74,7 +74,7 @@ class HomeRepository {
           headers: {'Authorization': 'Bearer ' + token.toString()});
     } else {
       response = await _apiClient.get(
-        Urls.GET_FAVORITE_CATEGORIES,
+        Urls.GET_PRODUCTS_BY_STORES + storeID,
       );
     }
     if (response == null) return null;
