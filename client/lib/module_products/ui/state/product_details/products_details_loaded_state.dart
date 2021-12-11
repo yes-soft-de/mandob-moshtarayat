@@ -10,7 +10,6 @@ import 'package:mandob_moshtarayat/module_products/ui/screen/products_details_sc
 import 'package:mandob_moshtarayat/module_stores/presistance/cart_hive_box_helper.dart';
 import 'package:mandob_moshtarayat/utils/components/progresive_image.dart';
 import 'package:mandob_moshtarayat/utils/customIcon/mandob_icons_icons.dart';
-import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
 import 'package:mandob_moshtarayat/utils/images/images.dart';
 
 class ProductDetailsLoadedState extends States {
@@ -23,13 +22,13 @@ class ProductDetailsLoadedState extends States {
   @override
   Widget getUI(BuildContext context) {
     return SingleChildScrollView(
-      physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+      physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
       child: Column(
         children: [
           Center(
               child: Text(
             model.productName,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
           )),
           Padding(
             padding: const EdgeInsets.all(16.0),
@@ -50,41 +49,12 @@ class ProductDetailsLoadedState extends States {
             padding: const EdgeInsets.only(top: 16.0),
             child: Container(
               width: double.maxFinite,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
               ),
               child: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Align(
-                      alignment: AlignmentDirectional.centerStart,
-                      child: Text(
-                        S.current.specification,
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: AlignmentDirectional.centerStart,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 16.0, right: 16),
-                      child: Container(
-                        width: 150,
-                        child: Text(
-                          '${model.description}',
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            height: 1.2,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
                   Padding(
                     padding: const EdgeInsets.all(16),
                     child: Container(
