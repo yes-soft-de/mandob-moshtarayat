@@ -63,22 +63,33 @@ class _FavoriteHomeAppBarState extends State<FavoriteHomeAppBar> {
                               ? Container(
                                 constraints: const BoxConstraints(
                                   maxWidth: 150,
-                                  maxHeight: 60
+                                  maxHeight: 65
                                 ),
                                 child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
-                                      Container(
-                                        width: 35,
-                                        height: 35,
-                                        decoration: BoxDecoration(
-                                          color: Theme.of(context).backgroundColor,
-                                          shape: BoxShape.circle
-                                        ),
-                                        child: ClipOval(
-                                          child: Image.network(widget.categoryImage ?? ''),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top:10.0),
+                                        child: Container(
+                                          width: 35,
+                                          height: 35,
+                                          decoration: BoxDecoration(
+                                            color: Theme.of(context).backgroundColor,
+                                            shape: BoxShape.circle
+                                          ),
+                                          child: ClipOval(
+                                            child: Image.network(widget.categoryImage ?? ''),
+                                          ),
                                         ),
                                       ),
-                                      Text(widget.categoryName ?? ''),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top:4.0),
+                                        child: Text(widget.categoryName ?? '',style: const TextStyle(
+                                          fontSize: 8,
+                                          fontWeight: FontWeight.bold,
+                                        ),),
+                                      ),
                                     ],
                                   ),
                               )
