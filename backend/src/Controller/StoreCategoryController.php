@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Request\DeleteRequest;
 use App\Request\StoreCategoryCreateRequest;
 use App\Request\StoreCategoryUpdateRequest;
+use App\Request\StoreCategoryWithTranslationCreateRequest;
 use App\Service\StoreCategoryService;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -51,12 +52,18 @@ class StoreCategoryController extends BaseController
      * @OA\RequestBody(
      *      description="Create new Store Category",
      *      @OA\JsonContent(
-     *          @OA\Property(type="object", property="storeCategoryName",
-     *              @OA\Property(type="string", property="ar"),
-     *              @OA\Property(type="string", property="en"),
-     *              @OA\Property(type="string", property="urdu"),
+     *          @OA\Property(type="object", property="data",
+     *              @OA\Property(type="string", property="storeCategoryName"),
+     *              @OA\Property(type="string", property="description"),
+     *              @OA\Property(type="string", property="image")
      *          ),
-     *          @OA\Property(type="string", property="image"),
+     *          @OA\Property(type="array", property="translate",
+     *              @OA\Items(
+     *                  @OA\Property(type="string", property="storeCategoryName"),
+     *                  @OA\Property(type="string", property="description"),
+     *                  @OA\Property(type="string", property="language")
+     *              )
+     *          )
      *      )
      * )
      *
@@ -80,7 +87,7 @@ class StoreCategoryController extends BaseController
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class, StoreCategoryCreateRequest::class, (object)$data);
+        $request = $this->autoMapping->map(stdClass::class, StoreCategoryWithTranslationCreateRequest::class, (object)$data);
 
         $violations = $this->validator->validate($request);
         if(\count($violations) > 0)

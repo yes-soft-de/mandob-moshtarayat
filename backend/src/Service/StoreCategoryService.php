@@ -5,8 +5,7 @@ namespace App\Service;
 use App\AutoMapping;
 use App\Entity\StoreCategoryEntity;
 use App\Manager\StoreCategoryManager;
-use App\Request\StoreCategoryCreateRequest;
-use App\Request\StoreCategoryTranslationCreateRequest;
+use App\Request\StoreCategoryWithTranslationCreateRequest;
 use App\Response\ClientFavouriteStoreCategoriesAndStoresGetResponse;
 use App\Response\ClientFavouriteStoreCategoriesResponse;
 use App\Response\StoreCategoriesAndStoresResponse;
@@ -21,45 +20,20 @@ class StoreCategoryService
     private $storeCategoryManager;
     private $params;
     private $storeOwnerProfileService;
-    private $storeCategoryTranslationService;
 
-    public function __construct(AutoMapping $autoMapping, StoreCategoryManager $storeCategoryManager, ParameterBagInterface $params, StoreOwnerProfileService $storeOwnerProfileService,
-     StoreCategoryTranslationService $storeCategoryTranslationService)
+    public function __construct(AutoMapping $autoMapping, StoreCategoryManager $storeCategoryManager, ParameterBagInterface $params, StoreOwnerProfileService $storeOwnerProfileService)
     {
         $this->autoMapping = $autoMapping;
         $this->storeCategoryManager = $storeCategoryManager;
         $this->storeOwnerProfileService = $storeOwnerProfileService;
-        $this->storeCategoryTranslationService = $storeCategoryTranslationService;
         $this->params = $params->get('upload_base_url') . '/';
     }
 
-    public function createStoreCategory(StoreCategoryCreateRequest $request)
+    public function createStoreCategory(StoreCategoryWithTranslationCreateRequest $request)
     {
         $storeCategoryEntity = $this->storeCategoryManager->createStoreCategory($request);
 
-        if(sizeof($request->getStoreCategoryName()) > 1)
-        {
-            $this->createStoreCategoryTranslationByStoreCategoryCreateRequest($request, $storeCategoryEntity->getId());
-        }
-
         return $this->autoMapping->map(StoreCategoryEntity::class, StoreCategoryCreateResponse::class, $storeCategoryEntity);
-    }
-
-    public function createStoreCategoryTranslationByStoreCategoryCreateRequest(StoreCategoryCreateRequest $request, $storeCategoryID)
-    {
-        $storeCategoryTranslationRequest = new StoreCategoryTranslationCreateRequest();
-
-        foreach($request->getStoreCategoryName() as $language => $value)
-        {
-            if($language != "ar")
-            {
-                $storeCategoryTranslationRequest->setStoreCategoryID($storeCategoryID);
-                $storeCategoryTranslationRequest->setStoreCategoryName($value);
-                $storeCategoryTranslationRequest->setLanguage($language);
-
-                $this->storeCategoryTranslationService->createStoreCategoryTranslation($storeCategoryTranslationRequest);
-            }
-        }
     }
 
     public function updateStoreCategory($request)
