@@ -56,6 +56,44 @@ class StoreCategoryEntityRepository extends ServiceEntityRepository
         }
     }
 
+    public function getStoreCategoryByID($userLocale, $primaryLanguage, $storeCategoryID)
+    {
+        if($userLocale == $primaryLanguage || (!$userLocale))
+        {
+            return $this->createQueryBuilder('store_category_entity')
+                ->select('store_category_entity.id', 'store_category_entity.storeCategoryName', 'store_category_entity.description', 'store_category_entity.image', 'store_category_entity.language')
+
+                ->andWhere('store_category_entity.id = :id')
+                ->setParameter('id', $storeCategoryID)
+
+                ->getQuery()
+                ->getOneOrNullResult();
+        }
+        else
+        {
+            return $this->createQueryBuilder('store_category_entity')
+
+                ->select('store_category_entity.id', 'storeCategoryTranslationEntity.storeCategoryName', 'storeCategoryTranslationEntity.description', 'store_category_entity.image',
+                    'storeCategoryTranslationEntity.language')
+
+                ->leftJoin(
+                    StoreCategoryTranslationEntity::class,
+                    'storeCategoryTranslationEntity',
+                    Join::WITH,
+                    'storeCategoryTranslationEntity.storeCategoryID = store_category_entity.id'
+                )
+
+                ->andWhere('storeCategoryTranslationEntity.language = :language')
+                ->setParameter('language', $userLocale)
+
+                ->andWhere('store_category_entity.id = :id')
+                ->setParameter('id', $storeCategoryID)
+
+                ->getQuery()
+                ->getResult();
+        }
+    }
+
     public function getLast15StoreCategories()
     {
         return $this->createQueryBuilder('storeCategory')

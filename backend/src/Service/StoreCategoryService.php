@@ -61,12 +61,13 @@ class StoreCategoryService
        return $response;
     }
 
-    public function getStoreCategory($id)
+    public function getStoreCategoryByID($userLocale, $id)
     {
-       $item = $this->storeCategoryManager->getStoreCategory($id);
+       $item = $this->storeCategoryManager->getStoreCategoryByID($userLocale, $this->primaryLanguage, $id);
 
-       return $this->autoMapping->map(StoreCategoryEntity::class, StoreCategoryByIdResponse::class, $item);
-       
+       $item['image'] = $this->getImageParams($item['image'], $this->params.$item['image'], $this->params);
+
+       return $this->autoMapping->map('array', StoreCategoryByIdResponse::class, $item);
     }
 
     public function getImageParams($imageURL, $image, $baseURL): array
