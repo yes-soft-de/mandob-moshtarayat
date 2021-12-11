@@ -61,6 +61,7 @@ class CategoriesCard extends StatelessWidget {
                             imageSource:image ?? '',
                             width: 35,
                             height: 35,
+                            imagePreview: false,
                           ),
                       ),
                     ),

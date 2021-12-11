@@ -51,6 +51,7 @@ class SubCategoryCard extends StatelessWidget {
                           ),
                           child: ClipOval(
                             child: CustomNetworkImage(
+                              imagePreview: false,
                               imageSource:image ?? '',
                               width: 24,
                               height: 24,
