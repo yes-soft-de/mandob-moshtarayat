@@ -688,7 +688,7 @@ class OrderController extends BaseController
       }
 
      /**
-      * client: crate order.
+      * client: create multi-store order.
       * @Route("clientorder", name="createClientOrder", methods={"POST"})
       * @IsGranted("ROLE_CLIENT")
       * *
@@ -702,21 +702,21 @@ class OrderController extends BaseController
       * )
       *
       * @OA\RequestBody (
-      *        description="create client send order",
+      *        description="create multi-store order",
       *        @OA\JsonContent(
       *              @OA\Property(type="object", property="destination"),
       *              @OA\Property(type="string", property="note"),
       *              @OA\Property(type="string", property="payment"),
-      *              @OA\Property(type="integer", property="storeOwnerProfileID"),
-      *              @OA\Property(type="array", property="products",
+      *              @OA\Property(type="array", property="orderDetails",
       *                 @OA\Items(
+      *                     @OA\Property(type="integer", property="storeOwnerProfileID"),
       *                     @OA\Property(type="integer", property="productID"),
       *                     @OA\Property(type="integer", property="countProduct"),
       *                     ),
       *                 ),
       *              @OA\Property(type="object", property="deliveryDate"),
-      *              @OA\Property(type="integer", property="orderCost"),
-      *              @OA\Property(type="integer", property="deliveryCost"),
+      *              @OA\Property(type="number", property="orderCost"),
+      *              @OA\Property(type="number", property="deliveryCost"),
       *         ),
       *      ),
       *
@@ -735,14 +735,27 @@ class OrderController extends BaseController
       *              @OA\Property(type="object", property="orderDetail",
       *                 @OA\Property(type="integer", property="id"),
       *                 @OA\Property(type="integer", property="orderNumber"),
-      *                 @OA\Property(type="integer", property="orderDetailId"),
+      *                 @OA\Property(type="integer", property="orderID"),
       *                 @OA\Property(type="integer", property="productID"),
       *                 @OA\Property(type="integer", property="countProduct"),
+      *                 @OA\Property(type="integer", property="storeOwnerProfileID"),
       *              ),
       *             @OA\Property(type="integer", property="deliveryCost"),
       *             @OA\Property(type="integer", property="orderCost"),
       *          )
       *     )
+      * )
+      *
+      * or
+      *
+      * @OA\Response(
+      *      response="default",
+      *      description="The order was not created",
+      *      @OA\JsonContent(
+      *          @OA\Property(type="string", property="status_code", description="8000"),
+      *          @OA\Property(type="string", property="msg", description="Not created Successfully."),
+      *          @OA\Property(type="string", property="Data", description="error"),
+      *      )
       * )
       * @Security(name="Bearer")
       */
@@ -752,10 +765,10 @@ class OrderController extends BaseController
 
         $request = $this->autoMapping->map(stdClass::class, OrderClientCreateRequest::class, (object)$data);
         $request->setClientID($this->getUserId());
-        $request->setProducts($data['products']);
+        $request->setOrderDetails($data['orderDetails']);
 
         $response = $this->orderService->createClientOrder($request);
-        if(is_string($response)){
+        if($response == "Not created"){
             return $this->response($response, self::ERROR);  
           }
 

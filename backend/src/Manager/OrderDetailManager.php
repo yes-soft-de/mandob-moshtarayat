@@ -28,7 +28,6 @@ class OrderDetailManager
         
         $this->entityManager->persist($orderDetailEntity);
         $this->entityManager->flush();
-        $this->entityManager->clear();
 
         return $orderDetailEntity;
     }

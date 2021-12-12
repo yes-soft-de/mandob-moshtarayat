@@ -298,7 +298,7 @@ class OrderService
 
     public function createClientOrder(OrderClientCreateRequest $request)
     {  
-        $response = "Not created!!";
+        $response = "Not created";
 
         $orderNumber = 1;
 
@@ -311,16 +311,20 @@ class OrderService
 
         $item = $this->orderManager->createClientOrder($request, $roomID);
         if ($item) {
-            $products = $request->getProducts();
+            $orderDetails = $request->getOrderDetails();
 
-            foreach ($products as $product) {
-               $productID = $product['productID'];
-               $countProduct = $product['countProduct'];
-               $orderDetail = $this->orderDetailService->createOrderDetail($item->getId(), $productID, $countProduct, $orderNumber);
+            foreach ($orderDetails as $orderDetail) {
+               $productID = $orderDetail['productID'];
+               $countProduct = $orderDetail['countProduct'];
+               $storeOwnerProfileID = $orderDetail['storeOwnerProfileID'];
+
+               $orderDetail = $this->orderDetailService->createOrderDetail($item->getId(), $productID, $countProduct, $orderNumber, $storeOwnerProfileID);
+               if(!$orderDetail) {
+                   return $response;
+               }
+               //create log
+              $this->orderLogService->createOrderLog($orderNumber, $item->getState(), $request->getClientID(), $storeOwnerProfileID);
             }
-
-            //create log
-            $this->orderLogService->createOrderLog($orderNumber, $item->getState(), $request->getClientID(), $request->getStoreOwnerProfileID());
 
             //create notification local
             $this->notificationLocalService->createNotificationLocal($request->getClientID(), LocalNotificationList::$NEW_ORDER_TITLE, LocalNotificationList::$CREATE_ORDER_SUCCESS, $orderNumber);

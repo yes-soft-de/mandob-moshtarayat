@@ -15,6 +15,7 @@ class OrderDetailService
     private $autoMapping;
     private $orderDetailManager;
     private $params;
+    const PENDING="pending";
 
     public function __construct(AutoMapping $autoMapping, OrderDetailManager $orderDetailManager, ParameterBagInterface $params)
     {
@@ -23,14 +24,15 @@ class OrderDetailService
         $this->params = $params->get('upload_base_url') . '/';
     }
 
-    public function createOrderDetail($orderID, $productID, $countProduct, $orderNumber)
+    public function createOrderDetail($orderID, $productID, $countProduct, $orderNumber, $storeOwnerProfileID)
     {
-       
         $item['orderID'] = $orderID;
         $item['orderNumber'] = $orderNumber;
         $item['productID'] = $productID;
         $item['countProduct'] = $countProduct;
-        
+        $item['storeOwnerProfileID'] = $storeOwnerProfileID;
+        $item['state'] = self::PENDING;
+
         $result = $this->orderDetailManager->createOrderDetail($item);
 
         return $this->autoMapping->map(OrderDetailEntity::class, OrderCreateDetailResponse::class, $result);
