@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\DeleteRequest;
+use App\Request\FilterStoreProductCategoryLevelOne;
 use App\Request\StoreProductCategoryLevelTwoCreateRequest;
 use App\Request\StoreProductCategoryLevelTwoUpdateRequest;
 use App\Request\StoreProductCategoryWithTranslationCreateRequest;
@@ -351,7 +352,7 @@ class StoreProductCategoryController extends BaseController
 
     /**
      * admin: Get store products category of first level
-     * @Route("/storeproductscategorylevelonefroadmin/{storeCategoryID}", name="getStoreProductsCategoryLevelOneByStoreCategoryIDForAdmin", methods={"GET"})
+     * @Route("/storeproductscategorylevelonefroadmin", name="getStoreProductsCategoryLevelOneByStoreCategoryIDForAdmin", methods={"POST"})
      * @return JsonResponse
      * @IsGranted("ROLE_ADMIN")
      *
@@ -386,11 +387,15 @@ class StoreProductCategoryController extends BaseController
      *
      * @Security(name="Bearer")
      */
-      public function getStoreProductsCategoryLevelOneByStoreCategoryIDFroAdmin($storeCategoryID)
+      public function getStoreProductsCategoryLevelOneByStoreCategoryIDFroAdmin(Request $request)
       {
-        $result = $this->storeProductCategoryService->getStoreProductsCategoryLevelOneByStoreCategoryIDFroAdmin($storeCategoryID);
+          $data = json_decode($request->getContent(), true);
 
-        return $this->response($result, self::FETCH);
+          $request = $this->autoMapping->map(stdClass::class, FilterStoreProductCategoryLevelOne::class, (object)$data);
+
+          $result = $this->storeProductCategoryService->getStoreProductsCategoryLevelOneByStoreCategoryIDFroAdmin($request);
+
+          return $this->response($result, self::FETCH);
       }
 
     /**
