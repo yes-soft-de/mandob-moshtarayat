@@ -10,9 +10,7 @@ use App\Request\StoreProductCategoryCreateRequest;
 use App\Request\StoreProductCategoryLevelOneUpdateRequest;
 use App\Request\StoreProductCategoryLevelTwoCreateRequest;
 use App\Request\StoreProductCategoryLevelTwoUpdateRequest;
-use App\Request\StoreProductCategoryUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
-
 
 class StoreProductCategoryManager
 {

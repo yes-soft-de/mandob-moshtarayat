@@ -9,6 +9,10 @@ use App\Request\StoreProductCategoryCreateRequest;
 use App\Request\StoreProductCategoryLevelOneUpdateRequest;
 use App\Request\StoreProductCategoryLevelTwoCreateRequest;
 use App\Request\StoreProductCategoryLevelTwoUpdateRequest;
+use App\Request\StoreProductCategoryTranslationCreateRequest;
+use App\Request\StoreProductCategoryTranslationUpdateRequest;
+use App\Request\StoreProductCategoryWithTranslationCreateRequest;
+use App\Request\StoreProductCategoryWithTranslationUpdateRequest;
 use App\Response\ProductsByProductCategoryIdForStoreResponse;
 use App\Response\ProductsByProductCategoryIdResponse;
 use App\Response\StoreProductCategoryByIdResponse;
@@ -30,23 +34,55 @@ class StoreProductCategoryService
     private $autoMapping;
     private $storeProductCategoryManager;
     private $productService;
+    private $storeProductCategoryTranslationService;
     private $params;
     private $userManager;
 
-    public function __construct(AutoMapping $autoMapping, StoreProductCategoryManager $storeProductCategoryManager, ProductService $productService, ParameterBagInterface $params, userManager $userManager)
+    public function __construct(AutoMapping $autoMapping, StoreProductCategoryManager $storeProductCategoryManager, ProductService $productService, ParameterBagInterface $params, userManager $userManager,
+     StoreProductCategoryTranslationService $storeProductCategoryTranslationService)
     {
         $this->autoMapping = $autoMapping;
         $this->storeProductCategoryManager = $storeProductCategoryManager;
         $this->userManager = $userManager;
         $this->productService = $productService;
+        $this->storeProductCategoryTranslationService = $storeProductCategoryTranslationService;
         $this->params = $params->get('upload_base_url') . '/';
     }
 
-    public function createStoreProductCategoryLevelOne(StoreProductCategoryCreateRequest $request)
+    public function createStoreProductCategoryLevelOne(StoreProductCategoryWithTranslationCreateRequest $request)
     {
-        $item = $this->storeProductCategoryManager->createStoreProductCategoryLevelOne($request);
-         
-        return $this->autoMapping->map(StoreProductCategoryEntity::class, StoreProductCategoryLevelOneCreateResponse::class, $item);
+        // First insert the data in the primary language
+        $storeProductCategoryCreateRequest = $this->autoMapping->map('array', StoreProductCategoryCreateRequest::class, $request->getData());
+
+        $entity = $this->storeProductCategoryManager->createStoreProductCategoryLevelOne($storeProductCategoryCreateRequest);
+
+        // Secondly, insert the translation data
+        if($request->getTranslate())
+        {
+            $this->createStoreProductCategoryTranslation($request->getTranslate(), $entity->getId());
+        }
+
+        return $this->autoMapping->map(StoreProductCategoryEntity::class, StoreProductCategoryLevelOneCreateResponse::class, $entity);
+    }
+
+    public function createStoreProductCategoryTranslation($translationArrayRequest, $storeProductCategoryID)
+    {
+        if($translationArrayRequest)
+        {
+            foreach($translationArrayRequest as $translationRequest)
+            {
+                $storeProductCategoryTranslationCreateRequest = $this->autoMapping->map('array', StoreProductCategoryTranslationCreateRequest::class, $translationRequest);
+
+                $storeProductCategoryTranslationCreateRequest->setStoreProductCategoryID($storeProductCategoryID);
+
+                $this->storeProductCategoryTranslationService->createStoreProductCategoryTranslation($storeProductCategoryTranslationCreateRequest);
+            }
+        }
+        else
+        {
+            // No translations were provided!
+            // Skip inserting translations
+        }
     }
 
     public function createStoreProductCategoryLevelTwo(StoreProductCategoryLevelTwoCreateRequest $request)
@@ -56,11 +92,33 @@ class StoreProductCategoryService
         return $this->autoMapping->map(StoreProductCategoryEntity::class, StoreProductCategoryLevelTwoCreateResponse::class, $item);
     }
 
-     public function updateStoreProductCategoryLevelOne(StoreProductCategoryLevelOneUpdateRequest $request)
+     public function updateStoreProductCategoryLevelOne(StoreProductCategoryWithTranslationUpdateRequest $request)
      {
-         $item = $this->storeProductCategoryManager->updateStoreProductCategoryLevelOne($request);
+         // First, update the content in the primary language
+         $storeProductCategoryUpdateRequest = $this->autoMapping->map('array', StoreProductCategoryLevelOneUpdateRequest::class, $request->getData());
+
+         $item = $this->storeProductCategoryManager->updateStoreProductCategoryLevelOne($storeProductCategoryUpdateRequest);
+
+         //Second, update the translation data
+         if($request->getTranslate())
+         {
+             $this->updateStoreProductCategoryLevelOneTranslation($request->getTranslate());
+         }
 
          return $this->autoMapping->map(StoreProductCategoryEntity::class, StoreProductCategoryUpdateLevelOneResponse::class, $item);
+     }
+
+     public function updateStoreProductCategoryLevelOneTranslation($translationArrayRequest)
+     {
+         if($translationArrayRequest)
+         {
+             foreach($translationArrayRequest as $translationRequest)
+             {
+                 $storeProductCategoryTranslationUpdateRequest = $this->autoMapping->map('array', StoreProductCategoryTranslationUpdateRequest::class, $translationRequest);
+
+                 $this->storeProductCategoryTranslationService->updateStoreProductCategoryTranslationByStoreProductCategoryIdAndLanguage($storeProductCategoryTranslationUpdateRequest);
+             }
+         }
      }
 
      public function updateStoreProductCategoryLevelTwo(StoreProductCategoryLevelTwoUpdateRequest $request)
