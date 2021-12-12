@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\OrderDetailEntity;
 use App\Entity\OrderEntity;
 use App\Entity\ProductEntity;
+use App\Entity\StoreOwnerProfileEntity;
+use App\Entity\StoreOwnerBranchEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
@@ -51,6 +53,46 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
 
             ->setParameter('orderNumber', $orderNumber)
             
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getProductsByOrderNumberAndStoreID($orderNumber, $storeOwnerProfileID)
+    {
+        return $this->createQueryBuilder('OrderDetailEntity')
+
+            ->select('OrderDetailEntity.id','OrderDetailEntity.orderID', 'OrderDetailEntity.productID', 'OrderDetailEntity.countProduct', 'OrderDetailEntity.orderNumber')
+            ->addSelect('ProductEntity.id as productID', 'ProductEntity.productName', 'ProductEntity.productImage', 'ProductEntity.storeProductCategoryID as ProductCategoryID', 'ProductEntity.productPrice', 'ProductEntity.storeOwnerProfileID')
+
+            ->leftJoin(ProductEntity::class, 'ProductEntity', Join::WITH, 'ProductEntity.id = OrderDetailEntity.productID')
+
+            ->andWhere('OrderDetailEntity.orderNumber = :orderNumber')
+            ->andWhere('OrderDetailEntity.storeOwnerProfileID = :storeOwnerProfileID')
+
+            ->setParameter('orderNumber', $orderNumber)
+            ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getStoreOwnerProfileIdByOrderNumber($orderNumber)
+    {
+        return $this->createQueryBuilder('OrderDetailEntity')
+
+            ->select( 'OrderDetailEntity.storeOwnerProfileID')
+            ->addSelect('StoreOwnerProfileEntity.storeOwnerName', 'StoreOwnerProfileEntity.image', 'StoreOwnerProfileEntity.phone', 'StoreOwnerProfileEntity.storeCategoryId')
+            ->addSelect('StoreOwnerBranchEntity.location')
+
+            ->leftJoin(StoreOwnerProfileEntity::class, 'StoreOwnerProfileEntity', Join::WITH, 'StoreOwnerProfileEntity.id = OrderDetailEntity.storeOwnerProfileID')
+            ->leftJoin(StoreOwnerBranchEntity::class, 'StoreOwnerBranchEntity', Join::WITH, 'StoreOwnerProfileEntity.id = StoreOwnerBranchEntity.storeOwnerProfileID')
+
+            ->andWhere('OrderDetailEntity.orderNumber = :orderNumber')
+
+            ->setParameter('orderNumber', $orderNumber)
+
+            ->addGroupBy('OrderDetailEntity.storeOwnerProfileID')
+
             ->getQuery()
             ->getResult();
     }
