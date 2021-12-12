@@ -935,12 +935,74 @@ class OrderController extends BaseController
     }
 
     /**
-      * @Route("orderstatusbyordernumber/{orderNumber}", name="getOrderStatusByOrderNumber", methods={"GET"})
-      * @return JsonResponse
-      */
+     * @Route("orderstatusbyordernumber/{orderNumber}", name="getOrderStatusByOrderNumber", methods={"GET"})
+     * @param $orderNumber
+     * @return JsonResponse
+     * * *
+     *
+     * @OA\Tag(name="Order")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns objetc of order details.",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code", description="201"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *               @OA\Property(type="object", property="order",
+     *                   @OA\Property(type="integer", property="id"),
+     *                   @OA\Property(type="object", property="source"),
+     *                   @OA\Property(type="object", property="destination"),
+     *                   @OA\Property(type="object", property="deliveryDate"),
+     *                   @OA\Property(type="object", property="updatedAt"),
+     *                   @OA\Property(type="string", property="note"),
+     *                   @OA\Property(type="string", property="payment"),
+     *                   @OA\Property(type="string", property="recipientName"),
+     *                   @OA\Property(type="string", property="recipientPhone"),
+     *                   @OA\Property(type="string", property="state"),
+     *                   @OA\Property(type="string", property="roomID"),
+     *                   @OA\Property(type="string", property="captainID"),
+     *                   @OA\Property(type="object", property="createdAt"),
+     *                   @OA\Property(type="string", property="detail"),
+     *                   @OA\Property(type="number", property="deliveryCost"),
+     *                   @OA\Property(type="number", property="orderCost"),
+     *                   @OA\Property(type="integer", property="orderType"),
+     *                           ),
+     *                   @OA\Property(type="array", property="orderDetails",
+     *                   @OA\Items(
+     *                         @OA\Property(type="integer", property="orderID"),
+     *                         @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                         @OA\Property(type="string", property="storeOwnerName"),
+     *                         @OA\Property(type="string", property="phone"),
+     *                         @OA\Property(type="string", property="image"),
+     *                         @OA\Property(type="integer", property="storeCategoryId"),
+     *                         @OA\Property(type="array", property="products",
+     *                              @OA\Items(
+     *                                  @OA\Property(type="string", property="productName"),
+     *                                  @OA\Property(type="object", property="productImage",
+     *                                       @OA\Property(type="object", property="imageURL"),
+     *                                       @OA\Property(type="object", property="image"),
+     *                                       @OA\Property(type="object", property="baseURL"),
+     *                                          ),
+     *                         @OA\Property(type="number", property="productPrice"),
+     *                         @OA\Property(type="integer", property="countProduct"),
+     *                         @OA\Property(type="integer", property="ProductCategoryID"),
+     *                         @OA\Property(type="integer", property="orderNumber"),
+     *                         @OA\Property(type="integer", property="productID"),
+     *                                           ),
+     *                                       ),
+     *
+     *                               ),
+     *               ),
+     *          @OA\Property(type="number", property="deliveryCost"),
+     *          @OA\Property(type="number", property="rate"),
+     *      )
+     *  )
+     *)
+     */
     public function getOrderStatusByOrderNumber($orderNumber): JsonResponse
     {
-        $result = $this->orderService->getOrderStatusByOrderNumber($orderNumber);
+        $result = $this->orderService->getOrderDetailsByOrderNumber($orderNumber);
   
         return $this->response($result, self::FETCH);
       }
@@ -1028,10 +1090,80 @@ class OrderController extends BaseController
       }
 
     /**
-      * @Route("orderDetailsForAdmin/{orderNumber}", name="getOrderDetailsByOrderNumberForAdmin", methods={"GET"})
+     * admin: get Order Details.
+      * @Route("orderdetailsforadmin/{orderNumber}", name="getOrderDetailsByOrderNumberForAdmin", methods={"GET"})
       * @IsGranted("ROLE_ADMIN")
       * @return JsonResponse
-      */
+     * *
+     *
+     * @OA\Tag(name="Order")
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns objetc of order details.",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code", description="201"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *               @OA\Property(type="object", property="order",
+     *                   @OA\Property(type="integer", property="id"),
+     *                   @OA\Property(type="object", property="source"),
+     *                   @OA\Property(type="object", property="destination"),
+     *                   @OA\Property(type="object", property="deliveryDate"),
+     *                   @OA\Property(type="object", property="updatedAt"),
+     *                   @OA\Property(type="string", property="note"),
+     *                   @OA\Property(type="string", property="payment"),
+     *                   @OA\Property(type="string", property="recipientName"),
+     *                   @OA\Property(type="string", property="recipientPhone"),
+     *                   @OA\Property(type="string", property="state"),
+     *                   @OA\Property(type="string", property="roomID"),
+     *                   @OA\Property(type="string", property="captainID"),
+     *                   @OA\Property(type="object", property="createdAt"),
+     *                   @OA\Property(type="string", property="detail"),
+     *                   @OA\Property(type="number", property="deliveryCost"),
+     *                   @OA\Property(type="number", property="orderCost"),
+     *                   @OA\Property(type="integer", property="orderType"),
+     *                           ),
+     *                   @OA\Property(type="array", property="orderDetails",
+     *                   @OA\Items(
+     *                         @OA\Property(type="integer", property="orderID"),
+     *                         @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                         @OA\Property(type="string", property="storeOwnerName"),
+     *                         @OA\Property(type="string", property="phone"),
+     *                         @OA\Property(type="string", property="image"),
+     *                         @OA\Property(type="integer", property="storeCategoryId"),
+     *                         @OA\Property(type="array", property="products",
+     *                              @OA\Items(
+     *                                  @OA\Property(type="string", property="productName"),
+     *                                  @OA\Property(type="object", property="productImage",
+     *                                       @OA\Property(type="object", property="imageURL"),
+     *                                       @OA\Property(type="object", property="image"),
+     *                                       @OA\Property(type="object", property="baseURL"),
+     *                                          ),
+     *                         @OA\Property(type="number", property="productPrice"),
+     *                         @OA\Property(type="integer", property="countProduct"),
+     *                         @OA\Property(type="integer", property="ProductCategoryID"),
+     *                         @OA\Property(type="integer", property="orderNumber"),
+     *                         @OA\Property(type="integer", property="productID"),
+     *                                           ),
+     *                                       ),
+     *
+     *                               ),
+     *               ),
+     *          @OA\Property(type="number", property="deliveryCost"),
+     *          @OA\Property(type="number", property="rate"),
+     *      )
+     *  )
+     *)
+     * @Security(name="Bearer")
+     */
     public function getOrderDetailsByOrderNumberForAdmin($orderNumber)
       {
         $result = $this->orderService->getOrderDetailsByOrderNumber($orderNumber);
