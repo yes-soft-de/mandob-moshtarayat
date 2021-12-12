@@ -28,7 +28,6 @@ class OrderDetailManager
         
         $this->entityManager->persist($orderDetailEntity);
         $this->entityManager->flush();
-        $this->entityManager->clear();
 
         return $orderDetailEntity;
     }
@@ -41,6 +40,16 @@ class OrderDetailManager
     public function getOrderIdByOrderNumber($orderNumber)
     {
        return $this->orderDetailEntityRepository->getOrderIdByOrderNumber($orderNumber);
+    }
+
+    public function getProductsByOrderNumberAndStoreID($orderNumber, $storeOwnerProfileID)
+    {
+       return $this->orderDetailEntityRepository->getProductsByOrderNumberAndStoreID($orderNumber, $storeOwnerProfileID);
+    }
+
+    public function getStoreOwnerProfileByOrderNumber($orderNumber)
+    {
+       return $this->orderDetailEntityRepository->getStoreOwnerProfileByOrderNumber($orderNumber);
     }
 
     public function getOrderIdWithOutStoreProductByOrderNumber($orderNumber)

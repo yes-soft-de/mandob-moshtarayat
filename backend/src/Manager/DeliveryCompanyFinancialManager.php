@@ -64,4 +64,9 @@ class DeliveryCompanyFinancialManager
     {
        return $this->deliveryCompanyFinancialEntityRepository->getDeliveryCompanyFinancialAll();
     }
+
+    public function getDeliveryCostScalar()
+    {
+       return $this->deliveryCompanyFinancialEntityRepository->getDeliveryCostScalar();
+    }
 }

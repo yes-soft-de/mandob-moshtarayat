@@ -13,4 +13,6 @@ class OrderCreateDetailResponse
     public $productID;
     
     public $countProduct;
+
+    public $storeOwnerProfileID;
 }

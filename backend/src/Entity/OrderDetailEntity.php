@@ -37,6 +37,26 @@ class OrderDetailEntity
      */
     private $countProduct;
 
+    /**
+     * @ORM\Column(type="integer", length=255, nullable=true)
+     */
+    private $storeOwnerProfileID;
+
+    /**
+     * The amount of the invoice received from the store is entered by the captain
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $invoiceAmount ;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $invoiceImage;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $state;
 
     public function getId(): ?int
     {
@@ -87,6 +107,54 @@ class OrderDetailEntity
     public function setCountProduct(int $countProduct): self
     {
         $this->countProduct = $countProduct;
+
+        return $this;
+    }
+
+    public function getStoreOwnerProfileID(): ?int
+    {
+        return $this->storeOwnerProfileID;
+    }
+
+    public function setStoreOwnerProfileID(int $storeOwnerProfileID): self
+    {
+        $this->storeOwnerProfileID = $storeOwnerProfileID;
+
+        return $this;
+    }
+
+    public function getInvoiceAmount()
+    {
+        return $this->invoiceAmount;
+    }
+
+    public function setInvoiceAmount($invoiceAmount)
+    {
+        $this->invoiceAmount = $invoiceAmount;
+
+        return $this;
+    }
+
+    public function getInvoiceImage()
+    {
+        return $this->invoiceImage;
+    }
+
+    public function setInvoiceImage($invoiceImage)
+    {
+        $this->invoiceImage = $invoiceImage;
+
+        return $this;
+    }
+
+    public function getState(): ?string
+    {
+        return $this->state;
+    }
+
+    public function setState(?string $state): self
+    {
+        $this->state = $state;
 
         return $this;
     }

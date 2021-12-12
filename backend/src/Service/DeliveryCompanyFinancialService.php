@@ -73,4 +73,12 @@ class DeliveryCompanyFinancialService
 
         return $response;
     }
+
+    public function  getDeliveryCostScalar()
+    {
+        $response = [];
+
+        return $this->deliveryCompanyFinancialManager->getDeliveryCostScalar();
+
+    }
 }
