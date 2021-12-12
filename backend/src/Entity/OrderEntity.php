@@ -19,11 +19,6 @@ class OrderEntity
     private $id;
 
     /**
-     * @ORM\Column(type="integer", length=255, nullable=true)
-     */
-    private $storeOwnerProfileID;
-
-    /**
      * @ORM\Column(type="json", nullable=true)
      */
     private $source = [];
@@ -69,11 +64,6 @@ class OrderEntity
     private $state;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $branchId;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $roomID;
@@ -82,11 +72,6 @@ class OrderEntity
      * @ORM\Column(type="integer", nullable=true)
      */
     private $kilometer;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $subscribeId;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -110,29 +95,20 @@ class OrderEntity
     private $detail;
 
     /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $orderType;
+
+    /**
      * @ORM\Column(type="float", nullable=true)
      */
     private $deliveryCost;
 
     /**
+     * Order cost when order creation
      * @ORM\Column(type="float", nullable=true)
      */
     private $orderCost;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $orderType;
-
-     /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private $invoiceAmount ;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $invoiceImage;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
@@ -147,18 +123,6 @@ class OrderEntity
     public function setId(string $id): self
     {
         $this->id = $id;
-
-        return $this;
-    }
-
-    public function getStoreOwnerProfileID(): ?int
-    {
-        return $this->storeOwnerProfileID;
-    }
-
-    public function setStoreOwnerProfileID(int $storeOwnerProfileID): self
-    {
-        $this->storeOwnerProfileID = $storeOwnerProfileID;
 
         return $this;
     }
@@ -267,18 +231,6 @@ class OrderEntity
     public function setState(?string $state): self
     {
         $this->state = $state;
-
-        return $this;
-    }
-
-    public function getBranchId(): ?int
-    {
-        return $this->branchId;
-    }
-
-    public function setBranchId(string $branchId): self
-    {
-        $this->branchId = $branchId;
 
         return $this;
     }
@@ -399,30 +351,6 @@ class OrderEntity
     public function setOrderType(?int $orderType): self
     {
         $this->orderType = $orderType;
-
-        return $this;
-    }
-
-    public function getInvoiceAmount()
-    {
-        return $this->invoiceAmount;
-    }
-
-    public function setInvoiceAmount($invoiceAmount)
-    {
-        $this->invoiceAmount = $invoiceAmount;
-
-        return $this;
-    }
-
-    public function getInvoiceImage()
-    {
-        return $this->invoiceImage;
-    }
-
-    public function setInvoiceImage($invoiceImage)
-    {
-        $this->invoiceImage = $invoiceImage;
 
         return $this;
     }
