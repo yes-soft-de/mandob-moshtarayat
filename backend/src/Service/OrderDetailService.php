@@ -63,7 +63,7 @@ class OrderDetailService
     {
         $response = [];
 
-        $stores = $this->orderDetailManager->getStoreOwnerProfileIdByOrderNumber($orderNumber);
+        $stores = $this->orderDetailManager->getStoreOwnerProfileByOrderNumber($orderNumber);
         foreach ($stores as $store) {
             $item['image'] = $this->getImageParams($store['image'], $this->params . $store['image'], $this->params);
 

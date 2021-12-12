@@ -76,11 +76,11 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function getStoreOwnerProfileIdByOrderNumber($orderNumber)
+    public function getStoreOwnerProfileByOrderNumber($orderNumber)
     {
         return $this->createQueryBuilder('OrderDetailEntity')
 
-            ->select( 'OrderDetailEntity.storeOwnerProfileID')
+            ->select( 'OrderDetailEntity.storeOwnerProfileID', 'OrderDetailEntity.orderID')
             ->addSelect('StoreOwnerProfileEntity.storeOwnerName', 'StoreOwnerProfileEntity.image', 'StoreOwnerProfileEntity.phone', 'StoreOwnerProfileEntity.storeCategoryId')
             ->addSelect('StoreOwnerBranchEntity.location')
 
@@ -94,7 +94,8 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
             ->addGroupBy('OrderDetailEntity.storeOwnerProfileID')
 
             ->getQuery()
-            ->getResult();
+//            ->getResult();
+        ->getArrayResult();
     }
     public function getOrderIdWithOutStoreProductByOrderNumber($orderNumber)
     {

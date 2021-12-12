@@ -40,4 +40,14 @@ class DeliveryCompanyFinancialEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function  getDeliveryCostScalar()
+    {
+        return $this->createQueryBuilder('DeliveryCompanyFinancialEntity')
+
+            ->select('DeliveryCompanyFinancialEntity.deliveryCost')
+
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }
