@@ -10,7 +10,9 @@ use App\Request\StoreProductCategoryCreateRequest;
 use App\Request\StoreProductCategoryLevelOneUpdateRequest;
 use App\Request\StoreProductCategoryLevelTwoCreateRequest;
 use App\Request\StoreProductCategoryLevelTwoUpdateRequest;
+use App\Request\StoreProductCategoryTranslationCreateRequest;
 use App\Request\StoreProductCategoryUpdateRequest;
+use App\Request\StoreProductCategoryWithTranslationCreateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
 
@@ -18,18 +20,24 @@ class StoreProductCategoryManager
 {
     private $autoMapping;
     private $entityManager;
+    private $storeProductCategoryTranslationManager;
     private $storeProductCategoryEntityRepository;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, StoreProductCategoryEntityRepository $storeProductCategoryEntityRepository)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, StoreProductCategoryEntityRepository $storeProductCategoryEntityRepository,
+     StoreProductCategoryTranslationManager $storeProductCategoryTranslationManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
+        $this->storeProductCategoryTranslationManager = $storeProductCategoryTranslationManager;
         $this->storeProductCategoryEntityRepository = $storeProductCategoryEntityRepository;
     }
 
-    public function createStoreProductCategoryLevelOne(StoreProductCategoryCreateRequest $request)
+    public function createStoreProductCategoryLevelOne(StoreProductCategoryWithTranslationCreateRequest $request)
     {
-        $entity = $this->autoMapping->map(StoreProductCategoryCreateRequest::class, StoreProductCategoryEntity::class, $request);
+        // First insert the data in the primary language
+        $storeProductCategoryCreateRequest = $this->autoMapping->map('array', StoreProductCategoryCreateRequest::class, $request->getData());
+
+        $entity = $this->autoMapping->map(StoreProductCategoryCreateRequest::class, StoreProductCategoryEntity::class, $storeProductCategoryCreateRequest);
         $entity->setIsLevel1(true);
         $entity->setIsLevel2(false);
 
@@ -37,7 +45,33 @@ class StoreProductCategoryManager
         $this->entityManager->flush();
         $this->entityManager->clear();
 
+        // Secondly, insert the translation data
+        if($request->getTranslate())
+        {
+            $this->createStoreProductCategoryTranslation($request->getTranslate(), $entity->getId());
+        }
+
         return $entity;
+    }
+
+    public function createStoreProductCategoryTranslation($translationArrayRequest, $storeProductCategoryID)
+    {
+        if($translationArrayRequest)
+        {
+            foreach($translationArrayRequest as $translationRequest)
+            {
+                $storeProductCategoryTranslationCreateRequest = $this->autoMapping->map('array', StoreProductCategoryTranslationCreateRequest::class, $translationRequest);
+
+                $storeProductCategoryTranslationCreateRequest->setStoreProductCategoryID($storeProductCategoryID);
+
+                $this->storeProductCategoryTranslationManager->createStoreProductCategoryTranslation($storeProductCategoryTranslationCreateRequest);
+            }
+        }
+        else
+        {
+            // No translations were provided!
+            // Skip inserting translations
+        }
     }
 
     public function createStoreProductCategoryLevelTwo(StoreProductCategoryLevelTwoCreateRequest $request)

@@ -9,6 +9,7 @@ use App\Request\StoreProductCategoryCreateRequest;
 use App\Request\StoreProductCategoryLevelOneUpdateRequest;
 use App\Request\StoreProductCategoryLevelTwoCreateRequest;
 use App\Request\StoreProductCategoryLevelTwoUpdateRequest;
+use App\Request\StoreProductCategoryWithTranslationCreateRequest;
 use App\Response\ProductsByProductCategoryIdForStoreResponse;
 use App\Response\ProductsByProductCategoryIdResponse;
 use App\Response\StoreProductCategoryByIdResponse;
@@ -42,7 +43,7 @@ class StoreProductCategoryService
         $this->params = $params->get('upload_base_url') . '/';
     }
 
-    public function createStoreProductCategoryLevelOne(StoreProductCategoryCreateRequest $request)
+    public function createStoreProductCategoryLevelOne(StoreProductCategoryWithTranslationCreateRequest $request)
     {
         $item = $this->storeProductCategoryManager->createStoreProductCategoryLevelOne($request);
          
