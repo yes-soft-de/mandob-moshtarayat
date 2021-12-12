@@ -175,9 +175,8 @@ class MandobProfileController extends BaseController
 
     /**
      * admin: Filter that fetches mandob by status.
-     * @Route("/mandobfilterbystatus", name="mandobFilterByStatus", methods={"GET"})
+     * @Route("/mandobfilterbystatus/{status}", name="mandobFilterByStatus", methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
-     * @param Request $request
      * @return JsonResponse
      * *
      * @OA\Tag(name="Mandob Profile")
@@ -189,11 +188,11 @@ class MandobProfileController extends BaseController
      *      required=true
      * )
      *
-     * @OA\RequestBody(
-     *      description="Send status in body request ( active or inactive)",
-     *      @OA\JsonContent(
-     *          @OA\Property(type="string", property="status"),
-     *      )
+     * @OA\Parameter(
+     *      name="status",
+     *      in="path",
+     *      description="status to be passed in the route",
+     *      required=false
      * )
      *
      * @OA\Response(
@@ -227,16 +226,11 @@ class MandobProfileController extends BaseController
      *
      * @Security(name="Bearer")
      */
-    public function mandobFilterByStatus(Request $request): JsonResponse
+    public function mandobFilterByStatus($status): JsonResponse
     {
-        $data = json_decode($request->getContent(), true);
+        $response = $this->mandobProfileService->mandobFilterByStatus($status);
 
-        $request = $this->autoMapping->map(stdClass::class, MandobFilterByStatusRequest::class, (object)$data);
-        $request->setUserID($this->getUserId());
-
-        $response = $this->mandobProfileService->mandobFilterByStatus($request);
-
-        return $this->response($response, self::UPDATE);
+        return $this->response($response, self::FETCH);
     }
 
 

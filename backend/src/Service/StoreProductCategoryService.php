@@ -5,6 +5,7 @@ namespace App\Service;
 use App\AutoMapping;
 use App\Entity\StoreProductCategoryEntity;
 use App\Manager\StoreProductCategoryManager;
+use App\Request\FilterStoreProductCategoryLevelOne;
 use App\Request\StoreProductCategoryCreateRequest;
 use App\Request\StoreProductCategoryLevelOneUpdateRequest;
 use App\Request\StoreProductCategoryLevelTwoCreateRequest;
@@ -18,6 +19,7 @@ use App\Response\ProductsByProductCategoryIdResponse;
 use App\Response\StoreProductCategoryByIdResponse;
 use App\Response\StoreProductCategoryLevelOneCreateResponse;
 use App\Response\StoreProductCategoryLevelTwoCreateResponse;
+use App\Response\StoreProductCategoryTranslationGetResponse;
 use App\Response\StoreProductCategoryUpdateLevelOneResponse;
 use App\Response\StoreProductCategoryUpdateLevelTwoResponse;
 use App\Response\StoreProductsCategoriesResponse;
@@ -37,6 +39,7 @@ class StoreProductCategoryService
     private $storeProductCategoryTranslationService;
     private $params;
     private $userManager;
+    private $primaryLanguage;
 
     public function __construct(AutoMapping $autoMapping, StoreProductCategoryManager $storeProductCategoryManager, ProductService $productService, ParameterBagInterface $params, userManager $userManager,
      StoreProductCategoryTranslationService $storeProductCategoryTranslationService)
@@ -47,6 +50,7 @@ class StoreProductCategoryService
         $this->productService = $productService;
         $this->storeProductCategoryTranslationService = $storeProductCategoryTranslationService;
         $this->params = $params->get('upload_base_url') . '/';
+        $this->primaryLanguage = $params->get('primary_language');
     }
 
     public function createStoreProductCategoryLevelOne(StoreProductCategoryWithTranslationCreateRequest $request)
@@ -177,24 +181,36 @@ class StoreProductCategoryService
        return $response;
     }
 
-    public function getStoreProductsCategoryLevelOneByStoreCategoryIDFroAdmin($storeCategoryID)
+    public function getStoreProductsCategoryLevelOneByStoreCategoryIDFroAdmin(FilterStoreProductCategoryLevelOne $request)
     {
        $response = [];
 
-       $items = $this->storeProductCategoryManager->getSubCategoriesByStoreCategoryID($storeCategoryID);
-
-       foreach($items as $item)
+       if($request->getLanguage() && $request->getLanguage() != $this->primaryLanguage)
        {
-           if($item['productCategoryImage'])
-           {
-               $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params . $item['productCategoryImage'], $this->params);
-           }
-           else
-           {
-               $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $item['productCategoryImage'], $this->params);
-           }
+           $storeProductCategories = $this->storeProductCategoryTranslationService->getByStoreCategoryIdAndLanguage($request->getStoreCategoryID(), $request->getLanguage());
 
-           $response[] = $this->autoMapping->map('array', StoreProductsCategoryResponse::class, $item);
+           foreach($storeProductCategories as $storeProductCategory)
+           {
+               $response[] = $this->autoMapping->map(StoreProductCategoryTranslationGetResponse::class, StoreProductsCategoryResponse::class, $storeProductCategory);
+           }
+       }
+       else
+       {
+           $storeProductCategories = $this->storeProductCategoryManager->getSubCategoriesByStoreCategoryID($request->getStoreCategoryID());
+
+           foreach($storeProductCategories as $productCategory)
+           {
+               if($productCategory['productCategoryImage'])
+               {
+                   $productCategory['productCategoryImage'] = $this->getImageParams($productCategory['productCategoryImage'], $this->params . $productCategory['productCategoryImage'], $this->params);
+               }
+               else
+               {
+                   $productCategory['productCategoryImage'] = $this->getImageParams($productCategory['productCategoryImage'], $productCategory['productCategoryImage'], $this->params);
+               }
+
+               $response[] = $this->autoMapping->map('array', StoreProductsCategoryResponse::class, $productCategory);
+           }
        }
 
        return $response;

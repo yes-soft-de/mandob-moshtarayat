@@ -63,11 +63,11 @@ class MandobProfileService
         return $this->autoMapping->map(MandobProfileEntity::class, MandobProfileCreateResponse::class, $item);
     }
 
-    public function mandobFilterByStatus(MandobFilterByStatusRequest $request)
+    public function mandobFilterByStatus($status)
     {
         $response = [];
 
-        $items = $this->mandobProfileManager->mandobFilterByStatus($request->getStatus());
+        $items = $this->mandobProfileManager->mandobFilterByStatus($status);
 
         foreach ($items as $item){
             $item['image'] = $this->getImageParams($item['image'], $this->params . $item['image'], $this->params);
