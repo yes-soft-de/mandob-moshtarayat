@@ -4,8 +4,6 @@ namespace App\Request;
 
 class OrderClientCreateRequest
 {
-    private $storeOwnerProfileID;
-   
     private $destination;
    
     private $deliveryDate;
@@ -13,34 +11,20 @@ class OrderClientCreateRequest
     private $note;
    
     private $payment;
-   
+
+    //create by backend by special rules
     private $state;
    
     private $roomID;
    
     private $clientID;
    
-    private $products;
+    private $orderDetails;
    
     private $orderCost;
    
     private $deliveryCost;
 
-     /**
-     * @param mixed $storeOwnerProfileID
-     */
-    public function setStoreOwnerProfileID($storeOwnerProfileID): void
-    {
-        $this->storeOwnerProfileID = $storeOwnerProfileID;
-    }
-
-     /**
-     * @return mixed
-     */
-    public function getStoreOwnerProfileID()
-    {
-        return $this->storeOwnerProfileID;
-    }
 
     public function getState(): ?string
     {
@@ -83,21 +67,21 @@ class OrderClientCreateRequest
     }
 
     /**
-     * Get the value of products
+     * Get the value of orderDetails
      */ 
-    public function getProducts()
+    public function getOrderDetails()
     {
-        return $this->products;
+        return $this->orderDetails;
     }
 
     /**
-     * Set the value of products
+     * Set the value of orderDetails
      *
      * @return  self
      */ 
-    public function setProducts($products)
+    public function setOrderDetails($orderDetails)
     {
-        $this->products = $products;
+        $this->orderDetails = $orderDetails;
 
         return $this;
     }

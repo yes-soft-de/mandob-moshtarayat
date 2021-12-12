@@ -18,6 +18,7 @@ use App\Request\OrderUpdateSendByClientRequest;
 use App\Response\CountReportForStoreOwnerResponse;
 use App\Response\OrderCancelResponse;
 use App\Response\OrderDetailsByOrderNumberForStoreResponse;
+use App\Response\OrderInfoResponse;
 use App\Response\OrderResponse;
 use App\Response\OrderClosestResponse;
 use App\Response\OrderPendingResponse;
@@ -36,6 +37,7 @@ use App\Response\CountOrdersInLastMonthForClientResponse;
 use App\Response\CountOrdersInLastMonthForProoductResponse;
 use App\Response\StoreOrdersOngoingResponse;
 use App\Response\StoreOrdersResponse;
+use App\Response\OrderDetailResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use DateTime;
 
@@ -298,7 +300,7 @@ class OrderService
 
     public function createClientOrder(OrderClientCreateRequest $request)
     {  
-        $response = "Not created!!";
+        $response = "Not created";
 
         $orderNumber = 1;
 
@@ -311,16 +313,20 @@ class OrderService
 
         $item = $this->orderManager->createClientOrder($request, $roomID);
         if ($item) {
-            $products = $request->getProducts();
+            $orderDetails = $request->getOrderDetails();
 
-            foreach ($products as $product) {
-               $productID = $product['productID'];
-               $countProduct = $product['countProduct'];
-               $orderDetail = $this->orderDetailService->createOrderDetail($item->getId(), $productID, $countProduct, $orderNumber);
+            foreach ($orderDetails as $orderDetail) {
+               $productID = $orderDetail['productID'];
+               $countProduct = $orderDetail['countProduct'];
+               $storeOwnerProfileID = $orderDetail['storeOwnerProfileID'];
+
+               $orderDetail = $this->orderDetailService->createOrderDetail($item->getId(), $productID, $countProduct, $orderNumber, $storeOwnerProfileID);
+               if(!$orderDetail) {
+                   return $response;
+               }
+               //create log
+              $this->orderLogService->createOrderLog($orderNumber, $item->getState(), $request->getClientID(), $storeOwnerProfileID);
             }
-
-            //create log
-            $this->orderLogService->createOrderLog($orderNumber, $item->getState(), $request->getClientID(), $request->getStoreOwnerProfileID());
 
             //create notification local
             $this->notificationLocalService->createNotificationLocal($request->getClientID(), LocalNotificationList::$NEW_ORDER_TITLE, LocalNotificationList::$CREATE_ORDER_SUCCESS, $orderNumber);
@@ -334,7 +340,7 @@ class OrderService
 
     public function createClientSendOrder(OrderClientSendCreateRequest $request)
     {  
-        $response = "Not created!!";
+        $response = "Not created";
 
         $orderNumber = 1;
 
@@ -348,6 +354,9 @@ class OrderService
         $item = $this->orderManager->createClientSendOrder($request, $roomID);
         if ($item) {
             $orderDetail = $this->orderDetailService->createOrderDetail($item->getId(), null, null, $orderNumber);
+            if(!$orderDetail){
+                return $response;
+            }
 
             //create log
             $this->orderLogService->createOrderLog($orderNumber, $item->getState(), $request->getClientID());
@@ -365,7 +374,7 @@ class OrderService
 
     public function createClientSpecialOrder(OrderClientSpecialCreateRequest $request)
     {  
-        $response = "Not created!!";
+        $response = "Not created";
 
         $orderNumber = 1;
 
@@ -378,8 +387,10 @@ class OrderService
 
         $item = $this->orderManager->createClientSpecialOrder($request, $roomID);
         if ($item) {
-            $orderDetail = $this->orderDetailService->createOrderDetail($item->getId(), null, null, $orderNumber);
-
+            $orderDetail = $this->orderDetailService->createOrderDetail($item->getId(), null, null, $orderNumber, $request->getStoreOwnerProfileID());
+            if(!$orderDetail){
+               return $response;
+            }
             //create log
             $this->orderLogService->createOrderLog($orderNumber, $item->getState(), $request->getClientID(), $request->getStoreOwnerProfileID());
 
@@ -418,31 +429,47 @@ class OrderService
     {
         $response = [];
 
-        $orderDetails = $this->orderDetailService->getOrderIdByOrderNumber($orderNumber);
+        $item['orderDetails'] = $this->orderDetailService->orderDetails($orderNumber);
 
-        $deliveryCost = $this->deliveryCompanyFinancialService->getDeliveryCost();
+        $item['deliveryCost'] = $this->deliveryCompanyFinancialService->getDeliveryCostScalar();
 
-        $rate = $this->ratingService->getAvgOrder($orderNumber);
-        if($orderDetails) {
-            $order = $this->orderManager->orderStatusByOrderId($orderDetails[0]->orderID);
-            if ($order[0]['storeOwnerProfileID']) {
-                    $storeOwner = $this->storeOwnerProfileService->getStoreOwnerProfileById($order[0]['storeOwnerProfileID']);
-                    if($orderDetails[0]->storeOwnerProfileID){
-                        $response['orderDetails'] = $orderDetails;
-                    }
-
-                    $response['storeOwner'] = $storeOwner;
-            }
-
-            $response['deliveryCost'] = $deliveryCost;
-            $response['order'] = $order[0];
-            $response['invoice']['invoiceAmount'] = $order[0]['invoiceAmount'];
-            $response['invoice']['invoiceImage'] = $order[0]['invoiceImage'];
-            $response['rating'] = $rate;
+        $item['rate'] = $this->ratingService->getAvgOrder($orderNumber);
+        if($item['orderDetails']) {
+            $item['order'] = $this->orderManager->orderStatusByOrderId($item['orderDetails'][0]->orderID);
+            $response = $this->autoMapping->map('array', OrderInfoResponse::class, $item);
     }
-
         return $response;
     }
+// public function getOrderDetailsByOrderNumber($orderNumber)
+//    {
+//        $response = [];
+//
+//        $orderDetails = $this->orderDetailService->getOrderIdByOrderNumber($orderNumber);
+//
+//        $deliveryCost = $this->deliveryCompanyFinancialService->getDeliveryCost();
+//
+//        $rate = $this->ratingService->getAvgOrder($orderNumber);
+//        if($orderDetails) {
+//            $order = $this->orderManager->orderStatusByOrderId($orderDetails[0]->orderID);
+//
+//            if ($order[0]['orderType'] == 1 || $order[0]['orderType'] == 2) {
+//                    $storeOwner = $this->storeOwnerProfileService->getStoreOwnerProfileById($order[0]['storeOwnerProfileID']);
+//                    if($orderDetails[0]->storeOwnerProfileID){
+//                        $response['orderDetails'] = $orderDetails;
+//                    }
+//
+//                    $response['storeOwner'] = $storeOwner;
+//            }
+//
+//            $response['deliveryCost'] = $deliveryCost;
+//            $response['order'] = $order[0];
+//            $response['invoice']['invoiceAmount'] = $order[0]['invoiceAmount'];
+//            $response['invoice']['invoiceImage'] = $order[0]['invoiceImage'];
+//            $response['rating'] = $rate;
+//    }
+//
+//        return $response;
+//    }
 
     public function orderUpdateByClient(OrderUpdateByClientRequest $request, $clientID)
     {

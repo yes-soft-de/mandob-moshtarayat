@@ -46,6 +46,7 @@ class RatingEntityRepository extends ServiceEntityRepository
                ->setParameter('orderNumber', $orderNumber)
 
                ->getQuery()
-               ->getResult();
+               ->getSingleScalarResult();
+
     }
 }
