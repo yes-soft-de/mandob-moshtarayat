@@ -10,7 +10,9 @@ use App\Request\StoreProductCategoryLevelOneUpdateRequest;
 use App\Request\StoreProductCategoryLevelTwoCreateRequest;
 use App\Request\StoreProductCategoryLevelTwoUpdateRequest;
 use App\Request\StoreProductCategoryTranslationCreateRequest;
+use App\Request\StoreProductCategoryTranslationUpdateRequest;
 use App\Request\StoreProductCategoryWithTranslationCreateRequest;
+use App\Request\StoreProductCategoryWithTranslationUpdateRequest;
 use App\Response\ProductsByProductCategoryIdForStoreResponse;
 use App\Response\ProductsByProductCategoryIdResponse;
 use App\Response\StoreProductCategoryByIdResponse;
@@ -90,11 +92,33 @@ class StoreProductCategoryService
         return $this->autoMapping->map(StoreProductCategoryEntity::class, StoreProductCategoryLevelTwoCreateResponse::class, $item);
     }
 
-     public function updateStoreProductCategoryLevelOne(StoreProductCategoryLevelOneUpdateRequest $request)
+     public function updateStoreProductCategoryLevelOne(StoreProductCategoryWithTranslationUpdateRequest $request)
      {
-         $item = $this->storeProductCategoryManager->updateStoreProductCategoryLevelOne($request);
+         // First, update the content in the primary language
+         $storeProductCategoryUpdateRequest = $this->autoMapping->map('array', StoreProductCategoryLevelOneUpdateRequest::class, $request->getData());
+
+         $item = $this->storeProductCategoryManager->updateStoreProductCategoryLevelOne($storeProductCategoryUpdateRequest);
+
+         //Second, update the translation data
+         if($request->getTranslate())
+         {
+             $this->updateStoreProductCategoryLevelOneTranslation($request->getTranslate());
+         }
 
          return $this->autoMapping->map(StoreProductCategoryEntity::class, StoreProductCategoryUpdateLevelOneResponse::class, $item);
+     }
+
+     public function updateStoreProductCategoryLevelOneTranslation($translationArrayRequest)
+     {
+         if($translationArrayRequest)
+         {
+             foreach($translationArrayRequest as $translationRequest)
+             {
+                 $storeProductCategoryTranslationUpdateRequest = $this->autoMapping->map('array', StoreProductCategoryTranslationUpdateRequest::class, $translationRequest);
+
+                 $this->storeProductCategoryTranslationService->updateStoreProductCategoryTranslationByStoreProductCategoryIdAndLanguage($storeProductCategoryTranslationUpdateRequest);
+             }
+         }
      }
 
      public function updateStoreProductCategoryLevelTwo(StoreProductCategoryLevelTwoUpdateRequest $request)

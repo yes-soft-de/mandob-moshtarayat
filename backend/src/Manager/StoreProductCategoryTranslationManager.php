@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\StoreProductCategoryTranslationEntity;
 use App\Repository\StoreProductCategoryTranslationEntityRepository;
 use App\Request\StoreProductCategoryTranslationCreateRequest;
+use App\Request\StoreProductCategoryTranslationUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
 class StoreProductCategoryTranslationManager
@@ -30,6 +31,26 @@ class StoreProductCategoryTranslationManager
         $this->entityManager->clear();
 
         return $entity;
+    }
+
+    public function updateStoreProductCategoryTranslationByStoreProductCategoryIdAndLanguage(StoreProductCategoryTranslationUpdateRequest $request)
+    {
+        $storeProductCategoryTranslationEntity = $this->storeProductCategoryTranslationEntityRepository->getByStoreProductCategoryIdAndLanguage($request->getStoreProductCategoryID(),
+            $request->getLanguage());
+
+        if(!$storeProductCategoryTranslationEntity)
+        {
+            return 'storeProductCategoryTranslationNotFound';
+        }
+        else
+        {
+            $storeProductCategoryTranslationEntity = $this->autoMapping->mapToObject(StoreProductCategoryTranslationUpdateRequest::class, StoreProductCategoryTranslationEntity::class,
+                $request, $storeProductCategoryTranslationEntity);
+
+            $this->entityManager->flush();
+
+            return $storeProductCategoryTranslationEntity;
+        }
     }
 
 }

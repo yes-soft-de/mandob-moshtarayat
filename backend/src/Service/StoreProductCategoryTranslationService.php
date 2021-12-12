@@ -6,7 +6,9 @@ use App\AutoMapping;
 use App\Entity\StoreProductCategoryTranslationEntity;
 use App\Manager\StoreProductCategoryTranslationManager;
 use App\Request\StoreProductCategoryTranslationCreateRequest;
+use App\Request\StoreProductCategoryTranslationUpdateRequest;
 use App\Response\StoreProductCategoryTranslationCreateResponse;
+use App\Response\StoreProductCategoryTranslationUpdateResponse;
 
 class StoreProductCategoryTranslationService
 {
@@ -24,6 +26,13 @@ class StoreProductCategoryTranslationService
         $storeProductCategoryTranslationResult = $this->storeProductCategoryTranslationManager->createStoreProductCategoryTranslation($request);
 
         return $this->autoMapping->map(StoreProductCategoryTranslationEntity::class, StoreProductCategoryTranslationCreateResponse::class, $storeProductCategoryTranslationResult);
+    }
+
+    public function updateStoreProductCategoryTranslationByStoreProductCategoryIdAndLanguage(StoreProductCategoryTranslationUpdateRequest $request)
+    {
+        $storeProductCategoryTranslationResult = $this->storeProductCategoryTranslationManager->updateStoreProductCategoryTranslationByStoreProductCategoryIdAndLanguage($request);
+
+        return $this->autoMapping->map(StoreProductCategoryTranslationEntity::class, StoreProductCategoryTranslationUpdateResponse::class, $storeProductCategoryTranslationResult);
     }
 
 }
