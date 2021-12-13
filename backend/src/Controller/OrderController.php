@@ -1560,7 +1560,7 @@ class OrderController extends BaseController
 
     /**
      * captain: Update the order invoice.
-     * @Route("/orderUpdateInvoiceByCaptain", name="orderUpdateInvoiceByCaptain", methods={"PUT"})
+     * @Route("/orderupdateinvoicebycaptain", name="orderUpdateInvoiceByCaptain", methods={"PUT"})
      * @IsGranted("ROLE_CAPTAIN")
      * @param Request $request
      * @return JsonResponse
@@ -1607,7 +1607,7 @@ class OrderController extends BaseController
 
         $response = $this->orderService->orderUpdateInvoiceByCaptain($request);
         if(is_string($response)){
-            return $this->response($response, self::ERROR);  
+            return $this->response($response, self::ERROR);
           }
 
         return $this->response($response, self::UPDATE);
@@ -1721,7 +1721,7 @@ class OrderController extends BaseController
 
     /**
      * admin: get captain's orders and count orders.
-     * @Route("ordersAndCountByCaptainId/{captainId}", name="getOrdersAndCountByCaptainIdForAdmin", methods={"GET"})
+     * @Route("ordersandcountbycaptainid/{captainId}", name="getOrdersAndCountByCaptainIdForAdmin", methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
      * *
@@ -1740,18 +1740,18 @@ class OrderController extends BaseController
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="integer", property="ordersCount"),
      *              @OA\Property(type="array", property="orders",
      *                @OA\Items(
      *                      @OA\Property(type="integer", property="id"),
-     *                      @OA\Property(type="object", property="deliveryDate"),
-     *                      @OA\Property(type="integer", property="storeOwnerProfileID"),
-     *                      @OA\Property(type="integer", property="orderCost"),
-     *                      @OA\Property(type="integer", property="orderType"),
-     *                      @OA\Property(type="object", property="destination"),
-     *                      @OA\Property(type="string", property="note"),
      *                      @OA\Property(type="string", property="state"),
+     *                      @OA\Property(type="object", property="deliveryDate"),
+     *                      @OA\Property(type="object", property="createdAt"),
      *                      @OA\Property(type="integer", property="orderNumber"),
-     *                      @OA\Property(type="string", property="detail"),
+     *                      @OA\Property(type="number", property="amount"),
+     *                      @OA\Property(type="integer", property="orderCost"),
+     *                      @OA\Property(type="number", property="deliveryCost"),
+     *                      @OA\Property(type="integer", property="orderType"),
      *                      ),
      *                  )
      *              )
@@ -1760,7 +1760,7 @@ class OrderController extends BaseController
      * )
      * @Security(name="Bearer")
      */
-      public function getOrdersAndCountByCaptainId($captainId)
+      public function getOrdersAndCountByCaptainId($captainId): JsonResponse
       {
           $result = $this->orderService->getOrdersAndCountByCaptainId($captainId);
   

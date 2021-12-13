@@ -677,14 +677,11 @@ class OrderService
     {
         $response = "Not updated!!";
 
-        $orderDetails = $this->orderDetailService->getOrderIdByOrderNumber($request->getOrderNumber());
-        if($orderDetails){
-            $request->setId($orderDetails[0]->orderID);
 
-            $item = $this->orderManager->orderUpdateInvoiceByCaptain($request);
+        $item = $this->orderDetailService->orderUpdateInvoiceByCaptain($request);
 
-            $response = $this->autoMapping->map(OrderEntity::class, OrderUpdateInvoiceByCaptainResponse::class, $item);
-       }
+        $response = $this->autoMapping->map(OrderEntity::class, OrderUpdateInvoiceByCaptainResponse::class, $item);
+
 
         return $response;
     }
@@ -753,7 +750,7 @@ class OrderService
         return $response;
     }
 
-    public function getOrdersAndCountByCaptainId($captainId)
+    public function getOrdersAndCountByCaptainId($captainId): array
     {
         $response = [];
 

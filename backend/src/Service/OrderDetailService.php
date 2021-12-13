@@ -5,6 +5,7 @@ namespace App\Service;
 use App\AutoMapping;
 use App\Entity\OrderDetailEntity;
 use App\Manager\OrderDetailManager;
+use App\Request\OrderUpdateInvoiceByCaptainRequest;
 use App\Response\OrderCreateDetailResponse;
 use App\Response\OrderDetailProductsResponse;
 use App\Response\OrderDetailResponse;
@@ -132,6 +133,11 @@ class OrderDetailService
     public function getCountOrdersEveryProductInLastMonth($fromDate, $toDate):?array
     {
        return $this->orderDetailManager->getCountOrdersEveryProductInLastMonth($fromDate, $toDate);
+   }
+
+    public function orderUpdateInvoiceByCaptain(OrderUpdateInvoiceByCaptainRequest $request):?array
+    {
+       return $this->orderDetailManager->orderUpdateInvoiceByCaptain($request);
    }
 
     public function getImageParams($imageURL, $image, $baseURL): array

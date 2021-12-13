@@ -884,7 +884,7 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->setParameter('captainID', $captainId)
 
             ->getQuery()
-            ->getResult();
+            ->getSingleScalarResult();
     }
 
     public function getOrdersByCaptainId($captainId)

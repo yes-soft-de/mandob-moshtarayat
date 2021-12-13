@@ -80,7 +80,7 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('OrderDetailEntity')
 
-            ->select( 'OrderDetailEntity.storeOwnerProfileID', 'OrderDetailEntity.orderID')
+            ->select( 'OrderDetailEntity.id as orderDetailID', 'OrderDetailEntity.storeOwnerProfileID', 'OrderDetailEntity.orderID')
             ->addSelect('StoreOwnerProfileEntity.storeOwnerName', 'StoreOwnerProfileEntity.image', 'StoreOwnerProfileEntity.phone', 'StoreOwnerProfileEntity.storeCategoryId')
             ->addSelect('StoreOwnerBranchEntity.location')
 
