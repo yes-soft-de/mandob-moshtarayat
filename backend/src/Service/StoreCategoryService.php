@@ -105,7 +105,20 @@ class StoreCategoryService
 
     public function getStoreCategoriesAndStores($userLocale)
     {
-        $item['categories'] = $this->getStoreCategories($userLocale);
+        if(($userLocale != null) && $userLocale != $this->primaryLanguage)
+        {
+            $item['categories'] = $this->storeCategoryTranslationService->getStoreCategoriesTranslationByLanguage($userLocale);
+        }
+        else
+        {
+            $item['categories'] = $this->storeCategoryManager->getStoreCategories();
+
+            foreach ($item['categories'] as $key => $value)
+            {
+                $item['categories'][$key]['image'] = $this->getImageParams($value['image'], $this->params . $value['image'], $this->params);
+            }
+        }
+
         $item['stores'] = $this->storeOwnerProfileService->getLast15Stores();
 
         return $this->autoMapping->map("array", StoreCategoriesAndStoresResponse::class, $item);
