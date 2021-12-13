@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\StoreProductCategoryEntity;
 use App\Manager\StoreProductCategoryManager;
 use App\Request\FilterStoreProductCategoryLevelOne;
+use App\Request\FilterStoreProductCategoryLevelTwo;
 use App\Request\StoreProductCategoryCreateRequest;
 use App\Request\StoreProductCategoryLevelOneUpdateRequest;
 use App\Request\StoreProductCategoryLevelTwoCreateRequest;
@@ -276,27 +277,36 @@ class StoreProductCategoryService
        return $response;
     }
 
-    public function getStoreProductsCategoryLevelTwoByStoreProductCategoryIDForAdmin($storeProductCategoryID)
+    public function getStoreProductsCategoryLevelTwoByStoreProductCategoryIDForAdmin(FilterStoreProductCategoryLevelTwo $request)
     {
-       $response = [];
+        $response = [];
 
-       $items = $this->storeProductCategoryManager->getStoreProductsCategoryLevelTwoByStoreProductCategoryID($storeProductCategoryID);
+        if($request->getLanguage() && $request->getLanguage() != $this->primaryLanguage)
+        {
+            $storeProductCategories = $this->storeProductCategoryTranslationService->getStoreProductCategoriesTranslationsByStoreProductCategoryIdAndLanguage($request->getStoreProductCategoryID(),
+                 $request->getLanguage());
 
-       foreach($items as $item)
-       {
-           if($item['productCategoryImage'])
-           {
-               $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params.$item['productCategoryImage'], $this->params);
-           }
-           else
-           {
-               $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $item['productCategoryImage'], $this->params);
-           }
+            foreach($storeProductCategories as $storeProductCategory)
+            {
+                $response[] = $this->autoMapping->map(StoreProductCategoryTranslationGetResponse::class, StoreProductsCategoryResponse::class, $storeProductCategory);
+            }
+        }
+        else
+        {
+            $items = $this->storeProductCategoryManager->getStoreProductsCategoryLevelTwoByStoreProductCategoryID($request->getStoreProductCategoryID());
 
-           $response[] = $this->autoMapping->map('array', StoreProductsCategoryResponse::class, $item);
-       }
+            foreach ($items as $item) {
+                if ($item['productCategoryImage']) {
+                    $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params . $item['productCategoryImage'], $this->params);
+                } else {
+                    $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $item['productCategoryImage'], $this->params);
+                }
 
-       return $response;
+                $response[] = $this->autoMapping->map('array', StoreProductsCategoryResponse::class, $item);
+            }
+        }
+
+        return $response;
     }
 
     public function getSubCategoriesByStoreCategoryID($storeCategoryID)

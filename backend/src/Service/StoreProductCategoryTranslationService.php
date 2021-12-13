@@ -59,6 +59,26 @@ class StoreProductCategoryTranslationService
         return $response;
     }
 
+    public function getStoreProductCategoriesTranslationsByStoreProductCategoryIdAndLanguage($storeProductCategoryID, $language)
+    {
+        $response = [];
+
+        $storeProductCategoriesTranslations = $this->storeProductCategoryTranslationManager->getStoreProductCategoriesTranslationsByStoreProductCategoryIdAndLanguage($storeProductCategoryID, $language);
+
+        foreach($storeProductCategoriesTranslations as $storeProductCategoryTranslation)
+        {
+            if($storeProductCategoryTranslation['productCategoryImage'])
+            {
+                $storeProductCategoryTranslation['productCategoryImage'] = $this->getImageParams($storeProductCategoryTranslation['productCategoryImage'],
+                    $this->params . $storeProductCategoryTranslation['productCategoryImage'], $this->params);
+            }
+
+            $response[] = $this->autoMapping->map('array', StoreProductCategoryTranslationGetResponse::class, $storeProductCategoryTranslation);
+        }
+
+        return $response;
+    }
+
     public function getImageParams($imageURL, $image, $baseURL): array
     {
         if($imageURL)

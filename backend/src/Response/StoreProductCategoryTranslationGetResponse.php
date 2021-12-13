@@ -14,4 +14,6 @@ class StoreProductCategoryTranslationGetResponse
 
     public $language;
 
+    public $productCategoryImage;
+
 }

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\AutoMapping;
 use App\Request\DeleteRequest;
 use App\Request\FilterStoreProductCategoryLevelOne;
+use App\Request\FilterStoreProductCategoryLevelTwo;
 use App\Request\StoreProductCategoryLevelTwoCreateRequest;
 use App\Request\StoreProductCategoryLevelTwoUpdateRequest;
 use App\Request\StoreProductCategoryWithTranslationCreateRequest;
@@ -409,6 +410,13 @@ class StoreProductCategoryController extends BaseController
 
           $request = $this->autoMapping->map(stdClass::class, FilterStoreProductCategoryLevelOne::class, (object)$data);
 
+          $violations = $this->validator->validate($request);
+          if (\count($violations) > 0) {
+              $violationsString = (string) $violations;
+
+              return new JsonResponse($violationsString, Response::HTTP_OK);
+          }
+
           $result = $this->storeProductCategoryService->getStoreProductsCategoryLevelOneByStoreCategoryIDFroAdmin($request);
 
           return $this->response($result, self::FETCH);
@@ -451,7 +459,7 @@ class StoreProductCategoryController extends BaseController
 
     /**
      *  admin: Get store products category of second level.
-     * @Route("/storeproductscategoryleveltwoforadmin/{storeProductCategoryID}", name="getStoreProductsCategoryLevelTwoByStoreProductCategoryIDForAdmin", methods={"GET"})
+     * @Route("/storeproductscategoryleveltwoforadmin", name="getStoreProductsCategoryLevelTwoByStoreProductCategoryIDForAdmin", methods={"POST"})
      * @return JsonResponse
      *
      * @OA\Tag(name="Store Product Category")
@@ -461,6 +469,14 @@ class StoreProductCategoryController extends BaseController
      *      in="header",
      *      description="token to be passed as a header",
      *      required=true
+     * )
+     *
+     * @OA\RequestBody(
+     *      description="filtering options",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="language", description="optional"),
+     *          @OA\Property(type="integer", property="storeProductCategoryID", description="required")
+     *      )
      * )
      *
      * @OA\Response(
@@ -485,11 +501,22 @@ class StoreProductCategoryController extends BaseController
      *
      * @Security(name="Bearer")
      */
-      public function getStoreProductsCategoryLevelTwoByStoreProductCategoryIDForAdmin($storeProductCategoryID)
+      public function getStoreProductsCategoryLevelTwoByStoreProductCategoryIDForAdmin(Request $request)
       {
-        $result = $this->storeProductCategoryService->getStoreProductsCategoryLevelTwoByStoreProductCategoryIDForAdmin($storeProductCategoryID);
+          $data = json_decode($request->getContent(), true);
 
-        return $this->response($result, self::FETCH);
+          $request = $this->autoMapping->map(stdClass::class, FilterStoreProductCategoryLevelTwo::class, (object)$data);
+
+          $violations = $this->validator->validate($request);
+          if (\count($violations) > 0) {
+              $violationsString = (string) $violations;
+
+              return new JsonResponse($violationsString, Response::HTTP_OK);
+          }
+
+          $result = $this->storeProductCategoryService->getStoreProductsCategoryLevelTwoByStoreProductCategoryIDForAdmin($request);
+
+          return $this->response($result, self::FETCH);
       }
 
      /**
