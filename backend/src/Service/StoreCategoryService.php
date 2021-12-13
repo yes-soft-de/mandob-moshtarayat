@@ -5,6 +5,7 @@ namespace App\Service;
 use App\AutoMapping;
 use App\Entity\StoreCategoryEntity;
 use App\Manager\StoreCategoryManager;
+use App\Request\FilterStoreCategory;
 use App\Request\StoreCategoryWithTranslationCreateRequest;
 use App\Response\ClientFavouriteStoreCategoriesAndStoresGetResponse;
 use App\Response\ClientFavouriteStoreCategoriesResponse;
@@ -12,6 +13,7 @@ use App\Response\StoreCategoriesAndStoresResponse;
 use App\Response\StoreCategoryCreateResponse;
 use App\Response\StoreCategoryByIdResponse;
 use App\Response\StoreCategoryGetResponse;
+use App\Response\StoreCategoryTranslationGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class StoreCategoryService
@@ -21,12 +23,15 @@ class StoreCategoryService
     private $params;
     private $primaryLanguage;
     private $storeOwnerProfileService;
+    private $storeCategoryTranslationService;
 
-    public function __construct(AutoMapping $autoMapping, StoreCategoryManager $storeCategoryManager, ParameterBagInterface $params, StoreOwnerProfileService $storeOwnerProfileService)
+    public function __construct(AutoMapping $autoMapping, StoreCategoryManager $storeCategoryManager, ParameterBagInterface $params, StoreOwnerProfileService $storeOwnerProfileService,
+     StoreCategoryTranslationService $storeCategoryTranslationService)
     {
         $this->autoMapping = $autoMapping;
         $this->storeCategoryManager = $storeCategoryManager;
         $this->storeOwnerProfileService = $storeOwnerProfileService;
+        $this->storeCategoryTranslationService = $storeCategoryTranslationService;
         $this->params = $params->get('upload_base_url') . '/';
         $this->primaryLanguage = $params->get('primary_language');
     }
@@ -45,17 +50,28 @@ class StoreCategoryService
         return $this->autoMapping->map(StoreCategoryEntity::class, StoreCategoryCreateResponse::class, $item);
     }
 
-    public function getStoreCategories($userLocale): array
+    public function getStoreCategories(FilterStoreCategory $request)
     {
        $response = [];
 
-       $items = $this->storeCategoryManager->getStoreCategories($userLocale, $this->primaryLanguage);
-
-       foreach($items as $item)
+       if($request->getLanguage() && $request->getLanguage() != $this->primaryLanguage)
        {
-           $item['image'] = $this->getImageParams($item['image'], $this->params.$item['image'], $this->params);
+           $storeCategoriesTranslations = $this->storeCategoryTranslationService->getStoreCategoriesTranslationByLanguage($request->getLanguage());
 
-           $response[] =  $this->autoMapping->map('array', StoreCategoryGetResponse::class, $item);
+           foreach($storeCategoriesTranslations as $storeCategoryTranslation)
+           {
+               $response[] = $this->autoMapping->map(StoreCategoryTranslationGetResponse::class, StoreCategoryGetResponse::class, $storeCategoryTranslation);
+           }
+       }
+       else
+       {
+           $items = $this->storeCategoryManager->getStoreCategories();
+
+           foreach ($items as $item) {
+               $item['image'] = $this->getImageParams($item['image'], $this->params . $item['image'], $this->params);
+
+               $response[] = $this->autoMapping->map('array', StoreCategoryGetResponse::class, $item);
+           }
        }
 
        return $response;
@@ -89,7 +105,20 @@ class StoreCategoryService
 
     public function getStoreCategoriesAndStores($userLocale)
     {
-        $item['categories'] = $this->getStoreCategories($userLocale);
+        if(($userLocale != null) && $userLocale != $this->primaryLanguage)
+        {
+            $item['categories'] = $this->storeCategoryTranslationService->getStoreCategoriesTranslationByLanguage($userLocale);
+        }
+        else
+        {
+            $item['categories'] = $this->storeCategoryManager->getStoreCategories();
+
+            foreach ($item['categories'] as $key => $value)
+            {
+                $item['categories'][$key]['image'] = $this->getImageParams($value['image'], $this->params . $value['image'], $this->params);
+            }
+        }
+
         $item['stores'] = $this->storeOwnerProfileService->getLast15Stores();
 
         return $this->autoMapping->map("array", StoreCategoriesAndStoresResponse::class, $item);

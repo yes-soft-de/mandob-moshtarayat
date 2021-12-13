@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\DeleteRequest;
+use App\Request\FilterStoreCategory;
 use App\Request\StoreCategoryUpdateRequest;
 use App\Request\StoreCategoryWithTranslationCreateRequest;
 use App\Request\StoreCategoryWithTranslationUpdateRequest;
@@ -176,16 +177,17 @@ class StoreCategoryController extends BaseController
 
     /**
      * Get store categories.
-     * @Route("storecategories", name="getStoreCategories", methods={"GET"})
+     * @Route("storecategories", name="getStoreCategories", methods={"POST"})
+     * @param Request $request
      * @return JsonResponse
-     **
+     *
      * @OA\Tag(name="Store Category")
      *
-     * @OA\Parameter(
-     *      name="Accept-Language",
-     *      in="header",
-     *      description="language to be passed as a header",
-     *      required=false
+     * @OA\RequestBody(
+     *      description="Filter store categories according to language",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="language")
+     *      )
      * )
      *
      * @OA\Response(
@@ -208,7 +210,11 @@ class StoreCategoryController extends BaseController
      */
       public function getStoreCategories(Request $request): JsonResponse
       {
-          $result = $this->storeCategoryService->getStoreCategories($request->getPreferredLanguage());
+          $data = json_decode($request->getContent(), true);
+
+          $request = $this->autoMapping->map(stdClass::class, FilterStoreCategory::class, (object)$data);
+
+          $result = $this->storeCategoryService->getStoreCategories($request);
   
           return $this->response($result, self::FETCH);
       }

@@ -4,7 +4,6 @@ namespace App\Request;
 
 class StoreProductCategoryCreateRequest
 {
-
     private $productCategoryName;
 
     private $storeOwnerProfileId;
@@ -14,6 +13,8 @@ class StoreProductCategoryCreateRequest
     private $isLevel1;
 
     private $storeCategoryID;
+
+    private $language;
 
     /**
      * @return mixed

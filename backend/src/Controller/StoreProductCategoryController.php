@@ -4,11 +4,11 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\DeleteRequest;
-use App\Request\StoreProductCategoryCreateRequest;
-use App\Request\StoreProductCategoryLevelOneUpdateRequest;
+use App\Request\FilterStoreProductCategoryLevelOne;
 use App\Request\StoreProductCategoryLevelTwoCreateRequest;
 use App\Request\StoreProductCategoryLevelTwoUpdateRequest;
-use App\Request\StoreProductCategoryUpdateRequest;
+use App\Request\StoreProductCategoryWithTranslationCreateRequest;
+use App\Request\StoreProductCategoryWithTranslationUpdateRequest;
 use App\Service\StoreProductCategoryService;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -20,6 +20,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
+
 class StoreProductCategoryController extends BaseController
 {
     private $autoMapping;
@@ -53,10 +54,21 @@ class StoreProductCategoryController extends BaseController
      * @OA\RequestBody(
      *      description="Create Store Product Category Level One",
      *      @OA\JsonContent(
-     *          @OA\Property(type="integer", property="id"),
-     *          @OA\Property(type="string", property="productCategoryName"),
-     *          @OA\Property(type="string", property="productCategoryImage"),
-     *          @OA\Property(type="integer", property="storeCategoryID"),
+     *          @OA\Property(type="object", property="data",
+     *              @OA\Property(type="string", property="productCategoryName"),
+     *              @OA\Property(type="string", property="description"),
+     *              @OA\Property(type="string", property="productCategoryImage"),
+     *              @OA\Property(type="string", property="language"),
+     *              @OA\Property(type="integer", property="storeCategoryID"),
+     *          ),
+     *          @OA\Property(type="array", property="translate",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="productCategoryID"),
+     *                  @OA\Property(type="string", property="productCategoryName"),
+     *                  @OA\Property(type="string", property="description"),
+     *                  @OA\Property(type="string", property="language")
+     *              )
+     *          )
      *      )
      * )
      *
@@ -80,7 +92,7 @@ class StoreProductCategoryController extends BaseController
     public function createStoreProductCategoryLevelOne(Request $request)
     {
         $data = json_decode($request->getContent(), true);
-        $request = $this->autoMapping->map(stdClass::class, StoreProductCategoryCreateRequest::class, (object)$data);
+        $request = $this->autoMapping->map(stdClass::class, StoreProductCategoryWithTranslationCreateRequest::class, (object)$data);
 
         $violations = $this->validator->validate($request);
         if (\count($violations) > 0) {
@@ -172,9 +184,19 @@ class StoreProductCategoryController extends BaseController
      * @OA\RequestBody(
      *      description="Update Store Product Category Level One",
      *      @OA\JsonContent(
-     *          @OA\Property(type="integer", property="id"),
-     *          @OA\Property(type="string", property="productCategoryName"),
-     *          @OA\Property(type="string", property="productCategoryImage"),
+     *          @OA\Property(type="object", property="data",
+     *              @OA\Property(type="integer", property="id"),
+     *              @OA\Property(type="string", property="productCategoryName"),
+     *              @OA\Property(type="string", property="productCategoryImage"),
+     *          ),
+     *          @OA\Property(type="array", property="translate",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="productCategoryID"),
+     *                  @OA\Property(type="string", property="productCategoryName"),
+     *                  @OA\Property(type="text", property="description"),
+     *                  @OA\Property(type="string", property="language")
+     *              )
+     *          )
      *      )
      * )
      *
@@ -198,7 +220,7 @@ class StoreProductCategoryController extends BaseController
      public function updateStoreProductCategoryLevelOne(Request $request)
      {
         $data = json_decode($request->getContent(), true);
-        $request = $this->autoMapping->map(stdClass::class, StoreProductCategoryLevelOneUpdateRequest::class, (object)$data);
+        $request = $this->autoMapping->map(stdClass::class, StoreProductCategoryWithTranslationUpdateRequest::class, (object)$data);
 
         $violations = $this->validator->validate($request);
          if (\count($violations) > 0) {
@@ -330,7 +352,7 @@ class StoreProductCategoryController extends BaseController
 
     /**
      * admin: Get store products category of first level
-     * @Route("/storeproductscategorylevelonefroadmin/{storeCategoryID}", name="getStoreProductsCategoryLevelOneByStoreCategoryIDForAdmin", methods={"GET"})
+     * @Route("/storeproductscategorylevelonefroadmin", name="getStoreProductsCategoryLevelOneByStoreCategoryIDForAdmin", methods={"POST"})
      * @return JsonResponse
      * @IsGranted("ROLE_ADMIN")
      *
@@ -365,11 +387,15 @@ class StoreProductCategoryController extends BaseController
      *
      * @Security(name="Bearer")
      */
-      public function getStoreProductsCategoryLevelOneByStoreCategoryIDFroAdmin($storeCategoryID)
+      public function getStoreProductsCategoryLevelOneByStoreCategoryIDFroAdmin(Request $request)
       {
-        $result = $this->storeProductCategoryService->getStoreProductsCategoryLevelOneByStoreCategoryIDFroAdmin($storeCategoryID);
+          $data = json_decode($request->getContent(), true);
 
-        return $this->response($result, self::FETCH);
+          $request = $this->autoMapping->map(stdClass::class, FilterStoreProductCategoryLevelOne::class, (object)$data);
+
+          $result = $this->storeProductCategoryService->getStoreProductsCategoryLevelOneByStoreCategoryIDFroAdmin($request);
+
+          return $this->response($result, self::FETCH);
       }
 
     /**

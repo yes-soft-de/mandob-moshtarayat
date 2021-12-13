@@ -17,7 +17,6 @@ class StoreProductCategoryEntity
      */
     private $id;
 
-    
      /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -52,6 +51,11 @@ class StoreProductCategoryEntity
      * @ORM\Column(type="integer", length=100, nullable=true)
      */
     private $storeProductCategoryID;
+
+    /**
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    private $language;
 
     public function getId(): ?int
     {
@@ -137,6 +141,18 @@ class StoreProductCategoryEntity
     public function setStoreProductCategoryID(int $storeProductCategoryID): self
     {
         $this->storeProductCategoryID = $storeProductCategoryID;
+
+        return $this;
+    }
+
+    public function getLanguage(): ?string
+    {
+        return $this->language;
+    }
+
+    public function setLanguage(?string $language): self
+    {
+        $this->language = $language;
 
         return $this;
     }
