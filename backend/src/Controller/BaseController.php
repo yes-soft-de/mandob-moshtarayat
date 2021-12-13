@@ -26,6 +26,7 @@ class BaseController extends AbstractController
     const FETCH = ["fetched","200"];
     //error order
     const ERROR = ["error","9201"];
+    const ERROR_ORDER_REMOVE = ["error","9202"];
     //error related
     const ERROR_RELATED= ["error related","9251"];
     // error users

@@ -754,7 +754,7 @@ class OrderController extends BaseController
         $request->setOrderDetails($data['orderDetails']);
 
         $response = $this->orderService->createClientOrder($request);
-        if($response == "Not created"){
+        if($response == ResponseConstant::$ORDER_NOT_CREATED){
             return $this->response($response, self::ERROR);  
           }
 
@@ -834,7 +834,7 @@ class OrderController extends BaseController
         $request->setClientID($this->getUserId());
 
         $response = $this->orderService->createClientSendOrder($request);
-        if($response == "Not created"){
+        if($response == ResponseConstant::$ORDER_NOT_CREATED){
             return $this->response($response, self::ERROR);  
           }
 
@@ -913,7 +913,7 @@ class OrderController extends BaseController
         $request->setClientID($this->getUserId());
 
         $response = $this->orderService->createClientSpecialOrder($request);
-        if($response == "Not created"){
+        if($response == ResponseConstant::$ORDER_NOT_CREATED){
             return $this->response($response, self::ERROR);  
           }
 
@@ -1265,7 +1265,7 @@ class OrderController extends BaseController
      * )
      *
      *  @OA\RequestBody (
-     *        description="Update the order invoice",
+     *        description="Update the order type Special",
      *        @OA\JsonContent(
      *              @OA\Property(type="string", property="orderNumber"),
      *              @OA\Property(type="object", property="destination"),
@@ -1445,22 +1445,26 @@ class OrderController extends BaseController
      * or
      *
      * @OA\Response(
-     *      response=425,
+     *      response="default",
      *      description="Returns string",
      *      @OA\JsonContent(
-     *          @OA\Property(type="string", property="status_code"),
-     *          @OA\Property(type="string", property="msg"),
-     *          @OA\Property(type="string", property="Data"),
+     *          @OA\Property(type="string", property="status_code", description="9202"),
+     *          @OA\Property(type="string", property="msg", description="error Successfully."),
+     *          @OA\Property(type="string", property="Data", description="can not remove it"),
      *      )
      * )
      *
      * @Security(name="Bearer")
      */
-    public function orderCancel($orderNumber)
+    public function orderCancel($orderNumber): JsonResponse
     {
         $response = $this->orderService->orderCancel($orderNumber, $this->getUserId());
-        if(is_string($response)){
-            return $this->response($response, self::ERROR);  
+        if($response == ResponseConstant::$ORDER_NOT_REMOVE_TIME){
+            return $this->response($response, self::ERROR_ORDER_REMOVE);
+        }
+
+        if($response == ResponseConstant::$ORDER_NOT_REMOVE_CAPTAIN_RECEIVED){
+            return $this->response($response, self::ERROR_ORDER_REMOVE);
         }
 
         return $this->response($response, self::UPDATE);
@@ -1503,7 +1507,7 @@ class OrderController extends BaseController
      *
      * @Security(name="Bearer")
      */
-      public function getOrdersByClientID()
+      public function getOrdersByClientID(): JsonResponse
       {
           $result = $this->orderService->getOrdersByClientID($this->getUserId());
   

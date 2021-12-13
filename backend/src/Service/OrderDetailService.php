@@ -94,10 +94,10 @@ class OrderDetailService
        return $this->getStoresWithProducts($orderNumber);
     }
 
-    public function getStoreOwnerProfileIdByOrderNumber($orderNumber)
+    public function getStoreOwnerProfileIdAndOrderIDByOrderNumber($orderNumber)
     {
-        //return StoreOwnerProfileId.
-        return $this->orderDetailManager->getStoreOwnerProfileIdByOrderNumber($orderNumber);
+        //return StoreOwnerProfileId and orderID.
+        return $this->orderDetailManager->getStoreOwnerProfileIdAndOrderIDByOrderNumber($orderNumber);
     }
 
     public function getOrderIdWithOutStoreProductByOrderNumber($orderNumber)
