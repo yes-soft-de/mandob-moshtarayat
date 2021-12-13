@@ -201,7 +201,6 @@ class StoreProductCategoryController extends BaseController
      *              @OA\Items(
      *                  @OA\Property(type="integer", property="productCategoryID"),
      *                  @OA\Property(type="string", property="productCategoryName"),
-     *                  @OA\Property(type="text", property="description"),
      *                  @OA\Property(type="string", property="language")
      *              )
      *          )
@@ -261,9 +260,18 @@ class StoreProductCategoryController extends BaseController
      * @OA\RequestBody(
      *      description="Update Store Product Category Level Two",
      *      @OA\JsonContent(
-     *          @OA\Property(type="integer", property="id"),
-     *          @OA\Property(type="string", property="productCategoryName"),
-     *          @OA\Property(type="string", property="productCategoryImage")
+     *          @OA\Property(type="object", property="data",
+     *              @OA\Property(type="integer", property="id"),
+     *              @OA\Property(type="string", property="productCategoryName"),
+     *              @OA\Property(type="string", property="productCategoryImage"),
+     *          ),
+     *          @OA\Property(type="array", property="translate",
+     *              @OA\Items(
+     *                  @OA\Property(type="string", property="productCategoryName"),
+     *                  @OA\Property(type="string", property="language"),
+     *                  @OA\Property(type="integer", property="storeProductCategoryID")
+     *              )
+     *          )
      *      )
      * )
      *
@@ -287,7 +295,7 @@ class StoreProductCategoryController extends BaseController
      public function updateStoreProductCategoryLevelTwo(Request $request)
      {
         $data = json_decode($request->getContent(), true);
-        $request = $this->autoMapping->map(stdClass::class, StoreProductCategoryLevelTwoUpdateRequest::class, (object)$data);
+        $request = $this->autoMapping->map(stdClass::class, StoreProductCategoryWithTranslationUpdateRequest::class, (object)$data);
 
         $violations = $this->validator->validate($request);
          if (\count($violations) > 0) {

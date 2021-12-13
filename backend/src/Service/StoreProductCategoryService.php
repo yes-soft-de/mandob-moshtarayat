@@ -134,9 +134,31 @@ class StoreProductCategoryService
          }
      }
 
-     public function updateStoreProductCategoryLevelTwo(StoreProductCategoryLevelTwoUpdateRequest $request)
+     public function updateStoreProductCategoryLevelTwoTranslation($translationArrayRequest)
      {
-         $item = $this->storeProductCategoryManager->updateStoreProductCategoryLevelTwo($request);
+         if($translationArrayRequest)
+         {
+             foreach($translationArrayRequest as $translationRequest)
+             {
+                 $storeProductCategoryTranslationUpdateRequest = $this->autoMapping->map('array', StoreProductCategoryTranslationUpdateRequest::class, $translationRequest);
+
+                 $this->storeProductCategoryTranslationService->updateStoreProductCategoryTranslationByStoreProductCategoryIdAndLanguage($storeProductCategoryTranslationUpdateRequest);
+             }
+         }
+     }
+
+     public function updateStoreProductCategoryLevelTwo(StoreProductCategoryWithTranslationUpdateRequest $request)
+     {
+         // First, update the content in the primary language
+         $storeProductCategoryUpdateRequest = $this->autoMapping->map('array', StoreProductCategoryLevelTwoUpdateRequest::class, $request->getData());
+
+         $item = $this->storeProductCategoryManager->updateStoreProductCategoryLevelTwo($storeProductCategoryUpdateRequest);
+
+         //Second, update the translation data
+         if($request->getTranslate())
+         {
+             $this->updateStoreProductCategoryLevelTwoTranslation($request->getTranslate());
+         }
 
          return $this->autoMapping->map(StoreProductCategoryEntity::class, StoreProductCategoryUpdateLevelTwoResponse::class, $item);
      }
