@@ -109,7 +109,7 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     InkWell(
                       onTap: () {
                         Navigator.of(context)
-                            .pushNamed(ProductsRoutes.PRODUCT_DETAILS_SCREEN);
+                            .pushNamed(ProductsRoutes.CART_SCREEN);
                       },
                       child: Container(
                         decoration: BoxDecoration(

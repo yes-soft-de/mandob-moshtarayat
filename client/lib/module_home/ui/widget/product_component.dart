@@ -315,6 +315,7 @@ class _ProductComponentState extends State<ProductComponent> {
                                 ? () {
                                     widget.quantity -= 1;
                                     widget.onSelect(CartModel(
+                                      storeID:widget.storeId,
                                       id: int.parse(widget.productId),
                                       quantity: widget.quantity,
                                       price: double.parse(widget.price),
@@ -368,6 +369,7 @@ class _ProductComponentState extends State<ProductComponent> {
                                 backgroundColor: Theme.of(context).primaryColor,
                               ).show(context);
                               widget.onSelect(CartModel(
+                                storeID: widget.storeId,
                                 id: int.parse(widget.productId),
                                 quantity: widget.quantity,
                                 price: double.parse(widget.price),

@@ -124,7 +124,9 @@ class _CartScreenState extends State<CartScreen> {
                                         .forEach((element) {
                                       items.add(Products(
                                           productID: element.id,
-                                          countProduct: element.quantity));
+                                          countProduct: element.quantity,
+                                          storeId: element.storeID
+                                          ));
                                     });
 
                                     CheckoutModel checkoutModel = CheckoutModel(

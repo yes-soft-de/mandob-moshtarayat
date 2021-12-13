@@ -223,6 +223,7 @@ class ProductDetailsLoadedState extends States {
                         ),
                         QuantityControlWidget(
                           model: CartModel(
+                              storeID: model.storeOwnerProfileID.toString(),
                               name: model.productName,
                               image: model.image,
                               id: model.id,

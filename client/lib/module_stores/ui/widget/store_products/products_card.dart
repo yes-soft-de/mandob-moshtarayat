@@ -12,6 +12,7 @@ class ProductsCard extends StatefulWidget {
   final GestureTapCallback? onTap;
   final int defaultQuantity;
   final int id;
+  final String storeId;
   const ProductsCard(
       {required this.title,
       required this.image,
@@ -20,7 +21,9 @@ class ProductsCard extends StatefulWidget {
       required this.quantity,
       this.defaultQuantity = 0,
       required this.id,
-      this.onTap});
+      this.onTap,
+      required this.storeId
+      });
 
   @override
   _ProductsCardState createState() => _ProductsCardState();
@@ -32,6 +35,7 @@ class _ProductsCardState extends State<ProductsCard> {
   void initState() {
     super.initState();
     cartModel = CartModel(
+        storeID: widget.storeId,
         id: widget.id,
         quantity: widget.defaultQuantity,
         price: widget.price.toDouble(),
