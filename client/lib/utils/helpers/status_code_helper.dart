@@ -24,6 +24,8 @@ class StatusCodeHelper {
         return S.current.statusCodeUnauthorized;
       case '404':
         return S.current.StatusCodeNotFound;
+        case '405':
+        return S.current.statusCodeBadRequest;
       case '500':
         return S.current.internalServerError;
       case '9000':
