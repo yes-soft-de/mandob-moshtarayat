@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mandob_moshtarayat/di/di_config.dart';
@@ -13,6 +14,7 @@ import 'package:mandob_moshtarayat/module_home/ui/widget/product_component.dart'
 import 'package:mandob_moshtarayat/module_home/ui/widget/sub_category_card.dart';
 import 'package:mandob_moshtarayat/module_stores/presistance/cart_hive_box_helper.dart';
 import 'package:mandob_moshtarayat/utils/effect/checked.dart';
+import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
 import 'package:mandob_moshtarayat/utils/images/images.dart';
 
 class HomeFavoriteLoadedState extends HomeState {
@@ -52,14 +54,17 @@ class HomeFavoriteLoadedState extends HomeState {
                     S.current.unknown,
             categories: subCategories,
           ),
-          SizedBox(
-            height: 65,
-            width: MediaQuery.of(context).size.width,
-            child: ListView(
-              physics: const BouncingScrollPhysics(
-                  parent: AlwaysScrollableScrollPhysics()),
-              scrollDirection: Axis.horizontal,
-              children: _getSubCategoriesLevel2(),
+          Hider(
+            active: _getSubCategoriesLevel2().isNotEmpty,
+            child: SizedBox(
+              height: 65,
+              width: MediaQuery.of(context).size.width,
+              child: ListView(
+                physics: const BouncingScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics()),
+                scrollDirection: Axis.horizontal,
+                children: _getSubCategoriesLevel2(),
+              ),
             ),
           ),
           Checked(
@@ -123,12 +128,13 @@ class HomeFavoriteLoadedState extends HomeState {
           }
           screenState.refresh();
         },
-        quantity:getQuantity(element.id),
+        quantity: getQuantity(element.id),
       ));
     });
     return widgets;
   }
-    int getQuantity(int id) {
+
+  int getQuantity(int id) {
     List<CartModel> carts = CartHiveHelper().getCart();
     if (carts.isEmpty) {
       return 0;
