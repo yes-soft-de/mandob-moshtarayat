@@ -56,7 +56,6 @@ class StoreProductCategoryController extends BaseController
      *      @OA\JsonContent(
      *          @OA\Property(type="object", property="data",
      *              @OA\Property(type="string", property="productCategoryName"),
-     *              @OA\Property(type="string", property="description"),
      *              @OA\Property(type="string", property="productCategoryImage"),
      *              @OA\Property(type="string", property="language"),
      *              @OA\Property(type="integer", property="storeCategoryID"),
@@ -65,7 +64,6 @@ class StoreProductCategoryController extends BaseController
      *              @OA\Items(
      *                  @OA\Property(type="integer", property="productCategoryID"),
      *                  @OA\Property(type="string", property="productCategoryName"),
-     *                  @OA\Property(type="string", property="description"),
      *                  @OA\Property(type="string", property="language")
      *              )
      *          )
@@ -125,9 +123,19 @@ class StoreProductCategoryController extends BaseController
      * @OA\RequestBody(
      *      description="Create Store Product Category Level Two",
      *      @OA\JsonContent(
-     *          @OA\Property(type="string", property="productCategoryName"),
-     *          @OA\Property(type="string", property="productCategoryImage"),
-     *          @OA\Property(type="integer", property="storeProductCategoryID"),
+     *          @OA\Property(type="object", property="data",
+     *              @OA\Property(type="string", property="productCategoryName"),
+     *              @OA\Property(type="string", property="productCategoryImage"),
+     *              @OA\Property(type="string", property="language"),
+     *              @OA\Property(type="integer", property="storeProductCategoryID"),
+     *          ),
+     *          @OA\Property(type="array", property="translate",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="productCategoryID"),
+     *                  @OA\Property(type="string", property="productCategoryName"),
+     *                  @OA\Property(type="string", property="language")
+     *              )
+     *          )
      *      )
      * )
      *
@@ -151,7 +159,7 @@ class StoreProductCategoryController extends BaseController
     public function createStoreProductCategoryLevelTwo(Request $request)
     {
         $data = json_decode($request->getContent(), true);
-        $request = $this->autoMapping->map(stdClass::class, StoreProductCategoryLevelTwoCreateRequest::class, (object)$data);
+        $request = $this->autoMapping->map(stdClass::class, StoreProductCategoryWithTranslationCreateRequest::class, (object)$data);
 
         $violations = $this->validator->validate($request);
         if (\count($violations) > 0) {

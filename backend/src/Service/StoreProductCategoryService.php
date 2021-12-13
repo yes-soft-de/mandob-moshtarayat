@@ -89,11 +89,20 @@ class StoreProductCategoryService
         }
     }
 
-    public function createStoreProductCategoryLevelTwo(StoreProductCategoryLevelTwoCreateRequest $request)
+    public function createStoreProductCategoryLevelTwo(StoreProductCategoryWithTranslationCreateRequest $request)
     {
-        $item = $this->storeProductCategoryManager->createStoreProductCategoryLevelTwo($request);
+        // First insert the data in the primary language
+        $storeProductCategoryCreateRequest = $this->autoMapping->map('array', StoreProductCategoryLevelTwoCreateRequest::class, $request->getData());
 
-        return $this->autoMapping->map(StoreProductCategoryEntity::class, StoreProductCategoryLevelTwoCreateResponse::class, $item);
+        $entity = $this->storeProductCategoryManager->createStoreProductCategoryLevelTwo($storeProductCategoryCreateRequest);
+
+        // Secondly, insert the translation data
+        if($request->getTranslate())
+        {
+            $this->createStoreProductCategoryTranslation($request->getTranslate(), $entity->getId());
+        }
+
+        return $this->autoMapping->map(StoreProductCategoryEntity::class, StoreProductCategoryLevelTwoCreateResponse::class, $entity);
     }
 
      public function updateStoreProductCategoryLevelOne(StoreProductCategoryWithTranslationUpdateRequest $request)

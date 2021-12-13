@@ -12,6 +12,8 @@ class StoreProductCategoryLevelTwoCreateRequest
 
     private $storeProductCategoryID;
 
+    private $language;
+
     /**
      * @return mixed
      */
