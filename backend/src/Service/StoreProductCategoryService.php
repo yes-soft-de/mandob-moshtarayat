@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\StoreProductCategoryEntity;
 use App\Manager\StoreProductCategoryManager;
 use App\Request\FilterStoreProductCategoryLevelOne;
+use App\Request\FilterStoreProductCategoryLevelTwo;
 use App\Request\StoreProductCategoryCreateRequest;
 use App\Request\StoreProductCategoryLevelOneUpdateRequest;
 use App\Request\StoreProductCategoryLevelTwoCreateRequest;
@@ -89,11 +90,20 @@ class StoreProductCategoryService
         }
     }
 
-    public function createStoreProductCategoryLevelTwo(StoreProductCategoryLevelTwoCreateRequest $request)
+    public function createStoreProductCategoryLevelTwo(StoreProductCategoryWithTranslationCreateRequest $request)
     {
-        $item = $this->storeProductCategoryManager->createStoreProductCategoryLevelTwo($request);
+        // First insert the data in the primary language
+        $storeProductCategoryCreateRequest = $this->autoMapping->map('array', StoreProductCategoryLevelTwoCreateRequest::class, $request->getData());
 
-        return $this->autoMapping->map(StoreProductCategoryEntity::class, StoreProductCategoryLevelTwoCreateResponse::class, $item);
+        $entity = $this->storeProductCategoryManager->createStoreProductCategoryLevelTwo($storeProductCategoryCreateRequest);
+
+        // Secondly, insert the translation data
+        if($request->getTranslate())
+        {
+            $this->createStoreProductCategoryTranslation($request->getTranslate(), $entity->getId());
+        }
+
+        return $this->autoMapping->map(StoreProductCategoryEntity::class, StoreProductCategoryLevelTwoCreateResponse::class, $entity);
     }
 
      public function updateStoreProductCategoryLevelOne(StoreProductCategoryWithTranslationUpdateRequest $request)
@@ -125,9 +135,31 @@ class StoreProductCategoryService
          }
      }
 
-     public function updateStoreProductCategoryLevelTwo(StoreProductCategoryLevelTwoUpdateRequest $request)
+     public function updateStoreProductCategoryLevelTwoTranslation($translationArrayRequest)
      {
-         $item = $this->storeProductCategoryManager->updateStoreProductCategoryLevelTwo($request);
+         if($translationArrayRequest)
+         {
+             foreach($translationArrayRequest as $translationRequest)
+             {
+                 $storeProductCategoryTranslationUpdateRequest = $this->autoMapping->map('array', StoreProductCategoryTranslationUpdateRequest::class, $translationRequest);
+
+                 $this->storeProductCategoryTranslationService->updateStoreProductCategoryTranslationByStoreProductCategoryIdAndLanguage($storeProductCategoryTranslationUpdateRequest);
+             }
+         }
+     }
+
+     public function updateStoreProductCategoryLevelTwo(StoreProductCategoryWithTranslationUpdateRequest $request)
+     {
+         // First, update the content in the primary language
+         $storeProductCategoryUpdateRequest = $this->autoMapping->map('array', StoreProductCategoryLevelTwoUpdateRequest::class, $request->getData());
+
+         $item = $this->storeProductCategoryManager->updateStoreProductCategoryLevelTwo($storeProductCategoryUpdateRequest);
+
+         //Second, update the translation data
+         if($request->getTranslate())
+         {
+             $this->updateStoreProductCategoryLevelTwoTranslation($request->getTranslate());
+         }
 
          return $this->autoMapping->map(StoreProductCategoryEntity::class, StoreProductCategoryUpdateLevelTwoResponse::class, $item);
      }
@@ -245,27 +277,36 @@ class StoreProductCategoryService
        return $response;
     }
 
-    public function getStoreProductsCategoryLevelTwoByStoreProductCategoryIDForAdmin($storeProductCategoryID)
+    public function getStoreProductsCategoryLevelTwoByStoreProductCategoryIDForAdmin(FilterStoreProductCategoryLevelTwo $request)
     {
-       $response = [];
+        $response = [];
 
-       $items = $this->storeProductCategoryManager->getStoreProductsCategoryLevelTwoByStoreProductCategoryID($storeProductCategoryID);
+        if($request->getLanguage() && $request->getLanguage() != $this->primaryLanguage)
+        {
+            $storeProductCategories = $this->storeProductCategoryTranslationService->getStoreProductCategoriesTranslationsByStoreProductCategoryIdAndLanguage($request->getStoreProductCategoryID(),
+                 $request->getLanguage());
 
-       foreach($items as $item)
-       {
-           if($item['productCategoryImage'])
-           {
-               $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params.$item['productCategoryImage'], $this->params);
-           }
-           else
-           {
-               $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $item['productCategoryImage'], $this->params);
-           }
+            foreach($storeProductCategories as $storeProductCategory)
+            {
+                $response[] = $this->autoMapping->map(StoreProductCategoryTranslationGetResponse::class, StoreProductsCategoryResponse::class, $storeProductCategory);
+            }
+        }
+        else
+        {
+            $items = $this->storeProductCategoryManager->getStoreProductsCategoryLevelTwoByStoreProductCategoryID($request->getStoreProductCategoryID());
 
-           $response[] = $this->autoMapping->map('array', StoreProductsCategoryResponse::class, $item);
-       }
+            foreach ($items as $item) {
+                if ($item['productCategoryImage']) {
+                    $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params . $item['productCategoryImage'], $this->params);
+                } else {
+                    $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $item['productCategoryImage'], $this->params);
+                }
 
-       return $response;
+                $response[] = $this->autoMapping->map('array', StoreProductsCategoryResponse::class, $item);
+            }
+        }
+
+        return $response;
     }
 
     public function getSubCategoriesByStoreCategoryID($storeCategoryID)

@@ -383,3 +383,13 @@ App\Request\ActivateMandobAccountByAdminRequest:
       - NotBlank: ~
     status:
       - NotBlank: ~
+
+App\Request\FilterStoreProductCategoryLevelOne:
+  properties:
+    storeCategoryID:
+      - NotBlank: ~
+
+App\Request\FilterStoreProductCategoryLevelTwo:
+  properties:
+    storeProductCategoryID:
+      - NotBlank: ~
