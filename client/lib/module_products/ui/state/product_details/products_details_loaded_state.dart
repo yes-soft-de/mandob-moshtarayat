@@ -5,8 +5,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mandob_moshtarayat/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
+import 'package:mandob_moshtarayat/hive/objects/cart_model/cart_model.dart';
 import 'package:mandob_moshtarayat/module_products/model/products_details_model.dart';
 import 'package:mandob_moshtarayat/module_products/ui/screen/products_details_screen.dart';
+import 'package:mandob_moshtarayat/module_products/ui/widget/quantity_control.dart';
 import 'package:mandob_moshtarayat/module_stores/presistance/cart_hive_box_helper.dart';
 import 'package:mandob_moshtarayat/utils/components/progresive_image.dart';
 import 'package:mandob_moshtarayat/utils/customIcon/mandob_icons_icons.dart';
@@ -22,7 +24,8 @@ class ProductDetailsLoadedState extends States {
   @override
   Widget getUI(BuildContext context) {
     return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+      physics:
+          const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
       child: Column(
         children: [
           Center(
@@ -86,8 +89,9 @@ class ProductDetailsLoadedState extends States {
                                           direction: Axis.horizontal,
                                           allowHalfRating: true,
                                           itemCount: 5,
-                                          itemPadding: EdgeInsets.symmetric(
-                                              horizontal: 0.0),
+                                          itemPadding:
+                                              const EdgeInsets.symmetric(
+                                                  horizontal: 0.0),
                                           itemBuilder: (context, _) => Icon(
                                             Icons.star,
                                             color:
@@ -98,7 +102,7 @@ class ProductDetailsLoadedState extends States {
                                       ),
                                     ],
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 12,
                                   ),
                                   Row(
@@ -121,12 +125,12 @@ class ProductDetailsLoadedState extends States {
                                                   .primaryColor,
                                             ),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 4,
                                           ),
                                           Text(
-                                            '${model.discount}',
-                                            style: TextStyle(
+                                            model.discount,
+                                            style: const TextStyle(
                                               fontSize: 15,
                                             ),
                                             textAlign: TextAlign.start,
@@ -136,7 +140,7 @@ class ProductDetailsLoadedState extends States {
                                       ),
                                     ],
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 12,
                                   ),
                                   Row(
@@ -158,12 +162,12 @@ class ProductDetailsLoadedState extends States {
                                                   .primaryColor,
                                             ),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 4,
                                           ),
                                           Text(
-                                            '${model.soldCount}',
-                                            style: TextStyle(
+                                            model.soldCount,
+                                            style: const TextStyle(
                                               fontSize: 15,
                                             ),
                                             textAlign: TextAlign.start,
@@ -181,7 +185,7 @@ class ProductDetailsLoadedState extends States {
                                 children: [
                                   SvgPicture.asset(SvgAsset.ACHIEVEMENT_SVG,
                                       width: 40),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 8,
                                   ),
                                   Container(
@@ -192,7 +196,7 @@ class ProductDetailsLoadedState extends States {
                                       padding: const EdgeInsets.all(8.0),
                                       child: Text(
                                         '${model.productPrice} \$',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: Colors.white),
                                       ),
@@ -212,98 +216,28 @@ class ProductDetailsLoadedState extends States {
                       children: [
                         Text(
                           S.current.productQuantity,
-                          style: TextStyle(fontSize: 16),
+                          style: const TextStyle(fontSize: 16),
                         ),
-                        Spacer(
+                        const Spacer(
                           flex: 1,
                         ),
-                        Container(
-                          height: 40,
-                          width: 155,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                            color: Theme.of(context).backgroundColor,
-                          ),
-                          child: true
-                              ? Padding(
-                                  padding: const EdgeInsets.all(8),
-                                  child: Center(
-                                      child: Text(
-                                    quantity.toString(),
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 17),
-                                  )),
-                                )
-                              : Row(
-                                  children: [
-                                    TextButton(
-                                      style: ButtonStyle(
-                                        shape: MaterialStateProperty.all(
-                                          RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.horizontal(
-                                                    left: Localizations
-                                                                    .localeOf(
-                                                                        context)
-                                                                .languageCode ==
-                                                            'en'
-                                                        ? Radius.circular(25)
-                                                        : Radius.zero,
-                                                    right: Localizations
-                                                                    .localeOf(
-                                                                        context)
-                                                                .languageCode ==
-                                                            'en'
-                                                        ? Radius.zero
-                                                        : Radius.circular(25)),
-                                          ),
-                                        ),
-                                      ),
-                                      onPressed: quantity > 0
-                                          ? () {
-                                              quantity = quantity - 1;
-                                              screenState.refresh();
-                                            }
-                                          : null,
-                                      child: Icon(Icons.remove),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 8.0, right: 8.0),
-                                      child: Text(quantity.toString()),
-                                    ),
-                                    TextButton(
-                                      style: ButtonStyle(
-                                        shape: MaterialStateProperty.all(
-                                          RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.horizontal(
-                                                    left: Localizations
-                                                                    .localeOf(
-                                                                        context)
-                                                                .languageCode ==
-                                                            'en'
-                                                        ? Radius.zero
-                                                        : Radius.circular(25),
-                                                    right: Localizations
-                                                                    .localeOf(
-                                                                        context)
-                                                                .languageCode ==
-                                                            'en'
-                                                        ? Radius.circular(25)
-                                                        : Radius.zero),
-                                          ),
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        quantity = quantity + 1;
-                                        screenState.refresh();
-                                      },
-                                      child: Icon(Icons.add),
-                                    ),
-                                  ],
-                                ),
+                        QuantityControlWidget(
+                          model: CartModel(
+                              name: model.productName,
+                              image: model.image,
+                              id: model.id,
+                              price: model.productPrice.toDouble(),
+                              quantity: getQuantity(model.id)),
+                          quantity: getQuantity(model.id),
+                          onSelect: (cartModel) {
+                            if (cartModel.quantity > 0) {
+                              CartHiveHelper().addProductsToCart(cartModel);
+                            }
+                            if (cartModel.quantity == 0) {
+                              CartHiveHelper().removeProductsToCart(cartModel);
+                            }
+                            screenState.refresh();
+                          },
                         ),
                       ],
                     ),
@@ -315,9 +249,9 @@ class ProductDetailsLoadedState extends States {
                       children: [
                         Text(
                           S.current.totalPrice,
-                          style: TextStyle(fontSize: 16),
+                          style: const TextStyle(fontSize: 16),
                         ),
-                        Spacer(
+                        const Spacer(
                           flex: 1,
                         ),
                         Container(
@@ -329,15 +263,15 @@ class ProductDetailsLoadedState extends States {
                           ),
                           child: Center(
                               child: Text(
-                            '${quantity * model.productPrice} \$',
-                            style: TextStyle(
+                            '${getQuantity(model.id) * model.productPrice} \$',
+                            style: const TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 17),
                           )),
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 75,
                   ),
                 ],

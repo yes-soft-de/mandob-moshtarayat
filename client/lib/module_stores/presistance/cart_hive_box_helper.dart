@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:mandob_moshtarayat/di/di_config.dart';
 import 'package:mandob_moshtarayat/hive/objects/cart_model/cart_model.dart';
 import 'package:mandob_moshtarayat/module_orders/request/client_order_request.dart';
+import 'package:mandob_moshtarayat/utils/global/global_state_manager.dart';
 
 class CartHiveHelper {
   var box = Hive.box('Order');
@@ -32,6 +34,7 @@ class CartHiveHelper {
       });
       box.put('cartJson', json.encode(maps));
     }
+    getIt<GlobalStateManager>().updateCaptainList();
   }
 
   void addProductsToCart(CartModel model) {

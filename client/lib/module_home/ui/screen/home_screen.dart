@@ -10,6 +10,7 @@ import 'package:mandob_moshtarayat/module_home/state_manager/home_state_manager.
 import 'package:mandob_moshtarayat/module_home/ui/state/home_loading_state.dart';
 import 'package:mandob_moshtarayat/module_home/ui/state/home_state.dart';
 import 'package:mandob_moshtarayat/module_stores/presistance/cart_hive_box_helper.dart';
+import 'package:mandob_moshtarayat/utils/global/global_state_manager.dart';
 
 @injectable
 class HomeScreen extends StatefulWidget {
@@ -87,10 +88,15 @@ class HomeScreenState extends State<HomeScreen> {
     });
     Hive.box('Authorization')
         .listenable(keys: [getIt<FavoriteHiveHelper>().favKey]).addListener(() {
-    String catID =
+      String catID =
           getIt<FavoriteHiveHelper>().getFavoriteCategory().toString();
       widget._homeStateManager.getHomeFavoriteData(this, catID);
       getMainCategoryProducts(catID);
+    });
+    getIt<GlobalStateManager>().stateStream.listen((event) {
+      if (mounted) {
+        setState(() {});
+      }
     });
     super.initState();
   }
