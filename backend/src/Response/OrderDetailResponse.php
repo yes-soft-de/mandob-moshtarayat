@@ -4,6 +4,7 @@ namespace App\Response;
 
 class OrderDetailResponse
 {
+    public $orderDetailID;
     public $orderID;
     public $storeOwnerProfileID;
     public $storeOwnerName;

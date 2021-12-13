@@ -316,7 +316,7 @@ class OrderManager
     {
         return $this->orderEntityRepository->getOrdersDeliveredAndCancelledByClientId($clientID);
     }
-
+//TODO for remove
     public function orderUpdateInvoiceByCaptain(OrderUpdateInvoiceByCaptainRequest $request)
     {
         $item = $this->orderEntityRepository->find($request->getId());

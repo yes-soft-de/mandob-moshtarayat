@@ -5,6 +5,7 @@ namespace App\Service;
 use App\AutoMapping;
 use App\Entity\OrderDetailEntity;
 use App\Manager\OrderDetailManager;
+use App\Request\OrderUpdateInvoiceByCaptainRequest;
 use App\Response\OrderCreateDetailResponse;
 use App\Response\OrderDetailProductsResponse;
 use App\Response\OrderDetailResponse;
@@ -94,10 +95,10 @@ class OrderDetailService
        return $this->getStoresWithProducts($orderNumber);
     }
 
-    public function getStoreOwnerProfileIdByOrderNumber($orderNumber)
+    public function getStoreOwnerProfileIdAndOrderIDByOrderNumber($orderNumber)
     {
-        //return StoreOwnerProfileId.
-        return $this->orderDetailManager->getStoreOwnerProfileIdByOrderNumber($orderNumber);
+        //return StoreOwnerProfileId and orderID.
+        return $this->orderDetailManager->getStoreOwnerProfileIdAndOrderIDByOrderNumber($orderNumber);
     }
 
     public function getOrderIdWithOutStoreProductByOrderNumber($orderNumber)
@@ -132,6 +133,11 @@ class OrderDetailService
     public function getCountOrdersEveryProductInLastMonth($fromDate, $toDate):?array
     {
        return $this->orderDetailManager->getCountOrdersEveryProductInLastMonth($fromDate, $toDate);
+   }
+
+    public function orderUpdateInvoiceByCaptain(OrderUpdateInvoiceByCaptainRequest $request):?array
+    {
+       return $this->orderDetailManager->orderUpdateInvoiceByCaptain($request);
    }
 
     public function getImageParams($imageURL, $image, $baseURL): array

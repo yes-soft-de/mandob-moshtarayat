@@ -8,7 +8,7 @@ class OrderDetailProductsResponse
     public $productImage;
     public $productPrice;
     public $countProduct;
-    public $ProductCategoryID;
+    public $productCategoryID;
     public $orderNumber;
     public $productID;
 }

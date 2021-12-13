@@ -24,13 +24,20 @@ class BaseController extends AbstractController
     const UPDATE = ["updated","204"];
     const DELETE = ["deleted","401"];
     const FETCH = ["fetched","200"];
-    const ERROR = ["error","8000"];
-    const ERROR_RELATED= ["error related","9201"];
+    //error order
+    const ERROR = ["error","9201"];
+    const ERROR_ORDER_REMOVE = ["error","9202"];
+    //error related
+    const ERROR_RELATED= ["error related","9251"];
+    // error users
     const ERROR_USER_CHECK = ["error user check","9000"];
     const ERROR_USER_FOUND = ["error user found","9001"];
     const ERROR_USER_CREATED = ["error, not created user","9010"];
-    const ERROR_CAPTAIN_INACTIVE = ["error captain inactive","9002"];
-    const ERROR_STORE_INACTIVE = ["error store inactive","9002"];
+    // error captain
+    const ERROR_CAPTAIN_INACTIVE = ["error captain inactive","9100"];
+    //error store
+    const ERROR_STORE_INACTIVE = ["error store inactive","9151"];
+
     const NOTFOUND=["Not found", "404"];
 //    const TEST = [
 //        "one"=>[ "error error", "9003"],

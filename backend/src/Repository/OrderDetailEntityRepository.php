@@ -44,8 +44,8 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('OrderDetailEntity')
 
-            ->select('OrderDetailEntity.id','OrderDetailEntity.orderID', 'OrderDetailEntity.productID', 'OrderDetailEntity.countProduct', 'OrderDetailEntity.orderNumber')
-            ->addSelect('ProductEntity.id as productID', 'ProductEntity.productName', 'ProductEntity.productImage', 'ProductEntity.storeProductCategoryID as ProductCategoryID', 'ProductEntity.productPrice', 'ProductEntity.storeOwnerProfileID')
+            ->select('OrderDetailEntity.id','OrderDetailEntity.orderID', 'OrderDetailEntity.productID', 'OrderDetailEntity.countProduct', 'OrderDetailEntity.orderNumber', 'OrderDetailEntity.storeOwnerProfileID')
+            ->addSelect('ProductEntity.id as productID', 'ProductEntity.productName', 'ProductEntity.productImage', 'ProductEntity.storeProductCategoryID as ProductCategoryID', 'ProductEntity.productPrice')
 
             ->leftJoin(ProductEntity::class, 'ProductEntity', Join::WITH, 'ProductEntity.id = OrderDetailEntity.productID')
             
@@ -62,7 +62,7 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('OrderDetailEntity')
 
             ->select('OrderDetailEntity.id','OrderDetailEntity.orderID', 'OrderDetailEntity.productID', 'OrderDetailEntity.countProduct', 'OrderDetailEntity.orderNumber')
-            ->addSelect('ProductEntity.id as productID', 'ProductEntity.productName', 'ProductEntity.productImage', 'ProductEntity.storeProductCategoryID as ProductCategoryID', 'ProductEntity.productPrice', 'ProductEntity.storeOwnerProfileID')
+            ->addSelect('ProductEntity.id as productID', 'ProductEntity.productName', 'ProductEntity.productImage', 'ProductEntity.storeProductCategoryID as productCategoryID', 'ProductEntity.productPrice', 'ProductEntity.storeOwnerProfileID')
 
             ->leftJoin(ProductEntity::class, 'ProductEntity', Join::WITH, 'ProductEntity.id = OrderDetailEntity.productID')
 
@@ -80,7 +80,7 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('OrderDetailEntity')
 
-            ->select( 'OrderDetailEntity.storeOwnerProfileID', 'OrderDetailEntity.orderID')
+            ->select( 'OrderDetailEntity.id as orderDetailID', 'OrderDetailEntity.storeOwnerProfileID', 'OrderDetailEntity.orderID')
             ->addSelect('StoreOwnerProfileEntity.storeOwnerName', 'StoreOwnerProfileEntity.image', 'StoreOwnerProfileEntity.phone', 'StoreOwnerProfileEntity.storeCategoryId')
             ->addSelect('StoreOwnerBranchEntity.location')
 
@@ -94,9 +94,27 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
             ->addGroupBy('OrderDetailEntity.storeOwnerProfileID')
 
             ->getQuery()
-//            ->getResult();
         ->getArrayResult();
     }
+
+    public function getStoreOwnerProfileIdAndOrderIDByOrderNumber($orderNumber)
+    {
+        return $this->createQueryBuilder('OrderDetailEntity')
+
+            ->select( 'OrderDetailEntity.storeOwnerProfileID', 'OrderDetailEntity.orderID')
+
+            ->leftJoin(StoreOwnerProfileEntity::class, 'StoreOwnerProfileEntity', Join::WITH, 'StoreOwnerProfileEntity.id = OrderDetailEntity.storeOwnerProfileID')
+
+            ->andWhere('OrderDetailEntity.orderNumber = :orderNumber')
+
+            ->setParameter('orderNumber', $orderNumber)
+
+            ->addGroupBy('OrderDetailEntity.storeOwnerProfileID')
+
+            ->getQuery()
+        ->getArrayResult();
+    }
+
     public function getOrderIdWithOutStoreProductByOrderNumber($orderNumber)
     {
         return $this->createQueryBuilder('OrderDetailEntity')

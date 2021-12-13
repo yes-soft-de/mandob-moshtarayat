@@ -5,6 +5,7 @@ namespace App\Manager;
 use App\AutoMapping;
 use App\Entity\OrderDetailEntity;
 use App\Repository\OrderDetailEntityRepository;
+use App\Request\OrderUpdateInvoiceByCaptainRequest;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Request\OrderDetailUpdateByClientRequest;
 
@@ -40,6 +41,11 @@ class OrderDetailManager
     public function getOrderIdByOrderNumber($orderNumber)
     {
        return $this->orderDetailEntityRepository->getOrderIdByOrderNumber($orderNumber);
+    }
+
+    public function getStoreOwnerProfileIdAndOrderIDByOrderNumber($orderNumber)
+    {
+       return $this->orderDetailEntityRepository->getStoreOwnerProfileIdAndOrderIDByOrderNumber($orderNumber);
     }
 
     public function getProductsByOrderNumberAndStoreID($orderNumber, $storeOwnerProfileID)
@@ -90,5 +96,20 @@ class OrderDetailManager
     public function getCountOrdersEveryProductInLastMonth($fromDate, $toDate)
     {
         return $this->orderDetailEntityRepository->getCountOrdersEveryProductInLastMonth($fromDate, $toDate);
+    }
+
+    public function orderUpdateInvoiceByCaptain(OrderUpdateInvoiceByCaptainRequest $request)
+    {
+        $item = $this->orderDetailEntityRepository->find($request->getOrderDetailID());
+
+        if ($item) {
+            $item = $this->autoMapping->mapToObject(OrderUpdateInvoiceByCaptainRequest::class, OrderDetailEntity::class, $request, $item);
+
+            $item->setUpdatedAt($item->getUpdatedAt());
+
+            $this->entityManager->flush();
+
+            return $item;
+        }
     }
 }

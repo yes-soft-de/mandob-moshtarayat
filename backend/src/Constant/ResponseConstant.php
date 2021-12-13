@@ -4,15 +4,15 @@ namespace App\Constant;
 
 abstract class ResponseConstant
 {
-    static $PLEASE_SUBSCRIBE = "please subscribe!";
+    static $CAPTAIN_INACTIVE = "captain inactive";
 
-	static $SUBSCRIBE_IS_AWAITING_ACTIVATION = "subscribe is awaiting activation!";
-	
-    static $SUBSCRIBE_AND_COUNT_ORDER_FINISHED = "subscribe finished, count orders is finished!";
-	
-    static $SUBSCRIBE_AND_DATE_FINISHED = "subscribe finished, date is finished!";
-	
-    static $SUBSCRIBE_UNACCEPTED = "subscribe unaccepted!";
+    static $CAPTAIN_ACTIVE = "active";
 
-    static $ITS_PAYMENT_TIME = "it's the time for payment";
+    static $ORDER_NOT_CREATED = "Not created";
+
+    static $ORDER_NOT_REMOVE_TIME = "can not remove it, Exceeded time allowed";
+
+    static $ORDER_NOT_REMOVE_STATE = "on way to pick order";
+
+    static $ORDER_NOT_REMOVE_CAPTAIN_RECEIVED = "can not remove it, The captain received the order";
 }

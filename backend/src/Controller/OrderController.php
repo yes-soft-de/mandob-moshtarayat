@@ -23,6 +23,7 @@ use stdClass;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
+use App\Constant\ResponseConstant;
 
 class OrderController extends BaseController
 {
@@ -40,7 +41,7 @@ class OrderController extends BaseController
 
     /**
      * captain: Get pending orders for captain.
-     * @Route("/closestOrders",   name="GetPendingOrdersForCaptain", methods={"GET"})
+     * @Route("/closestorders",   name="GetPendingOrdersForCaptain", methods={"GET"})
      * @IsGranted("ROLE_CAPTAIN") 
      * @return JsonResponse
      * *
@@ -62,27 +63,12 @@ class OrderController extends BaseController
      *          @OA\Property(type="array", property="Data",
      *              @OA\Items(
      *                  @OA\Property(type="integer", property="id"),
-     *                  @OA\Property(type="object", property="source"),
      *                  @OA\Property(type="object", property="deliveryDate"),
      *                  @OA\Property(type="string", property="payment"),
      *                  @OA\Property(type="string", property="orderNumber"),
-     *                  @OA\Property(type="string", property="detail"),
-     *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
-     *                  @OA\Property(type="string", property="storeOwnerName"),
-     *                  @OA\Property(type="array", property="branches",
-     *                      @OA\Items(
-     *                              @OA\Property(type="integer", property="id"),
-     *                              @OA\Property(type="integer", property="storeOwnerProfileID"),
-     *                              @OA\Property(type="object", property="geoLocation"),
-     *                              @OA\Property(type="string", property="branchName"),
-     *                              @OA\Property(type="boolean", property="free"),
-     *                              @OA\Property(type="string", property="storeOwnerName"),
-     *                              @OA\Property(type="object", property="isActive"),
-     *                                   ),
-     *                      ),
-     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="number", property="deliveryCost"),
+     *                  @OA\Property(type="number", property="orderCost"),
      *                  @OA\Property(type="integer", property="orderType"),
-     *                  @OA\Property(type="object", property="destination"),
      *                  @OA\Property(type="string", property="note"),
      *                  ),
      *            )
@@ -95,19 +81,19 @@ class OrderController extends BaseController
      *      response="default",
      *      description="Return captain inactive.",
      *      @OA\JsonContent(
-     *          @OA\Property(type="string", property="status_code", description="9002"),
+     *          @OA\Property(type="string", property="status_code", description="9100"),
      *          @OA\Property(type="string", property="msg", description="error captain inactive Successfully."),
      *          @OA\Property(type="string", property="Data", description="captain inactive"),
      *      )
      * )
      * @Security(name="Bearer")
      */
-    public function closestOrders()
+    public function closestOrders(): JsonResponse
     {
         $response = $this->orderService->closestOrders($this->getUserId());
 
-        if($response == "captain inactive"){
-          return $this->response($response, self::ERROR_CAPTAIN_INACTIVE);  
+        if($response == ResponseConstant::$CAPTAIN_INACTIVE){
+           return $this->response($response, self::ERROR_CAPTAIN_INACTIVE);
         }
         
         return $this->response($response, self::FETCH);
@@ -115,7 +101,7 @@ class OrderController extends BaseController
 
     /**
      * admin: Get pending orders for admin.
-     * @Route("/getPendingOrders", name="GetPendingOrders", methods={"GET"})
+     * @Route("/getpendingorders", name="GetPendingOrders", methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
      * *
@@ -137,35 +123,17 @@ class OrderController extends BaseController
      *          @OA\Property(type="array", property="Data",
      *              @OA\Items(
      *                  @OA\Property(type="integer", property="id"),
-     *                  @OA\Property(type="object", property="source"),
      *                  @OA\Property(type="object", property="deliveryDate"),
      *                  @OA\Property(type="string", property="payment"),
      *                  @OA\Property(type="string", property="orderNumber"),
-     *                  @OA\Property(type="string", property="detail"),
-     *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
-     *                  @OA\Property(type="string", property="storeOwnerName"),
-     *                  @OA\Property(type="array", property="branches",
-     *                      @OA\Items(
-     *                              @OA\Property(type="integer", property="id"),
-     *                              @OA\Property(type="integer", property="storeOwnerProfileID"),
-     *                              @OA\Property(type="object", property="geoLocation"),
-     *                              @OA\Property(type="string", property="branchName"),
-     *                              @OA\Property(type="boolean", property="free"),
-     *                              @OA\Property(type="string", property="storeOwnerName"),
-     *                              @OA\Property(type="object", property="isActive"),
-     *                                   ),
-     *                      ),
-     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="number", property="deliveryCost"),
+     *                  @OA\Property(type="number", property="orderCost"),
      *                  @OA\Property(type="integer", property="orderType"),
-     *                  @OA\Property(type="integer", property="deliveryCost"),
-     *                  @OA\Property(type="integer", property="orderCost"),
-     *                  @OA\Property(type="object", property="destination"),
      *                  @OA\Property(type="string", property="note"),
      *                  ),
      *            )
      *       )
      *  )
-     *
      * @Security(name="Bearer")
      */
     public function getPendingOrders()
@@ -752,7 +720,7 @@ class OrderController extends BaseController
       *      response="default",
       *      description="The order was not created",
       *      @OA\JsonContent(
-      *          @OA\Property(type="string", property="status_code", description="8000"),
+      *          @OA\Property(type="string", property="status_code", description="9201"),
       *          @OA\Property(type="string", property="msg", description="Not created Successfully."),
       *          @OA\Property(type="string", property="Data", description="error"),
       *      )
@@ -768,7 +736,7 @@ class OrderController extends BaseController
         $request->setOrderDetails($data['orderDetails']);
 
         $response = $this->orderService->createClientOrder($request);
-        if($response == "Not created"){
+        if($response == ResponseConstant::$ORDER_NOT_CREATED){
             return $this->response($response, self::ERROR);  
           }
 
@@ -833,7 +801,7 @@ class OrderController extends BaseController
       *      response="default",
       *      description="The order was not created",
       *      @OA\JsonContent(
-      *          @OA\Property(type="string", property="status_code", description="8000"),
+      *          @OA\Property(type="string", property="status_code", description="9201"),
       *          @OA\Property(type="string", property="msg", description="Not created Successfully."),
       *          @OA\Property(type="string", property="Data", description="error"),
       *      )
@@ -848,7 +816,7 @@ class OrderController extends BaseController
         $request->setClientID($this->getUserId());
 
         $response = $this->orderService->createClientSendOrder($request);
-        if($response == "Not created"){
+        if($response == ResponseConstant::$ORDER_NOT_CREATED){
             return $this->response($response, self::ERROR);  
           }
 
@@ -911,7 +879,7 @@ class OrderController extends BaseController
       *      response="default",
       *      description="The order was not created",
       *      @OA\JsonContent(
-      *          @OA\Property(type="string", property="status_code", description="8000"),
+      *          @OA\Property(type="string", property="status_code", description="9201"),
       *          @OA\Property(type="string", property="msg", description="Not created Successfully."),
       *          @OA\Property(type="string", property="Data", description="error"),
       *      )
@@ -927,7 +895,7 @@ class OrderController extends BaseController
         $request->setClientID($this->getUserId());
 
         $response = $this->orderService->createClientSpecialOrder($request);
-        if($response == "Not created"){
+        if($response == ResponseConstant::$ORDER_NOT_CREATED){
             return $this->response($response, self::ERROR);  
           }
 
@@ -935,7 +903,9 @@ class OrderController extends BaseController
     }
 
     /**
-     * @Route("orderstatusbyordernumber/{orderNumber}", name="getOrderStatusByOrderNumber", methods={"GET"})
+     * client: Get order details for client.
+     * @Route("orderdetailsforclient/{orderNumber}", name="getOrderDetailsForClient", methods={"GET"})
+     * @IsGranted("ROLE_CLIENT")
      * @param $orderNumber
      * @return JsonResponse
      * * *
@@ -1000,7 +970,7 @@ class OrderController extends BaseController
      *  )
      *)
      */
-    public function getOrderStatusByOrderNumber($orderNumber): JsonResponse
+    public function getOrderDetailsForClient($orderNumber): JsonResponse
     {
         $result = $this->orderService->getOrderDetailsByOrderNumber($orderNumber);
   
@@ -1277,7 +1247,7 @@ class OrderController extends BaseController
      * )
      *
      *  @OA\RequestBody (
-     *        description="Update the order invoice",
+     *        description="Update the order type Special",
      *        @OA\JsonContent(
      *              @OA\Property(type="string", property="orderNumber"),
      *              @OA\Property(type="object", property="destination"),
@@ -1457,22 +1427,26 @@ class OrderController extends BaseController
      * or
      *
      * @OA\Response(
-     *      response=425,
+     *      response="default",
      *      description="Returns string",
      *      @OA\JsonContent(
-     *          @OA\Property(type="string", property="status_code"),
-     *          @OA\Property(type="string", property="msg"),
-     *          @OA\Property(type="string", property="Data"),
+     *          @OA\Property(type="string", property="status_code", description="9202"),
+     *          @OA\Property(type="string", property="msg", description="error Successfully."),
+     *          @OA\Property(type="string", property="Data", description="can not remove it"),
      *      )
      * )
      *
      * @Security(name="Bearer")
      */
-    public function orderCancel($orderNumber)
+    public function orderCancel($orderNumber): JsonResponse
     {
         $response = $this->orderService->orderCancel($orderNumber, $this->getUserId());
-        if(is_string($response)){
-            return $this->response($response, self::ERROR);  
+        if($response == ResponseConstant::$ORDER_NOT_REMOVE_TIME){
+            return $this->response($response, self::ERROR_ORDER_REMOVE);
+        }
+
+        if($response == ResponseConstant::$ORDER_NOT_REMOVE_CAPTAIN_RECEIVED){
+            return $this->response($response, self::ERROR_ORDER_REMOVE);
         }
 
         return $this->response($response, self::UPDATE);
@@ -1515,7 +1489,7 @@ class OrderController extends BaseController
      *
      * @Security(name="Bearer")
      */
-      public function getOrdersByClientID()
+      public function getOrdersByClientID(): JsonResponse
       {
           $result = $this->orderService->getOrdersByClientID($this->getUserId());
   
@@ -1523,8 +1497,8 @@ class OrderController extends BaseController
       }
 
     /**
-     *  client: orders delivered or cancelled.
-     * @Route("ordersDeliveredAndCancelledByClientId", name="ordersDeliveredAndCancelledByClientId", methods={"GET"})
+     * client: orders delivered or cancelled.
+     * @Route("ordersdeliveredandcancelledbyclientid", name="ordersDeliveredAndCancelledByClientId", methods={"GET"})
      * @IsGranted("ROLE_CLIENT")
      * @return JsonResponse
      * *
@@ -1559,7 +1533,7 @@ class OrderController extends BaseController
      *
      * @Security(name="Bearer")
      */
-      public function getOrdersDeliveredAndCancelledByClientId()
+      public function getOrdersDeliveredAndCancelledByClientId(): JsonResponse
       {
           $result = $this->orderService->getOrdersDeliveredAndCancelledByClientId($this->getUserId());
   
@@ -1568,7 +1542,7 @@ class OrderController extends BaseController
 
     /**
      * captain: Update the order invoice.
-     * @Route("/orderUpdateInvoiceByCaptain", name="orderUpdateInvoiceByCaptain", methods={"PUT"})
+     * @Route("/orderupdateinvoicebycaptain", name="orderUpdateInvoiceByCaptain", methods={"PUT"})
      * @IsGranted("ROLE_CAPTAIN")
      * @param Request $request
      * @return JsonResponse
@@ -1615,7 +1589,7 @@ class OrderController extends BaseController
 
         $response = $this->orderService->orderUpdateInvoiceByCaptain($request);
         if(is_string($response)){
-            return $this->response($response, self::ERROR);  
+            return $this->response($response, self::ERROR);
           }
 
         return $this->response($response, self::UPDATE);
@@ -1729,7 +1703,7 @@ class OrderController extends BaseController
 
     /**
      * admin: get captain's orders and count orders.
-     * @Route("ordersAndCountByCaptainId/{captainId}", name="getOrdersAndCountByCaptainIdForAdmin", methods={"GET"})
+     * @Route("ordersandcountbycaptainid/{captainId}", name="getOrdersAndCountByCaptainIdForAdmin", methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
      * *
@@ -1748,18 +1722,18 @@ class OrderController extends BaseController
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="integer", property="ordersCount"),
      *              @OA\Property(type="array", property="orders",
      *                @OA\Items(
      *                      @OA\Property(type="integer", property="id"),
-     *                      @OA\Property(type="object", property="deliveryDate"),
-     *                      @OA\Property(type="integer", property="storeOwnerProfileID"),
-     *                      @OA\Property(type="integer", property="orderCost"),
-     *                      @OA\Property(type="integer", property="orderType"),
-     *                      @OA\Property(type="object", property="destination"),
-     *                      @OA\Property(type="string", property="note"),
      *                      @OA\Property(type="string", property="state"),
+     *                      @OA\Property(type="object", property="deliveryDate"),
+     *                      @OA\Property(type="object", property="createdAt"),
      *                      @OA\Property(type="integer", property="orderNumber"),
-     *                      @OA\Property(type="string", property="detail"),
+     *                      @OA\Property(type="number", property="amount"),
+     *                      @OA\Property(type="integer", property="orderCost"),
+     *                      @OA\Property(type="number", property="deliveryCost"),
+     *                      @OA\Property(type="integer", property="orderType"),
      *                      ),
      *                  )
      *              )
@@ -1768,7 +1742,7 @@ class OrderController extends BaseController
      * )
      * @Security(name="Bearer")
      */
-      public function getOrdersAndCountByCaptainId($captainId)
+      public function getOrdersAndCountByCaptainId($captainId): JsonResponse
       {
           $result = $this->orderService->getOrdersAndCountByCaptainId($captainId);
   
