@@ -110,9 +110,9 @@ class StoreCategoryManager
         }
     }
 
-    public function getStoreCategories($userLocale, $primaryLanguage)
+    public function getStoreCategories()
     {
-       return $this->storeCategoryEntityRepository->getStoreCategories($userLocale, $primaryLanguage);
+       return $this->storeCategoryEntityRepository->getStoreCategories();
     }
 
     public function getLast15StoreCategories()
