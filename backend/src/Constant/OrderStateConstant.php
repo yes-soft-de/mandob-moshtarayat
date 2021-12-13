@@ -15,4 +15,6 @@ abstract class OrderStateConstant
     static $ORDER_STATE_ONGOING= "ongoing";
 
     static $ORDER_STATE_DELIVERED= "delivered";
+
+    static $ORDER_STATE_CANCEL= "cancelled";
 }

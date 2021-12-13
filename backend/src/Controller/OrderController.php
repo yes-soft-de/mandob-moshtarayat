@@ -1515,8 +1515,8 @@ class OrderController extends BaseController
       }
 
     /**
-     *  client: orders delivered or cancelled.
-     * @Route("ordersDeliveredAndCancelledByClientId", name="ordersDeliveredAndCancelledByClientId", methods={"GET"})
+     * client: orders delivered or cancelled.
+     * @Route("ordersdeliveredandcancelledbyclientid", name="ordersDeliveredAndCancelledByClientId", methods={"GET"})
      * @IsGranted("ROLE_CLIENT")
      * @return JsonResponse
      * *
@@ -1551,7 +1551,7 @@ class OrderController extends BaseController
      *
      * @Security(name="Bearer")
      */
-      public function getOrdersDeliveredAndCancelledByClientId()
+      public function getOrdersDeliveredAndCancelledByClientId(): JsonResponse
       {
           $result = $this->orderService->getOrdersDeliveredAndCancelledByClientId($this->getUserId());
   

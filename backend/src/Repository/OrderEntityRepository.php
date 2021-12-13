@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Constant\OrderStateConstant;
 use App\Entity\OrderEntity;
 use App\Entity\CaptainProfileEntity;
 use App\Entity\StoreOwnerProfileEntity;
@@ -674,8 +675,8 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->andWhere("OrderEntity.state != :cancelled")
 
             ->setParameter('clientID', $clientID)
-            ->setParameter('delivered', self::DELIVERED)
-            ->setParameter('cancelled', self::CANCEL)
+            ->setParameter('delivered', OrderStateConstant::$ORDER_STATE_DELIVERED)
+            ->setParameter('cancelled', OrderStateConstant::$ORDER_STATE_CANCEL)
 
             ->addGroupBy('OrderEntity.id')
 
@@ -695,8 +696,8 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->andWhere("OrderEntity.state = :delivered or OrderEntity.state = :cancelled")
 
             ->setParameter('clientID', $clientID)
-            ->setParameter('delivered', self::DELIVERED)
-            ->setParameter('cancelled', self::CANCEL)
+            ->setParameter('delivered', OrderStateConstant::$ORDER_STATE_DELIVERED)
+            ->setParameter('cancelled', OrderStateConstant::$ORDER_STATE_CANCEL)
 
             ->addGroupBy('OrderEntity.id')
 
