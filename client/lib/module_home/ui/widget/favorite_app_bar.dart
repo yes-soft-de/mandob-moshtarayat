@@ -86,7 +86,7 @@ class _FavoriteHomeAppBarState extends State<FavoriteHomeAppBar> {
                                       Padding(
                                         padding: const EdgeInsets.only(top:4.0),
                                         child: Text(widget.categoryName ?? '',style: const TextStyle(
-                                          fontSize: 8,
+                                          fontSize: 12,
                                           fontWeight: FontWeight.bold,
                                         ),),
                                       ),
@@ -101,6 +101,7 @@ class _FavoriteHomeAppBarState extends State<FavoriteHomeAppBar> {
                       Navigator.pushNamed(context, SearchRoutes.SEARCH_SCREEN);
                     },
                     readOnly: true,
+                    hintStyle:  TextStyle(fontSize: 12,fontWeight:FontWeight.bold,color: Theme.of(context).disabledColor),
                     hintText: S.of(context).searchFor,
                   ),
                 ),
