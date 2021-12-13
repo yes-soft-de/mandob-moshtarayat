@@ -199,18 +199,31 @@ class StoreProductCategoryService
        return $response;
     }
 
-    public function getStoreProductsCategoryLevelOneByStoreCategoryID($storeCategoryID)
+    public function getStoreProductsCategoryLevelOneByStoreCategoryID($userLocale, $storeCategoryID)
     {
-       $response = [];
+        $response = [];
 
-       $items = $this->storeProductCategoryManager->getSubCategoriesByStoreCategoryID($storeCategoryID);
+        if($userLocale != null && $userLocale != $this->primaryLanguage)
+        {
+            $storeProductCategoriesTranslation = $this->storeProductCategoryTranslationService->getByStoreCategoryIdAndLanguage($storeCategoryID, $userLocale);
 
-       foreach($items as $item) {
-           $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params.$item['productCategoryImage'], $this->params);
+            foreach($storeProductCategoriesTranslation as $storeProductCategoryTranslation)
+            {
+                $response[] = $this->autoMapping->map(StoreProductCategoryTranslationGetResponse::class, StoreProductsCategoryResponse::class, $storeProductCategoryTranslation);
+            }
+        }
+        else
+        {
+            $items = $this->storeProductCategoryManager->getSubCategoriesByStoreCategoryID($storeCategoryID);
 
-           $response[] = $this->autoMapping->map('array', StoreProductsCategoryResponse::class, $item);
-      }
-       return $response;
+            foreach($items as $item) {
+                $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params.$item['productCategoryImage'], $this->params);
+
+                $response[] = $this->autoMapping->map('array', StoreProductsCategoryResponse::class, $item);
+            }
+        }
+
+        return $response;
     }
 
     public function getStoreProductsCategoryLevelOneByStoreCategoryIDFroAdmin(FilterStoreProductCategoryLevelOne $request)

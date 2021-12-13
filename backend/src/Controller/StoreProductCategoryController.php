@@ -336,8 +336,15 @@ class StoreProductCategoryController extends BaseController
      * Get store products category of first level.
      * @Route("/storeproductscategorylevelone/{storeCategoryID}", name="getStoreProductsCategoryLevelOneByStoreCategoryID", methods={"GET"})
      * @return JsonResponse
-     * *
+     *
      * @OA\Tag(name="Store Product Category")
+     *
+     * @OA\Parameter(
+     *      name="Accept-Language",
+     *      in="header",
+     *      description="language to be passed as a header",
+     *      required=false
+     * )
      *
      * @OA\Response(
      *      response=200,
@@ -360,9 +367,9 @@ class StoreProductCategoryController extends BaseController
      * )
      *
      */
-      public function getStoreProductsCategoryLevelOneByStoreCategoryID($storeCategoryID)
+      public function getStoreProductsCategoryLevelOneByStoreCategoryID(Request $request, $storeCategoryID)
       {
-        $result = $this->storeProductCategoryService->getStoreProductsCategoryLevelOneByStoreCategoryID($storeCategoryID);
+        $result = $this->storeProductCategoryService->getStoreProductsCategoryLevelOneByStoreCategoryID($request->getPreferredLanguage(), $storeCategoryID);
 
         return $this->response($result, self::FETCH);
       }
