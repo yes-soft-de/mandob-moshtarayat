@@ -81,12 +81,11 @@ class StoreCategoriesScreenState extends State<StoreCategoriesScreen> {
                     context,
                     S.current.addNewCategory,
                     S.current.category,
-                    (name, image) {
+                    (name, image,tras) {
                       Navigator.of(context).pop();
                       addCategory(CreateStoreCategoryRequest(
-                          image: image,
-                          storeCategoryName: name,
-                          description: name));
+                        dataStoreCategory: DataStoreCategory(image: image,lang: 'ar',storeCategoryName: name,description: name),
+                          translate: tras,));
                     },
                   );
                 });

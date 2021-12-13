@@ -86,7 +86,7 @@ class StoreCategoriesLoadedState extends StoreCategoriesState {
         },
         dialog:
             formDialog(context, S.current.storeCategories, S.current.category,
-                (name, image) {
+                (name, image,tars) {
           Navigator.of(context).pop();
           screenState.updateCategory(UpdateStoreCategoriesRequest(
               id: element.id,

@@ -45,8 +45,8 @@ class StoreCategoriesStateManager {
   void createCategory(StoreCategoriesScreenState screenState,
       CreateStoreCategoryRequest request) {
     _stateSubject.add(StoreCategoriesLoadingState(screenState));
-    _uploadService.uploadImage(request.image).then((value) {
-      request.image = value;
+    _uploadService.uploadImage(request.dataStoreCategory?.image).then((value) {
+      request.dataStoreCategory?.image = value;
       _categoriesService.createCategory(request).then((value) {
         if (value.hasError) {
           getStoreCategories(screenState);

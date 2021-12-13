@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_store_category_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/store_categories_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_product_category_request.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_app_bar.dart';
@@ -12,7 +13,7 @@ import 'package:mandob_moshtarayat_dashboad/utils/effect/checked.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/helpers/custom_flushbar.dart';
 
 Widget formDialog(BuildContext context, String title, String textHint,
-    Function(String, String?) add,
+    Function(String, String? , List<TranslateStoreCategory>?) add,
     {bool image = true,
     UpdateStoreCategoriesRequest? storeCategoriesRequest,
     UpdateProductCategoryRequest? request}) {
@@ -21,15 +22,15 @@ Widget formDialog(BuildContext context, String title, String textHint,
         CustomTwaslnaAppBar.appBar(context, title: S.current.addNewCategory),
     body: image
         ? InsertForm(
-            add: (name, image) {
-              add(name, image);
+            add: (name, image,tra) {
+              add(name, image,tra);
             },
             hintText: textHint,
-            storeCategoriesRequest: storeCategoriesRequest,
+            storeCategoriesRequest: storeCategoriesRequest, languages: ['en','urdu'],
           )
         : insertFormWithoutImage(
             add: (name) {
-              add(name, '');
+              add(name, '',[]);
             },
             hintText: textHint,
             updateStoreCategoriesRequest: request,
@@ -38,12 +39,13 @@ Widget formDialog(BuildContext context, String title, String textHint,
 }
 
 class InsertForm extends StatefulWidget {
-  final Function(String, String?) add;
+  final Function(String, String?,List<TranslateStoreCategory>?) add;
   final String hintText;
+  final List<String> languages;
   final UpdateStoreCategoriesRequest? storeCategoriesRequest;
 
   InsertForm(
-      {required this.add, required this.hintText, this.storeCategoriesRequest});
+      {required this.add, required this.hintText, this.storeCategoriesRequest,required this.languages});
 
   @override
   _InsertFormState createState() => _InsertFormState();
@@ -51,20 +53,29 @@ class InsertForm extends StatefulWidget {
 
 class _InsertFormState extends State<InsertForm> {
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
-  late TextEditingController _nameController;
+  late TextEditingController _nameArController;
+  late String lang;
   String? imagePath;
+
+ late List<TranslateStoreCategory> translate;
+ late List<CustomFormFieldWithTranslate> translateWidgets;
+
+
+
 
   @override
   void initState() {
-    _nameController = TextEditingController();
-    if (widget.storeCategoriesRequest != null) {
-      _nameController.text =
-          widget.storeCategoriesRequest?.storeCategoryName ?? '';
-      imagePath = widget.storeCategoriesRequest?.image;
-      if (imagePath == '') {
-        imagePath = null;
-      }
-    }
+    _nameArController = TextEditingController();
+    translateWidgets = [];
+    translate=[];
+//    if (widget.storeCategoriesRequest != null) {
+//      _nameArController.text =
+//          widget.storeCategoriesRequest?.storeCategoryName ?? '';
+//      imagePath = widget.storeCategoriesRequest?.image;
+//      if (imagePath == '') {
+//        imagePath = null;
+//      }
+//    }
     super.initState();
   }
 
@@ -85,11 +96,32 @@ class _InsertFormState extends State<InsertForm> {
                     textAlign: TextAlign.start,
                   ),
                 ),
-                CustomFormField(
-                  controller: _nameController,
-                  hintText: widget.hintText,
-                  last: true,
+                Row(
+                  children: [
+                    Expanded(
+                      child: CustomFormFieldWithTranslate(
+                        controller: _nameArController,
+                        hintText: widget.hintText,
+                        last: true,
+                        initLanguage: 'ar',
+                        languages: ['ar'],
+                      ),
+                    ),
+                    InkWell(
+                        onTap: (){
+                          if(_nameArController.text.isEmpty){
+                            CustomFlushBarHelper.createError(
+                                title: S.current.warnning,
+                                message: S.current.pleaseCompleteTheForm)
+                                .show(context);
+                          }else if (translateWidgets.length != widget.languages.length){
+                            trans(true);
+                          }
+                        },
+                        child: Icon(Icons.add))
+                  ],
                 ),
+                Column(children: trans(false),),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Center(
@@ -161,7 +193,7 @@ class _InsertFormState extends State<InsertForm> {
                 widget.storeCategoriesRequest != null) {
               imagePath = widget.storeCategoriesRequest?.baseImage ?? '';
             }
-            widget.add(_nameController.text.trim(), imagePath);
+            widget.add(_nameArController.text.trim(), imagePath,translate);
           } else {
             CustomFlushBarHelper.createError(
                     title: S.current.warnning,
@@ -169,6 +201,31 @@ class _InsertFormState extends State<InsertForm> {
                 .show(context);
           }
         });
+  }
+
+  List<CustomFormFieldWithTranslate> trans(bool addNewField){
+    if(addNewField) {
+      TranslateStoreCategory  translateStoreCategory = TranslateStoreCategory(lang:widget.languages.first );
+      TextEditingController _nameController = TextEditingController();
+      late String language = '';
+
+      translateWidgets.add(
+          CustomFormFieldWithTranslate(
+            initLanguage: widget.languages.first,
+            onChanged: (){
+              translateStoreCategory.storeCategoryName=_nameController.text;
+            },
+        languages: widget.languages,
+            controller: _nameController,
+            onSelected: (lan){
+          language = lan;
+          translateStoreCategory.lang=language;
+      },));
+      setState(() {
+      });
+      translate.add(translateStoreCategory);
+    }
+    return translateWidgets;
   }
 }
 
