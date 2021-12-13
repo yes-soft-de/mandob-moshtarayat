@@ -23,6 +23,7 @@ use stdClass;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
+use App\Constant\ResponseConstant;
 
 class OrderController extends BaseController
 {
@@ -40,7 +41,7 @@ class OrderController extends BaseController
 
     /**
      * captain: Get pending orders for captain.
-     * @Route("/closestOrders",   name="GetPendingOrdersForCaptain", methods={"GET"})
+     * @Route("/closestorders",   name="GetPendingOrdersForCaptain", methods={"GET"})
      * @IsGranted("ROLE_CAPTAIN") 
      * @return JsonResponse
      * *
@@ -62,27 +63,12 @@ class OrderController extends BaseController
      *          @OA\Property(type="array", property="Data",
      *              @OA\Items(
      *                  @OA\Property(type="integer", property="id"),
-     *                  @OA\Property(type="object", property="source"),
      *                  @OA\Property(type="object", property="deliveryDate"),
      *                  @OA\Property(type="string", property="payment"),
      *                  @OA\Property(type="string", property="orderNumber"),
-     *                  @OA\Property(type="string", property="detail"),
-     *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
-     *                  @OA\Property(type="string", property="storeOwnerName"),
-     *                  @OA\Property(type="array", property="branches",
-     *                      @OA\Items(
-     *                              @OA\Property(type="integer", property="id"),
-     *                              @OA\Property(type="integer", property="storeOwnerProfileID"),
-     *                              @OA\Property(type="object", property="geoLocation"),
-     *                              @OA\Property(type="string", property="branchName"),
-     *                              @OA\Property(type="boolean", property="free"),
-     *                              @OA\Property(type="string", property="storeOwnerName"),
-     *                              @OA\Property(type="object", property="isActive"),
-     *                                   ),
-     *                      ),
-     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="number", property="deliveryCost"),
+     *                  @OA\Property(type="number", property="orderCost"),
      *                  @OA\Property(type="integer", property="orderType"),
-     *                  @OA\Property(type="object", property="destination"),
      *                  @OA\Property(type="string", property="note"),
      *                  ),
      *            )
@@ -102,12 +88,12 @@ class OrderController extends BaseController
      * )
      * @Security(name="Bearer")
      */
-    public function closestOrders()
+    public function closestOrders(): JsonResponse
     {
         $response = $this->orderService->closestOrders($this->getUserId());
 
-        if($response == "captain inactive"){
-          return $this->response($response, self::ERROR_CAPTAIN_INACTIVE);  
+        if($response == ResponseConstant::$CAPTAIN_INACTIVE){
+           return $this->response($response, self::ERROR_CAPTAIN_INACTIVE);
         }
         
         return $this->response($response, self::FETCH);

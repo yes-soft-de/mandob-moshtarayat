@@ -38,6 +38,7 @@ use App\Response\CountOrdersInLastMonthForProoductResponse;
 use App\Response\StoreOrdersOngoingResponse;
 use App\Response\StoreOrdersResponse;
 use App\Response\OrderDetailResponse;
+use App\Constant\ResponseConstant;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use DateTime;
 
@@ -88,12 +89,18 @@ class OrderService
     {
        $captain = $this->captainProfileService->captainIsActive($userId);
     
-       $response = "captain inactive";
+       $response = ResponseConstant::$CAPTAIN_INACTIVE;
 
-       if ($captain->getStatus() == 'active') {
-            $orders = $this->orderManager->closestOrders();
-            return $this->getOrdersWithStore($orders);
-        }
+       if ($captain->getStatus() == ResponseConstant::$CAPTAIN_ACTIVE) {
+
+           $response = [];
+
+           $orders = $this->orderManager->closestOrders();
+
+           foreach ($orders as $order){
+                $response[] = $this->autoMapping->map('array', OrderClosestResponse::class, $order);
+            }
+       }
 
        return $response;
     }
@@ -425,7 +432,7 @@ class OrderService
         return $response;
     }
 
-    public function getOrderDetailsByOrderNumber($orderNumber) 
+    public function getOrderDetailsByOrderNumber($orderNumber)
     {
         $response = [];
 
