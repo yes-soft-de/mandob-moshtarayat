@@ -95,7 +95,7 @@ class OrderController extends BaseController
      *      response="default",
      *      description="Return captain inactive.",
      *      @OA\JsonContent(
-     *          @OA\Property(type="string", property="status_code", description="9002"),
+     *          @OA\Property(type="string", property="status_code", description="9100"),
      *          @OA\Property(type="string", property="msg", description="error captain inactive Successfully."),
      *          @OA\Property(type="string", property="Data", description="captain inactive"),
      *      )
@@ -752,7 +752,7 @@ class OrderController extends BaseController
       *      response="default",
       *      description="The order was not created",
       *      @OA\JsonContent(
-      *          @OA\Property(type="string", property="status_code", description="8000"),
+      *          @OA\Property(type="string", property="status_code", description="9201"),
       *          @OA\Property(type="string", property="msg", description="Not created Successfully."),
       *          @OA\Property(type="string", property="Data", description="error"),
       *      )
@@ -833,7 +833,7 @@ class OrderController extends BaseController
       *      response="default",
       *      description="The order was not created",
       *      @OA\JsonContent(
-      *          @OA\Property(type="string", property="status_code", description="8000"),
+      *          @OA\Property(type="string", property="status_code", description="9201"),
       *          @OA\Property(type="string", property="msg", description="Not created Successfully."),
       *          @OA\Property(type="string", property="Data", description="error"),
       *      )
@@ -911,7 +911,7 @@ class OrderController extends BaseController
       *      response="default",
       *      description="The order was not created",
       *      @OA\JsonContent(
-      *          @OA\Property(type="string", property="status_code", description="8000"),
+      *          @OA\Property(type="string", property="status_code", description="9201"),
       *          @OA\Property(type="string", property="msg", description="Not created Successfully."),
       *          @OA\Property(type="string", property="Data", description="error"),
       *      )
@@ -935,7 +935,9 @@ class OrderController extends BaseController
     }
 
     /**
-     * @Route("orderstatusbyordernumber/{orderNumber}", name="getOrderStatusByOrderNumber", methods={"GET"})
+     * client: Get order details for client.
+     * @Route("orderdetailsforclient/{orderNumber}", name="getOrderDetailsForClient", methods={"GET"})
+     * @IsGranted("ROLE_CLIENT")
      * @param $orderNumber
      * @return JsonResponse
      * * *
@@ -1000,7 +1002,7 @@ class OrderController extends BaseController
      *  )
      *)
      */
-    public function getOrderStatusByOrderNumber($orderNumber): JsonResponse
+    public function getOrderDetailsForClient($orderNumber): JsonResponse
     {
         $result = $this->orderService->getOrderDetailsByOrderNumber($orderNumber);
   

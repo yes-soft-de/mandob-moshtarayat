@@ -442,7 +442,7 @@ class StoreCategoryController extends BaseController
      *      response="default",
      *      description="Returns the category related to subcategories or store.",
      *      @OA\JsonContent(
-     *          @OA\Property(type="string", property="status_code", description="9201"),
+     *          @OA\Property(type="string", property="status_code", description="9251"),
      *          @OA\Property(type="string", property="msg", description="error related Successfully."),
      *          @OA\Property(type="string", property="Data", description="related"),
      *      )
