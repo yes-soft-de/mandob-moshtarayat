@@ -113,15 +113,6 @@ class OrderService
         $orders = $this->orderManager->getPendingOrders();
 
         foreach ($orders as $order) {
-            if ($order['storeOwnerProfileID'] == true) {  
-                $order['storeOwner'] = $this->storeOwnerProfileService->getStoreOwnerProfileById($order['storeOwnerProfileID']);
-                if( $order['storeOwner'] != null ){
-                    $order['storeOwnerName']=$order['storeOwner']->storeOwnerName;
-                    $order['image']=$order['storeOwner']->image;
-                    $order['branches']=$order['storeOwner']->branches;
-                }
-            }
-
             $response[] = $this->autoMapping->map('array', OrderPendingResponse::class, $order);
         }
 
@@ -448,36 +439,6 @@ class OrderService
     }
         return $response;
     }
-// public function getOrderDetailsByOrderNumber($orderNumber)
-//    {
-//        $response = [];
-//
-//        $orderDetails = $this->orderDetailService->getOrderIdByOrderNumber($orderNumber);
-//
-//        $deliveryCost = $this->deliveryCompanyFinancialService->getDeliveryCost();
-//
-//        $rate = $this->ratingService->getAvgOrder($orderNumber);
-//        if($orderDetails) {
-//            $order = $this->orderManager->orderStatusByOrderId($orderDetails[0]->orderID);
-//
-//            if ($order[0]['orderType'] == 1 || $order[0]['orderType'] == 2) {
-//                    $storeOwner = $this->storeOwnerProfileService->getStoreOwnerProfileById($order[0]['storeOwnerProfileID']);
-//                    if($orderDetails[0]->storeOwnerProfileID){
-//                        $response['orderDetails'] = $orderDetails;
-//                    }
-//
-//                    $response['storeOwner'] = $storeOwner;
-//            }
-//
-//            $response['deliveryCost'] = $deliveryCost;
-//            $response['order'] = $order[0];
-//            $response['invoice']['invoiceAmount'] = $order[0]['invoiceAmount'];
-//            $response['invoice']['invoiceImage'] = $order[0]['invoiceImage'];
-//            $response['rating'] = $rate;
-//    }
-//
-//        return $response;
-//    }
 
     public function orderUpdateByClient(OrderUpdateByClientRequest $request, $clientID)
     {
