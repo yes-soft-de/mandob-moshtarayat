@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -320,6 +321,15 @@ class _ProductComponentState extends State<ProductComponent> {
                                       image: widget.image,
                                       name: widget.title,
                                     ));
+                                    Flushbar(
+                                      titleSize: 0,
+                                      duration:
+                                          const Duration(milliseconds: 1000),
+                                      title: '',
+                                      message: S.current.cartItemRemoved,
+                                      backgroundColor:
+                                          Theme.of(context).primaryColor,
+                                    ).show(context);
                                     setState(() {});
                                   }
                                 : null,
@@ -350,6 +360,13 @@ class _ProductComponentState extends State<ProductComponent> {
                             ),
                             onPressed: () {
                               widget.quantity += 1;
+                              Flushbar(
+                                titleSize: 0,
+                                duration: const Duration(milliseconds: 1000),
+                                title: '',
+                                message: S.current.cartItemAdded,
+                                backgroundColor: Theme.of(context).primaryColor,
+                              ).show(context);
                               widget.onSelect(CartModel(
                                 id: int.parse(widget.productId),
                                 quantity: widget.quantity,
@@ -378,7 +395,9 @@ class _ProductComponentState extends State<ProductComponent> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(25),
                     child: CustomNetworkImage(
-                        height: imageSize, width: imageSize, imageSource: widget.image),
+                        height: imageSize,
+                        width: imageSize,
+                        imageSource: widget.image),
                   ),
                 ),
               ),
