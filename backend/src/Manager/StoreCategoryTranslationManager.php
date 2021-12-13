@@ -53,4 +53,9 @@ class StoreCategoryTranslationManager
         }
     }
 
+    public function getStoreCategoriesTranslationByLanguage($language)
+    {
+        return $this->storeCategoryTranslationEntityRepository->getStoreCategoriesTranslationByLanguage($language);
+    }
+
 }
