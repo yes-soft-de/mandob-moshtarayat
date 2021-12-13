@@ -62,7 +62,7 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('OrderDetailEntity')
 
             ->select('OrderDetailEntity.id','OrderDetailEntity.orderID', 'OrderDetailEntity.productID', 'OrderDetailEntity.countProduct', 'OrderDetailEntity.orderNumber')
-            ->addSelect('ProductEntity.id as productID', 'ProductEntity.productName', 'ProductEntity.productImage', 'ProductEntity.storeProductCategoryID as ProductCategoryID', 'ProductEntity.productPrice', 'ProductEntity.storeOwnerProfileID')
+            ->addSelect('ProductEntity.id as productID', 'ProductEntity.productName', 'ProductEntity.productImage', 'ProductEntity.storeProductCategoryID as productCategoryID', 'ProductEntity.productPrice', 'ProductEntity.storeOwnerProfileID')
 
             ->leftJoin(ProductEntity::class, 'ProductEntity', Join::WITH, 'ProductEntity.id = OrderDetailEntity.productID')
 
