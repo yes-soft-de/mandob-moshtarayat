@@ -92,6 +92,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "car": MessageLookupByLibrary.simpleMessage("سيارة "),
         "card": MessageLookupByLibrary.simpleMessage("بطاقة"),
         "cart": MessageLookupByLibrary.simpleMessage("سلة المشتريات"),
+        "cartItemAdded": MessageLookupByLibrary.simpleMessage(
+            "تم إضافة عنصر إلى سلة الشراء"),
+        "cartItemRemoved": MessageLookupByLibrary.simpleMessage(
+            "تمت إزالة عنصر من سلة الشراء"),
         "cash": MessageLookupByLibrary.simpleMessage("نقدا"),
         "categories": MessageLookupByLibrary.simpleMessage("التصنيفات"),
         "category": MessageLookupByLibrary.simpleMessage("تصنيف"),
@@ -439,7 +443,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "saveSuccess": MessageLookupByLibrary.simpleMessage("تم بنجاح"),
         "searchF": MessageLookupByLibrary.simpleMessage("ابحث عن"),
         "searchFor":
-            MessageLookupByLibrary.simpleMessage("ابحث عن متجر , منتج ... "),
+            MessageLookupByLibrary.simpleMessage("ابحث عن متجر , منتج"),
         "searchForNotifications":
             MessageLookupByLibrary.simpleMessage("ابحث عن إشعار"),
         "searchForOrder": MessageLookupByLibrary.simpleMessage(

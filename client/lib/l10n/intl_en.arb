@@ -374,7 +374,11 @@
   "favoriteCategories":"Favorite Categories",
   "favoriteStores":"Favorite Stores",
   "preferredLanguage":"Preferred Language",
-  "selectLanguage":"Select Language"
+  "selectLanguage":"Select Language",
+  "cartItemAdded":"Item added to cart",
+  "cartItemRemoved":"Item removed from cart"
+  
+
 
 
 

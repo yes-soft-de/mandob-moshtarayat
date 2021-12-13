@@ -3789,6 +3789,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Item added to cart`
+  String get cartItemAdded {
+    return Intl.message(
+      'Item added to cart',
+      name: 'cartItemAdded',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Item removed from cart`
+  String get cartItemRemoved {
+    return Intl.message(
+      'Item removed from cart',
+      name: 'cartItemRemoved',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
