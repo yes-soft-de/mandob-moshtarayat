@@ -261,18 +261,31 @@ class StoreProductCategoryService
        return $response;
     }
 
-    public function getStoreProductsCategoryLeveltwoByStoreProductCategoryID($storeProductCategoryID)
+    public function getStoreProductsCategoryLeveltwoByStoreProductCategoryID($userLocale, $storeProductCategoryID)
     {
-       $response = [];
+        $response = [];
 
-       $items = $this->storeProductCategoryManager->getStoreProductsCategoryLevelTwoByStoreProductCategoryID($storeProductCategoryID);
+        if($userLocale != null && $userLocale != $this->primaryLanguage)
+        {
+            $storeProductCategoriesTranslation = $this->storeProductCategoryTranslationService->getStoreProductCategoriesTranslationsByStoreProductCategoryIdAndLanguage($storeProductCategoryID, $userLocale);
 
-       foreach($items as $item) {
-           $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params.$item['productCategoryImage'], $this->params);
+            foreach($storeProductCategoriesTranslation as $storeProductCategoryTranslation)
+            {
+                $response[] = $this->autoMapping->map(StoreProductCategoryTranslationGetResponse::class, StoreProductsCategoryResponse::class, $storeProductCategoryTranslation);
+            }
+        }
+        else
+        {
+            $items = $this->storeProductCategoryManager->getStoreProductsCategoryLevelTwoByStoreProductCategoryID($storeProductCategoryID);
 
-           $response[] = $this->autoMapping->map('array', StoreProductsCategoryResponse::class, $item);
-      }
-       return $response;
+            foreach ($items as $item) {
+                $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params . $item['productCategoryImage'], $this->params);
+
+                $response[] = $this->autoMapping->map('array', StoreProductsCategoryResponse::class, $item);
+            }
+        }
+
+        return $response;
     }
 
     public function getStoreProductsCategoryLeveltwoAndProductsByStoreProductCategoryIDAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId)

@@ -436,6 +436,13 @@ class StoreProductCategoryController extends BaseController
      *  *
      * @OA\Tag(name="Store Product Category")
      *
+     * @OA\Parameter(
+     *      name="Accept-Language",
+     *      in="header",
+     *      description="language to be passed as a header",
+     *      required=false
+     * )
+     *
      * @OA\Response(
      *      response=200,
      *      description="Returns array of categories level two ",
@@ -457,11 +464,11 @@ class StoreProductCategoryController extends BaseController
      * )
      *
      */
-      public function getStoreProductsCategoryLevelTwoByStoreProductCategoryID($storeProductCategoryID)
+      public function getStoreProductsCategoryLevelTwoByStoreProductCategoryID(Request $request, $storeProductCategoryID)
       {
-        $result = $this->storeProductCategoryService->getStoreProductsCategoryLevelTwoByStoreProductCategoryID($storeProductCategoryID);
+          $result = $this->storeProductCategoryService->getStoreProductsCategoryLevelTwoByStoreProductCategoryID($request->getPreferredLanguage(), $storeProductCategoryID);
 
-        return $this->response($result, self::FETCH);
+          return $this->response($result, self::FETCH);
       }
 
     /**
