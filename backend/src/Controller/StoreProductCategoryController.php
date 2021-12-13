@@ -540,6 +540,13 @@ class StoreProductCategoryController extends BaseController
       * *
       * @OA\Tag(name="Store Product Category")
       *
+      * @OA\Parameter(
+      *      name="Accept-Language",
+      *      in="header",
+      *      description="language to be passed as a header",
+      *      required=false
+      * )
+      *
       * @OA\Response(
       *      response=200,
       *      description="Returns SubCategories",
@@ -568,9 +575,9 @@ class StoreProductCategoryController extends BaseController
       *      )
       * )
       */
-      public function getSubCategoriesByStoreCategoryID($storeCategoryID)
+      public function getSubCategoriesByStoreCategoryID(Request $request, $storeCategoryID)
       {
-        $result = $this->storeProductCategoryService->getSubCategoriesByStoreCategoryID($storeCategoryID);
+        $result = $this->storeProductCategoryService->getSubCategoriesByStoreCategoryID($request->getPreferredLanguage(), $storeCategoryID);
 
         return $this->response($result, self::FETCH);
       }
