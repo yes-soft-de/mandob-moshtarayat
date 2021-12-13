@@ -32,9 +32,6 @@ class AuthService {
       username: username,
       password: password,
     ));
-    print('+++++++++++++++++++++++++++++');
-    print(loginResult?.statusCode);
-    print('+++++++++++++++++++++++++++++');
     if (loginResult == null) {
       await logout();
       _authSubject.addError(S.current.networkError);
