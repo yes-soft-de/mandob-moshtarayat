@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\OrderDetailEntity;
 use App\Repository\OrderDetailEntityRepository;
 use App\Request\OrderUpdateInvoiceByCaptainRequest;
+use App\Request\OrderUpdateProductCountByClientRequest;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Request\OrderDetailUpdateByClientRequest;
 
@@ -63,6 +64,11 @@ class OrderDetailManager
        return $this->orderDetailEntityRepository->getOrderIdWithOutStoreProductByOrderNumber($orderNumber);
     }
 
+    public function getOrderId($orderNumber)
+    {
+       return $this->orderDetailEntityRepository->getOrderId($orderNumber);
+    }
+
     public function getOrderNumberByOrderId($orderID)
     {
        return $this->orderDetailEntityRepository->getOrderNumberByOrderId($orderID);
@@ -104,6 +110,19 @@ class OrderDetailManager
 
         if ($item) {
             $item = $this->autoMapping->mapToObject(OrderUpdateInvoiceByCaptainRequest::class, OrderDetailEntity::class, $request, $item);
+
+            $this->entityManager->flush();
+
+            return $item;
+        }
+    }
+
+    public function UpdateProductCount(OrderUpdateProductCountByClientRequest $request)
+    {
+        $item = $this->orderDetailEntityRepository->orderDetailByProductIdAndOrderNumber($request->getProductId(), $request->getOrderNumber());
+
+        if ($item) {
+            $item = $this->autoMapping->mapToObject(OrderUpdateProductCountByClientRequest::class, OrderDetailEntity::class, $request, $item);
 
             $this->entityManager->flush();
 

@@ -1142,8 +1142,8 @@ class OrderController extends BaseController
       }
 
     /**
-     * client : Update order type product.
-     * @Route("/orderUpdatebyclient", name="orderUpdateByClient", methods={"PUT"})
+     * client : Update count product order type 1.
+     * @Route("/orderupdatebyclient", name="orderUpdateByClient", methods={"PUT"})
      * @IsGranted("ROLE_CLIENT")
      * @param Request $request
      * @return JsonResponse
@@ -1161,20 +1161,15 @@ class OrderController extends BaseController
      *        description="Update the order invoice",
      *        @OA\JsonContent(
      *              @OA\Property(type="string", property="orderNumber"),
-     *              @OA\Property(type="object", property="destination"),
-     *              @OA\Property(type="string", property="note"),
-     *              @OA\Property(type="string", property="payment"),
-     *              @OA\Property(type="string", property="storeOwnerProfileID"),
      *              @OA\Property(type="array", property="products",
      *                  @OA\Items(
      *                       @OA\Property(type="integer", property="productID"),
      *                       @OA\Property(type="integer", property="countProduct"),
      *                  ),
-     *              @OA\Property(type="object", property="deliveryDate"),
-     *              @OA\Property(type="number", property="orderCost"),
      *               ),
      *         ),
      *      ),
+     *
      * @OA\Response(
      *      response=204,
      *      description="Returns object",
@@ -1182,21 +1177,7 @@ class OrderController extends BaseController
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
-     *            @OA\Property(type="object", property="order",
-     *                @OA\Property(type="integer", property="id"),
-     *                @OA\Property(type="integer", property="storeOwnerProfileID"),
-     *                @OA\Property(type="object", property="destination"),
-     *                @OA\Property(type="object", property="deliveryDate"),
-     *                @OA\Property(type="string", property="note"),
-     *                @OA\Property(type="string", property="payment"),
-     *                @OA\Property(type="string", property="state"),
-     *                @OA\Property(type="string", property="captainID"),
-     *                @OA\Property(type="string", property="detail"),
-     *                @OA\Property(type="integer", property="deliveryCost"),
-     *                @OA\Property(type="integer", property="orderCost"),
-     *                @OA\Property(type="integer", property="orderType"),
-     *
-     *              )
+     *                @OA\Property(type="integer", property="orderNumber"),
      *          )
      *      )
      * )
@@ -1204,27 +1185,31 @@ class OrderController extends BaseController
      * or
      *
      * @OA\Response(
-     *      response=425,
+     *      response="default",
      *      description="Returns string",
      *      @OA\JsonContent(
-     *          @OA\Property(type="string", property="status_code"),
-     *          @OA\Property(type="string", property="msg"),
-     *          @OA\Property(type="string", property="Data"),
+     *          @OA\Property(type="string", property="status_code", description="9203"),
+     *          @OA\Property(type="string", property="msg", description="error Successfully."),
+     *          @OA\Property(type="string", property="Data", description="you can't edit, The captain received the order"),
      *      )
      * )
      *
      * @Security(name="Bearer")
      */
-    public function orderUpdateByClient(Request $request)
+    public function orderUpdateByClient(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class, OrderUpdateByClientRequest::class, (object) $data);
         $request->setProducts($data['products']);
+        $request->setClientID($this->getUserId());
 
-        $response = $this->orderService->orderUpdateByClient($request, $this->getUserId());
-        if(is_string($response)){
-            return $this->response($response, self::ERROR);  
+        $response = $this->orderService->orderUpdateByClient($request);
+        if(($response == ResponseConstant::$ERROR)){
+            return $this->response($response, self::NOTFOUND);
+          }
+        if(($response == ResponseConstant::$ORDER_NOT_UPDATE_STATE)){
+            return $this->response($response, self::ERROR_ORDER_UPDATE);
           }
 
         return $this->response($response, self::UPDATE);

@@ -5,11 +5,14 @@ namespace App\Service;
 use App\AutoMapping;
 use App\Entity\OrderDetailEntity;
 use App\Manager\OrderDetailManager;
+use App\Request\OrderUpdateByClientRequest;
 use App\Request\OrderUpdateInvoiceByCaptainRequest;
+use App\Request\OrderUpdateProductCountByClientRequest;
 use App\Response\OrderCreateDetailResponse;
 use App\Response\OrderDetailProductsResponse;
 use App\Response\OrderDetailResponse;
 use App\Response\OrderUpdateInvoiceByCaptainResponse;
+use App\Response\OrderUpdateProductCountByClientResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 
@@ -114,6 +117,11 @@ class OrderDetailService
        return $response;
     }
 
+    public function getOrderId($orderNumber)
+    {
+        return $this->orderDetailManager->getOrderId($orderNumber);
+    }
+
     public function getOrderNumberByOrderId($orderID)
     {
         $response = [];
@@ -140,6 +148,12 @@ class OrderDetailService
     {
         $item = $this->orderDetailManager->orderUpdateInvoiceByCaptain($request);
         return $this->autoMapping->map(OrderDetailEntity::class, OrderUpdateInvoiceByCaptainResponse::class, $item);
+    }
+
+    public function UpdateProductCount(OrderUpdateProductCountByClientRequest $request)
+    {
+        $item = $this->orderDetailManager->UpdateProductCount($request);
+        return $this->autoMapping->map(OrderDetailEntity::class, OrderUpdateProductCountByClientResponse::class, $item);
     }
 
     public function getImageParams($imageURL, $image, $baseURL): array
