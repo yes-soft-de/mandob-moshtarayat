@@ -10,6 +10,7 @@ use App\Request\ProductFilterByNameRequest;
 use App\Request\ProductUpdateByStoreOwnerRequest;
 use App\Request\ProductUpdateRequest;
 use App\Request\ProductWithTranslationCreateRequest;
+use App\Request\ProductWithTranslationUpdateRequest;
 use App\Service\ProductService;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -629,14 +630,22 @@ class ProductController extends BaseController
      * @OA\RequestBody(
      *      description="Update product by store",
      *      @OA\JsonContent(
-     *          @OA\Property(type="integer", property="id"),
-     *          @OA\Property(type="string", property="productName"),
-     *          @OA\Property(type="string", property="productImage"),
-     *          @OA\Property(type="number", property="productPrice"),
-     *          @OA\Property(type="integer", property="storeProductCategoryID"),
-     *          @OA\Property(type="integer", property="discount"),
-     *          @OA\Property(type="string", property="description"),
-     *          @OA\Property(type="integer", property="productQuantity")
+     *          @OA\Property(type="object", property="data",
+     *              @OA\Property(type="integer", property="id"),
+     *              @OA\Property(type="string", property="productName"),
+     *              @OA\Property(type="string", property="productImage"),
+     *              @OA\Property(type="number", property="productPrice"),
+     *              @OA\Property(type="integer", property="storeProductCategoryID"),
+     *              @OA\Property(type="integer", property="discount"),
+     *              @OA\Property(type="integer", property="productQuantity")
+     *          ),
+     *          @OA\Property(type="array", property="translate",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="productID"),
+     *                  @OA\Property(type="string", property="productName"),
+     *                  @OA\Property(type="string", property="language")
+     *              )
+     *          )
      *      )
      * )
      *
@@ -666,7 +675,7 @@ class ProductController extends BaseController
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class, ProductUpdateByStoreOwnerRequest::class, (object)$data);
+        $request = $this->autoMapping->map(stdClass::class, ProductWithTranslationUpdateRequest::class, (object)$data);
 
         $violations = $this->validator->validate($request);
         if (\count($violations) > 0) {

@@ -19,32 +19,19 @@ class ProductTranslationEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, ProductTranslationEntity::class);
     }
 
-    // /**
-    //  * @return ProductTranslationEntity[] Returns an array of ProductTranslationEntity objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    // return ProductTranslationEntity
+    public function getByProductIdAndLanguage($productID, $language)
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        return $this->createQueryBuilder('productTranslationEntity')
 
-    /*
-    public function findOneBySomeField($value): ?ProductTranslationEntity
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('productTranslationEntity.productID = :productID')
+            ->setParameter('productID', $productID)
+
+            ->andWhere('productTranslationEntity.language = :language')
+            ->setParameter('language', $language)
+
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getOneOrNullResult();
     }
-    */
+
 }

@@ -6,7 +6,9 @@ use App\AutoMapping;
 use App\Entity\ProductTranslationEntity;
 use App\Manager\ProductTranslationManager;
 use App\Request\ProductTranslationCreateRequest;
+use App\Request\ProductTranslationUpdateRequest;
 use App\Response\ProductTranslationCreateResponse;
+use App\Response\ProductTranslationUpdateResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class ProductTranslationService
@@ -27,6 +29,13 @@ class ProductTranslationService
         $productTranslationResult = $this->productTranslationManager->createProductTranslation($request);
 
         return $this->autoMapping->map(ProductTranslationEntity::class, ProductTranslationCreateResponse::class, $productTranslationResult);
+    }
+
+    public function updateProductTranslationByProductIdAndLanguage(ProductTranslationUpdateRequest $request)
+    {
+        $productTranslationResult = $this->productTranslationManager->updateProductTranslationByProductIdAndLanguage($request);
+
+        return $this->autoMapping->map(ProductTranslationEntity::class, ProductTranslationUpdateResponse::class, $productTranslationResult);
     }
 
 }
