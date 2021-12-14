@@ -120,6 +120,11 @@ class StoreCategoryManager
        return $this->storeCategoryEntityRepository->getLast15StoreCategories();
     }
 
+    public function getLast15StoreCategoriesTranslations($userLocale)
+    {
+        return $this->storeCategoryEntityRepository->getLast15StoreCategoriesTranslations($userLocale);
+    }
+
     public function getFavouriteStoreCategoriesAndStores($clientID)
     {
         $favouriteCategories = $this->userManager->getFavouriteCategoriesIDsByClientID($clientID);
@@ -131,6 +136,21 @@ class StoreCategoryManager
         else
         {
             return $this->storeCategoryEntityRepository->getStoreCategoriesByClientFavouriteCategoriesIDs($favouriteCategories);
+        }
+
+    }
+
+    public function getFavouriteStoreCategoriesTranslationsAndStores($userLocale, $clientID)
+    {
+        $favouriteCategories = $this->userManager->getFavouriteCategoriesIDsByClientID($clientID);
+
+        if($favouriteCategories)
+        {
+            return $this->storeCategoryEntityRepository->getStoreCategoriesTranslationsByClientFavouriteCategoriesIDs($userLocale, $favouriteCategories['favouriteCategories']);
+        }
+        else
+        {
+            return $this->storeCategoryEntityRepository->getStoreCategoriesTranslationsByClientFavouriteCategoriesIDs($userLocale, $favouriteCategories);
         }
 
     }

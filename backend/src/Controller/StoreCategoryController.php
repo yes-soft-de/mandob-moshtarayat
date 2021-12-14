@@ -327,6 +327,13 @@ class StoreCategoryController extends BaseController
      *
      * @OA\Tag(name="Store Category")
      *
+     * @OA\Parameter(
+     *      name="Accept-Language",
+     *      in="header",
+     *      description="language to be passed as a header",
+     *      required=false
+     * )
+     *
      * @OA\Response(
      *      response=200,
      *      description="Get Store Categories And Stores",
@@ -356,9 +363,9 @@ class StoreCategoryController extends BaseController
      * )
      *
      */
-    public function getFavouriteStoreCategoriesAndStores(): JsonResponse
+    public function getFavouriteStoreCategoriesAndStores(Request $request): JsonResponse
     {
-        $result = $this->storeCategoryService->getFavouriteStoreCategoriesAndStores($this->getUserId());
+        $result = $this->storeCategoryService->getFavouriteStoreCategoriesAndStores($request->getPreferredLanguage(), $this->getUserId());
 
         return $this->response($result, self::FETCH);
     }

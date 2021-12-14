@@ -199,18 +199,31 @@ class StoreProductCategoryService
        return $response;
     }
 
-    public function getStoreProductsCategoryLevelOneByStoreCategoryID($storeCategoryID)
+    public function getStoreProductsCategoryLevelOneByStoreCategoryID($userLocale, $storeCategoryID)
     {
-       $response = [];
+        $response = [];
 
-       $items = $this->storeProductCategoryManager->getSubCategoriesByStoreCategoryID($storeCategoryID);
+        if($userLocale != null && $userLocale != $this->primaryLanguage)
+        {
+            $storeProductCategoriesTranslation = $this->storeProductCategoryTranslationService->getByStoreCategoryIdAndLanguage($storeCategoryID, $userLocale);
 
-       foreach($items as $item) {
-           $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params.$item['productCategoryImage'], $this->params);
+            foreach($storeProductCategoriesTranslation as $storeProductCategoryTranslation)
+            {
+                $response[] = $this->autoMapping->map(StoreProductCategoryTranslationGetResponse::class, StoreProductsCategoryResponse::class, $storeProductCategoryTranslation);
+            }
+        }
+        else
+        {
+            $items = $this->storeProductCategoryManager->getSubCategoriesByStoreCategoryID($storeCategoryID);
 
-           $response[] = $this->autoMapping->map('array', StoreProductsCategoryResponse::class, $item);
-      }
-       return $response;
+            foreach($items as $item) {
+                $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params.$item['productCategoryImage'], $this->params);
+
+                $response[] = $this->autoMapping->map('array', StoreProductsCategoryResponse::class, $item);
+            }
+        }
+
+        return $response;
     }
 
     public function getStoreProductsCategoryLevelOneByStoreCategoryIDFroAdmin(FilterStoreProductCategoryLevelOne $request)
@@ -248,18 +261,31 @@ class StoreProductCategoryService
        return $response;
     }
 
-    public function getStoreProductsCategoryLeveltwoByStoreProductCategoryID($storeProductCategoryID)
+    public function getStoreProductsCategoryLeveltwoByStoreProductCategoryID($userLocale, $storeProductCategoryID)
     {
-       $response = [];
+        $response = [];
 
-       $items = $this->storeProductCategoryManager->getStoreProductsCategoryLevelTwoByStoreProductCategoryID($storeProductCategoryID);
+        if($userLocale != null && $userLocale != $this->primaryLanguage)
+        {
+            $storeProductCategoriesTranslation = $this->storeProductCategoryTranslationService->getStoreProductCategoriesTranslationsByStoreProductCategoryIdAndLanguage($storeProductCategoryID, $userLocale);
 
-       foreach($items as $item) {
-           $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params.$item['productCategoryImage'], $this->params);
+            foreach($storeProductCategoriesTranslation as $storeProductCategoryTranslation)
+            {
+                $response[] = $this->autoMapping->map(StoreProductCategoryTranslationGetResponse::class, StoreProductsCategoryResponse::class, $storeProductCategoryTranslation);
+            }
+        }
+        else
+        {
+            $items = $this->storeProductCategoryManager->getStoreProductsCategoryLevelTwoByStoreProductCategoryID($storeProductCategoryID);
 
-           $response[] = $this->autoMapping->map('array', StoreProductsCategoryResponse::class, $item);
-      }
-       return $response;
+            foreach ($items as $item) {
+                $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params . $item['productCategoryImage'], $this->params);
+
+                $response[] = $this->autoMapping->map('array', StoreProductsCategoryResponse::class, $item);
+            }
+        }
+
+        return $response;
     }
 
     public function getStoreProductsCategoryLeveltwoAndProductsByStoreProductCategoryIDAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId)
@@ -309,19 +335,37 @@ class StoreProductCategoryService
         return $response;
     }
 
-    public function getSubCategoriesByStoreCategoryID($storeCategoryID)
+    public function getSubCategoriesByStoreCategoryID($userLocale, $storeCategoryID)
     {
        $response = [];
 
        //productCategoriesLevel1
-       $items = $this->storeProductCategoryManager->getSubCategoriesByStoreCategoryID($storeCategoryID);
+       if($userLocale != null && $userLocale != $this->primaryLanguage)
+       {
+           $storeProductCategoriesTranslation = $this->storeProductCategoryTranslationService->getByStoreCategoryIdAndLanguage($storeCategoryID, $userLocale);
 
-       foreach($items as $item) {
-           $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params.$item['productCategoryImage'], $this->params);
-           $item['productCategoriesLevel2'] = $this->getStoreProductsCategoryLeveltwoByStoreProductCategoryID($item['id']);
+           foreach($storeProductCategoriesTranslation as $storeProductCategory)
+           {
+               $temporaryItem = $this->autoMapping->map(StoreProductCategoryTranslationGetResponse::class, SubCategoriesAndProductsByStoreCategoryIDResponse::class, $storeProductCategory);
 
-           $response[] = $this->autoMapping->map('array', SubCategoriesAndProductsByStoreCategoryIDResponse::class, $item);
+               // temporaryItem was created just to do the following statement
+               $temporaryItem->productCategoriesLevel2 = $this->getStoreProductsCategoryLeveltwoByStoreProductCategoryID($userLocale, $storeProductCategory->storeProductCategoryID);
+
+               $response[] = $temporaryItem;
+           }
        }
+       else
+       {
+           $items = $this->storeProductCategoryManager->getSubCategoriesByStoreCategoryID($storeCategoryID);
+
+           foreach ($items as $item) {
+               $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params . $item['productCategoryImage'], $this->params);
+               $item['productCategoriesLevel2'] = $this->getStoreProductsCategoryLeveltwoByStoreProductCategoryID($this->primaryLanguage, $item['id']);
+
+               $response[] = $this->autoMapping->map('array', SubCategoriesAndProductsByStoreCategoryIDResponse::class, $item);
+           }
+       }
+
        return $response;
     }
 
