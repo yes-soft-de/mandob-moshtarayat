@@ -751,6 +751,13 @@ class StoreProductCategoryController extends BaseController
      *
      * @OA\Tag(name="Store Product Category")
      *
+     * @OA\Parameter(
+     *      name="Accept-Language",
+     *      in="header",
+     *      description="language to be passed as a header",
+     *      required=false
+     * )
+     *
      * @OA\Response(
      *      response=200,
      *      description="Get the products of the first subcategory ",
@@ -780,19 +787,20 @@ class StoreProductCategoryController extends BaseController
      *  )
      *
      */
-    public function getProductsByStoreCategroyLevelOne($storeProductCategoryID)
+    public function getProductsByStoreCategroyLevelOne(Request $request, $storeProductCategoryID)
     {
-        $result = $this->storeProductCategoryService->getProductsByStoreCategroyLevelOne($storeProductCategoryID, $this->getUserId());
+        $result = $this->storeProductCategoryService->getProductsByStoreCategroyLevelOne($request->getPreferredLanguage(), $storeProductCategoryID, $this->getUserId());
 
         return $this->response($result, self::FETCH);
     }
+
     /**
      * Delete store product category.
      * @Route("storeproductcategory/{id}", name="deleteStoreProductCategoryByID", methods={"DELETE"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
-     **
+     *
      * @OA\Tag(name="Store Product Category")
      *
      * @OA\Response(
