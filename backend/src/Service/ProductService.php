@@ -32,6 +32,7 @@ class ProductService
     private $ratingService;
     private $storeOwnerProfileService;
     private $productTranslationService;
+    private $primaryLanguage;
 
     public function __construct(AutoMapping $autoMapping, ProductManager $productManager, ParameterBagInterface $params, userManager $userManager,  RatingService $ratingService,StoreOwnerProfileService $storeOwnerProfileService,
      ProductTranslationService $productTranslationService)
@@ -40,6 +41,7 @@ class ProductService
         $this->productManager = $productManager;
         $this->userManager = $userManager;
         $this->params = $params->get('upload_base_url') . '/';
+        $this->primaryLanguage = $params->get('primary_language');
         $this->ratingService = $ratingService;
         $this->storeOwnerProfileService = $storeOwnerProfileService;
         $this->productTranslationService = $productTranslationService;
@@ -464,13 +466,35 @@ class ProductService
         }
     }
 
-    public function getLast30Products(): ?array
+    public function getLast30Products($userLocale): ?array
     {
         $response = [];
 
-        $items = $this->productManager->getLast30Products();
+        if($userLocale != null && $userLocale != $this->primaryLanguage)
+        {
+            $products = [];
 
-        foreach ($items as $item) {
+            $productsTranslation = $this->productManager->getLast30ProductsTranslation();
+
+            foreach($productsTranslation as $product)
+            {
+                if((!$product['language']))
+                {
+                    $product['productName'] = $product['primaryProductName'];
+                    $products[] = $product;
+                }
+                elseif($product['language'] == $userLocale)
+                {
+                    $products[] = $product;
+                }
+            }
+        }
+        else
+        {
+            $products = $this->productManager->getLast30Products();
+        }
+
+        foreach ($products as $item) {
             $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
             $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
             $item['soldCount'] = $this->getProductsSoldCount($item['id']);

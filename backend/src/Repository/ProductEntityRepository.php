@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\ProductEntity;
+use App\Entity\ProductTranslationEntity;
 use App\Entity\StoreOwnerProfileEntity;
 use App\Entity\StoreOwnerBranchEntity;
 use App\Entity\OrderDetailEntity;
@@ -420,6 +421,30 @@ class ProductEntityRepository extends ServiceEntityRepository
 
             ->addOrderBy('product.id','DESC')
 
+            ->setMaxResults(30)
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getLast30ProductsTranslation()
+    {
+        return $this->createQueryBuilder('product')
+
+            ->select('product.id', 'product.productImage', 'product.productName as primaryProductName', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount',
+                'product.description', 'product.status', 'product.productQuantity', 'productTranslationEntity.productName', 'productTranslationEntity.language')
+
+            ->andWhere('product.status = :active')
+            ->setParameter('active',self::STATUS_ACTIVE)
+
+            ->leftJoin(
+                ProductTranslationEntity::class,
+                'productTranslationEntity',
+                Join::WITH,
+                'productTranslationEntity.productID = product.id'
+            )
+
+            ->addOrderBy('product.id','DESC')
             ->setMaxResults(30)
 
             ->getQuery()

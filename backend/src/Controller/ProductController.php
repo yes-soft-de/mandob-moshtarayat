@@ -900,6 +900,13 @@ class ProductController extends BaseController
      * *
      * @OA\Tag(name="Product")
      *
+     * @OA\Parameter(
+     *      name="Accept-Language",
+     *      in="header",
+     *      description="language to be passed as a header",
+     *      required=false
+     * )
+     *
      * @OA\Response(
      *      response=200,
      *      description="Get last 30 products",
@@ -934,9 +941,9 @@ class ProductController extends BaseController
      *  )
      *
      */
-    public function getLast30Products(): JsonResponse
+    public function getLast30Products(Request $request): JsonResponse
     {
-        $result = $this->productService->getLast30Products();
+        $result = $this->productService->getLast30Products($request->getPreferredLanguage());
 
         return $this->response($result, self::FETCH);
     }

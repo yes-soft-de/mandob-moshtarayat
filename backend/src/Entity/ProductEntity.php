@@ -61,6 +61,11 @@ class ProductEntity
      * @ORM\Column(type="integer", nullable=true)
      */
     private $productQuantity;
+
+    /**
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    private $language;
     
     public function getId(): ?int
     {
@@ -171,6 +176,18 @@ class ProductEntity
     public function setProductQuantity(?int $productQuantity): self
     {
         $this->productQuantity = $productQuantity;
+
+        return $this;
+    }
+
+    public function getLanguage(): ?string
+    {
+        return $this->language;
+    }
+
+    public function setLanguage(?string $language): self
+    {
+        $this->language = $language;
 
         return $this;
     }

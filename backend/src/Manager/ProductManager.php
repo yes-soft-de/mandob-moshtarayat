@@ -223,6 +223,11 @@ class ProductManager
         return $this->productEntityRepository->getLast30Products();
     }
 
+    public function getLast30ProductsTranslation()
+    {
+        return $this->productEntityRepository->getLast30ProductsTranslation();
+    }
+
     public function getProductsStoreOwnerProfileId($storeOwnerProfileId)
     {
         return $this->productEntityRepository->getProductsStoreOwnerProfileId($storeOwnerProfileId);
