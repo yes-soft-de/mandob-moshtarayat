@@ -85,6 +85,29 @@ class StoreCategoryEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getLast15StoreCategoriesTranslations($userLocale)
+    {
+        return $this->createQueryBuilder('storeCategory')
+
+            ->select('storeCategory.id', 'storeCategory.image', 'storeCategoryTranslationEntity.storeCategoryName', 'storeCategoryTranslationEntity.description')
+
+            ->addOrderBy('storeCategory.id','DESC')
+            ->setMaxResults(15)
+
+            ->leftJoin(
+                StoreCategoryTranslationEntity::class,
+                'storeCategoryTranslationEntity',
+                Join::WITH,
+                'storeCategoryTranslationEntity.storeCategoryID = storeCategory.id'
+            )
+
+            ->andWhere("storeCategoryTranslationEntity.language = :language")
+            ->setParameter('language', $userLocale)
+
+            ->getQuery()
+            ->getResult();
+    }
+
     public function isItRelatedToSubcategoriesOrStore($id)
     {
         return $this->createQueryBuilder('storeCategory')
@@ -114,5 +137,27 @@ class StoreCategoryEntityRepository extends ServiceEntityRepository
 
              ->getQuery()
              ->getResult();
+    }
+
+    public function getStoreCategoriesTranslationsByClientFavouriteCategoriesIDs($userLocale, $favouriteCategoriesIDsArray)
+    {
+        return $this->createQueryBuilder('storeCategory')
+            ->select('storeCategory.id', 'storeCategory.image', 'storeCategoryTranslationEntity.storeCategoryName', 'storeCategoryTranslationEntity.description')
+
+            ->andWhere("storeCategory.id IN (:categoriesIDs)")
+            ->setParameter('categoriesIDs', $favouriteCategoriesIDsArray)
+
+            ->leftJoin(
+                StoreCategoryTranslationEntity::class,
+                'storeCategoryTranslationEntity',
+                Join::WITH,
+                'storeCategoryTranslationEntity.storeCategoryID = storeCategory.id'
+            )
+
+            ->andWhere("storeCategoryTranslationEntity.language = :language")
+            ->setParameter('language', $userLocale)
+
+            ->getQuery()
+            ->getResult();
     }
 }

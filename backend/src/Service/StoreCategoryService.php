@@ -124,14 +124,29 @@ class StoreCategoryService
         return $this->autoMapping->map("array", StoreCategoriesAndStoresResponse::class, $item);
     }
 
-    public function getFavouriteStoreCategoriesAndStores($clientID): array
+    public function getFavouriteStoreCategoriesAndStores($userLocale, $clientID): array
     {
-        $categories = $this->storeCategoryManager->getFavouriteStoreCategoriesAndStores($clientID);
+        if($userLocale != null && $userLocale != $this->primaryLanguage)
+        {
+            $categories = $this->storeCategoryManager->getFavouriteStoreCategoriesTranslationsAndStores($userLocale, $clientID);
 
-        if(!$categories) {
-            $categories = $this->storeCategoryManager->getLast15StoreCategories();
+            if(!$categories)
+            {
+                $categories = $this->storeCategoryManager->getLast15StoreCategoriesTranslations($userLocale);
 
-            return $this->getCategoriesAndStores($categories);
+                return $this->getCategoriesAndStores($categories);
+            }
+        }
+        else
+        {
+            $categories = $this->storeCategoryManager->getFavouriteStoreCategoriesAndStores($clientID);
+
+            if(!$categories)
+            {
+                $categories = $this->storeCategoryManager->getLast15StoreCategories();
+
+                return $this->getCategoriesAndStores($categories);
+            }
         }
 
         return $this->getLast15StoresByCategoryID($categories);
