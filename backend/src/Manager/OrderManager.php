@@ -225,7 +225,6 @@ class OrderManager
 
         $this->entityManager->persist($item);
         $this->entityManager->flush();
-        $this->entityManager->clear();
 
         return $item;
     }

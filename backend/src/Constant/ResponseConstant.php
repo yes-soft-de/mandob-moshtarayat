@@ -15,4 +15,6 @@ abstract class ResponseConstant
     static $ORDER_NOT_REMOVE_STATE = "on way to pick order";
 
     static $ORDER_NOT_REMOVE_CAPTAIN_RECEIVED = "can not remove it, The captain received the order";
+
+    static $ERROR = "error";
 }

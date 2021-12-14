@@ -1559,7 +1559,9 @@ class OrderController extends BaseController
      * @OA\RequestBody (
      *        description="Update the order invoice",
      *        @OA\JsonContent(
-     *              @OA\Property(type="string", property="orderNumber"),
+     *              @OA\Property(type="integer", property="orderDetailID"),
+     *              @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *              @OA\Property(type="integer", property="orderNumber"),
      *              @OA\Property(type="number", property="invoiceAmount"),
      *              @OA\Property(type="string", property="invoiceImage"),
      *         ),
@@ -1572,8 +1574,10 @@ class OrderController extends BaseController
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="integer", property="id"),
      *              @OA\Property(type="number", property="invoiceAmount"),
      *              @OA\Property(type="string", property="invoiceImage"),
+     *              @OA\Property(type="integer", property="orderNumber"),
      *              )
      *          )
      *     )
@@ -1588,10 +1592,9 @@ class OrderController extends BaseController
         $request->setCaptainID($this->getUserId());
 
         $response = $this->orderService->orderUpdateInvoiceByCaptain($request);
-        if(is_string($response)){
+        if($response == ResponseConstant::$ERROR){
             return $this->response($response, self::ERROR);
-          }
-
+        }
         return $this->response($response, self::UPDATE);
     }
 

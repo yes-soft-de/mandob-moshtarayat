@@ -61,11 +61,12 @@ class OrderService
     private $notificationLocalService;
     private $orderLogService;
     private $userService;
+    private $ordersInvoicesService;
 
     public function __construct(AutoMapping $autoMapping, OrderManager $orderManager, StoreOwnerProfileService $storeOwnerProfileService, ParameterBagInterface $params,  RatingService $ratingService
                                 // , NotificationService $notificationService
                                , RoomIdHelperService $roomIdHelperService,  DateFactoryService $dateFactoryService, CaptainProfileService $captainProfileService, ProductService $productService, OrderDetailService $orderDetailService, DeliveryCompanyFinancialService $deliveryCompanyFinancialService,
-                               ClientProfileService $clientProfileService, NotificationLocalService $notificationLocalService, OrderLogService $orderLogService, UserService $userService
+                               ClientProfileService $clientProfileService, NotificationLocalService $notificationLocalService, OrderLogService $orderLogService, UserService $userService, OrdersInvoicesService $ordersInvoicesService
                                 )
     {
         $this->autoMapping = $autoMapping;
@@ -84,6 +85,7 @@ class OrderService
         $this->notificationLocalService = $notificationLocalService;
         $this->orderLogService = $orderLogService;
         $this->userService = $userService;
+        $this->ordersInvoicesService = $ordersInvoicesService;
     }
 
     public function closestOrders($userId)
@@ -636,15 +638,21 @@ class OrderService
 
     public function orderUpdateInvoiceByCaptain(OrderUpdateInvoiceByCaptainRequest $request)
     {
-        $response = "Not updated!!";
+        $response = ResponseConstant::$ERROR;
 
+        $orderInvoice = $this->ordersInvoicesService->orderUpdateInvoiceByCaptain($request);
+        if(!$orderInvoice) {
+            return $response;
+        }
+
+        $request->setOrderInvoiceId($orderInvoice->id);
 
         $item = $this->orderDetailService->orderUpdateInvoiceByCaptain($request);
+        if(!$item) {
+            return $response;
+        }
 
-        $response = $this->autoMapping->map(OrderEntity::class, OrderUpdateInvoiceByCaptainResponse::class, $item);
-
-
-        return $response;
+        return $this->autoMapping->map(OrderUpdateInvoiceByCaptainResponse::class, OrderUpdateInvoiceByCaptainResponse::class, $orderInvoice);
     }
 
     public function orderUpdateBillCalculatedByCaptain(orderUpdateBillCalculatedByCaptainRequest $request)

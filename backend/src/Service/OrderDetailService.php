@@ -9,6 +9,7 @@ use App\Request\OrderUpdateInvoiceByCaptainRequest;
 use App\Response\OrderCreateDetailResponse;
 use App\Response\OrderDetailProductsResponse;
 use App\Response\OrderDetailResponse;
+use App\Response\OrderUpdateInvoiceByCaptainResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 
@@ -135,10 +136,11 @@ class OrderDetailService
        return $this->orderDetailManager->getCountOrdersEveryProductInLastMonth($fromDate, $toDate);
    }
 
-    public function orderUpdateInvoiceByCaptain(OrderUpdateInvoiceByCaptainRequest $request):?array
+    public function orderUpdateInvoiceByCaptain(OrderUpdateInvoiceByCaptainRequest $request)
     {
-       return $this->orderDetailManager->orderUpdateInvoiceByCaptain($request);
-   }
+        $item = $this->orderDetailManager->orderUpdateInvoiceByCaptain($request);
+        return $this->autoMapping->map(OrderDetailEntity::class, OrderUpdateInvoiceByCaptainResponse::class, $item);
+    }
 
     public function getImageParams($imageURL, $image, $baseURL): array
     {

@@ -105,8 +105,6 @@ class OrderDetailManager
         if ($item) {
             $item = $this->autoMapping->mapToObject(OrderUpdateInvoiceByCaptainRequest::class, OrderDetailEntity::class, $request, $item);
 
-            $item->setUpdatedAt($item->getUpdatedAt());
-
             $this->entityManager->flush();
 
             return $item;
