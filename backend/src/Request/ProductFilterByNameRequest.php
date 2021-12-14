@@ -6,6 +6,8 @@ class ProductFilterByNameRequest
 {
     private $name;
 
+    private $language;
+
     /**
      * @return mixed
      */
@@ -21,4 +23,13 @@ class ProductFilterByNameRequest
     {
         $this->name = $name;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
 }

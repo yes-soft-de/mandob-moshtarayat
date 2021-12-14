@@ -167,7 +167,7 @@ class ProductController extends BaseController
      *      description="language to be passed as a header",
      *      required=false
      * )
-
+     *
      * @OA\Response(
      *      response=200,
      *      description="Get products of store specific and category specific",
@@ -372,14 +372,24 @@ class ProductController extends BaseController
 
         return $this->response($result, self::FETCH);
     }
+
     /**
      * store: Get products of subcategory of level two for specific store.
      * @Route("productsbystoreproductcategoryidforstore/{storeProductCategoryID}", name="getProductsByStoreProductCategoryIDForStore", methods={"GET"})
+     * @param Request $request
+     * @param $storeProductCategoryID
      * @return JsonResponse
      * @IsGranted("ROLE_OWNER")
-     * *
+     *
      * @OA\Tag(name="Product")
-
+     *
+     * @OA\Parameter(
+     *      name="Accept-Language",
+     *      in="header",
+     *      description="language to be passed as a header",
+     *      required=false
+     * )
+     *
      * @OA\Response(
      *      response=200,
      *      description="Get products of subcategory of level two for specific store",
@@ -411,11 +421,10 @@ class ProductController extends BaseController
      *          )
      *      )
      * )
-     *
      */
-    public function getProductsByStoreProductCategoryIDForStore($storeProductCategoryID): JsonResponse
+    public function getProductsByStoreProductCategoryIDForStore(Request $request, $storeProductCategoryID): JsonResponse
     {
-        $result = $this->productService->getProductsByStoreProductCategoryIDForStore($storeProductCategoryID, $this->getUserId());
+        $result = $this->productService->getProductsByStoreProductCategoryIDForStore($request->getPreferredLanguage(), $storeProductCategoryID, $this->getUserId());
 
         return $this->response($result, self::FETCH);
     }
@@ -439,6 +448,7 @@ class ProductController extends BaseController
      *      description="Filter by product name",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="name"),
+     *          @OA\Property(type="string", property="language")
      *      )
      * )
      *
@@ -475,7 +485,6 @@ class ProductController extends BaseController
      */
     public function getStoreProducts(Request $request): JsonResponse
     {
-
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class, ProductFilterByNameRequest::class, (object)$data);

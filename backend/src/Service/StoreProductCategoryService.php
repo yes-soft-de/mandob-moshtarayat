@@ -448,14 +448,14 @@ class StoreProductCategoryService
         return $response;
     }
 
-    public function getProductsByStoreCategroyLevelOne($storeProductCategoryID, $userID)
+    public function getProductsByStoreCategroyLevelOne($userLocale, $storeProductCategoryID, $userID)
     {
         $response = [];
 
         $storeOwnerProfileID = $this->userManager->getStoreProfileId($userID);
 
         // First, get the direct products of the store product category level one
-        $products = $this->productService->getProductsByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileID);
+        $products = $this->productService->getProductsByCategoryIdAndStoreOwnerProfileId($userLocale, $storeProductCategoryID, $storeOwnerProfileID);
 
         foreach($products as $product)
         {
@@ -467,7 +467,7 @@ class StoreProductCategoryService
 
         foreach($items as $item)
         {
-            $item['products'] = $this->productService->getProductsByCategoryIdAndStoreOwnerProfileId($item['id'], $storeOwnerProfileID);
+            $item['products'] = $this->productService->getProductsByCategoryIdAndStoreOwnerProfileId($userLocale, $item['id'], $storeOwnerProfileID);
 
             if($item['products'])
             {

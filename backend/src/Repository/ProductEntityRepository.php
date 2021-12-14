@@ -296,6 +296,32 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getProductsTranslationsByStoreProductCategoryIDForStore($storeProductCategoryID, $storeOwnerProfileID)
+    {
+        return $this->createQueryBuilder('product')
+
+            ->select('product.id', 'product.productName as primaryProductName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount',
+                'product.description','product.status', 'product.productQuantity', 'productTranslationEntity.productName', 'productTranslationEntity.language')
+
+            ->andWhere('product.storeProductCategoryID = :storeProductCategoryID')
+            ->andWhere('product.storeOwnerProfileID = :storeOwnerProfileID')
+            ->andWhere('product.status = :status')
+
+            ->setParameter('storeProductCategoryID', $storeProductCategoryID)
+            ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
+            ->setParameter('status', self::STATUS_ACTIVE)
+
+            ->leftJoin(
+                ProductTranslationEntity::class,
+                'productTranslationEntity',
+                Join::WITH,
+                'productTranslationEntity.productID = product.id'
+            )
+
+            ->getQuery()
+            ->getResult();
+    }
+
     public function getProductsByStoreProfileIDAndStoreProductCategoryID($storeOwnerProfileID, $storeProductCategoryID)
     {
         return $this->createQueryBuilder('product')
@@ -352,6 +378,76 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->addSelect('storeOwnerProfile.id as storeOwnerProfileID', 'storeOwnerProfile.storeOwnerName as storeOwnerName', 'storeOwnerProfile.image as storeImage')
 
             ->leftJoin(StoreOwnerProfileEntity::class, 'storeOwnerProfile', Join::WITH, 'storeOwnerProfile.id = product.storeOwnerProfileID')
+
+            ->andWhere('product.productName LIKE :productName')
+            ->andWhere('product.storeOwnerProfileID = :storeOwnerProfileId')
+
+            ->setParameter('productName', '%'.$name.'%')
+            ->setParameter('storeOwnerProfileId', $storeOwnerProfileId)
+
+            ->andWhere('product.status = :status')
+            ->setParameter('status', self::STATUS_ACTIVE)
+
+            ->setMaxResults(20)
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getProductsTranslationByTranslatedNameAndStoreOwnerProfileId($name, $storeOwnerProfileId)
+    {
+        return $this->createQueryBuilder('product')
+
+            ->select('product.id', 'product.productName as primaryProductName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID','product.discount', 'product.description', 'product.productQuantity', 'product.status')
+            ->addSelect('storeOwnerProfile.id as storeOwnerProfileID', 'storeOwnerProfile.storeOwnerName as storeOwnerName', 'storeOwnerProfile.image as storeImage',
+                'productTranslationEntity.productName', 'productTranslationEntity.language')
+
+            ->leftJoin(StoreOwnerProfileEntity::class,
+                'storeOwnerProfile',
+                Join::WITH,
+                'storeOwnerProfile.id = product.storeOwnerProfileID')
+
+            ->leftJoin(
+                ProductTranslationEntity::class,
+                'productTranslationEntity',
+                Join::WITH,
+                'productTranslationEntity.productID = product.id'
+            )
+
+            ->andWhere('productTranslationEntity.productName LIKE :productName')
+            ->andWhere('product.storeOwnerProfileID = :storeOwnerProfileId')
+
+            ->setParameter('productName', '%'.$name.'%')
+            ->setParameter('storeOwnerProfileId', $storeOwnerProfileId)
+
+            ->andWhere('product.status = :status')
+            ->setParameter('status', self::STATUS_ACTIVE)
+
+            ->setMaxResults(20)
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getProductsTranslationByNameAndStoreOwnerProfileId($name, $storeOwnerProfileId)
+    {
+        return $this->createQueryBuilder('product')
+
+            ->select('product.id', 'product.productName as primaryProductName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID','product.discount', 'product.description', 'product.productQuantity', 'product.status')
+            ->addSelect('storeOwnerProfile.id as storeOwnerProfileID', 'storeOwnerProfile.storeOwnerName as storeOwnerName', 'storeOwnerProfile.image as storeImage',
+                'productTranslationEntity.productName', 'productTranslationEntity.language')
+
+            ->leftJoin(StoreOwnerProfileEntity::class,
+                'storeOwnerProfile',
+                Join::WITH,
+                'storeOwnerProfile.id = product.storeOwnerProfileID')
+
+            ->leftJoin(
+                ProductTranslationEntity::class,
+                'productTranslationEntity',
+                Join::WITH,
+                'productTranslationEntity.productID = product.id'
+            )
 
             ->andWhere('product.productName LIKE :productName')
             ->andWhere('product.storeOwnerProfileID = :storeOwnerProfileId')

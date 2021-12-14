@@ -107,6 +107,11 @@ class ProductManager
         return $this->productEntityRepository->getProductsByStoreProductCategoryIDForStore($storeProductCategoryID, $storeOwnerProfileId);
     }
 
+    public function getProductsTranslationsByStoreProductCategoryIDForStore($storeProductCategoryID, $storeOwnerProfileID)
+    {
+        return $this->productEntityRepository->getProductsTranslationsByStoreProductCategoryIDForStore($storeProductCategoryID, $storeOwnerProfileID);
+    }
+
     public function getProductsSoldCount($id)
     {
         return $this->productEntityRepository->getProductsSoldCount($id);
@@ -144,6 +149,16 @@ class ProductManager
     public function getProductsByNameAndStoreOwnerProfileId($name, $storeOwnerProfileId)
     {
         return $this->productEntityRepository->getProductsByNameAndStoreOwnerProfileId($name, $storeOwnerProfileId);
+    }
+
+    public function getProductsTranslationByTranslatedNameAndStoreOwnerProfileId($name, $storeOwnerProfileId)
+    {
+        return $this->productEntityRepository->getProductsTranslationByTranslatedNameAndStoreOwnerProfileId($name, $storeOwnerProfileId);
+    }
+
+    public function getProductsTranslationByNameAndStoreOwnerProfileId($name, $storeOwnerProfileId)
+    {
+        return $this->productEntityRepository->getProductsTranslationByNameAndStoreOwnerProfileId($name, $storeOwnerProfileId);
     }
 
     public function createProductByStore(ProductCreateRequest $request)
