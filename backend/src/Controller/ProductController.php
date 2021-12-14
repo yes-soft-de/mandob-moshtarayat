@@ -104,8 +104,16 @@ class ProductController extends BaseController
      * @Route("/productscategory/{storeProductCategoryID}", name="productsByStoreProductCategoryID", methods={"GET"})
      * @param $storeProductCategoryID
      * @return JsonResponse
+     *
      * @OA\Tag(name="Product")
-
+     *
+     * @OA\Parameter(
+     *      name="Accept-Language",
+     *      in="header",
+     *      description="language to be passed as a header",
+     *      required=false
+     * )
+     *
      * @OA\Response(
      *      response=200,
      *      description="Get products of category specific",
@@ -137,9 +145,9 @@ class ProductController extends BaseController
      * )
      *
      */
-    public function getProductsByProductCategoryId($storeProductCategoryID)
+    public function getProductsByProductCategoryId(Request $request, $storeProductCategoryID)
     {
-        $result = $this->productService->getProductsByProductCategoryId($storeProductCategoryID);
+        $result = $this->productService->getProductsByProductCategoryId($request->getPreferredLanguage(), $storeProductCategoryID);
 
         return $this->response($result, self::FETCH);
     }

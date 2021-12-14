@@ -54,13 +54,35 @@ class ProductService
         return $this->autoMapping->map(ProductEntity::class, ProductCreateResponse::class, $item);
     }
 
-    public function getProductsByProductCategoryId($storeProductCategoryID)
+    public function getProductsByProductCategoryId($userLocale, $storeProductCategoryID)
     {
         $response = [];
 
-        $items = $this->productManager->getProductsByProductCategoryId($storeProductCategoryID);
+        if($userLocale != null && $userLocale != $this->primaryLanguage)
+        {
+            $products = [];
 
-        foreach ($items as $item) {
+            $productsTranslation = $this->productManager->getProductsTranslationsByProductCategoryId($storeProductCategoryID);
+
+            foreach($productsTranslation as $product)
+            {
+                if((!$product['language']))
+                {
+                    $product['productName'] = $product['primaryProductName'];
+                    $products[] = $product;
+                }
+                elseif($product['language'] == $userLocale)
+                {
+                    $products[] = $product;
+                }
+            }
+        }
+        else
+        {
+            $products = $this->productManager->getProductsByProductCategoryId($storeProductCategoryID);
+        }
+
+        foreach ($products as $item) {
 
             $item['store'] = $this->storeOwnerProfileService->getStoreNameById($item['storeOwnerProfileID']);
             $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
