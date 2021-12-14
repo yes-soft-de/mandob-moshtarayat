@@ -282,15 +282,37 @@ class ProductService
         return $response;
     }
 
-    public function getProductsByStoreProductCategoryIDForStore($storeProductCategoryID, $userID): ?array
+    public function getProductsByStoreProductCategoryIDForStore($userLocale, $storeProductCategoryID, $userID): ?array
     {
         $response = [];
 
         $storeOwnerProfileId = $this->userManager->getStoreProfileId($userID);
 
-        $items = $this->productManager->getProductsByStoreProductCategoryIDForStore($storeProductCategoryID, $storeOwnerProfileId);
+        if($userLocale != null && $userLocale != $this->primaryLanguage)
+        {
+            $products = [];
 
-        foreach ($items as $item) {
+            $productsTranslation = $this->productManager->getProductsTranslationsByStoreProductCategoryIDForStore($storeProductCategoryID, $storeOwnerProfileId);
+
+            foreach($productsTranslation as $product)
+            {
+                if((!$product['language']))
+                {
+                    $product['productName'] = $product['primaryProductName'];
+                    $products[] = $product;
+                }
+                elseif($product['language'] == $userLocale)
+                {
+                    $products[] = $product;
+                }
+            }
+        }
+        else
+        {
+            $products = $this->productManager->getProductsByStoreProductCategoryIDForStore($storeProductCategoryID, $storeOwnerProfileId);
+        }
+
+        foreach ($products as $item) {
             $item['store'] = $this->storeOwnerProfileService->getStoreNameById($item['storeOwnerProfileID']);
             $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
             $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
