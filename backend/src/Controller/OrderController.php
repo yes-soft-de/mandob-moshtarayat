@@ -286,7 +286,7 @@ class OrderController extends BaseController
 
     /**
      * admin: Get orders ongoing for admin.
-      * @Route("/getOrdersOngoing", name="getOrdersOngoingForAdmin", methods={"GET"})
+      * @Route("/getordersongoing", name="getOrdersOngoingForAdmin", methods={"GET"})
       * @IsGranted("ROLE_ADMIN")
       * @return JsonResponse
      * *
@@ -301,46 +301,27 @@ class OrderController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Get orders ongoing for admin",
+     *      description="Return onging orders.",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="array", property="Data",
      *              @OA\Items(
      *                  @OA\Property(type="integer", property="id"),
-     *                  @OA\Property(type="object", property="source"),
      *                  @OA\Property(type="object", property="deliveryDate"),
      *                  @OA\Property(type="string", property="payment"),
      *                  @OA\Property(type="string", property="orderNumber"),
-     *                  @OA\Property(type="string", property="detail"),
-     *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
-     *                  @OA\Property(type="string", property="storeOwnerName"),
-     *                  @OA\Property(type="array", property="branches",
-     *                      @OA\Items(
-     *                              @OA\Property(type="integer", property="id"),
-     *                              @OA\Property(type="integer", property="storeOwnerProfileID"),
-     *                              @OA\Property(type="object", property="geoLocation"),
-     *                              @OA\Property(type="string", property="branchName"),
-     *                              @OA\Property(type="boolean", property="free"),
-     *                              @OA\Property(type="string", property="storeOwnerName"),
-     *                              @OA\Property(type="object", property="isActive"),
-     *                                   ),
-     *                      ),
-     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="number", property="deliveryCost"),
+     *                  @OA\Property(type="number", property="orderCost"),
      *                  @OA\Property(type="integer", property="orderType"),
-     *                  @OA\Property(type="integer", property="deliveryCost"),
-     *                  @OA\Property(type="integer", property="orderCost"),
-     *                  @OA\Property(type="object", property="destination"),
      *                  @OA\Property(type="string", property="note"),
-     *                  @OA\Property(type="string", property="state"),
      *                  ),
      *            )
      *       )
      *  )
-     *
      * @Security(name="Bearer")
      */
-      public function getOrdersOngoing()
+      public function getOrdersOngoing(): JsonResponse
       {
           $result = $this->orderService->getOrdersOngoing();
   
@@ -596,7 +577,7 @@ class OrderController extends BaseController
 
     /**
      * captain: Get the orders received by the captain.
-     * @Route("/getAcceptedOrder", name="getAcceptedOrderByCaptainId", methods={"GET"})
+     * @Route("/getacceptedorder", name="getAcceptedOrderByCaptainId", methods={"GET"})
      * @IsGranted("ROLE_CAPTAIN")
      * @return JsonResponse
      * *
@@ -611,41 +592,24 @@ class OrderController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Return order.",
+     *      description="Return Accepted orders.",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="array", property="Data",
      *              @OA\Items(
      *                  @OA\Property(type="integer", property="id"),
-     *                  @OA\Property(type="string", property="storeOwnerName"),
-     *                  @OA\Property(type="object", property="source"),
-     *                  @OA\Property(type="object", property="destination"),
      *                  @OA\Property(type="object", property="deliveryDate"),
-     *                  @OA\Property(type="string", property="note"),
      *                  @OA\Property(type="string", property="payment"),
-     *                  @OA\Property(type="string", property="recipientName"),
-     *                  @OA\Property(type="string", property="recipientPhone"),
-     *                  @OA\Property(type="string", property="state"),
-     *                  @OA\Property(type="array", property="orderDetail",
-     *                      @OA\Items(
-     *                            @OA\Property(type="integer", property="orderDetail"),
-     *                            @OA\Property(type="integer", property="productID"),
-     *                            @OA\Property(type="integer", property="orderID"),
-     *                            @OA\Property(type="integer", property="productName"),
-     *                            @OA\Property(type="integer", property="productImage"),
-     *                            @OA\Property(type="integer", property="productPrice"),
-     *                            @OA\Property(type="integer", property="countProduct"),
-     *                            @OA\Property(type="integer", property="storeOwnerProfileID"),
-     *                            @OA\Property(type="integer", property="ProductCategoryID"),
-     *                            @OA\Property(type="integer", property="orderNumber"),
-     *
-     *                      ),
+     *                  @OA\Property(type="string", property="orderNumber"),
+     *                  @OA\Property(type="number", property="deliveryCost"),
+     *                  @OA\Property(type="number", property="orderCost"),
+     *                  @OA\Property(type="integer", property="orderType"),
+     *                  @OA\Property(type="string", property="note"),
      *                  ),
-     *              )
-     *          )
-     *     )
-     * )
+     *            )
+     *       )
+     *  )
      * @Security(name="Bearer")
      */
       public function getAcceptedOrderByCaptainId(): JsonResponse
@@ -944,8 +908,18 @@ class OrderController extends BaseController
      *                         @OA\Property(type="integer", property="storeOwnerProfileID"),
      *                         @OA\Property(type="string", property="storeOwnerName"),
      *                         @OA\Property(type="string", property="phone"),
-     *                         @OA\Property(type="string", property="image"),
+     *                         @OA\Property(type="object", property="image",
+     *                                 @OA\Property(type="object", property="imageURL"),
+     *                                 @OA\Property(type="object", property="image"),
+     *                                 @OA\Property(type="object", property="baseURL"),
+     *                                          ),
      *                         @OA\Property(type="integer", property="storeCategoryId"),
+     *                         @OA\Property(type="number", property="invoiceAmount"),
+     *                         @OA\Property(type="object", property="invoiceImage",
+     *                                 @OA\Property(type="object", property="imageURL"),
+     *                                 @OA\Property(type="object", property="image"),
+     *                                 @OA\Property(type="object", property="baseURL"),
+     *                                          ),
      *                         @OA\Property(type="array", property="products",
      *                              @OA\Items(
      *                                  @OA\Property(type="string", property="productName"),
@@ -982,16 +956,8 @@ class OrderController extends BaseController
      * @IsGranted("ROLE_CAPTAIN")
      * @param $orderNumber
      * @return JsonResponse
-     * *
      *
      * @OA\Tag(name="Order")
-     * @OA\Parameter(
-     *      name="token",
-     *      in="header",
-     *      description="token to be passed as a header",
-     *      required=true
-     * )
-     *
      *
      * @OA\Response(
      *      response=200,
@@ -1025,8 +991,18 @@ class OrderController extends BaseController
      *                         @OA\Property(type="integer", property="storeOwnerProfileID"),
      *                         @OA\Property(type="string", property="storeOwnerName"),
      *                         @OA\Property(type="string", property="phone"),
-     *                         @OA\Property(type="string", property="image"),
+     *                         @OA\Property(type="object", property="image",
+     *                                 @OA\Property(type="object", property="imageURL"),
+     *                                 @OA\Property(type="object", property="image"),
+     *                                 @OA\Property(type="object", property="baseURL"),
+     *                                          ),
      *                         @OA\Property(type="integer", property="storeCategoryId"),
+     *                         @OA\Property(type="number", property="invoiceAmount"),
+     *                         @OA\Property(type="object", property="invoiceImage",
+     *                                 @OA\Property(type="object", property="imageURL"),
+     *                                 @OA\Property(type="object", property="image"),
+     *                                 @OA\Property(type="object", property="baseURL"),
+     *                                          ),
      *                         @OA\Property(type="array", property="products",
      *                              @OA\Items(
      *                                  @OA\Property(type="string", property="productName"),
@@ -1050,7 +1026,6 @@ class OrderController extends BaseController
      *      )
      *  )
      *)
-     * @Security(name="Bearer")
      */
     public function getOrderDetailsByOrderNumber($orderNumber): JsonResponse
     {
@@ -1064,16 +1039,8 @@ class OrderController extends BaseController
       * @Route("orderdetailsforadmin/{orderNumber}", name="getOrderDetailsByOrderNumberForAdmin", methods={"GET"})
       * @IsGranted("ROLE_ADMIN")
       * @return JsonResponse
-     * *
      *
      * @OA\Tag(name="Order")
-     * @OA\Parameter(
-     *      name="token",
-     *      in="header",
-     *      description="token to be passed as a header",
-     *      required=true
-     * )
-     *
      *
      * @OA\Response(
      *      response=200,
@@ -1107,8 +1074,18 @@ class OrderController extends BaseController
      *                         @OA\Property(type="integer", property="storeOwnerProfileID"),
      *                         @OA\Property(type="string", property="storeOwnerName"),
      *                         @OA\Property(type="string", property="phone"),
-     *                         @OA\Property(type="string", property="image"),
+     *                         @OA\Property(type="object", property="image",
+     *                                 @OA\Property(type="object", property="imageURL"),
+     *                                 @OA\Property(type="object", property="image"),
+     *                                 @OA\Property(type="object", property="baseURL"),
+     *                                          ),
      *                         @OA\Property(type="integer", property="storeCategoryId"),
+     *                         @OA\Property(type="number", property="invoiceAmount"),
+     *                         @OA\Property(type="object", property="invoiceImage",
+     *                                 @OA\Property(type="object", property="imageURL"),
+     *                                 @OA\Property(type="object", property="image"),
+     *                                 @OA\Property(type="object", property="baseURL"),
+     *                                          ),
      *                         @OA\Property(type="array", property="products",
      *                              @OA\Items(
      *                                  @OA\Property(type="string", property="productName"),
@@ -1132,7 +1109,6 @@ class OrderController extends BaseController
      *      )
      *  )
      *)
-     * @Security(name="Bearer")
      */
     public function getOrderDetailsByOrderNumberForAdmin($orderNumber)
       {
@@ -1142,8 +1118,8 @@ class OrderController extends BaseController
       }
 
     /**
-     * client : Update order type product.
-     * @Route("/orderUpdatebyclient", name="orderUpdateByClient", methods={"PUT"})
+     * client : Update count product order type 1.
+     * @Route("/orderupdatebyclient", name="orderUpdateByClient", methods={"PUT"})
      * @IsGranted("ROLE_CLIENT")
      * @param Request $request
      * @return JsonResponse
@@ -1161,20 +1137,15 @@ class OrderController extends BaseController
      *        description="Update the order invoice",
      *        @OA\JsonContent(
      *              @OA\Property(type="string", property="orderNumber"),
-     *              @OA\Property(type="object", property="destination"),
-     *              @OA\Property(type="string", property="note"),
-     *              @OA\Property(type="string", property="payment"),
-     *              @OA\Property(type="string", property="storeOwnerProfileID"),
      *              @OA\Property(type="array", property="products",
      *                  @OA\Items(
      *                       @OA\Property(type="integer", property="productID"),
      *                       @OA\Property(type="integer", property="countProduct"),
      *                  ),
-     *              @OA\Property(type="object", property="deliveryDate"),
-     *              @OA\Property(type="number", property="orderCost"),
      *               ),
      *         ),
      *      ),
+     *
      * @OA\Response(
      *      response=204,
      *      description="Returns object",
@@ -1182,21 +1153,7 @@ class OrderController extends BaseController
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
-     *            @OA\Property(type="object", property="order",
-     *                @OA\Property(type="integer", property="id"),
-     *                @OA\Property(type="integer", property="storeOwnerProfileID"),
-     *                @OA\Property(type="object", property="destination"),
-     *                @OA\Property(type="object", property="deliveryDate"),
-     *                @OA\Property(type="string", property="note"),
-     *                @OA\Property(type="string", property="payment"),
-     *                @OA\Property(type="string", property="state"),
-     *                @OA\Property(type="string", property="captainID"),
-     *                @OA\Property(type="string", property="detail"),
-     *                @OA\Property(type="integer", property="deliveryCost"),
-     *                @OA\Property(type="integer", property="orderCost"),
-     *                @OA\Property(type="integer", property="orderType"),
-     *
-     *              )
+     *                @OA\Property(type="integer", property="orderNumber"),
      *          )
      *      )
      * )
@@ -1204,27 +1161,31 @@ class OrderController extends BaseController
      * or
      *
      * @OA\Response(
-     *      response=425,
+     *      response="default",
      *      description="Returns string",
      *      @OA\JsonContent(
-     *          @OA\Property(type="string", property="status_code"),
-     *          @OA\Property(type="string", property="msg"),
-     *          @OA\Property(type="string", property="Data"),
+     *          @OA\Property(type="string", property="status_code", description="9203"),
+     *          @OA\Property(type="string", property="msg", description="error Successfully."),
+     *          @OA\Property(type="string", property="Data", description="you can't edit, The captain received the order"),
      *      )
      * )
      *
      * @Security(name="Bearer")
      */
-    public function orderUpdateByClient(Request $request)
+    public function orderUpdateByClient(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class, OrderUpdateByClientRequest::class, (object) $data);
         $request->setProducts($data['products']);
+        $request->setClientID($this->getUserId());
 
-        $response = $this->orderService->orderUpdateByClient($request, $this->getUserId());
-        if(is_string($response)){
-            return $this->response($response, self::ERROR);  
+        $response = $this->orderService->orderUpdateByClient($request);
+        if(($response == ResponseConstant::$ERROR)){
+            return $this->response($response, self::NOTFOUND);
+          }
+        if(($response == ResponseConstant::$ORDER_NOT_UPDATE_STATE)){
+            return $this->response($response, self::ERROR_ORDER_UPDATE);
           }
 
         return $this->response($response, self::UPDATE);
@@ -1559,7 +1520,9 @@ class OrderController extends BaseController
      * @OA\RequestBody (
      *        description="Update the order invoice",
      *        @OA\JsonContent(
-     *              @OA\Property(type="string", property="orderNumber"),
+     *              @OA\Property(type="integer", property="orderDetailID"),
+     *              @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *              @OA\Property(type="integer", property="orderNumber"),
      *              @OA\Property(type="number", property="invoiceAmount"),
      *              @OA\Property(type="string", property="invoiceImage"),
      *         ),
@@ -1572,8 +1535,10 @@ class OrderController extends BaseController
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="integer", property="id"),
      *              @OA\Property(type="number", property="invoiceAmount"),
      *              @OA\Property(type="string", property="invoiceImage"),
+     *              @OA\Property(type="integer", property="orderNumber"),
      *              )
      *          )
      *     )
@@ -1588,10 +1553,9 @@ class OrderController extends BaseController
         $request->setCaptainID($this->getUserId());
 
         $response = $this->orderService->orderUpdateInvoiceByCaptain($request);
-        if(is_string($response)){
+        if($response == ResponseConstant::$ERROR){
             return $this->response($response, self::ERROR);
-          }
-
+        }
         return $this->response($response, self::UPDATE);
     }
 

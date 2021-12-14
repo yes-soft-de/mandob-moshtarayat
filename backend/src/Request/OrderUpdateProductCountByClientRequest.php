@@ -2,13 +2,13 @@
 
 namespace App\Request;
 
-class OrderUpdateByClientRequest
+class OrderUpdateProductCountByClientRequest
 {
     private $orderNumber;
     
-    private $products;
+    private $productID;
 
-    private $clientID;
+    private $countProduct;
 
      /**
      * Get the value of orderNumber
@@ -31,41 +31,41 @@ class OrderUpdateByClientRequest
     }
 
     /**
-     * Get the value of products
+     * Get the value of $productId
      */ 
-    public function getProducts()
+    public function getProductId()
     {
-        return $this->products;
+        return $this->productID;
     }
 
     /**
-     * Set the value of products
+     * Set the value of $productId
      *
      * @return  self
      */ 
-    public function setProducts($products)
+    public function setProductId($productID)
     {
-        $this->products = $products;
+        $this->productID = $productID;
 
         return $this;
     }
 
     /**
-     * Get the value of clientID
+     * Get the value of $countProduct
      */
-    public function GetClientID()
+    public function getCountProduct()
     {
-        return $this->clientID;
+        return $this->countProduct;
     }
 
     /**
-     * Set the value of clientID
+     * Set the value of $countProduct
      *
      * @return  self
      */
-    public function setClientID($clientID)
+    public function setCountProduct($countProduct)
     {
-        $this->clientID = $clientID;
+        $this->countProduct = $countProduct;
 
         return $this;
     }

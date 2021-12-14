@@ -5,10 +5,14 @@ namespace App\Service;
 use App\AutoMapping;
 use App\Entity\OrderDetailEntity;
 use App\Manager\OrderDetailManager;
+use App\Request\OrderUpdateByClientRequest;
 use App\Request\OrderUpdateInvoiceByCaptainRequest;
+use App\Request\OrderUpdateProductCountByClientRequest;
 use App\Response\OrderCreateDetailResponse;
 use App\Response\OrderDetailProductsResponse;
 use App\Response\OrderDetailResponse;
+use App\Response\OrderUpdateInvoiceByCaptainResponse;
+use App\Response\OrderUpdateProductCountByClientResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 
@@ -66,7 +70,8 @@ class OrderDetailService
 
         $stores = $this->orderDetailManager->getStoreOwnerProfileByOrderNumber($orderNumber);
         foreach ($stores as $store) {
-            $item['image'] = $this->getImageParams($store['image'], $this->params . $store['image'], $this->params);
+            $store['image'] = $this->getImageParams($store['image'], $this->params . $store['image'], $this->params);
+            $store['invoiceImage'] = $this->getImageParams($store['invoiceImage'], $this->params . $store['invoiceImage'], $this->params);
 
             $store['products'] = $this->getProductsByOrderNumberAndStoreID($orderNumber, $store['storeOwnerProfileID']);
 
@@ -113,6 +118,11 @@ class OrderDetailService
        return $response;
     }
 
+    public function getOrderId($orderNumber)
+    {
+        return $this->orderDetailManager->getOrderId($orderNumber);
+    }
+
     public function getOrderNumberByOrderId($orderID)
     {
         $response = [];
@@ -135,17 +145,31 @@ class OrderDetailService
        return $this->orderDetailManager->getCountOrdersEveryProductInLastMonth($fromDate, $toDate);
    }
 
-    public function orderUpdateInvoiceByCaptain(OrderUpdateInvoiceByCaptainRequest $request):?array
+    public function orderUpdateInvoiceByCaptain(OrderUpdateInvoiceByCaptainRequest $request)
     {
-       return $this->orderDetailManager->orderUpdateInvoiceByCaptain($request);
-   }
+        $item = $this->orderDetailManager->orderUpdateInvoiceByCaptain($request);
+        return $this->autoMapping->map(OrderDetailEntity::class, OrderUpdateInvoiceByCaptainResponse::class, $item);
+    }
+
+    public function UpdateProductCount(OrderUpdateProductCountByClientRequest $request)
+    {
+        $item = $this->orderDetailManager->UpdateProductCount($request);
+        return $this->autoMapping->map(OrderDetailEntity::class, OrderUpdateProductCountByClientResponse::class, $item);
+    }
 
     public function getImageParams($imageURL, $image, $baseURL): array
     {
+        if($imageURL) {
+            $item['image'] = $image;
+        }
+        else {
+            $item['image'] = $imageURL;
+        }
+
         $item['imageURL'] = $imageURL;
-        $item['image'] = $image;
         $item['baseURL'] = $baseURL;
 
         return $item;
     }
+
 }

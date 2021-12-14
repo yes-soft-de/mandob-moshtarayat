@@ -11,5 +11,7 @@ class OrderDetailResponse
     public $phone;
     public $image;
     public $storeCategoryId;
+    public $invoiceAmount;
+    public $invoiceImage;
     public $products;
 }

@@ -11,6 +11,7 @@ use App\Request\OrderClientCreateRequest;
 use App\Request\OrderClientSendCreateRequest;
 use App\Request\OrderClientSpecialCreateRequest;
 use App\Request\orderUpdateBillCalculatedByCaptainRequest;
+use App\Request\OrderUpdateProductCountByClientRequest;
 use App\Request\OrderUpdateStateByCaptainRequest;
 use App\Request\OrderUpdateInvoiceByCaptainRequest;
 use App\Request\OrderUpdateByClientRequest;
@@ -25,6 +26,7 @@ use App\Response\OrderClosestResponse;
 use App\Response\OrderPendingResponse;
 use App\Response\OrdersPendingForStoreResponse;
 use App\Response\orderUpdateBillCalculatedByCaptainResponse;
+use App\Response\OrderUpdateProductCountByClientResponse;
 use App\Response\OrderUpdateStateResponse;
 use App\Response\OrderUpdateInvoiceByCaptainResponse;
 use App\Response\OrderCreateClientResponse;
@@ -61,11 +63,12 @@ class OrderService
     private $notificationLocalService;
     private $orderLogService;
     private $userService;
+    private $ordersInvoicesService;
 
     public function __construct(AutoMapping $autoMapping, OrderManager $orderManager, StoreOwnerProfileService $storeOwnerProfileService, ParameterBagInterface $params,  RatingService $ratingService
                                 // , NotificationService $notificationService
                                , RoomIdHelperService $roomIdHelperService,  DateFactoryService $dateFactoryService, CaptainProfileService $captainProfileService, ProductService $productService, OrderDetailService $orderDetailService, DeliveryCompanyFinancialService $deliveryCompanyFinancialService,
-                               ClientProfileService $clientProfileService, NotificationLocalService $notificationLocalService, OrderLogService $orderLogService, UserService $userService
+                               ClientProfileService $clientProfileService, NotificationLocalService $notificationLocalService, OrderLogService $orderLogService, UserService $userService, OrdersInvoicesService $ordersInvoicesService
                                 )
     {
         $this->autoMapping = $autoMapping;
@@ -84,6 +87,7 @@ class OrderService
         $this->notificationLocalService = $notificationLocalService;
         $this->orderLogService = $orderLogService;
         $this->userService = $userService;
+        $this->ordersInvoicesService = $ordersInvoicesService;
     }
 
     public function closestOrders($userId)
@@ -201,7 +205,11 @@ class OrderService
     {
         $orders = $this->orderManager->getOrdersOngoing();
 
-        return $this->getOrdersWithStore($orders);
+        foreach ($orders as $order) {
+            $response[] = $this->autoMapping->map('array', OrderPendingResponse::class, $order);
+        }
+
+        return $response;
     }
 
      public function getOrdersInSpecificDate($fromDate, $toDate):?array
@@ -286,14 +294,11 @@ class OrderService
         $response = [];
 
         $orders = $this->orderManager->getAcceptedOrderByCaptainId($captainID);
-   
-        foreach ($orders as $order){
-          $order['orderDetail'] = $this->orderDetailService->getOrderNumberByOrderId($order['id']);
-          $order['orderNumber'] = $order['orderDetail'][0]->orderNumber;
 
-          $response[] = $this->autoMapping->map('array', AcceptedOrderResponse::class, $order);
+        foreach ($orders as $order) {
+            $response[] = $this->autoMapping->map('array', AcceptedOrderResponse::class, $order);
         }
-    
+
         return $response;
     }
 
@@ -440,44 +445,39 @@ class OrderService
         return $response;
     }
 
-    public function orderUpdateByClient(OrderUpdateByClientRequest $request, $clientID)
+    public function orderUpdateByClient(OrderUpdateByClientRequest $request)
     {
-        $response = "Not updated!!";
+        $response = ResponseConstant::$ERROR;
 
-        $orderDetails = $this->orderDetailService->getOrderIdWithOutStoreProductByOrderNumber($request->getOrderNumber());
-        if($orderDetails) {
-            $order = $this->orderManager->orderStatusByOrderId($orderDetails[0]->getOrderID());
-            if($order[0]['state'] == 'in store') {
+        $orderId = $this->orderDetailService->getOrderId($request->getOrderNumber());
 
+        if($orderId) {
+            $order = $this->orderManager->orderStatusByOrderId($orderId[0]['orderID']);
+            if($order['state'] != OrderStateConstant::$ORDER_STATE_PENDING ) {
                 //notification local
-                $this->notificationLocalService->createNotificationLocal($clientID, LocalNotificationList::$UPDATE_ORDER_TITLE, LocalNotificationList::$UPDATE_ORDER_ERROR_CAPTAIN_IN_STORE, $request->getOrderNumber());
+                $this->notificationLocalService->createNotificationLocal($request->getClientID(), LocalNotificationList::$UPDATE_ORDER_TITLE, LocalNotificationList::$UPDATE_ORDER_ERROR_CAPTAIN_IN_STORE, $request->getOrderNumber());
 
-                return $response = "you can't edit, captain in the store.";
+                return ResponseConstant::$ORDER_NOT_UPDATE_STATE;
             }
 
-                $orderUpdate = $this->orderManager->orderUpdateByClient($request, $orderDetails[0]->getOrderID());
-                if($orderUpdate) {
+            $products = $request->getProducts();
 
-                    foreach ($orderDetails as $orderDetail) {
-                    $orderDetailDelete = $this->orderDetailService->orderDetailDelete($orderDetail->getId());
-                    }
+            foreach ($products as $product) {
 
-                    if ($orderDetailDelete == "Deleted") {
-                        $products = $request->getProducts();
+                $productID = $product['productID'];
+                $countProduct = $product['countProduct'];
 
-                        foreach ($products as $product) {
-                            $productID = $product['productID'];
-                            $countProduct = $product['countProduct'];
-                            $createOrderDetail = $this->orderDetailService->createOrderDetail($orderDetails[0]->getOrderID(), $productID, $countProduct, $request->getOrderNumber());
-                        }
+                $orderDetail = new OrderUpdateProductCountByClientRequest();
+                $orderDetail->setCountProduct($countProduct);
+                $orderDetail->setOrderNumber($request->getOrderNumber());
+                $orderDetail->setProductId($productID);
 
-                        //notification local
-                        $this->notificationLocalService->createNotificationLocal($clientID, LocalNotificationList::$UPDATE_ORDER_TITLE, LocalNotificationList::$UPDATE_ORDER_SUCCESS, $request->getOrderNumber());
-                        return $response = $this->getOrderStatusByOrderNumber($request->getOrderNumber());
-                    } 
-                }     
-        }       
-
+                $updateProductCount = $this->orderDetailService->UpdateProductCount($orderDetail);
+            }
+            //notification local
+            $this->notificationLocalService->createNotificationLocal($request->GetClientID(), LocalNotificationList::$UPDATE_ORDER_TITLE, LocalNotificationList::$UPDATE_ORDER_SUCCESS, $request->getOrderNumber());
+            $response = $this->autoMapping->map(OrderUpdateProductCountByClientResponse::class, OrderUpdateProductCountByClientResponse::class, $updateProductCount);
+        }
         return $response;
     }
 
@@ -636,15 +636,21 @@ class OrderService
 
     public function orderUpdateInvoiceByCaptain(OrderUpdateInvoiceByCaptainRequest $request)
     {
-        $response = "Not updated!!";
+        $response = ResponseConstant::$ERROR;
 
+        $orderInvoice = $this->ordersInvoicesService->orderUpdateInvoiceByCaptain($request);
+        if(!$orderInvoice) {
+            return $response;
+        }
+
+        $request->setOrderInvoiceId($orderInvoice->id);
 
         $item = $this->orderDetailService->orderUpdateInvoiceByCaptain($request);
+        if(!$item) {
+            return $response;
+        }
 
-        $response = $this->autoMapping->map(OrderEntity::class, OrderUpdateInvoiceByCaptainResponse::class, $item);
-
-
-        return $response;
+        return $this->autoMapping->map(OrderUpdateInvoiceByCaptainResponse::class, OrderUpdateInvoiceByCaptainResponse::class, $orderInvoice);
     }
 
     public function orderUpdateBillCalculatedByCaptain(orderUpdateBillCalculatedByCaptainRequest $request)

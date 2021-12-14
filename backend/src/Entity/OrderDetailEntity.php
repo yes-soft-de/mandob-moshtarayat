@@ -43,15 +43,9 @@ class OrderDetailEntity
     private $storeOwnerProfileID;
 
     /**
-     * The amount of the invoice received from the store is entered by the captain
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="integer", length=255, nullable=true)
      */
-    private $invoiceAmount ;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $invoiceImage;
+    private $orderInvoiceId;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -123,26 +117,14 @@ class OrderDetailEntity
         return $this;
     }
 
-    public function getInvoiceAmount()
+    public function getOrderInvoiceId(): ?int
     {
-        return $this->invoiceAmount;
+        return $this->orderInvoiceId;
     }
 
-    public function setInvoiceAmount($invoiceAmount)
+    public function setOrderInvoiceId(int $orderInvoiceId): self
     {
-        $this->invoiceAmount = $invoiceAmount;
-
-        return $this;
-    }
-
-    public function getInvoiceImage()
-    {
-        return $this->invoiceImage;
-    }
-
-    public function setInvoiceImage($invoiceImage)
-    {
-        $this->invoiceImage = $invoiceImage;
+        $this->orderInvoiceId = $orderInvoiceId;
 
         return $this;
     }
