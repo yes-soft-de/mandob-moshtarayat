@@ -963,6 +963,13 @@ class ProductController extends BaseController
      *      required=true
      * )
      *
+     * @OA\Parameter(
+     *      name="Accept-Language",
+     *      in="header",
+     *      description="language to be passed as a header",
+     *      required=false
+     * )
+     *
      * @OA\Response(
      *      response=200,
      *      description="Get products of store specific for client",
@@ -998,9 +1005,9 @@ class ProductController extends BaseController
      *
      * @Security(name="Bearer")
      */
-    public function getProductsStoreOwnerProfileId($storeOwnerProfileId): JsonResponse
+    public function getProductsStoreOwnerProfileId(Request $request, $storeOwnerProfileId): JsonResponse
     {
-        $result = $this->productService->getProductsStoreOwnerProfileId($storeOwnerProfileId);
+        $result = $this->productService->getProductsStoreOwnerProfileId($request->getPreferredLanguage(), $storeOwnerProfileId);
 
         return $this->response($result, self::FETCH);
     }
