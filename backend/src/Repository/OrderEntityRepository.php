@@ -251,24 +251,23 @@ class OrderEntityRepository extends ServiceEntityRepository
     public function getOrdersOngoing()
     {
         return $this->createQueryBuilder('OrderEntity')
+            ->select('OrderEntity.id', 'OrderEntity.deliveryDate', 'OrderEntity.createdAt', 'OrderEntity.payment', 'OrderEntity.detail', 'OrderEntity.deliveryCost', 'OrderEntity.orderCost', 'OrderEntity.orderType', 'OrderEntity.note')
+            ->addSelect('orderDetailEntity.id as orderDetailId', 'orderDetailEntity.orderNumber')
 
-        ->select('OrderEntity.id', 'OrderEntity.deliveryDate', 'OrderEntity.createdAt', 'OrderEntity.storeOwnerProfileID', 'OrderEntity.source', 'OrderEntity.payment', 'OrderEntity.detail', 'OrderEntity.deliveryCost', 'OrderEntity.orderCost', 'OrderEntity.orderType', 'OrderEntity.destination', 'OrderEntity.note', 'OrderEntity.state')
-        ->addSelect('orderDetailEntity.id as orderDetailId', 'orderDetailEntity.orderNumber')
+            ->leftJoin(OrderDetailEntity::class, 'orderDetailEntity', Join::WITH, 'orderDetailEntity.orderID = OrderEntity.id')
 
-        ->leftJoin(OrderDetailEntity::class, 'orderDetailEntity', Join::WITH, 'orderDetailEntity.orderID = OrderEntity.id')
+            ->andWhere('OrderEntity.state != :pending')
+            ->andWhere('OrderEntity.state != :delivered')
+            ->andWhere('OrderEntity.state != :cancel')
 
-        ->andWhere("OrderEntity.state != :pending ")
-        ->andWhere("OrderEntity.state != :cancel ")
-        ->andWhere("OrderEntity.state != :delivered ")
+            ->setParameter('pending', OrderStateConstant::$ORDER_STATE_PENDING)
+            ->setParameter('delivered', OrderStateConstant::$ORDER_STATE_DELIVERED)
+            ->setParameter('cancel', OrderStateConstant::$ORDER_STATE_CANCEL)
 
-        ->setParameter('pending', self::PENDING)
-        ->setParameter('cancel', self::CANCEL)
-        ->setParameter('delivered', self::DELIVERED)
+            ->addGroupBy('OrderEntity.id')
 
-        ->addGroupBy('OrderEntity.id')
-
-        ->getQuery()
-        ->getResult();
+            ->getQuery()
+            ->getResult();
     }
 
     public function countOrdersInMonthForOwner($fromDate, $toDate, $ownerId)

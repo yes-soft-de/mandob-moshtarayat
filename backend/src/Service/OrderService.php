@@ -205,7 +205,11 @@ class OrderService
     {
         $orders = $this->orderManager->getOrdersOngoing();
 
-        return $this->getOrdersWithStore($orders);
+        foreach ($orders as $order) {
+            $response[] = $this->autoMapping->map('array', OrderPendingResponse::class, $order);
+        }
+
+        return $response;
     }
 
      public function getOrdersInSpecificDate($fromDate, $toDate):?array
@@ -465,6 +469,7 @@ class OrderService
 
                 $productID = $product['productID'];
                 $countProduct = $product['countProduct'];
+
                 $orderDetail = new OrderUpdateProductCountByClientRequest();
                 $orderDetail->setCountProduct($countProduct);
                 $orderDetail->setOrderNumber($request->getOrderNumber());

@@ -286,7 +286,7 @@ class OrderController extends BaseController
 
     /**
      * admin: Get orders ongoing for admin.
-      * @Route("/getOrdersOngoing", name="getOrdersOngoingForAdmin", methods={"GET"})
+      * @Route("/getordersongoing", name="getOrdersOngoingForAdmin", methods={"GET"})
       * @IsGranted("ROLE_ADMIN")
       * @return JsonResponse
      * *
@@ -340,7 +340,7 @@ class OrderController extends BaseController
      *
      * @Security(name="Bearer")
      */
-      public function getOrdersOngoing()
+      public function getOrdersOngoing(): JsonResponse
       {
           $result = $this->orderService->getOrdersOngoing();
   
