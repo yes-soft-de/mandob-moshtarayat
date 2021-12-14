@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\ProductTranslationEntity;
 use App\Repository\ProductTranslationEntityRepository;
 use App\Request\ProductTranslationCreateRequest;
+use App\Request\ProductTranslationUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ProductTranslationManager
@@ -30,6 +31,25 @@ class ProductTranslationManager
         $this->entityManager->clear();
 
         return $productTranslationEntity;
+    }
+
+    public function updateProductTranslationByProductIdAndLanguage(ProductTranslationUpdateRequest $request)
+    {
+        $productTranslationEntity = $this->productTranslationEntityRepository->getByProductIdAndLanguage($request->getProductID(), $request->getLanguage());
+
+        if(!$productTranslationEntity)
+        {
+            return 'productTranslationNotFound';
+        }
+        else
+        {
+            $productTranslationEntity = $this->autoMapping->mapToObject(ProductTranslationUpdateRequest::class, ProductTranslationEntity::class,
+                $request, $productTranslationEntity);
+
+            $this->entityManager->flush();
+
+            return $productTranslationEntity;
+        }
     }
 
 }

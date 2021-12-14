@@ -8,7 +8,11 @@ use App\Manager\ProductManager;
 use App\Manager\UserManager;
 use App\Request\ProductCreateRequest;
 use App\Request\ProductTranslationCreateRequest;
+use App\Request\ProductTranslationUpdateRequest;
+use App\Request\ProductUpdateByStoreOwnerRequest;
+use App\Request\ProductUpdateRequest;
 use App\Request\ProductWithTranslationCreateRequest;
+use App\Request\ProductWithTranslationUpdateRequest;
 use App\Response\ProductCreateResponse;
 use App\Response\ProductsByStoreOwnerProfileIdResponse;
 use App\Response\ProductsByStoreProductCategoryIdResponse;
@@ -345,11 +349,33 @@ class ProductService
         return $item;
     }
 
-    public function updateProductByStore($request)
+    public function updateProductByStore(ProductWithTranslationUpdateRequest $request)
     {
-        $item = $this->productManager->updateProductByStore($request);
+        // First, update the content in the primary language
+        $productUpdateRequest = $this->autoMapping->map('array', ProductUpdateByStoreOwnerRequest::class, $request->getData());
 
-        return $this->autoMapping->map(ProductEntity::class, ProductCreateResponse::class, $item);
+        $product = $this->productManager->updateProductByStore($productUpdateRequest);
+
+        //Second, update the translation data
+        if($request->getTranslate())
+        {
+            $this->updateProductTranslation($request->getTranslate());
+        }
+
+        return $this->autoMapping->map(ProductEntity::class, ProductCreateResponse::class, $product);
+    }
+
+    public function updateProductTranslation($translationArrayRequest)
+    {
+        if($translationArrayRequest)
+        {
+            foreach($translationArrayRequest as $translationRequest)
+            {
+                $productTranslationUpdateRequest = $this->autoMapping->map('array', ProductTranslationUpdateRequest::class, $translationRequest);
+
+                $this->productTranslationService->updateProductTranslationByProductIdAndLanguage($productTranslationUpdateRequest);
+            }
+        }
     }
 
     public function getProductsByStoreCategoryID($storeCategoryID): ?array
