@@ -301,43 +301,24 @@ class OrderController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Get orders ongoing for admin",
+     *      description="Return onging orders.",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="array", property="Data",
      *              @OA\Items(
      *                  @OA\Property(type="integer", property="id"),
-     *                  @OA\Property(type="object", property="source"),
      *                  @OA\Property(type="object", property="deliveryDate"),
      *                  @OA\Property(type="string", property="payment"),
      *                  @OA\Property(type="string", property="orderNumber"),
-     *                  @OA\Property(type="string", property="detail"),
-     *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
-     *                  @OA\Property(type="string", property="storeOwnerName"),
-     *                  @OA\Property(type="array", property="branches",
-     *                      @OA\Items(
-     *                              @OA\Property(type="integer", property="id"),
-     *                              @OA\Property(type="integer", property="storeOwnerProfileID"),
-     *                              @OA\Property(type="object", property="geoLocation"),
-     *                              @OA\Property(type="string", property="branchName"),
-     *                              @OA\Property(type="boolean", property="free"),
-     *                              @OA\Property(type="string", property="storeOwnerName"),
-     *                              @OA\Property(type="object", property="isActive"),
-     *                                   ),
-     *                      ),
-     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="number", property="deliveryCost"),
+     *                  @OA\Property(type="number", property="orderCost"),
      *                  @OA\Property(type="integer", property="orderType"),
-     *                  @OA\Property(type="integer", property="deliveryCost"),
-     *                  @OA\Property(type="integer", property="orderCost"),
-     *                  @OA\Property(type="object", property="destination"),
      *                  @OA\Property(type="string", property="note"),
-     *                  @OA\Property(type="string", property="state"),
      *                  ),
      *            )
      *       )
      *  )
-     *
      * @Security(name="Bearer")
      */
       public function getOrdersOngoing(): JsonResponse
@@ -596,7 +577,7 @@ class OrderController extends BaseController
 
     /**
      * captain: Get the orders received by the captain.
-     * @Route("/getAcceptedOrder", name="getAcceptedOrderByCaptainId", methods={"GET"})
+     * @Route("/getacceptedorder", name="getAcceptedOrderByCaptainId", methods={"GET"})
      * @IsGranted("ROLE_CAPTAIN")
      * @return JsonResponse
      * *
@@ -611,41 +592,24 @@ class OrderController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Return order.",
+     *      description="Return Accepted orders.",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="array", property="Data",
      *              @OA\Items(
      *                  @OA\Property(type="integer", property="id"),
-     *                  @OA\Property(type="string", property="storeOwnerName"),
-     *                  @OA\Property(type="object", property="source"),
-     *                  @OA\Property(type="object", property="destination"),
      *                  @OA\Property(type="object", property="deliveryDate"),
-     *                  @OA\Property(type="string", property="note"),
      *                  @OA\Property(type="string", property="payment"),
-     *                  @OA\Property(type="string", property="recipientName"),
-     *                  @OA\Property(type="string", property="recipientPhone"),
-     *                  @OA\Property(type="string", property="state"),
-     *                  @OA\Property(type="array", property="orderDetail",
-     *                      @OA\Items(
-     *                            @OA\Property(type="integer", property="orderDetail"),
-     *                            @OA\Property(type="integer", property="productID"),
-     *                            @OA\Property(type="integer", property="orderID"),
-     *                            @OA\Property(type="integer", property="productName"),
-     *                            @OA\Property(type="integer", property="productImage"),
-     *                            @OA\Property(type="integer", property="productPrice"),
-     *                            @OA\Property(type="integer", property="countProduct"),
-     *                            @OA\Property(type="integer", property="storeOwnerProfileID"),
-     *                            @OA\Property(type="integer", property="ProductCategoryID"),
-     *                            @OA\Property(type="integer", property="orderNumber"),
-     *
-     *                      ),
+     *                  @OA\Property(type="string", property="orderNumber"),
+     *                  @OA\Property(type="number", property="deliveryCost"),
+     *                  @OA\Property(type="number", property="orderCost"),
+     *                  @OA\Property(type="integer", property="orderType"),
+     *                  @OA\Property(type="string", property="note"),
      *                  ),
-     *              )
-     *          )
-     *     )
-     * )
+     *            )
+     *       )
+     *  )
      * @Security(name="Bearer")
      */
       public function getAcceptedOrderByCaptainId(): JsonResponse

@@ -199,16 +199,19 @@ class OrderEntityRepository extends ServiceEntityRepository
 
     public function getAcceptedOrderByCaptainId($captainID)
     {
-        return $this->createQueryBuilder('orderEntity')
-            ->addSelect('orderEntity.id', 'orderEntity.storeOwnerProfileID', 'orderEntity.source', 'orderEntity.destination', 'orderEntity.deliveryDate', 'orderEntity.updatedAt', 'orderEntity.note', 'orderEntity.payment', 'orderEntity.recipientName', 'orderEntity.recipientPhone', 'orderEntity.state', 'userProfileEntity.storeOwnerName', 'orderEntity.branchId', 'orderEntity.createdAt', 'orderEntity.deliveryCost', 'orderEntity.orderCost', 'orderEntity.detail', '  orderEntity.orderType') 
+        return $this->createQueryBuilder('OrderEntity')
+            ->select('OrderEntity.id', 'OrderEntity.deliveryDate', 'OrderEntity.createdAt', 'OrderEntity.payment', 'OrderEntity.detail', 'OrderEntity.deliveryCost', 'OrderEntity.orderCost', 'OrderEntity.orderType', 'OrderEntity.note')
+            ->addSelect('orderDetailEntity.id as orderDetailId', 'orderDetailEntity.orderNumber')
 
-            ->leftJoin(StoreOwnerProfileEntity::class, 'userProfileEntity', Join::WITH, 'userProfileEntity.id = orderEntity.storeOwnerProfileID')
+            ->leftJoin(OrderDetailEntity::class, 'orderDetailEntity', Join::WITH, 'orderDetailEntity.orderID = OrderEntity.id')
 
-            ->andWhere('orderEntity.captainID = :captainID')
-            ->andWhere("orderEntity.state != :delivered")
+            ->andWhere('OrderEntity.state != :delivered ')
+            ->andWhere('OrderEntity.captainID = :captainID ')
 
+            ->setParameter('delivered', OrderStateConstant::$ORDER_STATE_DELIVERED)
             ->setParameter('captainID', $captainID)
-            ->setParameter('delivered', self::DELIVERED) 
+
+            ->addGroupBy('OrderEntity.id')
 
             ->getQuery()
             ->getResult();

@@ -294,14 +294,11 @@ class OrderService
         $response = [];
 
         $orders = $this->orderManager->getAcceptedOrderByCaptainId($captainID);
-   
-        foreach ($orders as $order){
-          $order['orderDetail'] = $this->orderDetailService->getOrderNumberByOrderId($order['id']);
-          $order['orderNumber'] = $order['orderDetail'][0]->orderNumber;
 
-          $response[] = $this->autoMapping->map('array', AcceptedOrderResponse::class, $order);
+        foreach ($orders as $order) {
+            $response[] = $this->autoMapping->map('array', AcceptedOrderResponse::class, $order);
         }
-    
+
         return $response;
     }
 
