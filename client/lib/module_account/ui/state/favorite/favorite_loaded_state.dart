@@ -22,6 +22,7 @@ class FavoriteLoadedState extends States {
         child: Wrap(
           alignment: WrapAlignment.center,
           direction: Axis.horizontal,
+          spacing: 8,
           children: getFavorite(),
         ),
       ),
@@ -55,6 +56,7 @@ class FavoriteLoadedState extends States {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(25),
                     child: CustomNetworkImage(
+                      imagePreview: false,
                         height: 125, width: 125, imageSource: element.image),
                   ),
                   Align(

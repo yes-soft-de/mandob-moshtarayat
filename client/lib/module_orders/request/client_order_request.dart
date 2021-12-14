@@ -45,7 +45,7 @@ class ClientOrderRequest {
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
-    if (this.orderNumber != null) {
+    if (orderNumber != null) {
       map['orderNumber'] = orderNumber;
     }
     map['destination'] = destination?.toJson();
@@ -53,7 +53,7 @@ class ClientOrderRequest {
     map['payment'] = payment;
     map['storeOwnerProfileID'] = ownerID;
     if (products != null) {
-      map['products'] = products?.map((v) => v.toJson()).toList();
+      map['orderDetails'] = products?.map((v) => v.toJson()).toList();
     }
     map['deliveryDate'] = deliveryDate;
     map['orderCost'] = orderCost;
@@ -91,22 +91,26 @@ class Products {
   double? price;
   String? productName;
   String? productsImage;
+  String? storeId;
   Products(
       {this.productID,
       this.countProduct,
       this.price,
       this.productName,
-      this.productsImage});
+      this.productsImage,
+      this.storeId});
 
   Products.fromJson(dynamic json) {
     productID = json['productID'];
     countProduct = json['countProduct'];
+    storeId = json['storeOwnerProfileID'];
   }
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
     map['productID'] = productID;
     map['countProduct'] = countProduct;
+    map['storeOwnerProfileID'] = int.parse(storeId ?? '-1');
     return map;
   }
 }

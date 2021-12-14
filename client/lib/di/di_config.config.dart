@@ -286,9 +286,7 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.factory<_i77.ClientOrderStateManager>(() => _i77.ClientOrderStateManager(
       get<_i58.OrdersService>(), get<_i26.AuthService>()));
   gh.factory<_i78.FavouriteStateManager>(() => _i78.FavouriteStateManager(
-      get<_i73.AccountService>(),
-      get<_i26.AuthService>(),
-      get<_i51.HomeService>()));
+      get<_i73.AccountService>(), get<_i51.HomeService>()));
   gh.factory<_i79.HomeScreen>(
       () => _i79.HomeScreen(get<_i52.HomeStateManager>()));
   gh.factory<_i80.MyNotificationsScreen>(() =>

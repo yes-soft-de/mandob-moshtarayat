@@ -208,6 +208,7 @@ class StoreProductsLoadedState extends StoreProductsState {
       prods.add(SizedBox(
         key: ObjectKey(element),
         child: ProductsCard(
+            storeId: screenState.storeId.toString(),
             onTap: () {
               Navigator.of(screenState.context).pushNamed(
                   ProductsRoutes.PRODUCT_DETAILS_SCREEN,
@@ -220,34 +221,8 @@ class StoreProductsLoadedState extends StoreProductsState {
             defaultQuantity: getQuantity(element.id),
             quantity: (cartModel) {
               if (cartModel.quantity > 0) {
-                if (CartHiveHelper().getCart().isEmpty) {
-                  CartHiveHelper().setStoreId(screenState.storeId);
                   addToCart(cartModel);
-                } else {
-                  if (CartHiveHelper().getStoreID() == screenState.storeId) {
-                    addToCart(cartModel);
-                  } else {
-                    int timperQuantity = cartModel.quantity;
-                    cartModel.quantity = 0;
-                    showDialog(
-                        context: screenState.context,
-                        builder: (context) {
-                          return CustomAlertDialog(
-                            content:
-                                S.current.youHaveProductsFromDifferentStore,
-                            onPressed: () async {
-                              await CartHiveHelper().deleteCart();
-                              cartModel.quantity = timperQuantity;
-                              CartHiveHelper().setStoreId(screenState.storeId);
-                              addToCart(cartModel);
-                              Navigator.of(context).pop();
-                              screenState.refresh();
-                            },
-                          );
-                        });
-                  }
                 }
-              }
               if (cartModel.quantity == 0) {
                 carts.removeWhere((e) => e.id == cartModel.id);
                 CartHiveHelper().removeProductsToCart(cartModel);

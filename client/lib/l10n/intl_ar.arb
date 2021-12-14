@@ -234,7 +234,7 @@
   "deliverForMe": "طلب خارجي",
   "externalOrder": "طلبية خارجية",
   "BestStores": "أفضل المتاجر",
-  "searchFor": "ابحث عن متجر , منتج ... ",
+  "searchFor": "ابحث عن متجر , منتج",
   "views": "مشاهدة",
   "sortByRate": "الأعلى تقييما",
   "orderNumber": "رقم الطلب",
@@ -373,6 +373,8 @@
   "favoriteCategories":"التصنيفات المفضلة",
   "favoriteStores":"المتاجر المفضلة",
   "preferredLanguage":"اللغة المفضلة",
-  "selectLanguage":"اختر لغتك المفضلة"
+  "selectLanguage":"اختر لغتك المفضلة",
+  "cartItemAdded":"تم إضافة عنصر إلى سلة الشراء",
+  "cartItemRemoved":"تمت إزالة عنصر من سلة الشراء"
 
 }

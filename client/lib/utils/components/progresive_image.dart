@@ -3,7 +3,6 @@ import 'package:mandob_moshtarayat/utils/customIcon/mandob_icons_icons.dart';
 import 'package:pinch_zoom/pinch_zoom.dart';
 import 'package:progressive_image/progressive_image.dart';
 import 'package:mandob_moshtarayat/consts/urls.dart';
-import 'package:mandob_moshtarayat/utils/customIcon/custom_icons.dart';
 import 'package:mandob_moshtarayat/utils/images/images.dart';
 
 class CustomNetworkImage extends StatelessWidget {
@@ -12,13 +11,14 @@ class CustomNetworkImage extends StatelessWidget {
   final String imageSource;
   final bool assets;
   final Color? background;
-
+  final bool imagePreview;
   const CustomNetworkImage({
     required this.height,
     required this.width,
     required this.imageSource,
     this.assets = false,
     this.background,
+    this.imagePreview = true
   });
 
   @override
@@ -49,13 +49,13 @@ class CustomNetworkImage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                 Icon(
-                   MandobIcons.logo,
-                   size: height < 75 ? 15 : 30,
-                 ),
+                Icon(
+                  MandobIcons.logo,
+                  size: height < 75 ? 15 : 30,
+                ),
                 Padding(
-                  padding:
-                       EdgeInsets.only(left: 16.0, right: 16.0, top: height < 75 ? 4 : 10),
+                  padding: EdgeInsets.only(
+                      left: 16.0, right: 16.0, top: height < 75 ? 4 : 10),
                   child: SizedBox(
                     width: (height / 3) - 2,
                     child: LinearProgressIndicator(
@@ -78,44 +78,47 @@ class CustomNetworkImage extends StatelessWidget {
         image = Urls.IMAGES_ROOT + image;
       }
       return GestureDetector(
-        onTap: () {
-                   showDialog(
-                context: context,
-                builder: (_) {
-                  return Scaffold(
-                    appBar:AppBar(
-                      backgroundColor: Colors.black,
-                      elevation: 0,
-                      leading: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: InkWell(
-                          customBorder: const CircleBorder(),
-                          onTap: (){
-                            Navigator.of(context).pop();
-                          },
-                          child: Container(
-                            decoration:const BoxDecoration(
-                              color: Colors.black38,
-                              shape: BoxShape.circle,
-                            ),
-                            child: const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Icon(Icons.arrow_back,color: Colors.white,),
+        onTap: imagePreview ? () {
+          showDialog(
+              context: context,
+              builder: (_) {
+                return Scaffold(
+                  appBar: AppBar(
+                    backgroundColor: Colors.black,
+                    elevation: 0,
+                    leading: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: InkWell(
+                        customBorder: const CircleBorder(),
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            color: Colors.black38,
+                            shape: BoxShape.circle,
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Icon(
+                              Icons.arrow_back,
+                              color: Colors.white,
                             ),
                           ),
                         ),
                       ),
                     ),
-                    backgroundColor: Colors.black,
-                    body: PinchZoom(
-                      child:Image.network(image),
-                      resetDuration: const Duration(milliseconds: 150),
-                      onZoomStart: () {},
-                      onZoomEnd: () {},
-                    ),
-                  );
-                });
-        },
+                  ),
+                  backgroundColor: Colors.black,
+                  body: PinchZoom(
+                    child: Image.network(image),
+                    resetDuration: const Duration(milliseconds: 150),
+                    onZoomStart: () {},
+                    onZoomEnd: () {},
+                  ),
+                );
+              });
+        } : null,
         child: ProgressiveImage.custom(
           height: height,
           width: width,
@@ -136,7 +139,8 @@ class CustomNetworkImage extends StatelessWidget {
                     size: height < 75 ? 15 : 30,
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 4),
+                    padding:
+                        const EdgeInsets.only(left: 16.0, right: 16.0, top: 4),
                     child: SizedBox(
                       width: (height / 3) - 2,
                       child: LinearProgressIndicator(

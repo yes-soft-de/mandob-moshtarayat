@@ -14,13 +14,16 @@ class CartModel extends HiveObject {
   late String? name;
   @HiveField(4)
   late String? image;
+  @HiveField(5)
+  late String storeID;
 
   CartModel(
       {required this.id,
       required this.quantity,
       required this.price,
       this.image,
-      this.name});
+      this.name,
+      required this.storeID});
 
   CartModel.fromJson(dynamic json) {
     id = json['id'];
@@ -28,6 +31,7 @@ class CartModel extends HiveObject {
     price = json['price'];
     name = json['name'];
     image = json['image'];
+    storeID = json['storeID'];
   }
 
   Map<String, dynamic> toJson(CartModel carts) {
@@ -37,6 +41,7 @@ class CartModel extends HiveObject {
     map['price'] = price;
     map['name'] = name;
     map['image'] = image;
+    map['storeID'] = storeID;
     return map;
   }
 }

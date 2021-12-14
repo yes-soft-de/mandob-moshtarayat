@@ -29,8 +29,8 @@ class ErrorState extends States {
               title: title, buttonBackground: Colors.red)
           : null,
       body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-        child: Container(
+        physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+        child: SizedBox(
           height: MediaQuery.of(context).size.height,
           child: Flex(
             direction: Axis.vertical,
@@ -39,8 +39,8 @@ class ErrorState extends States {
                 padding: const EdgeInsets.all(8.0),
                 child: Flushbar(
                   title: S.of(context).thisErrorHappened,
-                  message: error,
-                  icon: Icon(
+                  message: error ?? S.current.errorHappened,
+                  icon: const Icon(
                     Icons.info,
                     size: 28.0,
                     color: Colors.white,
@@ -72,7 +72,7 @@ class ErrorState extends States {
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           S.of(context).refresh,
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                         ),
                       ))),
             ],

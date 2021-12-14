@@ -1,9 +1,5 @@
-import 'dart:convert';
-import 'package:another_flushbar/flushbar.dart';
-import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/intl.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_orders/request/client_order_request.dart';
@@ -46,7 +42,7 @@ class ClientOrderLoadedState extends ClientOrderState {
         Container(
           height: MediaQuery.of(context).size.height,
         ),
-        Container(
+        SizedBox(
             height: MediaQuery.of(context).size.height * 0.70,
             child: Stack(
               children: [
@@ -77,14 +73,14 @@ class ClientOrderLoadedState extends ClientOrderState {
               decoration: BoxDecoration(
                   color: Theme.of(context).cardColor,
                   borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(18))),
+                      const BorderRadius.vertical(top: Radius.circular(18))),
               child: Stack(
                 children: [
                   ListView(
-                    physics: BouncingScrollPhysics(
+                    physics: const BouncingScrollPhysics(
                         parent: AlwaysScrollableScrollPhysics()),
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 16,
                       ),
                       Padding(
@@ -106,7 +102,7 @@ class ClientOrderLoadedState extends ClientOrderState {
                                 }
                               });
                             },
-                            leading: Icon(
+                            leading: const Icon(
                               Icons.timer,
                             ),
                             title: Text(S.of(context).orderTime),
@@ -118,7 +114,7 @@ class ClientOrderLoadedState extends ClientOrderState {
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
                                     time.format(context).toString(),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -126,7 +122,7 @@ class ClientOrderLoadedState extends ClientOrderState {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 16,
                       ),
                       Padding(
@@ -145,8 +141,8 @@ class ClientOrderLoadedState extends ClientOrderState {
                             trailing: DropdownButton(
                                 value: payments,
                                 underline: Container(),
-                                icon: Padding(
-                                  padding: const EdgeInsets.all(4.0),
+                                icon: const Padding(
+                                  padding: EdgeInsets.all(4.0),
                                   child: Icon(Icons.arrow_drop_down_rounded),
                                 ),
                                 hint: Text(S.of(context).paymentMethodHint),
@@ -167,19 +163,19 @@ class ClientOrderLoadedState extends ClientOrderState {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 16,
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 8, right: 8),
                         child: CustomFormField(
-                          contentPadding: EdgeInsets.fromLTRB(0, 8, 0, 0),
-                          preIcon: Icon(Icons.sticky_note_2_rounded),
+                          contentPadding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                          preIcon: const Icon(Icons.sticky_note_2_rounded),
                           hintText: S.of(context).note,
                           maxLines: 3,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 75,
                       ),
                     ],
@@ -193,20 +189,20 @@ class ClientOrderLoadedState extends ClientOrderState {
                           CustomFlushBarHelper.createError(
                               title: S.of(context).warnning,
                               message: S.of(context).pleaseProvideYourAddress)
-                            ..show(context);
+                            .show(context);
                         } else if (payments == null) {
                           CustomFlushBarHelper.createError(
                               title: S.of(context).warnning,
                               message:
                                   S.of(context).pleaseProvidePaymentMethode)
-                            ..show(context);
+                            .show(context);
                         } else {
                           screenState.postClientOrder(ClientOrderRequest(
                               destination: GeoJson(
                                   lat: clientAddress?.latitude,
                                   long: clientAddress?.longitude),
                               payment: payments,
-                              ownerID: checkoutModel.ownerId,
+                              ownerID: null,
                               deliveryCost: checkoutModel.deliveryCost,
                               orderCost: checkoutModel.orderCost,
                               deliveryDate: DateTime(date.year, date.month,

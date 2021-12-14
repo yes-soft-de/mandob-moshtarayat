@@ -11,7 +11,6 @@ class FireStoreHelper {
           .collection('action_history')
           .snapshots();
     } catch (e) {
-      print(e.toString());
       return null;
     }
   }
@@ -24,7 +23,6 @@ class FireStoreHelper {
           .collection('action_history')
           .add({'date': DateTime.now().toUtc().toIso8601String()});
     } catch (e) {
-      print(e.toString());
       return;
     }
   }

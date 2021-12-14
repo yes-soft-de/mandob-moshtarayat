@@ -13,6 +13,7 @@ import 'package:mandob_moshtarayat/module_account/ui/widget/social_widget.dart';
 import 'package:mandob_moshtarayat/module_orders/orders_routes.dart';
 import 'package:mandob_moshtarayat/module_settings/setting_routes.dart';
 import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AccountLoadedState extends AccountState {
   AccountScreenState screenState;
@@ -88,26 +89,40 @@ class AccountLoadedState extends AccountState {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.max,
-                children: const [
+                children: [
                   SocialWidget(
-                    image: FontAwesomeIcons.whatsapp,
-                    type: SocialType.whatsapp,
-                    color: Colors.green,
+                    image: FontAwesomeIcons.twitter,
+                    type: SocialType.twitter,
+                    color: Colors.cyan,
+                    onTap: () {
+                      launch(
+                          'https://m.facebook.com/profile.php?id=100073436632320');
+                    },
                   ),
                   SocialWidget(
-                    image: FontAwesomeIcons.telegram,
-                    type: SocialType.telegram,
-                    color: Colors.lightBlue,
+                    image: FontAwesomeIcons.tiktok,
+                    type: SocialType.tiktok,
+                    color: const Color.fromRGBO(0, 0, 0, 1),
+                    onTap: () {
+                      launch('https://www.tiktok.com/@mandoob_quick');
+                    },
                   ),
                   SocialWidget(
                     image: FontAwesomeIcons.instagram,
                     type: SocialType.instagram,
                     color: Colors.pink,
+                    onTap: () {
+                      launch('https://www.instagram.com/mandoob_quick');
+                    },
                   ),
                   SocialWidget(
                     image: FontAwesomeIcons.facebook,
                     type: SocialType.facebook,
                     color: Colors.blue,
+                    onTap: () {
+                                  launch(
+                          'https://m.facebook.com/profile.php?id=100073436632320');
+                    },
                   ),
                 ],
               ),

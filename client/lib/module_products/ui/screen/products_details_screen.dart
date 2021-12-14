@@ -5,6 +5,7 @@ import 'package:mandob_moshtarayat/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat/di/di_config.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_auth/service/auth_service/auth_service.dart';
+import 'package:mandob_moshtarayat/module_products/products_routes.dart';
 import 'package:mandob_moshtarayat/module_products/state_manager/products_state_manager.dart';
 import 'package:mandob_moshtarayat/module_products/ui/state/product_details/products_details_loaded_state.dart';
 import 'package:mandob_moshtarayat/module_stores/request/rate_store_request.dart';
@@ -68,7 +69,7 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
             actions: currentState is ProductDetailsLoadedState
                 ? [
                     Hider(
-                      active:getIt<AuthService>().isLoggedIn,
+                      active: getIt<AuthService>().isLoggedIn,
                       child: InkWell(
                         onTap: () {
                           showDialog(
@@ -101,6 +102,25 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               Icons.star,
                               color: Colors.yellow,
                             ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context)
+                            .pushNamed(ProductsRoutes.CART_SCREEN);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).cardColor.withOpacity(0.5),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child:  Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.shopping_cart_rounded,
+                            color: Theme.of(context).primaryColor,
                           ),
                         ),
                       ),
