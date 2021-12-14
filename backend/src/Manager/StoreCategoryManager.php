@@ -79,6 +79,15 @@ class StoreCategoryManager
 
         $entity = $this->storeCategoryEntityRepository->find($storeCategoryUpdateRequest->getId());
 
+        //Second, update the translation data
+        if($request->getTranslate())
+        {
+            // get the name in the primary language to set it in the entity being updated
+            $entity->setStoreCategoryName($storeCategoryUpdateRequest->getStoreCategoryName());
+
+            $this->updateStoreCategoryTranslation($request->getTranslate());
+        }
+
         if(!$entity)
         {
             return $entity;
@@ -87,12 +96,6 @@ class StoreCategoryManager
         $entity = $this->autoMapping->mapToObject(StoreCategoryUpdateRequest::class, StoreCategoryEntity::class, $storeCategoryUpdateRequest, $entity);
 
         $this->entityManager->flush();
-
-        //Second, update the translation data
-        if($request->getTranslate())
-        {
-            $this->updateStoreCategoryTranslation($request->getTranslate());
-        }
 
         return $entity;
     }
