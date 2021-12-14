@@ -7,6 +7,8 @@ use App\Entity\ProductEntity;
 use App\Manager\ProductManager;
 use App\Manager\UserManager;
 use App\Request\ProductCreateRequest;
+use App\Request\ProductTranslationCreateRequest;
+use App\Request\ProductWithTranslationCreateRequest;
 use App\Response\ProductCreateResponse;
 use App\Response\ProductsByStoreOwnerProfileIdResponse;
 use App\Response\ProductsByStoreProductCategoryIdResponse;
@@ -25,8 +27,10 @@ class ProductService
     private $userManager;
     private $ratingService;
     private $storeOwnerProfileService;
+    private $productTranslationService;
 
-    public function __construct(AutoMapping $autoMapping, ProductManager $productManager, ParameterBagInterface $params, userManager $userManager,  RatingService $ratingService,StoreOwnerProfileService $storeOwnerProfileService)
+    public function __construct(AutoMapping $autoMapping, ProductManager $productManager, ParameterBagInterface $params, userManager $userManager,  RatingService $ratingService,StoreOwnerProfileService $storeOwnerProfileService,
+     ProductTranslationService $productTranslationService)
     {
         $this->autoMapping = $autoMapping;
         $this->productManager = $productManager;
@@ -34,6 +38,7 @@ class ProductService
         $this->params = $params->get('upload_base_url') . '/';
         $this->ratingService = $ratingService;
         $this->storeOwnerProfileService = $storeOwnerProfileService;
+        $this->productTranslationService = $productTranslationService;
     }
 
     public function createProductByAdmin(ProductCreateRequest $request)
@@ -291,15 +296,44 @@ class ProductService
         return $this->productManager->getProductsByNameAndStoreOwnerProfileId($name, $storeOwnerProfileId);
     }
 
-    public function createProductByStore(ProductCreateRequest $request, $userID)
+    public function createProductByStore(ProductWithTranslationCreateRequest $request, $userID)
     {
         $storeOwnerProfileId = $this->userManager->getStoreProfileId($userID);
 
-        $request->setStoreOwnerProfileID($storeOwnerProfileId['id']);
+        // insert the data in the primary language
+        $productCreateRequest = $this->autoMapping->map('array', ProductCreateRequest::class, $request->getData());
 
-        $item = $this->productManager->createProductByStore($request);
+        $productCreateRequest->setStoreOwnerProfileID($storeOwnerProfileId['id']);
 
-        return $this->autoMapping->map(ProductEntity::class, ProductCreateResponse::class, $item);
+        $product = $this->productManager->createProductByStore($productCreateRequest);
+
+        // then, insert the translation, if exists
+        if($request->getTranslate())
+        {
+            $this->createProductTranslation($request->getTranslate(), $product->getId());
+        }
+
+        return $this->autoMapping->map(ProductEntity::class, ProductCreateResponse::class, $product);
+    }
+
+    public function createProductTranslation($translationArrayRequest, $productID)
+    {
+        if($translationArrayRequest)
+        {
+            foreach($translationArrayRequest as $translationRequest)
+            {
+                $productTranslationRequest = $this->autoMapping->map('array', ProductTranslationCreateRequest::class, $translationRequest);
+
+                $productTranslationRequest->setProductID($productID);
+
+                $this->productTranslationService->createProductTranslation($productTranslationRequest);
+            }
+        }
+        else
+        {
+            // No translations were provided!
+            // Skip inserting translations
+        }
     }
 
     public function getImageParams($imageURL, $image, $baseURL): array
