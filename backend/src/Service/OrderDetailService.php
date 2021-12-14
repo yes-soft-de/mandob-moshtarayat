@@ -70,7 +70,8 @@ class OrderDetailService
 
         $stores = $this->orderDetailManager->getStoreOwnerProfileByOrderNumber($orderNumber);
         foreach ($stores as $store) {
-            $item['image'] = $this->getImageParams($store['image'], $this->params . $store['image'], $this->params);
+            $store['image'] = $this->getImageParams($store['image'], $this->params . $store['image'], $this->params);
+            $store['invoiceImage'] = $this->getImageParams($store['invoiceImage'], $this->params . $store['invoiceImage'], $this->params);
 
             $store['products'] = $this->getProductsByOrderNumberAndStoreID($orderNumber, $store['storeOwnerProfileID']);
 
@@ -158,10 +159,17 @@ class OrderDetailService
 
     public function getImageParams($imageURL, $image, $baseURL): array
     {
+        if($imageURL) {
+            $item['image'] = $image;
+        }
+        else {
+            $item['image'] = $imageURL;
+        }
+
         $item['imageURL'] = $imageURL;
-        $item['image'] = $image;
         $item['baseURL'] = $baseURL;
 
         return $item;
     }
+
 }

@@ -944,8 +944,18 @@ class OrderController extends BaseController
      *                         @OA\Property(type="integer", property="storeOwnerProfileID"),
      *                         @OA\Property(type="string", property="storeOwnerName"),
      *                         @OA\Property(type="string", property="phone"),
-     *                         @OA\Property(type="string", property="image"),
+     *                         @OA\Property(type="object", property="image",
+     *                                 @OA\Property(type="object", property="imageURL"),
+     *                                 @OA\Property(type="object", property="image"),
+     *                                 @OA\Property(type="object", property="baseURL"),
+     *                                          ),
      *                         @OA\Property(type="integer", property="storeCategoryId"),
+     *                         @OA\Property(type="number", property="invoiceAmount"),
+     *                         @OA\Property(type="object", property="invoiceImage",
+     *                                 @OA\Property(type="object", property="imageURL"),
+     *                                 @OA\Property(type="object", property="image"),
+     *                                 @OA\Property(type="object", property="baseURL"),
+     *                                          ),
      *                         @OA\Property(type="array", property="products",
      *                              @OA\Items(
      *                                  @OA\Property(type="string", property="productName"),
@@ -982,16 +992,8 @@ class OrderController extends BaseController
      * @IsGranted("ROLE_CAPTAIN")
      * @param $orderNumber
      * @return JsonResponse
-     * *
      *
      * @OA\Tag(name="Order")
-     * @OA\Parameter(
-     *      name="token",
-     *      in="header",
-     *      description="token to be passed as a header",
-     *      required=true
-     * )
-     *
      *
      * @OA\Response(
      *      response=200,
@@ -1025,8 +1027,18 @@ class OrderController extends BaseController
      *                         @OA\Property(type="integer", property="storeOwnerProfileID"),
      *                         @OA\Property(type="string", property="storeOwnerName"),
      *                         @OA\Property(type="string", property="phone"),
-     *                         @OA\Property(type="string", property="image"),
+     *                         @OA\Property(type="object", property="image",
+     *                                 @OA\Property(type="object", property="imageURL"),
+     *                                 @OA\Property(type="object", property="image"),
+     *                                 @OA\Property(type="object", property="baseURL"),
+     *                                          ),
      *                         @OA\Property(type="integer", property="storeCategoryId"),
+     *                         @OA\Property(type="number", property="invoiceAmount"),
+     *                         @OA\Property(type="object", property="invoiceImage",
+     *                                 @OA\Property(type="object", property="imageURL"),
+     *                                 @OA\Property(type="object", property="image"),
+     *                                 @OA\Property(type="object", property="baseURL"),
+     *                                          ),
      *                         @OA\Property(type="array", property="products",
      *                              @OA\Items(
      *                                  @OA\Property(type="string", property="productName"),
@@ -1050,7 +1062,6 @@ class OrderController extends BaseController
      *      )
      *  )
      *)
-     * @Security(name="Bearer")
      */
     public function getOrderDetailsByOrderNumber($orderNumber): JsonResponse
     {
@@ -1064,16 +1075,8 @@ class OrderController extends BaseController
       * @Route("orderdetailsforadmin/{orderNumber}", name="getOrderDetailsByOrderNumberForAdmin", methods={"GET"})
       * @IsGranted("ROLE_ADMIN")
       * @return JsonResponse
-     * *
      *
      * @OA\Tag(name="Order")
-     * @OA\Parameter(
-     *      name="token",
-     *      in="header",
-     *      description="token to be passed as a header",
-     *      required=true
-     * )
-     *
      *
      * @OA\Response(
      *      response=200,
@@ -1107,8 +1110,18 @@ class OrderController extends BaseController
      *                         @OA\Property(type="integer", property="storeOwnerProfileID"),
      *                         @OA\Property(type="string", property="storeOwnerName"),
      *                         @OA\Property(type="string", property="phone"),
-     *                         @OA\Property(type="string", property="image"),
+     *                         @OA\Property(type="object", property="image",
+     *                                 @OA\Property(type="object", property="imageURL"),
+     *                                 @OA\Property(type="object", property="image"),
+     *                                 @OA\Property(type="object", property="baseURL"),
+     *                                          ),
      *                         @OA\Property(type="integer", property="storeCategoryId"),
+     *                         @OA\Property(type="number", property="invoiceAmount"),
+     *                         @OA\Property(type="object", property="invoiceImage",
+     *                                 @OA\Property(type="object", property="imageURL"),
+     *                                 @OA\Property(type="object", property="image"),
+     *                                 @OA\Property(type="object", property="baseURL"),
+     *                                          ),
      *                         @OA\Property(type="array", property="products",
      *                              @OA\Items(
      *                                  @OA\Property(type="string", property="productName"),
@@ -1132,7 +1145,6 @@ class OrderController extends BaseController
      *      )
      *  )
      *)
-     * @Security(name="Bearer")
      */
     public function getOrderDetailsByOrderNumberForAdmin($orderNumber)
       {

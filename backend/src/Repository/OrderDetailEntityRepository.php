@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\OrderDetailEntity;
 use App\Entity\OrderEntity;
+use App\Entity\OrdersInvoicesEntity;
 use App\Entity\ProductEntity;
 use App\Entity\StoreOwnerProfileEntity;
 use App\Entity\StoreOwnerBranchEntity;
@@ -83,18 +84,21 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
             ->select( 'OrderDetailEntity.id as orderDetailID', 'OrderDetailEntity.storeOwnerProfileID', 'OrderDetailEntity.orderID')
             ->addSelect('StoreOwnerProfileEntity.storeOwnerName', 'StoreOwnerProfileEntity.image', 'StoreOwnerProfileEntity.phone', 'StoreOwnerProfileEntity.storeCategoryId')
             ->addSelect('StoreOwnerBranchEntity.location')
+            ->addSelect('OrdersInvoicesEntity.invoiceAmount', 'OrdersInvoicesEntity.invoiceImage')
 
             ->leftJoin(StoreOwnerProfileEntity::class, 'StoreOwnerProfileEntity', Join::WITH, 'StoreOwnerProfileEntity.id = OrderDetailEntity.storeOwnerProfileID')
             ->leftJoin(StoreOwnerBranchEntity::class, 'StoreOwnerBranchEntity', Join::WITH, 'StoreOwnerProfileEntity.id = StoreOwnerBranchEntity.storeOwnerProfileID')
+            ->leftJoin(OrdersInvoicesEntity::class, 'OrdersInvoicesEntity', Join::WITH, 'OrdersInvoicesEntity.id = OrderDetailEntity.orderInvoiceId')
 
             ->andWhere('OrderDetailEntity.orderNumber = :orderNumber')
+//            ->andWhere('OrdersInvoicesEntity.orderNumber = :orderNumber')
 
             ->setParameter('orderNumber', $orderNumber)
 
             ->addGroupBy('OrderDetailEntity.storeOwnerProfileID')
 
             ->getQuery()
-        ->getArrayResult();
+           ->getResult();
     }
 
     public function getStoreOwnerProfileIdAndOrderIDByOrderNumber($orderNumber)
