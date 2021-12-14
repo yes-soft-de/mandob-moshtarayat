@@ -115,6 +115,11 @@ class StoreCategoryManager
        return $this->storeCategoryEntityRepository->getStoreCategories();
     }
 
+    public function getStoreCategoriesTranslations()
+    {
+        return $this->storeCategoryEntityRepository->getStoreCategoriesTranslations();
+    }
+
     public function getLast15StoreCategories()
     {
        return $this->storeCategoryEntityRepository->getLast15StoreCategories();

@@ -77,6 +77,43 @@ class StoreCategoryService
        return $response;
     }
 
+    public function getStoreCategoriesByPreferredLanguage($userLocale)
+    {
+        $response = [];
+
+        if($userLocale != null && $userLocale != $this->primaryLanguage)
+        {
+            $storeCategories = [];
+
+            $storeCategoriesTranslations = $this->storeCategoryManager->getStoreCategoriesTranslations();
+
+            foreach($storeCategoriesTranslations as $storeCategoryTranslation)
+            {
+                if((!$storeCategoryTranslation['language']))
+                {
+                    $storeCategoryTranslation['storeCategoryName'] = $storeCategoryTranslation['primaryStoreCategoryName'];
+                    $storeCategories[] = $storeCategoryTranslation;
+                }
+                elseif($storeCategoryTranslation['language'] == $userLocale)
+                {
+                    $storeCategories[] = $storeCategoryTranslation;
+                }
+            }
+        }
+        else
+        {
+            $storeCategories = $this->storeCategoryManager->getStoreCategories();
+        }
+
+        foreach ($storeCategories as $item) {
+            $item['image'] = $this->getImageParams($item['image'], $this->params . $item['image'], $this->params);
+
+            $response[] = $this->autoMapping->map('array', StoreCategoryGetResponse::class, $item);
+        }
+
+        return $response;
+    }
+
     public function getStoreCategoryByID($userLocale, $id)
     {
        $item = $this->storeCategoryManager->getStoreCategoryByID($userLocale, $this->primaryLanguage, $id);
