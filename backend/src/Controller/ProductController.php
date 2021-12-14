@@ -160,6 +160,13 @@ class ProductController extends BaseController
      * @return JsonResponse
      * *
      * @OA\Tag(name="Product")
+     *
+     * @OA\Parameter(
+     *      name="Accept-Language",
+     *      in="header",
+     *      description="language to be passed as a header",
+     *      required=false
+     * )
 
      * @OA\Response(
      *      response=200,
@@ -192,9 +199,9 @@ class ProductController extends BaseController
      * )
      *
      */
-    public function getProductsByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId)
+    public function getProductsByCategoryIdAndStoreOwnerProfileId(Request $request, $storeProductCategoryID, $storeOwnerProfileId)
     {
-        $result = $this->productService->getProductsByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId);
+        $result = $this->productService->getProductsByCategoryIdAndStoreOwnerProfileId($request->getPreferredLanguage(), $storeProductCategoryID, $storeOwnerProfileId);
 
         return $this->response($result, self::FETCH);
     }
