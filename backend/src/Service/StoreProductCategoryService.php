@@ -111,13 +111,21 @@ class StoreProductCategoryService
          // First, update the content in the primary language
          $storeProductCategoryUpdateRequest = $this->autoMapping->map('array', StoreProductCategoryLevelOneUpdateRequest::class, $request->getData());
 
-         $item = $this->storeProductCategoryManager->updateStoreProductCategoryLevelOne($storeProductCategoryUpdateRequest);
-
          //Second, update the translation data
          if($request->getTranslate())
          {
              $this->updateStoreProductCategoryLevelOneTranslation($request->getTranslate());
+
+             // pass the store product category name in primary language to the entity being updated
+             $storeProductCategoryEntity = $this->storeProductCategoryManager->getStoreProductCategoryEntityByID($storeProductCategoryUpdateRequest->getId());
+
+             if($storeProductCategoryEntity)
+             {
+                 $storeProductCategoryUpdateRequest->setProductCategoryName($storeProductCategoryEntity->getProductCategoryName());
+             }
          }
+
+         $item = $this->storeProductCategoryManager->updateStoreProductCategoryLevelOne($storeProductCategoryUpdateRequest);
 
          return $this->autoMapping->map(StoreProductCategoryEntity::class, StoreProductCategoryUpdateLevelOneResponse::class, $item);
      }
