@@ -220,6 +220,46 @@ class StoreCategoryController extends BaseController
       }
 
     /**
+     * Get store categories by preferred language
+     * @Route("storecategories", name="getStoreCategoriesByPreferredLanguage", methods={"GET"})
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Store Category")
+     *
+     * @OA\Parameter(
+     *      name="Accept-Language",
+     *      in="header",
+     *      description="language to be passed as a header",
+     *      required=false
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Get Store Categories",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="storeCategoryName"),
+     *                  @OA\Property(type="object", property="image",
+     *                      @OA\Property(type="string", property="imageURL"),
+     *                      @OA\Property(type="string", property="image"),
+     *                      @OA\Property(type="string", property="baseURL"),
+     *                  ),
+     *          )
+     *      )
+     * )
+     */
+    public function getStoreCategoriesByPreferredLanguage(Request $request): JsonResponse
+    {
+        $result = $this->storeCategoryService->getStoreCategoriesByPreferredLanguage($request->getPreferredLanguage());
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
      * Get specific store category.
      * @Route("/storecategory/{id}", name="getStoreCategory", methods={"GET"})
      * @param Request $request

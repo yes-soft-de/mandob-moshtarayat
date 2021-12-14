@@ -104,8 +104,16 @@ class ProductController extends BaseController
      * @Route("/productscategory/{storeProductCategoryID}", name="productsByStoreProductCategoryID", methods={"GET"})
      * @param $storeProductCategoryID
      * @return JsonResponse
+     *
      * @OA\Tag(name="Product")
-
+     *
+     * @OA\Parameter(
+     *      name="Accept-Language",
+     *      in="header",
+     *      description="language to be passed as a header",
+     *      required=false
+     * )
+     *
      * @OA\Response(
      *      response=200,
      *      description="Get products of category specific",
@@ -137,9 +145,9 @@ class ProductController extends BaseController
      * )
      *
      */
-    public function getProductsByProductCategoryId($storeProductCategoryID)
+    public function getProductsByProductCategoryId(Request $request, $storeProductCategoryID)
     {
-        $result = $this->productService->getProductsByProductCategoryId($storeProductCategoryID);
+        $result = $this->productService->getProductsByProductCategoryId($request->getPreferredLanguage(), $storeProductCategoryID);
 
         return $this->response($result, self::FETCH);
     }
@@ -152,6 +160,13 @@ class ProductController extends BaseController
      * @return JsonResponse
      * *
      * @OA\Tag(name="Product")
+     *
+     * @OA\Parameter(
+     *      name="Accept-Language",
+     *      in="header",
+     *      description="language to be passed as a header",
+     *      required=false
+     * )
 
      * @OA\Response(
      *      response=200,
@@ -184,9 +199,9 @@ class ProductController extends BaseController
      * )
      *
      */
-    public function getProductsByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId)
+    public function getProductsByCategoryIdAndStoreOwnerProfileId(Request $request, $storeProductCategoryID, $storeOwnerProfileId)
     {
-        $result = $this->productService->getProductsByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId);
+        $result = $this->productService->getProductsByCategoryIdAndStoreOwnerProfileId($request->getPreferredLanguage(), $storeProductCategoryID, $storeOwnerProfileId);
 
         return $this->response($result, self::FETCH);
     }
@@ -900,6 +915,13 @@ class ProductController extends BaseController
      * *
      * @OA\Tag(name="Product")
      *
+     * @OA\Parameter(
+     *      name="Accept-Language",
+     *      in="header",
+     *      description="language to be passed as a header",
+     *      required=false
+     * )
+     *
      * @OA\Response(
      *      response=200,
      *      description="Get last 30 products",
@@ -934,9 +956,9 @@ class ProductController extends BaseController
      *  )
      *
      */
-    public function getLast30Products(): JsonResponse
+    public function getLast30Products(Request $request): JsonResponse
     {
-        $result = $this->productService->getLast30Products();
+        $result = $this->productService->getLast30Products($request->getPreferredLanguage());
 
         return $this->response($result, self::FETCH);
     }
@@ -954,6 +976,13 @@ class ProductController extends BaseController
      *      in="header",
      *      description="token to be passed as a header",
      *      required=true
+     * )
+     *
+     * @OA\Parameter(
+     *      name="Accept-Language",
+     *      in="header",
+     *      description="language to be passed as a header",
+     *      required=false
      * )
      *
      * @OA\Response(
@@ -991,9 +1020,9 @@ class ProductController extends BaseController
      *
      * @Security(name="Bearer")
      */
-    public function getProductsStoreOwnerProfileId($storeOwnerProfileId): JsonResponse
+    public function getProductsStoreOwnerProfileId(Request $request, $storeOwnerProfileId): JsonResponse
     {
-        $result = $this->productService->getProductsStoreOwnerProfileId($storeOwnerProfileId);
+        $result = $this->productService->getProductsStoreOwnerProfileId($request->getPreferredLanguage(), $storeOwnerProfileId);
 
         return $this->response($result, self::FETCH);
     }

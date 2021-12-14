@@ -47,6 +47,11 @@ class ProductManager
         return $this->productEntityRepository->getProductsByProductCategoryId($storeProductCategoryID);
     }
 
+    public function getProductsTranslationsByProductCategoryId($storeProductCategoryID)
+    {
+        return $this->productEntityRepository->getProductsTranslationsByProductCategoryId($storeProductCategoryID);
+    }
+
     public function getActiveProductsByProductCategoryId($storeProductCategoryID)
     {
         return $this->productEntityRepository->getActiveProductsByProductCategoryId($storeProductCategoryID);
@@ -55,6 +60,11 @@ class ProductManager
     public function getProductsByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId)
     {
         return $this->productEntityRepository->getProductsByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId);
+    }
+
+    public function getProductsTranslationByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId)
+    {
+        return $this->productEntityRepository->getProductsTranslationByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId);
     }
 
     public function getProducts()
@@ -223,9 +233,19 @@ class ProductManager
         return $this->productEntityRepository->getLast30Products();
     }
 
+    public function getLast30ProductsTranslation()
+    {
+        return $this->productEntityRepository->getLast30ProductsTranslation();
+    }
+
     public function getProductsStoreOwnerProfileId($storeOwnerProfileId)
     {
         return $this->productEntityRepository->getProductsStoreOwnerProfileId($storeOwnerProfileId);
+    }
+
+    public function getProductsTranslationsByStoreOwnerProfileId($storeOwnerProfileId)
+    {
+        return $this->productEntityRepository->getProductsTranslationsByStoreOwnerProfileId($storeOwnerProfileId);
     }
 
 }

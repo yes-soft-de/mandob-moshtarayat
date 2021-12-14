@@ -32,6 +32,7 @@ class ProductService
     private $ratingService;
     private $storeOwnerProfileService;
     private $productTranslationService;
+    private $primaryLanguage;
 
     public function __construct(AutoMapping $autoMapping, ProductManager $productManager, ParameterBagInterface $params, userManager $userManager,  RatingService $ratingService,StoreOwnerProfileService $storeOwnerProfileService,
      ProductTranslationService $productTranslationService)
@@ -40,6 +41,7 @@ class ProductService
         $this->productManager = $productManager;
         $this->userManager = $userManager;
         $this->params = $params->get('upload_base_url') . '/';
+        $this->primaryLanguage = $params->get('primary_language');
         $this->ratingService = $ratingService;
         $this->storeOwnerProfileService = $storeOwnerProfileService;
         $this->productTranslationService = $productTranslationService;
@@ -52,13 +54,35 @@ class ProductService
         return $this->autoMapping->map(ProductEntity::class, ProductCreateResponse::class, $item);
     }
 
-    public function getProductsByProductCategoryId($storeProductCategoryID)
+    public function getProductsByProductCategoryId($userLocale, $storeProductCategoryID)
     {
         $response = [];
 
-        $items = $this->productManager->getProductsByProductCategoryId($storeProductCategoryID);
+        if($userLocale != null && $userLocale != $this->primaryLanguage)
+        {
+            $products = [];
 
-        foreach ($items as $item) {
+            $productsTranslation = $this->productManager->getProductsTranslationsByProductCategoryId($storeProductCategoryID);
+
+            foreach($productsTranslation as $product)
+            {
+                if((!$product['language']))
+                {
+                    $product['productName'] = $product['primaryProductName'];
+                    $products[] = $product;
+                }
+                elseif($product['language'] == $userLocale)
+                {
+                    $products[] = $product;
+                }
+            }
+        }
+        else
+        {
+            $products = $this->productManager->getProductsByProductCategoryId($storeProductCategoryID);
+        }
+
+        foreach ($products as $item) {
 
             $item['store'] = $this->storeOwnerProfileService->getStoreNameById($item['storeOwnerProfileID']);
             $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
@@ -90,13 +114,35 @@ class ProductService
         return $response;
     }
 
-    public function getProductsByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId)
+    public function getProductsByCategoryIdAndStoreOwnerProfileId($userLocale, $storeProductCategoryID, $storeOwnerProfileId)
     {
         $response = [];
 
-        $items = $this->productManager->getProductsByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId);
+        if($userLocale != null && $userLocale != $this->primaryLanguage)
+        {
+            $products = [];
 
-        foreach ($items as $item) {
+            $productsTranslation = $this->productManager->getProductsTranslationByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId);
+
+            foreach($productsTranslation as $product)
+            {
+                if((!$product['language']))
+                {
+                    $product['productName'] = $product['primaryProductName'];
+                    $products[] = $product;
+                }
+                elseif($product['language'] == $userLocale)
+                {
+                    $products[] = $product;
+                }
+            }
+        }
+        else
+        {
+            $products = $this->productManager->getProductsByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId);
+        }
+
+        foreach ($products as $item) {
             $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
             $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
             $item['soldCount'] = $this->getProductsSoldCount($item['id']);
@@ -464,13 +510,35 @@ class ProductService
         }
     }
 
-    public function getLast30Products(): ?array
+    public function getLast30Products($userLocale): ?array
     {
         $response = [];
 
-        $items = $this->productManager->getLast30Products();
+        if($userLocale != null && $userLocale != $this->primaryLanguage)
+        {
+            $products = [];
 
-        foreach ($items as $item) {
+            $productsTranslation = $this->productManager->getLast30ProductsTranslation();
+
+            foreach($productsTranslation as $product)
+            {
+                if((!$product['language']))
+                {
+                    $product['productName'] = $product['primaryProductName'];
+                    $products[] = $product;
+                }
+                elseif($product['language'] == $userLocale)
+                {
+                    $products[] = $product;
+                }
+            }
+        }
+        else
+        {
+            $products = $this->productManager->getLast30Products();
+        }
+
+        foreach ($products as $item) {
             $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
             $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
             $item['soldCount'] = $this->getProductsSoldCount($item['id']);
@@ -481,13 +549,35 @@ class ProductService
         return $response;
     }
 
-    public function getProductsStoreOwnerProfileId($storeOwnerProfileId): array
+    public function getProductsStoreOwnerProfileId($userLocale, $storeOwnerProfileId): array
     {
         $response = [];
 
-        $items = $this->productManager->getProductsStoreOwnerProfileId($storeOwnerProfileId);
+        if($userLocale != null && $userLocale != $this->primaryLanguage)
+        {
+            $products = [];
 
-        foreach ($items as $item) {
+            $productsTranslation = $this->productManager->getProductsTranslationsByStoreOwnerProfileId($storeOwnerProfileId);
+
+            foreach($productsTranslation as $product)
+            {
+                if((!$product['language']))
+                {
+                    $product['productName'] = $product['primaryProductName'];
+                    $products[] = $product;
+                }
+                elseif($product['language'] == $userLocale)
+                {
+                    $products[] = $product;
+                }
+            }
+        }
+        else
+        {
+            $products = $this->productManager->getProductsStoreOwnerProfileId($storeOwnerProfileId);
+        }
+
+        foreach ($products as $item) {
             $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
             $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
             $item['soldCount'] = $this->getProductsSoldCount($item['id']);

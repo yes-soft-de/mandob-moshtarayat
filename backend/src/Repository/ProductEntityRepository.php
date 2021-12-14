@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\ProductEntity;
+use App\Entity\ProductTranslationEntity;
 use App\Entity\StoreOwnerProfileEntity;
 use App\Entity\StoreOwnerBranchEntity;
 use App\Entity\OrderDetailEntity;
@@ -42,6 +43,27 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getProductsTranslationsByProductCategoryId($storeProductCategoryID)
+    {
+        return $this->createQueryBuilder('product')
+
+            ->select('product.id', 'product.productName as primaryProductName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID','product.discount',
+                'product.description', 'productTranslationEntity.productName', 'productTranslationEntity.language')
+
+            ->andWhere('product.storeProductCategoryID =:storeProductCategoryID')
+            ->setParameter('storeProductCategoryID',$storeProductCategoryID)
+
+            ->leftJoin(
+                ProductTranslationEntity::class,
+                'productTranslationEntity',
+                Join::WITH,
+                'productTranslationEntity.productID = product.id'
+            )
+
+            ->getQuery()
+            ->getResult();
+    }
+
     public function getActiveProductsByProductCategoryId($storeProductCategoryID)
     {
         return $this->createQueryBuilder('product')
@@ -74,6 +96,33 @@ class ProductEntityRepository extends ServiceEntityRepository
 
             ->andWhere('product.status = :status')
             ->setParameter('status', self::STATUS_ACTIVE)
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getProductsTranslationByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId)
+    {
+        return $this->createQueryBuilder('product')
+
+            ->select('product.id', 'product.productName as primaryProductName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount',
+                'product.description', 'product.status', 'product.productQuantity', 'productTranslationEntity.productName', 'productTranslationEntity.language')
+
+            ->andWhere('product.storeProductCategoryID =:storeProductCategoryID')
+            ->andWhere('product.storeOwnerProfileID =:storeOwnerProfileId')
+
+            ->setParameter('storeProductCategoryID',$storeProductCategoryID)
+            ->setParameter('storeOwnerProfileId',$storeOwnerProfileId)
+
+            ->andWhere('product.status = :status')
+            ->setParameter('status', self::STATUS_ACTIVE)
+
+            ->leftJoin(
+                ProductTranslationEntity::class,
+                'productTranslationEntity',
+                Join::WITH,
+                'productTranslationEntity.productID = product.id'
+            )
 
             ->getQuery()
             ->getResult();
@@ -426,6 +475,30 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getLast30ProductsTranslation()
+    {
+        return $this->createQueryBuilder('product')
+
+            ->select('product.id', 'product.productImage', 'product.productName as primaryProductName', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount',
+                'product.description', 'product.status', 'product.productQuantity', 'productTranslationEntity.productName', 'productTranslationEntity.language')
+
+            ->andWhere('product.status = :active')
+            ->setParameter('active',self::STATUS_ACTIVE)
+
+            ->leftJoin(
+                ProductTranslationEntity::class,
+                'productTranslationEntity',
+                Join::WITH,
+                'productTranslationEntity.productID = product.id'
+            )
+
+            ->addOrderBy('product.id','DESC')
+            ->setMaxResults(30)
+
+            ->getQuery()
+            ->getResult();
+    }
+
     public function getProductsStoreOwnerProfileId($storeOwnerProfileId)
     {
         return $this->createQueryBuilder('product')
@@ -437,6 +510,30 @@ class ProductEntityRepository extends ServiceEntityRepository
 
             ->setParameter('storeOwnerProfileId',$storeOwnerProfileId)
             ->setParameter('status', self::STATUS_ACTIVE)
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getProductsTranslationsByStoreOwnerProfileId($storeOwnerProfileId)
+    {
+        return $this->createQueryBuilder('product')
+
+            ->select('product.id', 'product.productName as primaryProductName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount',
+                'product.description', 'product.status', 'product.productQuantity', 'productTranslationEntity.productName', 'productTranslationEntity.language')
+
+            ->andWhere('product.storeOwnerProfileID =:storeOwnerProfileId')
+            ->andWhere('product.status = :status')
+
+            ->setParameter('storeOwnerProfileId',$storeOwnerProfileId)
+            ->setParameter('status', self::STATUS_ACTIVE)
+
+            ->leftJoin(
+                ProductTranslationEntity::class,
+                'productTranslationEntity',
+                Join::WITH,
+                'productTranslationEntity.productID = product.id'
+            )
 
             ->getQuery()
             ->getResult();

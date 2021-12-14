@@ -33,6 +33,23 @@ class StoreCategoryEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getStoreCategoriesTranslations()
+    {
+        return $this->createQueryBuilder('storeCategory')
+            ->select('storeCategory.id', 'storeCategory.storeCategoryName as primaryStoreCategoryName', 'storeCategory.description', 'storeCategory.image',
+                 'storeCategoryTranslationEntity.storeCategoryName', 'storeCategoryTranslationEntity.language')
+
+            ->leftJoin(
+                StoreCategoryTranslationEntity::class,
+                'storeCategoryTranslationEntity',
+                Join::WITH,
+                'storeCategoryTranslationEntity.storeCategoryID = storeCategory.id'
+            )
+
+            ->getQuery()
+            ->getResult();
+    }
+
     public function getStoreCategoryByID($userLocale, $primaryLanguage, $storeCategoryID)
     {
         if($userLocale == $primaryLanguage || (!$userLocale))
