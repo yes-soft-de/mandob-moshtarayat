@@ -151,6 +151,16 @@ class ProductManager
         return $this->productEntityRepository->getProductsByNameAndStoreOwnerProfileId($name, $storeOwnerProfileId);
     }
 
+    public function getProductsTranslationByTranslatedNameAndStoreOwnerProfileId($name, $storeOwnerProfileId)
+    {
+        return $this->productEntityRepository->getProductsTranslationByTranslatedNameAndStoreOwnerProfileId($name, $storeOwnerProfileId);
+    }
+
+    public function getProductsTranslationByNameAndStoreOwnerProfileId($name, $storeOwnerProfileId)
+    {
+        return $this->productEntityRepository->getProductsTranslationByNameAndStoreOwnerProfileId($name, $storeOwnerProfileId);
+    }
+
     public function createProductByStore(ProductCreateRequest $request)
     {
         $request->setStatus('active');

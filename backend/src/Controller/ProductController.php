@@ -448,6 +448,7 @@ class ProductController extends BaseController
      *      description="Filter by product name",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="name"),
+     *          @OA\Property(type="string", property="language")
      *      )
      * )
      *
@@ -484,7 +485,6 @@ class ProductController extends BaseController
      */
     public function getStoreProducts(Request $request): JsonResponse
     {
-
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class, ProductFilterByNameRequest::class, (object)$data);

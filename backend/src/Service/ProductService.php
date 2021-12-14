@@ -7,6 +7,7 @@ use App\Entity\ProductEntity;
 use App\Manager\ProductManager;
 use App\Manager\UserManager;
 use App\Request\ProductCreateRequest;
+use App\Request\ProductFilterByNameRequest;
 use App\Request\ProductTranslationCreateRequest;
 use App\Request\ProductTranslationUpdateRequest;
 use App\Request\ProductUpdateByStoreOwnerRequest;
@@ -238,16 +239,40 @@ class ProductService
         return $response;
     }
 
-    public function getStoreProducts($userID,$request): ?array
+    public function getStoreProducts($userID, ProductFilterByNameRequest $request): ?array
     {
-
         $storeOwnerProfileId = $this->userManager->getStoreProfileId($userID);
-        if($request->getName()) {
-           $items = $this->getProductsByNameAndStoreOwnerProfileId($request->getName(), $storeOwnerProfileId);
-           return $this->returnProduct($items);
+
+        if($request->getName())
+        {
+            if($request->getLanguage() != null && $request->getLanguage() != $this->primaryLanguage)
+            {
+                $productsTranslation = $this->productManager->getProductsTranslationByTranslatedNameAndStoreOwnerProfileId($request->getName(), $storeOwnerProfileId);
+
+                $products = $this->replaceProductTranslatedNameByPrimaryOne($productsTranslation, $request->getLanguage());
+            }
+            else
+            {
+                $products = $this->getProductsByNameAndStoreOwnerProfileId($request->getName(), $storeOwnerProfileId);
+            }
+
+            return $this->returnProduct($products);
         }
-        $items = $this->productManager->getStoreProducts($storeOwnerProfileId);
-        return $this->returnProduct($items);
+        else
+        {
+            if($request->getLanguage() != null && $request->getLanguage() != $this->primaryLanguage)
+            {
+                $productsTranslation = $this->productManager->getProductsTranslationByNameAndStoreOwnerProfileId($request->getName(), $storeOwnerProfileId);
+
+                $products = $this->replaceProductTranslatedNameByPrimaryOne($productsTranslation, $request->getLanguage());
+            }
+            else
+            {
+                $products = $this->productManager->getStoreProducts($storeOwnerProfileId);
+            }
+
+            return $this->returnProduct($products);
+        }
     }
 
     public function returnProduct($items){
@@ -610,5 +635,30 @@ class ProductService
 
         return $response;
     }
+
+    public function replaceProductTranslatedNameByPrimaryOne($productsTranslation, $userLocale)
+    {
+        $products = [];
+
+        if($productsTranslation)
+        {
+            foreach($productsTranslation as $product)
+            {
+                if((!$product['language']))
+                {
+                    $product['productName'] = $product['primaryProductName'];
+
+                    $products[] = $product;
+                }
+                elseif($product['language'] == $userLocale)
+                {
+                    $products[] = $product;
+                }
+            }
+        }
+
+        return $products;
+    }
+
 }
 
