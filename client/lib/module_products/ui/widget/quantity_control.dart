@@ -23,7 +23,7 @@ class _QuantityControlWidgetState extends State<QuantityControlWidget> {
       width: 155,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25),
-       color: Theme.of(context).backgroundColor,
+        color: Theme.of(context).backgroundColor,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

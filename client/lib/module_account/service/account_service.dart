@@ -74,7 +74,8 @@ class AccountService {
       return DataModel.withError(StatusCodeHelper.getStatusCodeMessages(
           clientOrderResponse.statusCode));
     }
-    getIt<FavoriteHiveHelper>().setFavoriteCategory(request.favouriteCategories!.first);
+    getIt<FavoriteHiveHelper>()
+        .setFavoriteCategory(request.favouriteCategories!.first);
     return DataModel.empty();
   }
 }

@@ -149,7 +149,7 @@ class HomeLoadedFilterState extends HomeState {
         rating: element.rate.toDouble(),
         description: element.description,
         price: element.productPrice.toStringAsFixed(2),
-        quantity:getQuantity(element.id),
+        quantity: getQuantity(element.id),
         onSelect: (cartModel) {
           if (cartModel.quantity > 0) {
             CartHiveHelper().addProductsToCart(cartModel);
@@ -163,7 +163,8 @@ class HomeLoadedFilterState extends HomeState {
     });
     return widgets;
   }
-   int getQuantity(int id) {
+
+  int getQuantity(int id) {
     List<CartModel> carts = CartHiveHelper().getCart();
     if (carts.isEmpty) {
       return 0;

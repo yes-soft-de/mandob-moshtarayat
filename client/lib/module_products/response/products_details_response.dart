@@ -8,7 +8,7 @@ class ProductsDetailsResponse {
   });
 
   ProductsDetailsResponse.fromJson(dynamic json) {
-     try {
+    try {
       statusCode = json['status_code'];
       msg = json['msg'];
       data = json['Data'] != null ? Data.fromJson(json['Data']) : null;

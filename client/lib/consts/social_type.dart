@@ -1,1 +1,1 @@
-enum SocialType { whatsapp, telegram, facebook, instagram, tiktok , twitter}
+enum SocialType { whatsapp, telegram, facebook, instagram, tiktok, twitter }

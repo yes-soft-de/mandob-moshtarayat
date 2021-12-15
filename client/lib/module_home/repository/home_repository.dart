@@ -23,7 +23,7 @@ class HomeRepository {
   }
 
   Future<StoreCategoriesResponse?> getStoreCategories() async {
-    dynamic response = await _apiClient.post(Urls.GET_STORE_CATEGORIES_API, {});
+    dynamic response = await _apiClient.get(Urls.GET_STORE_CATEGORIES_API);
     if (response == null) return null;
     return StoreCategoriesResponse.fromJson(response);
   }

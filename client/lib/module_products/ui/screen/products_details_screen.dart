@@ -116,7 +116,7 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           color: Theme.of(context).cardColor.withOpacity(0.5),
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child:  Padding(
+                        child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Icon(
                             Icons.shopping_cart_rounded,

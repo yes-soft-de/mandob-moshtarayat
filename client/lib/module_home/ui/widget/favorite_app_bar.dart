@@ -20,7 +20,10 @@ class FavoriteHomeAppBar extends StatefulWidget {
   final String? categoryName;
   final String? categoryImage;
   const FavoriteHomeAppBar(
-      {required this.categoriesCallback,this.categoryImage,this.categoryName,required this.categories});
+      {required this.categoriesCallback,
+      this.categoryImage,
+      this.categoryName,
+      required this.categories});
 
   @override
   State<FavoriteHomeAppBar> createState() => _FavoriteHomeAppBarState();
@@ -57,43 +60,45 @@ class _FavoriteHomeAppBarState extends State<FavoriteHomeAppBar> {
                               .show(context);
                         }
                       },
-                      child:
-                          getIt<FavoriteHiveHelper>().getFavoriteCategory() !=
-                                  null
-                              ? Container(
-                                constraints: const BoxConstraints(
-                                  maxWidth: 150,
-                                  maxHeight: 65
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(top:10.0),
-                                        child: Container(
-                                          width: 35,
-                                          height: 35,
-                                          decoration: BoxDecoration(
-                                            color: Theme.of(context).backgroundColor,
-                                            shape: BoxShape.circle
-                                          ),
-                                          child: ClipOval(
-                                            child: Image.network(widget.categoryImage ?? ''),
-                                          ),
-                                        ),
+                      child: getIt<FavoriteHiveHelper>()
+                                  .getFavoriteCategory() !=
+                              null
+                          ? Container(
+                              constraints: const BoxConstraints(
+                                  maxWidth: 150, maxHeight: 65),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 10.0),
+                                    child: Container(
+                                      width: 35,
+                                      height: 35,
+                                      decoration: BoxDecoration(
+                                          color:
+                                              Theme.of(context).backgroundColor,
+                                          shape: BoxShape.circle),
+                                      child: ClipOval(
+                                        child: Image.network(
+                                            widget.categoryImage ?? ''),
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(top:4.0),
-                                        child: Text(widget.categoryName ?? '',style: const TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                        ),),
-                                      ),
-                                    ],
+                                    ),
                                   ),
-                              )
-                   : SvgPicture.asset(SvgAsset.LOGO_SVG, width: 35)),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 4.0),
+                                    child: Text(
+                                      widget.categoryName ?? '',
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : SvgPicture.asset(SvgAsset.LOGO_SVG, width: 35)),
                 ),
                 Expanded(
                   child: CustomDeliverySearch(
@@ -101,7 +106,10 @@ class _FavoriteHomeAppBarState extends State<FavoriteHomeAppBar> {
                       Navigator.pushNamed(context, SearchRoutes.SEARCH_SCREEN);
                     },
                     readOnly: true,
-                    hintStyle:  TextStyle(fontSize: 12,fontWeight:FontWeight.bold,color: Theme.of(context).disabledColor),
+                    hintStyle: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).disabledColor),
                     hintText: S.of(context).searchFor,
                   ),
                 ),

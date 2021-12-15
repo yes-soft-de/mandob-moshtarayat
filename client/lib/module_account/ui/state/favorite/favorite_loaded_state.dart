@@ -34,7 +34,8 @@ class FavoriteLoadedState extends States {
     categories.forEach((element) {
       widgets.add(GestureDetector(
         onTap: () {
-          getIt<FavoriteHiveHelper>().setFavoriteCategoryInfo(element.storeCategoryName, element.image); 
+          getIt<FavoriteHiveHelper>().setFavoriteCategoryInfo(
+              element.storeCategoryName, element.image);
           screenState.updateCategories(FavoriteCategoriesRequest(
             favouriteCategories: [element.id.toString()],
           ));
@@ -56,8 +57,10 @@ class FavoriteLoadedState extends States {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(25),
                     child: CustomNetworkImage(
-                      imagePreview: false,
-                        height: 125, width: 125, imageSource: element.image),
+                        imagePreview: false,
+                        height: 125,
+                        width: 125,
+                        imageSource: element.image),
                   ),
                   Align(
                       alignment: Alignment.bottomCenter,

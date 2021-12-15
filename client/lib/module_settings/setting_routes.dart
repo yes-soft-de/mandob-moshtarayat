@@ -3,5 +3,4 @@
 class SettingRoutes {
   static const ROUTE_SETTINGS = '/settings';
   static const CHOOSE_LANGUAGE = '/choose_language';
-
 }

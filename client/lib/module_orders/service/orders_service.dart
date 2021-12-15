@@ -10,7 +10,7 @@ import 'package:mandob_moshtarayat/module_orders/model/order_model.dart';
 import 'package:mandob_moshtarayat/module_orders/request/client_order_request.dart';
 import 'package:mandob_moshtarayat/module_orders/response/client_order_response.dart';
 import 'package:mandob_moshtarayat/module_orders/response/my_orders_response.dart';
-import 'package:mandob_moshtarayat/module_orders/response/order_details_response.dart';
+import 'package:mandob_moshtarayat/module_orders/response/order_details_response/order_details_response.dart';
 import 'package:mandob_moshtarayat/module_orders/response/orders_logs_response.dart';
 import 'package:mandob_moshtarayat/module_stores/request/rate_response.dart';
 import 'package:mandob_moshtarayat/module_stores/request/rate_store_request.dart';

@@ -19,12 +19,13 @@ class StatusCodeHelper {
         return S.current.statusCodeBadRequest;
       case '401':
         AuthPrefsHelper().cleanAll();
-        Navigator.of(GlobalVariable.navState.currentContext!).pushNamedAndRemoveUntil(
-            SplashRoutes.SPLASH_SCREEN, (route) => false);
+        Navigator.of(GlobalVariable.navState.currentContext!)
+            .pushNamedAndRemoveUntil(
+                SplashRoutes.SPLASH_SCREEN, (route) => false);
         return S.current.statusCodeUnauthorized;
       case '404':
         return S.current.StatusCodeNotFound;
-        case '405':
+      case '405':
         return S.current.statusCodeBadRequest;
       case '500':
         return S.current.internalServerError;

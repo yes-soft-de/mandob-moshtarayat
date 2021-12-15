@@ -32,10 +32,10 @@ class Urls {
   static const GET_MY_ORDERS = BASE_API + '/ordersbyclientid';
   static const GET_MY_NOTIFICATION = BASE_API + '/notificationsLocal';
   static const GET_ORDER_LOGS = BASE_API + '/orderLogs';
-  static const GET_ORDER_DETAILS = BASE_API + '/orderstatusbyordernumber';
+  static const GET_ORDER_DETAILS = BASE_API + '/orderdetailsforclient';
   static const POST_CLIENT_ORDER_API = BASE_API + '/clientorder';
   static const POST_CLIENT_SEND_IT_ORDER_API = BASE_API + '/clientsendorder';
-  static const POST_CLIENT_PRIVATE_ORDER_API = BASE_API + '/clientSpecialOrder';
+  static const POST_CLIENT_PRIVATE_ORDER_API = BASE_API + '/clientspecialorder';
   static const DELETE_CLIENT_ORDER_API = BASE_API + '/ordercancel';
   static const UPDATE_CLIENT_ORDER_API = BASE_API + '/orderUpdatebyclient';
   static const UPDATE_SPECIAL_CLIENT_ORDER_API =
@@ -64,8 +64,9 @@ class Urls {
   static const GET_FAVORITE_CATEGORIES =
       BASE_API + '/favouritestorecategoriesandstores';
   static const GET_PRODUCT_DETAILS_API = BASE_API + '/product';
-  static const UPDATE_FAVORITE_CLIENT_API = BASE_API + '/updateclientfavouritecategories';
-  static const CREATE_FAVORITE_CLIENT_API = BASE_API + '/updateclientfavouritecategories';
+  static const UPDATE_FAVORITE_CLIENT_API =
+      BASE_API + '/updateclientfavouritecategories';
+  static const CREATE_FAVORITE_CLIENT_API =
+      BASE_API + '/updateclientfavouritecategories';
   static const GET_FAVORITE_CLIENT_API = BASE_API + '/userfavoritecategories';
-
 }

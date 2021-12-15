@@ -34,7 +34,7 @@ class OrderDetailsEditState extends OrderDetailsState {
         deliveryDate: orderDetails.order.deliveryDate,
         deliveryCost: orderDetails.order.deliveryCost,
         orderCost: orderDetails.order.orderCost,
-        products: toProducts(orderDetails.carts),
+       // products: toProducts(orderDetails.carts),
         detail: orderDetails.order.orderDetails,
         recipientName: orderDetails.order.recipientName,
         recipientPhone: orderDetails.order.recipientPhoneNumber,

@@ -125,8 +125,7 @@ class _CartScreenState extends State<CartScreen> {
                                       items.add(Products(
                                           productID: element.id,
                                           countProduct: element.quantity,
-                                          storeId: element.storeID
-                                          ));
+                                          storeId: element.storeID));
                                     });
 
                                     CheckoutModel checkoutModel = CheckoutModel(

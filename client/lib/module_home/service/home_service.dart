@@ -164,7 +164,7 @@ class HomeService {
     return FavoriteCategoriesModel.withData(favoriteResponse.data!);
   }
 
-    Future<DataModel> getProductsByStore(String storeID) async {
+  Future<DataModel> getProductsByStore(String storeID) async {
     ProductsByCategoriesResponse? productsResponse =
         await _homeManager.getProductsByStore(storeID);
     if (productsResponse == null) {

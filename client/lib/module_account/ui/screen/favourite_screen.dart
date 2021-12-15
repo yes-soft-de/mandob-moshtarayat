@@ -40,7 +40,7 @@ class FavoritScreenState extends State<FavouritScreen> {
   }
 
   void updateCategories(FavoriteCategoriesRequest request) {
-    widget._favouriteStateManager.updateFavoriteCategories(this,request);
+    widget._favouriteStateManager.updateFavoriteCategories(this, request);
   }
 
   @override

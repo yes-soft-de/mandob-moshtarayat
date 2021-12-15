@@ -202,8 +202,9 @@ class HomeLoadedState extends HomeState {
     screenState.snapshot.data.forEach((ProductsByCategoriesModel element) {
       widgets.add(GestureDetector(
           onTap: () {
-            Navigator.of(screenState.context)
-                .pushNamed(StoreRoutes.STORE_PRODUCTS, arguments: {'storeId':element.id.toString()});
+            Navigator.of(screenState.context).pushNamed(
+                StoreRoutes.STORE_PRODUCTS,
+                arguments: {'storeId': element.id.toString()});
           },
           child: HomeCard(title: element.productName, image: element.image)));
     });
