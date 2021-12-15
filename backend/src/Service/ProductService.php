@@ -289,13 +289,23 @@ class ProductService
         return $response;
     }
 
-    public function getProductsByStoreProductCategoryID($storeProductCategoryID): ?array
+    // for dashboard
+    public function getProductsByStoreProductCategoryID($userLocale, $storeProductCategoryID): ?array
     {
         $response = [];
 
-        $items = $this->productManager->getProductsByStoreProductCategoryID($storeProductCategoryID);
+        if($userLocale != null && $userLocale != $this->primaryLanguage)
+        {
+            $productsTranslation = $this->productManager->getProductsTranslationByStoreProductCategoryID($storeProductCategoryID);
 
-        foreach ($items as $item) {
+            $products = $this->replaceProductTranslatedNameByPrimaryOne($productsTranslation, $userLocale);
+        }
+        else
+        {
+            $products = $this->productManager->getProductsByStoreProductCategoryID($storeProductCategoryID);
+        }
+
+        foreach ($products as $item) {
             $item['store'] = $this->storeOwnerProfileService->getStoreNameById($item['storeOwnerProfileID']);
             $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
             $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
