@@ -17,4 +17,13 @@ class StoreProductCategoryLevelTwoUpdateRequest
     {
         return $this->id;
     }
+
+    /**
+     * @param mixed $productCategoryName
+     */
+    public function setProductCategoryName($productCategoryName): void
+    {
+        $this->productCategoryName = $productCategoryName;
+    }
+
 }

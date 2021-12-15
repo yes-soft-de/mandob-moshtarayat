@@ -28,4 +28,12 @@ class ProductUpdateByStoreOwnerRequest
         return $this->id;
     }
 
+    /**
+     * @param mixed $productName
+     */
+    public function setProductName($productName): void
+    {
+        $this->productName = $productName;
+    }
+
 }

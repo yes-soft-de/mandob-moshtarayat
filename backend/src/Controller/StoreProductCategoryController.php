@@ -6,8 +6,6 @@ use App\AutoMapping;
 use App\Request\DeleteRequest;
 use App\Request\FilterStoreProductCategoryLevelOne;
 use App\Request\FilterStoreProductCategoryLevelTwo;
-use App\Request\StoreProductCategoryLevelTwoCreateRequest;
-use App\Request\StoreProductCategoryLevelTwoUpdateRequest;
 use App\Request\StoreProductCategoryWithTranslationCreateRequest;
 use App\Request\StoreProductCategoryWithTranslationUpdateRequest;
 use App\Service\StoreProductCategoryService;

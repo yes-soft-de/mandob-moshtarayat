@@ -447,13 +447,20 @@ class ProductService
         // First, update the content in the primary language
         $productUpdateRequest = $this->autoMapping->map('array', ProductUpdateByStoreOwnerRequest::class, $request->getData());
 
-        $product = $this->productManager->updateProductByStore($productUpdateRequest);
-
         //Second, update the translation data
         if($request->getTranslate())
         {
             $this->updateProductTranslation($request->getTranslate());
+
+            $productEntity = $this->productManager->getProductEntityByID($productUpdateRequest->getId());
+
+            if($productEntity)
+            {
+                $productUpdateRequest->setProductName($productEntity->getProductName());
+            }
         }
+
+        $product = $this->productManager->updateProductByStore($productUpdateRequest);
 
         return $this->autoMapping->map(ProductEntity::class, ProductCreateResponse::class, $product);
     }

@@ -263,4 +263,9 @@ class ProductManager
         return $this->productEntityRepository->getProductsTranslationsByStoreOwnerProfileId($storeOwnerProfileId);
     }
 
+    public function getProductEntityByID($productID)
+    {
+        return $this->productEntityRepository->find($productID);
+    }
+
 }

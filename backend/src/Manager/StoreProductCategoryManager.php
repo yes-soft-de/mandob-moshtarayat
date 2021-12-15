@@ -132,6 +132,11 @@ class StoreProductCategoryManager
         return "not related";
     }
 
+    public function getStoreProductCategoryEntityByID($storeProductCategoryID)
+    {
+        return $this->storeProductCategoryEntityRepository->find($storeProductCategoryID);
+    }
+
     public function deleteStoreProductCategoryByID(DeleteRequest $request)
     {
         $storeProductCategoryEntity = $this->storeProductCategoryEntityRepository->find($request->getId());
