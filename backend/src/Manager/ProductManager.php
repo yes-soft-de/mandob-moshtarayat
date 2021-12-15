@@ -87,6 +87,11 @@ class ProductManager
         return $this->productEntityRepository->getProductsTopWanted();
     }
 
+    public function getProductsTopWantedTranslations()
+    {
+        return $this->productEntityRepository->getProductsTopWantedTranslations();
+    }
+
     public function productsTopWantedOfSpecificStoreOwner($storeOwnerProfileId)
     {
         return $this->productEntityRepository->productsTopWantedOfSpecificStoreOwner($storeOwnerProfileId);

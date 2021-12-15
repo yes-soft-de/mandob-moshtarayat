@@ -196,13 +196,22 @@ class ProductService
         return $this->autoMapping->map('array', ProductFullInfoResponse::class, $item);
     }
 
-    public function getProductsTopWanted(): ?array
+    public function getProductsTopWanted($userLocale): ?array
     {
         $response = [];
 
-        $Products = $this->productManager->getProductsTopWanted();
+        if($userLocale != null && $userLocale != $this->primaryLanguage)
+        {
+            $productsTranslation = $this->productManager->getProductsTopWantedTranslations();
 
-        foreach ($Products as $Product) {
+            $products = $this->replaceProductTranslatedNameByPrimaryOne($productsTranslation, $userLocale);
+        }
+        else
+        {
+            $products = $this->productManager->getProductsTopWanted();
+        }
+
+        foreach ($products as $Product) {
             $img = isset($Product['image']);
             if ($img) {
                 $topOwner['imageURL'] = $Product['image'];
