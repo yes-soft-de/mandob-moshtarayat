@@ -109,21 +109,22 @@ class CaptainProfileService
 
         $item = $this->captainProfileManager->getCaptainProfileByCaptainID($captainID);
 
-        $bounce = $this->getCaptainFinancialAccountDetailsByCaptainId($captainID);
+//        $bounce = $this->getCaptainFinancialAccountDetailsByCaptainId($captainID);
 
-        $countOrdersDeliverd = $this->captainService->countCaptainOrdersDelivered($captainID);
+        $countOrdersDelivered = $this->captainService->countCaptainOrdersDelivered($captainID);
 
-        $item['imageURL'] = $item['image'];
-        $item['image'] = $this->params.$item['image'];
-        $item['drivingLicenceURL'] = $item['drivingLicence'];
-        $item['drivingLicence'] = $this->params.$item['drivingLicence'];
         $item['baseURL'] = $this->params;
+        $item['image'] = $this->getImageParams($item['image'], $this->params.$item['image'], $this->params);
+        $item['drivingLicence'] = $this->getImageParams($item['drivingLicence'], $this->params.$item['drivingLicence'], $this->params);
+        $item['mechanicLicense'] = $this->getImageParams($item['mechanicLicense'], $this->params.$item['mechanicLicense'], $this->params);
+        $item['identity'] = $this->getImageParams($item['identity'], $this->params.$item['identity'], $this->params);
+
         $item['rating'] = $this->ratingService->getAvgRating($captainID, 'captain');
        
         $response = $this->autoMapping->map('array', CaptainProfileCreateResponse::class, $item);
 
-        $response->bounce = $bounce;
-        $response->countOrdersDeliverd = $countOrdersDeliverd;
+//        $response->bounce = $bounce;
+        $response->countOrdersDeliverd = $countOrdersDelivered;
 
         return $response;
     }

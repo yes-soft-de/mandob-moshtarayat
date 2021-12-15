@@ -498,7 +498,7 @@ class OrderEntityRepository extends ServiceEntityRepository
     public function countCaptainOrdersDelivered($captainId)
     {
         return $this->createQueryBuilder('OrderEntity')
-            ->select('count(OrderEntity.id) as countOrdersDelivered', 'sum(OrderEntity.invoiceAmount) as sumInvoiceAmount', 'sum(OrderEntity.deliveryCost) as deliveryCost' )
+            ->select('count(OrderEntity.id) as countOrdersDelivered', 'sum(OrderEntity.deliveryCost) as deliveryCost' )
 
             ->andWhere('OrderEntity.captainID = :captainId')
             ->andWhere("OrderEntity.state = :delivered")
