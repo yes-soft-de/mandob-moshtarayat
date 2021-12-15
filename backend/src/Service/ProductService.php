@@ -497,7 +497,7 @@ class ProductService
         }
     }
 
-    public function getProductsByStoreCategoryID($storeCategoryID): ?array
+    public function getProductsByStoreCategoryID($userLocale, $storeCategoryID): ?array
     {
         $response = [];
 
@@ -507,7 +507,7 @@ class ProductService
         {
 //            $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params . $item['productCategoryImage'], $this->params);
 
-            $item['storeProductCategoriesLevel2'] = $this->getStoreProductCategoryLevel2($item['id']);
+            $item['storeProductCategoriesLevel2'] = $this->getStoreProductCategoryLevel2($userLocale, $item['id']);
 
             foreach($item['storeProductCategoriesLevel2'] as $value)
             {
@@ -524,7 +524,7 @@ class ProductService
         return $response;
     }
 
-    public function getStoreProductCategoryLevel2($storeProductCategoryIdLevel1): array
+    public function getStoreProductCategoryLevel2($userLocale, $storeProductCategoryIdLevel1): array
     {
         $response = [];
 
@@ -534,7 +534,7 @@ class ProductService
         {
             $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params . $item['productCategoryImage'], $this->params);
 
-            $item['products'] = $this->getProductsByStoreProductCategoryID($item['id']);
+            $item['products'] = $this->getProductsByStoreProductCategoryID($userLocale, $item['id']);
 
             $response[] = $this->autoMapping->map('array', StoreProductCategoriesResponse::class, $item);
         }
