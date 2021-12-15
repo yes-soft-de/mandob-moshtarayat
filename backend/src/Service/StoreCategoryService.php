@@ -118,7 +118,10 @@ class StoreCategoryService
     {
        $item = $this->storeCategoryManager->getStoreCategoryByID($userLocale, $this->primaryLanguage, $id);
 
-       $item['image'] = $this->getImageParams($item['image'], $this->params.$item['image'], $this->params);
+       if($item)
+       {
+           $item['image'] = $this->getImageParams($item['image'], $this->params . $item['image'], $this->params);
+       }
 
        return $this->autoMapping->map('array', StoreCategoryByIdResponse::class, $item);
     }
