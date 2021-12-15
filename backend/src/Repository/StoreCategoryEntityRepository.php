@@ -156,6 +156,26 @@ class StoreCategoryEntityRepository extends ServiceEntityRepository
              ->getResult();
     }
 
+    public function getStoreCategoriesTranslationsByClientFavouriteCategories($favouriteCategoriesIDsArray)
+    {
+        return $this->createQueryBuilder('storeCategory')
+            ->select('storeCategory.id', 'storeCategory.image', 'storeCategoryTranslationEntity.storeCategoryName', 'storeCategoryTranslationEntity.description', 'storeCategory.storeCategoryName as primaryStoreCategoryName',
+             'storeCategoryTranslationEntity.language')
+
+            ->andWhere("storeCategory.id IN (:categoriesIDs)")
+            ->setParameter('categoriesIDs', $favouriteCategoriesIDsArray)
+
+            ->leftJoin(
+                StoreCategoryTranslationEntity::class,
+                'storeCategoryTranslationEntity',
+                Join::WITH,
+                'storeCategoryTranslationEntity.storeCategoryID = storeCategory.id'
+            )
+
+            ->getQuery()
+            ->getResult();
+    }
+
     public function getStoreCategoriesTranslationsByClientFavouriteCategoriesIDs($userLocale, $favouriteCategoriesIDsArray)
     {
         return $this->createQueryBuilder('storeCategory')

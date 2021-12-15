@@ -233,11 +233,20 @@ class StoreCategoryService
         return $response;
     }
 
-    public function getFavouriteStoreCategories($clientID): array
+    public function getFavouriteStoreCategories($userLocale, $clientID): array
     {
         $response = [];
 
-        $categories = $this->storeCategoryManager->getFavouriteStoreCategories($clientID);
+        if($userLocale != null && $userLocale != $this->primaryLanguage)
+        {
+            $storeCategoriesTranslations = $this->storeCategoryManager->getStoreCategoriesTranslationsByClientFavouriteCategories($clientID);
+
+            $categories = $this->replaceStoreCategoryTranslatedNameByPrimaryOne($storeCategoriesTranslations, $userLocale);
+        }
+        else
+        {
+            $categories = $this->storeCategoryManager->getFavouriteStoreCategories($clientID);
+        }
 
         foreach($categories as $category){
             $response[] = $this->autoMapping->map("array", ClientFavouriteStoreCategoriesResponse::class, $category);

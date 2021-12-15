@@ -171,6 +171,13 @@ class StoreCategoryManager
 
     }
 
+    public function getStoreCategoriesTranslationsByClientFavouriteCategories($clientID)
+    {
+        $favouriteCategories = $this->userManager->getFavouriteCategoriesIDsByClientID($clientID);
+
+        return $this->storeCategoryEntityRepository->getStoreCategoriesTranslationsByClientFavouriteCategories($favouriteCategories['favouriteCategories']);
+    }
+
     public function getStoreCategoryByID($userLocale, $primaryLanguage, $id)
     {
        return $this->storeCategoryEntityRepository->getStoreCategoryByID($userLocale, $primaryLanguage, $id);
