@@ -144,16 +144,18 @@ class StoreCategoryService
     {
         if(($userLocale != null) && $userLocale != $this->primaryLanguage)
         {
-            $item['categories'] = $this->storeCategoryTranslationService->getStoreCategoriesTranslationByLanguage($userLocale);
+            $storeCategoriesTranslations = $this->storeCategoryManager->getStoreCategoriesTranslations();
+
+            $item['categories'] = $this->replaceStoreCategoryTranslatedNameByPrimaryOne($storeCategoriesTranslations, $userLocale);
         }
         else
         {
             $item['categories'] = $this->storeCategoryManager->getStoreCategories();
+        }
 
-            foreach ($item['categories'] as $key => $value)
-            {
-                $item['categories'][$key]['image'] = $this->getImageParams($value['image'], $this->params . $value['image'], $this->params);
-            }
+        foreach ($item['categories'] as $key => $value)
+        {
+            $item['categories'][$key]['image'] = $this->getImageParams($value['image'], $this->params . $value['image'], $this->params);
         }
 
         $item['stores'] = $this->storeOwnerProfileService->getLast15Stores();
