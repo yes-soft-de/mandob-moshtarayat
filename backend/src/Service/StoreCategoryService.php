@@ -113,9 +113,31 @@ class StoreCategoryService
 
     public function getStoreCategoryByID($userLocale, $id)
     {
-       $item = $this->storeCategoryManager->getStoreCategoryByID($userLocale, $this->primaryLanguage, $id);
+        if ($userLocale != null && $userLocale != $this->primaryLanguage)
+        {
+            $categoryTranslationResult = $this->storeCategoryManager->getStoreCategoryTranslationByID($id);
 
-       if($item)
+            if($categoryTranslationResult['language'] == $userLocale)
+            {
+                $item = $categoryTranslationResult;
+            }
+            elseif($categoryTranslationResult['language'] == null)
+            {
+                $categoryTranslationResult['storeCategoryName'] = $categoryTranslationResult['primaryStoreCategoryName'];
+
+                $item = $categoryTranslationResult;
+            }
+            else
+            {
+                $item = $this->storeCategoryManager->getStoreCategoryByID($id);
+            }
+        }
+        else
+        {
+            $item = $this->storeCategoryManager->getStoreCategoryByID($id);
+        }
+
+       if ($item)
        {
            $item['image'] = $this->getImageParams($item['image'], $this->params . $item['image'], $this->params);
        }
@@ -286,11 +308,15 @@ class StoreCategoryService
                 {
                     $storeCategories[] = $storeCategory;
                 }
-                else
+                elseif($storeCategory['language'] == null)
                 {
                     $storeCategory['storeCategoryName'] = $storeCategory['primaryStoreCategoryName'];
 
                     $storeCategories[] = $storeCategory;
+                }
+                else
+                {
+
                 }
             }
         }

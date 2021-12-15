@@ -178,9 +178,14 @@ class StoreCategoryManager
         return $this->storeCategoryEntityRepository->getStoreCategoriesTranslationsByClientFavouriteCategories($favouriteCategories['favouriteCategories']);
     }
 
-    public function getStoreCategoryByID($userLocale, $primaryLanguage, $id)
+    public function getStoreCategoryByID($id)
     {
-       return $this->storeCategoryEntityRepository->getStoreCategoryByID($userLocale, $primaryLanguage, $id);
+       return $this->storeCategoryEntityRepository->getStoreCategoryByID($id);
+    }
+
+    public function getStoreCategoryTranslationByID($storeCategoryID)
+    {
+        return $this->storeCategoryEntityRepository->getStoreCategoryTranslationByID($storeCategoryID);
     }
 
     public function isItRelatedToSubcategoriesOrStore($id):string

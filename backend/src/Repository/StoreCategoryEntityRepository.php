@@ -50,42 +50,37 @@ class StoreCategoryEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function getStoreCategoryByID($userLocale, $primaryLanguage, $storeCategoryID)
+    public function getStoreCategoryByID($storeCategoryID)
     {
-        if($userLocale == $primaryLanguage || $userLocale == null)
-        {
-            return $this->createQueryBuilder('store_category_entity')
-                ->select('store_category_entity.id', 'store_category_entity.storeCategoryName', 'store_category_entity.description', 'store_category_entity.image', 'store_category_entity.language')
+        return $this->createQueryBuilder('store_category_entity')
+            ->select('store_category_entity.id', 'store_category_entity.storeCategoryName', 'store_category_entity.description', 'store_category_entity.image', 'store_category_entity.language')
 
-                ->andWhere('store_category_entity.id = :id')
-                ->setParameter('id', $storeCategoryID)
+            ->andWhere('store_category_entity.id = :id')
+            ->setParameter('id', $storeCategoryID)
 
-                ->getQuery()
-                ->getOneOrNullResult();
-        }
-        else
-        {
-            return $this->createQueryBuilder('store_category_entity')
+            ->getQuery()
+            ->getOneOrNullResult();
 
-                ->select('store_category_entity.id', 'storeCategoryTranslationEntity.storeCategoryName', 'storeCategoryTranslationEntity.description', 'store_category_entity.image',
-                    'storeCategoryTranslationEntity.language')
+    }
 
-                ->leftJoin(
-                    StoreCategoryTranslationEntity::class,
-                    'storeCategoryTranslationEntity',
-                    Join::WITH,
-                    'storeCategoryTranslationEntity.storeCategoryID = store_category_entity.id'
-                )
+    public function getStoreCategoryTranslationByID($storeCategoryID)
+    {
+        return $this->createQueryBuilder('store_category_entity')
+            ->select('store_category_entity.id', 'store_category_entity.storeCategoryName as primaryStoreCategoryName', 'store_category_entity.description', 'store_category_entity.image',
+                'storeCategoryTranslationEntity.storeCategoryName', 'storeCategoryTranslationEntity.description', 'storeCategoryTranslationEntity.language')
 
-                ->andWhere('storeCategoryTranslationEntity.language = :language')
-                ->setParameter('language', $userLocale)
+            ->andWhere('store_category_entity.id = :id')
+            ->setParameter('id', $storeCategoryID)
 
-                ->andWhere('store_category_entity.id = :id')
-                ->setParameter('id', $storeCategoryID)
+            ->leftJoin(
+                StoreCategoryTranslationEntity::class,
+                'storeCategoryTranslationEntity',
+                Join::WITH,
+                'storeCategoryTranslationEntity.storeCategoryID = store_category_entity.id'
+            )
 
-                ->getQuery()
-                ->getOneOrNullResult();
-        }
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
     public function getLast15StoreCategories()
