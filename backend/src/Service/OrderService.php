@@ -10,6 +10,7 @@ use App\Manager\OrderManager;
 use App\Request\OrderClientCreateRequest;
 use App\Request\OrderClientSendCreateRequest;
 use App\Request\OrderClientSpecialCreateRequest;
+use App\Request\OrderStateRequest;
 use App\Request\orderUpdateBillCalculatedByCaptainRequest;
 use App\Request\OrderUpdateProductCountByClientRequest;
 use App\Request\OrderUpdateStateByCaptainRequest;
@@ -17,6 +18,8 @@ use App\Request\OrderUpdateInvoiceByCaptainRequest;
 use App\Request\OrderUpdateByClientRequest;
 use App\Request\OrderUpdateSpecialByClientRequest;
 use App\Request\OrderUpdateSendByClientRequest;
+use App\Request\OrderUpdateStateForEachStoreByCaptainRequest;
+use App\Request\OrderUpdateStateRequest;
 use App\Response\CountReportForStoreOwnerResponse;
 use App\Response\OrderCancelResponse;
 use App\Response\OrderDetailsByOrderNumberForStoreResponse;
@@ -27,6 +30,7 @@ use App\Response\OrderPendingResponse;
 use App\Response\OrdersPendingForStoreResponse;
 use App\Response\orderUpdateBillCalculatedByCaptainResponse;
 use App\Response\OrderUpdateProductCountByClientResponse;
+use App\Response\OrderUpdateStateForEachStoreResponse;
 use App\Response\OrderUpdateStateResponse;
 use App\Response\OrderUpdateInvoiceByCaptainResponse;
 use App\Response\OrderCreateClientResponse;
@@ -173,7 +177,45 @@ class OrderService
 
         return $response;
     }
-   
+
+    public function orderUpdateStateForEachStore(OrderUpdateStateForEachStoreByCaptainRequest $request)
+    {
+        $response = ResponseConstant::$ERROR;
+        //update order state for each store.
+        $orderDetails = $this->orderDetailService->orderUpdateStateForEachStore($request);
+        if($orderDetails){
+            $states = $this->orderDetailService->getOrderDetailStates($orderDetails->orderNumber);
+            if($states) {
+                foreach ($states as $state) {
+                    $state = $this->generateOrderState($state);
+                }
+                if($state) {
+                    $orderState = new OrderStateRequest();
+                    $orderState->setId($orderDetails->orderID);
+                    $orderState->setState($state['state']);
+                    //update order state
+                    $this->orderManager->updateOrderState($orderState);
+
+                    $response = $this->autoMapping->map(OrderUpdateStateForEachStoreResponse::class, OrderUpdateStateForEachStoreResponse::class, $orderDetails);
+                }
+            }
+        }
+        return $response;
+    }
+
+    public function generateOrderState($state)
+    {
+            if ($state == "on way to pick order") {
+                return $state;
+            }
+
+            elseif ($state == "in store") {
+                return $state;
+            }
+
+            return $state;
+    }
+
     public function getOrdersWithOutPending():?array
     {
        $orders = $this->orderManager->getOrdersWithOutPending();

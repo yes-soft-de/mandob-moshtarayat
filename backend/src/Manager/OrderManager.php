@@ -8,6 +8,7 @@ use App\Repository\OrderEntityRepository;
 use App\Request\OrderClientCreateRequest;
 use App\Request\OrderClientSendCreateRequest;
 use App\Request\OrderClientSpecialCreateRequest;
+use App\Request\OrderStateRequest;
 use App\Request\orderUpdateBillCalculatedByCaptainRequest;
 use App\Request\OrderUpdateByClientRequest;
 use App\Request\OrderUpdateStateByCaptainRequest;
@@ -435,5 +436,17 @@ class OrderManager
     public function getStorePendingOrders($storeOwnerProfileID)
     {
         return $this->orderEntityRepository->getStorePendingOrders($storeOwnerProfileID);
+    }
+
+    public function updateOrderState(OrderStateRequest $request)
+    {
+        $item = $this->orderEntityRepository->find($request->getId());
+
+        if ($item) {
+            $item = $this->autoMapping->mapToObject(OrderStateRequest::class, OrderEntity::class, $request, $item);
+
+            $this->entityManager->flush();
+            return $item;
+        }
     }
 }
