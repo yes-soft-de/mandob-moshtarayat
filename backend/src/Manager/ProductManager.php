@@ -57,6 +57,11 @@ class ProductManager
         return $this->productEntityRepository->getActiveProductsByProductCategoryId($storeProductCategoryID);
     }
 
+    public function getActiveProductsTranslationsByProductCategoryId($storeProductCategoryID)
+    {
+        return $this->productEntityRepository->getActiveProductsTranslationsByProductCategoryId($storeProductCategoryID);
+    }
+
     public function getProductsByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId)
     {
         return $this->productEntityRepository->getProductsByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId);

@@ -442,7 +442,7 @@ class StoreProductCategoryService
         return $item;
     }
 
-    public function getStoreProductsCategoryLevelTwoWithProductsByStoreProductCategoryID($storeProductCategoryID)
+    public function getStoreProductsCategoryLevelTwoWithProductsByStoreProductCategoryID($userLocale, $storeProductCategoryID)
     {
         $response = [];
 
@@ -450,7 +450,7 @@ class StoreProductCategoryService
 
         foreach($items as $item)
         {
-            $item['products'] = $this->productService->getActiveProductsByProductCategoryId($item['id']);
+            $item['products'] = $this->productService->getActiveProductsByProductCategoryId($userLocale, $item['id']);
 
             if($item['products'])
             {
