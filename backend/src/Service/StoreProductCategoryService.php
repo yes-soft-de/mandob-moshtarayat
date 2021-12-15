@@ -221,22 +221,19 @@ class StoreProductCategoryService
 
         if($userLocale != null && $userLocale != $this->primaryLanguage)
         {
-            $storeProductCategoriesTranslation = $this->storeProductCategoryTranslationService->getByStoreCategoryIdAndLanguage($storeCategoryID, $userLocale);
+            $storeProductCategoriesTranslations = $this->storeProductCategoryManager->getSubCategoriesTranslationsByStoreCategoryID($storeCategoryID);
 
-            foreach($storeProductCategoriesTranslation as $storeProductCategoryTranslation)
-            {
-                $response[] = $this->autoMapping->map(StoreProductCategoryTranslationGetResponse::class, StoreProductsCategoryResponse::class, $storeProductCategoryTranslation);
-            }
+            $items = $this->replaceStoreProductCategoryTranslatedNameByPrimaryOne($storeProductCategoriesTranslations, $userLocale);
         }
         else
         {
             $items = $this->storeProductCategoryManager->getSubCategoriesByStoreCategoryID($storeCategoryID);
+        }
 
-            foreach($items as $item) {
-                $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params.$item['productCategoryImage'], $this->params);
+        foreach($items as $item) {
+            $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params.$item['productCategoryImage'], $this->params);
 
-                $response[] = $this->autoMapping->map('array', StoreProductsCategoryResponse::class, $item);
-            }
+            $response[] = $this->autoMapping->map('array', StoreProductsCategoryResponse::class, $item);
         }
 
         return $response;
@@ -511,5 +508,29 @@ class StoreProductCategoryService
             }
         }
         return $isRelated;
+    }
+
+    public function replaceStoreProductCategoryTranslatedNameByPrimaryOne($storeProductCategoriesTranslation, $userLocale)
+    {
+        $storeCategories = [];
+
+        if($storeProductCategoriesTranslation)
+        {
+            foreach($storeProductCategoriesTranslation as $storeProductCategory)
+            {
+                if($storeProductCategory['language'] == $userLocale)
+                {
+                    $storeCategories[] = $storeProductCategory;
+                }
+                else
+                {
+                    $storeProductCategory['productCategoryName'] = $storeProductCategory['primaryStoreProductCategory'];
+
+                    $storeCategories[] = $storeProductCategory;
+                }
+            }
+        }
+
+        return $storeCategories;
     }
 }
