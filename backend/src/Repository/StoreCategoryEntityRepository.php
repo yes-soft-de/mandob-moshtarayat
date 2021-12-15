@@ -52,7 +52,7 @@ class StoreCategoryEntityRepository extends ServiceEntityRepository
 
     public function getStoreCategoryByID($userLocale, $primaryLanguage, $storeCategoryID)
     {
-        if($userLocale == $primaryLanguage || (!$userLocale))
+        if($userLocale == $primaryLanguage || $userLocale == null)
         {
             return $this->createQueryBuilder('store_category_entity')
                 ->select('store_category_entity.id', 'store_category_entity.storeCategoryName', 'store_category_entity.description', 'store_category_entity.image', 'store_category_entity.language')
@@ -84,7 +84,7 @@ class StoreCategoryEntityRepository extends ServiceEntityRepository
                 ->setParameter('id', $storeCategoryID)
 
                 ->getQuery()
-                ->getResult();
+                ->getOneOrNullResult();
         }
     }
 
