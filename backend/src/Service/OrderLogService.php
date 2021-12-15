@@ -28,6 +28,7 @@ class OrderLogService
 
     public function createOrderLog($orderNumber, $state, $userID, $storeOwnerProfileID = 0)
     {
+        //TODO It is better to build a request file instead of using parameters
         $item['orderNumber'] = $orderNumber;
         $item['state'] = $state;
         $item['userID'] = $userID;

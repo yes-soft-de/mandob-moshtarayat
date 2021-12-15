@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\orderUpdateBillCalculatedByCaptainRequest;
+use App\Request\OrderUpdateStateForEachStoreByCaptainRequest;
 use App\Service\OrderService;
 use App\Request\OrderClientCreateRequest ;
 use App\Request\OrderClientSendCreateRequest ;
@@ -216,6 +217,74 @@ class OrderController extends BaseController
         $response = $this->orderService->orderUpdateStateByCaptain($request);
         if(is_string($response)){
             return $this->response($response, self::ERROR);  
+          }
+
+        return $this->response($response, self::UPDATE);
+    }
+
+    /**
+     * captain: Change order state for each store.(state is : in store or picked).
+     * @Route("/orderupdatestateforeachstore", name="orderUpdateStateForEachStore", methods={"PUT"})
+     * @IsGranted("ROLE_CAPTAIN")
+     * @param Request $request
+     * @return JsonResponse
+     * *
+     * @OA\Tag(name="Order")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\RequestBody (
+     *        description="To change state for store.",
+     *        @OA\JsonContent(
+     *              @OA\Property(type="integer", property="orderNumber"),
+     *              @OA\Property(type="string", property="state", description="in store or picked"),
+     *              @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *         ),
+     *      ),
+     *
+     * @OA\Response(
+     *      response=204,
+     *      description="Return some order info.",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="integer", property="orderID"),
+     *              @OA\Property(type="integer", property="orderNumber"),
+     *              @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *              )
+     *      )
+     * )
+     *
+     * or
+     *
+     * @OA\Response(
+     *      response="default",
+     *      description="Return error.",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code", description="9201"),
+     *          @OA\Property(type="string", property="msg", description="error Successfully."),
+     *          @OA\Property(type="string", property="Data", description="error"),
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function orderUpdateStateForEachStore(Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, OrderUpdateStateForEachStoreByCaptainRequest::class, (object) $data);
+        $request->setCaptainID($this->getUserId());
+
+        $response = $this->orderService->orderUpdateStateForEachStore($request);
+        if($response == ResponseConstant::$ERROR){
+            return $this->response($response, self::ERROR);
           }
 
         return $this->response($response, self::UPDATE);

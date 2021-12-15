@@ -27,11 +27,20 @@ class OrderLogManager
         
         $this->entityManager->persist($orderLogEntity);
         $this->entityManager->flush();
-        $this->entityManager->clear();
 
         return $orderLogEntity;
     }
+    //TODO this for remove when creat request file for createOrderLog
+    public function createOrderLogFromManager($orderNumber, $state, $userID, $storeOwnerProfileID = 0)
+    {
+        $item['orderNumber'] = $orderNumber;
+        $item['state'] = $state;
+        $item['userID'] = $userID;
+        $item['storeOwnerProfileID'] = $storeOwnerProfileID;
 
+        $result = $this->createOrderLog($item);
+
+    }
     public function getOrderLogByOrderNumber($orderNumber)
     {
         return $this->orderLogEntityRepository->getOrderLogByOrderNumber($orderNumber);

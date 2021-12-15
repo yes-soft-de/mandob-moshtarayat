@@ -7,8 +7,10 @@ use App\Entity\OrderDetailEntity;
 use App\Repository\OrderDetailEntityRepository;
 use App\Request\OrderUpdateInvoiceByCaptainRequest;
 use App\Request\OrderUpdateProductCountByClientRequest;
+use App\Request\OrderUpdateStateForEachStoreByCaptainRequest;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Request\OrderDetailUpdateByClientRequest;
+use App\Manager\OrderLogManager;
 
 
 class OrderDetailManager
@@ -16,12 +18,14 @@ class OrderDetailManager
     private $autoMapping;
     private $entityManager;
     private $orderDetailEntityRepository;
+    private $orderLogManager;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, OrderDetailEntityRepository $orderDetailEntityRepository)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, OrderDetailEntityRepository $orderDetailEntityRepository, OrderLogManager $orderLogManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
         $this->orderDetailEntityRepository = $orderDetailEntityRepository;
+        $this->orderLogManager = $orderLogManager;
     }
 
     public function createOrderDetail($item)
@@ -126,6 +130,31 @@ class OrderDetailManager
 
             $this->entityManager->flush();
 
+            return $item;
+        }
+    }
+
+    public function getOrderDetailsByOrderNumberAndStoreProfileID($orderNumber, $storeOwnerProfileID)
+    {
+        return $this->orderDetailEntityRepository->getOrderDetailsByOrderNumberAndStoreProfileID($orderNumber, $storeOwnerProfileID);
+    }
+
+    public function getOrderDetailStates($orderNumber)
+    {
+        return $this->orderDetailEntityRepository->getOrderDetailStates($orderNumber);
+    }
+
+    public function orderUpdateStateForEachStore(OrderUpdateStateForEachStoreByCaptainRequest $request)
+    {
+        $item = $this->orderDetailEntityRepository->find($request->getId());
+
+        if ($item) {
+            $item = $this->autoMapping->mapToObject(OrderUpdateStateForEachStoreByCaptainRequest::class, OrderDetailEntity::class, $request, $item);
+
+            $this->entityManager->flush();
+            if ($item) {
+                $this->orderLogManager->createOrderLogFromManager($item->getOrderNumber(), $item->getState(), $request->getCaptainID(), $item->getStoreOwnerProfileID());
+            }
             return $item;
         }
     }

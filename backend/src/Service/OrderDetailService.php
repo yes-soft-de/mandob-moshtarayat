@@ -8,11 +8,14 @@ use App\Manager\OrderDetailManager;
 use App\Request\OrderUpdateByClientRequest;
 use App\Request\OrderUpdateInvoiceByCaptainRequest;
 use App\Request\OrderUpdateProductCountByClientRequest;
+use App\Request\OrderUpdateStateForEachStoreByCaptainRequest;
 use App\Response\OrderCreateDetailResponse;
 use App\Response\OrderDetailProductsResponse;
 use App\Response\OrderDetailResponse;
 use App\Response\OrderUpdateInvoiceByCaptainResponse;
 use App\Response\OrderUpdateProductCountByClientResponse;
+use App\Response\OrderUpdateStateForEachStoreResponse;
+use App\Response\OrderUpdateStateResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 
@@ -148,13 +151,33 @@ class OrderDetailService
     public function orderUpdateInvoiceByCaptain(OrderUpdateInvoiceByCaptainRequest $request)
     {
         $item = $this->orderDetailManager->orderUpdateInvoiceByCaptain($request);
+
         return $this->autoMapping->map(OrderDetailEntity::class, OrderUpdateInvoiceByCaptainResponse::class, $item);
     }
 
     public function UpdateProductCount(OrderUpdateProductCountByClientRequest $request)
     {
         $item = $this->orderDetailManager->UpdateProductCount($request);
+
         return $this->autoMapping->map(OrderDetailEntity::class, OrderUpdateProductCountByClientResponse::class, $item);
+    }
+
+    public function orderUpdateStateForEachStore(OrderUpdateStateForEachStoreByCaptainRequest $request)
+    {
+        $item=(object)[];
+        $orderDetailIds = $this->orderDetailManager->getOrderDetailsByOrderNumberAndStoreProfileID($request->getOrderNumber(), $request->getStoreOwnerProfileID());
+        foreach ($orderDetailIds as $orderDetailId){
+
+            $request->setId($orderDetailId);
+            $item = $this->orderDetailManager->orderUpdateStateForEachStore($request);
+        }
+
+        return $this->autoMapping->map(OrderDetailEntity::class, OrderUpdateStateForEachStoreResponse::class, $item);
+    }
+
+    public function getOrderDetailStates($orderNumber)
+    {
+        return $this->orderDetailManager->getOrderDetailStates($orderNumber);
     }
 
     public function getImageParams($imageURL, $image, $baseURL): array
