@@ -386,6 +386,14 @@ class StoreProductCategoryController extends BaseController
      *      required=true
      * )
      *
+     * @OA\RequestBody(
+     *      description="filtering options",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="language"),
+     *          @OA\Property(type="integer", property="storeCategoryID")
+     *      )
+     * )
+     *
      * @OA\Response(
      *      response=200,
      *      description="Returns array of categories level one for admin ",
