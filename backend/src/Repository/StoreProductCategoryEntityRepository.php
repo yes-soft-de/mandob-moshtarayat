@@ -111,6 +111,30 @@ class StoreProductCategoryEntityRepository extends ServiceEntityRepository
         ;
     }
 
+    public function getStoreProductsCategoryLevelTwoTranslationsByStoreProductCategoryID($storeProductCategoryID)
+    {
+        return $this->createQueryBuilder('storeProductCategory')
+
+            ->select('storeProductCategory.id', 'storeProductCategory.productCategoryName as primaryStoreProductCategory', 'storeProductCategory.isLevel1', 'storeProductCategory.productCategoryImage',
+                'storeProductCategoryTranslationEntity.productCategoryName', 'storeProductCategoryTranslationEntity.language')
+
+            ->where('storeProductCategory.storeProductCategoryID = :storeProductCategoryID')
+            ->andWhere('storeProductCategory.isLevel2 = :isLevel2')
+
+            ->setParameter('isLevel2', true)
+            ->setParameter('storeProductCategoryID', $storeProductCategoryID)
+
+            ->leftJoin(
+                StoreProductCategoryTranslationEntity::class,
+                'storeProductCategoryTranslationEntity',
+                Join::WITH,
+                'storeProductCategoryTranslationEntity.storeProductCategoryID = storeProductCategory.id'
+            )
+
+            ->getQuery()
+            ->getArrayResult();
+    }
+
     public function getStoreProductsCategoryLevelTwoByStoreOwnerProfile($storeOwnerProfileID)
     {
         return $this->createQueryBuilder('storeProductCategory')
