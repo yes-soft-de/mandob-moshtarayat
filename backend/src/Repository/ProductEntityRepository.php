@@ -82,6 +82,29 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getActiveProductsTranslationsByProductCategoryId($storeProductCategoryID)
+    {
+        return $this->createQueryBuilder('product')
+            ->select('product.id', 'product.productName as primaryProductName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID',
+                'product.discount', 'product.description', 'productTranslationEntity.productName', 'productTranslationEntity.language')
+
+            ->andWhere('product.storeProductCategoryID =:storeProductCategoryID')
+            ->andWhere('product.status =:status')
+
+            ->setParameter('storeProductCategoryID',$storeProductCategoryID)
+            ->setParameter('status',self::STATUS_ACTIVE)
+
+            ->leftJoin(
+                ProductTranslationEntity::class,
+                'productTranslationEntity',
+                Join::WITH,
+                'productTranslationEntity.productID = product.id'
+            )
+
+            ->getQuery()
+            ->getResult();
+    }
+
     public function getProductsByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId)
     {
         return $this->createQueryBuilder('product')
@@ -189,6 +212,45 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->andWhere('storeOwnerProfile.status = :status')
 
             ->setParameter('status', self::STATUS_ACTIVE)
+
+            ->addGroupBy('orderDetailEntity.productID')
+
+            ->having('count(orderDetailEntity.productID) > 0')
+
+            ->setMaxResults(20)
+
+            ->addOrderBy('countProduct','DESC')
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getProductsTopWantedTranslations()
+    {
+        return $this->createQueryBuilder('product')
+
+            ->select('product.id', 'product.productName as primaryProductName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID','product.discount', 'product.description', 'productTranslationEntity.productName', 'productTranslationEntity.language')
+            ->addSelect('count(orderDetailEntity.productID) as countProduct, orderDetailEntity.productID')
+            ->addSelect('storeOwnerProfile.id as storeOwnerProfileID', 'storeOwnerProfile.storeOwnerName as storeOwnerName', 'storeOwnerProfile.image', 'storeOwnerProfile.phone', 'storeOwnerProfile.status')
+            ->addSelect('storeOwnerBranch.location','storeOwnerBranch.branchName')
+            ->addSelect('DeliveryCompanyFinancialEntity.deliveryCost')
+
+            ->leftJoin(OrderDetailEntity::class, 'orderDetailEntity', Join::WITH, 'orderDetailEntity.productID = product.id')
+            ->leftJoin(StoreOwnerProfileEntity::class, 'storeOwnerProfile', Join::WITH, 'storeOwnerProfile.id = product.storeOwnerProfileID')
+            ->leftJoin(StoreOwnerBranchEntity::class, 'storeOwnerBranch', Join::WITH, 'storeOwnerBranch.storeOwnerProfileID = storeOwnerProfile.id ')
+            ->leftJoin(DeliveryCompanyFinancialEntity::class, 'DeliveryCompanyFinancialEntity', Join::WITH, 'product.id = product.id')
+
+            ->andWhere('orderDetailEntity.productID = product.id')
+            ->andWhere('storeOwnerProfile.status = :status')
+
+            ->setParameter('status', self::STATUS_ACTIVE)
+
+            ->leftJoin(
+                ProductTranslationEntity::class,
+                'productTranslationEntity',
+                Join::WITH,
+                'productTranslationEntity.productID = product.id'
+            )
 
             ->addGroupBy('orderDetailEntity.productID')
 

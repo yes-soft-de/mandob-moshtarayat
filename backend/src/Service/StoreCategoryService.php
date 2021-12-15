@@ -56,23 +56,20 @@ class StoreCategoryService
 
        if($request->getLanguage() && $request->getLanguage() != $this->primaryLanguage)
        {
-           $storeCategoriesTranslations = $this->storeCategoryTranslationService->getStoreCategoriesTranslationByLanguage($request->getLanguage());
+           $storeCategoriesTranslations = $this->storeCategoryManager->getStoreCategoriesTranslations();
 
-           foreach($storeCategoriesTranslations as $storeCategoryTranslation)
-           {
-               $response[] = $this->autoMapping->map(StoreCategoryTranslationGetResponse::class, StoreCategoryGetResponse::class, $storeCategoryTranslation);
-           }
+           $storeCategories = $this->replaceStoreCategoryTranslatedNameByPrimaryOne($storeCategoriesTranslations, $request->getLanguage());
        }
        else
        {
-           $items = $this->storeCategoryManager->getStoreCategories();
-
-           foreach ($items as $item) {
-               $item['image'] = $this->getImageParams($item['image'], $this->params . $item['image'], $this->params);
-
-               $response[] = $this->autoMapping->map('array', StoreCategoryGetResponse::class, $item);
-           }
+           $storeCategories = $this->storeCategoryManager->getStoreCategories();
        }
+
+        foreach ($storeCategories as $item) {
+            $item['image'] = $this->getImageParams($item['image'], $this->params . $item['image'], $this->params);
+
+            $response[] = $this->autoMapping->map('array', StoreCategoryGetResponse::class, $item);
+        }
 
        return $response;
     }
@@ -147,16 +144,18 @@ class StoreCategoryService
     {
         if(($userLocale != null) && $userLocale != $this->primaryLanguage)
         {
-            $item['categories'] = $this->storeCategoryTranslationService->getStoreCategoriesTranslationByLanguage($userLocale);
+            $storeCategoriesTranslations = $this->storeCategoryManager->getStoreCategoriesTranslations();
+
+            $item['categories'] = $this->replaceStoreCategoryTranslatedNameByPrimaryOne($storeCategoriesTranslations, $userLocale);
         }
         else
         {
             $item['categories'] = $this->storeCategoryManager->getStoreCategories();
+        }
 
-            foreach ($item['categories'] as $key => $value)
-            {
-                $item['categories'][$key]['image'] = $this->getImageParams($value['image'], $this->params . $value['image'], $this->params);
-            }
+        foreach ($item['categories'] as $key => $value)
+        {
+            $item['categories'][$key]['image'] = $this->getImageParams($value['image'], $this->params . $value['image'], $this->params);
         }
 
         $item['stores'] = $this->storeOwnerProfileService->getLast15Stores();
@@ -213,7 +212,6 @@ class StoreCategoryService
         return $response;
     }
 
-
     public function getLast15StoresByCategoryID($categories): array
     {
         $response = [];
@@ -265,5 +263,29 @@ class StoreCategoryService
         }
 
         return $isRelated;
+    }
+
+    public function replaceStoreCategoryTranslatedNameByPrimaryOne($storeCategoriesTranslation, $userLocale)
+    {
+        $storeCategories = [];
+
+        if($storeCategoriesTranslation)
+        {
+            foreach($storeCategoriesTranslation as $storeCategory)
+            {
+                if($storeCategory['language'] == $userLocale)
+                {
+                    $storeCategories[] = $storeCategory;
+                }
+                else
+                {
+                    $storeCategory['storeCategoryName'] = $storeCategory['primaryStoreCategoryName'];
+
+                    $storeCategories[] = $storeCategory;
+                }
+            }
+        }
+
+        return $storeCategories;
     }
 }

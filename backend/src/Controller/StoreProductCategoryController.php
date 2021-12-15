@@ -386,6 +386,14 @@ class StoreProductCategoryController extends BaseController
      *      required=true
      * )
      *
+     * @OA\RequestBody(
+     *      description="filtering options",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="language"),
+     *          @OA\Property(type="integer", property="storeCategoryID")
+     *      )
+     * )
+     *
      * @OA\Response(
      *      response=200,
      *      description="Returns array of categories level one for admin ",
@@ -698,8 +706,15 @@ class StoreProductCategoryController extends BaseController
      * get active products by first subcategory.
      * @Route("storeproductscategoryleveltwowithproducts/{storeProductCategoryID}", name="getStoreProductsCategoryLevelTwoWithProductsByStoreProductCategoryID", methods={"GET"})
      * @return JsonResponse
-     * *
+     *
      * @OA\Tag(name="Store Product Category")
+     *
+     * @OA\Parameter(
+     *      name="Accept-Language",
+     *      in="header",
+     *      description="language to be passed as a header",
+     *      required=false
+     * )
      *
      * @OA\Response(
      *      response=200,
@@ -734,9 +749,9 @@ class StoreProductCategoryController extends BaseController
      *  )
      *
      */
-    public function getStoreProductsCategoryLevelTwoWithProductsByStoreProductCategoryID($storeProductCategoryID)
+    public function getStoreProductsCategoryLevelTwoWithProductsByStoreProductCategoryID(Request $request, $storeProductCategoryID)
     {
-        $result = $this->storeProductCategoryService->getStoreProductsCategoryLevelTwoWithProductsByStoreProductCategoryID($storeProductCategoryID);
+        $result = $this->storeProductCategoryService->getStoreProductsCategoryLevelTwoWithProductsByStoreProductCategoryID($request->getPreferredLanguage(), $storeProductCategoryID);
 
         return $this->response($result, self::FETCH);
     }

@@ -264,11 +264,52 @@ class ProductController extends BaseController
 
     /**
      * @Route("/productstopwanted", name="productsTopWanted", methods={"GET"})
+     * @param Request $request
      * @return JsonResponse
+     *
+     * @OA\Tag(name="Product")
+     *
+     * @OA\Parameter(
+     *      name="Accept-Language",
+     *      in="header",
+     *      description="language to be passed as a header",
+     *      required=false
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Get top wanted products",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="productName"),
+     *                  @OA\Property(type="string", property="productImage"),
+     *                  @OA\Property(type="number", property="productPrice"),
+     *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                  @OA\Property(type="integer", property="storeProductCategoryID"),
+     *                  @OA\Property(type="string", property="storeOwnerName"),
+     *                  @OA\Property(type="string", property="phone"),
+     *                  @OA\Property(type="object", property="location"),
+     *                  @OA\Property(type="string", property="branchName"),
+     *                  @OA\Property(type="number", property="discount"),
+     *                  @OA\Property(type="number", property="deliveryCost"),
+     *                  @OA\Property(type="string", property="description"),
+     *                  @OA\Property(type="string", property="rate"),
+     *                  @OA\Property(type="string", property="soldCount"),
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="string", property="image"),
+     *              )
+     *          )
+     *      )
+     * )
+     *
      */
-    public function getProductsTopWanted()
+    public function getProductsTopWanted(Request $request)
     {
-        $result = $this->productService->getProductsTopWanted();
+        $result = $this->productService->getProductsTopWanted($request->getPreferredLanguage());
 
         return $this->response($result, self::FETCH);
     }
@@ -723,9 +764,18 @@ class ProductController extends BaseController
     /**
      * Get products of subcategory of level one.
      * @Route("/productsbystorecategory/{storeCategoryID}", name="getProductsByStoreCategoryID", methods={"GET"})
+     * @param Request $request
+     * @param $storeCategoryID
      * @return JsonResponse
-     * *
+     *
      * @OA\Tag(name="Product")
+     *
+     * @OA\Parameter(
+     *      name="Accept-Language",
+     *      in="header",
+     *      description="language to be passed as a header",
+     *      required=false
+     * )
      *
      * @OA\Response(
      *      response=200,
@@ -758,11 +808,10 @@ class ProductController extends BaseController
      *          )
      *      )
      *  )
-     *
      */
-    public function getProductsByStoreCategoryID($storeCategoryID): JsonResponse
+    public function getProductsByStoreCategoryID(Request $request, $storeCategoryID): JsonResponse
     {
-        $result = $this->productService->getProductsByStoreCategoryID($storeCategoryID);
+        $result = $this->productService->getProductsByStoreCategoryID($request->getPreferredLanguage(), $storeCategoryID);
 
         return $this->response($result, self::FETCH);
     }

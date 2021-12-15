@@ -96,13 +96,22 @@ class ProductService
         return $response;
     }
 
-    public function getActiveProductsByProductCategoryId($storeProductCategoryID)
+    public function getActiveProductsByProductCategoryId($userLocale, $storeProductCategoryID)
     {
         $response = [];
 
-        $items = $this->productManager->getActiveProductsByProductCategoryId($storeProductCategoryID);
+        if($userLocale != null && $userLocale != $this->primaryLanguage)
+        {
+            $productsTranslation = $this->productManager->getActiveProductsTranslationsByProductCategoryId($storeProductCategoryID);
 
-        foreach ($items as $item) {
+            $products = $this->replaceProductTranslatedNameByPrimaryOne($productsTranslation, $userLocale);
+        }
+        else
+        {
+            $products = $this->productManager->getActiveProductsByProductCategoryId($storeProductCategoryID);
+        }
+
+        foreach ($products as $item) {
 
             $item['store'] = $this->storeOwnerProfileService->getStoreNameById($item['storeOwnerProfileID']);
             $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
@@ -187,13 +196,22 @@ class ProductService
         return $this->autoMapping->map('array', ProductFullInfoResponse::class, $item);
     }
 
-    public function getProductsTopWanted(): ?array
+    public function getProductsTopWanted($userLocale): ?array
     {
         $response = [];
 
-        $Products = $this->productManager->getProductsTopWanted();
+        if($userLocale != null && $userLocale != $this->primaryLanguage)
+        {
+            $productsTranslation = $this->productManager->getProductsTopWantedTranslations();
 
-        foreach ($Products as $Product) {
+            $products = $this->replaceProductTranslatedNameByPrimaryOne($productsTranslation, $userLocale);
+        }
+        else
+        {
+            $products = $this->productManager->getProductsTopWanted();
+        }
+
+        foreach ($products as $Product) {
             $img = isset($Product['image']);
             if ($img) {
                 $topOwner['imageURL'] = $Product['image'];
@@ -488,7 +506,7 @@ class ProductService
         }
     }
 
-    public function getProductsByStoreCategoryID($storeCategoryID): ?array
+    public function getProductsByStoreCategoryID($userLocale, $storeCategoryID): ?array
     {
         $response = [];
 
@@ -498,7 +516,7 @@ class ProductService
         {
 //            $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params . $item['productCategoryImage'], $this->params);
 
-            $item['storeProductCategoriesLevel2'] = $this->getStoreProductCategoryLevel2($item['id']);
+            $item['storeProductCategoriesLevel2'] = $this->getStoreProductCategoryLevel2($userLocale, $item['id']);
 
             foreach($item['storeProductCategoriesLevel2'] as $value)
             {
@@ -515,7 +533,7 @@ class ProductService
         return $response;
     }
 
-    public function getStoreProductCategoryLevel2($storeProductCategoryIdLevel1): array
+    public function getStoreProductCategoryLevel2($userLocale, $storeProductCategoryIdLevel1): array
     {
         $response = [];
 
@@ -525,7 +543,7 @@ class ProductService
         {
             $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params . $item['productCategoryImage'], $this->params);
 
-            $item['products'] = $this->getProductsByStoreProductCategoryID($item['id']);
+            $item['products'] = $this->getProductsByStoreProductCategoryID($userLocale, $item['id']);
 
             $response[] = $this->autoMapping->map('array', StoreProductCategoriesResponse::class, $item);
         }
@@ -661,14 +679,14 @@ class ProductService
         {
             foreach($productsTranslation as $product)
             {
-                if((!$product['language']))
+                if($product['language'] == $userLocale)
+                {
+                    $products[] = $product;
+                }
+                else
                 {
                     $product['productName'] = $product['primaryProductName'];
 
-                    $products[] = $product;
-                }
-                elseif($product['language'] == $userLocale)
-                {
                     $products[] = $product;
                 }
             }
