@@ -82,6 +82,11 @@ class ProductManager
         return $this->productEntityRepository->getProductByIdWithFullInfo($id);
     }
 
+    public function getProductTranslationByProductIdWithFullInfo($id)
+    {
+        return $this->productEntityRepository->getProductTranslationByProductIdWithFullInfo($id);
+    }
+
     public function getProductsTopWanted()
     {
         return $this->productEntityRepository->getProductsTopWanted();

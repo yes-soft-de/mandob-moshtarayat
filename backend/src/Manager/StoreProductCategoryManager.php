@@ -92,9 +92,19 @@ class StoreProductCategoryManager
        return $this->storeProductCategoryEntityRepository->getSubCategoriesByStoreCategoryID($storeCategoryID);
     }
 
+    public function getSubCategoriesTranslationsByStoreCategoryID($storeCategoryID)
+    {
+        return $this->storeProductCategoryEntityRepository->getSubCategoriesTranslationsByStoreCategoryID($storeCategoryID);
+    }
+
     public function getStoreProductsCategoryLevelTwoByStoreProductCategoryID($storeProductCategoryID)
     {
        return $this->storeProductCategoryEntityRepository->getStoreProductsCategoryLevelTwoByStoreProductCategoryID($storeProductCategoryID);
+    }
+
+    public function getStoreProductsCategoryLevelTwoTranslationsByStoreProductCategoryID($storeProductCategoryID)
+    {
+        return $this->storeProductCategoryEntityRepository->getStoreProductsCategoryLevelTwoTranslationsByStoreProductCategoryID($storeProductCategoryID);
     }
 
     public function getStoreProductsCategoryLevelTwoByStoreOwnerProfile($storeOwnerProfileID)

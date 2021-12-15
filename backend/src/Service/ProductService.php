@@ -175,9 +175,31 @@ class ProductService
         return $response;
     }
 
-    public function getProductByIdWithFullInfo($id)
+    public function getProductByIdWithFullInfo($userLocale, $id)
     {
-        $item = $this->productManager->getProductByIdWithFullInfo($id);
+        if ($userLocale != null && $userLocale != $this->primaryLanguage)
+        {
+            $productTranslation = $this->productManager->getProductTranslationByProductIdWithFullInfo($id);
+
+            if($productTranslation['language'] == $userLocale)
+            {
+                $item = $productTranslation;
+            }
+            elseif($productTranslation['language'] == null)
+            {
+                $productTranslation['storeCategoryName'] = $productTranslation['primaryStoreCategoryName'];
+
+                $item = $productTranslation;
+            }
+            else
+            {
+                $item = $this->productManager->getProductByIdWithFullInfo($id);
+            }
+        }
+        else
+        {
+            $item = $this->productManager->getProductByIdWithFullInfo($id);
+        }
 
         if($item['productImage'])
         {
@@ -683,11 +705,15 @@ class ProductService
                 {
                     $products[] = $product;
                 }
-                else
+                elseif($product['language'] == null)
                 {
                     $product['productName'] = $product['primaryProductName'];
 
                     $products[] = $product;
+                }
+                else
+                {
+
                 }
             }
         }

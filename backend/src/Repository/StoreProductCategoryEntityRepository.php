@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\ProductEntity;
 use App\Entity\StoreProductCategoryEntity;
+use App\Entity\StoreProductCategoryTranslationEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
@@ -70,6 +71,29 @@ class StoreProductCategoryEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getSubCategoriesTranslationsByStoreCategoryID($storeCategoryID)
+    {
+        return $this->createQueryBuilder('storeProductCategory')
+            ->select('storeProductCategory.id', 'storeProductCategory.productCategoryName as primaryStoreProductCategory', 'storeProductCategory.isLevel1', 'storeProductCategory.productCategoryImage',
+             'storeProductCategoryTranslationEntity.productCategoryName', 'storeProductCategoryTranslationEntity.language')
+
+            ->andWhere('storeProductCategory.storeCategoryID = :storeCategoryID')
+            ->andWhere('storeProductCategory.isLevel1 = :isLevel1')
+
+            ->setParameter('storeCategoryID', $storeCategoryID)
+            ->setParameter('isLevel1', 1)
+
+            ->leftJoin(
+                StoreProductCategoryTranslationEntity::class,
+                'storeProductCategoryTranslationEntity',
+                Join::WITH,
+                'storeProductCategoryTranslationEntity.storeProductCategoryID = storeProductCategory.id'
+            )
+
+            ->getQuery()
+            ->getResult();
+    }
+
     public function getStoreProductsCategoryLevelTwoByStoreProductCategoryID($storeProductCategoryID)
     {
         return $this->createQueryBuilder('storeProductCategory')
@@ -85,6 +109,30 @@ class StoreProductCategoryEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getArrayResult()
         ;
+    }
+
+    public function getStoreProductsCategoryLevelTwoTranslationsByStoreProductCategoryID($storeProductCategoryID)
+    {
+        return $this->createQueryBuilder('storeProductCategory')
+
+            ->select('storeProductCategory.id', 'storeProductCategory.productCategoryName as primaryStoreProductCategory', 'storeProductCategory.isLevel1', 'storeProductCategory.productCategoryImage',
+                'storeProductCategoryTranslationEntity.productCategoryName', 'storeProductCategoryTranslationEntity.language')
+
+            ->where('storeProductCategory.storeProductCategoryID = :storeProductCategoryID')
+            ->andWhere('storeProductCategory.isLevel2 = :isLevel2')
+
+            ->setParameter('isLevel2', true)
+            ->setParameter('storeProductCategoryID', $storeProductCategoryID)
+
+            ->leftJoin(
+                StoreProductCategoryTranslationEntity::class,
+                'storeProductCategoryTranslationEntity',
+                Join::WITH,
+                'storeProductCategoryTranslationEntity.storeProductCategoryID = storeProductCategory.id'
+            )
+
+            ->getQuery()
+            ->getArrayResult();
     }
 
     public function getStoreProductsCategoryLevelTwoByStoreOwnerProfile($storeOwnerProfileID)

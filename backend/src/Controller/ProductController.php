@@ -223,7 +223,14 @@ class ProductController extends BaseController
      * @return JsonResponse
      *
      * @OA\Tag(name="Product")
-
+     *
+     * @OA\Parameter(
+     *      name="Accept-Language",
+     *      in="header",
+     *      description="language to be passed as a header",
+     *      required=false
+     * )
+     *
      * @OA\Response(
      *      response=200,
      *      description="Get product specific",
@@ -255,9 +262,9 @@ class ProductController extends BaseController
      * )
      *
      */
-    public function getProductByIdWithFullInfo($id)
+    public function getProductByIdWithFullInfo(Request $request, $id)
     {
-        $result = $this->productService->getProductByIdWithFullInfo($id);
+        $result = $this->productService->getProductByIdWithFullInfo($request->getPreferredLanguage(), $id);
 
         return $this->response($result, self::FETCH);
     }

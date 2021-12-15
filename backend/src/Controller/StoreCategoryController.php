@@ -413,6 +413,7 @@ class StoreCategoryController extends BaseController
     /**
      * Client: Get Favourite Store Categories for the signed-in client.
      * @Route("userfavoritecategories", name="getFavouriteStoreCategories", methods={"GET"})
+     * @param Request $request
      * @return JsonResponse
      *
      * @OA\Tag(name="Store Category")
@@ -422,6 +423,13 @@ class StoreCategoryController extends BaseController
      *      in="header",
      *      description="token to be passed as a header",
      *      required=true
+     * )
+     *
+     * @OA\Parameter(
+     *      name="Accept-Language",
+     *      in="header",
+     *      description="language to be passed as a header",
+     *      required=false
      * )
      *
      * @OA\Response(
@@ -441,9 +449,9 @@ class StoreCategoryController extends BaseController
      *
      * @Security(name="Bearer")
      */
-    public function getFavouriteStoreCategories(): JsonResponse
+    public function getFavouriteStoreCategories(Request $request): JsonResponse
     {
-        $result = $this->storeCategoryService->getFavouriteStoreCategories($this->getUserId());
+        $result = $this->storeCategoryService->getFavouriteStoreCategories($request->getPreferredLanguage(), $this->getUserId());
 
         return $this->response($result, self::FETCH);
     }
