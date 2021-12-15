@@ -505,11 +505,15 @@ class StoreProductCategoryService
                 {
                     $storeCategories[] = $storeProductCategory;
                 }
-                else
+                elseif($storeProductCategory['language'] == null)
                 {
                     $storeProductCategory['productCategoryName'] = $storeProductCategory['primaryStoreProductCategory'];
 
                     $storeCategories[] = $storeProductCategory;
+                }
+                else
+                {
+
                 }
             }
         }

@@ -193,6 +193,46 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    public function getProductTranslationByProductIdWithFullInfo($id)
+    {
+        return $this->createQueryBuilder('product')
+
+            ->select('product.id', 'product.productName as primaryProductName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.description',
+                'product.status', 'product.discount', 'productTranslationEntity.productName', 'productTranslationEntity.language')
+
+            ->addSelect('storeOwnerProfile.id as storeOwnerProfileID', 'storeOwnerProfile.storeOwnerName as storeOwnerName','storeOwnerProfile.storeOwnerID', 'storeOwnerProfile.image', 'storeOwnerProfile.story', 'storeOwnerProfile.free', 'storeOwnerProfile.status', 'storeOwnerProfile.phone', 'storeOwnerProfile.storeOwnerID')
+
+            ->addSelect('storeOwnerBranch.location','storeOwnerBranch.branchName','storeOwnerBranch.city')
+
+            ->leftJoin(
+                StoreOwnerProfileEntity::class,
+                'storeOwnerProfile',
+                Join::WITH,
+                'storeOwnerProfile.id = product.storeOwnerProfileID')
+
+            ->leftJoin(
+                StoreOwnerBranchEntity::class,
+                'storeOwnerBranch',
+                Join::WITH,
+                'storeOwnerBranch.storeOwnerProfileID = storeOwnerProfile.id ')
+
+            ->leftJoin(
+                ProductTranslationEntity::class,
+                'productTranslationEntity',
+                Join::WITH,
+                'productTranslationEntity.productID = product.id'
+            )
+
+            ->andWhere('product.id = :id')
+
+            ->setParameter('id', $id)
+
+            ->groupBy('product.id')
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     public function getProductsTopWanted()
     {
         return $this->createQueryBuilder('product')
