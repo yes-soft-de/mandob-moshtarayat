@@ -637,7 +637,7 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function getProductsTranslationByNameAndStoreOwnerProfileId($name, $storeOwnerProfileId)
+    public function getProductsTranslationByStoreOwnerProfileId($storeOwnerProfileId)
     {
         return $this->createQueryBuilder('product')
 
@@ -657,10 +657,7 @@ class ProductEntityRepository extends ServiceEntityRepository
                 'productTranslationEntity.productID = product.id'
             )
 
-            ->andWhere('product.productName LIKE :productName')
             ->andWhere('product.storeOwnerProfileID = :storeOwnerProfileId')
-
-            ->setParameter('productName', '%'.$name.'%')
             ->setParameter('storeOwnerProfileId', $storeOwnerProfileId)
 
             ->andWhere('product.status = :status')

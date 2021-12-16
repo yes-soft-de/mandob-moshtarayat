@@ -343,7 +343,7 @@ class ProductService
         {
             if($request->getLanguage() != null && $request->getLanguage() != $this->primaryLanguage)
             {
-                $productsTranslation = $this->productManager->getProductsTranslationByNameAndStoreOwnerProfileId($request->getName(), $storeOwnerProfileId);
+                $productsTranslation = $this->productManager->getProductsTranslationByStoreOwnerProfileId($storeOwnerProfileId);
 
                 $products = $this->replaceProductTranslatedNameByPrimaryOne($productsTranslation, $request->getLanguage());
             }

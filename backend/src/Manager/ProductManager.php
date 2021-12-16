@@ -187,9 +187,9 @@ class ProductManager
         return $this->productEntityRepository->getProductsTranslationByTranslatedNameAndStoreOwnerProfileId($name, $storeOwnerProfileId);
     }
 
-    public function getProductsTranslationByNameAndStoreOwnerProfileId($name, $storeOwnerProfileId)
+    public function getProductsTranslationByStoreOwnerProfileId($storeOwnerProfileId)
     {
-        return $this->productEntityRepository->getProductsTranslationByNameAndStoreOwnerProfileId($name, $storeOwnerProfileId);
+        return $this->productEntityRepository->getProductsTranslationByStoreOwnerProfileId($storeOwnerProfileId);
     }
 
     public function createProductByStore(ProductCreateRequest $request)
