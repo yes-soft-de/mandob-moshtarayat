@@ -176,6 +176,7 @@ class StoresInActiveLoadedState extends States {
                               body: UpdateStoreWidget(
                                 categories: getChoices(),
                                 request: UpdateStoreRequest(
+                                    commission: element.commission,
                                     id: element.id.toString(),
                                     storeOwnerName: element.storeOwnerName,
                                     hasProducts: element.hasProducts ? 1 : 0,
@@ -188,10 +189,10 @@ class StoresInActiveLoadedState extends States {
                                         element.closingTime?.toIso8601String(),
                                     status: element.status,
                                     baseImage: element.imageUrl,
-                                    storeCategoryId: int.parse(element.categoryId)
-                                ),
+                                    storeCategoryId:
+                                        int.parse(element.categoryId)),
                                 updateStore: (id, name, image, products,
-                                    privateOrder, open, close, status) {
+                                    privateOrder, open, close, status,commission) {
                                   Navigator.of(context).pop();
                                   screenState.updateStore(UpdateStoreRequest(
                                     status: status,
@@ -204,6 +205,7 @@ class StoresInActiveLoadedState extends States {
                                     privateOrders: privateOrder ? 1 : 0,
                                     openingTime: open,
                                     closingTime: close,
+                                    commission: double.parse(commission)
                                   ));
                                 },
                               ),

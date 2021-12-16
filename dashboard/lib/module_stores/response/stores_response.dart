@@ -1,4 +1,5 @@
 import 'package:mandob_moshtarayat_dashboad/module_captain/response/captain_account_balance_response.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/response/store_categories_response.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/logger/logger.dart';
 
 class StoresResponse {
@@ -9,7 +10,6 @@ class StoresResponse {
   StoresResponse({this.statusCode, this.msg, this.data});
 
   StoresResponse.fromJson(dynamic json) {
-    try {
       statusCode = json['status_code'];
       msg = json['msg'];
       if (json['Data'] != null) {
@@ -18,6 +18,8 @@ class StoresResponse {
           data?.add(Data.fromJson(v));
         });
       }
+    try {
+
     } catch (e) {
       Logger().error('stores response', '${e.toString()}', StackTrace.current);
       statusCode = '-1';
@@ -28,7 +30,7 @@ class StoresResponse {
 class Data {
   int? id;
   String? storeOwnerName;
-  String? image;
+  Image? image;
   dynamic phone;
   dynamic location;
   double? deliveryCost;
@@ -39,6 +41,7 @@ class Data {
   Date? openingTime;
   String? status;
   String? imageUrl;
+  double? commission;
   Data(
       {this.id,
       this.storeOwnerName,
@@ -52,15 +55,15 @@ class Data {
       this.closingTime,
       this.openingTime,
       this.status,
-      this.imageUrl
-      });
+      this.imageUrl,
+      this.commission});
 
   Data.fromJson(dynamic json) {
     id = json['id'];
     imageUrl = json['imageURL'];
     storeOwnerName = json['storeOwnerName'];
     categoryId = json['storeCategoryId'];
-    image = json['image'];
+    image = json['image'] != null ? Image.fromJson(json['image']) : null;
     phone = json['phone'];
     location = json['location'];
     deliveryCost = json['deliveryCost']?.toDouble();
@@ -71,6 +74,7 @@ class Data {
     openingTime =
         json['openingTime'] != null ? Date.fromJson(json['openingTime']) : null;
     status = json['status'];
+    commission = json['commission']?.toDouble();
   }
 }
 
