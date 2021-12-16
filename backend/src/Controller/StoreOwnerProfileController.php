@@ -439,7 +439,7 @@ class StoreOwnerProfileController extends BaseController
 
     /**
      * Get all store owners.
-     * @Route("/storeOwners", name="getAllStoreOwners",methods={"GET"})
+     * @Route("/storeowners", name="getAllStoreOwners",methods={"GET"})
      * @return JsonResponse
      * *
      * @OA\Tag(name="Store Owner Profile")
@@ -454,9 +454,7 @@ class StoreOwnerProfileController extends BaseController
      *          @OA\Items(
      *              @OA\Property(type="integer", property="id"),
      *              @OA\Property(type="string", property="storeOwnerName"),
-     *              @OA\Property(type="string", property="image"),
-     *              @OA\Property(type="string", property="imageURL"),
-     *              @OA\Property(type="string", property="baseURL"),
+     *              @OA\Property(type="object", property="image"),
      *             @OA\Property(type="string", property="phone"),
      *             @OA\Property(type="object", property="location"),
      *             @OA\Property(type="number", property="deliveryCost"),
@@ -467,6 +465,7 @@ class StoreOwnerProfileController extends BaseController
      *             @OA\Property(type="object", property="closingTime"),
      *             @OA\Property(type="object", property="openingTime"),
      *             @OA\Property(type="string", property="status"),
+     *             @OA\Property(type="number", property="commission"),
      *              )
      *           )
      *        )
