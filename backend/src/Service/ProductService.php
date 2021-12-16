@@ -624,13 +624,22 @@ class ProductService
         return $this->autoMapping->map(ProductEntity::class, ProductCreateResponse::class, $item);
     }
 
-    public function getSimilarProductsByStoreProductCategoryIdOfLevelTwo($storeProductCategoryID): ?array
+    public function getSimilarProductsByStoreProductCategoryIdOfLevelTwo($userLocale, $storeProductCategoryID): ?array
     {
         $response = [];
 
         $storeProductCategoryIdLevel1 = $this->productManager->getStoreProductCategoryIdLevel1ByIdOfLevelTwo($storeProductCategoryID);
 
-        $products = $this->productManager->getProductsByStoreProductCategoryIDLevelOne($storeProductCategoryIdLevel1);
+        if($userLocale != null && $userLocale != $this->primaryLanguage)
+        {
+            $productsTranslations = $this->productManager->getProductsTranslationByStoreProductCategoryIDLevelOne($storeProductCategoryIdLevel1);
+
+            $products = $this->replaceProductTranslatedNameByPrimaryOne($productsTranslations, $userLocale);
+        }
+        else
+        {
+            $products = $this->productManager->getProductsByStoreProductCategoryIDLevelOne($storeProductCategoryIdLevel1);
+        }
 
         foreach($products as $item)
         {

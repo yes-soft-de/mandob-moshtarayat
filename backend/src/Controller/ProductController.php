@@ -947,6 +947,13 @@ class ProductController extends BaseController
      * *
      * @OA\Tag(name="Product")
      *
+     * @OA\Parameter(
+     *      name="Accept-Language",
+     *      in="header",
+     *      description="language to be passed as a header",
+     *      required=false
+     * )
+     *
      * @OA\Response(
      *      response=200,
      *      description="Get products similar of the first level subcategory",
@@ -980,9 +987,9 @@ class ProductController extends BaseController
      *  )
      *
      */
-    public function getSimilarProductsByStoreProductCategoryIdOfLevelTwo($storeProductCategoryID): JsonResponse
+    public function getSimilarProductsByStoreProductCategoryIdOfLevelTwo(Request $request, $storeProductCategoryID): JsonResponse
     {
-        $result = $this->productService->getSimilarProductsByStoreProductCategoryIdOfLevelTwo($storeProductCategoryID);
+        $result = $this->productService->getSimilarProductsByStoreProductCategoryIdOfLevelTwo($request->getPreferredLanguage(), $storeProductCategoryID);
 
         return $this->response($result, self::FETCH);
     }

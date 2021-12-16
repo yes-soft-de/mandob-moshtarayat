@@ -744,6 +744,44 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getProductsTranslationByStoreProductCategoryIDLevelOne($storeProductCategoryIdLevel1)
+    {
+        return $this->createQueryBuilder('product')
+
+            ->select('product.id', 'product.productName as primaryProductName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID','product.discount', 'product.description', 'product.status', 'product.productQuantity',
+                'product.commission', 'product.isCommission', 'productTranslationEntity.productName', 'productTranslationEntity.language')
+            ->addSelect('storeOwnerProfile.id as storeOwnerProfileID', 'storeOwnerProfile.storeOwnerName as storeOwnerName', 'storeOwnerProfile.image as storeImage', 'storeOwnerProfile.commission as storeCommission')
+
+            ->leftJoin(
+                StoreOwnerProfileEntity::class,
+                'storeOwnerProfile',
+                Join::WITH,
+                'storeOwnerProfile.id = product.storeOwnerProfileID'
+            )
+
+            ->leftJoin(
+                StoreProductCategoryEntity::class,
+                'StoreProductCategoryEntity',
+                Join::WITH,
+                'StoreProductCategoryEntity.id = product.storeProductCategoryID'
+            )
+
+            ->leftJoin(
+                ProductTranslationEntity::class,
+                'productTranslationEntity',
+                Join::WITH,
+                'productTranslationEntity.productID = product.id'
+            )
+
+            ->andWhere('StoreProductCategoryEntity.storeProductCategoryID = :storeProductCategoryIdLevel1')
+            ->setParameter('storeProductCategoryIdLevel1',$storeProductCategoryIdLevel1)
+
+            ->groupBy('StoreProductCategoryEntity.id')
+
+            ->getQuery()
+            ->getResult();
+    }
+
     public function getProductsSoldCount($id)
     {
         return $this->createQueryBuilder('product')

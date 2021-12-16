@@ -243,6 +243,11 @@ class ProductManager
         return $this->productEntityRepository->getProductsByStoreProductCategoryIDLevelOne($storeProductCategoryIdLevel1);
     }
 
+    public function getProductsTranslationByStoreProductCategoryIDLevelOne($storeProductCategoryIdLevel1)
+    {
+        return $this->productEntityRepository->getProductsTranslationByStoreProductCategoryIDLevelOne($storeProductCategoryIdLevel1);
+    }
+
     public function updateProductStatusByStore(ProductCancelByStoreOwnerRequest $request)
     {
         $entity = $this->productEntityRepository->find($request->getId());
