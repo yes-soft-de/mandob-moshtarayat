@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/model/StoreCategoriesModel.dart';
-import 'package:mandob_moshtarayat_dashboad/module_categories/request/store_categories_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_store_categories_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/screen/store_categories_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/state/store_categories/store_categories_state.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/widget/store_card.dart';
@@ -86,20 +86,16 @@ class StoreCategoriesLoadedState extends StoreCategoriesState {
         },
         dialog:
             formDialog(context, S.current.storeCategories, S.current.category,
-                (name, image) {
+                (name, image,tars) {
           Navigator.of(context).pop();
           screenState.updateCategory(UpdateStoreCategoriesRequest(
-              id: element.id,
-              description: '',
-              storeCategoryName: name,
-              image: image));
+            dataStoreCategory: DataUpdateStoreCategory(id: element.id,storeCategoryName: name,image: image,lang: screenState.languageSelected),
+            translate:screenState.languageSelected =='ar'? [] : [TranslateUpdateStoreCategory(lang: screenState.languageSelected,storeCategoryName: name,storeCategoryID: element.id)]
+          ));
         },
                 storeCategoriesRequest: UpdateStoreCategoriesRequest(
-                    id: element.id,
-                    description: '',
-                    storeCategoryName: element.categoryName,
-                    image: element.image,
-                    baseImage: element.imageUrl)),
+                    dataStoreCategory :DataUpdateStoreCategory(id: element.id,storeCategoryName:  element.categoryName,image: element.image,baseImage: element.baseImage,lang: screenState.languageSelected)
+                  )),
       ));
     }
 
@@ -120,6 +116,44 @@ class StoreCategoriesLoadedState extends StoreCategoriesState {
                 }
               },
             ),
+          ));
+      widgets.insert(
+          1,
+          ListTile(
+            trailing: DropdownButton(
+                value: screenState.languageSelected,
+                underline: Container(),
+                icon: Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Icon(Icons.arrow_drop_down_rounded,),
+                ),
+                items: [
+                  DropdownMenuItem(
+                    child: Text(
+                      'العربية',
+                      style: TextStyle(),
+                    ),
+                    value: 'ar',
+                  ),
+                  DropdownMenuItem(
+                    child: Text(
+                      'English',
+                      style: TextStyle(),
+                    ),
+                    value: 'en',
+                  ),
+                  DropdownMenuItem(
+                    child: Text(
+                      'Urdu',
+                      style: TextStyle(),
+                    ),
+                    value: 'urdu',
+                  ),
+                ],
+                onChanged: (newLang) {
+                  screenState.languageSelected = newLang.toString();
+                    screenState.getStoreCategoriesWithLang(newLang.toString());
+                }),
           ));
     }
     widgets.add(SizedBox(

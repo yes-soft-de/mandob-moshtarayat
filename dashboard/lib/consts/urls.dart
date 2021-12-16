@@ -3,7 +3,7 @@
 // Named Domain ===> 'https://mandoob.password-please.com'
 
 class Urls {
-  static const String DOMAIN = 'http://206.189.61.207';
+  static const String DOMAIN = 'http://138.197.186.138';
   static const String BASE_API = DOMAIN + '';
   static const String IMAGES_ROOT = DOMAIN + '/upload/';
   static const UPLOAD_API = BASE_API + '/uploadfile';
@@ -51,9 +51,9 @@ class Urls {
       BASE_API + '/storeproductcategorylevelone';
   static const GET_PRODUCTS_CATEGORY = BASE_API + '/storeProductsCategory/';
   static const GET_SUBCATEGORIES_LEVEL_ONE =
-      BASE_API + '/storeproductscategorylevelonefroadmin/';
+      BASE_API + '/storeproductscategorylevelonefroadmin';
   static const GET_SUBCATEGORIES_LEVEL_TOW =
-      BASE_API + '/storeproductscategoryleveltwoforadmin/';
+      BASE_API + '/storeproductscategoryleveltwoforadmin';
   static const GET_PRODUCTS = BASE_API + '/productsStoreByProfileId/';
   static const CREATE_PRODUCTS_CATEGORY = BASE_API + '/StoreProductCategory';
   static const CREATE_SUBCATEGORIES_LEVEL_TOW =

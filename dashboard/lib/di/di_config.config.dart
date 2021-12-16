@@ -234,7 +234,9 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.factory<_i19.CaptainRepository>(() =>
       _i19.CaptainRepository(get<_i12.ApiClient>(), get<_i18.AuthService>()));
   gh.factory<_i20.CategoriesRepository>(() => _i20.CategoriesRepository(
-      get<_i12.ApiClient>(), get<_i18.AuthService>()));
+      get<_i12.ApiClient>(),
+      get<_i18.AuthService>(),
+      get<_i7.LocalizationService>()));
   gh.factory<_i21.ChatRepository>(() =>
       _i21.ChatRepository(get<_i12.ApiClient>(), get<_i18.AuthService>()));
   gh.factory<_i22.ClientsRepository>(() =>
@@ -340,8 +342,11 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.factory<_i73.PortalsStateManager>(
       () => _i73.PortalsStateManager(get<_i72.PortalsService>()));
   gh.factory<_i74.ProductsCategoryStateManager>(() =>
-      _i74.ProductsCategoryStateManager(get<_i45.CategoriesService>(),
-          get<_i18.AuthService>(), get<_i26.ImageUploadService>()));
+      _i74.ProductsCategoryStateManager(
+          get<_i45.CategoriesService>(),
+          get<_i18.AuthService>(),
+          get<_i26.ImageUploadService>(),
+          get<_i7.LocalizationService>()));
   gh.factory<_i75.ProductsReportStateManager>(
       () => _i75.ProductsReportStateManager(get<_i36.ReportsService>()));
   gh.factory<_i76.RegisterScreen>(
@@ -418,7 +423,8 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.factory<_i103.InActiveCaptainsScreen>(() =>
       _i103.InActiveCaptainsScreen(get<_i61.InActiveCaptainsStateManager>()));
   gh.factory<_i104.LevelTowCategoriesScreen>(() =>
-      _i104.LevelTowCategoriesScreen(get<_i74.ProductsCategoryStateManager>()));
+      _i104.LevelTowCategoriesScreen(get<_i74.ProductsCategoryStateManager>(),
+          get<_i7.LocalizationService>()));
   gh.factory<_i105.MainScreen>(() => _i105.MainScreen(get<_i102.HomeScreen>()));
   gh.factory<_i106.MyOrdersStateManager>(() => _i106.MyOrdersStateManager(
       get<_i67.OrdersService>(), get<_i18.AuthService>()));
@@ -457,8 +463,8 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       get<_i98.ClientsReportScreen>()));
   gh.factory<_i120.SettingsModule>(() => _i120.SettingsModule(
       get<_i77.SettingsScreen>(), get<_i15.ChooseLocalScreen>()));
-  gh.factory<_i121.StoreCategoriesScreen>(() =>
-      _i121.StoreCategoriesScreen(get<_i79.StoreCategoriesStateManager>()));
+  gh.factory<_i121.StoreCategoriesScreen>(() => _i121.StoreCategoriesScreen(
+      get<_i79.StoreCategoriesStateManager>(), get<_i7.LocalizationService>()));
   gh.factory<_i122.StoreLogsScreen>(
       () => _i122.StoreLogsScreen(get<_i80.StoreLogsStateManager>()));
   gh.factory<_i123.StoreProductScreen>(
@@ -475,8 +481,8 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
           get<_i45.CategoriesService>()));
   gh.factory<_i127.StoresScreen>(
       () => _i127.StoresScreen(get<_i86.StoresStateManager>()));
-  gh.factory<_i128.SubCategoriesScreen>(
-      () => _i128.SubCategoriesScreen(get<_i87.SubCategoriesStateManager>()));
+  gh.factory<_i128.SubCategoriesScreen>(() => _i128.SubCategoriesScreen(
+      get<_i87.SubCategoriesStateManager>(), get<_i7.LocalizationService>()));
   gh.factory<_i129.CaptainBalanceScreen>(
       () => _i129.CaptainBalanceScreen(get<_i89.CaptainBalanceStateManager>()));
   gh.factory<_i130.CaptainFilterScreen>(

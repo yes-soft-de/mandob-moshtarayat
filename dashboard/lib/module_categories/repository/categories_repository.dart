@@ -5,7 +5,8 @@ import 'package:mandob_moshtarayat_dashboad/module_categories/request/category_l
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_product_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_products_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_store_category_request.dart';
-import 'package:mandob_moshtarayat_dashboad/module_categories/request/store_categories_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/request/filter_category_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_store_categories_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/sub_categories_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_product_category_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_product_request.dart';
@@ -15,34 +16,43 @@ import 'package:mandob_moshtarayat_dashboad/module_categories/response/response.
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/store_categories_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/store_products_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/sub_categories_response.dart';
+import 'package:mandob_moshtarayat_dashboad/module_localization/service/localization_service/localization_service.dart';
 import 'package:mandob_moshtarayat_dashboad/module_network/http_client/http_client.dart';
 
 @injectable
 class CategoriesRepository {
   final ApiClient _apiClient;
   final AuthService _authService;
+  final LocalizationService _localizationService;
 
-  CategoriesRepository(this._apiClient, this._authService);
+  CategoriesRepository(this._apiClient, this._authService, this._localizationService);
 
   Future<StoreCategoriesResponse?> getStoreCategories() async {
     var token = await _authService.getToken();
+    var lang = _localizationService.getLanguage();
     dynamic response = await _apiClient.get(Urls.STORE_CATEGORIES,
+        headers: {'Authorization': 'Bearer ' + token.toString(), 'Accept-Language':lang});
+    if (response == null) return null;
+    return StoreCategoriesResponse.fromJson(response);
+  }
+  Future<StoreCategoriesResponse?> getStoreCategoriesWithLang(FilterLanguageCategoryRequest request) async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.post(Urls.STORE_CATEGORIES,request.toJson(),
         headers: {'Authorization': 'Bearer ' + token.toString()});
     if (response == null) return null;
     return StoreCategoriesResponse.fromJson(response);
   }
-
-  Future<SubCategoriesResponse?> getSubcategoriesLevelOne(int id) async {
+  Future<SubCategoriesResponse?> getSubcategoriesLevelOne(FilterLanguageAndCategoryRequest request) async {
     var token = await _authService.getToken();
-    dynamic response = await _apiClient.get(Urls.GET_SUBCATEGORIES_LEVEL_ONE + '$id',
+    dynamic response = await _apiClient.post(Urls.GET_SUBCATEGORIES_LEVEL_ONE,request.toJson(),
         headers: {'Authorization': 'Bearer ' + token.toString()});
     if (response == null) return null;
     return SubCategoriesResponse.fromJson(response);
   }
 
-  Future<SubCategoriesResponse?> getSubcategoriesLevelTow(int id) async {
+  Future<SubCategoriesResponse?> getSubcategoriesLevelTow(FilterLanguageAndProductCategoryRequest request) async {
     var token = await _authService.getToken();
-    dynamic response = await _apiClient.get(Urls.GET_SUBCATEGORIES_LEVEL_TOW + '$id',
+    dynamic response = await _apiClient.post(Urls.GET_SUBCATEGORIES_LEVEL_TOW ,request.toJson(),
         headers: {'Authorization': 'Bearer ' + token.toString()});
     if (response == null) return null;
     return SubCategoriesResponse.fromJson(response);

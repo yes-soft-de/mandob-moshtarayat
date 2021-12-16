@@ -160,14 +160,14 @@ class SubCategoriesLoadedState extends States {
                             body: AddSubCategoriesWidget(
                               catID: screenState.id,
                               state: this,
+                              languages: [],
                               subCategoriesModel: element,
-                              addSubCategories: (id , name , image) {
+                              selectedLang: screenState.languageSelected,
+                              addSubCategories: (id , name , image,tras) {
                                 Navigator.of(context).pop();
                                 screenState.updateSubCategories(SubCategoriesRequest(
-                                  storeCategoryID: int.tryParse(id),
-                                  productCategoryImage: image,
-                                  productCategoryName: name,
-                                  id:element.id
+                                 translate:screenState.languageSelected =='ar'? [] : [TranslateSubCategory(lang: screenState.languageSelected,productCategoryName: name,productCategoryID: element.id)],
+                                  dataStoreCategory: DataStoreCategory(storeCategoryID:int.tryParse(id),productCategoryImage: image,productCategoryName: name,id: element.id ),
                                 ));
                               },
                             ),
@@ -228,7 +228,47 @@ class SubCategoriesLoadedState extends States {
         ),
       ));
     }
-
+    if (model != null) {
+      widgets.insert(
+          0,
+          ListTile(
+            trailing: DropdownButton(
+                value: screenState.languageSelected,
+                underline: Container(),
+                icon: Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Icon(Icons.arrow_drop_down_rounded,),
+                ),
+                items: [
+                  DropdownMenuItem(
+                    child: Text(
+                      'العربية',
+                      style: TextStyle(),
+                    ),
+                    value: 'ar',
+                  ),
+                  DropdownMenuItem(
+                    child: Text(
+                      'English',
+                      style: TextStyle(),
+                    ),
+                    value: 'en',
+                  ),
+                  DropdownMenuItem(
+                    child: Text(
+                      'Urdu',
+                      style: TextStyle(),
+                    ),
+                    value: 'urdu',
+                  ),
+                ],
+                onChanged: (newLang) {
+                  screenState.languageSelected = newLang.toString();
+                  screenState.refresh();
+                  screenState.getSubCategories(categories);
+                }),
+          ));
+    }
     widgets.add(SizedBox(height: 75));
     return widgets;
   }
