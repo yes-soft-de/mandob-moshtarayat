@@ -23,7 +23,9 @@ class StoreOwnerUpdateByAdminRequest
     private $openingTime;
 
     private $closingTime;
-    
+
+    private $commission;
+
     /**
      * Get the value of id
      */ 
@@ -52,6 +54,18 @@ class StoreOwnerUpdateByAdminRequest
     public function setClosingTime($closingTime)
     {
         $this->closingTime = $closingTime;
+
+        return $this;
+    }
+
+    public function getCommission()
+    {
+        return $this->commission;
+    }
+
+    public function setCommission($commission)
+    {
+        $this->commission = $commission;
 
         return $this;
     }

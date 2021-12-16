@@ -369,6 +369,8 @@ App\Request\storeOwnerProfileStatusUpdateByAdminRequest:
       - NotBlank: ~
     status:
       - NotBlank: ~
+    commission:
+      - NotBlank: ~
 
 App\Request\MandobProfileUpdateRequest:
   properties:

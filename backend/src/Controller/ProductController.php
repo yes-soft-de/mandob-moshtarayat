@@ -62,7 +62,9 @@ class ProductController extends BaseController
      *          @OA\Property(type="integer", property="storeProductCategoryID"),
      *          @OA\Property(type="integer", property="discount"),
      *          @OA\Property(type="string", property="description"),
-     *          @OA\Property(type="integer", property="productQuantity")
+     *          @OA\Property(type="integer", property="productQuantity"),
+     *          @OA\Property(type="number", property="commission"),
+     *          @OA\Property(type="boolean", property="isCommission"),
      *      )
      * )
      *
@@ -82,6 +84,8 @@ class ProductController extends BaseController
      *                  @OA\Property(type="integer", property="discount"),
      *                  @OA\Property(type="string", property="description"),
      *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="number", property="commission"),
+     *                  @OA\Property(type="boolean", property="isCommission"),
      *          )
      *      )
      * )
@@ -574,6 +578,8 @@ class ProductController extends BaseController
      *          @OA\Property(type="number", property="productPrice"),
      *          @OA\Property(type="integer", property="storeOwnerProfileID"),
      *          @OA\Property(type="integer", property="storeProductCategoryID"),
+     *          @OA\Property(type="number", property="commission"),
+     *          @OA\Property(type="boolean", property="isCommission"),
      *      )
      * )
      *
@@ -589,6 +595,8 @@ class ProductController extends BaseController
      *                  @OA\Property(type="string", property="productImage"),
      *                  @OA\Property(type="number", property="storeOwnerProfileID"),
      *                  @OA\Property(type="integer", property="storeProductCategoryID"),
+     *                  @OA\Property(type="number", property="commission"),
+     *                  @OA\Property(type="boolean", property="isCommission"),
      *          )
      *      )
      * )

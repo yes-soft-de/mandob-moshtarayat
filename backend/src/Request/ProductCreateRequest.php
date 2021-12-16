@@ -22,6 +22,10 @@ class ProductCreateRequest
 
     private $productQuantity;
 
+    private $commission;
+
+    private $isCommission;
+
     /**
      * @return mixed
      */
@@ -46,6 +50,30 @@ class ProductCreateRequest
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getCommission()
+    {
+        return $this->commission;
+    }
+
+    public function setCommission($commission)
+    {
+        $this->commission = $commission;
+
+        return $this;
+    }
+
+    public function getIsCommission()
+    {
+        return $this->isCommission;
+    }
+
+    public function setIsCommission($isCommission)
+    {
+        $this->isCommission = $isCommission;
 
         return $this;
     }

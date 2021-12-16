@@ -22,4 +22,7 @@ class ProductCreateResponse
 
     public $status;
 
+    public $commission;
+
+    public $isCommission;
 }

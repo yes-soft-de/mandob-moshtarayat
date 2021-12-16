@@ -265,8 +265,9 @@ class StoreOwnerProfileController extends BaseController
      * @OA\RequestBody(
      *      description="Update Store Owner Status",
      *      @OA\JsonContent(
-     *          @OA\Property(type="string", property="id"),
-     *          @OA\Property(type="string", property="status")
+     *          @OA\Property(type="integer", property="id"),
+     *          @OA\Property(type="string", property="status"),
+     *          @OA\Property(type="float", property="commission")
      *      )
      * )
      *
@@ -281,7 +282,8 @@ class StoreOwnerProfileController extends BaseController
      *              @OA\Property(type="string", property="storeOwnerName"),
      *              @OA\Property(type="string", property="image"),
      *              @OA\Property(type="integer", property="status"),
-     *              @OA\Property(type="integer", property="phone")
+     *              @OA\Property(type="integer", property="phone"),
+     *              @OA\Property(type="number", property="commission")
      *      )
      *   )
      * )
