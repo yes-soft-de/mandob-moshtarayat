@@ -731,11 +731,11 @@ class OrderService
        return $this->orderManager->countOrdersInToday($date[0], $date[1]);
     }
 
-    public function countOrdersInTodayForStoreOwner($storeOwnerProfileId)
+    public function countOrdersInTodayForStoreOwner($orderIds)
     {
        $date = $this->dateFactoryService->returnTodayDate();
 
-       return $this->orderManager->countOrdersInTodayForStoreOwner($date[0], $date[1], $storeOwnerProfileId);
+       return $this->orderManager->countOrdersInTodayForStoreOwner($date[0], $date[1], $orderIds);
     }
 
     public function getOrdersAndCountByStoreProfileId($storeProfileId)
@@ -836,15 +836,15 @@ class OrderService
         return $response;
     }
 
-    public function countReportForStoreOwner($userID)
+        public function countReportForStoreOwner($userID)
     {
         $storeOwnerProfileId = $this->userService->getStoreProfileId($userID);
 
-        $item['countCompletedOrders'] = $this->orderManager->countCompletedOrdersForStoreOwner($storeOwnerProfileId['id']);
+        $orderIds = $this->orderDetailService->getOrderIds($storeOwnerProfileId);
 
-        $item['countOngoingOrders'] = $this->orderManager->countOngoingOrdersForStoreOwner($storeOwnerProfileId['id']);
-
-        $item['countOrdersInToday'] = $this->countOrdersInTodayForStoreOwner($storeOwnerProfileId['id']);
+        $item['countCompletedOrders'] =  $this->orderManager->countCompletedOrdersForStoreOwner($orderIds);
+        $item['countOngoingOrders'] =  $this->orderManager->countOngoingOrdersForStoreOwner($orderIds);
+        $item['countOrdersInToday'] = $this->countOrdersInTodayForStoreOwner($orderIds);
 
         return $this->autoMapping->map("array", CountReportForStoreOwnerResponse::class, $item);
     }
