@@ -514,8 +514,10 @@ class StoreProductCategoryService
                 elseif($storeProductCategory['language'] != null && $storeProductCategory['language'] != $userLocale)
                 {
                     // here means that there is another content in different language rather that the required one or the primary one
-                    if (!$this->checkIfValueExistForSpecificKeyInArray($storeCategories, "id", $storeProductCategory['id']))
+                    if (!$this->checkIfItemExistsInSpecificLanguage($storeProductCategoriesTranslation, $storeProductCategory['id'], $userLocale))
                     {
+                        $storeProductCategory['productCategoryName'] = $storeProductCategory['primaryStoreProductCategory'];
+
                         $storeCategories[] = $storeProductCategory;
                     }
                 }
@@ -525,11 +527,11 @@ class StoreProductCategoryService
         return $storeCategories;
     }
 
-    public function checkIfValueExistForSpecificKeyInArray($array, $key, $value)
+    public function checkIfItemExistsInSpecificLanguage($array, $itemID, $language)
     {
         foreach ($array as $item)
         {
-            if ($item[$key] == $value)
+            if ($item['id'] == $itemID && $item['language'] == $language)
             {
                 return true;
             }
@@ -537,4 +539,5 @@ class StoreProductCategoryService
 
         return false;
     }
+
 }

@@ -62,22 +62,9 @@ class ProductService
 
         if($userLocale != null && $userLocale != $this->primaryLanguage)
         {
-            $products = [];
-
             $productsTranslation = $this->productManager->getProductsTranslationsByProductCategoryId($storeProductCategoryID);
 
-            foreach($productsTranslation as $product)
-            {
-                if((!$product['language']))
-                {
-                    $product['productName'] = $product['primaryProductName'];
-                    $products[] = $product;
-                }
-                elseif($product['language'] == $userLocale)
-                {
-                    $products[] = $product;
-                }
-            }
+            $products = $this->replaceProductTranslatedNameByPrimaryOne($productsTranslation, $userLocale);
         }
         else
         {
@@ -131,22 +118,9 @@ class ProductService
 
         if($userLocale != null && $userLocale != $this->primaryLanguage)
         {
-            $products = [];
-
             $productsTranslation = $this->productManager->getProductsTranslationByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId);
 
-            foreach($productsTranslation as $product)
-            {
-                if((!$product['language']))
-                {
-                    $product['productName'] = $product['primaryProductName'];
-                    $products[] = $product;
-                }
-                elseif($product['language'] == $userLocale)
-                {
-                    $products[] = $product;
-                }
-            }
+            $products = $this->replaceProductTranslatedNameByPrimaryOne($productsTranslation, $userLocale);
         }
         else
         {
@@ -263,11 +237,20 @@ class ProductService
         return $response;
     }
 
-    public function productsTopWantedOfSpecificStoreOwner($storeOwnerProfileId): ?array
+    public function productsTopWantedOfSpecificStoreOwner($userLocale, $storeOwnerProfileId): ?array
     {
         $response = [];
 
-        $Products = $this->productManager->productsTopWantedOfSpecificStoreOwner($storeOwnerProfileId);
+        if($userLocale != null && $userLocale != $this->primaryLanguage)
+        {
+            $productsTranslation = $this->productManager->productsTopWantedOfSpecificStoreOwnerTranslation($storeOwnerProfileId);
+
+            $Products = $this->replaceProductTranslatedNameByPrimaryOne($productsTranslation, $userLocale);
+        }
+        else
+        {
+            $Products = $this->productManager->productsTopWantedOfSpecificStoreOwner($storeOwnerProfileId);
+        }
 
         foreach ($Products as $product) {
             $product['productPrice'] = $this->willProductCommissionBeCharged($product['isCommission'], $product['productPrice'], $product['commission'], $product['storeCommission']);
@@ -285,13 +268,22 @@ class ProductService
         return $response;
     }
 
-    public function getStoreProductsByProfileId($storeOwnerProfileId): ?array
+    public function getStoreProductsByProfileId($userLocale, $storeOwnerProfileId): ?array
     {
         $response = [];
 
-        $items = $this->productManager->getStoreProductsByProfileId($storeOwnerProfileId);
+        if($userLocale != null && $userLocale != $this->primaryLanguage)
+        {
+            $productsTranslation = $this->productManager->getStoreProductsTranslationByProfileId($storeOwnerProfileId);
 
-        foreach ($items as $item) {
+            $products = $this->replaceProductTranslatedNameByPrimaryOne($productsTranslation, $userLocale);
+        }
+        else
+        {
+            $products = $this->productManager->getStoreProductsByProfileId($storeOwnerProfileId);
+        }
+
+        foreach ($products as $item) {
             $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
             $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
             $item['soldCount'] = $this->getProductsSoldCount($item['id']);
@@ -325,7 +317,7 @@ class ProductService
         {
             if($request->getLanguage() != null && $request->getLanguage() != $this->primaryLanguage)
             {
-                $productsTranslation = $this->productManager->getProductsTranslationByNameAndStoreOwnerProfileId($request->getName(), $storeOwnerProfileId);
+                $productsTranslation = $this->productManager->getProductsTranslationByStoreOwnerProfileId($storeOwnerProfileId);
 
                 $products = $this->replaceProductTranslatedNameByPrimaryOne($productsTranslation, $request->getLanguage());
             }
@@ -390,22 +382,9 @@ class ProductService
 
         if($userLocale != null && $userLocale != $this->primaryLanguage)
         {
-            $products = [];
-
             $productsTranslation = $this->productManager->getProductsTranslationsByStoreProductCategoryIDForStore($storeProductCategoryID, $storeOwnerProfileId);
 
-            foreach($productsTranslation as $product)
-            {
-                if((!$product['language']))
-                {
-                    $product['productName'] = $product['primaryProductName'];
-                    $products[] = $product;
-                }
-                elseif($product['language'] == $userLocale)
-                {
-                    $products[] = $product;
-                }
-            }
+            $products = $this->replaceProductTranslatedNameByPrimaryOne($productsTranslation, $userLocale);
         }
         else
         {
@@ -606,13 +585,22 @@ class ProductService
         return $this->autoMapping->map(ProductEntity::class, ProductCreateResponse::class, $item);
     }
 
-    public function getSimilarProductsByStoreProductCategoryIdOfLevelTwo($storeProductCategoryID): ?array
+    public function getSimilarProductsByStoreProductCategoryIdOfLevelTwo($userLocale, $storeProductCategoryID): ?array
     {
         $response = [];
 
         $storeProductCategoryIdLevel1 = $this->productManager->getStoreProductCategoryIdLevel1ByIdOfLevelTwo($storeProductCategoryID);
 
-        $products = $this->productManager->getProductsByStoreProductCategoryIDLevelOne($storeProductCategoryIdLevel1);
+        if($userLocale != null && $userLocale != $this->primaryLanguage)
+        {
+            $productsTranslations = $this->productManager->getProductsTranslationByStoreProductCategoryIDLevelOne($storeProductCategoryIdLevel1);
+
+            $products = $this->replaceProductTranslatedNameByPrimaryOne($productsTranslations, $userLocale);
+        }
+        else
+        {
+            $products = $this->productManager->getProductsByStoreProductCategoryIDLevelOne($storeProductCategoryIdLevel1);
+        }
 
         foreach($products as $item)
         {
@@ -647,22 +635,9 @@ class ProductService
 
         if($userLocale != null && $userLocale != $this->primaryLanguage)
         {
-            $products = [];
-
             $productsTranslation = $this->productManager->getLast30ProductsTranslation();
 
-            foreach($productsTranslation as $product)
-            {
-                if((!$product['language']))
-                {
-                    $product['productName'] = $product['primaryProductName'];
-                    $products[] = $product;
-                }
-                elseif($product['language'] == $userLocale)
-                {
-                    $products[] = $product;
-                }
-            }
+            $products = $this->replaceProductTranslatedNameByPrimaryOne($productsTranslation, $userLocale);
         }
         else
         {
@@ -687,22 +662,9 @@ class ProductService
 
         if($userLocale != null && $userLocale != $this->primaryLanguage)
         {
-            $products = [];
-
             $productsTranslation = $this->productManager->getProductsTranslationsByStoreOwnerProfileId($storeOwnerProfileId);
 
-            foreach($productsTranslation as $product)
-            {
-                if((!$product['language']))
-                {
-                    $product['productName'] = $product['primaryProductName'];
-                    $products[] = $product;
-                }
-                elseif($product['language'] == $userLocale)
-                {
-                    $products[] = $product;
-                }
-            }
+            $products = $this->replaceProductTranslatedNameByPrimaryOne($productsTranslation, $userLocale);
         }
         else
         {
@@ -743,8 +705,10 @@ class ProductService
                 elseif($product['language'] != null && $product['language'] != $userLocale)
                 {
                     // here means that there is another content in different language rather that the required one or the primary one
-                    if (!$this->checkIfValueExistForSpecificKeyInArray($products, "id", $product['id']))
+                    if (!$this->checkIfItemExistsInSpecificLanguage($productsTranslation, $product['id'], $userLocale))
                     {
+                        $product['productName'] = $product['primaryProductName'];
+
                         $products[] = $product;
                     }
                 }
@@ -754,11 +718,11 @@ class ProductService
         return $products;
     }
 
-    public function checkIfValueExistForSpecificKeyInArray($array, $key, $value)
+    public function checkIfItemExistsInSpecificLanguage($array, $itemID, $language)
     {
         foreach ($array as $item)
         {
-            if ($item[$key] == $value)
+            if ($item['id'] == $itemID && $item['language'] == $language)
             {
                 return true;
             }

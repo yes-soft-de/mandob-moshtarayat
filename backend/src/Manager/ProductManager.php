@@ -102,9 +102,19 @@ class ProductManager
         return $this->productEntityRepository->productsTopWantedOfSpecificStoreOwner($storeOwnerProfileId);
     }
 
+    public function productsTopWantedOfSpecificStoreOwnerTranslation($storeOwnerProfileId)
+    {
+        return $this->productEntityRepository->productsTopWantedOfSpecificStoreOwnerTranslation($storeOwnerProfileId);
+    }
+
     public function getStoreProductsByProfileId($storeOwnerProfileId)
     {
         return $this->productEntityRepository->getStoreProductsByProfileId($storeOwnerProfileId);
+    }
+
+    public function getStoreProductsTranslationByProfileId($storeOwnerProfileId)
+    {
+        return $this->productEntityRepository->getStoreProductsTranslationByProfileId($storeOwnerProfileId);
     }
 
     public function getStoreProducts($storeOwnerProfileId)
@@ -177,9 +187,9 @@ class ProductManager
         return $this->productEntityRepository->getProductsTranslationByTranslatedNameAndStoreOwnerProfileId($name, $storeOwnerProfileId);
     }
 
-    public function getProductsTranslationByNameAndStoreOwnerProfileId($name, $storeOwnerProfileId)
+    public function getProductsTranslationByStoreOwnerProfileId($storeOwnerProfileId)
     {
-        return $this->productEntityRepository->getProductsTranslationByNameAndStoreOwnerProfileId($name, $storeOwnerProfileId);
+        return $this->productEntityRepository->getProductsTranslationByStoreOwnerProfileId($storeOwnerProfileId);
     }
 
     public function createProductByStore(ProductCreateRequest $request)
@@ -231,6 +241,11 @@ class ProductManager
     public function getProductsByStoreProductCategoryIDLevelOne($storeProductCategoryIdLevel1)
     {
         return $this->productEntityRepository->getProductsByStoreProductCategoryIDLevelOne($storeProductCategoryIdLevel1);
+    }
+
+    public function getProductsTranslationByStoreProductCategoryIDLevelOne($storeProductCategoryIdLevel1)
+    {
+        return $this->productEntityRepository->getProductsTranslationByStoreProductCategoryIDLevelOne($storeProductCategoryIdLevel1);
     }
 
     public function updateProductStatusByStore(ProductCancelByStoreOwnerRequest $request)

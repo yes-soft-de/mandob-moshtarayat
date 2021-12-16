@@ -335,6 +335,44 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function productsTopWantedOfSpecificStoreOwnerTranslation($storeOwnerProfileId)
+    {
+        return $this->createQueryBuilder('product')
+
+            ->select('product.id', 'product.productName as primaryProductName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount','product.description',
+                'product.commission', 'product.isCommission', 'productTranslationEntity.productName', 'productTranslationEntity.language')
+            ->addSelect('count(orderDetailEntity.productID) as countProduct, orderDetailEntity.productID')
+            ->addSelect('storeOwnerProfile.id as storeOwnerProfileID', 'storeOwnerProfile.storeOwnerName as storeOwnerName', 'storeOwnerProfile.image', 'storeOwnerProfile.phone', 'storeOwnerProfile.commission as storeCommission')
+            ->addSelect('storeOwnerBranch.location','storeOwnerBranch.branchName')
+            ->addSelect('DeliveryCompanyFinancialEntity.deliveryCost')
+
+            ->leftJoin(OrderDetailEntity::class, 'orderDetailEntity', Join::WITH, 'orderDetailEntity.productID = product.id')
+            ->leftJoin(StoreOwnerProfileEntity::class, 'storeOwnerProfile', Join::WITH, 'storeOwnerProfile.id = product.storeOwnerProfileID')
+            ->leftJoin(StoreOwnerBranchEntity::class, 'storeOwnerBranch', Join::WITH, 'storeOwnerBranch.storeOwnerProfileID = storeOwnerProfile.id ')
+            ->leftJoin(DeliveryCompanyFinancialEntity::class, 'DeliveryCompanyFinancialEntity', Join::WITH, 'product.id = product.id')
+
+            ->andWhere('product.storeOwnerProfileID = :storeOwnerProfileId')
+            ->setParameter('storeOwnerProfileId',$storeOwnerProfileId)
+
+            ->leftJoin(
+                ProductTranslationEntity::class,
+                'productTranslationEntity',
+                Join::WITH,
+                'productTranslationEntity.productID = product.id'
+            )
+
+            ->addGroupBy('orderDetailEntity.productID')
+
+            ->having('count(orderDetailEntity.productID) > 0')
+
+            ->setMaxResults(20)
+
+            ->addOrderBy('countProduct','DESC')
+
+            ->getQuery()
+            ->getResult();
+    }
+
     public function getStoreProductsByProfileId($storeOwnerProfileId)
     {
         return $this->createQueryBuilder('product')
@@ -346,6 +384,32 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->leftJoin(StoreOwnerProfileEntity::class, 'storeOwnerProfile', Join::WITH, 'storeOwnerProfile.id = product.storeOwnerProfileID')
 
             ->setParameter('storeOwnerProfileId',$storeOwnerProfileId)
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getStoreProductsTranslationByProfileId($storeOwnerProfileId)
+    {
+        return $this->createQueryBuilder('product')
+            ->select('product.id', 'product.productName as primaryProductName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount','product.description',
+                'product.commission', 'product.isCommission', 'productTranslationEntity.productName', 'productTranslationEntity.language')
+            ->addSelect('storeOwnerProfile.id as storeOwnerProfileID', 'storeOwnerProfile.storeOwnerName as storeOwnerName', 'storeOwnerProfile.image', 'storeOwnerProfile.phone', 'storeOwnerProfile.commission as storeCommission')
+
+            ->andWhere('product.storeOwnerProfileID = :storeOwnerProfileId')
+            ->setParameter('storeOwnerProfileId',$storeOwnerProfileId)
+
+            ->leftJoin(StoreOwnerProfileEntity::class,
+                'storeOwnerProfile',
+                Join::WITH,
+                'storeOwnerProfile.id = product.storeOwnerProfileID')
+
+            ->leftJoin(
+                ProductTranslationEntity::class,
+                'productTranslationEntity',
+                Join::WITH,
+                'productTranslationEntity.productID = product.id'
+            )
 
             ->getQuery()
             ->getResult();
@@ -573,7 +637,7 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function getProductsTranslationByNameAndStoreOwnerProfileId($name, $storeOwnerProfileId)
+    public function getProductsTranslationByStoreOwnerProfileId($storeOwnerProfileId)
     {
         return $this->createQueryBuilder('product')
 
@@ -593,10 +657,7 @@ class ProductEntityRepository extends ServiceEntityRepository
                 'productTranslationEntity.productID = product.id'
             )
 
-            ->andWhere('product.productName LIKE :productName')
             ->andWhere('product.storeOwnerProfileID = :storeOwnerProfileId')
-
-            ->setParameter('productName', '%'.$name.'%')
             ->setParameter('storeOwnerProfileId', $storeOwnerProfileId)
 
             ->andWhere('product.status = :status')
@@ -675,6 +736,44 @@ class ProductEntityRepository extends ServiceEntityRepository
 
             ->andWhere('StoreProductCategoryEntity.storeProductCategoryID = :storeProductCategoryIdLevel1')
 
+            ->setParameter('storeProductCategoryIdLevel1',$storeProductCategoryIdLevel1)
+
+            ->groupBy('StoreProductCategoryEntity.id')
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getProductsTranslationByStoreProductCategoryIDLevelOne($storeProductCategoryIdLevel1)
+    {
+        return $this->createQueryBuilder('product')
+
+            ->select('product.id', 'product.productName as primaryProductName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID','product.discount', 'product.description', 'product.status', 'product.productQuantity',
+                'product.commission', 'product.isCommission', 'productTranslationEntity.productName', 'productTranslationEntity.language')
+            ->addSelect('storeOwnerProfile.id as storeOwnerProfileID', 'storeOwnerProfile.storeOwnerName as storeOwnerName', 'storeOwnerProfile.image as storeImage', 'storeOwnerProfile.commission as storeCommission')
+
+            ->leftJoin(
+                StoreOwnerProfileEntity::class,
+                'storeOwnerProfile',
+                Join::WITH,
+                'storeOwnerProfile.id = product.storeOwnerProfileID'
+            )
+
+            ->leftJoin(
+                StoreProductCategoryEntity::class,
+                'StoreProductCategoryEntity',
+                Join::WITH,
+                'StoreProductCategoryEntity.id = product.storeProductCategoryID'
+            )
+
+            ->leftJoin(
+                ProductTranslationEntity::class,
+                'productTranslationEntity',
+                Join::WITH,
+                'productTranslationEntity.productID = product.id'
+            )
+
+            ->andWhere('StoreProductCategoryEntity.storeProductCategoryID = :storeProductCategoryIdLevel1')
             ->setParameter('storeProductCategoryIdLevel1',$storeProductCategoryIdLevel1)
 
             ->groupBy('StoreProductCategoryEntity.id')
