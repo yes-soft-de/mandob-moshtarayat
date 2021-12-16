@@ -341,7 +341,7 @@ class ProductController extends BaseController
 
     /**
      * Get products of store specific.
-     * @Route("/productsStoreByProfileId/{storeOwnerProfileId}", name="getStoreProductsByProfileId", methods={"GET"})
+     * @Route("/productsstorebyprofileid/{storeOwnerProfileId}", name="getStoreProductsByProfileId", methods={"GET"})
      * @return JsonResponse
      * *
      * @OA\Tag(name="Product")
@@ -428,7 +428,7 @@ class ProductController extends BaseController
      * )
      *
      */
-    public function getProductsByStoreProductCategoryID(Request $request, $storeProductCategoryID)
+    public function getProductsByStoreProductCategoryID(Request $request, $storeProductCategoryID): JsonResponse
     {
         $result = $this->productService->getProductsByStoreProductCategoryID($request->getPreferredLanguage(), $storeProductCategoryID);
 

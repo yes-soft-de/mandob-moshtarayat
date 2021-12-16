@@ -269,13 +269,17 @@ class ProductService
 
         $Products = $this->productManager->productsTopWantedOfSpecificStoreOwner($storeOwnerProfileId);
 
-        foreach ($Products as $Product) {
-            $img = isset($Product['image']);
+        foreach ($Products as $product) {
+            $product['productPrice'] = $this->willProductCommissionBeCharged($product['isCommission'], $product['productPrice'], $product['commission'], $product['storeCommission']);
+
+            $img = isset($product['image']);
             if ($img) {
-                $topOwner['imageURL'] = $Product['image'];
+                $product['productImage'] = $this->getImageParams($product['productImage'], $this->params.$product['productImage'], $this->params);
+
+                $topOwner['imageURL'] = $product['image'];
             }
 
-            $response[] = $this->autoMapping->map('array', ProductFullInfoResponse::class, $Product);
+            $response[] = $this->autoMapping->map('array', ProductsTopWantedResponse::class, $product);
         }
 
         return $response;
@@ -291,6 +295,7 @@ class ProductService
             $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
             $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
             $item['soldCount'] = $this->getProductsSoldCount($item['id']);
+            $item['productPrice'] = $this->willProductCommissionBeCharged($item['isCommission'], $item['productPrice'], $item['commission'], $item['storeCommission']);
 
             $response[] = $this->autoMapping->map('array', ProductsByProductCategoryIdResponse::class, $item);
         }
@@ -340,6 +345,7 @@ class ProductService
             $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
             $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
             $item['soldCount'] = $this->getProductsSoldCount($item['id']);
+            $item['productPrice'] = $this->willProductCommissionBeCharged($item['isCommission'], $item['productPrice'], $item['commission'], $item['storeCommission']);
 
             $response[] = $this->autoMapping->map('array', ProductsByProductCategoryIdResponse::class, $item);
         }
@@ -368,6 +374,7 @@ class ProductService
             $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
             $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
             $item['soldCount'] = $this->getProductsSoldCount($item['id']);
+            $item['productPrice'] = $this->willProductCommissionBeCharged($item['isCommission'], $item['productPrice'], $item['commission'], $item['storeCommission']);
 
             $response[] = $this->autoMapping->map('array', ProductsByProductCategoryIdResponse::class, $item);
         }
@@ -410,6 +417,7 @@ class ProductService
             $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
             $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
             $item['soldCount'] = $this->getProductsSoldCount($item['id']);
+            $item['productPrice'] = $this->willProductCommissionBeCharged($item['isCommission'], $item['productPrice'], $item['commission'], $item['storeCommission']);
 
             $response[] = $this->autoMapping->map('array', ProductsByProductCategoryIdResponse::class, $item);
         }
@@ -612,6 +620,7 @@ class ProductService
             $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
             $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
             $item['soldCount'] = $this->getProductsSoldCount($item['id']);
+            $item['productPrice'] = $this->willProductCommissionBeCharged($item['isCommission'], $item['productPrice'], $item['commission'], $item['storeCommission']);
 
             $response[] = $this->autoMapping->map("array", ProductsByProductCategoryIdResponse::class, $item);
         }
@@ -665,6 +674,7 @@ class ProductService
             $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
             $item['soldCount'] = $this->getProductsSoldCount($item['id']);
             $item['store'] = $this->storeOwnerProfileService->getStoreNameById($item['storeOwnerProfileID']);
+            $item['productPrice'] = $this->willProductCommissionBeCharged($item['isCommission'], $item['productPrice'], $item['commission'], $item['storeCommission']);
 
             $response[] = $this->autoMapping->map('array', ProductsByProductCategoryIdResponse::class, $item);
         }
@@ -704,6 +714,7 @@ class ProductService
             $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
             $item['soldCount'] = $this->getProductsSoldCount($item['id']);
             $item['store'] = $this->storeOwnerProfileService->getStoreNameById($item['storeOwnerProfileID']);
+            $item['productPrice'] = $this->willProductCommissionBeCharged($item['isCommission'], $item['productPrice'], $item['commission'], $item['storeCommission']);
 
             $response[] = $this->autoMapping->map('array', ProductsByStoreOwnerProfileIdResponse::class, $item);
         }
