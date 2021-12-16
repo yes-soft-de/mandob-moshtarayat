@@ -189,7 +189,9 @@ class StoreCategoryService
     {
         if($userLocale != null && $userLocale != $this->primaryLanguage)
         {
-            $categories = $this->storeCategoryManager->getFavouriteStoreCategoriesTranslationsAndStores($userLocale, $clientID);
+            $storeCategoriesTranslations = $this->storeCategoryManager->getFavouriteStoreCategoriesTranslationsAndStores($clientID);
+
+            $categories = $this->replaceStoreCategoryTranslatedNameByPrimaryOne($storeCategoriesTranslations, $userLocale);
 
             if(!$categories)
             {
