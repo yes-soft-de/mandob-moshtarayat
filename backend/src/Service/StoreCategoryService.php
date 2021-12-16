@@ -301,9 +301,10 @@ class StoreCategoryService
                 }
                 elseif($storeCategory['language'] != null && $storeCategory['language'] != $userLocale)
                 {
-                    // here means that there is another content in different language rather that the required one or the primary one
-                    if (!$this->checkIfValueExistForSpecificKeyInArray($storeCategories, "id", $storeCategory['id']))
+                    if(!$this->checkIfItemExistsInSpecificLanguage($storeCategoriesTranslation, $storeCategory['id'], $userLocale))
                     {
+                        $storeCategory['storeCategoryName'] = $storeCategory['primaryStoreCategoryName'];
+
                         $storeCategories[] = $storeCategory;
                     }
                 }
@@ -313,11 +314,11 @@ class StoreCategoryService
         return $storeCategories;
     }
 
-    public function checkIfValueExistForSpecificKeyInArray($array, $key, $value)
+    public function checkIfItemExistsInSpecificLanguage($array, $itemID, $language)
     {
         foreach ($array as $item)
         {
-            if ($item[$key] == $value)
+            if ($item['id'] == $itemID && $item['language'] == $language)
             {
                 return true;
             }
@@ -325,4 +326,17 @@ class StoreCategoryService
 
         return false;
     }
+
+//    public function checkIfValueExistForSpecificKeyInArray($array, $key, $value)
+//    {
+//        foreach ($array as $item)
+//        {
+//            if ($item[$key] == $value)
+//            {
+//                return true;
+//            }
+//        }
+//
+//        return false;
+//    }
 }

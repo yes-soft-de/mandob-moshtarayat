@@ -705,8 +705,10 @@ class ProductService
                 elseif($product['language'] != null && $product['language'] != $userLocale)
                 {
                     // here means that there is another content in different language rather that the required one or the primary one
-                    if (!$this->checkIfValueExistForSpecificKeyInArray($products, "id", $product['id']))
+                    if (!$this->checkIfItemExistsInSpecificLanguage($productsTranslation, $product['id'], $userLocale))
                     {
+                        $product['productName'] = $product['primaryProductName'];
+
                         $products[] = $product;
                     }
                 }
@@ -716,11 +718,11 @@ class ProductService
         return $products;
     }
 
-    public function checkIfValueExistForSpecificKeyInArray($array, $key, $value)
+    public function checkIfItemExistsInSpecificLanguage($array, $itemID, $language)
     {
         foreach ($array as $item)
         {
-            if ($item[$key] == $value)
+            if ($item['id'] == $itemID && $item['language'] == $language)
             {
                 return true;
             }
