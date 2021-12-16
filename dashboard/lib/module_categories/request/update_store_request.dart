@@ -10,6 +10,7 @@ class UpdateStoreRequest {
   String? closingTime;
   String? openingTime;
   String? baseImage;
+  double? commission;
   UpdateStoreRequest(
       {this.id,
       this.status,
@@ -21,7 +22,8 @@ class UpdateStoreRequest {
       this.hasProducts,
       this.closingTime,
       this.openingTime,
-      this.baseImage
+      this.baseImage,
+      this.commission
       });
 
   UpdateStoreRequest.fromJson(dynamic json) {
@@ -47,6 +49,7 @@ class UpdateStoreRequest {
     map['hasProducts'] = hasProducts;
     map['closingTime'] = closingTime;
     map['openingTime'] = openingTime;
+    map['commission'] = commission;
     return map;
   }
 }
