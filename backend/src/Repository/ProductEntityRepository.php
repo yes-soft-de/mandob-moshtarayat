@@ -335,6 +335,44 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function productsTopWantedOfSpecificStoreOwnerTranslation($storeOwnerProfileId)
+    {
+        return $this->createQueryBuilder('product')
+
+            ->select('product.id', 'product.productName as primaryProductName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount','product.description',
+                'product.commission', 'product.isCommission', 'productTranslationEntity.productName', 'productTranslationEntity.language')
+            ->addSelect('count(orderDetailEntity.productID) as countProduct, orderDetailEntity.productID')
+            ->addSelect('storeOwnerProfile.id as storeOwnerProfileID', 'storeOwnerProfile.storeOwnerName as storeOwnerName', 'storeOwnerProfile.image', 'storeOwnerProfile.phone', 'storeOwnerProfile.commission as storeCommission')
+            ->addSelect('storeOwnerBranch.location','storeOwnerBranch.branchName')
+            ->addSelect('DeliveryCompanyFinancialEntity.deliveryCost')
+
+            ->leftJoin(OrderDetailEntity::class, 'orderDetailEntity', Join::WITH, 'orderDetailEntity.productID = product.id')
+            ->leftJoin(StoreOwnerProfileEntity::class, 'storeOwnerProfile', Join::WITH, 'storeOwnerProfile.id = product.storeOwnerProfileID')
+            ->leftJoin(StoreOwnerBranchEntity::class, 'storeOwnerBranch', Join::WITH, 'storeOwnerBranch.storeOwnerProfileID = storeOwnerProfile.id ')
+            ->leftJoin(DeliveryCompanyFinancialEntity::class, 'DeliveryCompanyFinancialEntity', Join::WITH, 'product.id = product.id')
+
+            ->andWhere('product.storeOwnerProfileID = :storeOwnerProfileId')
+            ->setParameter('storeOwnerProfileId',$storeOwnerProfileId)
+
+            ->leftJoin(
+                ProductTranslationEntity::class,
+                'productTranslationEntity',
+                Join::WITH,
+                'productTranslationEntity.productID = product.id'
+            )
+
+            ->addGroupBy('orderDetailEntity.productID')
+
+            ->having('count(orderDetailEntity.productID) > 0')
+
+            ->setMaxResults(20)
+
+            ->addOrderBy('countProduct','DESC')
+
+            ->getQuery()
+            ->getResult();
+    }
+
     public function getStoreProductsByProfileId($storeOwnerProfileId)
     {
         return $this->createQueryBuilder('product')

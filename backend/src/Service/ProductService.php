@@ -263,11 +263,20 @@ class ProductService
         return $response;
     }
 
-    public function productsTopWantedOfSpecificStoreOwner($storeOwnerProfileId): ?array
+    public function productsTopWantedOfSpecificStoreOwner($userLocale, $storeOwnerProfileId): ?array
     {
         $response = [];
 
-        $Products = $this->productManager->productsTopWantedOfSpecificStoreOwner($storeOwnerProfileId);
+        if($userLocale != null && $userLocale != $this->primaryLanguage)
+        {
+            $productsTranslation = $this->productManager->productsTopWantedOfSpecificStoreOwnerTranslation($storeOwnerProfileId);
+
+            $Products = $this->replaceProductTranslatedNameByPrimaryOne($productsTranslation, $userLocale);
+        }
+        else
+        {
+            $Products = $this->productManager->productsTopWantedOfSpecificStoreOwner($storeOwnerProfileId);
+        }
 
         foreach ($Products as $product) {
             $product['productPrice'] = $this->willProductCommissionBeCharged($product['isCommission'], $product['productPrice'], $product['commission'], $product['storeCommission']);

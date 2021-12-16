@@ -102,6 +102,11 @@ class ProductManager
         return $this->productEntityRepository->productsTopWantedOfSpecificStoreOwner($storeOwnerProfileId);
     }
 
+    public function productsTopWantedOfSpecificStoreOwnerTranslation($storeOwnerProfileId)
+    {
+        return $this->productEntityRepository->productsTopWantedOfSpecificStoreOwnerTranslation($storeOwnerProfileId);
+    }
+
     public function getStoreProductsByProfileId($storeOwnerProfileId)
     {
         return $this->productEntityRepository->getStoreProductsByProfileId($storeOwnerProfileId);

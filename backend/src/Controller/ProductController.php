@@ -331,10 +331,52 @@ class ProductController extends BaseController
     /**
      * @Route("/productstopwantedofspecificstoreowner/{storeOwnerProfileId}", name="productsTopWantedOfSpecificStoreOwner", methods={"GET"})
      * @return JsonResponse
+     *
+     * @OA\Tag(name="Product")
+     *
+     * @OA\Parameter(
+     *      name="Accept-Language",
+     *      in="header",
+     *      description="language to be passed as a header",
+     *      required=false
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Get top wanted products of specific store",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="productName"),
+     *                  @OA\Property(type="number", property="productPrice"),
+     *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                  @OA\Property(type="integer", property="storeProductCategoryID"),
+     *                  @OA\Property(type="string", property="storeOwnerName"),
+     *                  @OA\Property(type="string", property="description"),
+     *                  @OA\Property(type="string", property="discount"),
+     *                  @OA\Property(type="string", property="rate"),
+     *                  @OA\Property(type="string", property="soldCount"),
+     *                  @OA\Property(type="object", property="image",
+     *                      @OA\Property(type="string", property="imageURL"),
+     *                      @OA\Property(type="string", property="image"),
+     *                      @OA\Property(type="string", property="baseURL"),
+     *                  ),
+     *                  @OA\Property(type="object", property="location"),
+     *                  @OA\Property(type="string", property="phone"),
+     *                  @OA\Property(type="string", property="branchName"),
+     *                  @OA\Property(type="string", property="status"),
+     *              )
+     *          )
+     *      )
+     * )
+     *
      */
-    public function productsTopWantedOfSpecificStoreOwner($storeOwnerProfileId)
+    public function productsTopWantedOfSpecificStoreOwner(Request $request, $storeOwnerProfileId)
     {
-        $result = $this->productService->productsTopWantedOfSpecificStoreOwner($storeOwnerProfileId);
+        $result = $this->productService->productsTopWantedOfSpecificStoreOwner($request->getPreferredLanguage(), $storeOwnerProfileId);
 
         return $this->response($result, self::FETCH);
     }
