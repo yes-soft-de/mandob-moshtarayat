@@ -148,17 +148,17 @@ class StoreCategoryManager
 
     }
 
-    public function getFavouriteStoreCategoriesTranslationsAndStores($userLocale, $clientID)
+    public function getFavouriteStoreCategoriesTranslationsAndStores($clientID)
     {
         $favouriteCategories = $this->userManager->getFavouriteCategoriesIDsByClientID($clientID);
 
         if($favouriteCategories)
         {
-            return $this->storeCategoryEntityRepository->getStoreCategoriesTranslationsByClientFavouriteCategoriesIDs($userLocale, $favouriteCategories['favouriteCategories']);
+            return $this->storeCategoryEntityRepository->getStoreCategoriesTranslationsByClientFavouriteCategoriesIDs($favouriteCategories['favouriteCategories']);
         }
         else
         {
-            return $this->storeCategoryEntityRepository->getStoreCategoriesTranslationsByClientFavouriteCategoriesIDs($userLocale, $favouriteCategories);
+            return $this->storeCategoryEntityRepository->getStoreCategoriesTranslationsByClientFavouriteCategoriesIDs($favouriteCategories);
         }
 
     }

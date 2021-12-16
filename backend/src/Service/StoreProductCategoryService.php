@@ -511,13 +511,30 @@ class StoreProductCategoryService
 
                     $storeCategories[] = $storeProductCategory;
                 }
-                else
+                elseif($storeProductCategory['language'] != null && $storeProductCategory['language'] != $userLocale)
                 {
-
+                    // here means that there is another content in different language rather that the required one or the primary one
+                    if (!$this->checkIfValueExistForSpecificKeyInArray($storeCategories, "id", $storeProductCategory['id']))
+                    {
+                        $storeCategories[] = $storeProductCategory;
+                    }
                 }
             }
         }
 
         return $storeCategories;
+    }
+
+    public function checkIfValueExistForSpecificKeyInArray($array, $key, $value)
+    {
+        foreach ($array as $item)
+        {
+            if ($item[$key] == $value)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
