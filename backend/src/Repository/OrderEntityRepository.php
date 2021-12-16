@@ -142,27 +142,22 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
-    public function countOngoingOrdersForStoreOwner($storeOwnerProfileId)
+    public function countOngoingOrdersForStoreOwner($ids)
     {
         return $this->createQueryBuilder('OrderEntity')
 
             ->select('count(OrderEntity.id) as count')
 
-            ->where("OrderEntity.state = :on_way")
-            ->orWhere("OrderEntity.state = :in_store")
-            ->orWhere("OrderEntity.state = :picked")
-            ->orWhere("OrderEntity.state = :ongoing")
-            ->andWhere("OrderEntity.storeOwnerProfileID = :storeOwnerProfileID ")
+            ->Where("OrderEntity.id IN (:id)")
+            ->andWhere("OrderEntity.state != :pending")
+            ->orWhere("OrderEntity.state != :cancel")
 
-            ->setParameter('on_way', self::ON_WAY)
-            ->setParameter('in_store', self::IN_STORE)
-            ->setParameter('picked', self::PICKED)
-
-            ->setParameter('ongoing', self::ONGOING)
-
-            ->setParameter('storeOwnerProfileID', $storeOwnerProfileId)
+            ->setParameter('pending', OrderStateConstant::$ORDER_STATE_PENDING)
+            ->setParameter('cancel', OrderStateConstant::$ORDER_STATE_CANCEL)
+            ->setParameter('id', $ids)
 
             ->getQuery()
+
             ->getSingleScalarResult();
     }
 
@@ -475,24 +470,25 @@ class OrderEntityRepository extends ServiceEntityRepository
           ->getSingleScalarResult();
     }
 
-    public function countOrdersInTodayForStoreOwner($fromDate, $toDate, $storeOwnerProfileId)
+    public function countOrdersInTodayForStoreOwner($fromDate, $toDate, $ids)
     {
         return $this->createQueryBuilder('OrderEntity')
 
-          ->select('count(OrderEntity.id) as countOrdersInToday')
+            ->select('count(OrderEntity.id) as count')
 
-          ->andWhere("OrderEntity.state != :cancelled")
-          ->andWhere('OrderEntity.createdAt >= :fromDate')
-          ->andWhere('OrderEntity.createdAt < :toDate')
-          ->andWhere('OrderEntity.storeOwnerProfileID = :storeOwnerProfileID')
+            ->where("OrderEntity.id IN (:id)")
+            ->andWhere("OrderEntity.state != :cancelled")
+            ->andWhere('OrderEntity.createdAt >= :fromDate')
+            ->andWhere('OrderEntity.createdAt < :toDate')
 
-          ->setParameter('fromDate', $fromDate)
-          ->setParameter('toDate', $toDate)
-          ->setParameter('cancelled', self::CANCEL)
-          ->setParameter('storeOwnerProfileID', $storeOwnerProfileId)
+            ->setParameter('fromDate', $fromDate)
+            ->setParameter('toDate', $toDate)
+            ->setParameter('cancelled', OrderStateConstant::$ORDER_STATE_CANCEL)
+            ->setParameter('id', $ids)
 
-          ->getQuery()
-          ->getSingleScalarResult();
+            ->getQuery()
+
+            ->getSingleScalarResult();
     }
 
     public function countCaptainOrdersDelivered($captainId)
@@ -760,17 +756,17 @@ class OrderEntityRepository extends ServiceEntityRepository
                 ->getSingleScalarResult();
     }
 
-    public function countCompletedOrdersForStoreOwner($storeOwnerProfileId)
+    public function countCompletedOrdersForStoreOwner($id)
     {
         return  $this->createQueryBuilder('OrderEntity')
 
             ->select('count(OrderEntity.id) as count')
 
             ->andWhere("OrderEntity.state = :delivered")
-            ->andWhere("OrderEntity.storeOwnerProfileID = :storeOwnerProfileID")
+            ->andWhere("OrderEntity.id IN (:id)")
 
             ->setParameter('delivered', self::DELIVERED)
-            ->setParameter('storeOwnerProfileID', $storeOwnerProfileId)
+            ->setParameter('id', $id)
 
             ->getQuery()
             ->getSingleScalarResult();

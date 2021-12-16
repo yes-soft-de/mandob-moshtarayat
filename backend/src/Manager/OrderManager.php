@@ -71,9 +71,9 @@ class OrderManager
         return $this->orderEntityRepository->countOngoingOrders();
     }
 
-    public function countOngoingOrdersForStoreOwner($storeOwnerProfileId)
+    public function countOngoingOrdersForStoreOwner($orderIds)
     {
-        return $this->orderEntityRepository->countOngoingOrdersForStoreOwner($storeOwnerProfileId);
+        return $this->orderEntityRepository->countOngoingOrdersForStoreOwner($orderIds);
     }
 
     public function countCancelledOrders()
@@ -141,9 +141,9 @@ class OrderManager
         return $this->orderEntityRepository->countOrdersInToday($fromDate, $toDate);
     }
 
-    public function countOrdersInTodayForStoreOwner($fromDate, $toDate, $storeOwnerProfileId)
+    public function countOrdersInTodayForStoreOwner($fromDate, $toDate, $orderIds)
     {
-        return $this->orderEntityRepository->countOrdersInTodayForStoreOwner($fromDate, $toDate, $storeOwnerProfileId);
+        return $this->orderEntityRepository->countOrdersInTodayForStoreOwner($fromDate, $toDate, $orderIds);
     }
 
     public function getAcceptedOrderByCaptainId($captainID)
@@ -363,9 +363,9 @@ class OrderManager
         return $this->orderEntityRepository->countCompletedOrders();
     }
 
-    public function countCompletedOrdersForStoreOwner($storeOwnerProfileId)
+    public function countCompletedOrdersForStoreOwner($id)
     {
-        return $this->orderEntityRepository->countCompletedOrdersForStoreOwner($storeOwnerProfileId);
+        return $this->orderEntityRepository->countCompletedOrdersForStoreOwner($id);
     }
 
     public function getOrdersForSpecificClient($clientID)

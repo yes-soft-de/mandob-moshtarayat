@@ -194,6 +194,22 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getOrderIds($storeOwnerProfileId)
+    {
+        return $this->createQueryBuilder('OrderDetailEntity')
+
+            ->select('OrderDetailEntity.orderID')
+
+            ->andWhere('OrderDetailEntity.storeOwnerProfileID = :storeOwnerProfileId')
+
+            ->setParameter('storeOwnerProfileId', $storeOwnerProfileId)
+
+            ->groupBy('OrderDetailEntity.orderNumber')
+
+            ->getQuery()
+            ->getResult();
+    }
+
     public function getOrderNumberByOrderId($orderID)
     {
         return $this->createQueryBuilder('OrderDetailEntity')

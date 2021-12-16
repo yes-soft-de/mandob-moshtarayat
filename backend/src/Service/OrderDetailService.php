@@ -180,6 +180,11 @@ class OrderDetailService
         return $this->orderDetailManager->getOrderDetailStates($orderNumber);
     }
 
+    public function getOrderIds($storeOwnerProfileId)
+    {
+        return $this->orderDetailManager->getOrderIds($storeOwnerProfileId);
+    }
+
     public function getImageParams($imageURL, $image, $baseURL): array
     {
         if($imageURL) {
