@@ -13,7 +13,6 @@ use App\Response\StoreCategoriesAndStoresResponse;
 use App\Response\StoreCategoryCreateResponse;
 use App\Response\StoreCategoryByIdResponse;
 use App\Response\StoreCategoryGetResponse;
-use App\Response\StoreCategoryTranslationGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class StoreCategoryService
@@ -23,15 +22,12 @@ class StoreCategoryService
     private $params;
     private $primaryLanguage;
     private $storeOwnerProfileService;
-    private $storeCategoryTranslationService;
 
-    public function __construct(AutoMapping $autoMapping, StoreCategoryManager $storeCategoryManager, ParameterBagInterface $params, StoreOwnerProfileService $storeOwnerProfileService,
-     StoreCategoryTranslationService $storeCategoryTranslationService)
+    public function __construct(AutoMapping $autoMapping, StoreCategoryManager $storeCategoryManager, ParameterBagInterface $params, StoreOwnerProfileService $storeOwnerProfileService)
     {
         $this->autoMapping = $autoMapping;
         $this->storeCategoryManager = $storeCategoryManager;
         $this->storeOwnerProfileService = $storeOwnerProfileService;
-        $this->storeCategoryTranslationService = $storeCategoryTranslationService;
         $this->params = $params->get('upload_base_url') . '/';
         $this->primaryLanguage = $params->get('primary_language');
     }
@@ -80,22 +76,9 @@ class StoreCategoryService
 
         if($userLocale != null && $userLocale != $this->primaryLanguage)
         {
-            $storeCategories = [];
-
             $storeCategoriesTranslations = $this->storeCategoryManager->getStoreCategoriesTranslations();
 
-            foreach($storeCategoriesTranslations as $storeCategoryTranslation)
-            {
-                if((!$storeCategoryTranslation['language']))
-                {
-                    $storeCategoryTranslation['storeCategoryName'] = $storeCategoryTranslation['primaryStoreCategoryName'];
-                    $storeCategories[] = $storeCategoryTranslation;
-                }
-                elseif($storeCategoryTranslation['language'] == $userLocale)
-                {
-                    $storeCategories[] = $storeCategoryTranslation;
-                }
-            }
+            $storeCategories = $this->replaceStoreCategoryTranslatedNameByPrimaryOne($storeCategoriesTranslations, $userLocale);
         }
         else
         {
@@ -316,13 +299,30 @@ class StoreCategoryService
 
                     $storeCategories[] = $storeCategory;
                 }
-                else
+                elseif($storeCategory['language'] != null && $storeCategory['language'] != $userLocale)
                 {
-
+                    // here means that there is another content in different language rather that the required one or the primary one
+                    if (!$this->checkIfValueExistForSpecificKeyInArray($storeCategories, "id", $storeCategory['id']))
+                    {
+                        $storeCategories[] = $storeCategory;
+                    }
                 }
             }
         }
 
         return $storeCategories;
+    }
+
+    public function checkIfValueExistForSpecificKeyInArray($array, $key, $value)
+    {
+        foreach ($array as $item)
+        {
+            if ($item[$key] == $value)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
