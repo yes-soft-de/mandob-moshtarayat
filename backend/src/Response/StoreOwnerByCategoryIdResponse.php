@@ -33,4 +33,6 @@ class StoreOwnerByCategoryIdResponse
     public $openingTime;
 
     public $status;
+
+    public $commission;
 }

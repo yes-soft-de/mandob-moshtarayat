@@ -143,11 +143,11 @@ class StoreOwnerProfileService
         $items = $this->storeOwnerProfileManager->getAllStoreOwners();
         foreach ($items as $item) {
             $item['rating'] = $this->ratingService->getAvgRating($item['id'], 'store');
-            $item['imageURL'] = $item['image'];
-            $item['image'] = $this->params.$item['image'];
-            $item['baseURL'] = $this->params;
+
+            $item['image'] = $this->getImageParams($item['image'], $this->params.$item['image'], $this->params);
 
             $response[] = $this->autoMapping->map('array', StoreOwnerByCategoryIdResponse::class, $item);
+
             }        
 
         return $response;
