@@ -44,4 +44,5 @@ class StoreOwnerProfileCreateResponse
 
     public $store;
 
+    public $commission;
 }

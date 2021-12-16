@@ -97,9 +97,8 @@ class StoreOwnerProfileService
 
         $item = $this->storeOwnerProfileManager->getStoreOwnerProfileByID($id);
         if($item){
-            $item['imageURL'] = $item['image'];
-            $item['image'] = $this->params.$item['image'];
-            $item['baseURL'] = $this->params;
+            $item['image'] = $this->getImageParams($item['image'], $this->params.$item['image'], $this->params);
+
             $item['branches'] = $this->storeOwnerBranchService->getBranchesByStoreOwnerProfileID($item['id']);
             $item['rating'] = $this->ratingService->getAvgRating($id, 'store');
 
