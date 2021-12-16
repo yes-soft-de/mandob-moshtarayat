@@ -2,7 +2,7 @@
 
 namespace App\Response;
 
-class ProductFullInfoResponse
+class ProductsTopWantedResponse
 {
     public $id;
 
@@ -37,11 +37,4 @@ class ProductFullInfoResponse
     public $soldCount;
 
     public $productPrice;
-
-    public $commission;
-
-    public $isCommission;
-
-    public $productPriceWithOutCommission;
-
 }

@@ -260,13 +260,16 @@ class ProductController extends BaseController
      *                  @OA\Property(type="string", property="soldCount"),
      *                  @OA\Property(type="string", property="status"),
      *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="number", property="commission"),
+     *                  @OA\Property(type="boolean", property="isCommission"),
+     *                  @OA\Property(type="number", property="productPriceWithOutCommission"),
      *              )
      *          )
      *      )
      * )
      *
      */
-    public function getProductByIdWithFullInfo(Request $request, $id)
+    public function getProductByIdWithFullInfo(Request $request, $id): JsonResponse
     {
         $result = $this->productService->getProductByIdWithFullInfo($request->getPreferredLanguage(), $id);
 
@@ -311,14 +314,14 @@ class ProductController extends BaseController
      *                  @OA\Property(type="string", property="rate"),
      *                  @OA\Property(type="string", property="soldCount"),
      *                  @OA\Property(type="string", property="status"),
-     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="object", property="image"),
      *              )
      *          )
      *      )
      * )
      *
      */
-    public function getProductsTopWanted(Request $request)
+    public function getProductsTopWanted(Request $request): JsonResponse
     {
         $result = $this->productService->getProductsTopWanted($request->getPreferredLanguage());
 
