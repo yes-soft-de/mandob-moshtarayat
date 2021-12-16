@@ -171,6 +171,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "clients": MessageLookupByLibrary.simpleMessage("Clients"),
         "clientsReport": MessageLookupByLibrary.simpleMessage("Clients Report"),
         "closingTime": MessageLookupByLibrary.simpleMessage("Closing Time"),
+        "commission": MessageLookupByLibrary.simpleMessage("Store Commission"),
         "community": MessageLookupByLibrary.simpleMessage("Community"),
         "company": MessageLookupByLibrary.simpleMessage("Company"),
         "companyFinance":

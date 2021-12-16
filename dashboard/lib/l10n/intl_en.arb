@@ -533,7 +533,9 @@
   "searchForCaptain": "Search for captain",
   "preferredLanguage":"Preferred Language",
   "selectLanguage":"Select Language",
-  "sureForDeleteCategories":"Are you sure you want to delete this category"
+  "sureForDeleteCategories":"Are you sure you want to delete this category",
+  "commission":"Store Commission"
+
   
 
 

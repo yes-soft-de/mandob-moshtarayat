@@ -532,7 +532,9 @@
   "favoriteStores":"المتاجر المفضلة",
   "preferredLanguage":"اللغة المفضلة",
   "selectLanguage":"اختر لغتك المفضلة",
-  "sureForDeleteCategories":"هل أنت متأكد من رغبتك بحذف هذا الصنف"
+  "sureForDeleteCategories":"هل أنت متأكد من رغبتك بحذف هذا الصنف",
+  "commission":"العمولة الخاصة بالمتجر"
+
 
 
 }
