@@ -62,22 +62,9 @@ class ProductService
 
         if($userLocale != null && $userLocale != $this->primaryLanguage)
         {
-            $products = [];
-
             $productsTranslation = $this->productManager->getProductsTranslationsByProductCategoryId($storeProductCategoryID);
 
-            foreach($productsTranslation as $product)
-            {
-                if((!$product['language']))
-                {
-                    $product['productName'] = $product['primaryProductName'];
-                    $products[] = $product;
-                }
-                elseif($product['language'] == $userLocale)
-                {
-                    $products[] = $product;
-                }
-            }
+            $products = $this->replaceProductTranslatedNameByPrimaryOne($productsTranslation, $userLocale);
         }
         else
         {
@@ -131,22 +118,9 @@ class ProductService
 
         if($userLocale != null && $userLocale != $this->primaryLanguage)
         {
-            $products = [];
-
             $productsTranslation = $this->productManager->getProductsTranslationByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId);
 
-            foreach($productsTranslation as $product)
-            {
-                if((!$product['language']))
-                {
-                    $product['productName'] = $product['primaryProductName'];
-                    $products[] = $product;
-                }
-                elseif($product['language'] == $userLocale)
-                {
-                    $products[] = $product;
-                }
-            }
+            $products = $this->replaceProductTranslatedNameByPrimaryOne($productsTranslation, $userLocale);
         }
         else
         {
@@ -408,22 +382,9 @@ class ProductService
 
         if($userLocale != null && $userLocale != $this->primaryLanguage)
         {
-            $products = [];
-
             $productsTranslation = $this->productManager->getProductsTranslationsByStoreProductCategoryIDForStore($storeProductCategoryID, $storeOwnerProfileId);
 
-            foreach($productsTranslation as $product)
-            {
-                if((!$product['language']))
-                {
-                    $product['productName'] = $product['primaryProductName'];
-                    $products[] = $product;
-                }
-                elseif($product['language'] == $userLocale)
-                {
-                    $products[] = $product;
-                }
-            }
+            $products = $this->replaceProductTranslatedNameByPrimaryOne($productsTranslation, $userLocale);
         }
         else
         {
@@ -674,22 +635,9 @@ class ProductService
 
         if($userLocale != null && $userLocale != $this->primaryLanguage)
         {
-            $products = [];
-
             $productsTranslation = $this->productManager->getLast30ProductsTranslation();
 
-            foreach($productsTranslation as $product)
-            {
-                if((!$product['language']))
-                {
-                    $product['productName'] = $product['primaryProductName'];
-                    $products[] = $product;
-                }
-                elseif($product['language'] == $userLocale)
-                {
-                    $products[] = $product;
-                }
-            }
+            $products = $this->replaceProductTranslatedNameByPrimaryOne($productsTranslation, $userLocale);
         }
         else
         {
@@ -714,22 +662,9 @@ class ProductService
 
         if($userLocale != null && $userLocale != $this->primaryLanguage)
         {
-            $products = [];
-
             $productsTranslation = $this->productManager->getProductsTranslationsByStoreOwnerProfileId($storeOwnerProfileId);
 
-            foreach($productsTranslation as $product)
-            {
-                if((!$product['language']))
-                {
-                    $product['productName'] = $product['primaryProductName'];
-                    $products[] = $product;
-                }
-                elseif($product['language'] == $userLocale)
-                {
-                    $products[] = $product;
-                }
-            }
+            $products = $this->replaceProductTranslatedNameByPrimaryOne($productsTranslation, $userLocale);
         }
         else
         {
