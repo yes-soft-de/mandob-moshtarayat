@@ -10,8 +10,6 @@ class ProductFullInfoResponse
 
     public $productImage;
 
-    public $productPrice;
-
     public $storeOwnerProfileID;
 
     public $storeProductCategoryID;
@@ -37,5 +35,13 @@ class ProductFullInfoResponse
     public $rate;
 
     public $soldCount;
+
+    public $productPrice;
+
+    public $commission;
+
+    public $isCommission;
+
+    public $productPriceWithOutCommission;
 
 }

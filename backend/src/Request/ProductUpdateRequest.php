@@ -16,6 +16,10 @@ class ProductUpdateRequest
   
     private $storeProductCategoryID;
 
+    private $commission;
+
+    private $isCommission;
+
     /**
      * Get the value of ProductCategoryID
      */ 

@@ -23,4 +23,6 @@ class StoreOwnerProfileResponse
     public $baseURL;
 
     public $status;
+
+    public $commission;
 }

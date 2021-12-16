@@ -265,8 +265,9 @@ class StoreOwnerProfileController extends BaseController
      * @OA\RequestBody(
      *      description="Update Store Owner Status",
      *      @OA\JsonContent(
-     *          @OA\Property(type="string", property="id"),
-     *          @OA\Property(type="string", property="status")
+     *          @OA\Property(type="integer", property="id"),
+     *          @OA\Property(type="string", property="status"),
+     *          @OA\Property(type="float", property="commission")
      *      )
      * )
      *
@@ -281,7 +282,8 @@ class StoreOwnerProfileController extends BaseController
      *              @OA\Property(type="string", property="storeOwnerName"),
      *              @OA\Property(type="string", property="image"),
      *              @OA\Property(type="integer", property="status"),
-     *              @OA\Property(type="integer", property="phone")
+     *              @OA\Property(type="integer", property="phone"),
+     *              @OA\Property(type="number", property="commission")
      *      )
      *   )
      * )
@@ -310,6 +312,52 @@ class StoreOwnerProfileController extends BaseController
      * @Route("/storeownerprofilebyid/{id}", name="getStoreOwnerProfileByID",methods={"GET"})
      * @param $id
      * @return JsonResponse
+     *  *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the signed-in store owner's profile",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="integer", property="id"),
+     *              @OA\Property(type="string", property="storeOwnerName"),
+     *              @OA\Property(type="object", property="image"),
+     *              @OA\Property(type="string", property="phone"),
+     *              @OA\Property(type="string", property="branch"),
+     *              @OA\Property(type="string", property="free"),
+     *              @OA\Property(type="array", property="branches",
+     *                  @OA\Items(
+     *                      @OA\Property(type="integer", property="id"),
+     *                      @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                      @OA\Property(type="object", property="geoLocation",
+     *                          @OA\Property(type="string", property="lat"),
+     *                          @OA\Property(type="string", property="lon")
+     *
+     *                      ),
+     *                      @OA\Property(type="string", property="city"),
+     *                      @OA\Property(type="string", property="branchName"),
+     *                      @OA\Property(type="string", property="storeOwnerName"),
+     *                      @OA\Property(type="string", property="free"),
+     *                      @OA\Property(type="boolean", property="isActive")
+     *                  )
+     *              ),
+     *              @OA\Property(type="string", property="city"),
+     *              @OA\Property(type="number", property="deliveryCost"),
+     *              @OA\Property(type="number", property="rating"),
+     *              @OA\Property(type="integer", property="storeCategoryId"),
+     *              @OA\Property(type="string", property="storeCategoryName"),
+     *              @OA\Property(type="boolean", property="privateOrders"),
+     *              @OA\Property(type="boolean", property="hasProducts"),
+     *              @OA\Property(type="string", property="branchName"),
+     *              @OA\Property(type="object", property="openingTime"),
+     *              @OA\Property(type="object", property="closingTime"),
+     *              @OA\Property(type="string", property="status"),
+     *              @OA\Property(type="string", property="commission")
+     *      )
+     *   )
+     * )
+     *
      */
     public function getStoreOwnerProfileByID($id): JsonResponse
     {
@@ -374,7 +422,8 @@ class StoreOwnerProfileController extends BaseController
      *              @OA\Property(type="string", property="branchName"),
      *              @OA\Property(type="object", property="openingTime"),
      *              @OA\Property(type="object", property="closingTime"),
-     *              @OA\Property(type="string", property="status")
+     *              @OA\Property(type="string", property="status"),
+     *              @OA\Property(type="string", property="commission")
      *      )
      *   )
      * )

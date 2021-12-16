@@ -8,6 +8,8 @@ class storeOwnerProfileStatusUpdateByAdminRequest
 
     private $status;
 
+    private $commission;
+
 
     /**
      * Get the value of id
@@ -33,6 +35,18 @@ class storeOwnerProfileStatusUpdateByAdminRequest
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getCommission()
+    {
+        return $this->commission;
+    }
+
+    public function setCommission($commission)
+    {
+        $this->commission = $commission;
 
         return $this;
     }

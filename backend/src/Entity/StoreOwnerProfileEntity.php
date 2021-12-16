@@ -97,7 +97,12 @@ class StoreOwnerProfileEntity
      */
     private $closingTime;
 
-    
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $commission;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -302,4 +307,15 @@ class StoreOwnerProfileEntity
         return $this;
     }
 
+    public function getCommission(): ?float
+    {
+        return $this->commission;
+    }
+
+    public function setCommission(?float $commission): self
+    {
+        $this->commission = $commission;
+
+        return $this;
+    }
 }

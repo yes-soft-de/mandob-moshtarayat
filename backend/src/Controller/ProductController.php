@@ -62,7 +62,9 @@ class ProductController extends BaseController
      *          @OA\Property(type="integer", property="storeProductCategoryID"),
      *          @OA\Property(type="integer", property="discount"),
      *          @OA\Property(type="string", property="description"),
-     *          @OA\Property(type="integer", property="productQuantity")
+     *          @OA\Property(type="integer", property="productQuantity"),
+     *          @OA\Property(type="number", property="commission"),
+     *          @OA\Property(type="boolean", property="isCommission"),
      *      )
      * )
      *
@@ -82,6 +84,8 @@ class ProductController extends BaseController
      *                  @OA\Property(type="integer", property="discount"),
      *                  @OA\Property(type="string", property="description"),
      *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="number", property="commission"),
+     *                  @OA\Property(type="boolean", property="isCommission"),
      *          )
      *      )
      * )
@@ -256,13 +260,16 @@ class ProductController extends BaseController
      *                  @OA\Property(type="string", property="soldCount"),
      *                  @OA\Property(type="string", property="status"),
      *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="number", property="commission"),
+     *                  @OA\Property(type="boolean", property="isCommission"),
+     *                  @OA\Property(type="number", property="productPriceWithOutCommission"),
      *              )
      *          )
      *      )
      * )
      *
      */
-    public function getProductByIdWithFullInfo(Request $request, $id)
+    public function getProductByIdWithFullInfo(Request $request, $id): JsonResponse
     {
         $result = $this->productService->getProductByIdWithFullInfo($request->getPreferredLanguage(), $id);
 
@@ -307,14 +314,14 @@ class ProductController extends BaseController
      *                  @OA\Property(type="string", property="rate"),
      *                  @OA\Property(type="string", property="soldCount"),
      *                  @OA\Property(type="string", property="status"),
-     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="object", property="image"),
      *              )
      *          )
      *      )
      * )
      *
      */
-    public function getProductsTopWanted(Request $request)
+    public function getProductsTopWanted(Request $request): JsonResponse
     {
         $result = $this->productService->getProductsTopWanted($request->getPreferredLanguage());
 
@@ -334,7 +341,7 @@ class ProductController extends BaseController
 
     /**
      * Get products of store specific.
-     * @Route("/productsStoreByProfileId/{storeOwnerProfileId}", name="getStoreProductsByProfileId", methods={"GET"})
+     * @Route("/productsstorebyprofileid/{storeOwnerProfileId}", name="getStoreProductsByProfileId", methods={"GET"})
      * @return JsonResponse
      * *
      * @OA\Tag(name="Product")
@@ -421,7 +428,7 @@ class ProductController extends BaseController
      * )
      *
      */
-    public function getProductsByStoreProductCategoryID(Request $request, $storeProductCategoryID)
+    public function getProductsByStoreProductCategoryID(Request $request, $storeProductCategoryID): JsonResponse
     {
         $result = $this->productService->getProductsByStoreProductCategoryID($request->getPreferredLanguage(), $storeProductCategoryID);
 
@@ -574,6 +581,8 @@ class ProductController extends BaseController
      *          @OA\Property(type="number", property="productPrice"),
      *          @OA\Property(type="integer", property="storeOwnerProfileID"),
      *          @OA\Property(type="integer", property="storeProductCategoryID"),
+     *          @OA\Property(type="number", property="commission"),
+     *          @OA\Property(type="boolean", property="isCommission"),
      *      )
      * )
      *
@@ -589,6 +598,8 @@ class ProductController extends BaseController
      *                  @OA\Property(type="string", property="productImage"),
      *                  @OA\Property(type="number", property="storeOwnerProfileID"),
      *                  @OA\Property(type="integer", property="storeProductCategoryID"),
+     *                  @OA\Property(type="number", property="commission"),
+     *                  @OA\Property(type="boolean", property="isCommission"),
      *          )
      *      )
      * )

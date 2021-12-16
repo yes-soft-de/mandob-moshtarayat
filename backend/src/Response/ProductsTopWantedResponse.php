@@ -2,7 +2,7 @@
 
 namespace App\Response;
 
-class ProductCreateResponse
+class ProductsTopWantedResponse
 {
     public $id;
 
@@ -10,11 +10,21 @@ class ProductCreateResponse
 
     public $productImage;
 
-    public $productPrice;
-
     public $storeOwnerProfileID;
 
     public $storeProductCategoryID;
+
+    public $storeOwnerName;
+
+    public $image;
+
+    public $phone;
+
+    public $location;
+
+    public $branchName;
+
+    public $deliveryCost;
 
     public $discount;
 
@@ -22,7 +32,9 @@ class ProductCreateResponse
 
     public $status;
 
-    public $commission;
+    public $rate;
 
-    public $isCommission;
+    public $soldCount;
+
+    public $productPrice;
 }
