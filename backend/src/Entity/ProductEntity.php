@@ -66,7 +66,18 @@ class ProductEntity
      * @ORM\Column(type="string", length=10, nullable=true)
      */
     private $language;
-    
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isCommission;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $commission;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -188,6 +199,30 @@ class ProductEntity
     public function setLanguage(?string $language): self
     {
         $this->language = $language;
+
+        return $this;
+    }
+
+    public function getIsCommission(): ?bool
+    {
+        return $this->isCommission;
+    }
+
+    public function setIsCommission(?bool $isCommission): self
+    {
+        $this->isCommission = $isCommission;
+
+        return $this;
+    }
+
+    public function getCommission(): ?float
+    {
+        return $this->commission;
+    }
+
+    public function setCommission(?float $commission): self
+    {
+        $this->commission = $commission;
 
         return $this;
     }
