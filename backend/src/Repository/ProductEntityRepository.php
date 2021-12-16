@@ -389,6 +389,32 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getStoreProductsTranslationByProfileId($storeOwnerProfileId)
+    {
+        return $this->createQueryBuilder('product')
+            ->select('product.id', 'product.productName as primaryProductName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount','product.description',
+                'product.commission', 'product.isCommission', 'productTranslationEntity.productName', 'productTranslationEntity.language')
+            ->addSelect('storeOwnerProfile.id as storeOwnerProfileID', 'storeOwnerProfile.storeOwnerName as storeOwnerName', 'storeOwnerProfile.image', 'storeOwnerProfile.phone', 'storeOwnerProfile.commission as storeCommission')
+
+            ->andWhere('product.storeOwnerProfileID = :storeOwnerProfileId')
+            ->setParameter('storeOwnerProfileId',$storeOwnerProfileId)
+
+            ->leftJoin(StoreOwnerProfileEntity::class,
+                'storeOwnerProfile',
+                Join::WITH,
+                'storeOwnerProfile.id = product.storeOwnerProfileID')
+
+            ->leftJoin(
+                ProductTranslationEntity::class,
+                'productTranslationEntity',
+                Join::WITH,
+                'productTranslationEntity.productID = product.id'
+            )
+
+            ->getQuery()
+            ->getResult();
+    }
+
     public function getStoreProducts($storeOwnerProfileId)
     {
         return $this->createQueryBuilder('product')

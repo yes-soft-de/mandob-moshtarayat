@@ -385,9 +385,16 @@ class ProductController extends BaseController
      * Get products of store specific.
      * @Route("/productsstorebyprofileid/{storeOwnerProfileId}", name="getStoreProductsByProfileId", methods={"GET"})
      * @return JsonResponse
-     * *
+     *
      * @OA\Tag(name="Product")
-
+     *
+     * @OA\Parameter(
+     *      name="Accept-Language",
+     *      in="header",
+     *      description="language to be passed as a header",
+     *      required=false
+     * )
+     *
      * @OA\Response(
      *      response=200,
      *      description="Get products of store specific",
@@ -416,9 +423,9 @@ class ProductController extends BaseController
      * )
      *
      */
-    public function getStoreProductsByProfileId($storeOwnerProfileId)
+    public function getStoreProductsByProfileId(Request $request, $storeOwnerProfileId)
     {
-        $result = $this->productService->getStoreProductsByProfileId($storeOwnerProfileId);
+        $result = $this->productService->getStoreProductsByProfileId($request->getPreferredLanguage(), $storeOwnerProfileId);
 
         return $this->response($result, self::FETCH);
     }

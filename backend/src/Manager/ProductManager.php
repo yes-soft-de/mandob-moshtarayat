@@ -112,6 +112,11 @@ class ProductManager
         return $this->productEntityRepository->getStoreProductsByProfileId($storeOwnerProfileId);
     }
 
+    public function getStoreProductsTranslationByProfileId($storeOwnerProfileId)
+    {
+        return $this->productEntityRepository->getStoreProductsTranslationByProfileId($storeOwnerProfileId);
+    }
+
     public function getStoreProducts($storeOwnerProfileId)
     {
         return $this->productEntityRepository->getStoreProducts($storeOwnerProfileId);

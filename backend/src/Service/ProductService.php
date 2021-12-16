@@ -294,13 +294,22 @@ class ProductService
         return $response;
     }
 
-    public function getStoreProductsByProfileId($storeOwnerProfileId): ?array
+    public function getStoreProductsByProfileId($userLocale, $storeOwnerProfileId): ?array
     {
         $response = [];
 
-        $items = $this->productManager->getStoreProductsByProfileId($storeOwnerProfileId);
+        if($userLocale != null && $userLocale != $this->primaryLanguage)
+        {
+            $productsTranslation = $this->productManager->getStoreProductsTranslationByProfileId($storeOwnerProfileId);
 
-        foreach ($items as $item) {
+            $products = $this->replaceProductTranslatedNameByPrimaryOne($productsTranslation, $userLocale);
+        }
+        else
+        {
+            $products = $this->productManager->getStoreProductsByProfileId($storeOwnerProfileId);
+        }
+
+        foreach ($products as $item) {
             $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
             $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
             $item['soldCount'] = $this->getProductsSoldCount($item['id']);
