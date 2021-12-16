@@ -3,10 +3,12 @@ import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/global_nav_key.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_store_category_request.dart';
-import 'package:mandob_moshtarayat_dashboad/module_categories/request/store_categories_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/request/filter_category_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_store_categories_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/state_manager/store_categories_state_manager.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/state/store_categories/store_categories_loading_state.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/state/store_categories/store_categories_state.dart';
+import 'package:mandob_moshtarayat_dashboad/module_localization/service/localization_service/localization_service.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/floated_button.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/effect/hidder.dart';
@@ -15,8 +17,9 @@ import 'package:mandob_moshtarayat_dashboad/utils/helpers/form_dialog.dart';
 @injectable
 class StoreCategoriesScreen extends StatefulWidget {
   final StoreCategoriesStateManager _stateManager;
+  final LocalizationService _localizationService;
 
-  StoreCategoriesScreen(this._stateManager);
+  StoreCategoriesScreen(this._stateManager,this._localizationService);
 
   @override
   StoreCategoriesScreenState createState() => StoreCategoriesScreenState();
@@ -25,10 +28,11 @@ class StoreCategoriesScreen extends StatefulWidget {
 class StoreCategoriesScreenState extends State<StoreCategoriesScreen> {
   late StoreCategoriesState currentState;
   bool canAddCategories = true;
-  UpdateStoreCategoriesRequest? request;
+  String? languageSelected;
 
   @override
   void initState() {
+    languageSelected = widget._localizationService.getLanguage() ;
     currentState = StoreCategoriesLoadingState(this);
     widget._stateManager.stateStream.listen((event) {
       currentState = event;
@@ -37,9 +41,11 @@ class StoreCategoriesScreenState extends State<StoreCategoriesScreen> {
     widget._stateManager.getStoreCategories(this);
     super.initState();
   }
-
   void getStoreCategories() {
     widget._stateManager.getStoreCategories(this);
+  }
+  void getStoreCategoriesWithLang(String lang) {
+    widget._stateManager.getStoreCategoriesWithLang(this,FilterLanguageCategoryRequest(language: lang));
   }
 
   void addCategory(CreateStoreCategoryRequest request) {

@@ -6,9 +6,11 @@ import 'package:mandob_moshtarayat_dashboad/di/di_config.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/global_nav_key.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/category_level_tow_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/request/filter_category_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/state_manager/products_category_state_manager.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/state/product_category/product_categories_loaded_state.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/widget/add_categories_level_tow.dart';
+import 'package:mandob_moshtarayat_dashboad/module_localization/service/localization_service/localization_service.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/floated_button.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/effect/hidder.dart';
@@ -17,8 +19,9 @@ import 'package:mandob_moshtarayat_dashboad/utils/global/global_state_manager.da
 @injectable
 class LevelTowCategoriesScreen extends StatefulWidget {
   final ProductsCategoryStateManager stateManager;
+  final LocalizationService _localizationService;
 
-  LevelTowCategoriesScreen(this.stateManager);
+  LevelTowCategoriesScreen(this.stateManager, this._localizationService);
 
   @override
   LevelTowCategoriesScreenState createState() => LevelTowCategoriesScreenState();
@@ -29,8 +32,13 @@ class LevelTowCategoriesScreenState extends State<LevelTowCategoriesScreen> {
   bool canAddCategories = true;
   String? mainCatId;
   String? subCatId;
+
+  String? languageSelected;
+
   @override
   void initState() {
+    languageSelected = widget._localizationService.getLanguage() ;
+
     currentState = LoadingState(this);
     getStoreCategories();
     widget.stateManager.stateStream.listen((event) {
@@ -56,7 +64,7 @@ class LevelTowCategoriesScreenState extends State<LevelTowCategoriesScreen> {
   }
 
   void getSubCategoriesLevelTow(categories,subCategories) {
-    widget.stateManager.getCategoriesLevelTow(this,int.parse(subCatId ?? '0'),categories,subCategories);
+    widget.stateManager.getCategoriesLevelTow(this,FilterLanguageAndProductCategoryRequest(storeCategoryID: int.parse(subCatId ?? '0'),language: languageSelected) ,categories,subCategories);
   }
 
   void addCategory(CategoryLevelTowRequest request) {

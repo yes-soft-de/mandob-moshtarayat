@@ -11,7 +11,8 @@ import 'package:mandob_moshtarayat_dashboad/module_categories/request/category_l
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_product_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_products_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_store_category_request.dart';
-import 'package:mandob_moshtarayat_dashboad/module_categories/request/store_categories_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/request/filter_category_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_store_categories_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/sub_categories_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_product_category_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_product_request.dart';
@@ -42,9 +43,22 @@ class CategoriesService {
     if (_ordersResponse.data == null) return DataModel.empty();
     return StoreCategoriesModel.withData(_ordersResponse.data!);
   }
-  Future<DataModel> getSubCategories(int id) async {
+  Future<DataModel> getStoreCategoriesWithLang(FilterLanguageCategoryRequest request) async {
+    StoreCategoriesResponse? _ordersResponse =
+    await _categoriesManager.getStoreCategoriesWithLang(request);
+    if (_ordersResponse == null) {
+      return DataModel.withError(S.current.networkError);
+    }
+    if (_ordersResponse.statusCode != '200') {
+      return DataModel.withError(
+          StatusCodeHelper.getStatusCodeMessages(_ordersResponse.statusCode));
+    }
+    if (_ordersResponse.data == null) return DataModel.empty();
+    return StoreCategoriesModel.withData(_ordersResponse.data!);
+  }
+  Future<DataModel> getSubCategories(FilterLanguageAndCategoryRequest request) async {
     SubCategoriesResponse? _ordersResponse =
-    await _categoriesManager.getSubCategories(id);
+    await _categoriesManager.getSubCategories(request);
     if (_ordersResponse == null) {
       return DataModel.withError(S.current.networkError);
     }
@@ -55,7 +69,7 @@ class CategoriesService {
     if (_ordersResponse.data == null) return DataModel.empty();
     return SubCategoriesModel.withData(_ordersResponse.data!);
   }
-  Future<DataModel> getSubcategoriesLevelTow(int id) async {
+  Future<DataModel> getSubcategoriesLevelTow(FilterLanguageAndProductCategoryRequest id) async {
     SubCategoriesResponse? _ordersResponse =
     await _categoriesManager.getSubcategoriesLevelTow(id);
     if (_ordersResponse == null) {

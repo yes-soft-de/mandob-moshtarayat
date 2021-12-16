@@ -51,9 +51,9 @@ class Urls {
       BASE_API + '/storeproductcategorylevelone';
   static const GET_PRODUCTS_CATEGORY = BASE_API + '/storeProductsCategory/';
   static const GET_SUBCATEGORIES_LEVEL_ONE =
-      BASE_API + '/storeproductscategorylevelonefroadmin/';
+      BASE_API + '/storeproductscategorylevelonefroadmin';
   static const GET_SUBCATEGORIES_LEVEL_TOW =
-      BASE_API + '/storeproductscategoryleveltwoforadmin/';
+      BASE_API + '/storeproductscategoryleveltwoforadmin';
   static const GET_PRODUCTS = BASE_API + '/productsStoreByProfileId/';
   static const CREATE_PRODUCTS_CATEGORY = BASE_API + '/StoreProductCategory';
   static const CREATE_SUBCATEGORIES_LEVEL_TOW =

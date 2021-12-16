@@ -5,7 +5,8 @@ import 'package:mandob_moshtarayat_dashboad/module_categories/request/category_l
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_product_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_products_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_store_category_request.dart';
-import 'package:mandob_moshtarayat_dashboad/module_categories/request/store_categories_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/request/filter_category_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_store_categories_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/sub_categories_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_product_category_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_product_request.dart';
@@ -24,11 +25,12 @@ class CategoriesManager {
 
   Future<StoreCategoriesResponse?> getStoreCategories() =>
       _categoriesRepository.getStoreCategories();
+  Future<StoreCategoriesResponse?> getStoreCategoriesWithLang(FilterLanguageCategoryRequest request) =>
+      _categoriesRepository.getStoreCategoriesWithLang(request);
+  Future<SubCategoriesResponse?> getSubCategories(FilterLanguageAndCategoryRequest request) =>
+      _categoriesRepository.getSubcategoriesLevelOne(request);
 
-  Future<SubCategoriesResponse?> getSubCategories(int id) =>
-      _categoriesRepository.getSubcategoriesLevelOne(id);
-
-  Future<SubCategoriesResponse?> getSubcategoriesLevelTow(int id) =>
+  Future<SubCategoriesResponse?> getSubcategoriesLevelTow(FilterLanguageAndProductCategoryRequest id) =>
       _categoriesRepository.getSubcategoriesLevelTow(id);
 
   Future<ActionResponse?> createCategory(CreateStoreCategoryRequest request) =>

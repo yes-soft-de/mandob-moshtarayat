@@ -36,6 +36,10 @@ class ApiClient {
           _logger.info(tag, 'Adding Auth Header');
           client.options.headers['Authorization'] = headers['Authorization'];
         }
+        if (headers['Accept-Language'] != null) {
+          _logger.info(tag, 'LANG');
+          client.options.headers['Accept-Language'] = headers['Accept-Language'];
+        }
       }
       //  client.options.headers['Access-Control-Allow-Origin'] = '*';
       var response = await client.get(

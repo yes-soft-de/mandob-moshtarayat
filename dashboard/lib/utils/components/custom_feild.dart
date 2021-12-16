@@ -164,6 +164,7 @@ class _CustomFormFieldWithTranslateState
     extends State<CustomFormFieldWithTranslate> {
   AutovalidateMode mode = AutovalidateMode.disabled;
   bool clean = true;
+ late bool enabled;
   var lan;
   @override
   Widget build(BuildContext context) {
@@ -244,6 +245,7 @@ class _CustomFormFieldWithTranslateState
               ),
               PopupMenuButton<String>(
                 initialValue: widget.initLanguage,
+                enabled: enabled,
                 onSelected: (c) {
                   if (widget.onSelected != null) {
                     widget.onSelected!(c);
@@ -251,7 +253,10 @@ class _CustomFormFieldWithTranslateState
                   setState(() {lan = c;});
                 },
                 child: Row(
-                  children: <Widget>[Text(lan), Icon(Icons.arrow_drop_down)],
+                  children: <Widget>[
+                    Text(lan),
+                  enabled?  Icon(Icons.arrow_drop_down):Container(),
+                  ],
                 ),
                 itemBuilder: (context) => widget.languages
                     .map((c) => PopupMenuItem(value: c, child: Text(c)))
@@ -268,6 +273,7 @@ class _CustomFormFieldWithTranslateState
   void initState() {
     super.initState();
      lan = widget.languages.first;
+    enabled =widget.languages.length==1?false :true;
   }
 
 }

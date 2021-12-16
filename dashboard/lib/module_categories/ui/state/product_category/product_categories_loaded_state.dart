@@ -277,7 +277,47 @@ class ProductCategoriesLoadedState extends States {
         ),
       ));
     }
-
+    if (subCategoriesLevelTow != null) {
+      widgets.insert(
+          0,
+          ListTile(
+            trailing: DropdownButton(
+                value: screenState.languageSelected,
+                underline: Container(),
+                icon: Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Icon(Icons.arrow_drop_down_rounded,),
+                ),
+                items: [
+                  DropdownMenuItem(
+                    child: Text(
+                      'العربية',
+                      style: TextStyle(),
+                    ),
+                    value: 'ar',
+                  ),
+                  DropdownMenuItem(
+                    child: Text(
+                      'English',
+                      style: TextStyle(),
+                    ),
+                    value: 'en',
+                  ),
+                  DropdownMenuItem(
+                    child: Text(
+                      'Urdu',
+                      style: TextStyle(),
+                    ),
+                    value: 'urdu',
+                  ),
+                ],
+                onChanged: (newLang) {
+                  screenState.languageSelected = newLang.toString();
+                  screenState.refresh();
+                  screenState.getSubCategoriesLevelTow( categories, subCategories);
+                }),
+          ));
+    }
     widgets.add(SizedBox(height: 75));
     return widgets;
   }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_store_category_request.dart';
-import 'package:mandob_moshtarayat_dashboad/module_categories/request/store_categories_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_store_categories_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_product_category_request.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_feild.dart';
@@ -56,6 +56,7 @@ class _InsertFormState extends State<InsertForm> {
   late TextEditingController _nameArController;
   late String lang;
   String? imagePath;
+  late bool isUpdate;
 
  late List<TranslateStoreCategory> translate;
  late List<CustomFormFieldWithTranslate> translateWidgets;
@@ -68,14 +69,17 @@ class _InsertFormState extends State<InsertForm> {
     _nameArController = TextEditingController();
     translateWidgets = [];
     translate=[];
-//    if (widget.storeCategoriesRequest != null) {
-//      _nameArController.text =
-//          widget.storeCategoriesRequest?.storeCategoryName ?? '';
-//      imagePath = widget.storeCategoriesRequest?.image;
-//      if (imagePath == '') {
-//        imagePath = null;
-//      }
-//    }
+    isUpdate = false;
+    if (widget.storeCategoriesRequest != null) {
+      isUpdate= true;
+      lang = widget.storeCategoriesRequest?.dataStoreCategory?.lang??'';
+      _nameArController.text =
+          widget.storeCategoriesRequest?.dataStoreCategory?.storeCategoryName ?? '';
+      imagePath = widget.storeCategoriesRequest?.dataStoreCategory?.image;
+      if (imagePath == '') {
+        imagePath = null;
+      }
+    }
     super.initState();
   }
 
@@ -103,11 +107,11 @@ class _InsertFormState extends State<InsertForm> {
                         controller: _nameArController,
                         hintText: widget.hintText,
                         last: true,
-                        initLanguage: 'ar',
-                        languages: ['ar'],
+                        initLanguage:isUpdate ?lang :  'ar',
+                        languages:isUpdate? [lang] :['ar'],
                       ),
                     ),
-                    InkWell(
+                 isUpdate? Container():  InkWell(
                         onTap: (){
                           if(_nameArController.text.isEmpty){
                             CustomFlushBarHelper.createError(
@@ -191,7 +195,7 @@ class _InsertFormState extends State<InsertForm> {
           if (_key.currentState!.validate()) {
             if (imagePath?.contains('http') == true &&
                 widget.storeCategoriesRequest != null) {
-              imagePath = widget.storeCategoriesRequest?.baseImage ?? '';
+              imagePath = widget.storeCategoriesRequest?.dataStoreCategory?.baseImage ?? '';
             }
             widget.add(_nameArController.text.trim(), imagePath,translate);
           } else {
