@@ -6,7 +6,11 @@ abstract class ResponseConstant
 {
     static $CAPTAIN_INACTIVE = "captain inactive";
 
+    static $STORE_INACTIVE = "store inactive";
+
     static $CAPTAIN_ACTIVE = "active";
+
+    static $INACTIVE = "inactive";
 
     static $ORDER_NOT_CREATED = "Not created";
 

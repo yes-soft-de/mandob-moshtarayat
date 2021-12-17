@@ -211,7 +211,7 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
- public function getStorePendingOrders($storeOwnerProfileId)
+    public function getStorePendingOrders($storeOwnerProfileId)
     {
         return $this->createQueryBuilder('orderDetailEntity')
 
@@ -225,6 +225,28 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
             ->andWhere('orderDetailEntity.storeOwnerProfileID = :storeOwnerProfileId ')
 
             ->setParameter('pending', OrderStateConstant::$ORDER_STATE_PENDING)
+            ->setParameter('storeOwnerProfileId', $storeOwnerProfileId)
+
+            ->addGroupBy('OrderEntity.id')
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getStoreOrdersOngoingForStoreOwner($storeOwnerProfileId)
+    {
+        return $this->createQueryBuilder('orderDetailEntity')
+
+
+            ->select('OrderEntity.id', 'OrderEntity.deliveryDate', 'OrderEntity.createdAt', 'OrderEntity.source', 'OrderEntity.payment', 'OrderEntity.detail', 'OrderEntity.deliveryCost', 'OrderEntity.orderCost', 'OrderEntity.orderType', 'OrderEntity.destination', 'OrderEntity.note')
+            ->addSelect('orderDetailEntity.id as orderDetailId', 'orderDetailEntity.orderNumber')
+
+            ->leftJoin(OrderEntity::class, 'OrderEntity', Join::WITH, 'orderDetailEntity.orderID = OrderEntity.id')
+
+            ->andWhere('orderDetailEntity.state = :state ')
+            ->andWhere('orderDetailEntity.storeOwnerProfileID = :storeOwnerProfileId ')
+
+            ->setParameter('state', OrderStateConstant::$ORDER_STATE_ONGOING)
             ->setParameter('storeOwnerProfileId', $storeOwnerProfileId)
 
             ->addGroupBy('OrderEntity.id')
