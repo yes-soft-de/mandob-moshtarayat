@@ -185,6 +185,16 @@ class OrderDetailService
         return $this->orderDetailManager->getOrderIds($storeOwnerProfileId);
     }
 
+    public function getStorePendingOrders($storeOwnerProfileId)
+    {
+        return $this->orderDetailManager->getStorePendingOrders($storeOwnerProfileId);
+    }
+
+    public function getStoreOrdersOngoingForStoreOwner($storeOwnerProfileId)
+    {
+        return $this->orderDetailManager->getStoreOrdersOngoingForStoreOwner($storeOwnerProfileId);
+    }
+
     public function getImageParams($imageURL, $image, $baseURL): array
     {
         if($imageURL) {

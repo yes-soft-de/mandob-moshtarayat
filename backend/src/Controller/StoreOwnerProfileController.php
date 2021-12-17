@@ -783,7 +783,7 @@ class StoreOwnerProfileController extends BaseController
 
     /**
      * store: my financial account in specific date .
-     * @Route("/storefinancialaccountforstoreinspecificdate/{fromDate}/{toDate}", name="storeFinancialAccountForStoreInSpecificDate",methods={"GET"})
+         * @Route("/storefinancialaccountforstoreinspecificdate/{fromDate}/{toDate}", name="storeFinancialAccountForStoreInSpecificDate",methods={"GET"})
      * @IsGranted("ROLE_OWNER")
      * @return JsonResponse
      * *

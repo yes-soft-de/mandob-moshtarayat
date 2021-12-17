@@ -37,4 +37,8 @@ class ProductsTopWantedResponse
     public $soldCount;
 
     public $productPrice;
+
+    public $productPriceWithOutCommission;
+
+
 }

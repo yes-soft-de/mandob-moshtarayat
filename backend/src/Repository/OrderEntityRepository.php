@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Constant\OrderStateConstant;
 use App\Entity\OrderEntity;
 use App\Entity\CaptainProfileEntity;
+use App\Entity\OrdersInvoicesEntity;
 use App\Entity\StoreOwnerProfileEntity;
 use App\Entity\ClientProfileEntity;
 use App\Entity\OrderDetailEntity;
@@ -973,16 +974,18 @@ class OrderEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('OrderEntity')
 
-            ->select('sum(OrderEntity.invoiceAmount) as SumInvoices')
+            ->select('sum(ordersInvoicesEntity.invoiceAmount) as SumInvoices')
 
-            ->andWhere("OrderEntity.storeOwnerProfileID = :storeOwnerProfileId ")
+            ->leftJoin(OrderDetailEntity::class, 'orderDetailEntity', Join::WITH, 'orderDetailEntity.orderID = OrderEntity.id')
+            ->leftJoin(OrdersInvoicesEntity::class, 'ordersInvoicesEntity', Join::WITH, 'orderDetailEntity.orderInvoiceId = ordersInvoicesEntity.id')
+
+            ->andWhere("orderDetailEntity.storeOwnerProfileID = :storeOwnerProfileId ")
             ->andWhere("OrderEntity.state != :cancelled")
             ->andWhere("OrderEntity.isBillCalculated = :isBillCalculated")
 
             ->setParameter('storeOwnerProfileId', $storeOwnerProfileId)
-            ->setParameter('cancelled', self::CANCEL)
+            ->setParameter('cancelled', OrderStateConstant::$ORDER_STATE_CANCEL)
             ->setParameter('isBillCalculated', 1)
-
             ->getQuery()
             ->getSingleScalarResult();
     }
@@ -991,42 +994,24 @@ class OrderEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('OrderEntity')
 
-            ->select('sum(OrderEntity.invoiceAmount) as SumInvoices')
+            ->select('sum(ordersInvoicesEntity.invoiceAmount) as SumInvoices')
+
+            ->leftJoin(OrderDetailEntity::class, 'orderDetailEntity', Join::WITH, 'orderDetailEntity.orderID = OrderEntity.id')
+            ->leftJoin(OrdersInvoicesEntity::class, 'ordersInvoicesEntity', Join::WITH, 'orderDetailEntity.orderInvoiceId = ordersInvoicesEntity.id')
 
             ->where('OrderEntity.createdAt >= :fromDate')
             ->andWhere('OrderEntity.createdAt < :toDate')
-            ->andWhere("OrderEntity.storeOwnerProfileID = :storeOwnerProfileId ")
+            ->andWhere("orderDetailEntity.storeOwnerProfileID = :storeOwnerProfileId ")
             ->andWhere("OrderEntity.state != :cancelled")
             ->andWhere("OrderEntity.isBillCalculated = :isBillCalculated")
 
             ->setParameter('storeOwnerProfileId', $storeOwnerProfileId)
-            ->setParameter('cancelled', self::CANCEL)
+            ->setParameter('cancelled', OrderStateConstant::$ORDER_STATE_CANCEL)
             ->setParameter('isBillCalculated', 1)
             ->setParameter('fromDate', $fromDate)
             ->setParameter('toDate', $toDate)
 
             ->getQuery()
             ->getSingleScalarResult();
-    }
-
-    public function getStorePendingOrders($storeOwnerProfileID)
-    {
-        return $this->createQueryBuilder('OrderEntity')
-
-            ->select('OrderEntity.id', 'OrderEntity.deliveryDate', 'OrderEntity.createdAt', 'OrderEntity.storeOwnerProfileID', 'OrderEntity.source', 'OrderEntity.payment', 'OrderEntity.detail', 'OrderEntity.deliveryCost', 'OrderEntity.orderCost', 'OrderEntity.orderType', 'OrderEntity.destination', 'OrderEntity.note', 'OrderEntity.invoiceAmount')
-            ->addSelect('orderDetailEntity.id as orderDetailId', 'orderDetailEntity.orderNumber')
-
-            ->leftJoin(OrderDetailEntity::class, 'orderDetailEntity', Join::WITH, 'orderDetailEntity.orderID = OrderEntity.id')
-
-            ->andWhere('OrderEntity.state = :pending ')
-            ->andWhere('OrderEntity.storeOwnerProfileID = :storeOwnerProfileID ')
-
-            ->setParameter('pending', self::PENDING)
-            ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
-
-            ->addGroupBy('OrderEntity.id')
-
-            ->getQuery()
-            ->getResult();
     }
 }

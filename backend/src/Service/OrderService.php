@@ -789,12 +789,12 @@ class OrderService
         $item = $this->userService->getStoreProfileId($userID);
 
         $store = $this->storeOwnerProfileService->storeIsActive($userID);
-        if ($store->getStatus() == 'inactive') {
-            $response = "store inactive";
+        if ($store->getStatus() == ResponseConstant::$INACTIVE) {
+            $response = ResponseConstant::$STORE_INACTIVE;
         }
 
         if ($store->getStatus() == 'active') {
-            $orders = $this->orderManager->getStoreOrdersOngoingForStoreOwner($item['id']);
+            $orders = $this->orderDetailService->getStoreOrdersOngoingForStoreOwner($item['id']);
 
             foreach ($orders as $order) {
                 $response[] = $this->autoMapping->map('array', StoreOrdersOngoingResponse::class, $order);
@@ -890,7 +890,7 @@ class OrderService
 
         $storeOwnerProfileID = $this->userService->getStoreProfileId($userId);
 
-        $orders = $this->orderManager->getStorePendingOrders($storeOwnerProfileID);
+        $orders = $this->orderDetailService->getStorePendingOrders($storeOwnerProfileID);
 
         foreach ($orders as $order) {
             $response[] = $this->autoMapping->map('array', OrdersPendingForStoreResponse::class, $order);

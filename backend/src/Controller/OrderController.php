@@ -87,6 +87,7 @@ class OrderController extends BaseController
      *          @OA\Property(type="string", property="Data", description="captain inactive"),
      *      )
      * )
+     *
      * @Security(name="Bearer")
      */
     public function closestOrders(): JsonResponse
@@ -1818,13 +1819,23 @@ class OrderController extends BaseController
      *          )
      *      )
      * )
+     * or
      *
+     * @OA\Response(
+     *      response="default",
+     *      description="Return store inactive.",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code", description="9151"),
+     *          @OA\Property(type="string", property="msg", description="error store inactive Successfully."),
+     *          @OA\Property(type="string", property="Data", description="store inactive"),
+     *      )
+     * )
      * @Security(name="Bearer")
      */
-    public function getStoreOrdersOngoingForStoreOwner()
+    public function getStoreOrdersOngoingForStoreOwner(): JsonResponse
     {
         $result = $this->orderService->getStoreOrdersOngoingForStoreOwner($this->getUserId());
-        if(is_string($result)){
+        if($result == ResponseConstant::$STORE_INACTIVE){
             return $this->response($result, self::ERROR_STORE_INACTIVE);
         }
 
