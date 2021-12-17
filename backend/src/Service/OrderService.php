@@ -890,7 +890,7 @@ class OrderService
 
         $storeOwnerProfileID = $this->userService->getStoreProfileId($userId);
 
-        $orders = $this->orderManager->getStorePendingOrders($storeOwnerProfileID);
+        $orders = $this->orderDetailService->getStorePendingOrders($storeOwnerProfileID);
 
         foreach ($orders as $order) {
             $response[] = $this->autoMapping->map('array', OrdersPendingForStoreResponse::class, $order);

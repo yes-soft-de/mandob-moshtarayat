@@ -149,6 +149,11 @@ class OrderDetailManager
         return $this->orderDetailEntityRepository->getOrderIds($storeOwnerProfileId);
     }
 
+    public function getStorePendingOrders($storeOwnerProfileId)
+    {
+        return $this->orderDetailEntityRepository->getStorePendingOrders($storeOwnerProfileId);
+    }
+
     public function orderUpdateStateForEachStore(OrderUpdateStateForEachStoreByCaptainRequest $request)
     {
         $item = $this->orderDetailEntityRepository->find($request->getId());

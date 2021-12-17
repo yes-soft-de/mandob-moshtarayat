@@ -1008,25 +1008,4 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleScalarResult();
     }
-
-    public function getStorePendingOrders($storeOwnerProfileID)
-    {
-        return $this->createQueryBuilder('OrderEntity')
-
-            ->select('OrderEntity.id', 'OrderEntity.deliveryDate', 'OrderEntity.createdAt', 'OrderEntity.storeOwnerProfileID', 'OrderEntity.source', 'OrderEntity.payment', 'OrderEntity.detail', 'OrderEntity.deliveryCost', 'OrderEntity.orderCost', 'OrderEntity.orderType', 'OrderEntity.destination', 'OrderEntity.note', 'OrderEntity.invoiceAmount')
-            ->addSelect('orderDetailEntity.id as orderDetailId', 'orderDetailEntity.orderNumber')
-
-            ->leftJoin(OrderDetailEntity::class, 'orderDetailEntity', Join::WITH, 'orderDetailEntity.orderID = OrderEntity.id')
-
-            ->andWhere('OrderEntity.state = :pending ')
-            ->andWhere('OrderEntity.storeOwnerProfileID = :storeOwnerProfileID ')
-
-            ->setParameter('pending', self::PENDING)
-            ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
-
-            ->addGroupBy('OrderEntity.id')
-
-            ->getQuery()
-            ->getResult();
-    }
 }
