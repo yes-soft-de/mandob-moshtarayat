@@ -166,6 +166,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "clients": MessageLookupByLibrary.simpleMessage("العملاء"),
         "clientsReport": MessageLookupByLibrary.simpleMessage("تقارير العملاء"),
         "closingTime": MessageLookupByLibrary.simpleMessage("وقت الإغلاق"),
+        "commission":
+            MessageLookupByLibrary.simpleMessage("العمولة الخاصة بالمتجر"),
         "community":
             MessageLookupByLibrary.simpleMessage("مواقع التواصل الاجتماعي"),
         "company": MessageLookupByLibrary.simpleMessage("الشركة"),

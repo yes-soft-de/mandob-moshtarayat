@@ -393,7 +393,7 @@ class _AddStoreWidgetState extends State<AddStoreWidget> {
 }
 
 class UpdateStoreWidget extends StatefulWidget {
-  final Function(String, String, String?, bool, bool, String?, String?, String)
+  final Function(String, String, String?, bool, bool, String?, String?, String,String)
       updateStore;
   final UpdateStoreRequest? request;
   final List<DropdownMenuItem<String>>? categories;
@@ -409,6 +409,8 @@ class _UpdateStoreWidgetState extends State<UpdateStoreWidget> {
   late TextEditingController _nameController;
   late TextEditingController _phoneController;
   late TextEditingController _deliveryController;
+  late TextEditingController _commissionController;
+
   LatLng? storeLocation;
   String? imagePath;
   bool privateOrder = false;
@@ -421,7 +423,6 @@ class _UpdateStoreWidgetState extends State<UpdateStoreWidget> {
   var date = DateTime.now();
   @override
   Widget build(BuildContext context) {
-
     return StackedForm(
         child: Form(
           key: _key,
@@ -464,7 +465,7 @@ class _UpdateStoreWidgetState extends State<UpdateStoreWidget> {
                           ),
                         ),
                       ),
-                      //
+                      //store name
                       Padding(
                         padding: const EdgeInsets.only(
                             left: 12.0, bottom: 8, right: 12, top: 16.0),
@@ -478,6 +479,7 @@ class _UpdateStoreWidgetState extends State<UpdateStoreWidget> {
                         controller: _nameController,
                         hintText: S.current.storeName,
                       ),
+                      // Location
                       Hider(
                         active: false,
                         child: Padding(
@@ -537,6 +539,7 @@ class _UpdateStoreWidgetState extends State<UpdateStoreWidget> {
                       SizedBox(
                         height: 16,
                       ),
+                      // store image
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Center(
@@ -703,6 +706,30 @@ class _UpdateStoreWidgetState extends State<UpdateStoreWidget> {
                               setState(() {});
                             }),
                       ),
+                      // store commission
+                      Padding(
+                        padding: const EdgeInsets.only(left:16.0,right: 16.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                S.current.commission,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 75,
+                              child: CustomFormField(
+                                controller: _commissionController,
+                                hintText: '1 - 100',
+                                numbers: true,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
                       SizedBox(
                         height: 100,
                       ),
@@ -734,7 +761,9 @@ class _UpdateStoreWidgetState extends State<UpdateStoreWidget> {
                         closingTime!.minute)
                     .toUtc()
                     .toIso8601String(),
-                status);
+                status,
+                _commissionController.text
+                );
           } else {
             CustomFlushBarHelper.createError(
                     title: S.current.warnning,
@@ -749,9 +778,12 @@ class _UpdateStoreWidgetState extends State<UpdateStoreWidget> {
     _nameController = TextEditingController();
     _deliveryController = TextEditingController();
     _phoneController = TextEditingController();
+    _commissionController = TextEditingController();
+
     if (widget.request != null) {
       _nameController.text = widget.request?.storeOwnerName ?? '';
       imagePath = widget.request?.image ?? null;
+      _commissionController.text = widget.request?.commission?.toString() ?? '';
       if (imagePath == '' || imagePath?.contains('/original-image/') == false) {
         imagePath = null;
       }

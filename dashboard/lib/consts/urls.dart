@@ -42,7 +42,7 @@ class Urls {
   static const CREATE_STORE_CATEGORIES = BASE_API + '/createstorecategory';
   static const GET_STORES_BY_CATEGORY =
       BASE_API + '/storeownerbycategoryidforadmin';
-  static const GET_STORES = BASE_API + '/storeOwners';
+  static const GET_STORES = BASE_API + '/storeowners';
   static const GET_STORES_INACTIVE = BASE_API + '/storesinactive';
   static const GET_STORES_INACTIVE_FILTER = BASE_API + '/storesinactivefilter/';
   static const GET_STORE_PROFILE = BASE_API + '/storeownerprofilebyid/';
