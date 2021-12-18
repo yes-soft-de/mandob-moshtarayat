@@ -15,6 +15,8 @@ use App\Request\StoreProductCategoryTranslationCreateRequest;
 use App\Request\StoreProductCategoryTranslationUpdateRequest;
 use App\Request\StoreProductCategoryWithTranslationCreateRequest;
 use App\Request\StoreProductCategoryWithTranslationUpdateRequest;
+use App\Response\ProductsByProductCategoryIdAndStoreOwnerProfileIdForDashboardResponse;
+use App\Response\ProductsByProductCategoryIdAndStoreOwnerProfileIdResponse;
 use App\Response\ProductsByProductCategoryIdForStoreResponse;
 use App\Response\ProductsByProductCategoryIdResponse;
 use App\Response\StoreProductCategoryByIdResponse;
@@ -483,25 +485,25 @@ class StoreProductCategoryService
         $response = [];
 
         // First, get the direct products of the store product category level one
-        $products = $this->productService->getProductsByCategoryIdAndStoreOwnerProfileId($userLocale, $storeProductCategoryID, $storeOwnerProfileID);
+        $products = $this->productService->getProductsByCategoryIdAndStoreOwnerProfileIdForAdmin($userLocale, $storeProductCategoryID, $storeOwnerProfileID);
 
         foreach($products as $product)
         {
-            $response[] = $this->autoMapping->map(ProductsByProductCategoryIdResponse::class, ProductsByProductCategoryIdForStoreResponse::class, $product);
+            $response[] = $this->autoMapping->map(ProductsByProductCategoryIdAndStoreOwnerProfileIdResponse::class, ProductsByProductCategoryIdAndStoreOwnerProfileIdForDashboardResponse::class, $product);
         }
 
         //Then, get the products of the store product category level two of the store product category level one
-        $items = $this->storeProductCategoryManager->getStoreProductsCategoryLevelTwoByStoreProductCategoryID($storeProductCategoryID);
+        $items = $this->storeProductCategoryManager->getStoreProductsCategoryLevelTwoByStoreProductCategoryIdForAdmin($storeProductCategoryID);
 
         foreach($items as $item)
         {
-            $item['products'] = $this->productService->getProductsByCategoryIdAndStoreOwnerProfileId($userLocale, $item['id'], $storeOwnerProfileID);
+            $item['products'] = $this->productService->getProductsByCategoryIdAndStoreOwnerProfileIdForAdmin($userLocale, $item['id'], $storeOwnerProfileID);
 
             if($item['products'])
             {
                 foreach($item['products'] as $product)
                 {
-                    $response[] = $this->autoMapping->map(ProductsByProductCategoryIdResponse::class, ProductsByProductCategoryIdForStoreResponse::class, $product);
+                    $response[] = $this->autoMapping->map(ProductsByProductCategoryIdAndStoreOwnerProfileIdResponse::class, ProductsByProductCategoryIdAndStoreOwnerProfileIdForDashboardResponse::class, $product);
                 }
             }
         }

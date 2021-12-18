@@ -68,9 +68,19 @@ class ProductManager
         return $this->productEntityRepository->getProductsByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId);
     }
 
+    public function getProductsByCategoryIdAndStoreOwnerProfileIdForAdmin($storeProductCategoryID, $storeOwnerProfileId)
+    {
+        return $this->productEntityRepository->getProductsByCategoryIdAndStoreOwnerProfileIdForAdmin($storeProductCategoryID, $storeOwnerProfileId);
+    }
+
     public function getProductsTranslationByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId)
     {
         return $this->productEntityRepository->getProductsTranslationByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId);
+    }
+
+    public function getProductsTranslationByCategoryIdAndStoreOwnerProfileIdForAdmin($storeProductCategoryID, $storeOwnerProfileId)
+    {
+        return $this->productEntityRepository->getProductsTranslationByCategoryIdAndStoreOwnerProfileIdForAdmin($storeProductCategoryID, $storeOwnerProfileId);
     }
 
     public function getProducts()

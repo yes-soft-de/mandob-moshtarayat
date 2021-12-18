@@ -847,6 +847,8 @@ class StoreProductCategoryController extends BaseController
      *                  @OA\Property(type="string", property="rate"),
      *                  @OA\Property(type="string", property="soldCount"),
      *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="number", property="commission"),
+     *                  @OA\Property(type="boolean", property="isCommission")
      *              )
      *          )
      *      )
