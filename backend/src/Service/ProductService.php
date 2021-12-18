@@ -21,6 +21,7 @@ use App\Response\ProductsResponse;
 use App\Response\ProductFullInfoResponse;
 use App\Response\ProductsByProductCategoryIdResponse;
 use App\Response\ProductsTopWantedResponse;
+use App\Response\ProductUpdateResponse;
 use App\Response\StoreProductCategoriesResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use App\Service\StoreOwnerProfileService;
@@ -434,6 +435,13 @@ class ProductService
         $item = $this->productManager->updateProductByAdmin($request);
 
         return $this->autoMapping->map(ProductEntity::class, ProductCreateResponse::class, $item);
+    }
+
+    public function updateProductCommissionByAdmin($request)
+    {
+        $item = $this->productManager->updateProductCommissionByAdmin($request);
+
+        return $this->autoMapping->map(ProductEntity::class, ProductUpdateResponse::class, $item);
     }
 
     public function countProducts()
