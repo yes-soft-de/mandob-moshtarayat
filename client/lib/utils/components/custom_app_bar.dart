@@ -7,6 +7,7 @@ class CustomTwaslnaAppBar {
       Color? colorIcon,
       Color? buttonBackground,
       Color? background,
+      bool canGoBack = true,
       List<Widget>? actions}) {
     return AppBar(
       backgroundColor: background ?? Theme.of(context).scaffoldBackgroundColor,
@@ -16,7 +17,7 @@ class CustomTwaslnaAppBar {
         title,
         style: TextStyle(color: Theme.of(context).textTheme.bodyText1!.color),
       ),
-      leading: Padding(
+      leading:canGoBack ? Padding(
         padding: const EdgeInsets.all(8.0),
         child: Align(
           alignment: AlignmentDirectional.centerStart,
@@ -38,7 +39,7 @@ class CustomTwaslnaAppBar {
             ),
           ),
         ),
-      ),
+      ) : const SizedBox(),
       elevation: 0,
     );
   }

@@ -43,7 +43,7 @@ class StoreProfile extends StoreModel {
         deliveryCost: element.deliveryCost ?? 0,
         hasProducts: element.hasProducts ?? false,
         privateOrders: element.privateOrders ?? false,
-        image: element.image ?? '',
+        image: element.image?.image ?? '',
         rating: num.parse(element.rating ?? '0'),
         phone: element.phone);
   }

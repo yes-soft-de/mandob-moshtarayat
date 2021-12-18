@@ -1,6 +1,12 @@
 import 'package:injectable/injectable.dart';
+import 'package:mandob_moshtarayat/di/di_config.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
+import 'package:mandob_moshtarayat/module_account/hive/favorite_store_category.dart';
+import 'package:mandob_moshtarayat/module_account/model/user_favorite_model.dart';
+import 'package:mandob_moshtarayat/module_account/request/favorite_categories.dart';
+import 'package:mandob_moshtarayat/module_account/service/account_service.dart';
 import 'package:mandob_moshtarayat/module_auth/service/auth_service/auth_service.dart';
+import 'package:mandob_moshtarayat/module_home/service/home_service.dart';
 import 'package:mandob_moshtarayat/module_localization/service/localization_service/localization_service.dart';
 import 'package:mandob_moshtarayat/module_main/main_routes.dart';
 import 'package:mandob_moshtarayat/module_settings/setting_routes.dart';
@@ -60,6 +66,7 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(const Duration(seconds: 2));
     if (widget._authService.isLoggedIn) {
       try {
+        await updateCategoryFavorite();
         await widget._authService.getToken();
         return MainRoutes.MAIN_SCREEN;
       } catch (e) {
@@ -71,6 +78,26 @@ class _SplashScreenState extends State<SplashScreen> {
         return MainRoutes.MAIN_SCREEN;
       }
       return SettingRoutes.CHOOSE_LANGUAGE;
+    }
+  }
+
+  Future<void> updateCategoryFavorite() async {
+    if (getIt<FavoriteHiveHelper>().getFavoriteCategory() == null) {
+      var fav = await getIt<AccountService>().getFavoriteCategoires();
+      if (fav is UserFavouriteCategoriesModel) {
+        var cats = await getIt<HomeService>().getStoreCategories();
+        if (!cats.isEmpty && !cats.hasError) {
+          for (var element in cats.data) {
+            if (element.id.toString() == fav.data.first.id.toString()) {
+              getIt<FavoriteHiveHelper>().setFavoriteCategoryInfo(
+                  element.storeCategoryName, element.image);
+              await getIt<AccountService>().updatefavCategories(
+                  FavoriteCategoriesRequest(
+                      favouriteCategories: [element.id.toString()]));
+            }
+          }
+        }
+      }
     }
   }
 }
