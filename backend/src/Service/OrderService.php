@@ -810,12 +810,12 @@ class OrderService
 
         $date = $this->dateFactoryService->returnSpecificDate($fromDate, $toDate);
 
-        $item = $this->userService->getStoreProfileId($userID);
+        $storeOwnerProfileID = $this->userService->getStoreProfileId($userID);
 
-        $orders = $this->orderManager->getStoreOrdersInSpecificDate($date[0], $date[1], $item['id']);
+        $orders = $this->orderDetailService->getStoreOrdersInSpecificDate($date[0], $date[1], $storeOwnerProfileID);
 
         foreach ($orders as $order) {
-            $response[] = $this->autoMapping->map('array', StoreOrdersOngoingResponse::class, $order);
+            $response[] = $this->autoMapping->map('array', OrdersPendingForStoreResponse::class, $order);
         }
 
         return $response;
@@ -823,14 +823,14 @@ class OrderService
 
     public function getStoreOrders($userID):?array
     {
-        $response=[];
+        $response = [];
 
-        $storeOwnerProfileID= $this->userService->getStoreProfileId($userID);
+        $storeOwnerProfileID = $this->userService->getStoreProfileId($userID);
 
-        $orders = $this->orderManager->getStoreOrders($storeOwnerProfileID['id']);
+        $orders = $this->orderDetailService->getStoreOrders($storeOwnerProfileID);
 
         foreach ($orders as $order) {
-            $response[] = $this->autoMapping->map('array', StoreOrdersResponse::class, $order);
+            $response[] = $this->autoMapping->map('array', OrdersPendingForStoreResponse::class, $order);
         }
 
         return $response;
@@ -849,27 +849,17 @@ class OrderService
         return $this->autoMapping->map("array", CountReportForStoreOwnerResponse::class, $item);
     }
 
-    public function getOrderDetailsByOrderNumberForStore($orderNumber)
+    public function getOrderDetailsByOrderNumberForStore($orderNumber, $userId)
     {
         $response = [];
 
-        $orderDetails = $this->orderDetailService->getOrderIdByOrderNumber($orderNumber);
-        if($orderDetails) {
-            $order = $this->orderManager->orderStatusByOrderId($orderDetails[0]->orderID);
+        $storeOwnerProfileID = $this->userService->getStoreProfileId($userId);
 
-            $rate = $this->ratingService->getAvgRating($order[0]['storeOwnerProfileID'],'store');
+        $item['orderDetails'] = $this->orderDetailService->getOrderDetailsByOrderNumberForStore($orderNumber, $storeOwnerProfileID);
 
-            $item['orderDetails'] = $orderDetails;
-            $item['invoiceAmount'] = $order[0]['invoiceAmount'];
-            $item['invoiceImage'] = $this->getImageParams($order[0]['invoiceImage'], $this->params . $order[0]['invoiceImage'], $this->params);
-            $item['createdAt'] = $order[0]['createdAt'];
-            $item['detail'] = $order[0]['detail'];
-            $item['orderType'] = $order[0]['orderType'];
-            $item['note'] = $order[0]['note'];
-            $item['state'] = $order[0]['state'];
-            $item['rating'] = $rate;
-
-            $response = $this->autoMapping->map("array", OrderDetailsByOrderNumberForStoreResponse::class, $item);
+        $item['rate'] = $this->ratingService->getAvgOrder($orderNumber);
+        if($item['orderDetails']) {
+            $response = $this->autoMapping->map('array', OrderDetailsByOrderNumberForStoreResponse::class, $item);
         }
 
         return $response;

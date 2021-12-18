@@ -154,6 +154,21 @@ class OrderDetailManager
         return $this->orderDetailEntityRepository->getStorePendingOrders($storeOwnerProfileId);
     }
 
+    public function getStoreOrders($storeOwnerProfileId)
+    {
+        return $this->orderDetailEntityRepository->getStoreOrders($storeOwnerProfileId);
+    }
+
+    public function getStoreOrdersInSpecificDate($fromDate, $toDate, $storeOwnerProfileID)
+    {
+        return $this->orderDetailEntityRepository->getStoreOrdersInSpecificDate($fromDate, $toDate, $storeOwnerProfileID);
+    }
+
+    public function getOrderDetailsByOrderNumberForStore($orderNumber, $storeOwnerProfileID)
+    {
+        return $this->orderDetailEntityRepository->getOrderDetailsByOrderNumberForStore($orderNumber, $storeOwnerProfileID);
+    }
+
     public function getStoreOrdersOngoingForStoreOwner($storeOwnerProfileId)
     {
         return $this->orderDetailEntityRepository->getStoreOrdersOngoingForStoreOwner($storeOwnerProfileId);

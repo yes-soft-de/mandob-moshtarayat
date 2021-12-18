@@ -233,6 +233,80 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getStoreOrders($storeOwnerProfileId)
+    {
+        return $this->createQueryBuilder('orderDetailEntity')
+
+
+            ->select('OrderEntity.id', 'OrderEntity.deliveryDate', 'OrderEntity.createdAt', 'OrderEntity.source', 'OrderEntity.payment', 'OrderEntity.detail', 'OrderEntity.deliveryCost', 'OrderEntity.orderCost', 'OrderEntity.orderType', 'OrderEntity.destination', 'OrderEntity.note')
+            ->addSelect('orderDetailEntity.id as orderDetailId', 'orderDetailEntity.orderNumber')
+
+            ->leftJoin(OrderEntity::class, 'OrderEntity', Join::WITH, 'orderDetailEntity.orderID = OrderEntity.id')
+
+            ->andWhere('orderDetailEntity.state != :state ')
+            ->andWhere('orderDetailEntity.storeOwnerProfileID = :storeOwnerProfileId ')
+
+            ->setParameter('state', OrderStateConstant::$ORDER_STATE_CANCEL)
+            ->setParameter('storeOwnerProfileId', $storeOwnerProfileId)
+
+            ->addGroupBy('OrderEntity.id')
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getStoreOrdersInSpecificDate($fromDate, $toDate, $storeOwnerProfileId)
+    {
+        return $this->createQueryBuilder('orderDetailEntity')
+
+
+            ->select('OrderEntity.id', 'OrderEntity.deliveryDate', 'OrderEntity.createdAt', 'OrderEntity.source', 'OrderEntity.payment', 'OrderEntity.detail', 'OrderEntity.deliveryCost', 'OrderEntity.orderCost', 'OrderEntity.orderType', 'OrderEntity.destination', 'OrderEntity.note')
+            ->addSelect('orderDetailEntity.id as orderDetailId', 'orderDetailEntity.orderNumber')
+
+            ->leftJoin(OrderEntity::class, 'OrderEntity', Join::WITH, 'orderDetailEntity.orderID = OrderEntity.id')
+
+            ->andWhere('OrderEntity.createdAt >= :fromDate')
+            ->andWhere('OrderEntity.createdAt < :toDate')
+            ->andWhere('orderDetailEntity.storeOwnerProfileID = :storeOwnerProfileId ')
+
+            ->setParameter('storeOwnerProfileId', $storeOwnerProfileId)
+            ->setParameter('fromDate', $fromDate)
+            ->setParameter('toDate', $toDate)
+
+            ->addGroupBy('OrderEntity.id')
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getOrderDetailsByOrderNumberForStore($orderNumber, $storeOwnerProfileID)
+    {
+        return $this->createQueryBuilder('OrderDetailEntity')
+
+            ->select( 'OrderDetailEntity.id as orderDetailID', 'OrderDetailEntity.storeOwnerProfileID', 'OrderDetailEntity.orderID')
+            ->addSelect('StoreOwnerProfileEntity.storeOwnerName', 'StoreOwnerProfileEntity.image', 'StoreOwnerProfileEntity.phone', 'StoreOwnerProfileEntity.storeCategoryId')
+            ->addSelect('StoreOwnerBranchEntity.location')
+            ->addSelect('OrdersInvoicesEntity.invoiceAmount', 'OrdersInvoicesEntity.invoiceImage')
+            ->addSelect('OrderEntity.note', 'OrderEntity.createdAt', 'OrderEntity.detail', 'OrderEntity.orderType', 'OrderEntity.deliveryDate')
+
+            ->leftJoin(OrderEntity::class, 'OrderEntity', Join::WITH, 'OrderEntity.id = OrderDetailEntity.orderID')
+            ->leftJoin(StoreOwnerProfileEntity::class, 'StoreOwnerProfileEntity', Join::WITH, 'StoreOwnerProfileEntity.id = OrderDetailEntity.storeOwnerProfileID')
+            ->leftJoin(StoreOwnerBranchEntity::class, 'StoreOwnerBranchEntity', Join::WITH, 'StoreOwnerProfileEntity.id = StoreOwnerBranchEntity.storeOwnerProfileID')
+            ->leftJoin(OrdersInvoicesEntity::class, 'OrdersInvoicesEntity', Join::WITH, 'OrdersInvoicesEntity.id = OrderDetailEntity.orderInvoiceId')
+
+            ->andWhere('OrderDetailEntity.orderNumber = :orderNumber')
+            ->andWhere('OrderDetailEntity.storeOwnerProfileID = :storeOwnerProfileID')
+//            ->andWhere('OrdersInvoicesEntity.orderNumber = :orderNumber')
+
+            ->setParameter('orderNumber', $orderNumber)
+            ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
+
+            ->addGroupBy('OrderDetailEntity.storeOwnerProfileID')
+
+            ->getQuery()
+            ->getResult();
+    }
+
     public function getStoreOrdersOngoingForStoreOwner($storeOwnerProfileId)
     {
         return $this->createQueryBuilder('orderDetailEntity')
