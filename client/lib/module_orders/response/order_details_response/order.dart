@@ -4,7 +4,7 @@ import 'destination.dart';
 
 class Order {
   int? id;
-  List<dynamic>? source;
+  dynamic source;
   Destination? destination;
   DeliveryDate? deliveryDate;
   dynamic updatedAt;
@@ -42,7 +42,7 @@ class Order {
 
   factory Order.fromJson(Map<String, dynamic> json) => Order(
       id: json['id'] as int?,
-      source: json['source'] as List<dynamic>?,
+      source: json['source'] as dynamic,
       destination: json['destination'] == null
           ? null
           : Destination.fromJson(json['destination'] as Map<String, dynamic>),
