@@ -2039,7 +2039,7 @@ class OrderController extends BaseController
      */
     public function getOrderDetailsByOrderNumberForStore($orderNumber): JsonResponse
     {
-        $result = $this->orderService->getOrderDetailsByOrderNumberForStore($orderNumber);
+        $result = $this->orderService->getOrderDetailsByOrderNumberForStore($orderNumber, $this->getUserId());
 
         return $this->response($result, self::FETCH);
     }
