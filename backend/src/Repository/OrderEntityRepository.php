@@ -105,7 +105,7 @@ class OrderEntityRepository extends ServiceEntityRepository
 
             ->andWhere("OrderEntity.state != :cancelled")
 
-            ->setParameter('cancelled', self::CANCEL)
+            ->setParameter('cancelled', OrderStateConstant::$ORDER_STATE_CANCEL)
 
             ->getQuery()
             ->getOneOrNullResult();
@@ -118,7 +118,7 @@ class OrderEntityRepository extends ServiceEntityRepository
 
             ->andWhere("OrderEntity.state = :pending ")
 
-            ->setParameter('pending', self::PENDING)
+            ->setParameter('pending', OrderStateConstant::$ORDER_STATE_PENDING)
 
             ->getQuery()
             ->getOneOrNullResult();
@@ -134,10 +134,10 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->orWhere("OrderEntity.state = :picked ")
             ->orWhere("OrderEntity.state = :ongoing ")
 
-            ->setParameter('on_way', self::ON_WAY)
-            ->setParameter('in_store', self::IN_STORE)
-            ->setParameter('picked', self::PICKED)
-            ->setParameter('ongoing', self::ONGOING)
+            ->setParameter('on_way', OrderStateConstant::$ORDER_STATE_ON_WAY)
+            ->setParameter('in_store', OrderStateConstant::$ORDER_STATE_IN_STORE)
+            ->setParameter('picked', OrderStateConstant::$ORDER_STATE_PICKED)
+            ->setParameter('ongoing', OrderStateConstant::$ORDER_STATE_ONGOING)
 
             ->getQuery()
             ->getSingleScalarResult();
@@ -170,7 +170,7 @@ class OrderEntityRepository extends ServiceEntityRepository
 
             ->andWhere("OrderEntity.state = :cancelled ") 
 
-            ->setParameter('cancelled', self::CANCEL)
+            ->setParameter('cancelled', OrderStateConstant::$ORDER_STATE_CANCEL)
 
             ->getQuery()
             ->getOneOrNullResult();
@@ -283,7 +283,7 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->andWhere("OrderEntity.state != :cancelled")
 
             ->setParameter('ownerId', $ownerId)
-            ->setParameter('cancelled', self::CANCEL)
+            ->setParameter('cancelled', OrderStateConstant::$ORDER_STATE_CANCEL)
 
             ->getQuery()
             ->getOneOrNullResult();
@@ -305,7 +305,7 @@ class OrderEntityRepository extends ServiceEntityRepository
           ->setParameter('fromDate', $fromDate)
           ->setParameter('toDate', $toDate)
           ->setParameter('ownerId', $ownerId)
-          ->setParameter('cancelled', self::CANCEL)
+          ->setParameter('cancelled', OrderStateConstant::$ORDER_STATE_CANCEL)
 
           ->getQuery()
           ->getResult(); 
@@ -355,8 +355,8 @@ class OrderEntityRepository extends ServiceEntityRepository
          
           ->setParameter('fromDate', $fromDate)
           ->setParameter('toDate', $toDate)
-          ->setParameter('cancelled', self::CANCEL)
-          ->setParameter('pending', self::PENDING)
+          ->setParameter('cancelled', OrderStateConstant::$ORDER_STATE_CANCEL)
+          ->setParameter('pending', OrderStateConstant::$ORDER_STATE_PENDING)
 
           ->getQuery()
           ->getResult();
@@ -914,7 +914,7 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->andWhere("OrderEntity.state = :ongoing ")
 
             ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
-            ->setParameter('ongoing', self::ONGOING)
+            ->setParameter('ongoing', OrderStateConstant::$ORDER_STATE_ONGOING)
 
             ->addGroupBy('OrderEntity.id')
 
@@ -939,7 +939,7 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->setParameter('fromDate', $fromDate)
             ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
             ->setParameter('toDate', $toDate)
-            ->setParameter('cancelled', self::CANCEL)
+            ->setParameter('cancelled', OrderStateConstant::$ORDER_STATE_CANCEL)
 
             ->addGroupBy('OrderEntity.id')
 
@@ -960,7 +960,7 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->andWhere("OrderEntity.state != :cancelled")
 
             ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
-            ->setParameter('cancelled', self::CANCEL)
+            ->setParameter('cancelled', OrderStateConstant::$ORDER_STATE_CANCEL)
 
             ->addGroupBy('OrderEntity.id')
 
