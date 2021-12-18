@@ -19,4 +19,15 @@ class VerificationEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, VerificationEntity::class);
     }
 
+    // return verification entity
+    public function getVerificationCodeByCode($verificationCode)
+    {
+        return $this->createQueryBuilder('verificationEntity')
+
+            ->andWhere('verificationEntity.code = :verificationCode')
+            ->setParameter('verificationCode', $verificationCode)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
