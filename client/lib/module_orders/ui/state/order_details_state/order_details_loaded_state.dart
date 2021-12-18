@@ -16,6 +16,7 @@ import 'package:mandob_moshtarayat/module_orders/ui/widget/order_details/order_d
 import 'package:mandob_moshtarayat/module_stores/store_routes.dart';
 import 'package:mandob_moshtarayat/utils/components/animation_alert.dart';
 import 'package:mandob_moshtarayat/utils/components/progresive_image.dart';
+import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
 import 'package:mandob_moshtarayat/utils/helpers/order_status_helper.dart';
 
 class OrderDetailsLoadedState extends OrderDetailsState {
@@ -472,6 +473,15 @@ class OrderDetailsLoadedState extends OrderDetailsState {
       orderChips.add(const SizedBox(
         height: 16,
       ));
+      orderChips.add(Hider(
+          active: element.invoiceAmount != null,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: CustomInvoiceAlert(
+              image: orderDetails.order.invoiceImage.toString(),
+              cost: orderDetails.order.invoiceAmount.toString(),
+            ),
+          )));
     });
     return orderChips;
   }

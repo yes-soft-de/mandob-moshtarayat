@@ -15,8 +15,7 @@ class OrderDetailsModel {
   bool empty = false;
   OrderDetailsModel? orderDetailsModel;
 
-  OrderDetailsModel(
-      {required this.carts, required this.order});
+  OrderDetailsModel({required this.carts, required this.order});
 
   OrderDetailsModel.Error(this.error);
 
@@ -38,8 +37,7 @@ class OrderDetailsModel {
   bool get hasData => orderDetailsModel != null;
 
   OrderDetailsModel get data =>
-      orderDetailsModel ??
-      OrderDetailsModel(carts: carts, order: order);
+      orderDetailsModel ?? OrderDetailsModel(carts: carts, order: order);
 }
 
 class Item {
@@ -70,6 +68,8 @@ class StoreOwnerInfo {
   String? imageURL;
   bool empty = false;
   num? rating = 0;
+  double? invoiceAmount;
+  String? invoiceImage;
   late List<Item> items;
   StoreOwnerInfo(
       {required this.storeOwnerName,
@@ -77,7 +77,9 @@ class StoreOwnerInfo {
       required this.image,
       this.imageURL,
       this.rating,
-      required this.items});
+      required this.items,
+      this.invoiceAmount,
+      this.invoiceImage});
 
   StoreOwnerInfo.Empty() {
     empty = true;
@@ -152,7 +154,9 @@ List<StoreOwnerInfo> toCartList(List<OrderDetail> ordersItems) {
         storeOwnerName: element.storeOwnerName ?? S.current.unknown,
         storeOwnerID: element.storeOwnerProfileId ?? -1,
         image: element.image?.image ?? '',
-        items: orders));
+        items: orders,
+        invoiceAmount: element.invoiceAmount?.toDouble(),
+        invoiceImage: element.invoiceImage?.image));
   });
   return items;
 }
@@ -170,7 +174,7 @@ OrderInfo toOrder(Order? order) {
         id: order.id ?? -1,
         state: StatusHelper.getStatusEnum(order.state),
         roomID: order.roomId ?? 'roomID',
-        ownerID:  -1,
+        ownerID: -1,
         orderCost: order.orderCost?.toDouble() ?? 0,
         deliveryDate: DateTime.fromMillisecondsSinceEpoch(
                 (order.deliveryDate?.timestamp ??
