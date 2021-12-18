@@ -1861,7 +1861,7 @@ class OrderController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Get store's pending orders",
+     *      description="Get store's orders specific date .",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -1895,6 +1895,7 @@ class OrderController extends BaseController
      * @return JsonResponse
      * *
      * @OA\Tag(name="Order")
+     *
      * @OA\Parameter(
      *      name="token",
      *      in="header",
@@ -1904,7 +1905,7 @@ class OrderController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns array of store orders",
+     *      description="Get store's orders",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -1912,12 +1913,11 @@ class OrderController extends BaseController
      *              @OA\Items(
      *                  @OA\Property(type="integer", property="id"),
      *                  @OA\Property(type="object", property="deliveryDate"),
-     *                  @OA\Property(type="integer", property="orderNumber"),
+     *                  @OA\Property(type="string", property="orderNumber"),
      *                  @OA\Property(type="string", property="detail"),
-     *                  @OA\Property(type="string", property="note"),
-     *                  @OA\Property(type="string", property="state"),
      *                  @OA\Property(type="integer", property="orderType"),
-     *                  @OA\Property(type="number", property="invoiceAmount"),
+     *                  @OA\Property(type="string", property="note"),
+     *                  @OA\Property(type="integer", property="invoiceAmount"),
      *              )
      *          )
      *      )

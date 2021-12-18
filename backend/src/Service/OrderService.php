@@ -823,14 +823,14 @@ class OrderService
 
     public function getStoreOrders($userID):?array
     {
-        $response=[];
+        $response = [];
 
-        $storeOwnerProfileID= $this->userService->getStoreProfileId($userID);
+        $storeOwnerProfileID = $this->userService->getStoreProfileId($userID);
 
-        $orders = $this->orderManager->getStoreOrders($storeOwnerProfileID['id']);
+        $orders = $this->orderDetailService->getStoreOrders($storeOwnerProfileID);
 
         foreach ($orders as $order) {
-            $response[] = $this->autoMapping->map('array', StoreOrdersResponse::class, $order);
+            $response[] = $this->autoMapping->map('array', OrdersPendingForStoreResponse::class, $order);
         }
 
         return $response;
