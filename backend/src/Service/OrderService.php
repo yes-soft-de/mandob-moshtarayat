@@ -264,6 +264,8 @@ class OrderService
 
      public function getOrdersInSpecificDate($fromDate, $toDate):?array
      {
+        $response = [];
+
         $date = $this->dateFactoryService->returnSpecificDate($fromDate, $toDate);
 
         $orders = $this->orderManager->getOrdersInSpecificDate($date[0], $date[1]);
