@@ -154,6 +154,11 @@ class OrderDetailManager
         return $this->orderDetailEntityRepository->getStorePendingOrders($storeOwnerProfileId);
     }
 
+    public function getStoreOrdersInSpecificDate($fromDate, $toDate, $storeOwnerProfileID)
+    {
+        return $this->orderDetailEntityRepository->getStoreOrdersInSpecificDate($fromDate, $toDate, $storeOwnerProfileID);
+    }
+
     public function getOrderDetailsByOrderNumberForStore($orderNumber, $storeOwnerProfileID)
     {
         return $this->orderDetailEntityRepository->getOrderDetailsByOrderNumberForStore($orderNumber, $storeOwnerProfileID);

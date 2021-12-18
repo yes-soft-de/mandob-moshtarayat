@@ -810,12 +810,12 @@ class OrderService
 
         $date = $this->dateFactoryService->returnSpecificDate($fromDate, $toDate);
 
-        $item = $this->userService->getStoreProfileId($userID);
+        $storeOwnerProfileID = $this->userService->getStoreProfileId($userID);
 
-        $orders = $this->orderManager->getStoreOrdersInSpecificDate($date[0], $date[1], $item['id']);
+        $orders = $this->orderDetailService->getStoreOrdersInSpecificDate($date[0], $date[1], $storeOwnerProfileID);
 
         foreach ($orders as $order) {
-            $response[] = $this->autoMapping->map('array', StoreOrdersOngoingResponse::class, $order);
+            $response[] = $this->autoMapping->map('array', OrdersPendingForStoreResponse::class, $order);
         }
 
         return $response;
