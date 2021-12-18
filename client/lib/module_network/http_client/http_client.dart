@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:dio_firebase_performance/dio_firebase_performance.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mandob_moshtarayat/di/di_config.dart';
+import 'package:mandob_moshtarayat/module_localization/service/localization_service/localization_service.dart';
 import 'package:mandob_moshtarayat/utils/logger/logger.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
@@ -37,6 +39,7 @@ class ApiClient {
           client.options.headers['Authorization'] = headers['Authorization'];
         }
       }
+      client.options.headers['Accept-Language'] = getIt<LocalizationService>().getLanguage();
       //  client.options.headers['Access-Control-Allow-Origin'] = '*';
       var response = await client.get(
         url,
