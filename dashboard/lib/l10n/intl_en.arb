@@ -534,16 +534,10 @@
   "preferredLanguage":"Preferred Language",
   "selectLanguage":"Select Language",
   "sureForDeleteCategories":"Are you sure you want to delete this category",
-  "commission":"Store Commission"
+  "commission":"Store Commission",
 
-  
-
-
-
-
-
-
-
-
-
+  "viewProduct": "View products",
+  "rating": "Rating",
+  "price": "price",
+  "discount": "discount"
 }

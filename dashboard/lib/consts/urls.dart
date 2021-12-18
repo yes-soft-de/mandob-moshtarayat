@@ -54,7 +54,7 @@ class Urls {
       BASE_API + '/storeproductscategorylevelonefroadmin';
   static const GET_SUBCATEGORIES_LEVEL_TOW =
       BASE_API + '/storeproductscategoryleveltwoforadmin';
-  static const GET_PRODUCTS = BASE_API + '/productsStoreByProfileId/';
+  static const GET_PRODUCTS = BASE_API + '/productsstoreownerprofileid/';
   static const CREATE_PRODUCTS_CATEGORY = BASE_API + '/StoreProductCategory';
   static const CREATE_SUBCATEGORIES_LEVEL_TOW =
       BASE_API + '/storeproductcategoryleveltwo';
@@ -85,7 +85,7 @@ class Urls {
   static const CREATE_COMPANY_PROFILE = BASE_API + '/companyinfo';
   static const GET_CAPTAINS_LIST = BASE_API + '/captains';
   static const GET_CLIENTS_LIST = BASE_API + '/clientsprofile';
-  static const GET_REPORT = BASE_API + '/countReport';
+  static const GET_REPORT = BASE_API + '/countreport';
   static const GET_ACCOUNT_BALANCE_CAPTAIN =
       BASE_API + '/captainFinancialAccountForAdmin/';
   static const GET_ACCOUNT_BALANCE_CAPTAIN_LAST_MONTH =

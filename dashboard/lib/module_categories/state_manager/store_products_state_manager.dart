@@ -55,6 +55,20 @@ class StoreProductsStateManager {
     });
   }
 
+  void getProducts(StoreProductScreenState screenState, int id){
+    _categoriesService.getProducts(id).then((products) {
+      if (products.hasError) {
+        _stateSubject.add(ProductStoreState(screenState, null, null,
+            error: products.error));
+      } else if (products.isEmpty) {
+        _stateSubject.add(ProductStoreState(screenState, null, []));
+      } else {
+        ProductsModel storeProducts = products as ProductsModel;
+        _stateSubject.add(
+            ProductStoreState(screenState,[], storeProducts.data));
+      }
+    });
+  }
   void createProduct(
       StoreProductScreenState screenState, CreateProductRequest request) {
     _stateSubject.add(LoadingState(screenState));

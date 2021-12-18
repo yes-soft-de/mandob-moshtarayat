@@ -33,7 +33,7 @@ class StoreProfileResponse {
 class Data {
   int? id;
   String? storeOwnerName;
-  String? image;
+  ImageUrl? image;
   dynamic? branch;
   bool? free;
   List<Branches>? branches;
@@ -71,7 +71,7 @@ class Data {
   Data.fromJson(dynamic json) {
     id = json['id'];
     storeOwnerName = json['storeOwnerName'];
-    image = json['image'];
+    image =ImageUrl.fromJson(json['image']) ;
     branch = json['branch'];
     free = json['free'];
     if (json['branches'] != null) {
@@ -202,5 +202,20 @@ class Location {
     map['lat'] = lat;
     map['lon'] = lon;
     return map;
+  }
+}
+class ImageUrl {
+  String? image;
+  String? imageURL;
+  String? baseURL;
+  ImageUrl({
+    this.image,
+    this.imageURL,this.baseURL
+  });
+
+  ImageUrl.fromJson(dynamic json) {
+    image = json['image'];
+    imageURL = json['imageURL'];
+    baseURL = json['baseURL'];
   }
 }
