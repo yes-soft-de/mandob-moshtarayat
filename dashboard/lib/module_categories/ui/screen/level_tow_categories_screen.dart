@@ -129,11 +129,15 @@ class LevelTowCategoriesScreenState extends State<LevelTowCategoriesScreen> {
                         state: currentState is ProductCategoriesLoadedState
                             ? currentState as ProductCategoriesLoadedState
                             : null,
-                        addSubCategories: (id,subId,name, image) {
+                        languages: ['en','urdu'],
+                        addSubCategories: (id,subId,name, image,trans) {
                           addCategory(CategoryLevelTowRequest(
-                            storeProductCategoryID: int.parse(subId),
-                            productCategoryName: name,
-                            productCategoryImage: image
+                            dataStoreCategory: DataStoreCategoryTwo(
+                                storeProductCategoryID: int.parse(subId),
+                                productCategoryName: name,
+                                productCategoryImage: image
+                            ),
+                        translate: trans
                           ));
                         },
                       ),

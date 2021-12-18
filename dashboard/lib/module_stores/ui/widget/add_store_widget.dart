@@ -539,6 +539,32 @@ class _UpdateStoreWidgetState extends State<UpdateStoreWidget> {
                       SizedBox(
                         height: 16,
                       ),
+
+                      // store commission
+                      Padding(
+                        padding: const EdgeInsets.only(left:16.0,right: 16.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                S.current.commission,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 75,
+                              child: CustomFormField(
+                                controller: _commissionController,
+                                hintText: '1 - 100',
+                                numbers: true,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+
                       // store image
                       Padding(
                         padding: const EdgeInsets.all(16.0),
@@ -706,30 +732,7 @@ class _UpdateStoreWidgetState extends State<UpdateStoreWidget> {
                               setState(() {});
                             }),
                       ),
-                      // store commission
-                      Padding(
-                        padding: const EdgeInsets.only(left:16.0,right: 16.0),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                S.current.commission,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 75,
-                              child: CustomFormField(
-                                controller: _commissionController,
-                                hintText: '1 - 100',
-                                numbers: true,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
+
                       SizedBox(
                         height: 100,
                       ),

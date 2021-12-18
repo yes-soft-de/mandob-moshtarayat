@@ -243,6 +243,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "destinationPoint":
             MessageLookupByLibrary.simpleMessage("Destination Location"),
         "directSupport": MessageLookupByLibrary.simpleMessage("Direct Support"),
+        "discount": MessageLookupByLibrary.simpleMessage("discount"),
         "distance": MessageLookupByLibrary.simpleMessage("Distance"),
         "driverLicence": MessageLookupByLibrary.simpleMessage("Driver Licence"),
         "earnCash": MessageLookupByLibrary.simpleMessage("Earn Cash"),
@@ -550,6 +551,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Please Select a Branch"),
         "preferredLanguage":
             MessageLookupByLibrary.simpleMessage("Preferred Language"),
+        "price": MessageLookupByLibrary.simpleMessage("price"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "privateOrder": MessageLookupByLibrary.simpleMessage("Private Order"),
         "product": MessageLookupByLibrary.simpleMessage("product"),
@@ -569,6 +571,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "There is no profile data available"),
         "profileFetchedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "Profile Data Fetched Successfully"),
+        "rating": MessageLookupByLibrary.simpleMessage("Rating"),
         "reasonIsRequired":
             MessageLookupByLibrary.simpleMessage("Reason is Required"),
         "reasonOfTheReport":
@@ -789,6 +792,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "uploadingImagesPleaseWait": MessageLookupByLibrary.simpleMessage(
             "Uploading Image, Please Wait"),
         "username": MessageLookupByLibrary.simpleMessage("Username"),
+        "viewProduct": MessageLookupByLibrary.simpleMessage("View products"),
         "views": MessageLookupByLibrary.simpleMessage("views"),
         "waiting": MessageLookupByLibrary.simpleMessage("waiting"),
         "waitingDescription": MessageLookupByLibrary.simpleMessage(

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/model/subCategoriesModel.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/request/category_level_tow_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/request/sub_categories_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/state/product_category/product_categories_loaded_state.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_feild.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_list_view.dart';
@@ -12,12 +14,14 @@ import 'package:mandob_moshtarayat_dashboad/utils/effect/hidder.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/helpers/custom_flushbar.dart';
 
 class AddSubCategoriesLevelTowWidget extends StatefulWidget {
-  final Function(String, String, String,String?) addSubCategories;
+  final Function(String, String, String,String?,List<TranslateSubTwoCategory>?) addSubCategories;
   final ProductCategoriesLoadedState? state;
   final SubCategoriesModel? subCategoriesModel;
   final String? catID;
   final String? subCatID;
-  AddSubCategoriesLevelTowWidget({required this.addSubCategories, this.state,this.subCategoriesModel,this.catID,this.subCatID});
+  final String? selectedLang;
+  final List<String> languages;
+  AddSubCategoriesLevelTowWidget({required this.addSubCategories, this.state,this.subCategoriesModel,this.catID,this.subCatID, this.selectedLang,required this.languages});
 
   @override
   _AddSubCategoriesWidgetState createState() => _AddSubCategoriesWidgetState();
@@ -30,6 +34,12 @@ class _AddSubCategoriesWidgetState extends State<AddSubCategoriesLevelTowWidget>
   String? catId;
   String? subCatId;
   String? imagePath;
+
+  late String lang;
+  late bool isUpdate;
+
+  late List<TranslateSubTwoCategory> translate;
+  late List<CustomFormFieldWithTranslate> translateWidgets;
 
   @override
   Widget build(BuildContext context) {
@@ -115,10 +125,36 @@ class _AddSubCategoriesWidgetState extends State<AddSubCategoriesLevelTowWidget>
                             textAlign: TextAlign.start,
                           ),
                         ),
-                        CustomFormField(
-                          controller: _nameController,
-                          hintText: S.current.categoryName,
+//                        CustomFormField(
+//                          controller: _nameController,
+//                          hintText: S.current.categoryName,
+//                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: CustomFormFieldWithTranslate(
+                                controller: _nameController,
+                                hintText: S.current.categoryName,
+                                last: true,
+                                initLanguage:isUpdate ?lang :  'ar',
+                                languages:isUpdate? [lang] :['ar'],
+                              ),
+                            ),
+                            isUpdate? Container():  InkWell(
+                                onTap: (){
+                                  if(_nameController.text.isEmpty){
+                                    CustomFlushBarHelper.createError(
+                                        title: S.current.warnning,
+                                        message: S.current.pleaseCompleteTheForm)
+                                        .show(context);
+                                  }else if (translateWidgets.length != widget.languages.length){
+                                    trans(true);
+                                  }
+                                },
+                                child: Icon(Icons.add))
+                          ],
                         ),
+                        Column(children: trans(false),),
                         Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: Center(
@@ -187,7 +223,7 @@ class _AddSubCategoriesWidgetState extends State<AddSubCategoriesLevelTowWidget>
                 catId.toString(),
                 subCatId.toString(),
                 _nameController.text.trim(),
-                imagePath);
+                imagePath,translate);
             if (imagePath?.contains('http') == true && widget.subCategoriesModel != null){
               imagePath = widget.subCategoriesModel?.baseImage ?? '' ;
             }
@@ -202,8 +238,13 @@ class _AddSubCategoriesWidgetState extends State<AddSubCategoriesLevelTowWidget>
 
   @override
   void initState() {
+    translateWidgets = [];
+    translate=[];
+    isUpdate = false;
     _nameController = TextEditingController();
     if (widget.subCategoriesModel != null){
+      isUpdate = true;
+      lang = widget.selectedLang??'';
       _nameController.text = widget.subCategoriesModel!.categoryName;
       imagePath = widget.subCategoriesModel?.image;
       if (imagePath == ''){
@@ -214,4 +255,29 @@ class _AddSubCategoriesWidgetState extends State<AddSubCategoriesLevelTowWidget>
     }
     super.initState();
   }
+  List<CustomFormFieldWithTranslate> trans(bool addNewField){
+    if(addNewField) {
+      TranslateSubTwoCategory  translateStoreCategory = TranslateSubTwoCategory(lang:widget.languages.first );
+      TextEditingController _nameController = TextEditingController();
+      late String language = '';
+
+      translateWidgets.add(
+          CustomFormFieldWithTranslate(
+            initLanguage: widget.languages.first,
+            onChanged: (){
+              translateStoreCategory.productCategoryName=_nameController.text;
+            },
+            languages: widget.languages,
+            controller: _nameController,
+            onSelected: (lan){
+              language = lan;
+              translateStoreCategory.lang=language;
+            },));
+      setState(() {
+      });
+      translate.add(translateStoreCategory);
+    }
+    return translateWidgets;
+  }
+
 }

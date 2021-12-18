@@ -78,8 +78,9 @@ class CategoriesRepository {
 
   Future<StoreProductsResponse?> getProducts(int id) async {
     var token = await _authService.getToken();
+    var lang = _localizationService.getLanguage();
     dynamic response = await _apiClient.get(Urls.GET_PRODUCTS + '$id',
-        headers: {'Authorization': 'Bearer ' + token.toString()});
+        headers: {'Authorization': 'Bearer ' + token.toString(),'Accept-Language':lang});
     if (response == null) return null;
     return StoreProductsResponse.fromJson(response);
   }

@@ -39,7 +39,7 @@ class StoreProfileModel extends DataModel {
       deliveryCost: data.deliveryCost ?? 0,
       hasProducts: data.hasProducts ?? false,
       privateOrders: data.privateOrders ?? false,
-      image: data.image ?? ImageAsset.PLACEHOLDER,
+      image: data.image?.imageURL ?? ImageAsset.PLACEHOLDER,
       phone: data.phone ?? '',
       openingTime: DateFormat.jm()
           .format(DateHelper.convert(data.openingTime?.timestamp)),
