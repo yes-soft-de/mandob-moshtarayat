@@ -149,12 +149,14 @@ class OrderEntityRepository extends ServiceEntityRepository
 
             ->select('count(OrderEntity.id) as count')
 
-            ->Where("OrderEntity.id IN (:id)")
+            ->andWhere("OrderEntity.id IN (:id)")
             ->andWhere("OrderEntity.state != :pending")
-            ->orWhere("OrderEntity.state != :cancel")
+            ->andWhere("OrderEntity.state != :cancel")
+            ->andWhere("OrderEntity.state != :delivered")
 
             ->setParameter('pending', OrderStateConstant::$ORDER_STATE_PENDING)
             ->setParameter('cancel', OrderStateConstant::$ORDER_STATE_CANCEL)
+            ->setParameter('delivered', OrderStateConstant::$ORDER_STATE_DELIVERED)
             ->setParameter('id', $ids)
 
             ->getQuery()
