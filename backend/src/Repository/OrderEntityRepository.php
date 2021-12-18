@@ -105,7 +105,7 @@ class OrderEntityRepository extends ServiceEntityRepository
 
             ->andWhere("OrderEntity.state != :cancelled")
 
-            ->setParameter('cancelled', self::CANCEL)
+            ->setParameter('cancelled', OrderStateConstant::$ORDER_STATE_CANCEL)
 
             ->getQuery()
             ->getOneOrNullResult();
@@ -118,7 +118,7 @@ class OrderEntityRepository extends ServiceEntityRepository
 
             ->andWhere("OrderEntity.state = :pending ")
 
-            ->setParameter('pending', self::PENDING)
+            ->setParameter('pending', OrderStateConstant::$ORDER_STATE_PENDING)
 
             ->getQuery()
             ->getOneOrNullResult();
@@ -134,10 +134,10 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->orWhere("OrderEntity.state = :picked ")
             ->orWhere("OrderEntity.state = :ongoing ")
 
-            ->setParameter('on_way', self::ON_WAY)
-            ->setParameter('in_store', self::IN_STORE)
-            ->setParameter('picked', self::PICKED)
-            ->setParameter('ongoing', self::ONGOING)
+            ->setParameter('on_way', OrderStateConstant::$ORDER_STATE_ON_WAY)
+            ->setParameter('in_store', OrderStateConstant::$ORDER_STATE_IN_STORE)
+            ->setParameter('picked', OrderStateConstant::$ORDER_STATE_PICKED)
+            ->setParameter('ongoing', OrderStateConstant::$ORDER_STATE_ONGOING)
 
             ->getQuery()
             ->getSingleScalarResult();
@@ -149,12 +149,14 @@ class OrderEntityRepository extends ServiceEntityRepository
 
             ->select('count(OrderEntity.id) as count')
 
-            ->Where("OrderEntity.id IN (:id)")
+            ->andWhere("OrderEntity.id IN (:id)")
             ->andWhere("OrderEntity.state != :pending")
-            ->orWhere("OrderEntity.state != :cancel")
+            ->andWhere("OrderEntity.state != :cancel")
+            ->andWhere("OrderEntity.state != :delivered")
 
             ->setParameter('pending', OrderStateConstant::$ORDER_STATE_PENDING)
             ->setParameter('cancel', OrderStateConstant::$ORDER_STATE_CANCEL)
+            ->setParameter('delivered', OrderStateConstant::$ORDER_STATE_DELIVERED)
             ->setParameter('id', $ids)
 
             ->getQuery()
@@ -170,7 +172,7 @@ class OrderEntityRepository extends ServiceEntityRepository
 
             ->andWhere("OrderEntity.state = :cancelled ") 
 
-            ->setParameter('cancelled', self::CANCEL)
+            ->setParameter('cancelled', OrderStateConstant::$ORDER_STATE_CANCEL)
 
             ->getQuery()
             ->getOneOrNullResult();
@@ -230,20 +232,18 @@ class OrderEntityRepository extends ServiceEntityRepository
     public function getOrdersWithOutPending()
     {
         return $this->createQueryBuilder('OrderEntity')
-
-            ->select('OrderEntity.id', 'OrderEntity.deliveryDate', 'OrderEntity.createdAt', 'OrderEntity.storeOwnerProfileID', 'OrderEntity.source', 'OrderEntity.payment', 'OrderEntity.detail', 'OrderEntity.deliveryCost', 'OrderEntity.orderCost', 'OrderEntity.orderType', 'OrderEntity.destination', 'OrderEntity.note', 'OrderEntity.state')
+            ->select('OrderEntity.id', 'OrderEntity.deliveryDate', 'OrderEntity.createdAt', 'OrderEntity.payment', 'OrderEntity.detail', 'OrderEntity.deliveryCost', 'OrderEntity.orderCost', 'OrderEntity.orderType', 'OrderEntity.note')
             ->addSelect('orderDetailEntity.id as orderDetailId', 'orderDetailEntity.orderNumber')
 
             ->leftJoin(OrderDetailEntity::class, 'orderDetailEntity', Join::WITH, 'orderDetailEntity.orderID = OrderEntity.id')
 
-            ->andWhere("OrderEntity.state != :pending ")
+            ->andWhere('OrderEntity.state != :pending ')
 
-            ->setParameter('pending', self::PENDING)
+            ->setParameter('pending', OrderStateConstant::$ORDER_STATE_PENDING)
 
             ->addGroupBy('OrderEntity.id')
 
             ->getQuery()
-
             ->getResult();
     }
 
@@ -285,7 +285,7 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->andWhere("OrderEntity.state != :cancelled")
 
             ->setParameter('ownerId', $ownerId)
-            ->setParameter('cancelled', self::CANCEL)
+            ->setParameter('cancelled', OrderStateConstant::$ORDER_STATE_CANCEL)
 
             ->getQuery()
             ->getOneOrNullResult();
@@ -307,7 +307,7 @@ class OrderEntityRepository extends ServiceEntityRepository
           ->setParameter('fromDate', $fromDate)
           ->setParameter('toDate', $toDate)
           ->setParameter('ownerId', $ownerId)
-          ->setParameter('cancelled', self::CANCEL)
+          ->setParameter('cancelled', OrderStateConstant::$ORDER_STATE_CANCEL)
 
           ->getQuery()
           ->getResult(); 
@@ -316,24 +316,22 @@ class OrderEntityRepository extends ServiceEntityRepository
     public function getOrdersInSpecificDate($fromDate, $toDate)
     {
         return $this->createQueryBuilder('OrderEntity')
+            ->select('OrderEntity.id', 'OrderEntity.deliveryDate', 'OrderEntity.createdAt', 'OrderEntity.payment', 'OrderEntity.detail', 'OrderEntity.deliveryCost', 'OrderEntity.orderCost', 'OrderEntity.orderType', 'OrderEntity.note')
+            ->addSelect('orderDetailEntity.id as orderDetailId', 'orderDetailEntity.orderNumber')
 
-          ->select('OrderEntity.id', 'OrderEntity.deliveryDate', 'OrderEntity.createdAt', 'OrderEntity.storeOwnerProfileID', 'OrderEntity.source', 'OrderEntity.payment', 'OrderEntity.detail', 'OrderEntity.deliveryCost', 'OrderEntity.orderCost', 'OrderEntity.orderType', 'OrderEntity.destination', 'OrderEntity.note', 'OrderEntity.state')
-          ->addSelect('OrderDetailEntity.id as orderDetailId', 'OrderDetailEntity.orderNumber')
+            ->leftJoin(OrderDetailEntity::class, 'orderDetailEntity', Join::WITH, 'orderDetailEntity.orderID = OrderEntity.id')
 
-          ->leftJoin(OrderDetailEntity::class, 'OrderDetailEntity', Join::WITH, 'OrderDetailEntity.orderID = OrderEntity.id')
+            ->andWhere('OrderEntity.state != :state ')
+            ->andWhere('OrderEntity.createdAt >= :fromDate')
+            ->andWhere('OrderEntity.createdAt < :toDate')
+            ->setParameter('state', OrderStateConstant::$ORDER_STATE_CANCEL)
+            ->setParameter('fromDate', $fromDate)
+            ->setParameter('toDate', $toDate)
 
-          ->where('OrderEntity.createdAt >= :fromDate')
-          ->andWhere('OrderEntity.createdAt < :toDate')
-          ->andWhere("OrderEntity.state != :cancelled")
+            ->addGroupBy('OrderEntity.id')
 
-          ->setParameter('fromDate', $fromDate)
-          ->setParameter('toDate', $toDate)
-          ->setParameter('cancelled', self::CANCEL)
-
-          ->addGroupBy('OrderEntity.id')
-
-          ->getQuery()
-          ->getResult(); 
+            ->getQuery()
+            ->getResult();
     }
 
     public function getCountOrdersEveryStoreInLastMonth($fromDate, $toDate)
@@ -359,8 +357,8 @@ class OrderEntityRepository extends ServiceEntityRepository
          
           ->setParameter('fromDate', $fromDate)
           ->setParameter('toDate', $toDate)
-          ->setParameter('cancelled', self::CANCEL)
-          ->setParameter('pending', self::PENDING)
+          ->setParameter('cancelled', OrderStateConstant::$ORDER_STATE_CANCEL)
+          ->setParameter('pending', OrderStateConstant::$ORDER_STATE_PENDING)
 
           ->getQuery()
           ->getResult();
@@ -837,18 +835,20 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
-    public function countStoreOrders($storeProfileId)
+    public function countStoreOrders($ids)
     {
-        return $this->createQueryBuilder('OrderEntity')
+        return  $this->createQueryBuilder('OrderEntity')
 
-            ->select('count(OrderEntity.id) as ordersCount')
+            ->select('count(OrderEntity.id) as count')
 
-            ->andWhere('OrderEntity.storeOwnerProfileID = :storeOwnerProfileID')
+            ->andWhere("OrderEntity.state != :state")
+            ->andWhere("OrderEntity.id IN (:id)")
 
-            ->setParameter('storeOwnerProfileID', $storeProfileId)
+            ->setParameter('state', OrderStateConstant::$ORDER_STATE_CANCEL)
+            ->setParameter('id', $ids)
 
             ->getQuery()
-            ->getResult();
+            ->getSingleScalarResult();
     }
 
     public function getOrdersByStoreProfileId($storeProfileId)
@@ -916,7 +916,7 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->andWhere("OrderEntity.state = :ongoing ")
 
             ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
-            ->setParameter('ongoing', self::ONGOING)
+            ->setParameter('ongoing', OrderStateConstant::$ORDER_STATE_ONGOING)
 
             ->addGroupBy('OrderEntity.id')
 
@@ -941,7 +941,7 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->setParameter('fromDate', $fromDate)
             ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
             ->setParameter('toDate', $toDate)
-            ->setParameter('cancelled', self::CANCEL)
+            ->setParameter('cancelled', OrderStateConstant::$ORDER_STATE_CANCEL)
 
             ->addGroupBy('OrderEntity.id')
 
@@ -962,7 +962,7 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->andWhere("OrderEntity.state != :cancelled")
 
             ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
-            ->setParameter('cancelled', self::CANCEL)
+            ->setParameter('cancelled', OrderStateConstant::$ORDER_STATE_CANCEL)
 
             ->addGroupBy('OrderEntity.id')
 

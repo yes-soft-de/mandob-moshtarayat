@@ -217,21 +217,6 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function getOwners()
-    {
-        return $this->createQueryBuilder('profile')
-
-            ->select('profile.id', 'profile.storeOwnerID', 'profile.storeOwnerName', 'profile.image', 'profile.story', 'profile.free')
-            ->addSelect('orderEntity.id as orderID', 'orderEntity.date', 'orderEntity.source', 'orderEntity.branchId', 'orderEntity.payment', 'orderEntity.destination','branchesEntity.location','branchesEntity.branchName','branchesEntity.city as branchCity', 'acceptedOrderEntity.captainID','captainProfileEntity.captainName')
-       
-            ->leftJoin(OrderEntity::class, 'orderEntity', Join::WITH, 'profile.storeOwnerID = orderEntity.ownerID')
-            ->leftJoin(StoreOwnerBranchEntity::class, 'branchesEntity', Join::WITH, 'orderEntity.branchId = branchesEntity.id')
-            ->leftJoin(CaptainProfileEntity::class, 'captainProfileEntity', Join::WITH, 'orderEntity.captainID = captainProfileEntity.captainID')
-
-            ->getQuery()
-            ->getResult();
-    }
-
     public function getAllStoreOwners()
     {
         return $this->createQueryBuilder('profile')

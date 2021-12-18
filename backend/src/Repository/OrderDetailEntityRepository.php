@@ -92,7 +92,6 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
             ->leftJoin(OrdersInvoicesEntity::class, 'OrdersInvoicesEntity', Join::WITH, 'OrdersInvoicesEntity.id = OrderDetailEntity.orderInvoiceId')
 
             ->andWhere('OrderDetailEntity.orderNumber = :orderNumber')
-//            ->andWhere('OrdersInvoicesEntity.orderNumber = :orderNumber')
 
             ->setParameter('orderNumber', $orderNumber)
 
@@ -370,8 +369,8 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
          
           ->setParameter('fromDate', $fromDate)
           ->setParameter('toDate', $toDate)
-          ->setParameter('cancelled', self::CANCEL)
-          ->setParameter('pending', self::PENDING)
+          ->setParameter('cancelled', OrderStateConstant::$ORDER_STATE_CANCEL)
+          ->setParameter('pending', OrderStateConstant::$ORDER_STATE_PENDING)
 
           ->getQuery()
           ->getResult();
