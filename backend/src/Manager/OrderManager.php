@@ -388,9 +388,9 @@ class OrderManager
         return $this->orderEntityRepository->clientOrdersDelivered($clientID);
     }
 
-    public function countStoreOrders($storeProfileId)
+    public function countStoreOrders($ids)
     {
-        return $this->orderEntityRepository->countStoreOrders($storeProfileId);
+        return $this->orderEntityRepository->countStoreOrders($ids);
     }
 
     public function getOrdersByStoreProfileId($storeProfileId)

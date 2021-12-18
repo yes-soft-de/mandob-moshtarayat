@@ -27,6 +27,7 @@ use App\Response\OrderInfoResponse;
 use App\Response\OrderResponse;
 use App\Response\OrderClosestResponse;
 use App\Response\OrderPendingResponse;
+use App\Response\OrdersAndCountByStoreProfileIdResponse;
 use App\Response\OrdersPendingForStoreResponse;
 use App\Response\orderUpdateBillCalculatedByCaptainResponse;
 use App\Response\OrderUpdateProductCountByClientResponse;
@@ -218,9 +219,15 @@ class OrderService
 
     public function getOrdersWithOutPending():?array
     {
-       $orders = $this->orderManager->getOrdersWithOutPending();
+        $response = [];
 
-       return $this->getOrdersWithStore($orders);
+        $orders = $this->orderManager->getOrdersWithOutPending();
+
+        foreach ($orders as $order) {
+            $response[] = $this->autoMapping->map('array', OrderPendingResponse::class, $order);
+        }
+
+        return $response;
     }
     
     public function getOrdersWithStore($orders):?array
@@ -245,6 +252,7 @@ class OrderService
 
     public function getOrdersOngoing():?array
     {
+        $response = [];
         $orders = $this->orderManager->getOrdersOngoing();
 
         foreach ($orders as $order) {
@@ -260,7 +268,11 @@ class OrderService
 
         $orders = $this->orderManager->getOrdersInSpecificDate($date[0], $date[1]);
 
-        return $this->getOrdersWithStore($orders);
+         foreach ($orders as $order) {
+             $response[] = $this->autoMapping->map('array', OrderPendingResponse::class, $order);
+         }
+
+         return $response;
     }
 
     public function getCountOrdersEveryStoreInLastMonth():?array
@@ -289,7 +301,7 @@ class OrderService
        $items = $this->orderManager->getCountOrdersEveryCaptainInLastMonth($date[0],$date[1]);
 
         foreach ($items as $item) {
-//            $item['image'] = $this->getImageParams($item['image'], $this->params . $item['image'], $this->params);
+            $item['image'] = $this->getImageParams($item['image'], $this->params . $item['image'], $this->params);
 
             $response[] = $this->autoMapping->map('array', CountOrdersInLastMonthForCaptainResponse::class, $item);
         }
@@ -306,7 +318,7 @@ class OrderService
        $items = $this->orderManager->getCountOrdersEveryClientInLastMonth($date[0],$date[1]);
 
        foreach ($items as $item) {
-//           $item['image'] = $this->getImageParams($item['image'], $this->params . $item['image'], $this->params);
+           $item['image'] = $this->getImageParams($item['image'], $this->params . $item['image'], $this->params);
 
            $response[] = $this->autoMapping->map('array', CountOrdersInLastMonthForClientResponse::class, $item);
         }
@@ -323,7 +335,7 @@ class OrderService
        $items = $this->orderDetailService->getCountOrdersEveryProductInLastMonth($date[0],$date[1]);
      
         foreach ($items as $item) {
-//            $item['productImage'] = $this->getImageParams($item['productImage'], $this->params . $item['productImage'], $this->params);
+            $item['productImage'] = $this->getImageParams($item['productImage'], $this->params . $item['productImage'], $this->params);
 
             $response[] = $this->autoMapping->map('array', CountOrdersInLastMonthForProoductResponse::class, $item);
         }
@@ -738,25 +750,15 @@ class OrderService
        return $this->orderManager->countOrdersInTodayForStoreOwner($date[0], $date[1], $orderIds);
     }
 
-    public function getOrdersAndCountByStoreProfileId($storeProfileId)
+    public function getOrdersAndCountByStoreProfileId($storeOwnerProfileId)
     {
-        $response = [];
-        $item = [];
+        $orderIds = $this->orderDetailService->getOrderIds($storeOwnerProfileId);
 
-        $countOrders = $this->orderManager->countStoreOrders($storeProfileId);
+        $item['countOrders'] = $this->orderManager->countStoreOrders($orderIds);
+        $item['orders'] = $this->orderDetailService->getStoreOrders($storeOwnerProfileId);
 
-        $orders = $this->orderManager->getOrdersByStoreProfileId($storeProfileId);
-        
-        $response['ordersCount'] = $countOrders;
+        return $this->autoMapping->map('array', OrdersAndCountByStoreProfileIdResponse::class, $item);
 
-        foreach ($orders as $order) {
-            $order['amount'] = $order['deliveryCost'] + $order['orderCost'];
-            
-            $item[] = $this->autoMapping->map('array', OrdersByClientResponse::class, $order);
-        }
-        $response['orders'] = $item;
-
-        return $response;
     }
 
     public function getOrdersAndCountByCaptainId($captainId): array

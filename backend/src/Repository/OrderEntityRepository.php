@@ -230,20 +230,18 @@ class OrderEntityRepository extends ServiceEntityRepository
     public function getOrdersWithOutPending()
     {
         return $this->createQueryBuilder('OrderEntity')
-
-            ->select('OrderEntity.id', 'OrderEntity.deliveryDate', 'OrderEntity.createdAt', 'OrderEntity.storeOwnerProfileID', 'OrderEntity.source', 'OrderEntity.payment', 'OrderEntity.detail', 'OrderEntity.deliveryCost', 'OrderEntity.orderCost', 'OrderEntity.orderType', 'OrderEntity.destination', 'OrderEntity.note', 'OrderEntity.state')
+            ->select('OrderEntity.id', 'OrderEntity.deliveryDate', 'OrderEntity.createdAt', 'OrderEntity.payment', 'OrderEntity.detail', 'OrderEntity.deliveryCost', 'OrderEntity.orderCost', 'OrderEntity.orderType', 'OrderEntity.note')
             ->addSelect('orderDetailEntity.id as orderDetailId', 'orderDetailEntity.orderNumber')
 
             ->leftJoin(OrderDetailEntity::class, 'orderDetailEntity', Join::WITH, 'orderDetailEntity.orderID = OrderEntity.id')
 
-            ->andWhere("OrderEntity.state != :pending ")
+            ->andWhere('OrderEntity.state != :pending ')
 
-            ->setParameter('pending', self::PENDING)
+            ->setParameter('pending', OrderStateConstant::$ORDER_STATE_PENDING)
 
             ->addGroupBy('OrderEntity.id')
 
             ->getQuery()
-
             ->getResult();
     }
 
@@ -316,24 +314,22 @@ class OrderEntityRepository extends ServiceEntityRepository
     public function getOrdersInSpecificDate($fromDate, $toDate)
     {
         return $this->createQueryBuilder('OrderEntity')
+            ->select('OrderEntity.id', 'OrderEntity.deliveryDate', 'OrderEntity.createdAt', 'OrderEntity.payment', 'OrderEntity.detail', 'OrderEntity.deliveryCost', 'OrderEntity.orderCost', 'OrderEntity.orderType', 'OrderEntity.note')
+            ->addSelect('orderDetailEntity.id as orderDetailId', 'orderDetailEntity.orderNumber')
 
-          ->select('OrderEntity.id', 'OrderEntity.deliveryDate', 'OrderEntity.createdAt', 'OrderEntity.storeOwnerProfileID', 'OrderEntity.source', 'OrderEntity.payment', 'OrderEntity.detail', 'OrderEntity.deliveryCost', 'OrderEntity.orderCost', 'OrderEntity.orderType', 'OrderEntity.destination', 'OrderEntity.note', 'OrderEntity.state')
-          ->addSelect('OrderDetailEntity.id as orderDetailId', 'OrderDetailEntity.orderNumber')
+            ->leftJoin(OrderDetailEntity::class, 'orderDetailEntity', Join::WITH, 'orderDetailEntity.orderID = OrderEntity.id')
 
-          ->leftJoin(OrderDetailEntity::class, 'OrderDetailEntity', Join::WITH, 'OrderDetailEntity.orderID = OrderEntity.id')
+            ->andWhere('OrderEntity.state != :state ')
+            ->andWhere('OrderEntity.createdAt >= :fromDate')
+            ->andWhere('OrderEntity.createdAt < :toDate')
+            ->setParameter('state', OrderStateConstant::$ORDER_STATE_CANCEL)
+            ->setParameter('fromDate', $fromDate)
+            ->setParameter('toDate', $toDate)
 
-          ->where('OrderEntity.createdAt >= :fromDate')
-          ->andWhere('OrderEntity.createdAt < :toDate')
-          ->andWhere("OrderEntity.state != :cancelled")
+            ->addGroupBy('OrderEntity.id')
 
-          ->setParameter('fromDate', $fromDate)
-          ->setParameter('toDate', $toDate)
-          ->setParameter('cancelled', self::CANCEL)
-
-          ->addGroupBy('OrderEntity.id')
-
-          ->getQuery()
-          ->getResult(); 
+            ->getQuery()
+            ->getResult();
     }
 
     public function getCountOrdersEveryStoreInLastMonth($fromDate, $toDate)
@@ -837,18 +833,20 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
-    public function countStoreOrders($storeProfileId)
+    public function countStoreOrders($ids)
     {
-        return $this->createQueryBuilder('OrderEntity')
+        return  $this->createQueryBuilder('OrderEntity')
 
-            ->select('count(OrderEntity.id) as ordersCount')
+            ->select('count(OrderEntity.id) as count')
 
-            ->andWhere('OrderEntity.storeOwnerProfileID = :storeOwnerProfileID')
+            ->andWhere("OrderEntity.state != :state")
+            ->andWhere("OrderEntity.id IN (:id)")
 
-            ->setParameter('storeOwnerProfileID', $storeProfileId)
+            ->setParameter('state', OrderStateConstant::$ORDER_STATE_CANCEL)
+            ->setParameter('id', $ids)
 
             ->getQuery()
-            ->getResult();
+            ->getSingleScalarResult();
     }
 
     public function getOrdersByStoreProfileId($storeProfileId)
