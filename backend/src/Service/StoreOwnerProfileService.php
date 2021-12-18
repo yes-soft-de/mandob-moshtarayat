@@ -12,6 +12,7 @@ use App\Request\StoreOwnerProfileCreateByAdminRequest;
 use App\Request\StoreOwnerProfileUpdateRequest;
 use App\Request\StoreOwnerUpdateByAdminRequest;
 use App\Request\UserRegisterRequest;
+use App\Request\VerificationCreateRequest;
 use App\Response\CaptainIsActiveResponse;
 use App\Response\StoreFinancialAccountForStoreResponse;
 use App\Response\StoreNameResponse;
@@ -36,9 +37,11 @@ class StoreOwnerProfileService
     private $roomIdHelperService;
     private $ratingService;
     private $deliveryCompanyPaymentsToStoreService;
+    private $verificationService;
 
     public function __construct(AutoMapping $autoMapping, UserManager $userManager, RatingService $ratingService, StoreOwnerBranchService $storeOwnerBranchService,
-                                ParameterBagInterface $params, RoomIdHelperService $roomIdHelperService, StoreOwnerProfileManager $storeOwnerProfileManager, DeliveryCompanyPaymentsToStoreService $deliveryCompanyPaymentsToStoreService)
+                                ParameterBagInterface $params, RoomIdHelperService $roomIdHelperService, StoreOwnerProfileManager $storeOwnerProfileManager, DeliveryCompanyPaymentsToStoreService $deliveryCompanyPaymentsToStoreService,
+     VerificationService $verificationService)
     {
         $this->autoMapping = $autoMapping;
         $this->userManager = $userManager;
@@ -47,6 +50,7 @@ class StoreOwnerProfileService
         $this->storeOwnerBranchService = $storeOwnerBranchService;
         $this->roomIdHelperService = $roomIdHelperService;
         $this->deliveryCompanyPaymentsToStoreService = $deliveryCompanyPaymentsToStoreService;
+        $this->verificationService = $verificationService;
         $this->params = $params->get('upload_base_url') . '/';
     }
 
@@ -58,6 +62,8 @@ class StoreOwnerProfileService
 
         if($userRegister instanceof UserEntity)
         {
+//            $this->createVerificationForStoreOwner($request);
+
             return $this->autoMapping->map(UserEntity::class, UserRegisterResponse::class, $userRegister);
         }
         elseif(is_array($userRegister))
@@ -69,6 +75,13 @@ class StoreOwnerProfileService
             return $response;
         }
     }
+
+//    public function createVerificationForStoreOwner(UserRegisterRequest $userEntity)
+//    {
+//        $createVerificationRequest = $this->autoMapping->map(UserRegisterRequest::class, VerificationCreateRequest::class, $userEntity);
+//
+//        $this->verificationService->createVerification($createVerificationRequest);
+//    }
 
     public function storeOwnerProfileUpdate(StoreOwnerProfileUpdateRequest $request)
     {
