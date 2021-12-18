@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\VerificationEntityRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=VerificationEntityRepository::class)
@@ -28,6 +29,7 @@ class VerificationEntity
     private $code;
 
     /**
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
