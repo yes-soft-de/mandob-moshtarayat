@@ -10,6 +10,7 @@ use App\Request\OrderUpdateInvoiceByCaptainRequest;
 use App\Request\OrderUpdateProductCountByClientRequest;
 use App\Request\OrderUpdateStateForEachStoreByCaptainRequest;
 use App\Response\OrderCreateDetailResponse;
+use App\Response\OrderDetailForStoreResponse;
 use App\Response\OrderDetailProductsResponse;
 use App\Response\OrderDetailResponse;
 use App\Response\OrderUpdateInvoiceByCaptainResponse;
@@ -188,6 +189,22 @@ class OrderDetailService
     public function getStorePendingOrders($storeOwnerProfileId)
     {
         return $this->orderDetailManager->getStorePendingOrders($storeOwnerProfileId);
+    }
+
+    public function getOrderDetailsByOrderNumberForStore($orderNumber, $storeOwnerProfileID)
+    {
+        $response = [];
+
+        $items = $this->orderDetailManager->getOrderDetailsByOrderNumberForStore($orderNumber, $storeOwnerProfileID);
+        foreach ($items as $item) {
+            $item['image'] = $this->getImageParams($item['image'], $this->params . $item['image'], $this->params);
+            $item['invoiceImage'] = $this->getImageParams($item['invoiceImage'], $this->params . $item['invoiceImage'], $this->params);
+            $item['products'] = $this->getProductsByOrderNumberAndStoreID($orderNumber, $item['storeOwnerProfileID']);
+
+            $response[] = $this->autoMapping->map('array', OrderDetailForStoreResponse::class, $item);
+        }
+
+        return $response;
     }
 
     public function getStoreOrdersOngoingForStoreOwner($storeOwnerProfileId)

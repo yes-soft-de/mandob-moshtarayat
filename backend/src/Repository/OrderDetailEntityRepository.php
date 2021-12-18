@@ -233,6 +233,34 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getOrderDetailsByOrderNumberForStore($orderNumber, $storeOwnerProfileID)
+    {
+        return $this->createQueryBuilder('OrderDetailEntity')
+
+            ->select( 'OrderDetailEntity.id as orderDetailID', 'OrderDetailEntity.storeOwnerProfileID', 'OrderDetailEntity.orderID')
+            ->addSelect('StoreOwnerProfileEntity.storeOwnerName', 'StoreOwnerProfileEntity.image', 'StoreOwnerProfileEntity.phone', 'StoreOwnerProfileEntity.storeCategoryId')
+            ->addSelect('StoreOwnerBranchEntity.location')
+            ->addSelect('OrdersInvoicesEntity.invoiceAmount', 'OrdersInvoicesEntity.invoiceImage')
+            ->addSelect('OrderEntity.note', 'OrderEntity.createdAt', 'OrderEntity.detail', 'OrderEntity.orderType', 'OrderEntity.deliveryDate')
+
+            ->leftJoin(OrderEntity::class, 'OrderEntity', Join::WITH, 'OrderEntity.id = OrderDetailEntity.orderID')
+            ->leftJoin(StoreOwnerProfileEntity::class, 'StoreOwnerProfileEntity', Join::WITH, 'StoreOwnerProfileEntity.id = OrderDetailEntity.storeOwnerProfileID')
+            ->leftJoin(StoreOwnerBranchEntity::class, 'StoreOwnerBranchEntity', Join::WITH, 'StoreOwnerProfileEntity.id = StoreOwnerBranchEntity.storeOwnerProfileID')
+            ->leftJoin(OrdersInvoicesEntity::class, 'OrdersInvoicesEntity', Join::WITH, 'OrdersInvoicesEntity.id = OrderDetailEntity.orderInvoiceId')
+
+            ->andWhere('OrderDetailEntity.orderNumber = :orderNumber')
+            ->andWhere('OrderDetailEntity.storeOwnerProfileID = :storeOwnerProfileID')
+//            ->andWhere('OrdersInvoicesEntity.orderNumber = :orderNumber')
+
+            ->setParameter('orderNumber', $orderNumber)
+            ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
+
+            ->addGroupBy('OrderDetailEntity.storeOwnerProfileID')
+
+            ->getQuery()
+            ->getResult();
+    }
+
     public function getStoreOrdersOngoingForStoreOwner($storeOwnerProfileId)
     {
         return $this->createQueryBuilder('orderDetailEntity')

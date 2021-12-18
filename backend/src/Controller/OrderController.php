@@ -1985,47 +1985,56 @@ class OrderController extends BaseController
      *      description="token to be passed as a header",
      *      required=true
      * )
+     *
      * @OA\Response(
      *      response=200,
-     *      description="Get order details for store by order number",
+     *      description="Returns objetc of order details.",
      *      @OA\JsonContent(
-     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="status_code", description="201"),
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
-     *                  @OA\Property(type="array", property="orderDetails",
-     *                      @OA\Items(
-     *                          @OA\Property(type="integer", property="id"),
-     *                          @OA\Property(type="integer", property="productID"),
-     *                          @OA\Property(type="integer", property="orderID"),
-     *                          @OA\Property(type="integer", property="productName"),
-     *                          @OA\Property(type="object", property="productImage",
-     *                                @OA\Property(type="string", property="imageURL"),
-     *                                @OA\Property(type="string", property="image"),
-     *                                @OA\Property(type="string", property="baseURL"),
-     *                          ),
-     *                          @OA\Property(type="integer", property="productPrice"),
-     *                          @OA\Property(type="integer", property="countProduct"),
-     *                          @OA\Property(type="integer", property="storeOwnerProfileID"),
-     *                          @OA\Property(type="integer", property="ProductCategoryID"),
-     *                          @OA\Property(type="integer", property="orderNumber"),
-     *                                 ),
-     *                              ),
-     *                        @OA\Property(type="integer", property="invoiceAmount"),
-     *                        @OA\Property(type="object", property="invoiceImage",
-     *                                @OA\Property(type="string", property="imageURL"),
-     *                                @OA\Property(type="string", property="image"),
-     *                                @OA\Property(type="string", property="baseURL"),
-     *                          ),
-     *                        @OA\Property(type="object", property="createdAt"),
-     *                        @OA\Property(type="string", property="detail"),
-     *                        @OA\Property(type="integer", property="orderType"),
-     *                        @OA\Property(type="string", property="note"),
-     *                        @OA\Property(type="string", property="state"),
-     *                        @OA\Property(type="string", property="rating"),
+     *                   @OA\Property(type="array", property="orderDetails",
+     *                   @OA\Items(
+     *                         @OA\Property(type="integer", property="orderID"),
+     *                         @OA\Property(type="string", property="phone"),
+     *                         @OA\Property(type="object", property="image",
+     *                                 @OA\Property(type="object", property="imageURL"),
+     *                                 @OA\Property(type="object", property="image"),
+     *                                 @OA\Property(type="object", property="baseURL"),
+     *                                          ),
+     *                         @OA\Property(type="integer", property="storeCategoryId"),
+     *                         @OA\Property(type="integer", property="createdAt"),
+     *                         @OA\Property(type="integer", property="detail"),
+     *                         @OA\Property(type="integer", property="orderType"),
+     *                         @OA\Property(type="integer", property="note"),
+     *                         @OA\Property(type="number", property="invoiceAmount"),
+     *                         @OA\Property(type="object", property="invoiceImage",
+     *                                 @OA\Property(type="object", property="imageURL"),
+     *                                 @OA\Property(type="object", property="image"),
+     *                                 @OA\Property(type="object", property="baseURL"),
+     *                                          ),
+     *                         @OA\Property(type="array", property="products",
+     *                              @OA\Items(
+     *                                  @OA\Property(type="string", property="productName"),
+     *                                  @OA\Property(type="object", property="productImage",
+     *                                       @OA\Property(type="object", property="imageURL"),
+     *                                       @OA\Property(type="object", property="image"),
+     *                                       @OA\Property(type="object", property="baseURL"),
+     *                                          ),
+     *                         @OA\Property(type="number", property="productPrice"),
+     *                         @OA\Property(type="integer", property="countProduct"),
+     *                         @OA\Property(type="integer", property="ProductCategoryID"),
+     *                         @OA\Property(type="integer", property="orderNumber"),
+     *                         @OA\Property(type="integer", property="productID"),
+     *                                           ),
+     *                                       ),
      *
-     *                           )
-     *                   )
-     *          )
+     *                               ),
+     *               ),
+     *          @OA\Property(type="number", property="rate"),
+     *      )
+     *  )
+     *)
      * @Security(name="Bearer")
      */
     public function getOrderDetailsByOrderNumberForStore($orderNumber): JsonResponse
