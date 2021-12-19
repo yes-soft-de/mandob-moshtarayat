@@ -221,8 +221,8 @@ class StoreProductsLoadedState extends StoreProductsState {
             defaultQuantity: getQuantity(element.id),
             quantity: (cartModel) {
               if (cartModel.quantity > 0) {
-                  addToCart(cartModel);
-                }
+                addToCart(cartModel);
+              }
               if (cartModel.quantity == 0) {
                 carts.removeWhere((e) => e.id == cartModel.id);
                 CartHiveHelper().removeProductsToCart(cartModel);

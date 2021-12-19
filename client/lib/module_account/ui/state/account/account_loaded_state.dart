@@ -76,10 +76,23 @@ class AccountLoadedState extends AccountState {
           AccountTile(
             text: S.of(context).termsOfService,
             icon: Icons.sticky_note_2_rounded,
+            onTap: () {
+              Navigator.of(context).pushNamed(AccountRoutes.TERMS_OF_USE);
+            },
+          ),
+          AccountTile(
+            text: S.of(context).privacyPolicy,
+            icon: Icons.privacy_tip_rounded,
+            onTap: () {
+              Navigator.of(context).pushNamed(AccountRoutes.PRIVECY_POLICY);
+            },
           ),
           AccountTile(
             text: S.of(context).about,
             icon: Icons.info,
+            onTap: () {
+              Navigator.of(context).pushNamed(AccountRoutes.ABOUT_SCREEN);
+            },
           ),
           SizedBox(
             width: MediaQuery.of(context).size.width,
@@ -120,7 +133,7 @@ class AccountLoadedState extends AccountState {
                     type: SocialType.facebook,
                     color: Colors.blue,
                     onTap: () {
-                                  launch(
+                      launch(
                           'https://m.facebook.com/profile.php?id=100073436632320');
                     },
                   ),

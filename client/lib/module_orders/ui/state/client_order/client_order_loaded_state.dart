@@ -187,15 +187,16 @@ class ClientOrderLoadedState extends ClientOrderState {
                       onPressed: () {
                         if (clientAddress == null) {
                           CustomFlushBarHelper.createError(
-                              title: S.of(context).warnning,
-                              message: S.of(context).pleaseProvideYourAddress)
-                            .show(context);
+                                  title: S.of(context).warnning,
+                                  message:
+                                      S.of(context).pleaseProvideYourAddress)
+                              .show(context);
                         } else if (payments == null) {
                           CustomFlushBarHelper.createError(
-                              title: S.of(context).warnning,
-                              message:
-                                  S.of(context).pleaseProvidePaymentMethode)
-                            .show(context);
+                                  title: S.of(context).warnning,
+                                  message:
+                                      S.of(context).pleaseProvidePaymentMethode)
+                              .show(context);
                         } else {
                           screenState.postClientOrder(ClientOrderRequest(
                               destination: GeoJson(

@@ -49,7 +49,7 @@ class ProductModel {
     storeProducts.data?.forEach((element) {
       models.add(ProductModel(
           title: element.productName ?? S.current.product,
-          image: element.productImage ??
+          image: element.productImage?.image ??
               'https://images.unsplash.com/photo-1513104890138-7c749659a591?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
           id: element.id ?? -1,
           price: element.productPrice ?? 0));

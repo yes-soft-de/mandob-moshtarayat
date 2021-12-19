@@ -21,7 +21,8 @@ class _ChooseLocalScreenState extends State<ChooseLocalScreen> {
   @override
   Widget build(BuildContext context) {
     Locale myLocale = Localizations.localeOf(context);
-    return Scaffold(body: Column(
+    return Scaffold(
+        body: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -102,23 +103,24 @@ class _ChooseLocalScreenState extends State<ChooseLocalScreen> {
             width: double.maxFinite,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
               ),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(S.of(context).next,style: const TextStyle(
-                  color: Colors.white
-                ),),
+                child: Text(
+                  S.of(context).next,
+                  style: const TextStyle(color: Colors.white),
+                ),
               ),
               onPressed: () {
-               Navigator.of(context).pushNamedAndRemoveUntil(MainRoutes.MAIN_SCREEN, (route) => false);
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    MainRoutes.MAIN_SCREEN, (route) => false);
               },
             ),
           ),
         ),
       ],
-    )
-  );}
+    ));
+  }
 }

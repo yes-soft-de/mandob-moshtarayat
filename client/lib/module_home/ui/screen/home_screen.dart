@@ -3,6 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/di/di_config.dart';
+import 'package:mandob_moshtarayat/module_account/account_routes.dart';
 import 'package:mandob_moshtarayat/module_account/hive/favorite_store_category.dart';
 import 'package:mandob_moshtarayat/module_account/ui/screen/favourite_screen.dart';
 import 'package:mandob_moshtarayat/module_auth/service/auth_service/auth_service.dart';
@@ -33,7 +34,20 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> getHomeData([bool loading = true]) async {
-    widget._homeStateManager.getHomeData(this, loading);
+    if (getIt<AuthService>().isLoggedIn &&
+        getIt<FavoriteHiveHelper>().getFavoriteCategory() != null) {
+      widget._homeStateManager.getHomeFavoriteData(
+          this, getIt<FavoriteHiveHelper>().getFavoriteCategory() ?? '-1');
+    } else if (getIt<AuthService>().isLoggedIn &&
+        getIt<FavoriteHiveHelper>().getFavoriteCategory() == null) {
+      showDialog(
+          context: context,
+          builder: (_) {
+            return getIt<FavouritScreen>();
+          });
+    } else {
+      widget._homeStateManager.getHomeData(this, loading);
+    }
   }
 
   void getCategories(catId, categories) async {

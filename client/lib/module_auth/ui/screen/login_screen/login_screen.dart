@@ -111,9 +111,10 @@ class LoginScreenState extends State<LoginScreen> {
 
   void moveToNext() {
     if (returnToMainScreen != null) {
-      Navigator.of(context).pushNamedAndRemoveUntil(
-          MainRoutes.MAIN_SCREEN, (route) => false,
-          arguments: returnToMainScreen).then((value) {
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil(MainRoutes.MAIN_SCREEN, (route) => false,
+              arguments: returnToMainScreen)
+          .then((value) {
         if (returnToMainScreen == 0) {
           showDialog(
               context: context, builder: (context) => getIt<FavouritScreen>());

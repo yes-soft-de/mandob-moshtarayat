@@ -1,19 +1,21 @@
 import 'package:intl/intl.dart';
 import 'package:mandob_moshtarayat/consts/order_status.dart';
-import 'package:mandob_moshtarayat/module_orders/response/order_details_response.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
+import 'package:mandob_moshtarayat/module_orders/response/order_details_response/destination.dart';
+import 'package:mandob_moshtarayat/module_orders/response/order_details_response/order.dart';
+import 'package:mandob_moshtarayat/module_orders/response/order_details_response/order_detail.dart';
+import 'package:mandob_moshtarayat/module_orders/response/order_details_response/order_details_response.dart';
 import 'package:mandob_moshtarayat/utils/helpers/order_status_helper.dart';
 
 class OrderDetailsModel {
-  List<Item> carts = [];
+  List<StoreOwnerInfo> carts = [];
   StoreOwnerInfo storeInfo = StoreOwnerInfo.Empty();
   OrderInfo order = OrderInfo.Empty();
   String? error;
   bool empty = false;
   OrderDetailsModel? orderDetailsModel;
 
-  OrderDetailsModel(
-      {required this.carts, required this.storeInfo, required this.order});
+  OrderDetailsModel({required this.carts, required this.order});
 
   OrderDetailsModel.Error(this.error);
 
@@ -27,24 +29,15 @@ class OrderDetailsModel {
 
   OrderDetailsModel.Data(OrderDetailsResponse response) {
     orderDetailsModel = OrderDetailsModel(
-        carts: toCartList(response.data?.orderDetails ?? <OrderDetails>[]),
-        order: toOrder(response.data?.order),
-        storeInfo: StoreOwnerInfo(
-          rating: num.parse(response.data?.storeOwner?.rating ?? '0'),
-          storeOwnerID: response.data?.storeOwner?.storeOwnerID ?? -1,
-          storeOwnerName:
-              response.data?.storeOwner?.storeOwnerName ?? S.current.storeOwner,
-          image: response.data?.storeOwner?.image ?? '',
-          imageURL:
-              'https://img.etimg.com/thumb/width-1200,height-900,imgsize-46347,resizemode-1,msid-79150455/news/international/business/pizza-hut-to-offer-pizzas-with-beyond-meat-sausages-in-u-s-uk.jpg',
-        ));
+      carts: toCartList(response.data?.orderDetails ?? <OrderDetail>[]),
+      order: toOrder(response.data?.order),
+    );
   }
 
   bool get hasData => orderDetailsModel != null;
 
   OrderDetailsModel get data =>
-      orderDetailsModel ??
-      OrderDetailsModel(carts: carts, storeInfo: storeInfo, order: order);
+      orderDetailsModel ?? OrderDetailsModel(carts: carts, order: order);
 }
 
 class Item {
@@ -72,15 +65,21 @@ class StoreOwnerInfo {
   String storeOwnerName = '';
   int storeOwnerID = -1;
   String image = '';
-  String imageURL = '';
+  String? imageURL;
   bool empty = false;
-  num rating = 0;
+  num? rating = 0;
+  double? invoiceAmount;
+  String? invoiceImage;
+  late List<Item> items;
   StoreOwnerInfo(
       {required this.storeOwnerName,
       required this.storeOwnerID,
       required this.image,
-      required this.imageURL,
-      required this.rating});
+      this.imageURL,
+      this.rating,
+      required this.items,
+      this.invoiceAmount,
+      this.invoiceImage});
 
   StoreOwnerInfo.Empty() {
     empty = true;
@@ -99,7 +98,7 @@ class OrderInfo {
   double orderCost = 0;
   String payment = '';
   String? note;
-  GeoJson? destination;
+  Destination? destination;
   bool empty = false;
   int orderType = 0;
   String? orderDetails;
@@ -135,20 +134,29 @@ class OrderInfo {
   bool get isEmpty => empty;
 }
 
-List<Item> toCartList(List<OrderDetails> ordersItems) {
-  if (ordersItems.isEmpty) return <Item>[];
-  List<Item> items = [];
+List<StoreOwnerInfo> toCartList(List<OrderDetail> ordersItems) {
+  if (ordersItems.isEmpty) return <StoreOwnerInfo>[];
+  List<StoreOwnerInfo> items = [];
   ordersItems.forEach((element) {
-    items.add(Item(
-        productID: element.productID ?? -1,
-        productName: element.productName ?? S.current.product,
-        //element.productImage ??
-        productImage: element.productImage?.image ?? '',
-        productPrice: element.productPrice ?? 0,
-        countProduct: element.countProduct ?? 1,
-        storeOwnerProfileID: element.storeOwnerProfileID ?? -1,
-        productCategoryID: element.productCategoryID ?? -1,
-        orderNumber: element.orderNumber ?? '-1'));
+    List<Item> orders = [];
+    element.products?.forEach((product) {
+      orders.add(Item(
+          productID: product.productId ?? -1,
+          productName: product.productName ?? S.current.product,
+          productImage: product.productImage?.image ?? '',
+          productPrice: product.productPrice?.toDouble() ?? 0,
+          countProduct: product.countProduct ?? 1,
+          storeOwnerProfileID: element.storeOwnerProfileId ?? -1,
+          productCategoryID: product.productCategoryId ?? -1,
+          orderNumber: product.orderNumber ?? '-1'));
+    });
+    items.add(StoreOwnerInfo(
+        storeOwnerName: element.storeOwnerName ?? S.current.unknown,
+        storeOwnerID: element.storeOwnerProfileId ?? -1,
+        image: element.image?.image ?? '',
+        items: orders,
+        invoiceAmount: element.invoiceAmount?.toDouble(),
+        invoiceImage: element.invoiceImage?.image));
   });
   return items;
 }
@@ -165,16 +173,16 @@ OrderInfo toOrder(Order? order) {
     return OrderInfo(
         id: order.id ?? -1,
         state: StatusHelper.getStatusEnum(order.state),
-        roomID: order.roomID ?? 'roomID',
-        ownerID: order.ownerID ?? -1,
-        orderCost: order.orderCost ?? 0,
+        roomID: order.roomId ?? 'roomID',
+        ownerID: -1,
+        orderCost: order.orderCost?.toDouble() ?? 0,
         deliveryDate: DateTime.fromMillisecondsSinceEpoch(
                 (order.deliveryDate?.timestamp ??
                         DateTime.now().millisecondsSinceEpoch) *
                     1000)
             .toUtc()
             .toIso8601String(),
-        deliveryCost: order.deliveryCost ?? 0,
+        deliveryCost: order.deliveryCost?.toDouble() ?? 0,
         payment: order.payment!,
         note: order.note,
         destination: order.destination,
@@ -182,8 +190,8 @@ OrderInfo toOrder(Order? order) {
         orderDetails: order.detail,
         recipientName: order.recipientName,
         recipientPhoneNumber: order.recipientPhone,
-        invoiceAmount: order.invoiceAmount,
-        invoiceImage: order.invoiceImage,
+        invoiceAmount: null,
+        invoiceImage: null,
         removable: !timeout);
   } else {
     return OrderInfo(

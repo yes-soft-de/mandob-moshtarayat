@@ -1,4 +1,5 @@
 import 'package:mandob_moshtarayat/generated/l10n.dart';
+import 'package:mandob_moshtarayat/module_home/response/favorite_response/image.dart';
 import 'package:mandob_moshtarayat/utils/logger/logger.dart';
 
 class StoreProfileResponse {
@@ -9,11 +10,11 @@ class StoreProfileResponse {
   });
 
   StoreProfileResponse.fromJson(dynamic json) {
-    statusCode = json['status_code'];
-    msg = json['msg'];
-    data = json['Data'] != null ? Data.fromJson(json['Data']) : null;
-
-    try {} catch (e) {
+    try {
+      statusCode = json['status_code'];
+      msg = json['msg'];
+      data = json['Data'] != null ? Data.fromJson(json['Data']) : null;
+    } catch (e) {
       Logger()
           .error('Store Profile Response', e.toString(), StackTrace.current);
       statusCode = '-1';
@@ -60,7 +61,7 @@ class Data {
   Data.fromJson(dynamic json) {
     id = json['id'];
     storeOwnerName = json['storeOwnerName'];
-    image = json['image'];
+    image = json['image'] != null ? Image.fromJson(json['image']) : null;
     branch = json['branch'];
     free = json['free'];
     if (json['branches'] != null) {
@@ -89,7 +90,7 @@ class Data {
   }
   int? id;
   String? storeOwnerName;
-  String? image;
+  Image? image;
   dynamic branch;
   bool? free;
   List<Branches>? branches;

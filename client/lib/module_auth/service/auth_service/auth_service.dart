@@ -1,5 +1,10 @@
 import 'package:injectable/injectable.dart';
+import 'package:mandob_moshtarayat/di/di_config.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
+import 'package:mandob_moshtarayat/module_account/hive/favorite_store_category.dart';
+import 'package:mandob_moshtarayat/module_account/model/user_favorite_model.dart';
+import 'package:mandob_moshtarayat/module_account/request/favorite_categories.dart';
+import 'package:mandob_moshtarayat/module_account/service/account_service.dart';
 import 'package:mandob_moshtarayat/module_auth/enums/auth_status.dart';
 import 'package:mandob_moshtarayat/module_auth/exceptions/auth_exception.dart';
 import 'package:mandob_moshtarayat/module_auth/manager/auth_manager/auth_manager.dart';
@@ -7,6 +12,7 @@ import 'package:mandob_moshtarayat/module_auth/presistance/auth_prefs_helper.dar
 import 'package:mandob_moshtarayat/module_auth/request/login_request/login_request.dart';
 import 'package:mandob_moshtarayat/module_auth/request/register_request/register_request.dart';
 import 'package:mandob_moshtarayat/module_auth/response/login_response/login_response.dart';
+import 'package:mandob_moshtarayat/module_home/service/home_service.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:mandob_moshtarayat/module_auth/response/regester_response/regester_response.dart';
 import 'package:mandob_moshtarayat/utils/helpers/status_code_helper.dart';
@@ -59,6 +65,7 @@ class AuthService {
     _prefsHelper.setUsername(username);
     _prefsHelper.setPassword(password);
     _prefsHelper.setToken(loginResult.token);
+     await updateCategoryFavorite();
     _authSubject.add(AuthStatus.AUTHORIZED);
   }
 
@@ -117,5 +124,25 @@ class AuthService {
 
   Future<void> logout() async {
     await _prefsHelper.cleanAll();
+  }
+
+  Future<void> updateCategoryFavorite() async {
+    if (getIt<FavoriteHiveHelper>().getFavoriteCategory() == null) {
+      var fav = await getIt<AccountService>().getFavoriteCategoires();
+      if (fav is UserFavouriteCategoriesModel) {
+        var cats = await getIt<HomeService>().getStoreCategories();
+        if (!cats.isEmpty && !cats.hasError) {
+          for (var element in cats.data) {
+            if (element.id.toString() == fav.data.first.id.toString()) {
+              getIt<FavoriteHiveHelper>().setFavoriteCategoryInfo(
+                  element.storeCategoryName, element.image);
+              await getIt<AccountService>().updatefavCategories(
+                  FavoriteCategoriesRequest(
+                      favouriteCategories: [element.id.toString()]));
+            }
+          }
+        }
+      }
+    }
   }
 }

@@ -1,6 +1,12 @@
 import 'package:injectable/injectable.dart';
+import 'package:mandob_moshtarayat/di/di_config.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
+import 'package:mandob_moshtarayat/module_account/hive/favorite_store_category.dart';
+import 'package:mandob_moshtarayat/module_account/model/user_favorite_model.dart';
+import 'package:mandob_moshtarayat/module_account/request/favorite_categories.dart';
+import 'package:mandob_moshtarayat/module_account/service/account_service.dart';
 import 'package:mandob_moshtarayat/module_auth/service/auth_service/auth_service.dart';
+import 'package:mandob_moshtarayat/module_home/service/home_service.dart';
 import 'package:mandob_moshtarayat/module_localization/service/localization_service/localization_service.dart';
 import 'package:mandob_moshtarayat/module_main/main_routes.dart';
 import 'package:mandob_moshtarayat/module_settings/setting_routes.dart';
@@ -60,6 +66,7 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(const Duration(seconds: 2));
     if (widget._authService.isLoggedIn) {
       try {
+        await widget._authService.updateCategoryFavorite();
         await widget._authService.getToken();
         return MainRoutes.MAIN_SCREEN;
       } catch (e) {
@@ -73,4 +80,5 @@ class _SplashScreenState extends State<SplashScreen> {
       return SettingRoutes.CHOOSE_LANGUAGE;
     }
   }
+
 }

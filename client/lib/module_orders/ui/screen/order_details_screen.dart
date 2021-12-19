@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
@@ -24,7 +26,7 @@ class OrderDetailsScreen extends StatefulWidget {
 class OrderDetailsScreenState extends State<OrderDetailsScreen> {
   late OrderDetailsState currentState;
   ClientOrderRequest? clientOrderRequest;
-
+  late StreamSubscription stateSub;
   bool flagOrderId = true;
   int? orderNumber;
   bool edit = false;
@@ -42,12 +44,12 @@ class OrderDetailsScreenState extends State<OrderDetailsScreen> {
       CustomFlushBarHelper.createSuccess(
         title: S.of(context).warnning,
         message: S.of(context).deleteSuccess,
-      )..show(context);
+      ).show(context);
     } else {
       Navigator.of(context).pop();
       CustomFlushBarHelper.createError(
-          title: S.of(context).warnning, message: err)
-        ..show(context);
+              title: S.of(context).warnning, message: err)
+          .show(context);
     }
   }
 
@@ -56,12 +58,12 @@ class OrderDetailsScreenState extends State<OrderDetailsScreen> {
       CustomFlushBarHelper.createSuccess(
         title: S.of(context).warnning,
         message: S.of(context).updateOrderSuccess,
-      )..show(context);
+      ).show(context);
     } else {
       Navigator.of(context).pop();
       CustomFlushBarHelper.createError(
-          title: S.of(context).warnning, message: err)
-        ..show(context);
+              title: S.of(context).warnning, message: err)
+          .show(context);
     }
   }
 
@@ -91,7 +93,7 @@ class OrderDetailsScreenState extends State<OrderDetailsScreen> {
   void initState() {
     super.initState();
     currentState = OrderDetailsLoadingState(this);
-    widget._stateManager.stateStream.listen((event) {
+    stateSub = widget._stateManager.stateStream.listen((event) {
       currentState = event;
       if (mounted) {
         setState(() {});
@@ -132,6 +134,8 @@ class OrderDetailsScreenState extends State<OrderDetailsScreen> {
   @override
   void dispose() {
     widget._stateManager.newActionSubscription?.cancel();
+    Hive.box('Order').listenable(keys: ['cart']).removeListener(() {});
+    stateSub.cancel();
     super.dispose();
   }
 }

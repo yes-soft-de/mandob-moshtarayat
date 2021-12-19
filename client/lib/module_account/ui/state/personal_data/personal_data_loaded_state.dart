@@ -45,12 +45,12 @@ class PersonalDataLoadedState extends PersonalDataState {
       children: [
         ListView(
           physics:
-              BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+              const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           children: [
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
-            Container(
+            SizedBox(
               height: 150,
               child: Center(
                 child: SizedBox(
@@ -199,7 +199,9 @@ class PersonalDataLoadedState extends PersonalDataState {
                         last: true,
                       ),
                     ),
-                    const SizedBox(height: 16,),
+                    const SizedBox(
+                      height: 16,
+                    ),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Container(
@@ -208,13 +210,17 @@ class PersonalDataLoadedState extends PersonalDataState {
                           borderRadius: BorderRadius.circular(25),
                         ),
                         child: ListTile(
-                          trailing: const Icon(Icons.arrow_forward,color: Colors.white,),
-                          leading: const Icon(Icons.favorite,color: Colors.white,),
+                          trailing: const Icon(
+                            Icons.arrow_forward,
+                            color: Colors.white,
+                          ),
+                          leading: const Icon(
+                            Icons.favorite,
+                            color: Colors.white,
+                          ),
                           title: Text(
                             S.current.favoriteCategories,
-                            style: const TextStyle(
-                              color: Colors.white
-                            ),
+                            style: const TextStyle(color: Colors.white),
                           ),
                           onTap: () {
                             showDialog(

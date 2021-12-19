@@ -44,18 +44,18 @@ class SubCategoryCard extends StatelessWidget {
                         color: selected ? Colors.white : null,
                       )
                     : Container(
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                      ),
-                      child: ClipOval(
-                        child: CustomNetworkImage(
-                          imagePreview: false,
-                          imageSource:image ?? '',
-                          width: 40,
-                          height: 40,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                        ),
+                        child: ClipOval(
+                          child: CustomNetworkImage(
+                            imagePreview: false,
+                            imageSource: image ?? '',
+                            width: 40,
+                            height: 40,
+                          ),
                         ),
                       ),
-                    ),
                 const SizedBox(
                   width: 8,
                 ),

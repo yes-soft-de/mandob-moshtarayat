@@ -1,5 +1,7 @@
 import 'package:injectable/injectable.dart';
+import 'package:mandob_moshtarayat/di/di_config.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
+import 'package:mandob_moshtarayat/module_localization/service/localization_service/localization_service.dart';
 import 'package:mandob_moshtarayat/module_orders/model/deleted_order_status.dart';
 import 'package:mandob_moshtarayat/module_stores/manager/store_products.dart';
 import 'package:mandob_moshtarayat/module_stores/model/category_model.dart';
@@ -14,6 +16,7 @@ import 'package:mandob_moshtarayat/module_stores/response/store_profile_response
 import 'package:mandob_moshtarayat/utils/helpers/status_code_helper.dart';
 import 'package:mandob_moshtarayat/utils/models/product.dart';
 import 'package:mandob_moshtarayat/utils/models/store.dart';
+import 'package:translator/translator.dart';
 
 @injectable
 class StoreProductsService {
@@ -75,6 +78,9 @@ class StoreProductsService {
           productsByCategory.statusCode));
     }
     if (productsByCategory.data == null) return ProductModel.Empty();
+     for (var element in productsByCategory.data!) {
+      element.productName = await translateService(element.productName ?? '');
+    }
     return ProductModel.Data(productsByCategory);
   }
 
@@ -94,6 +100,9 @@ class StoreProductsService {
     if (topWanted.isEmpty && cats.isEmpty) {
       return StoreProductsData.Empty();
     }
+    for (var element in topWanted.data) {
+      element.title = await translateService(element.title);
+    }
     return StoreProductsData.Data(topWanted.data, cats.data, errors);
   }
 
@@ -108,5 +117,24 @@ class StoreProductsService {
           StatusCodeHelper.getStatusCodeMessages(rateStoreResponse.statusCode));
     }
     return MyOrderState.empty();
+  }
+
+  Future<String> translateService(String word) async {
+    var reg = RegExp(
+        r'[\u0600-\u06ff]|[\u0750-\u077f]|[\ufb50-\ufc3f]|[\ufe70-\ufefc]');
+    if (reg.hasMatch(word) &&
+        getIt<LocalizationService>().getLanguage() == 'ar') {
+      return word;
+    }
+    final translator = GoogleTranslator();
+    var translation = await translator.translate(word,
+        to: getIt<LocalizationService>().getLanguage());
+    print('++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+    print('source ${translation.source} translated to ${translation.text}');
+    print(
+        'source ${translation.sourceLanguage} target ${translation.targetLanguage}');
+    print('++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+
+    return translation.text;
   }
 }

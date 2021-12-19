@@ -12,14 +12,13 @@ class CustomNetworkImage extends StatelessWidget {
   final bool assets;
   final Color? background;
   final bool imagePreview;
-  const CustomNetworkImage({
-    required this.height,
-    required this.width,
-    required this.imageSource,
-    this.assets = false,
-    this.background,
-    this.imagePreview = true
-  });
+  const CustomNetworkImage(
+      {required this.height,
+      required this.width,
+      required this.imageSource,
+      this.assets = false,
+      this.background,
+      this.imagePreview = true});
 
   @override
   Widget build(BuildContext context) {
@@ -78,47 +77,49 @@ class CustomNetworkImage extends StatelessWidget {
         image = Urls.IMAGES_ROOT + image;
       }
       return GestureDetector(
-        onTap: imagePreview ? () {
-          showDialog(
-              context: context,
-              builder: (_) {
-                return Scaffold(
-                  appBar: AppBar(
-                    backgroundColor: Colors.black,
-                    elevation: 0,
-                    leading: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: InkWell(
-                        customBorder: const CircleBorder(),
-                        onTap: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            color: Colors.black38,
-                            shape: BoxShape.circle,
-                          ),
-                          child: const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Icon(
-                              Icons.arrow_back,
-                              color: Colors.white,
+        onTap: imagePreview
+            ? () {
+                showDialog(
+                    context: context,
+                    builder: (_) {
+                      return Scaffold(
+                        appBar: AppBar(
+                          backgroundColor: Colors.black,
+                          elevation: 0,
+                          leading: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: InkWell(
+                              customBorder: const CircleBorder(),
+                              onTap: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                  color: Colors.black38,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Icon(
+                                    Icons.arrow_back,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                  ),
-                  backgroundColor: Colors.black,
-                  body: PinchZoom(
-                    child: Image.network(image),
-                    resetDuration: const Duration(milliseconds: 150),
-                    onZoomStart: () {},
-                    onZoomEnd: () {},
-                  ),
-                );
-              });
-        } : null,
+                        backgroundColor: Colors.black,
+                        body: PinchZoom(
+                          child: Image.network(image),
+                          resetDuration: const Duration(milliseconds: 150),
+                          onZoomStart: () {},
+                          onZoomEnd: () {},
+                        ),
+                      );
+                    });
+              }
+            : null,
         child: ProgressiveImage.custom(
           height: height,
           width: width,

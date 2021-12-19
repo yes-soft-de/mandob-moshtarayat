@@ -6,14 +6,18 @@ class SocialWidget extends StatelessWidget {
   final SocialType type;
   final Color color;
   final GestureTapCallback onTap;
-   const SocialWidget(
-      {Key? key, required this.color, required this.image, required this.type, required this.onTap})
+  const SocialWidget(
+      {Key? key,
+      required this.color,
+      required this.image,
+      required this.type,
+      required this.onTap})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap:onTap,
+      onTap: onTap,
       child: SizedBox(
         height: 60,
         width: 60,

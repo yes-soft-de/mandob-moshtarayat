@@ -8,7 +8,7 @@ import 'package:mandob_moshtarayat/module_settings/ui/settings_page/settings_pag
 class SettingsModule extends YesModule {
   final SettingsScreen settingsScreen;
   final ChooseLocalScreen chooseLocalScreen;
-  SettingsModule(this.settingsScreen,this.chooseLocalScreen) {
+  SettingsModule(this.settingsScreen, this.chooseLocalScreen) {
     YesModule.RoutesMap.addAll({
       SettingRoutes.ROUTE_SETTINGS: (context) => settingsScreen,
       SettingRoutes.CHOOSE_LANGUAGE: (context) => chooseLocalScreen

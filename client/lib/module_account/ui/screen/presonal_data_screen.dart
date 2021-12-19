@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
-import 'package:mandob_moshtarayat/module_account/account_routes.dart';
 import 'package:mandob_moshtarayat/module_account/model/profile_model.dart';
 import 'package:mandob_moshtarayat/module_account/request/profile_request.dart';
 import 'package:mandob_moshtarayat/module_account/state_manager/presonal_data_state_manager.dart';
@@ -38,12 +37,12 @@ class PersonalDataScreenState extends State<PersonalDataScreen> {
       CustomFlushBarHelper.createSuccess(
         title: S.of(context).warnning,
         message: S.of(context).uploadProfileSuccess,
-      )..show(context);
+      ).show(context);
     } else {
       Navigator.of(context).pop();
       CustomFlushBarHelper.createError(
           title: S.of(context).warnning, message: err)
-        ..show(context);
+        .show(context);
     }
   }
 

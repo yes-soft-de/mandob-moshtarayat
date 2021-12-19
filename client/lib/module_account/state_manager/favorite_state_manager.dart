@@ -18,8 +18,7 @@ class FavouriteStateManager {
   final AccountService _accountService;
   final HomeService _homeService;
 
-  FavouriteStateManager(
-      this._accountService,this._homeService);
+  FavouriteStateManager(this._accountService, this._homeService);
   final PublishSubject<States> _stateSubject = PublishSubject<States>();
 
   Stream<States> get stateStream => _stateSubject.stream;
@@ -30,7 +29,7 @@ class FavouriteStateManager {
       if (value.hasError) {
         _stateSubject.add(ErrorState(screenState, onPressed: () {
           getCategories(screenState);
-        }, title: '', hasAppbar: false,error:value.error));
+        }, title: '', hasAppbar: false, error: value.error));
       } else if (value.isEmpty) {
         _stateSubject.add(EmptyState(screenState,
             emptyMessage: S.current.homeDataEmpty,

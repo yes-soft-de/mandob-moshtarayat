@@ -13,8 +13,10 @@ import 'package:mandob_moshtarayat/module_orders/ui/widget/order_details/bill.da
 import 'package:mandob_moshtarayat/module_orders/ui/widget/order_details/order_chip.dart';
 import 'package:mandob_moshtarayat/module_orders/ui/widget/order_details/order_details_app_bar.dart';
 import 'package:mandob_moshtarayat/module_orders/ui/widget/order_details/order_details_title_bar.dart';
+import 'package:mandob_moshtarayat/module_stores/store_routes.dart';
 import 'package:mandob_moshtarayat/utils/components/animation_alert.dart';
 import 'package:mandob_moshtarayat/utils/components/progresive_image.dart';
+import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
 import 'package:mandob_moshtarayat/utils/helpers/order_status_helper.dart';
 
 class OrderDetailsLoadedState extends OrderDetailsState {
@@ -39,15 +41,15 @@ class OrderDetailsLoadedState extends OrderDetailsState {
       },
       child: Stack(
         children: [
-          orderDetails.order.orderType != 3
-              ? Container(
+          orderDetails.order.orderType != 3 && orderDetails.order.orderType != 1
+              ? SizedBox(
                   height: height,
                   width: width,
                   child: Flex(
                     direction: Axis.vertical,
                     children: [
                       CustomNetworkImage(
-                        imageSource: orderDetails.storeInfo.image,
+                        imageSource: orderDetails.carts.first.image,
                         height: height / 2,
                         width: width,
                       ),
@@ -58,9 +60,9 @@ class OrderDetailsLoadedState extends OrderDetailsState {
                     ],
                   ),
                 )
-              : SizedBox(),
-          orderDetails.order.orderType != 3
-              ? SizedBox()
+              : const SizedBox(),
+          orderDetails.order.orderType != 3 && orderDetails.order.orderType != 1
+              ? const SizedBox()
               : Container(
                   color: Theme.of(context).primaryColor,
                   height: height,
@@ -81,27 +83,29 @@ class OrderDetailsLoadedState extends OrderDetailsState {
                     screenState.deleteOrder(screenState.orderNumber ?? -1);
                   }
                 : null,
-            collapsed: orderDetails.order.orderType == 3,
+            collapsed: orderDetails.order.orderType == 3 ||
+                orderDetails.order.orderType == 1,
             edit: edit,
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: orderDetails.order.orderType != 3
+            child: orderDetails.order.orderType != 3 &&
+                    orderDetails.order.orderType != 1
                 ? Container(
                     height: height * 0.78,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         borderRadius:
                             BorderRadius.vertical(top: Radius.circular(25)),
                         color: Colors.black54),
                     child: Padding(
-                      padding: EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(16),
                       child: OrderDetailsTitleBar(
-                        title: orderDetails.storeInfo.storeOwnerName,
-                        rate: orderDetails.storeInfo.rating,
+                        title: orderDetails.carts.first.storeOwnerName,
+                        rate: 0,
                       ),
                     ),
                   )
-                : SizedBox(),
+                : const SizedBox(),
           ),
           Align(
             alignment: Alignment.bottomCenter,
@@ -110,12 +114,13 @@ class OrderDetailsLoadedState extends OrderDetailsState {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
-                  height: orderDetails.order.orderType != 3
+                  height: orderDetails.order.orderType != 3 &&
+                          orderDetails.order.orderType != 1
                       ? height * 0.70
                       : height * 0.875,
                   decoration: BoxDecoration(
                     borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(18)),
+                        const BorderRadius.vertical(top: Radius.circular(18)),
                     color: Theme.of(context).cardColor,
                   ),
                   child: Stack(
@@ -123,7 +128,7 @@ class OrderDetailsLoadedState extends OrderDetailsState {
                       Padding(
                         padding: const EdgeInsets.only(top: 4.0),
                         child: ListView(
-                          physics: BouncingScrollPhysics(
+                          physics: const BouncingScrollPhysics(
                               parent: AlwaysScrollableScrollPhysics()),
                           children: [
                             Padding(
@@ -134,7 +139,7 @@ class OrderDetailsLoadedState extends OrderDetailsState {
                                   top: 25.0),
                               child: Text(
                                 '${S.of(context).orderNumber} #${screenState.orderNumber}',
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 25, fontWeight: FontWeight.bold),
                               ),
                             ),
@@ -146,7 +151,7 @@ class OrderDetailsLoadedState extends OrderDetailsState {
                                     cost: orderDetails.order.invoiceAmount
                                         .toString(),
                                   )
-                                : SizedBox(),
+                                : const SizedBox(),
                             Padding(
                               padding: const EdgeInsets.all(12.0),
                               child: Container(
@@ -163,7 +168,7 @@ class OrderDetailsLoadedState extends OrderDetailsState {
                                   },
                                   title: Text(
                                     S.of(context).orderStatus,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white),
@@ -171,7 +176,7 @@ class OrderDetailsLoadedState extends OrderDetailsState {
                                   subtitle: Text(
                                     StatusHelper.getOrderStatusMessages(
                                         orderDetails.order.state),
-                                    style: TextStyle(color: Colors.white),
+                                    style: const TextStyle(color: Colors.white),
                                   ),
                                   leading: Icon(
                                     StatusHelper.getOrderStatusIcon(
@@ -179,7 +184,7 @@ class OrderDetailsLoadedState extends OrderDetailsState {
                                     color: Colors.white,
                                     size: 35,
                                   ),
-                                  trailing: Icon(
+                                  trailing: const Icon(
                                     Icons.arrow_forward,
                                     color: Colors.white,
                                   ),
@@ -206,30 +211,31 @@ class OrderDetailsLoadedState extends OrderDetailsState {
                                         },
                                         title: Text(
                                           S.of(context).chatWithCaptain,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontSize: 18,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.white),
                                         ),
                                         subtitle: Text(
                                           S.of(context).openChatRoom,
-                                          style: TextStyle(color: Colors.white),
+                                          style: const TextStyle(
+                                              color: Colors.white),
                                         ),
-                                        leading: Icon(
+                                        leading: const Icon(
                                           Icons.sms,
                                           color: Colors.white,
                                           size: 35,
                                         ),
-                                        trailing: Icon(
+                                        trailing: const Icon(
                                           Icons.arrow_forward,
                                           color: Colors.white,
                                         ),
                                       ),
                                     ),
                                   )
-                                : SizedBox(),
+                                : const SizedBox(),
                             getOrderTypeWidget(orderDetails.order.orderType),
-                            SizedBox(
+                            const SizedBox(
                               height: 35,
                             ),
                           ],
@@ -263,12 +269,13 @@ class OrderDetailsLoadedState extends OrderDetailsState {
               ),
               title: Text(
                 S.of(context).orderList,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
             ),
           ),
           ListView(
-            physics: ScrollPhysics(),
+            physics: const ScrollPhysics(),
             shrinkWrap: true,
             children: getOrdersList(orderDetails.carts),
           ),
@@ -416,28 +423,65 @@ class OrderDetailsLoadedState extends OrderDetailsState {
     return Container();
   }
 
-  List<Widget> getOrdersList(List<Item> carts) {
+  List<Widget> getOrdersList(List<StoreOwnerInfo> carts) {
     List<Widget> orderChips = [];
     carts.forEach((element) {
-      orderChips.add(OrderChip(
-        key: ValueKey(element.productID),
-        productID: element.productID,
-        title: element.productName,
-        image: element.productImage,
-        price: element.productPrice,
-        currency: S.current.sar,
-        quantity: (p) {},
-        editable: false,
-        defaultQuantity: element.countProduct,
-      ));
-      orderChips.add(Padding(
-        padding: const EdgeInsets.only(right: 8.0, left: 8.0),
-        child: DottedLine(
-          dashColor: Theme.of(screenState.context).backgroundColor,
-          lineThickness: 2.5,
-          dashLength: 6,
+      orderChips.add(
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            decoration: BoxDecoration(
+                color: Theme.of(screenState.context).backgroundColor,
+                borderRadius: BorderRadius.circular(10)),
+            child: ListTile(
+              leading: ClipOval(
+                child: CustomNetworkImage(
+                    height: 45, width: 45, imageSource: element.image),
+              ),
+              trailing: const Icon(Icons.arrow_forward_rounded),
+              onTap: () {
+                Navigator.of(screenState.context).pushNamed(
+                    StoreRoutes.STORE_PRODUCTS,
+                    arguments: {'storeId': element.storeOwnerID.toString()});
+              },
+              title: Text(element.storeOwnerName),
+            ),
+          ),
         ),
+      );
+      element.items.forEach((element) {
+        orderChips.add(OrderChip(
+          key: ValueKey(element.productID),
+          productID: element.productID,
+          title: element.productName,
+          image: element.productImage,
+          price: element.productPrice,
+          currency: S.current.sar,
+          quantity: (p) {},
+          editable: false,
+          defaultQuantity: element.countProduct,
+        ));
+        orderChips.add(Padding(
+          padding: const EdgeInsets.only(right: 8.0, left: 8.0),
+          child: DottedLine(
+            dashColor: Theme.of(screenState.context).backgroundColor,
+            lineThickness: 2.5,
+            dashLength: 6,
+          ),
+        ));
+      });
+      orderChips.add(const SizedBox(
+        height: 16,
       ));
+      orderChips.add(Hider(
+          active: element.invoiceAmount != null,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: CustomInvoiceAlert(
+              image: orderDetails.order.invoiceImage.toString(),
+              cost: orderDetails.order.invoiceAmount.toString(),
+            ),
+          )));
     });
     return orderChips;
   }

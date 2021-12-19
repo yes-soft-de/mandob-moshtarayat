@@ -376,7 +376,8 @@
   "preferredLanguage":"Preferred Language",
   "selectLanguage":"Select Language",
   "cartItemAdded":"Item added to cart",
-  "cartItemRemoved":"Item removed from cart"
+  "cartItemRemoved":"Item removed from cart",
+  "productDetails":"Products Details"
   
 
 

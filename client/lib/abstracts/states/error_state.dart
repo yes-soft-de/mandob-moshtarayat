@@ -29,7 +29,8 @@ class ErrorState extends States {
               title: title, buttonBackground: Colors.red)
           : null,
       body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+        physics: const BouncingScrollPhysics(
+            parent: AlwaysScrollableScrollPhysics()),
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
           child: Flex(

@@ -22,8 +22,7 @@ class ProductsCard extends StatefulWidget {
       this.defaultQuantity = 0,
       required this.id,
       this.onTap,
-      required this.storeId
-      });
+      required this.storeId});
 
   @override
   _ProductsCardState createState() => _ProductsCardState();

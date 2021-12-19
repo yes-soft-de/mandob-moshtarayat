@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/abstracts/data_model/data_model.dart';
+import 'package:mandob_moshtarayat/di/di_config.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_home/manager/home_manager.dart';
 import 'package:mandob_moshtarayat/module_home/model/favorite_categories_model.dart';
@@ -7,16 +8,17 @@ import 'package:mandob_moshtarayat/module_home/model/home_model.dart';
 import 'package:mandob_moshtarayat/module_home/model/products_by_categories_model.dart';
 import 'package:mandob_moshtarayat/module_home/model/subCategoriesModel.dart';
 import 'package:mandob_moshtarayat/module_home/model/top_wanted_products_model.dart';
-import 'package:mandob_moshtarayat/module_home/response/best_store.dart';
 import 'package:mandob_moshtarayat/module_home/response/favorite_response/favorite_response.dart';
 import 'package:mandob_moshtarayat/module_home/response/products.dart';
 import 'package:mandob_moshtarayat/module_home/response/products_by_categories_response.dart';
 import 'package:mandob_moshtarayat/module_home/response/store_categories.dart';
 import 'package:mandob_moshtarayat/module_home/response/sub_categories_response.dart';
+import 'package:mandob_moshtarayat/module_localization/service/localization_service/localization_service.dart';
 import 'package:mandob_moshtarayat/module_stores/response/store_category_list.dart';
 import 'package:mandob_moshtarayat/utils/helpers/status_code_helper.dart';
 import 'package:mandob_moshtarayat/utils/models/store.dart';
 import 'package:mandob_moshtarayat/utils/models/store_category.dart';
+import 'package:translator/translator.dart';
 
 @injectable
 class HomeService {
@@ -119,6 +121,9 @@ class HomeService {
           productsResponse.statusCode ?? '0'));
     }
     if (productsResponse.data == null) return DataModel.empty();
+    for (var element in productsResponse.data!) {
+      element.productName = await translateService(element.productName ?? '');
+    }
     return ProductsByCategoriesModel.withData(productsResponse.data!);
   }
 
@@ -133,6 +138,9 @@ class HomeService {
           productsResponse.statusCode ?? '0'));
     }
     if (productsResponse.data == null) return DataModel.empty();
+    for (var element in productsResponse.data!) {
+      element.productName = await translateService(element.productName ?? '');
+    }
     return ProductsByCategoriesModel.withData(productsResponse.data!);
   }
 
@@ -147,6 +155,9 @@ class HomeService {
           productsResponse.statusCode ?? '0'));
     }
     if (productsResponse.data == null) return DataModel.empty();
+    for (var element in productsResponse.data!) {
+      element.productName = await translateService(element.productName ?? '');
+    }
     return ProductsByCategoriesModel.withData(productsResponse.data!);
   }
 
@@ -164,7 +175,7 @@ class HomeService {
     return FavoriteCategoriesModel.withData(favoriteResponse.data!);
   }
 
-    Future<DataModel> getProductsByStore(String storeID) async {
+  Future<DataModel> getProductsByStore(String storeID) async {
     ProductsByCategoriesResponse? productsResponse =
         await _homeManager.getProductsByStore(storeID);
     if (productsResponse == null) {
@@ -175,6 +186,27 @@ class HomeService {
           productsResponse.statusCode ?? '0'));
     }
     if (productsResponse.data == null) return DataModel.empty();
+    for (var element in productsResponse.data!) {
+      element.productName = await translateService(element.productName ?? '');
+    }
     return ProductsByCategoriesModel.withData(productsResponse.data!);
+  }
+
+  Future<String> translateService(String word) async {
+    var reg = RegExp(
+        r'[\u0600-\u06ff]|[\u0750-\u077f]|[\ufb50-\ufc3f]|[\ufe70-\ufefc]');
+    if (reg.hasMatch(word) &&
+        getIt<LocalizationService>().getLanguage() == 'ar') {
+      return word;
+    }
+    final translator = GoogleTranslator();
+    var translation = await translator.translate(word,
+        to: getIt<LocalizationService>().getLanguage());
+    print('++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+    print('source ${translation.source} translated to ${translation.text}');
+    print('source ${translation.sourceLanguage} target ${translation.targetLanguage}');
+    print('++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+
+    return translation.text;
   }
 }

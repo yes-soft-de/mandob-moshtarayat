@@ -53,18 +53,18 @@ class CategoriesCard extends StatelessWidget {
                         size: 35,
                       )
                     : Container(
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                      ),
-                      child: ClipOval(
-                        child: CustomNetworkImage(
-                            imageSource:image ?? '',
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                        ),
+                        child: ClipOval(
+                          child: CustomNetworkImage(
+                            imageSource: image ?? '',
                             width: 35,
                             height: 35,
                             imagePreview: false,
                           ),
+                        ),
                       ),
-                    ),
                 const SizedBox(
                   height: 4,
                 ),

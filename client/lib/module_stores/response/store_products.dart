@@ -1,3 +1,6 @@
+// ignore_for_file: unnecessary_string_interpolations
+
+import 'package:mandob_moshtarayat/module_home/response/favorite_response/image.dart';
 import 'package:mandob_moshtarayat/utils/logger/logger.dart';
 
 class StoreProducts {
@@ -38,7 +41,7 @@ class StoreProducts {
 class Data {
   int? id;
   String? productName;
-  String? productImage;
+  Image? productImage;
   double? productPrice;
   int? storeOwnerProfileID;
   int? productCategoryID;
@@ -68,7 +71,9 @@ class Data {
   Data.fromJson(dynamic json) {
     id = json['id'];
     productName = json['productName'];
-    productImage = json['productImage'];
+    productImage = json['productImage'] != null
+        ? Image.fromJson(json['productImage'])
+        : null;
     productPrice = json['productPrice']?.toDouble();
     storeOwnerProfileID = json['storeOwnerProfileID'];
     productCategoryID = json['ProductCategoryID'];

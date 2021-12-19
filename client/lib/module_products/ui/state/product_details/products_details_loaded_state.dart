@@ -23,6 +23,8 @@ class ProductDetailsLoadedState extends States {
   late int quantity;
   @override
   Widget getUI(BuildContext context) {
+        num disPrice =
+        (model.productPrice * (100 - num.parse(model.discount))) / 100;
     return SingleChildScrollView(
       physics:
           const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
@@ -227,7 +229,7 @@ class ProductDetailsLoadedState extends States {
                               name: model.productName,
                               image: model.image,
                               id: model.id,
-                              price: model.productPrice.toDouble(),
+                              price: disPrice.toDouble(),
                               quantity: getQuantity(model.id)),
                           quantity: getQuantity(model.id),
                           onSelect: (cartModel) {
