@@ -191,22 +191,28 @@ class StoresInActiveLoadedState extends States {
                                     baseImage: element.imageUrl,
                                     storeCategoryId:
                                         int.parse(element.categoryId)),
-                                updateStore: (id, name, image, products,
-                                    privateOrder, open, close, status,commission) {
+                                updateStore: (id,
+                                    name,
+                                    image,
+                                    products,
+                                    privateOrder,
+                                    open,
+                                    close,
+                                    status,
+                                    commission) {
                                   Navigator.of(context).pop();
                                   screenState.updateStore(UpdateStoreRequest(
-                                    status: status,
-                                    id: element.id.toString(),
-                                    storeOwnerName: name,
-                                    storeCategoryId:
-                                        int.parse(element.categoryId),
-                                    image: image,
-                                    hasProducts: products ? 1 : 0,
-                                    privateOrders: privateOrder ? 1 : 0,
-                                    openingTime: open,
-                                    closingTime: close,
-                                    commission: double.parse(commission)
-                                  ));
+                                      status: status,
+                                      id: element.id.toString(),
+                                      storeOwnerName: name,
+                                      storeCategoryId:
+                                          int.parse(element.categoryId),
+                                      image: image,
+                                      hasProducts: products ? 1 : 0,
+                                      privateOrders: privateOrder ? 1 : 0,
+                                      openingTime: open,
+                                      closingTime: close,
+                                      commission: double.parse(commission)));
                                 },
                               ),
                             ),

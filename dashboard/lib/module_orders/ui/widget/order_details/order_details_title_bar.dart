@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+
 class OrderDetailsTitleBar extends StatelessWidget {
   final String title;
   final num rate;
-  OrderDetailsTitleBar({required this.title,required this.rate});
+  OrderDetailsTitleBar({required this.title, required this.rate});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,6 @@ class OrderDetailsTitleBar extends StatelessWidget {
             child: Text(
               title,
               style: TextStyle(
-                  color: Colors.white,
                   fontSize: 25,
                   fontWeight: FontWeight.bold),
             ),
@@ -28,8 +28,7 @@ class OrderDetailsTitleBar extends StatelessWidget {
             alignment: AlignmentDirectional.centerStart,
             child: Container(
               decoration: BoxDecoration(
-                color:
-                Theme.of(context).cardColor.withOpacity(0.65),
+                color: Theme.of(context).cardColor.withOpacity(0.65),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Flex(
@@ -51,8 +50,7 @@ class OrderDetailsTitleBar extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(
-                        top: 8.0, bottom: 8.0),
+                    padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
                     child: Icon(
                       Icons.star,
                       size: 18,

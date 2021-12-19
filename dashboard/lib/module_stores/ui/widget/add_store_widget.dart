@@ -393,7 +393,8 @@ class _AddStoreWidgetState extends State<AddStoreWidget> {
 }
 
 class UpdateStoreWidget extends StatefulWidget {
-  final Function(String, String, String?, bool, bool, String?, String?, String,String)
+  final Function(
+          String, String, String?, bool, bool, String?, String?, String, String)
       updateStore;
   final UpdateStoreRequest? request;
   final List<DropdownMenuItem<String>>? categories;
@@ -423,6 +424,7 @@ class _UpdateStoreWidgetState extends State<UpdateStoreWidget> {
   var date = DateTime.now();
   @override
   Widget build(BuildContext context) {
+    print(widget.request?.baseImage);
     return StackedForm(
         child: Form(
           key: _key,
@@ -542,7 +544,7 @@ class _UpdateStoreWidgetState extends State<UpdateStoreWidget> {
 
                       // store commission
                       Padding(
-                        padding: const EdgeInsets.only(left:16.0,right: 16.0),
+                        padding: const EdgeInsets.only(left: 16.0, right: 16.0),
                         child: Row(
                           children: [
                             Expanded(
@@ -765,8 +767,7 @@ class _UpdateStoreWidgetState extends State<UpdateStoreWidget> {
                     .toUtc()
                     .toIso8601String(),
                 status,
-                _commissionController.text
-                );
+                _commissionController.text);
           } else {
             CustomFlushBarHelper.createError(
                     title: S.current.warnning,

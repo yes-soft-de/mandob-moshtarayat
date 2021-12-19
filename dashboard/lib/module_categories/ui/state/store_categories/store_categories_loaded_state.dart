@@ -78,7 +78,7 @@ class StoreCategoriesLoadedState extends StoreCategoriesState {
                 return CustomAlertDialog(
                     message: S.current.sureForDeleteCategories,
                     onPressed: () {
-                              Navigator.of(context).pop();
+                      Navigator.of(context).pop();
 
                       screenState.deleteCategories(element.id.toString());
                     });
@@ -86,16 +86,30 @@ class StoreCategoriesLoadedState extends StoreCategoriesState {
         },
         dialog:
             formDialog(context, S.current.storeCategories, S.current.category,
-                (name, image,tars) {
+                (name, image, tars) {
           Navigator.of(context).pop();
           screenState.updateCategory(UpdateStoreCategoriesRequest(
-            dataStoreCategory: DataUpdateStoreCategory(id: element.id,storeCategoryName: name,image: image,lang: screenState.languageSelected),
-            translate:screenState.languageSelected =='ar'? [] : [TranslateUpdateStoreCategory(lang: screenState.languageSelected,storeCategoryName: name,storeCategoryID: element.id)]
-          ));
+              dataStoreCategory: DataUpdateStoreCategory(
+                  id: element.id,
+                  storeCategoryName: name,
+                  image: image,
+                  lang: screenState.languageSelected),
+              translate: screenState.languageSelected == 'ar'
+                  ? []
+                  : [
+                      TranslateUpdateStoreCategory(
+                          lang: screenState.languageSelected,
+                          storeCategoryName: name,
+                          storeCategoryID: element.id)
+                    ]));
         },
                 storeCategoriesRequest: UpdateStoreCategoriesRequest(
-                    dataStoreCategory :DataUpdateStoreCategory(id: element.id,storeCategoryName:  element.categoryName,image: element.image,baseImage: element.baseImage,lang: screenState.languageSelected)
-                  )),
+                    dataStoreCategory: DataUpdateStoreCategory(
+                        id: element.id,
+                        storeCategoryName: element.categoryName,
+                        image: element.image,
+                        baseImage: element.imageUrl,
+                        lang: screenState.languageSelected))),
       ));
     }
 
@@ -125,7 +139,9 @@ class StoreCategoriesLoadedState extends StoreCategoriesState {
                 underline: Container(),
                 icon: Padding(
                   padding: const EdgeInsets.all(4.0),
-                  child: Icon(Icons.arrow_drop_down_rounded,),
+                  child: Icon(
+                    Icons.arrow_drop_down_rounded,
+                  ),
                 ),
                 items: [
                   DropdownMenuItem(
@@ -152,7 +168,7 @@ class StoreCategoriesLoadedState extends StoreCategoriesState {
                 ],
                 onChanged: (newLang) {
                   screenState.languageSelected = newLang.toString();
-                    screenState.getStoreCategoriesWithLang(newLang.toString());
+                  screenState.getStoreCategoriesWithLang(newLang.toString());
                 }),
           ));
     }

@@ -3,7 +3,7 @@ import 'package:mandob_moshtarayat_dashboad/consts/urls.dart';
 import 'package:mandob_moshtarayat_dashboad/module_auth/service/auth_service/auth_service.dart';
 import 'package:mandob_moshtarayat_dashboad/module_network/http_client/http_client.dart';
 import 'package:mandob_moshtarayat_dashboad/module_orders/response/my_orders_response.dart';
-import 'package:mandob_moshtarayat_dashboad/module_orders/response/order_details_response.dart';
+import 'package:mandob_moshtarayat_dashboad/module_orders/response/order_details_response/order_details_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_orders/response/order_time_line_response.dart';
 
 @injectable

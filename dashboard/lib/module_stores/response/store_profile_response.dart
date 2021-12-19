@@ -1,4 +1,5 @@
 import 'package:mandob_moshtarayat_dashboad/module_captain/response/captain_account_balance_response.dart';
+import 'package:mandob_moshtarayat_dashboad/module_distributor/module_captain/response/distirbutor_reponse/image.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/logger/logger.dart';
 
 class StoreProfileResponse {
@@ -9,10 +10,11 @@ class StoreProfileResponse {
   StoreProfileResponse({this.statusCode, this.msg, this.data});
 
   StoreProfileResponse.fromJson(dynamic json) {
-    try {
-      statusCode = json['status_code'];
+        statusCode = json['status_code'];
       msg = json['msg'];
       data = json['Data'] != null ? Data.fromJson(json['Data']) : null;
+    try {
+  
     } catch (e) {
       Logger().error('Store Profile', e.toString(), StackTrace.current);
       statusCode = '-1';
