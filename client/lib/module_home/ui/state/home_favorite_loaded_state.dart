@@ -39,11 +39,18 @@ class HomeFavoriteLoadedState extends HomeState {
         children: [
           FavoriteHomeAppBar(
             categoriesCallback: (categoriesID, categoriesLevel2) {
-              subCategory = categoriesID;
-              subCategoryLevel2ID = null;
-              catsLevel2 = categoriesLevel2;
-              screenState.getSubCategoriesProducts(categoriesID);
-              screenState.refresh();
+              if (categoriesID != subCategory) {
+                subCategory = categoriesID;
+                subCategoryLevel2ID = null;
+                catsLevel2 = categoriesLevel2;
+                screenState.getSubCategoriesProducts(categoriesID);
+                screenState.refresh();
+              } else {
+                screenState.getHomeData();
+                subCategory = '';
+                subCategoryLevel2ID = null;
+                catsLevel2 = [];
+              }
             },
             categoryName: getIt<FavoriteHiveHelper>()
                     .getFavoriteCategoryInfo()

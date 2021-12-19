@@ -6,7 +6,7 @@ import 'package:mandob_moshtarayat/utils/images/images.dart';
 class ProductsByCategoriesModel extends DataModel {
   late int id;
   late String productName;
-  late int productPrice;
+  late num productPrice;
   late int storeOwnerProfileID;
   late int storeProductCategoryID;
   late String image;

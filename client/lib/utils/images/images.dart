@@ -10,6 +10,7 @@ class ImageAsset {
   static const DELIVERY_MOTOR = ROOT + 'delivery_splash.png';
   static const LANGUAGE = ROOT + 'translate.png';
   static const ARAB_LANGUAGE = ROOT + 'saudi-arabia.png';
+  static const URDU_LANGUAGE = ROOT + 'pakistan.png';
   static const ENGLISH_LANGUAGE = ROOT + 'united-kingdom.png';
   static const EMPTY_SVG = ROOT + 'Empty.svg';
   static const ERROR_SVG = ROOT + 'error.svg';

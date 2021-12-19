@@ -90,6 +90,16 @@ class _ChooseLocalScreenState extends State<ChooseLocalScreen> {
                     active: myLocale.languageCode == 'ar',
                   ),
                 ),
+                InkWell(
+                  onTap: () {
+                    widget._localizationService.setLanguage('ur');
+                  },
+                  child: LanguageButton(
+                    image: ImageAsset.URDU_LANGUAGE,
+                    textLang: 'اردو',
+                    active: myLocale.languageCode == 'ur',
+                  ),
+                ),
                 Container(
                   height: 18,
                 ),
