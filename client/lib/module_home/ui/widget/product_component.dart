@@ -318,7 +318,7 @@ class _ProductComponentState extends State<ProductComponent> {
                                       storeID: widget.storeId,
                                       id: int.parse(widget.productId),
                                       quantity: widget.quantity,
-                                      price: double.parse(widget.price),
+                                      price: disPrice.toDouble(),
                                       image: widget.image,
                                       name: widget.title,
                                     ));
@@ -372,7 +372,7 @@ class _ProductComponentState extends State<ProductComponent> {
                                 storeID: widget.storeId,
                                 id: int.parse(widget.productId),
                                 quantity: widget.quantity,
-                                price: double.parse(widget.price),
+                                price: disPrice.toDouble(),
                                 image: widget.image,
                                 name: widget.title,
                               ));
