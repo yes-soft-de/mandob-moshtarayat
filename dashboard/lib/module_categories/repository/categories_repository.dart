@@ -140,7 +140,14 @@ class CategoriesRepository {
     if (response == null) return null;
     return ActionResponse.fromJson(response);
   }
-
+  Future<ActionResponse?> updateProductCommission(UpdateProductCommissionRequest request) async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.put(
+        Urls.UPDATE_PRODUCT_COMMISSION, request.toJson(),
+        headers: {'Authorization': 'Bearer ' + token.toString()});
+    if (response == null) return null;
+    return ActionResponse.fromJson(response);
+  }
   Future<ActionResponse?> createSubCategories(SubCategoriesRequest request) async {
     var token = await _authService.getToken();
     dynamic response = await _apiClient.post(

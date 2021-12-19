@@ -5419,6 +5419,26 @@ class S {
       args: [],
     );
   }
+
+  /// `commission`
+  String get productCommission {
+    return Intl.message(
+      'commission',
+      name: 'productCommission',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add commission`
+  String get addCommission {
+    return Intl.message(
+      'Add commission',
+      name: 'addCommission',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

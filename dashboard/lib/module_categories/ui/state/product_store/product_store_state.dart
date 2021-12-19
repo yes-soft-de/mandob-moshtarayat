@@ -8,6 +8,7 @@ import 'package:mandob_moshtarayat_dashboad/module_categories/ui/screen/store_pr
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/widget/add_product_form.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/widget/product_card.dart';
 import 'package:mandob_moshtarayat_dashboad/module_theme/service/theme_service/theme_service.dart';
+import 'package:mandob_moshtarayat_dashboad/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_list_view.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/empty_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/error_screen.dart';
@@ -138,12 +139,44 @@ class ProductStoreState extends States {
                 description: '',
                 image: element.productImage.image ?? '',
                 rating: 0,
+                commission: element.commission.toString(),
                 title: element.productName,
                 productId: element.id.toString(),
                 price: element.productPrice.toString()),
           ),
           InkWell(
             onTap: (){
+              showDialog(
+                  barrierDismissible: false,
+                  context: screenState.context,
+                  builder: (context) {
+                    return Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                      child: Scaffold(
+                        backgroundColor:
+                        Theme.of(context).scaffoldBackgroundColor,
+                        body: UpdateProductsCommissionForm(
+                          updateCommission: (inCon , con){
+                            Navigator.of(context).pop();
+                            screenState.updateProductCommission(UpdateProductCommissionRequest(
+                              isCommission: inCon,
+                              commission: con.toString(),
+                              storeOwnerProfileID:element.storeOwnerProfileID,
+                              id: element.id
+                            ));
+
+                          },
+                          request:UpdateProductCommissionRequest(
+                            id: element.id,
+                            storeOwnerProfileID: element.storeOwnerProfileID,
+                            commission: element.commission.toString(),
+                            isCommission: element.commission != 0? true:false
+                          ) ,
+                        ),
+                      ),
+                    );
+                  });
             },
             child: Padding(
               padding: const EdgeInsetsDirectional.only(end: 8),

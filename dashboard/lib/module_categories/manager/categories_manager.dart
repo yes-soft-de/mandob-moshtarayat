@@ -61,6 +61,8 @@ class CategoriesManager {
 
   Future<ActionResponse?> updateProduct(UpdateProductRequest request) =>
       _categoriesRepository.updateProduct(request);
+  Future<ActionResponse?> updateProductCommission(UpdateProductCommissionRequest request) =>
+      _categoriesRepository.updateProductCommission(request);
 
   Future<ActionResponse?> createSubCategories(SubCategoriesRequest request) =>
       _categoriesRepository.createSubCategories(request);

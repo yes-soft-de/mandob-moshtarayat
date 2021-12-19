@@ -35,3 +35,26 @@ class UpdateProductRequest {
   }
 
 }
+
+class UpdateProductCommissionRequest {
+  int? id;
+  int? storeOwnerProfileID;
+  bool? isCommission;
+  String? commission;
+
+  UpdateProductCommissionRequest({
+    this.id,
+    this.storeOwnerProfileID,
+    this.isCommission,
+    this.commission,
+    });
+
+  Map<String, dynamic> toJson() {
+    var map = <String, dynamic>{};
+    map['id'] = id;
+    map['isCommission'] = isCommission;
+    map['commission'] = commission;
+    return map;
+  }
+
+}

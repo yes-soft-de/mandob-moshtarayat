@@ -46,6 +46,9 @@ class StoreProductScreenState extends State<StoreProductScreen> {
   void updateProduct(UpdateProductRequest request) {
     widget._stateManager.updateProduct(this, request);
   }
+  void updateProductCommission(UpdateProductCommissionRequest request) {
+    widget._stateManager.updateProductCommission(this, request);
+  }
 
   void refresh() {
     if (mounted) {

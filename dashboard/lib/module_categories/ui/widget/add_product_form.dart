@@ -266,3 +266,89 @@ class _UpdateProductsFormState extends State<UpdateProductsForm> {
     );
   }
 }
+
+
+class UpdateProductsCommissionForm extends StatefulWidget {
+  final Function(bool, String) updateCommission;
+  final UpdateProductCommissionRequest? request;
+  UpdateProductsCommissionForm({required this.updateCommission, this.request});
+  @override
+  _UpdateProductsCommissionFormState createState() => _UpdateProductsCommissionFormState();
+}
+
+class _UpdateProductsCommissionFormState extends State<UpdateProductsCommissionForm> {
+  final GlobalKey<FormState> _key = GlobalKey<FormState>();
+  final TextEditingController _priceController = TextEditingController();
+  bool agreed = false;
+  @override
+  void initState() {
+    if (widget.request != null) {
+      if(widget.request?.commission != '0'){
+        agreed = true;
+      }
+      _priceController.text = widget.request?.commission?.toString() ?? '0';
+    }
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar:
+      CustomTwaslnaAppBar.appBar(context, title: S.current.updateProduct),
+      body: StackedForm(
+          child: Form(
+            key: _key,
+            child: FixedContainer(
+              child: CustomListView.custom(
+                  padding: EdgeInsets.only(right: 16, left: 16),
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 12.0, bottom: 8, right: 12, top: 16.0),
+                      child: Text(
+                        S.current.productCommission,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.start,
+                      ),
+                    ),
+                    CustomFormField(
+                      controller: _priceController,
+                      hintText: S.current.productCommission,
+                      numbers: true,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16.0),
+                      child: CheckboxListTile(
+                          value: agreed,
+                          title: Text(S
+                              .of(context)
+                              .addCommission),
+                          onChanged: (v) {
+                            agreed = v ?? false;
+                            setState(() {
+
+                            });
+                          }),
+                    ),
+                    SizedBox(
+                      height: 100,
+                    ),
+                  ]),
+            ),
+          ),
+          label: S.current.save,
+          onTap: () {
+            if (_key.currentState!.validate()) {
+              widget.updateCommission(
+                  agreed, _priceController.text,);
+            } else {
+              CustomFlushBarHelper.createError(
+                  title: S.current.warnning,
+                  message: S.current.pleaseCompleteTheForm)
+                  .show(context);
+            }
+          }),
+    );
+  }
+}

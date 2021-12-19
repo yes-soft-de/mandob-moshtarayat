@@ -213,6 +213,19 @@ class CategoriesService {
     }
     return DataModel.empty();
   }
+  Future<DataModel> updateProductCommission(UpdateProductCommissionRequest request) async {
+    ActionResponse? actionResponse =
+        await _categoriesManager.updateProductCommission(request);
+
+    if (actionResponse == null) {
+      return DataModel.withError(S.current.networkError);
+    }
+    if (actionResponse.statusCode != '204') {
+      return DataModel.withError(
+          StatusCodeHelper.getStatusCodeMessages(actionResponse.statusCode));
+    }
+    return DataModel.empty();
+  }
   Future<DataModel> createSubCategories(SubCategoriesRequest request) async {
     ActionResponse? actionResponse = await _categoriesManager.createSubCategories(request);
 

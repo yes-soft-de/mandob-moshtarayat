@@ -54,7 +54,7 @@ class Urls {
       BASE_API + '/storeproductscategorylevelonefroadmin';
   static const GET_SUBCATEGORIES_LEVEL_TOW =
       BASE_API + '/storeproductscategoryleveltwoforadmin';
-  static const GET_PRODUCTS = BASE_API + '/productsstoreownerprofileid/';
+  static const GET_PRODUCTS = BASE_API + '/productsstorebyprofileid/';
   static const CREATE_PRODUCTS_CATEGORY = BASE_API + '/StoreProductCategory';
   static const CREATE_SUBCATEGORIES_LEVEL_TOW =
       BASE_API + '/storeproductcategoryleveltwo';
@@ -114,5 +114,6 @@ class Urls {
       BASE_API + '/countOrdersEveryProductInLastMonth';
   static const DELETE_SUB_CATEGORIES = BASE_API + '/storeproductcategory/';
   static const DELETE_CATEGORIES = BASE_API + '/storecategory/';
+  static const UPDATE_PRODUCT_COMMISSION= BASE_API + '/updateproductcommissionbyadmin';
 
 }
