@@ -56,11 +56,8 @@ class OrderManager
        
         if ($item) {
             $item = $this->autoMapping->mapToObject(OrderUpdateStateByCaptainRequest::class, OrderEntity::class, $request, $item);
-
-            $item->setUpdatedAt($item->getUpdatedAt());
             
             $this->entityManager->flush();
-            $this->entityManager->clear();
 
             return $item;
         }

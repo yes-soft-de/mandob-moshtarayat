@@ -2,14 +2,16 @@
 
 namespace App\Request;
 
-class OrderStateRequest
+class OrderUpdateStateByOrderStateRequest
 {
     private $id;
 
     private $state;
 
+    private $captainID;
+
     /**
-     * @return mixed
+     * Get the value of id
      */
     public function getId()
     {
@@ -17,11 +19,15 @@ class OrderStateRequest
     }
 
     /**
-     * @param mixed $id
+     * Set the value of id
+     *
+     * @return  self
      */
-    public function setId($id): void
+    public function setId($id)
     {
         $this->id = $id;
+
+        return $this;
     }
 
     /**
@@ -38,5 +44,15 @@ class OrderStateRequest
     public function setState($state): void
     {
         $this->state = $state;
+    }
+
+    public function setCaptainID($captainID): void
+    {
+        $this->captainID = $captainID;
+    }
+
+    public function getCaptainID()
+    {
+        return $this->captainID;
     }
 }

@@ -8,6 +8,7 @@ use App\Manager\OrderDetailManager;
 use App\Request\OrderUpdateByClientRequest;
 use App\Request\OrderUpdateInvoiceByCaptainRequest;
 use App\Request\OrderUpdateProductCountByClientRequest;
+use App\Request\OrderUpdateStateByOrderStateRequest;
 use App\Request\OrderUpdateStateForEachStoreByCaptainRequest;
 use App\Response\OrderCreateDetailResponse;
 use App\Response\OrderDetailForStoreResponse;
@@ -151,7 +152,14 @@ class OrderDetailService
 
     public function orderUpdateInvoiceByCaptain(OrderUpdateInvoiceByCaptainRequest $request)
     {
-        $item = $this->orderDetailManager->orderUpdateInvoiceByCaptain($request);
+        $orderDetailIds = $this->orderDetailManager->getOrderDetailsByOrderNumberAndStoreProfileID($request->getOrderNumber(), $request->getStoreOwnerProfileID());
+
+        foreach ($orderDetailIds as $orderDetailId){
+
+            $request->setOrderDetailID($orderDetailId['id']);
+
+            $item = $this->orderDetailManager->orderUpdateInvoiceByCaptain($request);
+        }
 
         return $this->autoMapping->map(OrderDetailEntity::class, OrderUpdateInvoiceByCaptainResponse::class, $item);
     }
@@ -171,6 +179,25 @@ class OrderDetailService
 
             $request->setId($orderDetailId);
             $item = $this->orderDetailManager->orderUpdateStateForEachStore($request);
+        }
+
+        return $this->autoMapping->map(OrderDetailEntity::class, OrderUpdateStateForEachStoreResponse::class, $item);
+    }
+
+    public function orderUpdateStateByOrderState($state, $orderNumber, $captainID)
+    {
+        $item=(object)[];
+
+        $orderDetailIds = $this->getOrderId($orderNumber);
+
+        $request = new OrderUpdateStateByOrderStateRequest;
+        $request->setState($state);
+        $request->setCaptainID($captainID);
+
+        foreach ($orderDetailIds as $orderDetailId){
+            $request->setId($orderDetailId['id']);
+
+            $item = $this->orderDetailManager->orderUpdateStateByOrderState($request);
         }
 
         return $this->autoMapping->map(OrderDetailEntity::class, OrderUpdateStateForEachStoreResponse::class, $item);

@@ -130,50 +130,45 @@ class OrderService
     
     public function orderUpdateStateByCaptain(OrderUpdateStateByCaptainRequest $request)
     {
-        $response = "Not updated!!";
-        $orderDetails = $this->orderDetailService->getOrderIdByOrderNumber($request->getOrderNumber());
-        if($orderDetails){
-            $request->setId($orderDetails[0]->orderID);
+        $response = ResponseConstant::$ERROR;
+        $orderIds = $this->orderDetailService->getOrderId($request->getOrderNumber());
+        if($orderIds){
+            $request->setId($orderIds[0]['orderID']);
             $item = $this->orderManager->orderUpdateStateByCaptain($request);
+            if($item){
+                $orderDetailUpdate = $this->orderDetailService->orderUpdateStateByOrderState($request->getState(), $request->getOrderNumber(), $request->getCaptainID());
+                if($orderDetailUpdate){
 
-            //----> start create log
-            // if order type is product order or special order
-            if ($item->getOrderType() == 1 ||  $item->getOrderType() == 2) {
-                $this->orderLogService->createOrderLog($request->getOrderNumber(), $item->getState(), $request->getCaptainID(), $item->getStoreOwnerProfileID());
-            }
-            // if order type is send order
-            if ($item->getOrderType() == 3) {
-                $this->orderLogService->createOrderLog($request->getOrderNumber(), $item->getState(), $request->getCaptainID());
-            }
-            //----> end create log
+                    //create notification local
+                    $state ="";
+                    if ($request->getState() == OrderStateConstant::$ORDER_STATE_ON_WAY){
+                        $state = LocalNotificationList::$STATE_ON_WAY_PICK_ORDER;
+                    }
+                    if ($request->getState() == OrderStateConstant::$ORDER_STATE_IN_STORE){
+                        $state =  LocalNotificationList::$STATE_IN_STORE;
+                    }
+                    if ($request->getState() == OrderStateConstant::$ORDER_STATE_ONGOING){
+                        $state =  LocalNotificationList::$STATE_ONGOING;
+                    }
+                    if ($request->getState() == OrderStateConstant::$ORDER_STATE_DELIVERED){
+                        $state =  LocalNotificationList::$STATE_DELIVERED;
+                    }
 
-            //create notification local
-            $state ="";
-            if ($request->getState() == "on way to pick order"){
-                $state = LocalNotificationList::$STATE_ON_WAY_PICK_ORDER;
-            }
-            if ($request->getState() == "in store"){
-                $state =  LocalNotificationList::$STATE_IN_STORE;
-            }
-            if ($request->getState() == "ongoing"){
-                $state =  LocalNotificationList::$STATE_ONGOING;
-            }
-            if ($request->getState() == "delivered"){
-                $state =  LocalNotificationList::$STATE_DELIVERED;
-            }
+                    $this->notificationLocalService->createNotificationLocal($item->getClientID(),  LocalNotificationList::$STATE_TITLE, $state, $request->getOrderNumber());
 
-            $this->notificationLocalService->createNotificationLocal($item->getClientID(),  LocalNotificationList::$STATE_TITLE, $state, $request->getOrderNumber());
+                }
+
+                //start-----> notification
+                //
+                // $notificationRequest = new SendNotificationRequest();
+                // $notificationRequest->setUserIdOne($item->getOwnerID());
+                // $notificationRequest->setOrderID($item->getId());
+                // $this->notificationService->notificationOrderUpdate($notificationRequest);
+                //notification <------end
+                //
+            }
 
             $response = $this->autoMapping->map(OrderEntity::class, OrderUpdateStateResponse::class, $item);
-        
-        //start-----> notification
-        //
-        // $notificationRequest = new SendNotificationRequest();
-        // $notificationRequest->setUserIdOne($item->getOwnerID());
-        // $notificationRequest->setOrderID($item->getId());
-        // $this->notificationService->notificationOrderUpdate($notificationRequest);
-        //notification <------end
-        //
        }
 
         return $response;
@@ -695,6 +690,7 @@ class OrderService
         $response = ResponseConstant::$ERROR;
 
         $orderInvoice = $this->ordersInvoicesService->orderUpdateInvoiceByCaptain($request);
+
         if(!$orderInvoice) {
             return $response;
         }
@@ -702,6 +698,7 @@ class OrderService
         $request->setOrderInvoiceId($orderInvoice->id);
 
         $item = $this->orderDetailService->orderUpdateInvoiceByCaptain($request);
+
         if(!$item) {
             return $response;
         }

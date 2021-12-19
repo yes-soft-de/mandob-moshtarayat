@@ -22,7 +22,6 @@ class OrdersInvoicesService
     {
         $item = $this->ordersInvoicesManager->orderUpdateInvoiceByCaptain($request);
         return $this->autoMapping->map(OrdersInvoicesEntity::class, OrderUpdateInvoiceByCaptainResponse::class, $item);
-
     }
 
 }

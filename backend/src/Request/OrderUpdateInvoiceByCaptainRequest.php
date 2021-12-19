@@ -4,6 +4,8 @@ namespace App\Request;
 
 class OrderUpdateInvoiceByCaptainRequest
 {
+    private $id;
+
     private $orderNumber;
 
     private $orderDetailID;
@@ -16,7 +18,26 @@ class OrderUpdateInvoiceByCaptainRequest
 
     private $invoiceImage;
 
-    private $orderInvoice;
+
+    /**
+     * Get the value of id
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set the value of id
+     *
+     * @return  self
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
     public function getOrderNumber()
     {
