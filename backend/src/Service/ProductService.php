@@ -191,13 +191,16 @@ class ProductService
             }
             elseif($productTranslation['language'] == null)
             {
-                $productTranslation['storeCategoryName'] = $productTranslation['primaryStoreCategoryName'];
+                $productTranslation['productName'] = $productTranslation['primaryProductName'];
 
                 $item = $productTranslation;
             }
-            else
+            elseif($productTranslation['language'] != null && $productTranslation['language'] != $userLocale)
             {
-                $item = $this->productManager->getProductByIdWithFullInfo($id);
+
+                $productTranslation['productName'] = $productTranslation['primaryProductName'];
+
+                $item = $productTranslation;
             }
         }
         else
