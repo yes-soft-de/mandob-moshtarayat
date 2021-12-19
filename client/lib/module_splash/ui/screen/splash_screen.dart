@@ -66,7 +66,7 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(const Duration(seconds: 2));
     if (widget._authService.isLoggedIn) {
       try {
-        await updateCategoryFavorite();
+        await widget._authService.updateCategoryFavorite();
         await widget._authService.getToken();
         return MainRoutes.MAIN_SCREEN;
       } catch (e) {
@@ -81,23 +81,4 @@ class _SplashScreenState extends State<SplashScreen> {
     }
   }
 
-  Future<void> updateCategoryFavorite() async {
-    if (getIt<FavoriteHiveHelper>().getFavoriteCategory() == null) {
-      var fav = await getIt<AccountService>().getFavoriteCategoires();
-      if (fav is UserFavouriteCategoriesModel) {
-        var cats = await getIt<HomeService>().getStoreCategories();
-        if (!cats.isEmpty && !cats.hasError) {
-          for (var element in cats.data) {
-            if (element.id.toString() == fav.data.first.id.toString()) {
-              getIt<FavoriteHiveHelper>().setFavoriteCategoryInfo(
-                  element.storeCategoryName, element.image);
-              await getIt<AccountService>().updatefavCategories(
-                  FavoriteCategoriesRequest(
-                      favouriteCategories: [element.id.toString()]));
-            }
-          }
-        }
-      }
-    }
-  }
 }
