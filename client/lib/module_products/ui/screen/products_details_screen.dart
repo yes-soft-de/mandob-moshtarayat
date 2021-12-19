@@ -65,7 +65,7 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
       },
       child: Scaffold(
         appBar: CustomTwaslnaAppBar.appBar(context,
-            title: S.current.product,
+            title: S.current.productDetails,
             actions: currentState is ProductDetailsLoadedState
                 ? [
                     Hider(
