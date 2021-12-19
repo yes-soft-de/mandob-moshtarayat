@@ -379,7 +379,6 @@ class ProductService
         return $response;
     }
 
-    // for dashboard
     public function getProductsByStoreProductCategoryID($userLocale, $storeProductCategoryID): ?array
     {
         $response = [];

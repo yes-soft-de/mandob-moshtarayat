@@ -147,8 +147,8 @@ class OrderController extends BaseController
 
     //state:on way to pick order or in store or picked or ongoing or delivered
     /**
-     * captain: To accept the order AND change state
-     * @Route("/orderUpdateState", name="orderUpdateState", methods={"PUT"})
+     * captain: To accept the order AND change order state.
+     * @Route("/orderupdatestate", name="orderUpdateState", methods={"PUT"})
      * @IsGranted("ROLE_CAPTAIN")
      * @param Request $request
      * @return JsonResponse
@@ -166,7 +166,7 @@ class OrderController extends BaseController
      *        description="To accept the order AND change state",
      *        @OA\JsonContent(
      *              @OA\Property(type="integer", property="orderNumber"),
-     *              @OA\Property(type="string", property="state"),
+     *              @OA\Property(type="string", property="state", description="on way to pick order or ongoing or delivered"),
      *              @OA\Property(type="number", property="deliveryCost"),
      *         ),
      *      ),
@@ -201,14 +201,14 @@ class OrderController extends BaseController
      *      response="default",
      *      description="Return Not updated.",
      *      @OA\JsonContent(
-     *          @OA\Property(type="string", property="status_code", description="425"),
+     *          @OA\Property(type="string", property="status_code", description="9201"),
      *          @OA\Property(type="string", property="msg", description="error Successfully."),
-     *          @OA\Property(type="string", property="Data", description="Not updated!!"),
+     *          @OA\Property(type="string", property="Data", description="error"),
      *      )
      * )
      * @Security(name="Bearer")
      */
-    public function orderUpdateStateByCaptain(Request $request)
+    public function orderUpdateStateByCaptain(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
 
@@ -216,7 +216,7 @@ class OrderController extends BaseController
         $request->setCaptainID($this->getUserId());
 
         $response = $this->orderService->orderUpdateStateByCaptain($request);
-        if(is_string($response)){
+        if($response == ResponseConstant::$ERROR){
             return $this->response($response, self::ERROR);  
           }
 
@@ -225,7 +225,7 @@ class OrderController extends BaseController
 
     /**
      * captain: Change order state for each store.(state is : in store or picked).
-     * @Route("/orderupdatestateforeachstore", name="orderUpdateStateForEachStore", methods={"PUT"})
+     * @Route("/orderupdatestateforeachstore", name="orderUpdateStateForEa chStore", methods={"PUT"})
      * @IsGranted("ROLE_CAPTAIN")
      * @param Request $request
      * @return JsonResponse
