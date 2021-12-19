@@ -47,6 +47,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Sorry your request for add branch faild please try again"),
         "addBranchSuccess": MessageLookupByLibrary.simpleMessage(
             "Branch has been added successfully"),
+        "addCommission": MessageLookupByLibrary.simpleMessage("Add commission"),
         "addNewCategory": MessageLookupByLibrary.simpleMessage("Add Category"),
         "addProducts": MessageLookupByLibrary.simpleMessage("Add Products"),
         "addStore": MessageLookupByLibrary.simpleMessage("Add Stores"),
@@ -243,6 +244,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "destinationPoint":
             MessageLookupByLibrary.simpleMessage("Destination Location"),
         "directSupport": MessageLookupByLibrary.simpleMessage("Direct Support"),
+        "discount": MessageLookupByLibrary.simpleMessage("discount"),
         "distance": MessageLookupByLibrary.simpleMessage("Distance"),
         "driverLicence": MessageLookupByLibrary.simpleMessage("Driver Licence"),
         "earnCash": MessageLookupByLibrary.simpleMessage("Earn Cash"),
@@ -550,6 +552,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Please Select a Branch"),
         "preferredLanguage":
             MessageLookupByLibrary.simpleMessage("Preferred Language"),
+        "price": MessageLookupByLibrary.simpleMessage("price"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "privateOrder": MessageLookupByLibrary.simpleMessage("Private Order"),
         "product": MessageLookupByLibrary.simpleMessage("product"),
@@ -557,6 +560,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Product Categories"),
         "productCategory":
             MessageLookupByLibrary.simpleMessage("Product Category"),
+        "productCommission": MessageLookupByLibrary.simpleMessage("commission"),
         "productName": MessageLookupByLibrary.simpleMessage("Product Name"),
         "productOrdered":
             MessageLookupByLibrary.simpleMessage("Request product"),
@@ -569,6 +573,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "There is no profile data available"),
         "profileFetchedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "Profile Data Fetched Successfully"),
+        "rating": MessageLookupByLibrary.simpleMessage("Rating"),
         "reasonIsRequired":
             MessageLookupByLibrary.simpleMessage("Reason is Required"),
         "reasonOfTheReport":
@@ -789,6 +794,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "uploadingImagesPleaseWait": MessageLookupByLibrary.simpleMessage(
             "Uploading Image, Please Wait"),
         "username": MessageLookupByLibrary.simpleMessage("Username"),
+        "viewProduct": MessageLookupByLibrary.simpleMessage("View products"),
         "views": MessageLookupByLibrary.simpleMessage("views"),
         "waiting": MessageLookupByLibrary.simpleMessage("waiting"),
         "waitingDescription": MessageLookupByLibrary.simpleMessage(

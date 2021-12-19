@@ -79,8 +79,8 @@ class ProductsCategoryStateManager {
   void createProductCategory(LevelTowCategoriesScreenState screenState,
       CategoryLevelTowRequest request) {
     _stateSubject.add(LoadingState(screenState));
-    _uploadService.uploadImage(request.productCategoryImage).then((value) {
-        request.productCategoryImage = value;
+    _uploadService.uploadImage(request.dataStoreCategory?.productCategoryImage).then((value) {
+      request.dataStoreCategory?.productCategoryImage = value;
         _categoriesService.createProductCategories(request).then((value) {
           if (value.hasError) {
             getProductCategory(screenState);
@@ -101,7 +101,7 @@ class ProductsCategoryStateManager {
   void updateProductCategory(LevelTowCategoriesScreenState screenState,
       CategoryLevelTowRequest request) {
     _stateSubject.add(LoadingState(screenState));
-    if (request.productCategoryImage?.contains('/original-image/') == true) {
+    if (request.dataStoreCategory?.productCategoryImage?.contains('/original-image/') == true) {
       _categoriesService.updateProductCategory(request).then((value) {
         if (value.hasError) {
           getProductCategory(screenState);
@@ -118,8 +118,8 @@ class ProductsCategoryStateManager {
       });
     }
     else
-    _uploadService.uploadImage(request.productCategoryImage).then((value) {
-        request.productCategoryImage = value;
+    _uploadService.uploadImage(request.dataStoreCategory?.productCategoryImage).then((value) {
+      request.dataStoreCategory?.productCategoryImage = value;
         _categoriesService.updateProductCategory(request).then((value) {
           if (value.hasError) {
             getProductCategory(screenState);

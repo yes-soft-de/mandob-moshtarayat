@@ -36,7 +36,7 @@ class StoreProductScreenState extends State<StoreProductScreen> {
   }
 
   void getProductsCategories() {
-    widget._stateManager.getProductCategory(this, storeId ?? -1);
+    widget._stateManager.getProducts(this, storeId ?? -1);
   }
 
   void createProduct(CreateProductRequest request) {
@@ -45,6 +45,9 @@ class StoreProductScreenState extends State<StoreProductScreen> {
 
   void updateProduct(UpdateProductRequest request) {
     widget._stateManager.updateProduct(this, request);
+  }
+  void updateProductCommission(UpdateProductCommissionRequest request) {
+    widget._stateManager.updateProductCommission(this, request);
   }
 
   void refresh() {
@@ -63,47 +66,47 @@ class StoreProductScreenState extends State<StoreProductScreen> {
       if (args is int) {
         storeId = args;
         flagArgs = false;
-        widget._stateManager.getProductCategory(this, storeId ?? -1);
+        widget._stateManager.getProducts(this, storeId ?? -1);
       }
     }
     return Scaffold(
       appBar:
           CustomTwaslnaAppBar.appBar(context, title: S.current.storeProducts),
       body: currentState.getUI(context),
-      floatingActionButton: ElevatedButton(
-        onPressed: () {
-          if (currentState is ProductStoreState) {
-            showDialog(
-                context: context,
-                builder: (_) {
-                  return AddProductsForm(
-                    state: currentState as ProductStoreState,
-                    addProduct: (name, image, price, catID) {
-                      Navigator.of(context).pop();
-                      createProduct(CreateProductRequest(
-                          productName: name,
-                          productImage: image,
-                          productPrice: price,
-                          storeProductCategoryID: catID.toInt(),
-                          storeOwnerProfileID: storeId));
-                    },
-                  );
-                });
-          }
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Text(
-            S.current.addProducts,
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
-        style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(25),
-            ),
-            elevation: 3),
-      ),
+//      floatingActionButton: ElevatedButton(
+//        onPressed: () {
+//          if (currentState is ProductStoreState) {
+//            showDialog(
+//                context: context,
+//                builder: (_) {
+//                  return AddProductsForm(
+//                    state: currentState as ProductStoreState,
+//                    addProduct: (name, image, price, catID) {
+//                      Navigator.of(context).pop();
+//                      createProduct(CreateProductRequest(
+//                          productName: name,
+//                          productImage: image,
+//                          productPrice: price,
+//                          storeProductCategoryID: catID.toInt(),
+//                          storeOwnerProfileID: storeId));
+//                    },
+//                  );
+//                });
+//          }
+//        },
+//        child: Padding(
+//          padding: const EdgeInsets.all(16.0),
+//          child: Text(
+//            S.current.addProducts,
+//            style: TextStyle(color: Colors.white),
+//          ),
+//        ),
+//        style: ElevatedButton.styleFrom(
+//            shape: RoundedRectangleBorder(
+//              borderRadius: BorderRadius.circular(25),
+//            ),
+//            elevation: 3),
+//      ),
     );
   }
 }

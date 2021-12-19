@@ -47,6 +47,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "عذرا لم تنجح عملية إضافة فرع الرجاء إعادة المحاولة لاحقا"),
         "addBranchSuccess":
             MessageLookupByLibrary.simpleMessage("تمت إضافة الفرع بنجاح"),
+        "addCommission": MessageLookupByLibrary.simpleMessage("إضافة عمولة"),
         "addNewCategory": MessageLookupByLibrary.simpleMessage("إضافة صنف"),
         "addProducts": MessageLookupByLibrary.simpleMessage("إضافة منتجات"),
         "addStore": MessageLookupByLibrary.simpleMessage("أضف متجر"),
@@ -241,6 +242,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "destinationPoint":
             MessageLookupByLibrary.simpleMessage("موقع التسليم"),
         "directSupport": MessageLookupByLibrary.simpleMessage("دعم مباشر"),
+        "discount": MessageLookupByLibrary.simpleMessage("الخصم"),
         "distance": MessageLookupByLibrary.simpleMessage("يبعد عنك"),
         "driverLicence": MessageLookupByLibrary.simpleMessage("رخصة القيادة"),
         "earnCash": MessageLookupByLibrary.simpleMessage("اكسب المال"),
@@ -541,12 +543,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("الرجاء اختيار فرع تجاري"),
         "preferredLanguage":
             MessageLookupByLibrary.simpleMessage("اللغة المفضلة"),
+        "price": MessageLookupByLibrary.simpleMessage("سعر"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("شروط الخصوصية"),
         "privateOrder": MessageLookupByLibrary.simpleMessage("طلب خاص"),
         "product": MessageLookupByLibrary.simpleMessage("منتج"),
         "productCategories":
             MessageLookupByLibrary.simpleMessage("أصناف منتجات"),
         "productCategory": MessageLookupByLibrary.simpleMessage("صنف منتج"),
+        "productCommission": MessageLookupByLibrary.simpleMessage("العمولة"),
         "productName": MessageLookupByLibrary.simpleMessage("اسم المنتج"),
         "productOrdered": MessageLookupByLibrary.simpleMessage("تم طلب المنتج"),
         "productPrice": MessageLookupByLibrary.simpleMessage("سعر المنتج"),
@@ -558,6 +562,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "لايوجد بيانات شخصية متوفرة بعد"),
         "profileFetchedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "تم جلب بياناتك الشخصية بنجاح"),
+        "rating": MessageLookupByLibrary.simpleMessage("التقييم"),
         "reasonIsRequired":
             MessageLookupByLibrary.simpleMessage("الرجاء تزويدنا بسبب الابلاغ"),
         "reasonOfTheReport":
@@ -778,6 +783,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "uploadingImagesPleaseWait":
             MessageLookupByLibrary.simpleMessage("يتم رفع الصورة"),
         "username": MessageLookupByLibrary.simpleMessage("اسم المستخدم"),
+        "viewProduct": MessageLookupByLibrary.simpleMessage("عرض المنتجات"),
         "views": MessageLookupByLibrary.simpleMessage("مشاهدة"),
         "waiting": MessageLookupByLibrary.simpleMessage("في الانتظار"),
         "waitingDescription":

@@ -533,8 +533,12 @@
   "preferredLanguage":"اللغة المفضلة",
   "selectLanguage":"اختر لغتك المفضلة",
   "sureForDeleteCategories":"هل أنت متأكد من رغبتك بحذف هذا الصنف",
-  "commission":"العمولة الخاصة بالمتجر"
-
-
+  "commission":"العمولة الخاصة بالمتجر",
+  "viewProduct": "عرض المنتجات",
+  "rating": "التقييم",
+  "price": "سعر",
+  "discount": "الخصم",
+  "productCommission": "العمولة",
+  "addCommission": "إضافة عمولة"
 
 }

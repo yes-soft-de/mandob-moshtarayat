@@ -5,7 +5,10 @@ class StoreProductsResponse {
   String? msg;
   List<Data>? data;
 
-  StoreProductsResponse({this.statusCode, this.msg, this.data});
+  StoreProductsResponse({
+    this.statusCode,
+    this.msg,
+    this.data});
 
   StoreProductsResponse.fromJson(dynamic json) {
     try {
@@ -33,31 +36,37 @@ class StoreProductsResponse {
     }
     return map;
   }
+
 }
 
 class Data {
   int? id;
-  String? productName;
-  String? productImage;
-  num? productPrice;
   int? storeOwnerProfileID;
+  String? productName;
+  ImageUrl? productImage;
+  num? productPrice;
+  num? discount;
   int? storeProductCategoryID;
+  num? commission;
 
-  Data(
-      {this.id,
-      this.productName,
-      this.productImage,
-      this.productPrice,
-      this.storeOwnerProfileID,
-      this.storeProductCategoryID});
+  Data({
+    this.id,
+    this.storeOwnerProfileID,
+    this.productName,
+    this.productImage,
+    this.productPrice,
+    this.discount,
+    this.storeProductCategoryID , this.commission});
 
   Data.fromJson(dynamic json) {
     id = json['id'];
     productName = json['productName'];
-    productImage = json['productImage'];
+    productImage = json['image'] != null ?ImageUrl.fromJson(json['image']) : null;
     productPrice = json['productPrice'];
-    storeOwnerProfileID = json['storeOwnerProfileID'];
+    discount = json['discount'];
     storeProductCategoryID = json['storeProductCategoryID'];
+    commission = json['commission'];
+    storeOwnerProfileID = json['storeOwnerProfileID'];
   }
 
   Map<String, dynamic> toJson() {
@@ -66,8 +75,24 @@ class Data {
     map['productName'] = productName;
     map['productImage'] = productImage;
     map['productPrice'] = productPrice;
-    map['storeOwnerProfileID'] = storeOwnerProfileID;
+    map['discount'] = discount;
     map['storeProductCategoryID'] = storeProductCategoryID;
     return map;
+  }
+
+}
+class ImageUrl {
+  String? image;
+  String? imageURL;
+  String? baseURL;
+  ImageUrl({
+    this.image,
+    this.imageURL,this.baseURL
+  });
+
+  ImageUrl.fromJson(dynamic json) {
+    image = json['image'];
+    imageURL = json['imageURL'];
+    baseURL = json['baseURL'];
   }
 }

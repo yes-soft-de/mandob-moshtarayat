@@ -1,5 +1,6 @@
 import 'package:mandob_moshtarayat_dashboad/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/categories_routes.dart';
 import 'package:mandob_moshtarayat_dashboad/module_stores/model/store_profile_model.dart';
 import 'package:mandob_moshtarayat_dashboad/module_stores/ui/screen/store_info_screen.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:mandob_moshtarayat_dashboad/utils/components/custom_list_view.da
 import 'package:mandob_moshtarayat_dashboad/utils/components/empty_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/error_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/fixed_container.dart';
+import 'package:mandob_moshtarayat_dashboad/utils/components/floated_button.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/progresive_image.dart';
 
 class StoreProfileLoadedState extends States {
@@ -52,17 +54,36 @@ class StoreProfileLoadedState extends States {
         child: Padding(
           padding:
               const EdgeInsets.only(top: 16.0, bottom: 16, left: 8, right: 8),
-          child: Center(
-            child: Text(
-              S.current.storeInfo,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).disabledColor,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                S.current.storeInfo,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).disabledColor,
+                ),
               ),
-            ),
+               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                  elevation: 3,
+                ),
+                child: Text(
+                  S.of(context).viewProduct,
+                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, CategoriesRoutes.PRODUCT_STORE_CATEGORIES,arguments: profile?.id);
+                },
+              ),
+            ],
           ),
         ),
       ),
+
       CustomListTile(
         title: S.current.storeName,
         subTitle: profile?.storeOwnerName,

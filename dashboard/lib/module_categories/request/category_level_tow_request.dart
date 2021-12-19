@@ -1,12 +1,12 @@
-class CategoryLevelTowRequest {
-  CategoryLevelTowRequest({
+class DataStoreCategoryTwo {
+  DataStoreCategoryTwo({
     this.id,
     this.productCategoryName,
     this.productCategoryImage,
     this.storeProductCategoryID,
   });
 
-  CategoryLevelTowRequest.fromJson(dynamic json) {
+  DataStoreCategoryTwo.fromJson(dynamic json) {
     productCategoryName = json['productCategoryName'];
     productCategoryImage = json['productCategoryImage'];
     storeProductCategoryID = json['storeProductCategoryID'];
@@ -28,4 +28,38 @@ class CategoryLevelTowRequest {
     }
     return map;
   }
+}
+class TranslateSubTwoCategory{
+  String? productCategoryName;
+  String? lang;
+  int? productCategoryID;
+
+  TranslateSubTwoCategory({ this.productCategoryName, this.lang , this.productCategoryID});
+
+  Map<String, dynamic> toJson() {
+    var map = <String, dynamic>{};
+    map['productCategoryName'] = productCategoryName;
+    map['storeProductCategoryID'] = productCategoryID;
+    map['language'] = lang;
+    return map;
+  }
+}
+class CategoryLevelTowRequest {
+
+  DataStoreCategoryTwo? dataStoreCategory;
+  List<TranslateSubTwoCategory>? translate;
+
+  CategoryLevelTowRequest({
+    this.dataStoreCategory, this.translate});
+
+  Map<String, dynamic> toJson() {
+    var map = <String, dynamic>{};
+    map['data'] = dataStoreCategory?.toJson();
+    if (translate != null) {
+      map['translate'] = translate?.map((v) => v.toJson()).toList();
+    }
+    return map;
+  }
+
+
 }

@@ -205,15 +205,20 @@ class ProductCategoriesLoadedState extends States {
                               state: this,
                               catID: screenState.mainCatId,
                               subCatID: screenState.subCatId,
+                              languages: [],
                               subCategoriesModel: element,
-                              addSubCategories: (id, subId, name, image) {
+                              addSubCategories: (id, subId, name, image,trs) {
                                 screenState.updateCategoryLevel2(
                                     CategoryLevelTowRequest(
-                                        storeProductCategoryID:
-                                            int.parse(subId),
-                                        productCategoryName: name,
-                                        productCategoryImage: image,
-                                        id: element.id));
+                                      translate:screenState.languageSelected =='ar'? [] : [TranslateSubTwoCategory(lang: screenState.languageSelected,productCategoryName: name,productCategoryID: element.id)],
+                                      dataStoreCategory: DataStoreCategoryTwo(
+                                          storeProductCategoryID:
+                                          int.parse(subId),
+                                          productCategoryName: name,
+                                          productCategoryImage: image,
+                                          id: element.id
+                                      ),
+                                     ));
                               },
                             ),
                           ),
