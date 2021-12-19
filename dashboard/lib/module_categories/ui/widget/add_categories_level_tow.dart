@@ -14,21 +14,30 @@ import 'package:mandob_moshtarayat_dashboad/utils/effect/hidder.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/helpers/custom_flushbar.dart';
 
 class AddSubCategoriesLevelTowWidget extends StatefulWidget {
-  final Function(String, String, String,String?,List<TranslateSubTwoCategory>?) addSubCategories;
+  final Function(
+          String, String, String, String?, List<TranslateSubTwoCategory>?)
+      addSubCategories;
   final ProductCategoriesLoadedState? state;
   final SubCategoriesModel? subCategoriesModel;
   final String? catID;
   final String? subCatID;
   final String? selectedLang;
   final List<String> languages;
-  AddSubCategoriesLevelTowWidget({required this.addSubCategories, this.state,this.subCategoriesModel,this.catID,this.subCatID, this.selectedLang,required this.languages});
+  AddSubCategoriesLevelTowWidget(
+      {required this.addSubCategories,
+      this.state,
+      this.subCategoriesModel,
+      this.catID,
+      this.subCatID,
+      this.selectedLang,
+      required this.languages});
 
   @override
   _AddSubCategoriesWidgetState createState() => _AddSubCategoriesWidgetState();
 }
 
-class _AddSubCategoriesWidgetState extends State<AddSubCategoriesLevelTowWidget> {
-
+class _AddSubCategoriesWidgetState
+    extends State<AddSubCategoriesLevelTowWidget> {
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   late TextEditingController _nameController;
   String? catId;
@@ -70,7 +79,8 @@ class _AddSubCategoriesWidgetState extends State<AddSubCategoriesLevelTowWidget>
                                 onChanged: (v) {
                                   catId = v.toString();
                                   widget.state!.screenState.mainCatId = catId;
-                                  widget.state!.screenState.getSubCategories(widget.state!.categories);
+                                  widget.state!.screenState.getSubCategories(
+                                      widget.state!.categories);
                                   setState(() {});
                                 },
                                 hint: Text(
@@ -86,7 +96,9 @@ class _AddSubCategoriesWidgetState extends State<AddSubCategoriesLevelTowWidget>
                             ),
                           ),
                         ),
-                        SizedBox(height: 16,),
+                        SizedBox(
+                          height: 16,
+                        ),
                         // subcategories
                         Hider(
                           active: widget.state != null,
@@ -136,41 +148,50 @@ class _AddSubCategoriesWidgetState extends State<AddSubCategoriesLevelTowWidget>
                                 controller: _nameController,
                                 hintText: S.current.categoryName,
                                 last: true,
-                                initLanguage:isUpdate ?lang :  'ar',
-                                languages:isUpdate? [lang] :['ar'],
+                                initLanguage: isUpdate ? lang : 'ar',
+                                languages: isUpdate ? [lang] : ['ar'],
                               ),
                             ),
-                            isUpdate? Container():  InkWell(
-                                onTap: (){
-                                  if(_nameController.text.isEmpty){
-                                    CustomFlushBarHelper.createError(
-                                        title: S.current.warnning,
-                                        message: S.current.pleaseCompleteTheForm)
-                                        .show(context);
-                                  }else if (translateWidgets.length != widget.languages.length){
-                                    trans(true);
-                                  }
-                                },
-                                child: Icon(Icons.add))
+                            isUpdate
+                                ? Container()
+                                : InkWell(
+                                    onTap: () {
+                                      if (_nameController.text.isEmpty) {
+                                        CustomFlushBarHelper.createError(
+                                                title: S.current.warnning,
+                                                message: S.current
+                                                    .pleaseCompleteTheForm)
+                                            .show(context);
+                                      } else if (translateWidgets.length !=
+                                          widget.languages.length) {
+                                        trans(true);
+                                      }
+                                    },
+                                    child: Icon(Icons.add))
                           ],
                         ),
-                        Column(children: trans(false),),
+                        Column(
+                          children: trans(false),
+                        ),
                         Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: Center(
                               child: Text(
-                                S.current.categoryImage,
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              )),
+                            S.current.categoryImage,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          )),
                         ),
                         InkWell(
                           onTap: () {
                             ImagePicker.platform
-                                .getImage(source: ImageSource.gallery, imageQuality: 70,)
+                                .getImage(
+                              source: ImageSource.gallery,
+                              imageQuality: 70,
+                            )
                                 .then((value) {
                               if (value != null) {
-                                  imagePath = value.path;
-                                  setState(() {});
+                                imagePath = value.path;
+                                setState(() {});
                               }
                             });
                           },
@@ -187,9 +208,9 @@ class _AddSubCategoriesWidgetState extends State<AddSubCategoriesLevelTowWidget>
                                     child: imagePath?.contains('http') == true
                                         ? Image.network(imagePath ?? '')
                                         : Image.file(
-                                      File(imagePath ?? ''),
-                                      fit: BoxFit.scaleDown,
-                                    ))),
+                                            File(imagePath ?? ''),
+                                            fit: BoxFit.scaleDown,
+                                          ))),
                           ),
                         ),
                         Padding(
@@ -197,8 +218,9 @@ class _AddSubCategoriesWidgetState extends State<AddSubCategoriesLevelTowWidget>
                           child: Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(25),
-                                color: Theme.of(context).primaryColor.withOpacity(0.4)
-                            ),
+                                color: Theme.of(context)
+                                    .primaryColor
+                                    .withOpacity(0.4)),
                             child: Padding(
                               padding: const EdgeInsets.all(16.0),
                               child: Text(
@@ -217,20 +239,20 @@ class _AddSubCategoriesWidgetState extends State<AddSubCategoriesLevelTowWidget>
             )),
         label: S.current.save,
         onTap: () {
-          if (_key.currentState!.validate() && catId != null && subCatId != null) {
+          if (_key.currentState!.validate() &&
+              catId != null &&
+              subCatId != null) {
             Navigator.of(context).pop();
-            widget.addSubCategories(
-                catId.toString(),
-                subCatId.toString(),
-                _nameController.text.trim(),
-                imagePath,translate);
-            if (imagePath?.contains('http') == true && widget.subCategoriesModel != null){
-              imagePath = widget.subCategoriesModel?.baseImage ?? '' ;
+            if (imagePath?.contains('http') == true &&
+                widget.subCategoriesModel != null) {
+              imagePath = widget.subCategoriesModel?.imageUrl ?? '';
             }
+            widget.addSubCategories(catId.toString(), subCatId.toString(),
+                _nameController.text.trim(), imagePath, translate);
           } else {
             CustomFlushBarHelper.createError(
-                title: S.current.warnning,
-                message: S.current.pleaseCompleteTheForm)
+                    title: S.current.warnning,
+                    message: S.current.pleaseCompleteTheForm)
                 .show(context);
           }
         });
@@ -239,15 +261,15 @@ class _AddSubCategoriesWidgetState extends State<AddSubCategoriesLevelTowWidget>
   @override
   void initState() {
     translateWidgets = [];
-    translate=[];
+    translate = [];
     isUpdate = false;
     _nameController = TextEditingController();
-    if (widget.subCategoriesModel != null){
+    if (widget.subCategoriesModel != null) {
       isUpdate = true;
-      lang = widget.selectedLang??'';
+      lang = widget.selectedLang ?? '';
       _nameController.text = widget.subCategoriesModel!.categoryName;
       imagePath = widget.subCategoriesModel?.image;
-      if (imagePath == ''){
+      if (imagePath == '') {
         imagePath = null;
       }
       catId = widget.catID ?? '';
@@ -255,29 +277,29 @@ class _AddSubCategoriesWidgetState extends State<AddSubCategoriesLevelTowWidget>
     }
     super.initState();
   }
-  List<CustomFormFieldWithTranslate> trans(bool addNewField){
-    if(addNewField) {
-      TranslateSubTwoCategory  translateStoreCategory = TranslateSubTwoCategory(lang:widget.languages.first );
+
+  List<CustomFormFieldWithTranslate> trans(bool addNewField) {
+    if (addNewField) {
+      TranslateSubTwoCategory translateStoreCategory =
+          TranslateSubTwoCategory(lang: widget.languages.first);
       TextEditingController _nameController = TextEditingController();
       late String language = '';
 
-      translateWidgets.add(
-          CustomFormFieldWithTranslate(
-            initLanguage: widget.languages.first,
-            onChanged: (){
-              translateStoreCategory.productCategoryName=_nameController.text;
-            },
-            languages: widget.languages,
-            controller: _nameController,
-            onSelected: (lan){
-              language = lan;
-              translateStoreCategory.lang=language;
-            },));
-      setState(() {
-      });
+      translateWidgets.add(CustomFormFieldWithTranslate(
+        initLanguage: widget.languages.first,
+        onChanged: () {
+          translateStoreCategory.productCategoryName = _nameController.text;
+        },
+        languages: widget.languages,
+        controller: _nameController,
+        onSelected: (lan) {
+          language = lan;
+          translateStoreCategory.lang = language;
+        },
+      ));
+      setState(() {});
       translate.add(translateStoreCategory);
     }
     return translateWidgets;
   }
-
 }

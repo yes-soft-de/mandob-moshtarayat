@@ -54,7 +54,7 @@ class StoresModel extends DataModel {
         openingTime: DateHelper.convert(element.openingTime?.timestamp),
         closingTime: DateHelper.convert(element.closingTime?.timestamp),
         status: element.status ?? '',
-        imageUrl: element.image?.imageURL,
+        imageUrl: element.image?.imageURL ?? element.imageUrl,
         commission: element.commission
       ));
     }
