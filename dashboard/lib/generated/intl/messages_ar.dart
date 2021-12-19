@@ -47,6 +47,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "عذرا لم تنجح عملية إضافة فرع الرجاء إعادة المحاولة لاحقا"),
         "addBranchSuccess":
             MessageLookupByLibrary.simpleMessage("تمت إضافة الفرع بنجاح"),
+        "addCommission": MessageLookupByLibrary.simpleMessage("إضافة عمولة"),
         "addNewCategory": MessageLookupByLibrary.simpleMessage("إضافة صنف"),
         "addProducts": MessageLookupByLibrary.simpleMessage("إضافة منتجات"),
         "addStore": MessageLookupByLibrary.simpleMessage("أضف متجر"),
@@ -549,6 +550,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "productCategories":
             MessageLookupByLibrary.simpleMessage("أصناف منتجات"),
         "productCategory": MessageLookupByLibrary.simpleMessage("صنف منتج"),
+        "productCommission": MessageLookupByLibrary.simpleMessage("العمولة"),
         "productName": MessageLookupByLibrary.simpleMessage("اسم المنتج"),
         "productOrdered": MessageLookupByLibrary.simpleMessage("تم طلب المنتج"),
         "productPrice": MessageLookupByLibrary.simpleMessage("سعر المنتج"),

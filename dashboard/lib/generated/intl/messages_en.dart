@@ -47,6 +47,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Sorry your request for add branch faild please try again"),
         "addBranchSuccess": MessageLookupByLibrary.simpleMessage(
             "Branch has been added successfully"),
+        "addCommission": MessageLookupByLibrary.simpleMessage("Add commission"),
         "addNewCategory": MessageLookupByLibrary.simpleMessage("Add Category"),
         "addProducts": MessageLookupByLibrary.simpleMessage("Add Products"),
         "addStore": MessageLookupByLibrary.simpleMessage("Add Stores"),
@@ -559,6 +560,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Product Categories"),
         "productCategory":
             MessageLookupByLibrary.simpleMessage("Product Category"),
+        "productCommission": MessageLookupByLibrary.simpleMessage("commission"),
         "productName": MessageLookupByLibrary.simpleMessage("Product Name"),
         "productOrdered":
             MessageLookupByLibrary.simpleMessage("Request product"),

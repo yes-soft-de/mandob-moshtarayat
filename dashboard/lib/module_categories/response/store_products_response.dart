@@ -41,19 +41,22 @@ class StoreProductsResponse {
 
 class Data {
   int? id;
+  int? storeOwnerProfileID;
   String? productName;
   ImageUrl? productImage;
   num? productPrice;
   num? discount;
   int? storeProductCategoryID;
+  num? commission;
 
   Data({
     this.id,
+    this.storeOwnerProfileID,
     this.productName,
     this.productImage,
     this.productPrice,
     this.discount,
-    this.storeProductCategoryID});
+    this.storeProductCategoryID , this.commission});
 
   Data.fromJson(dynamic json) {
     id = json['id'];
@@ -62,6 +65,8 @@ class Data {
     productPrice = json['productPrice'];
     discount = json['discount'];
     storeProductCategoryID = json['storeProductCategoryID'];
+    commission = json['commission'];
+    storeOwnerProfileID = json['storeOwnerProfileID'];
   }
 
   Map<String, dynamic> toJson() {

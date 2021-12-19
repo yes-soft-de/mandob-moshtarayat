@@ -92,10 +92,11 @@ class ProductComponent extends StatelessWidget {
   final String image;
   final String price;
   final String discount;
+  final String commission;
   final double rating;
 
   ProductComponent(
-      {required this.title,required this.image,required this.discount,required this.rating,required this.description,required this.productId,required this.price});
+      {required this.title,required this.image,required this.discount,required this.rating,required this.description,required this.productId,required this.price,required this.commission});
 
   @override
   Widget build(BuildContext context) {
@@ -124,19 +125,12 @@ class ProductComponent extends StatelessWidget {
                       SizedBox(
                         height: 8,
                       ),
-                      Container(
-                        constraints:
-                        BoxConstraints(maxHeight: 50, maxWidth: 200),
-                        child: Text(
-                          description,
-                          style: TextStyle(
-                            fontSize: 14,
-                          ),
-                          textAlign: TextAlign.start,
-                        ),
-                      ),
+                     commission=='0' ?Container(): Row(children: [
+                        Text(S.of(context).productCommission+': '),
+                        Text(commission)
+                      ],),
                       SizedBox(
-                        height: 16,
+                        height: 8,
                       ),
                       Container(
                         constraints: BoxConstraints(maxWidth: 200),

@@ -146,4 +146,25 @@ class StoreProductsStateManager {
       });
     }
   }
-}
+
+
+
+  void updateProductCommission(
+      StoreProductScreenState screenState, UpdateProductCommissionRequest request) {
+    _stateSubject.add(LoadingState(screenState));
+      _categoriesService.updateProductCommission(request).then((value) {
+        if (value.hasError) {
+          getProducts(screenState, request.storeOwnerProfileID ?? -1);
+          CustomFlushBarHelper.createError(
+              title: S.current.warnning, message: value.error ?? '')
+            ..show(screenState.context);
+        } else {
+          getProducts(screenState, request.storeOwnerProfileID ?? -1);
+          CustomFlushBarHelper.createSuccess(
+              title: S.current.warnning,
+              message: S.current.updateProduct)
+            ..show(screenState.context);
+        }
+      });
+    }
+  }

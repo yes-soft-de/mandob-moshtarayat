@@ -539,5 +539,8 @@
   "viewProduct": "View products",
   "rating": "Rating",
   "price": "price",
-  "discount": "discount"
+  "discount": "discount",
+
+  "productCommission": "commission",
+  "addCommission": "Add commission"
 }

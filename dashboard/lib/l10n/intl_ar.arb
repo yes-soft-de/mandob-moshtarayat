@@ -537,5 +537,8 @@
   "viewProduct": "عرض المنتجات",
   "rating": "التقييم",
   "price": "سعر",
-  "discount": "الخصم"
+  "discount": "الخصم",
+  "productCommission": "العمولة",
+  "addCommission": "إضافة عمولة"
+
 }
