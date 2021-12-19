@@ -727,6 +727,7 @@ class OrderController extends BaseController
       *          @OA\Property(type="string", property="Data", description="error"),
       *      )
       * )
+      *
       * @Security(name="Bearer")
       */
     public function createClientOrder(Request $request): JsonResponse
@@ -1540,7 +1541,7 @@ class OrderController extends BaseController
       }
 
     /**
-     * captain: Update the order invoice.
+     * captain: Update the store invoice.
      * @Route("/orderupdateinvoicebycaptain", name="orderUpdateInvoiceByCaptain", methods={"PUT"})
      * @IsGranted("ROLE_CAPTAIN")
      * @param Request $request
@@ -1580,6 +1581,17 @@ class OrderController extends BaseController
      *              )
      *          )
      *     )
+     * or
+     *
+     * @OA\Response(
+     *      response="default",
+     *      description="The order was not updated",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code", description="9201"),
+     *          @OA\Property(type="string", property="msg", description="error Successfully."),
+     *          @OA\Property(type="string", property="Data", description="error"),
+     *      )
+     * )
      *
      * @Security(name="Bearer")
      */

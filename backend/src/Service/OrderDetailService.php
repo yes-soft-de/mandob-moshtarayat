@@ -152,7 +152,14 @@ class OrderDetailService
 
     public function orderUpdateInvoiceByCaptain(OrderUpdateInvoiceByCaptainRequest $request)
     {
-        $item = $this->orderDetailManager->orderUpdateInvoiceByCaptain($request);
+        $orderDetailIds = $this->orderDetailManager->getOrderDetailsByOrderNumberAndStoreProfileID($request->getOrderNumber(), $request->getStoreOwnerProfileID());
+
+        foreach ($orderDetailIds as $orderDetailId){
+
+            $request->setOrderDetailID($orderDetailId['id']);
+
+            $item = $this->orderDetailManager->orderUpdateInvoiceByCaptain($request);
+        }
 
         return $this->autoMapping->map(OrderDetailEntity::class, OrderUpdateInvoiceByCaptainResponse::class, $item);
     }

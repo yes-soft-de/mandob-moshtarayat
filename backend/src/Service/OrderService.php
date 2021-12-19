@@ -690,6 +690,7 @@ class OrderService
         $response = ResponseConstant::$ERROR;
 
         $orderInvoice = $this->ordersInvoicesService->orderUpdateInvoiceByCaptain($request);
+
         if(!$orderInvoice) {
             return $response;
         }
@@ -697,6 +698,7 @@ class OrderService
         $request->setOrderInvoiceId($orderInvoice->id);
 
         $item = $this->orderDetailService->orderUpdateInvoiceByCaptain($request);
+
         if(!$item) {
             return $response;
         }
