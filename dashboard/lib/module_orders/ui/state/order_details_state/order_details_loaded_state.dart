@@ -1,19 +1,23 @@
 import 'package:dotted_line/dotted_line.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mandob_moshtarayat_dashboad/consts/order_status.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_chat/chat_routes.dart';
+import 'package:mandob_moshtarayat_dashboad/module_main/main_routes.dart';
 import 'package:mandob_moshtarayat_dashboad/module_orders/model/order_details_model.dart';
+import 'package:mandob_moshtarayat_dashboad/module_orders/orders_routes.dart';
 import 'package:mandob_moshtarayat_dashboad/module_orders/ui/screen/order_details_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/module_orders/ui/state/order_details_state/order_details_state.dart';
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat_dashboad/module_orders/ui/widget/invoice.dart';
 import 'package:mandob_moshtarayat_dashboad/module_orders/ui/widget/order_details/bill.dart';
 import 'package:mandob_moshtarayat_dashboad/module_orders/ui/widget/order_details/order_chip.dart';
-import 'package:mandob_moshtarayat_dashboad/utils/components/fixed_container.dart';
+import 'package:mandob_moshtarayat_dashboad/module_orders/ui/widget/order_details/order_details_app_bar.dart';
+import 'package:mandob_moshtarayat_dashboad/module_orders/ui/widget/order_details/order_details_title_bar.dart';
+import 'package:mandob_moshtarayat_dashboad/module_stores/model/stores_model.dart';
+import 'package:mandob_moshtarayat_dashboad/module_stores/stores_routes.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/progresive_image.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/effect/hidder.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/helpers/order_status_helper.dart';
-import 'package:mandob_moshtarayat_dashboad/utils/helpers/translating.dart';
 
 class OrderDetailsLoadedState extends OrderDetailsState {
   OrderDetailsScreenState screenState;
@@ -22,174 +26,145 @@ class OrderDetailsLoadedState extends OrderDetailsState {
   OrderDetailsLoadedState(this.screenState, this.orderDetails)
       : super(screenState);
 
+  bool get edit => screenState.edit;
+
   @override
   Widget getUI(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-    return FixedContainer(
-      child: ListView(
+    return WillPopScope(
+      onWillPop: () async {
+        await Navigator.of(context).pushNamedAndRemoveUntil(
+            MainRoutes.MAIN_SCREEN, (route) => false,
+            arguments: 1);
+        return !edit;
+      },
+      child: SingleChildScrollView(
         physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-        children: [
-          Hider(
-            active: orderDetails.order.orderType != 3,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-              child: CustomNetworkImage(
-                imageSource: orderDetails.storeInfo.image,
-                height: height * 0.3,
-                width: width,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(
-              child: Text(
-                '${orderDetails.order.orderType != 3 ? orderDetails.storeInfo.storeOwnerName : S.current.deliverForMe}',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-              ),
-            ),
-          ),
-          Hider(
-            active: orderDetails.order.invoiceImage != null &&
-                orderDetails.order.invoiceAmount != null,
-            child: CustomInvoiceAlert(
-              image: orderDetails.order.invoiceImage.toString(),
-              cost: orderDetails.order.invoiceAmount.toString(),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25),
-                  color: StatusHelper.getOrderStatusColor(
-                      orderDetails.order.state)),
-              child: ListTile(
-                title: Text(
-                  S.of(context).orderStatus,
-                  style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                ),
-                subtitle: Text(
-                  StatusHelper.getOrderStatusMessages(orderDetails.order.state),
-                  style: TextStyle(color: Colors.white),
-                ),
-                trailing: Text(
-                    orderDetails.order.createAt ==
-                            orderDetails.order.deliveryDate
-                        ? '${orderDetails.order.deliveryDate}'
-                        : '',
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold)),
-                leading: Icon(
-                  StatusHelper.getOrderStatusIcon(orderDetails.order.state),
-                  color: Colors.white,
-                  size: 35,
+        child: Column(
+          children: [
+            orderDetails.order.orderType != 3 &&
+                    orderDetails.order.orderType != 1
+                ? SizedBox(
+                    height: height / 2,
+                    width: width,
+                    child: CustomNetworkImage(
+                      imageSource: orderDetails.carts.first.image,
+                      height: height / 2,
+                      width: width,
+                    ),
+                  )
+                : const SizedBox(),
+            orderDetails.order.orderType != 3 &&
+                    orderDetails.order.orderType != 1
+                ? Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: OrderDetailsTitleBar(
+                      title: orderDetails.carts.first.storeOwnerName,
+                      rate: 0,
+                    ),
+                  )
+                : const SizedBox(),
+            Padding(
+              padding: const EdgeInsets.only(
+                  right: 12.0, left: 12.0, bottom: 25.0, top: 25.0),
+              child: Align(
+                alignment: AlignmentDirectional.centerStart,
+                child: Text(
+                  '${S.of(context).orderNumber} #${screenState.orderNumber}',
+                  style:
+                      const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.start,
                 ),
               ),
             ),
-          ),
-          Hider(
-            active:
-                orderDetails.order.createAt != orderDetails.order.deliveryDate,
-            child: Column(
-              children: [
-                ListTile(
-                  shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(25))),
-                  leading: Container(
-                      height: double.maxFinite,
-                      width: 50,
-                      child: Icon(
-                        FontAwesomeIcons.solidClock,
-                        color: Colors.white,
-                      )),
-                  tileColor: Theme.of(context).primaryColor,
+            orderDetails.order.invoiceImage != null &&
+                    orderDetails.order.invoiceAmount != null
+                ? CustomInvoiceAlert(
+                    image: orderDetails.order.invoiceImage.toString(),
+                    cost: orderDetails.order.invoiceAmount.toString(),
+                  )
+                : const SizedBox(),
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: StatusHelper.getOrderStatusColor(
+                        orderDetails.order.state)),
+                child: ListTile(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(OrdersRoutes.ORDER_STATUS,
+                        arguments: screenState.orderNumber.toString());
+                  },
                   title: Text(
-                    S.current.deliveryTime,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.white),
+                    S.of(context).orderStatus,
+                    style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   ),
                   subtitle: Text(
-                    Trans.localString(orderDetails.order.deliveryDate, context),
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.white),
+                    StatusHelper.getOrderStatusMessages(
+                        orderDetails.order.state),
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                  leading: Icon(
+                    StatusHelper.getOrderStatusIcon(orderDetails.order.state),
+                    color: Colors.white,
+                    size: 35,
+                  ),
+                  trailing: const Icon(
+                    Icons.arrow_forward,
+                    color: Colors.white,
                   ),
                 ),
-                ListTile(
-                  shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.vertical(bottom: Radius.circular(25))),
-                  leading: Container(
-                      height: double.maxFinite,
-                      width: 50,
-                      child: Icon(
-                        FontAwesomeIcons.delicious,
-                        color: Colors.white,
-                      )),
-                  tileColor: Theme.of(context).primaryColor,
-                  title: Text(
-                    S.current.orderTime,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.white),
-                  ),
-                  subtitle: Text(
-                    Trans.localString(orderDetails.order.createAt, context),
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.white),
-                  ),
-                ),
-              ],
+              ),
             ),
-          ),
-          /*orderDetails.order.roomID.isNotEmpty &&
-                  orderDetails.order.state != OrderStatusEnum.WAITING*/
-              Hider(
-                active:false,
-                child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(25),
-                          color: Theme.of(context).primaryColor),
-                      child: ListTile(
-                        onTap: () {
-                          Navigator.of(context).pushNamed(ChatRoutes.chatRoute,
-                              arguments: orderDetails.order.roomID);
-                        },
-                        title: Text(
-                          S.of(context).chatWithClient,
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                        ),
-                        subtitle: Text(
-                          S.of(context).openChatRoom,
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        leading: Icon(
-                          Icons.sms,
-                          color: Colors.white,
-                          size: 35,
-                        ),
-                        trailing: Icon(
-                          Icons.arrow_forward,
-                          color: Colors.white,
-                        ),
-                      ),
+            Hider(
+              active: orderDetails.order.roomID.isNotEmpty &&
+                  orderDetails.order.state != OrderStatusEnum.WAITING,
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Theme.of(context).primaryColor),
+                  child: ListTile(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(ChatRoutes.chatRoute,
+                          arguments: orderDetails.order.roomID);
+                    },
+                    title: Text(
+                      S.of(context).chatWithClient,
+                      style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                    subtitle: Text(
+                      S.of(context).openChatRoom,
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                    leading: const Icon(
+                      Icons.sms,
+                      color: Colors.white,
+                      size: 35,
+                    ),
+                    trailing: const Icon(
+                      Icons.arrow_forward,
+                      color: Colors.white,
                     ),
                   ),
+                ),
               ),
-          getOrderTypeWidget(orderDetails.order.orderType),
-          SizedBox(
-            height: 35,
-          ),
-        ],
+            ),
+            getOrderTypeWidget(orderDetails.order.orderType),
+            const SizedBox(
+              height: 35,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -211,12 +186,13 @@ class OrderDetailsLoadedState extends OrderDetailsState {
               ),
               title: Text(
                 S.of(context).orderList,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
             ),
           ),
           ListView(
-            physics: ScrollPhysics(),
+            physics: const ScrollPhysics(),
             shrinkWrap: true,
             children: getOrdersList(orderDetails.carts),
           ),
@@ -364,26 +340,73 @@ class OrderDetailsLoadedState extends OrderDetailsState {
     return Container();
   }
 
-  List<Widget> getOrdersList(List<Item> carts) {
+  List<Widget> getOrdersList(List<StoreOwnerInfo> carts) {
     List<Widget> orderChips = [];
     carts.forEach((element) {
-      orderChips.add(OrderChip(
-        productID: element.productID,
-        title: element.productName,
-        image: element.productImage,
-        price: element.productPrice,
-        currency: S.current.sar,
-        editable: false,
-        defaultQuantity: element.countProduct,
-      ));
-      orderChips.add(Padding(
-        padding: const EdgeInsets.only(right: 8.0, left: 8.0),
-        child: DottedLine(
-          dashColor: Theme.of(screenState.context).backgroundColor,
-          lineThickness: 2.5,
-          dashLength: 6,
+      orderChips.add(
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            decoration: BoxDecoration(
+                color: Theme.of(screenState.context).backgroundColor,
+                borderRadius: BorderRadius.circular(10)),
+            child: ListTile(
+              leading: ClipOval(
+                child: CustomNetworkImage(
+                    height: 45, width: 45, imageSource: element.image),
+              ),
+              trailing: const Icon(Icons.arrow_forward_rounded),
+              onTap: () {
+                Navigator.of(screenState.context)
+                    .pushNamed(StoresRoutes.STORE_INFO,
+                        arguments: StoresModel(
+                          id: element.storeOwnerID,
+                          storeOwnerName: element.storeOwnerName,
+                          categoryId: '',
+                          deliveryCost: 0,
+                          hasProducts: false,
+                          image: '',
+                          phone: '',
+                          privateOrders: false,
+                          status: '',
+                        ));
+              },
+              title: Text(element.storeOwnerName),
+            ),
+          ),
         ),
+      );
+      element.items.forEach((element) {
+        orderChips.add(OrderChip(
+          productID: element.productID,
+          title: element.productName,
+          image: element.productImage,
+          price: element.productPrice,
+          currency: S.current.sar,
+          editable: false,
+          defaultQuantity: element.countProduct,
+        ));
+        orderChips.add(Padding(
+          padding: const EdgeInsets.only(right: 8.0, left: 8.0),
+          child: DottedLine(
+            dashColor: Theme.of(screenState.context).backgroundColor,
+            lineThickness: 2.5,
+            dashLength: 6,
+          ),
+        ));
+      });
+      orderChips.add(const SizedBox(
+        height: 16,
       ));
+      orderChips.add(Hider(
+          active: element.invoiceAmount != null,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: CustomInvoiceAlert(
+              image: orderDetails.order.invoiceImage.toString(),
+              cost: orderDetails.order.invoiceAmount.toString(),
+            ),
+          )));
     });
     return orderChips;
   }

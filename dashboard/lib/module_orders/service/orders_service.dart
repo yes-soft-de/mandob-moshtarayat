@@ -7,7 +7,7 @@ import 'package:mandob_moshtarayat_dashboad/module_orders/model/order_details_mo
 import 'package:mandob_moshtarayat_dashboad/module_orders/model/order_model.dart';
 import 'package:mandob_moshtarayat_dashboad/module_orders/model/order_time_line_model.dart';
 import 'package:mandob_moshtarayat_dashboad/module_orders/response/my_orders_response.dart';
-import 'package:mandob_moshtarayat_dashboad/module_orders/response/order_details_response.dart';
+import 'package:mandob_moshtarayat_dashboad/module_orders/response/order_details_response/order_details_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_orders/response/order_time_line_response.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/helpers/status_code_helper.dart';
 

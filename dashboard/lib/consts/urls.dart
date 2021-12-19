@@ -96,13 +96,13 @@ class Urls {
       BASE_API + '/captainsRemainingForItAmount';
   static const GET_REMAINING_PAYMENT =
       BASE_API + '/captainsRemainingOnItAmount';
-  static const GET_PENDING_ORDER = BASE_API + '/getPendingOrders';
+  static const GET_PENDING_ORDER = BASE_API + '/getpendingorders';
   static const GET_WITHOUT_PENDING_ORDER =
       BASE_API + '/getOrdersWithOutPending ';
   static const GET_ONGOING_ORDERS = BASE_API + '/getOrdersOngoing';
   static const GET_SPECIFIC_DATE_ORDERS =
       BASE_API + '/getOrdersInSpecificDate/';
-  static const GET_ORDER_DETAILS = BASE_API + '/orderDetailsForAdmin/';
+  static const GET_ORDER_DETAILS = BASE_API + '/orderdetailsforadmin/';
   static const GET_ORDER_TIMELINE = BASE_API + '/orderLogsTimeLine/';
   static const GET_CAPTAINS_REPORT =
       BASE_API + '/countOrdersEveryCaptainInLastMonth';

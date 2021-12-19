@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat_dashboad/module_orders/repository/orders_repository.dart';
 import 'package:mandob_moshtarayat_dashboad/module_orders/response/my_orders_response.dart';
-import 'package:mandob_moshtarayat_dashboad/module_orders/response/order_details_response.dart';
+import 'package:mandob_moshtarayat_dashboad/module_orders/response/order_details_response/order_details_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_orders/response/order_time_line_response.dart';
 
 @injectable
