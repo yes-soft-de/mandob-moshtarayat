@@ -2,7 +2,7 @@
 
 namespace App\Response;
 
-class ProductsByProductCategoryIdResponse
+class ProductsByProductCategoryIdAndStoreOwnerProfileIdForDashboardResponse
 {
     public $id;
 
@@ -11,8 +11,6 @@ class ProductsByProductCategoryIdResponse
     public $productPrice;
 
     public $productQuantity;
-
-    public $storeOwnerProfileID;
 
     public $storeProductCategoryID;
 
@@ -28,12 +26,7 @@ class ProductsByProductCategoryIdResponse
 
     public $status;
 
-    public $store;
+    public $isCommission;
 
-    public $productPriceWithOutCommission;
-
-    /*
-     * product commission - used for dashboard
-     */
     public $commission;
 }

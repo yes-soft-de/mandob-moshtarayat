@@ -7,6 +7,7 @@ use App\Entity\ProductEntity;
 use App\Repository\ProductEntityRepository;
 use App\Request\DeleteRequest;
 use App\Request\ProductCancelByStoreOwnerRequest;
+use App\Request\ProductCommissionByAdminUpdateRequest;
 use App\Request\ProductCreateRequest;
 use App\Request\ProductUpdateByStoreOwnerRequest;
 use App\Request\ProductUpdateRequest;
@@ -67,9 +68,19 @@ class ProductManager
         return $this->productEntityRepository->getProductsByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId);
     }
 
+    public function getProductsByCategoryIdAndStoreOwnerProfileIdForAdmin($storeProductCategoryID, $storeOwnerProfileId)
+    {
+        return $this->productEntityRepository->getProductsByCategoryIdAndStoreOwnerProfileIdForAdmin($storeProductCategoryID, $storeOwnerProfileId);
+    }
+
     public function getProductsTranslationByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId)
     {
         return $this->productEntityRepository->getProductsTranslationByCategoryIdAndStoreOwnerProfileId($storeProductCategoryID, $storeOwnerProfileId);
+    }
+
+    public function getProductsTranslationByCategoryIdAndStoreOwnerProfileIdForAdmin($storeProductCategoryID, $storeOwnerProfileId)
+    {
+        return $this->productEntityRepository->getProductsTranslationByCategoryIdAndStoreOwnerProfileIdForAdmin($storeProductCategoryID, $storeOwnerProfileId);
     }
 
     public function getProducts()
@@ -161,6 +172,20 @@ class ProductManager
             return $entity;
         }
         $entity = $this->autoMapping->mapToObject(ProductUpdateRequest::class, ProductEntity::class, $request, $entity);
+
+        $this->entityManager->flush();
+
+        return $entity;
+    }
+
+    public function updateProductCommissionByAdmin(ProductCommissionByAdminUpdateRequest $request)
+    {
+        $entity = $this->productEntityRepository->find($request->getId());
+
+        if (!$entity) {
+            return $entity;
+        }
+        $entity = $this->autoMapping->mapToObject(ProductCommissionByAdminUpdateRequest::class, ProductEntity::class, $request, $entity);
 
         $this->entityManager->flush();
 

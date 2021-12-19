@@ -15,12 +15,14 @@ use App\Request\ProductUpdateRequest;
 use App\Request\ProductWithTranslationCreateRequest;
 use App\Request\ProductWithTranslationUpdateRequest;
 use App\Response\ProductCreateResponse;
+use App\Response\ProductsByProductCategoryIdAndStoreOwnerProfileIdResponse;
 use App\Response\ProductsByStoreOwnerProfileIdResponse;
 use App\Response\ProductsByStoreProductCategoryIdResponse;
 use App\Response\ProductsResponse;
 use App\Response\ProductFullInfoResponse;
 use App\Response\ProductsByProductCategoryIdResponse;
 use App\Response\ProductsTopWantedResponse;
+use App\Response\ProductUpdateResponse;
 use App\Response\StoreProductCategoriesResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use App\Service\StoreOwnerProfileService;
@@ -134,6 +136,33 @@ class ProductService
             $item['store'] = $this->storeOwnerProfileService->getStoreNameById($item['storeOwnerProfileID']);
 
             $response[] = $this->autoMapping->map('array', ProductsByProductCategoryIdResponse::class, $item);
+        }
+
+        return $response;
+    }
+
+    public function getProductsByCategoryIdAndStoreOwnerProfileIdForAdmin($userLocale, $storeProductCategoryID, $storeOwnerProfileId)
+    {
+        $response = [];
+
+        if($userLocale != null && $userLocale != $this->primaryLanguage)
+        {
+            $productsTranslation = $this->productManager->getProductsTranslationByCategoryIdAndStoreOwnerProfileIdForAdmin($storeProductCategoryID, $storeOwnerProfileId);
+
+            $products = $this->replaceProductTranslatedNameByPrimaryOne($productsTranslation, $userLocale);
+        }
+        else
+        {
+            $products = $this->productManager->getProductsByCategoryIdAndStoreOwnerProfileIdForAdmin($storeProductCategoryID, $storeOwnerProfileId);
+        }
+
+        foreach ($products as $item) {
+            $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
+            $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
+            $item['soldCount'] = $this->getProductsSoldCount($item['id']);
+            $item['store'] = $this->storeOwnerProfileService->getStoreNameById($item['storeOwnerProfileID']);
+
+            $response[] = $this->autoMapping->map('array', ProductsByProductCategoryIdAndStoreOwnerProfileIdResponse::class, $item);
         }
 
         return $response;
@@ -434,6 +463,13 @@ class ProductService
         $item = $this->productManager->updateProductByAdmin($request);
 
         return $this->autoMapping->map(ProductEntity::class, ProductCreateResponse::class, $item);
+    }
+
+    public function updateProductCommissionByAdmin($request)
+    {
+        $item = $this->productManager->updateProductCommissionByAdmin($request);
+
+        return $this->autoMapping->map(ProductEntity::class, ProductUpdateResponse::class, $item);
     }
 
     public function countProducts()

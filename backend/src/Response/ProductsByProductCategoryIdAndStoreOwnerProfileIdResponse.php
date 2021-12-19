@@ -2,7 +2,7 @@
 
 namespace App\Response;
 
-class ProductsByProductCategoryIdResponse
+class ProductsByProductCategoryIdAndStoreOwnerProfileIdResponse
 {
     public $id;
 
@@ -30,10 +30,7 @@ class ProductsByProductCategoryIdResponse
 
     public $store;
 
-    public $productPriceWithOutCommission;
+    public $isCommission;
 
-    /*
-     * product commission - used for dashboard
-     */
     public $commission;
 }

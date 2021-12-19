@@ -395,3 +395,8 @@ App\Request\FilterStoreProductCategoryLevelTwo:
   properties:
     storeProductCategoryID:
       - NotBlank: ~
+
+App\Request\ProductCommissionByAdminUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~

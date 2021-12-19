@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\AutoMapping;
 use App\Request\DeleteRequest;
 use App\Request\ProductCancelByStoreOwnerRequest;
+use App\Request\ProductCommissionByAdminUpdateRequest;
 use App\Request\ProductCreateRequest;
 use App\Request\ProductFilterByNameRequest;
 use App\Request\ProductUpdateByStoreOwnerRequest;
@@ -197,6 +198,7 @@ class ProductController extends BaseController
      *                      @OA\Property(type="integer", property="id"),
      *                      @OA\Property(type="string", property="storeOwnerName"),
      *                  ),
+     *                  @OA\Property(type="number", property="commission"),
      *              )
      *          )
      *      )
@@ -416,7 +418,8 @@ class ProductController extends BaseController
      *                      @OA\Property(type="string", property="imageURL"),
      *                      @OA\Property(type="string", property="image"),
      *                      @OA\Property(type="string", property="baseURL"),
-     *                  )
+     *                  ),
+     *                  @OA\Property(type="number", property="commission"),
      *              )
      *          )
      *      )
@@ -669,6 +672,69 @@ class ProductController extends BaseController
         }
 
         $result = $this->productService->updateProductByAdmin($request);
+
+        return $this->response($result, self::UPDATE);
+    }
+
+    /**
+     * admin: Update product commission by admin.
+     * @Route("updateproductcommissionbyadmin", name="updateProductCommissionByAdmin", methods={"PUT"})
+     * @IsGranted("ROLE_ADMIN")
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Product")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\RequestBody(
+     *      description="Update product by admin",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="integer", property="id"),
+     *          @OA\Property(type="number", property="commission"),
+     *          @OA\Property(type="boolean", property="isCommission"),
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=204,
+     *      description="Returns product",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="productName"),
+     *                  @OA\Property(type="string", property="productImage"),
+     *                  @OA\Property(type="number", property="storeOwnerProfileID"),
+     *                  @OA\Property(type="integer", property="storeProductCategoryID"),
+     *                  @OA\Property(type="number", property="commission"),
+     *                  @OA\Property(type="boolean", property="isCommission"),
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function updateProductCommissionByAdmin(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, ProductCommissionByAdminUpdateRequest::class, (object)$data);
+
+        $violations = $this->validator->validate($request);
+        if (\count($violations) > 0) {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $result = $this->productService->updateProductCommissionByAdmin($request);
 
         return $this->response($result, self::UPDATE);
     }
