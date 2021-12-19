@@ -29,4 +29,9 @@ class ProductsByStoreOwnerProfileIdResponse
     public $status;
 
     public $store;
+
+    /*
+     * product commission - used for dashboard
+     */
+    public $commission;
 }
