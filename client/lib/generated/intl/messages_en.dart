@@ -392,6 +392,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "privateOrder": MessageLookupByLibrary.simpleMessage("Private Order"),
         "product": MessageLookupByLibrary.simpleMessage("product"),
+        "productDetails":
+            MessageLookupByLibrary.simpleMessage("Products Details"),
         "productQuantity":
             MessageLookupByLibrary.simpleMessage("Product Quantity"),
         "productRated": MessageLookupByLibrary.simpleMessage("Product Rated"),

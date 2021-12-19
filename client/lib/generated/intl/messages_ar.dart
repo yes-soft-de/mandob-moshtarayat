@@ -384,6 +384,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("شروط الخصوصية"),
         "privateOrder": MessageLookupByLibrary.simpleMessage("طلب خاص"),
         "product": MessageLookupByLibrary.simpleMessage("منتج"),
+        "productDetails": MessageLookupByLibrary.simpleMessage("تفاصيل منتج"),
         "productQuantity": MessageLookupByLibrary.simpleMessage("عدد الوحدات"),
         "productRated": MessageLookupByLibrary.simpleMessage("تم تقييم المنتج"),
         "products": MessageLookupByLibrary.simpleMessage("منتجات"),

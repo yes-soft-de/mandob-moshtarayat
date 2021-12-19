@@ -375,6 +375,7 @@
   "preferredLanguage":"اللغة المفضلة",
   "selectLanguage":"اختر لغتك المفضلة",
   "cartItemAdded":"تم إضافة عنصر إلى سلة الشراء",
-  "cartItemRemoved":"تمت إزالة عنصر من سلة الشراء"
+  "cartItemRemoved":"تمت إزالة عنصر من سلة الشراء",
+  "productDetails":"تفاصيل منتج"
 
 }
