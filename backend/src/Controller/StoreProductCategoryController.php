@@ -703,8 +703,8 @@ class StoreProductCategoryController extends BaseController
       }
 
     /**
-     * get active products by first subcategory.
-     * @Route("storeproductscategoryleveltwowithproducts/{storeProductCategoryID}", name="getStoreProductsCategoryLevelTwoWithProductsByStoreProductCategoryID", methods={"GET"})
+     * get active products by (first or second) subcategory.
+     * @Route("storeproductscategoryleveltwowithproducts/{storeProductCategoryID}", name="getStoreProductsCategoryLevelTwoOrOneWithProductsByStoreProductCategoryID", methods={"GET"})
      * @return JsonResponse
      *
      * @OA\Tag(name="Store Product Category")
