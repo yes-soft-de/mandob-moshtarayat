@@ -3,8 +3,8 @@ App\Request\UploadImageRequest:
     uploadedFile:
       - Image:
           #mimeTypesMessage: "this id not message"
-          maxSize: 2m
-          maxSizeMessage: "Image size over 2M"
+          maxSize: 112m
+          maxSizeMessage: "Image size over 112M"
 
 App\Request\CreateImageRequest:
   properties:
