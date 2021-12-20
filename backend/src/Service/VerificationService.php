@@ -6,6 +6,8 @@ use App\AutoMapping;
 use App\Entity\VerificationEntity;
 use App\Manager\VerificationManager;
 use App\Request\VerificationCreateRequest;
+use App\Request\VerifyCodeRequest;
+use App\Response\CodeVerificationResponse;
 use App\Response\VerificationCreateResponse;
 
 class VerificationService
@@ -19,11 +21,18 @@ class VerificationService
         $this->verificationManager = $verificationManager;
     }
 
-    public function createVerification(VerificationCreateRequest $request)
+    public function createVerificationCode(VerificationCreateRequest $request)
     {
-        $item = $this->verificationManager->createVerification($request);
+        $item = $this->verificationManager->createVerificationCode($request);
 
         return $this->autoMapping->map(VerificationEntity::class, VerificationCreateResponse::class, $item);
+    }
+
+    public function checkVerificationCode(VerifyCodeRequest $request)
+    {
+        $result = $this->verificationManager->checkVerificationCode($request);
+
+        return $this->autoMapping->map('array', CodeVerificationResponse::class, $result);
     }
 
 }

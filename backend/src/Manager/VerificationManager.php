@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\VerificationEntity;
 use App\Repository\VerificationEntityRepository;
 use App\Request\VerificationCreateRequest;
+use App\Request\VerifyCodeRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
 class VerificationManager
@@ -21,7 +22,7 @@ class VerificationManager
         $this->verificationEntityRepository = $verificationEntityRepository;
     }
 
-    public function createVerification(VerificationCreateRequest $request)
+    public function createVerificationCode(VerificationCreateRequest $request)
     {
         $request->setCode($this->generateVerificationCode());
 
@@ -31,6 +32,44 @@ class VerificationManager
         $this->entityManager->flush();
 
         return $verificationEntity;
+    }
+
+    public function checkVerificationCode(VerifyCodeRequest $request)
+    {
+        $response = [];
+
+        $result = $this->verificationEntityRepository->getByUserIdAndCode($request->getUserID(), $request->getCode());
+
+        if (!$result)
+        {
+            $response['resultMessage'] = 'incorrectEnteredData';
+
+            return $response;
+        }
+        else
+        {
+            $interval = date_diff(new \DateTime('now') , $result['createdAt']);
+
+            $different_days = $interval->format('%d');
+
+            if ($different_days == 0)
+            {
+                $different_hours = $interval->format('%h');
+
+                if ($different_hours <= 1)
+                {
+                    $response['resultMessage'] = 'activated';
+
+                    return $response;
+                }
+            }
+            else
+            {
+                $response['resultMessage'] = 'codeDateIsNotValid';
+
+                return $response;
+            }
+        }
     }
 
     public function getVerificationCodeByCode($verificationCode)
@@ -53,7 +92,7 @@ class VerificationManager
             }
 
             // Check if it is exist
-            $result = $this->verificationEntityRepository->getVerificationCodeByCode($verificationCode);
+            $result = $this->getVerificationCodeByCode($verificationCode);
 
             if($result)
             {
