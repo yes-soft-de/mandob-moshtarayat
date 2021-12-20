@@ -460,22 +460,6 @@ class StoreProductCategoryService
             $response[] = $this->autoMapping->map(ProductsByProductCategoryIdResponse::class, ProductsByProductCategoryIdForStoreResponse::class, $product);
         }
 
-        //Then, get the products of the store product category level two of the store product category level one
-        $items = $this->storeProductCategoryManager->getStoreProductsCategoryLevelTwoByStoreProductCategoryID($storeProductCategoryID);
-
-        foreach($items as $item)
-        {
-            $item['products'] = $this->productService->getProductsByCategoryIdAndStoreOwnerProfileId($userLocale, $item['id'], $storeOwnerProfileID);
-
-            if($item['products'])
-            {
-                foreach($item['products'] as $product)
-                {
-                    $response[] = $this->autoMapping->map(ProductsByProductCategoryIdResponse::class, ProductsByProductCategoryIdForStoreResponse::class, $product);
-                }
-            }
-        }
-
         return $response;
     }
 
