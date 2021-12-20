@@ -910,7 +910,7 @@ class CaptainProfileController extends BaseController
 
     /**
      * admin: Get captain's financial account.
-     * @Route("/captainFinancialAccountForAdmin/{captainID}", name="captainFinancialAccountForAdmin",methods={"GET"})
+     * @Route("/captainfinancialaccountforadmin/{captainID}", name="captainFinancialAccountForAdmin",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @param $captainID
      * @return JsonResponse
@@ -964,6 +964,7 @@ class CaptainProfileController extends BaseController
      *              )
      *          )
      * )
+     *
      * @Security(name="Bearer")
      */
     public function getCaptainFinancialAccountDetailsByCaptainIdForAdmin($captainID): JsonResponse
@@ -975,7 +976,7 @@ class CaptainProfileController extends BaseController
 
     /**
      * admin: Get captain's financial account in last month.
-     * @Route("/captainFinancialAccountInLastMonthForAdmin/{captainID}", name="captainFinancialAccountInLastMonthForAdmin",methods={"GET"})
+     * @Route("/captainfinancialaccountinlastmonthforadmin/{captainID}", name="captainFinancialAccountInLastMonthForAdmin",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @param $captainID
      * @return JsonResponse
@@ -1040,7 +1041,7 @@ class CaptainProfileController extends BaseController
 
      /**
       * admin: Get captain's financial account in specific date.
-     * @Route("/captainFinancialAccountInSpecificDateForAdmin/{captainID}/{fromDate}/{toDate}", name="captainFinancialAccountInSpecificDateForAdmin",methods={"GET"})
+     * @Route("/captainfinancialaccountinspecificdateforadmin/{captainID}/{fromDate}/{toDate}", name="captainFinancialAccountInSpecificDateForAdmin",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      *  @return JsonResponse
       * *
@@ -1093,9 +1094,10 @@ class CaptainProfileController extends BaseController
       *              )
       *          )
       * )
+      *
       * @Security(name="Bearer")
       */
-    public function captainFinancialAccountInSpecificDateForAdmin($captainID, $fromDate, $toDate)
+    public function captainFinancialAccountInSpecificDateForAdmin($captainID, $fromDate, $toDate): JsonResponse
     {
         $response = $this->captainProfileService->captainFinancialAccountInSpecificDateForAdmin($captainID, $fromDate, $toDate);
 
@@ -1104,7 +1106,7 @@ class CaptainProfileController extends BaseController
 
     /**
      * admin: Filter by captain's name.
-     * @Route("/captainFilter/{name}", name="getCaptainsByName", methods={"GET"})
+     * @Route("/captainfilter/{name}", name="getCaptainsByName", methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * *
      * @OA\Tag(name="Captain Profile")

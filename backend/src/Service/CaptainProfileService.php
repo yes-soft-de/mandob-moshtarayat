@@ -676,7 +676,9 @@ class CaptainProfileService
        $captains = $this->captainProfileManager->captainFilter($name);
 
        foreach ($captains as $captain) {
-            $response['captains'][]= $this->autoMapping->map('array', CaptainProfileFilterResponse::class, $captain);
+           $captain['image'] = $this->getImageParams($captain['image'], $this->params.$captain['image'], $this->params);
+
+           $response['captains'][]= $this->autoMapping->map('array', CaptainProfileFilterResponse::class, $captain);
        }
        
        return $response;
