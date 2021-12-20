@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Constant\ResponseConstant;
 use App\Entity\CaptainProfileEntity;
 use App\Entity\StoreOwnerProfileEntity;
 use App\Entity\OrderEntity;
@@ -175,7 +176,7 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
 
             ->select('count (captainProfile.id) as countDayOfCaptains')
 
-            ->andWhere("captainProfile.state = 'vacation'")
+            ->andWhere("captainProfile.state = :vacation")
 
             ->setParameter('vacation','vacation')
 
@@ -253,7 +254,7 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
 
             ->andWhere("captainProfile.status = :active")
 
-            ->setParameter('active', 'active')
+            ->setParameter('active', ResponseConstant::$CAPTAIN_ACTIVE)
 
             ->getQuery()
             ->getResult();

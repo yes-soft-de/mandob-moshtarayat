@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Constant\OrderStateConstant;
+use App\Constant\ResponseConstant;
 use App\Entity\OrderEntity;
 use App\Entity\CaptainProfileEntity;
 use App\Entity\OrdersInvoicesEntity;
@@ -499,7 +500,7 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->andWhere("OrderEntity.state = :delivered")
 
             ->setParameter('captainId', $captainId)
-            ->setParameter('delivered', self::DELIVERED)
+            ->setParameter('delivered', OrderStateConstant::$ORDER_STATE_DELIVERED)
 
             ->getQuery()
             ->getResult();
@@ -508,7 +509,10 @@ class OrderEntityRepository extends ServiceEntityRepository
     public function sumInvoiceAmountWithoutOrderTypeSendIt($captainId)
     {
         return $this->createQueryBuilder('OrderEntity')
-            ->select('sum(OrderEntity.invoiceAmount) as sumInvoiceAmount')
+            ->select('sum(ordersInvoicesEntity.invoiceAmount) as sumInvoiceAmount')
+
+            ->leftJoin(OrderDetailEntity::class, 'orderDetailEntity', Join::WITH, 'orderDetailEntity.orderID = OrderEntity.id')
+            ->leftJoin(OrdersInvoicesEntity::class, 'ordersInvoicesEntity', Join::WITH, 'ordersInvoicesEntity.id = orderDetailEntity.orderInvoiceId')
 
             ->andWhere('OrderEntity.captainID = :captainId')
             ->andWhere("OrderEntity.state = :delivered")
@@ -517,23 +521,39 @@ class OrderEntityRepository extends ServiceEntityRepository
 
             ->setParameter('true', 1)
             ->setParameter('captainId', $captainId)
-            ->setParameter('delivered', self::DELIVERED)
+            ->setParameter('delivered', OrderStateConstant::$ORDER_STATE_DELIVERED)
 
             ->getQuery()
-            ->getResult();
+            ->getSingleScalarResult();
     }
 
-    public function sumFinancialAmount()
+    public function sumDeliveryCostAmount()
     {
         return $this->createQueryBuilder('OrderEntity')
-            ->select('sum(OrderEntity.invoiceAmount) as sumInvoiceAmount', 'sum(OrderEntity.deliveryCost) as deliveryCost' )
+            ->select('sum(OrderEntity.deliveryCost) as deliveryCost' )
 
             ->andWhere("OrderEntity.state = :delivered")
 
-            ->setParameter('delivered', self::DELIVERED)
+            ->setParameter('delivered', OrderStateConstant::$ORDER_STATE_DELIVERED)
 
             ->getQuery()
-            ->getResult();
+            ->getSingleScalarResult();
+    }
+
+    public function sumFinancialSumInvoiceAmount()
+    {
+        return $this->createQueryBuilder('OrderEntity')
+            ->select('sum(ordersInvoicesEntity.invoiceAmount) as invoiceAmount' )
+
+            ->leftJoin(OrderDetailEntity::class, 'orderDetailEntity', Join::WITH, 'orderDetailEntity.orderID = OrderEntity.id')
+            ->leftJoin(OrdersInvoicesEntity::class, 'ordersInvoicesEntity', Join::WITH, 'ordersInvoicesEntity.id = orderDetailEntity.orderInvoiceId')
+
+            ->andWhere("OrderEntity.state = :delivered")
+
+            ->setParameter('delivered', OrderStateConstant::$ORDER_STATE_DELIVERED)
+
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
     public function captainOrdersDelivered($captainId)
@@ -555,7 +575,7 @@ class OrderEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('OrderEntity')
 
-            ->select('count(OrderEntity.id) as countOrdersInMonth', 'sum(OrderEntity.invoiceAmount) as sumInvoiceAmount', 'sum(OrderEntity.deliveryCost) as deliveryCost')
+            ->select('count(OrderEntity.id) as countOrdersInMonth', 'sum(OrderEntity.deliveryCost) as deliveryCost')
        
             ->where('OrderEntity.deliveryDate >= :fromDate')
             ->andWhere('OrderEntity.deliveryDate < :toDate')
@@ -575,7 +595,10 @@ class OrderEntityRepository extends ServiceEntityRepository
     public function sumInvoiceAmountWithoutOrderTypeSendItInMonthForCaptain($fromDate, $toDate, $captainId)
     {
         return $this->createQueryBuilder('OrderEntity')
-                ->select('sum(OrderEntity.invoiceAmount) as sumInvoiceAmount')
+                ->select('sum(ordersInvoicesEntity.invoiceAmount) as sumInvoiceAmount' )
+
+                ->leftJoin(OrderDetailEntity::class, 'orderDetailEntity', Join::WITH, 'orderDetailEntity.orderID = OrderEntity.id')
+                ->leftJoin(OrdersInvoicesEntity::class, 'ordersInvoicesEntity', Join::WITH, 'ordersInvoicesEntity.id = orderDetailEntity.orderInvoiceId')
 
                 ->where('OrderEntity.deliveryDate >= :fromDate')
                 ->andWhere('OrderEntity.deliveryDate < :toDate')
@@ -587,7 +610,7 @@ class OrderEntityRepository extends ServiceEntityRepository
                 ->setParameter('toDate', $toDate)
                 ->setParameter('true', 1)
                 ->setParameter('captainId', $captainId)
-                ->setParameter('delivered', self::DELIVERED)
+                ->setParameter('delivered', OrderStateConstant::$ORDER_STATE_DELIVERED)
 
                 ->getQuery()
                 ->getResult();
@@ -650,7 +673,7 @@ class OrderEntityRepository extends ServiceEntityRepository
           ->setParameter('captainID', $captainID)
           ->setParameter('todayStart', $todayStart)
           ->setParameter('todayEnd', $todayEnd)
-          ->setParameter('delivered', self::DELIVERED)
+          ->setParameter('delivered', OrderStateConstant::$ORDER_STATE_DELIVERED)
 
           ->getQuery()
           ->getOneOrNullResult(); 

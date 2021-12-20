@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\AutoMapping;
+use App\Constant\ResponseConstant;
 use App\Request\CaptainProfileUpdateRequest;
 use App\Request\CaptainProfileUpdateLocationRequest;
 use App\Request\CaptainProfileUpdateByAdminRequest;
@@ -101,30 +102,6 @@ class CaptainProfileController extends BaseController
         }
         return $this->response($response, self::CREATE);
     }
-//public function captainRegister(Request $request): JsonResponse
-//    {
-//        $data = json_decode($request->getContent(), true);
-//
-//        $request = $this->autoMapping->map(stdClass::class, UserRegisterRequest::class, (object)$data);
-//
-//        $violations = $this->validator->validate($request);
-//        if (\count($violations) > 0) {
-//            $violationsString = (string) $violations;
-//
-//            return new JsonResponse($violationsString, Response::HTTP_OK);
-//        }
-//
-//        $response = $this->captainProfileService->captainRegister($request);
-//        $isArray = is_array($response);
-//        if($isArray){
-//            $found = isset($response['found']);
-//
-//            if( $found == "yes"){
-//                return $this->response($response, self::ERROR_USER_FOUND);
-//          }
-//        }
-//        return $this->response($response, self::CREATE);
-//    }
 
     /**
      * captain: Update captain profile.
@@ -176,10 +153,10 @@ class CaptainProfileController extends BaseController
      *              @OA\Property(type="string", property="bankAccountNumber"),
      *              @OA\Property(type="string", property="stcPay"),
      *              @OA\Property(type="string", property="phone"),
-
      *          )
      *      )
      * )
+     *
      * @Security(name="Bearer")
      */
     public function updateCaptainProfile(Request $request): JsonResponse
@@ -196,7 +173,7 @@ class CaptainProfileController extends BaseController
 
     /**
      * captain: Update captain location.
-     * @Route("/captainProfileUpdateLocation", name="captainProfileUpdateLocation", methods={"PUT"})
+     * @Route("/captainprofileupdatelocation", name="captainProfileUpdateLocation", methods={"PUT"})
      * @IsGranted("ROLE_CAPTAIN")
      * @param Request $request
      * @return JsonResponse
@@ -212,7 +189,10 @@ class CaptainProfileController extends BaseController
      * @OA\RequestBody(
      *      description="Update captain location",
      *      @OA\JsonContent(
-     *          @OA\Property(type="object", property="location"),
+     *          @OA\Property(type="object", property="location",
+     *               @OA\Property(type="number", property="lon"),
+     *               @OA\Property(type="number", property="lat"),
+     *          ),
      *      )
      * )
      *
@@ -236,15 +216,27 @@ class CaptainProfileController extends BaseController
      *              @OA\Property(type="string", property="bankAccountNumber"),
      *              @OA\Property(type="string", property="stcPay"),
      *              @OA\Property(type="string", property="phone"),
-
      *          )
      *      )
      * )
+     *
+     * or
+     *
+     * @OA\Response(
+     *      response="default",
+     *      description="Returns error",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code", description="9201"),
+     *          @OA\Property(type="string", property="msg", description="error Successfully."),
+     *          @OA\Property(type="string", property="Data", description="error lon or lat")
+     *      )
+     * )
+     *
      * @Security(name="Bearer")
      */
     public function captainProfileUpdateLocation(Request $request): JsonResponse
     {
-        $response="error lon or lat";
+        $response = ResponseConstant::$ERROR_LON_LOT;
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class, CaptainProfileUpdateLocationRequest::class, (object)$data);
@@ -542,12 +534,14 @@ class CaptainProfileController extends BaseController
      *              @OA\Property(type="object", property="image",
      *                 @OA\Property(type="string", property="imageURL"),
      *                 @OA\Property(type="string", property="baseURL"),
+     *                 @OA\Property(type="string", property="image"),
      *                      ),
      *                   )
      *              )
      *          )
      *      )
      * )
+     *
      * @Security(name="Bearer")
      */
     public function getAllCaptains(): JsonResponse
@@ -559,7 +553,7 @@ class CaptainProfileController extends BaseController
 
      /**
       * admin:Get the remaining captains have payments.
-     * @Route("/captainsRemainingForItAmount", name="captainsRemainingForItAmount",methods={"GET"})
+     * @Route("/captainsremainingforitamount", name="captainsRemainingForItAmount",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
       * *
@@ -603,7 +597,7 @@ class CaptainProfileController extends BaseController
 
      /**
       * admin:Get captains remaining on it amount.
-     * @Route("/captainsRemainingOnItAmount ", name="captainsRemainingOnItAmount",methods={"GET"})
+     * @Route("/captainsremainingonitamount ", name="captainsRemainingOnItAmount",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
       * *
@@ -638,7 +632,7 @@ class CaptainProfileController extends BaseController
       *              )
       *          )
       *      )
-      * )
+      *
       * @Security(name="Bearer")
       */
     public function captainsRemainingOnItAmount(): JsonResponse
@@ -649,6 +643,7 @@ class CaptainProfileController extends BaseController
     }
 
     /**
+     * this for dashboard website and not flutter.
      * @Route("/captainupdatenewmessagestatus", name="captainUpdateNewMessageStatus", methods={"PUT"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
@@ -724,7 +719,7 @@ class CaptainProfileController extends BaseController
 
     /**
      * captain: Get captain's balance.
-     * @Route("/captainFinancialAccount", name="getCaptainMyBalance",methods={"GET"})
+     * @Route("/captainfinancialaccount", name="getCaptainMyBalance",methods={"GET"})
      * @IsGranted("ROLE_CAPTAIN")
      *  @return JsonResponse
      * *
@@ -761,7 +756,7 @@ class CaptainProfileController extends BaseController
      *              )
      *          )
      *      )
-     * )
+     *
      * @Security(name="Bearer")
      */
     public function getCaptainFinancialAccountDetailsByCaptainId(): JsonResponse
@@ -773,7 +768,7 @@ class CaptainProfileController extends BaseController
 
     /**
      * captain: Get captain's financial account in last month.
-     * @Route("/captainFinancialAccountInLastMonth", name="captainFinancialAccountInLastMonth",methods={"GET"})
+     * @Route("/captainfinancialaccountinlastmonth", name="captainFinancialAccountInLastMonth",methods={"GET"})
      * @IsGranted("ROLE_CAPTAIN")
      *  @return JsonResponse
      * *
@@ -817,7 +812,7 @@ class CaptainProfileController extends BaseController
      *              )
      *          )
      *      )
-     * )
+     *
      * @Security(name="Bearer")
      */
     public function captainFinancialAccountInLastMonth(): JsonResponse
@@ -828,9 +823,46 @@ class CaptainProfileController extends BaseController
     }
 
     /**
-     * @Route("/captainFinancialAccountInSpecificDate/{fromDate}/{toDate}", name="captainFinancialAccountInSpecificDate",methods={"GET"})
+     * captain: Captain Financial Account In Specific Date.
+     * @Route("/captainfinancialaccountinspecificdate/{fromDate}/{toDate}", name="captainFinancialAccountInSpecificDate",methods={"GET"})
      * @IsGranted("ROLE_CAPTAIN")
      *  @return JsonResponse
+     * *
+     * @OA\Tag(name="Captain Profile")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Captain Financial Account In Specific Date",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *             @OA\Items(
+     *              @OA\Property(type="number", property="sumPaymentsFromCompany"),
+     *              @OA\Property(type="number", property="sumPaymentsToCompany"),
+     *              @OA\Property(type="integer", property="countOrdersDelivered"),
+     *              @OA\Property(type="number", property="sumInvoiceAmount"),
+     *              @OA\Property(type="number", property="deliveryCost"),
+     *              @OA\Property(type="number", property="amountYouOwn"),
+     *              @OA\Property(type="number", property="remainingAmountForCompany"),
+     *              @OA\Property(type="number", property="salary"),
+     *              @OA\Property(type="number", property="bounce"),
+     *              @OA\Property(type="number", property="kilometerBonus"),
+     *              @OA\Property(type="number", property="netProfit"),
+     *              @OA\Property(type="number", property="total"),
+     *                   ),
+     *              )
+     *          )
+     *      )
+     *
+     * @Security(name="Bearer")
      */
     public function captainFinancialAccountInSpecificDate($fromDate, $toDate): JsonResponse
     {
@@ -841,7 +873,7 @@ class CaptainProfileController extends BaseController
 
     /**
      * captain: Get Count Orders Captain Delivered In Today.
-     * @Route("/countOrdersCaptainDeliveredInToday", name="countOrdersCaptainDeliveredInToday",methods={"GET"})
+     * @Route("/countorderscaptaindeliveredintoday", name="countOrdersCaptainDeliveredInToday",methods={"GET"})
      * @IsGranted("ROLE_CAPTAIN")
      *  @return JsonResponse
      * *
@@ -866,7 +898,7 @@ class CaptainProfileController extends BaseController
      *              )
      *          )
      *      )
-     * )
+     *
      * @Security(name="Bearer")
      */
     public function countOrdersCaptainDeliveredInToday(): JsonResponse
