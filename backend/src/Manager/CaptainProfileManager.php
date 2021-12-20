@@ -3,6 +3,7 @@
 namespace App\Manager;
 
 use App\AutoMapping;
+use App\Manager\OrderManager;
 use App\Request\CaptainProfileUpdateByAdminRequest;
 use App\Request\CaptainProfileUpdateLocationRequest;
 use App\Request\CaptainProfileUpdateRequest;
@@ -13,17 +14,20 @@ use App\Manager\UserManager;
 use App\Repository\CaptainProfileEntityRepository;
 use App\Entity\CaptainProfileEntity;
 
+
 class CaptainProfileManager
 {
     private $autoMapping;
     private $entityManager;
     private $captainProfileEntityRepository;
     private $userManager;
+    private $orderManager;
 
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager,
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, OrderManager $orderManager,
                                 CaptainProfileEntityRepository $captainProfileEntityRepository, UserManager $userManager)
     {
+        $this->orderManager = $orderManager;
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
         $this->captainProfileEntityRepository = $captainProfileEntityRepository;
@@ -158,6 +162,16 @@ class CaptainProfileManager
     public function getCaptainAsArrayByCaptainId($captainID)
     {
         return $this->captainProfileEntityRepository->getCaptainAsArrayByCaptainId($captainID);
+    }
+
+    public function sumFinancialSumInvoiceAmount()
+    {
+        return $this->orderManager->sumFinancialSumInvoiceAmount();
+    }
+
+    public function sumDeliveryCostAmount()
+    {
+        return $this->orderManager->sumDeliveryCostAmount();
     }
 
     public function getAllCaptains()

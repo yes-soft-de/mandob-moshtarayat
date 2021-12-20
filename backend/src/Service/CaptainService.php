@@ -23,10 +23,10 @@ class CaptainService
         return $this->orderManager->sumInvoiceAmountWithoutOrderTypeSendIt($captainId);
     }
 
-    public function sumFinancialAmount()
-    {
-        return $this->orderManager->sumFinancialAmount();
-    }
+//    public function sumFinancialAmount()
+//    {
+//        return $this->orderManager->sumFinancialAmount();
+//    }
 
     public function captainOrdersDelivered($captainId)
     {

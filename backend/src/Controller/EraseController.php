@@ -3,11 +3,14 @@
 
 namespace App\Controller;
 
+use App\Entity\OrdersInvoicesEntity;
+use App\Entity\ProductEntity;
 use App\Entity\StoreCategoryEntity;
 use App\Entity\StoreOwnerBranchEntity;
 use App\Entity\StoreOwnerProfileEntity;
 use App\Entity\StoreProductCategoryEntity;
 use Doctrine\ORM\Tools\SchemaTool;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\OrderEntity;
 use App\Entity\OrderDetailEntity;
@@ -17,6 +20,7 @@ class EraseController extends BaseController
 {
     /**
     * @Route("dropalltables", name="deleteAllDatabaseTables", methods={"DELETE"})
+    * @IsGranted("ROLE_ADMIN")
     */
    public function dropAllTablesOfDB()
    {
@@ -36,6 +40,7 @@ class EraseController extends BaseController
 
     /**
      * @Route("eraseorders", name="deleteAllOrders", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function deleteAllOrders()
     {
@@ -57,6 +62,11 @@ class EraseController extends BaseController
                 ->delete()
                 ->getQuery()
                 ->execute();
+
+            $orderInvoices = $em->getRepository(OrdersInvoicesEntity::class)->createQueryBuilder('OrdersInvoicesEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
         }
         catch (\Exception $ex)
         {
@@ -68,6 +78,7 @@ class EraseController extends BaseController
 
     /**
      * @Route("erasecategories", name="deleteAllCategories", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function deleteAllCategories()
     {
@@ -96,6 +107,7 @@ class EraseController extends BaseController
 
     /**
      * @Route("erasestores", name="deleteAllStores", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function deleteAllStores()
     {
@@ -122,4 +134,26 @@ class EraseController extends BaseController
         return $this->response("", self::DELETE);
     }
 
+    /**
+     * @Route("eraseproducts", name="deleteAllProducts", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function deleteAllProducts()
+    {
+        try
+        {
+            $em = $this->getDoctrine()->getManager();
+
+            $em->getRepository(ProductEntity::class)->createQueryBuilder('ProductEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+        }
+        catch (\Exception $ex)
+        {
+            return $this->json($ex);
+        }
+
+        return $this->response("", self::DELETE);
+    }
 }

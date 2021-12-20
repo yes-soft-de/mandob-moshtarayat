@@ -177,9 +177,7 @@ class CaptainProfileService
          $top5Captains = $this->getTop5Captains();
       
          foreach ($top5Captains as $item) {
-            $item['imageURL'] = $item['image'];
-            $item['image'] = $this->params.$item['image'];
-            $item['baseURL'] = $this->params;   
+            $item['image'] = $this->getImageParams($item['image'], $this->params.$item['image'], $this->params);
 
             $response[]  = $this->autoMapping->map('array',CaptainProfileCreateResponse::class,  $item);
          }         
@@ -272,9 +270,9 @@ class CaptainProfileService
              $item['countOrdersDelivered'] = (float)$countOrdersDelivered[0]['countOrdersDelivered'];
              $item['kilometerBonus'] = $sumKilometerBonus;
 
-             $item['sumInvoiceAmount'] = (float)$sumInvoiceAmountWithoutOrderTypeSendIt[0]['sumInvoiceAmount'];
+             $item['sumInvoiceAmount'] = (float)$sumInvoiceAmountWithoutOrderTypeSendIt;
              $item['deliveryCost'] = (float)$countOrdersDelivered[0]['deliveryCost'];
-             $item['amountYouOwn'] = (float)$sumInvoiceAmountWithoutOrderTypeSendIt[0]['sumInvoiceAmount'] + $countOrdersDelivered[0]['deliveryCost'];
+             $item['amountYouOwn'] = (float)$sumInvoiceAmountWithoutOrderTypeSendIt + $countOrdersDelivered[0]['deliveryCost'];
 
              $item['sumPaymentsFromCompany'] = (float)$sumPaymentsToCaptainFromCompany[0]['sumPaymentsFromCompany'];
              $item['sumPaymentsToCompany'] = (float)$sumPaymentsFromCaptainToCompany[0]['sumPaymentsToCompany'];
@@ -297,26 +295,25 @@ class CaptainProfileService
         $response=[];
 
         $item = $this->captainProfileManager->getCaptainAsArrayByCaptainId($captainId);
-        
+
         $sumPaymentsFromCaptainToCompany = $this->deliveryCompanyPaymentsFromCaptainService->deliveryCompanySumPaymentsFromCaptain($captainId);
         $sumPaymentsToCaptainFromCompany = $this->deliveryCompanyPaymentsToCaptainService->deliveryCompanySumPaymentsToCaptain($captainId);
 
         $paymentsFromCaptainToCompany = $this->deliveryCompanyPaymentsFromCaptainService->deliveryCompanyPaymentsFromCaptain($captainId);
         $paymentsToCaptainFromCompany = $this->deliveryCompanyPaymentsToCaptainService->deliveryCompanyPaymentsToCaptain($captainId);
-       
+
         if ($item) {
              $countOrdersDelivered = $this->captainService->countCaptainOrdersDelivered($item[0]['captainID']);
+
              $sumInvoiceAmountWithoutOrderTypeSendIt = $this->captainService->sumInvoiceAmountWithoutOrderTypeSendIt($item[0]['captainID']);
+
              $sumKilometerBonus = $this->getOrderKilometers($captainId);
-             
+
              $item['countOrdersDelivered'] = (float)$countOrdersDelivered[0]['countOrdersDelivered'];
              $item['kilometerBonus'] = $sumKilometerBonus;
-
-//             $item['sumInvoiceAmount'] = (float)$countOrdersDelivered[0]['sumInvoiceAmount'];
-             $item['sumInvoiceAmount'] = (float)$sumInvoiceAmountWithoutOrderTypeSendIt[0]['sumInvoiceAmount'];
+             $item['sumInvoiceAmount'] = (float)$sumInvoiceAmountWithoutOrderTypeSendIt;
              $item['deliveryCost'] = (float)$countOrdersDelivered[0]['deliveryCost'];
-             $item['amountWithCaptain'] = (float)$sumInvoiceAmountWithoutOrderTypeSendIt[0]['sumInvoiceAmount'] + $countOrdersDelivered[0]['deliveryCost'];
-
+             $item['amountWithCaptain'] = (float)$sumInvoiceAmountWithoutOrderTypeSendIt + $countOrdersDelivered[0]['deliveryCost'];
              $item['sumPaymentsToCaptain'] = (float)$sumPaymentsToCaptainFromCompany[0]['sumPaymentsFromCompany'];
              $item['sumPaymentsFromCaptain'] = (float)$sumPaymentsFromCaptainToCompany[0]['sumPaymentsToCompany'];
              $item['remainingAmountForCompany'] = (float)$item['amountWithCaptain'] - $item['sumPaymentsFromCaptain'];
@@ -334,6 +331,7 @@ class CaptainProfileService
              $response[] = $this->autoMapping->map('array', CaptainTotalFinancialAccountInMonthForAdminResponse::class,  $item);
             
         }
+
         return $response;
     }
 
@@ -362,7 +360,9 @@ class CaptainProfileService
 
         if ($item) {
             $countOrdersDelivered = $this->captainService->countOrdersInMonthForCaptain($date[0], $date[1], $item[0]['captainID']);
+
             $sumInvoiceAmount = $this->captainService->sumInvoiceAmountWithoutOrderTypeSendItInMonthForCaptain($date[0], $date[1], $item[0]['captainID']);
+
             $paymentsToCaptainFromCompany = $this->deliveryCompanyPaymentsToCaptainService->deliveryCompanyPaymentsToCaptainInSpecificDate( $item[0]['captainID'] ,$date[0], $date[1]);
 
             $sumKilometerBonus = $this->getOrderKilometersInThisMonth($captainId, $date[0], $date[1]);
@@ -585,11 +585,12 @@ class CaptainProfileService
     {
         $response = [];
         $captains = $this->captainProfileManager->getAllCaptains();
-     
+
         foreach ($captains as $captain) {
                  $financialAccount = $this->getCaptainFinancialAccountDetailsByCaptainIdForAdmin($captain['captainID']);
 
                  $total=$financialAccount[0]->total;
+
                  $captain['remainingAmountForCaptain'] = $total;
 
                 if ($captain['remainingAmountForCaptain'] < 0 ) {
@@ -604,16 +605,20 @@ class CaptainProfileService
     {
         $response = [];
         
-        $sumFinancialAmount = $this->captainService->sumFinancialAmount();
+        $sumFinancialAmount = $this->captainProfileManager->sumFinancialSumInvoiceAmount();
+        $sumDeliveryCostAmount = $this->captainProfileManager->sumDeliveryCostAmount();
+
         $sumPaymentsToCompany = $this->deliveryCompanyPaymentsFromCaptainService->deliveryCompanySumPaymentsFromCaptains();
-        $totalAmountForCompany = 
-        (float)$sumFinancialAmount[0]['sumInvoiceAmount'] + $sumFinancialAmount[0]['deliveryCost'] - $sumPaymentsToCompany[0]['sumPaymentsToCompany'];
+
+        $totalAmountForCompany =
+        $sumFinancialAmount + $sumDeliveryCostAmount - $sumPaymentsToCompany[0]['sumPaymentsToCompany'];
 
         $captains = $this->captainProfileManager->getAllCaptains();
         
         foreach ($captains as $captain) {
                  $financialAccount = $this->getCaptainFinancialAccountDetailsByCaptainIdForAdmin($captain['captainID']);
-                 $remainingAmountOnCaptain =$financialAccount[0]->remainingAmountForCompany;
+
+                 $remainingAmountOnCaptain = $financialAccount[0]->remainingAmountForCompany;
                  $captain['remainingAmountForCompany'] = $remainingAmountOnCaptain;
 
                 if ($captain['remainingAmountForCompany'] > 0 ){
@@ -671,7 +676,9 @@ class CaptainProfileService
        $captains = $this->captainProfileManager->captainFilter($name);
 
        foreach ($captains as $captain) {
-            $response['captains'][]= $this->autoMapping->map('array', CaptainProfileFilterResponse::class, $captain);
+           $captain['image'] = $this->getImageParams($captain['image'], $this->params.$captain['image'], $this->params);
+
+           $response['captains'][]= $this->autoMapping->map('array', CaptainProfileFilterResponse::class, $captain);
        }
        
        return $response;

@@ -158,9 +158,14 @@ class OrderManager
         return $this->orderEntityRepository->sumInvoiceAmountWithoutOrderTypeSendIt($captainId);
     }
 
-    public function  sumFinancialAmount()
+    public function  sumFinancialSumInvoiceAmount()
     {
-        return $this->orderEntityRepository->sumFinancialAmount();
+        return $this->orderEntityRepository->sumFinancialSumInvoiceAmount();
+    }
+
+    public function  sumDeliveryCostAmount()
+    {
+        return $this->orderEntityRepository->sumDeliveryCostAmount();
     }
 
     public function  captainOrdersDelivered($captainId)

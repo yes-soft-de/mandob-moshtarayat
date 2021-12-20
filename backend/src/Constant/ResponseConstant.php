@@ -12,6 +12,8 @@ abstract class ResponseConstant
 
     static $INACTIVE = "inactive";
 
+    static $ERROR_LON_LOT = "error lon or lat";
+
     static $ORDER_NOT_CREATED = "Not created";
 
     static $ORDER_NOT_REMOVE_TIME = "can not remove it, Exceeded time allowed";
