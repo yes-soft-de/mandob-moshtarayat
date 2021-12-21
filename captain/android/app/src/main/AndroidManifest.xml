@@ -2,7 +2,7 @@
     package="de.yessoft.mandob_moshtarayat_captain">
    <application
         android:label="Mandoob Captain"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

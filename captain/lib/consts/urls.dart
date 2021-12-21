@@ -3,7 +3,7 @@
 // Named Domain ===> 'https://mandoob.password-please.com'
 
 class Urls {
-  static const String DOMAIN = 'http://206.189.61.207';
+  static const String DOMAIN = 'http://138.197.186.138';
   static const String BASE_API = DOMAIN + '';
   static const String IMAGES_ROOT = DOMAIN + '/upload/';
   static const UPLOAD_API = BASE_API + '/uploadfile';
@@ -15,27 +15,28 @@ class Urls {
   static const COMPANYINFO_API = BASE_API + '/companyinfoforuser';
   static const NOTIFICATIONNEWCHAT_API = BASE_API + '/notificationnewchat';
   static const NOTIFICATIONTOADMIN_API = BASE_API + '/notificationtoadmin';
-  static const CREATE_CAPTAIN_PROFILE = BASE_API + '/captainprofile' ;
+  static const CREATE_CAPTAIN_PROFILE = BASE_API + '/captainprofile';
   static const CAPTAIN_ACTIVE_STATUS_API = BASE_API + '/captainisactive';
-  static const ORDER_STATUS_API = BASE_API + '/orderDetails/';
-  static const NEARBY_ORDERS_API = BASE_API + '/closestOrders';
-  static const CAPTAIN_ACCEPTED_ORDERS_API = BASE_API + '/getAcceptedOrder';
+  static const ORDER_STATUS_API = BASE_API + '/orderdetails/';
+  static const NEARBY_ORDERS_API = BASE_API + '/closestorders';
+  static const CAPTAIN_ACCEPTED_ORDERS_API = BASE_API + '/getacceptedorder';
   static const ACCEPT_ORDER_API = BASE_API + '/acceptedOrder';
-  static const CAPTAIN_ORDER_UPDATE_API = BASE_API + '/orderUpdateState';
-  static const ORDER_UPDATE_BILL_API = BASE_API + '/orderUpdateInvoiceByCaptain';
-  static const BILLED_FOR_COMPANY_API = BASE_API + '/orderupdatebillcalculatedbycaptain';
+  static const CAPTAIN_ORDER_UPDATE_API = BASE_API + '/orderupdatestate';
+  static const ORDER_UPDATE_BILL_API =
+      BASE_API + '/orderUpdateInvoiceByCaptain';
+  static const BILLED_FOR_COMPANY_API =
+      BASE_API + '/orderupdatebillcalculatedbycaptain';
   static const UPDATES_API = BASE_API + '/updateall';
   static const ORDER_BY_ID = BASE_API + '/orderStatus/';
   static const SEND_TO_RECORD = BASE_API + '/record';
-  static const CAPTAIN_PROFILE_API = BASE_API + '/captainprofile' ;
+  static const CAPTAIN_PROFILE_API = BASE_API + '/captainprofile';
   static const TERMS_CAPTAIN = BASE_API + '/termscaptain';
   static const LOG_API = BASE_API + '/getRecords';
-  static const CAPTAIN_BALANCE_ACCOUNT = BASE_API + '/captainFinancialAccount';
-  static const CAPTAIN_BALANCE_LAST_MONTH = BASE_API + '/captainFinancialAccountInLastMonth';
+  static const CAPTAIN_BALANCE_ACCOUNT = BASE_API + '/captainfinancialaccount';
+  static const CAPTAIN_BALANCE_LAST_MONTH =
+      BASE_API + '/captainFinancialAccountInLastMonth';
   static const GET_ORDER_LOGS = BASE_API + '/orderLogs';
   static const CHECK_USER_ROLE = BASE_API + '/checkUserType';
-
-
-
-
+  static const UPDATE_STORE_ORDER_STATE =
+      BASE_API + '/orderupdatestateforeachstore';
 }

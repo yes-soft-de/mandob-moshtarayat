@@ -97,13 +97,13 @@ class StatusHelper {
   static Color getOrderStatusColor(OrderStatus status) {
     switch (status) {
       case OrderStatus.WAITING:
-        return Colors.amber;
-      case OrderStatus.IN_STORE:
-        return Colors.blue;
-      case OrderStatus.DELIVERING:
         return Colors.orange;
+      case OrderStatus.IN_STORE:
+        return Colors.indigo;
+      case OrderStatus.DELIVERING:
+        return Colors.purple;
       case OrderStatus.GOT_CAPTAIN:
-        return Colors.yellow;
+        return Colors.blue;
       case OrderStatus.FINISHED:
         return Colors.green;
       default:
@@ -123,6 +123,19 @@ class StatusHelper {
         return 1;
       case OrderStatus.FINISHED:
         return 4;
+      default:
+        return 0;
+    }
+  }
+
+  static int getOrderStatusIndexForStore(OrderStatus status) {
+    switch (status) {
+      case OrderStatus.GOT_CAPTAIN:
+        return 0;
+      case OrderStatus.IN_STORE:
+        return 1;
+      case OrderStatus.DELIVERING:
+        return 2;
       default:
         return 0;
     }

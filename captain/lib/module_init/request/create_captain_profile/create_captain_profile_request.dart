@@ -12,20 +12,22 @@ class CreateCaptainProfileRequest {
   bool? isOnline;
   String? phone;
 
-  CreateCaptainProfileRequest({this.image,
-    this.drivingLicence,
-    this.age,
-    this.car,
-    this.name,
-    this.identity,
-    this.mechanicLicence});
+  CreateCaptainProfileRequest(
+      {this.image,
+      this.drivingLicence,
+      this.age,
+      this.car,
+      this.name,
+      this.identity,
+      this.mechanicLicence});
 
   Uri? mechanic;
   Uri? captainImage;
   Uri? driving;
   Uri? idImage;
 
-  CreateCaptainProfileRequest.withUriImages({this.name,
+  CreateCaptainProfileRequest.withUriImages({
+    this.name,
     this.age,
     this.car,
     this.mechanic,
@@ -47,10 +49,10 @@ class CreateCaptainProfileRequest {
       'identity': identity,
       'car': car,
       'isOnline': 'active',
-      'phone':phone,
-      'stcPay':stcPay,
-      'bankAccountNumber':bankAccountNumber,
-      'bankName':bankName
+      'phone': phone,
+      'stcPay': stcPay,
+      'bankAccountNumber': bankAccountNumber,
+      'bankName': bankName
     };
   }
 }
