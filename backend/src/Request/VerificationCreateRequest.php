@@ -8,6 +8,16 @@ class VerificationCreateRequest
 
     private $code;
 
+    private $token;
+
+    /**
+     * @return mixed
+     */
+    public function getUserID()
+    {
+        return $this->userID;
+    }
+
     /**
      * @param mixed $code
      */
