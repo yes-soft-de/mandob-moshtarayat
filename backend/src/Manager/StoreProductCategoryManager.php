@@ -104,7 +104,7 @@ class StoreProductCategoryManager
 
     public function getStoreProductsCategoryLevelTwoByStoreProductCategoryIdForAdmin($storeProductCategoryID)
     {
-        return $this->storeProductCategoryEntityRepository->getStoreProductsCategoryLevelTwoByStoreProductCategoryID($storeProductCategoryID);
+        return $this->storeProductCategoryEntityRepository->getStoreProductsCategoryLevelTwoByStoreProductCategoryIdForAdmin($storeProductCategoryID);
     }
 
     public function getStoreProductsCategoryLevelTwoTranslationsByStoreProductCategoryID($storeProductCategoryID)

@@ -2,13 +2,11 @@
 
 namespace App\Request;
 
-class VerificationCreateRequest
+class VerifyCodeRequest
 {
     private $userID;
 
     private $code;
-
-    private $token;
 
     /**
      * @return mixed
@@ -19,11 +17,11 @@ class VerificationCreateRequest
     }
 
     /**
-     * @param mixed $code
+     * @return mixed
      */
-    public function setCode($code): void
+    public function getCode()
     {
-        $this->code = $code;
+        return $this->code;
     }
 
 }

@@ -9,6 +9,8 @@ parameters:
     image_folder: '%env(IMAGE_FOLDER)%'
     original_image: '%env(ORIGINAL_IMAGE)%'
     primary_language: '%env(PRIMARY_LANGUAGE)%'
+    malath_username: '%env(MALATH_USERNAME)%'
+    malath_password: '%env(MALATH_PASSWORD)%'
 
 services:
     # default configuration for services in *this* file

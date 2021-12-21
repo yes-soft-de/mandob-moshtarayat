@@ -24,8 +24,6 @@ use App\Response\StoreOwnerByCategoryIdResponse;
 use App\Response\StoresFilterByNameResponse;
 use App\Response\UserRegisterResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use App\Service\DeliveryCompanyPaymentsToStoreService;
-use App\Service\RatingService;
 
 class StoreOwnerProfileService
 {
@@ -62,7 +60,7 @@ class StoreOwnerProfileService
 
         if($userRegister instanceof UserEntity)
         {
-//            $this->createVerificationForStoreOwner($request);
+//            $this->createVerificationCodeForStoreOwner($request);
 
             return $this->autoMapping->map(UserEntity::class, UserRegisterResponse::class, $userRegister);
         }
@@ -76,12 +74,12 @@ class StoreOwnerProfileService
         }
     }
 
-//    public function createVerificationForStoreOwner(UserRegisterRequest $userEntity)
-//    {
-//        $createVerificationRequest = $this->autoMapping->map(UserRegisterRequest::class, VerificationCreateRequest::class, $userEntity);
-//
-//        $this->verificationService->createVerification($createVerificationRequest);
-//    }
+    public function createVerificationCodeForStoreOwner(UserRegisterRequest $userEntity)
+    {
+        $createVerificationRequest = $this->autoMapping->map(UserRegisterRequest::class, VerificationCreateRequest::class, $userEntity);
+
+        $this->verificationService->createVerificationCode($createVerificationRequest);
+    }
 
     public function storeOwnerProfileUpdate(StoreOwnerProfileUpdateRequest $request)
     {
