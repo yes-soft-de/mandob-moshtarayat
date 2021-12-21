@@ -15,9 +15,12 @@ class CommunicationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.only(left: 8,right: 8),
+        padding: EdgeInsets.only(left: 8, right: 8),
         child: ListTile(
-          title: Text(text, style: TextStyle(color: getTextColor(context)),),
+          title: Text(
+            text,
+            style: TextStyle(color: getTextColor(context)),
+          ),
           leading: Container(
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
@@ -27,8 +30,7 @@ class CommunicationCard extends StatelessWidget {
                 padding: const EdgeInsets.all(10.0),
                 child: image,
               )),
-        )
-    );
+        ));
   }
 
   Color getBGColor(BuildContext context) {

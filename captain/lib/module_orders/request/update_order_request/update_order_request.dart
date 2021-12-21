@@ -3,12 +3,11 @@ class UpdateOrderRequest {
   String? state;
   String? distance;
   double? orderCost;
-  UpdateOrderRequest({
-  required  this.id,
-  required  this.state,
-    this.distance,
-  required  this.orderCost
-  });
+  UpdateOrderRequest(
+      {required this.id,
+      required this.state,
+      this.distance,
+      required this.orderCost});
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -16,7 +15,7 @@ class UpdateOrderRequest {
     data['state'] = this.state;
     data['deliveryCost'] = this.orderCost;
     if (distance != null) {
-      data['kilometer'] = double.tryParse(this.distance??'0');
+      data['kilometer'] = double.tryParse(this.distance ?? '0');
     }
     return data;
   }

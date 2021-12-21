@@ -1,7 +1,8 @@
 class BilledCalculatedRequest {
   BilledCalculatedRequest({
-      this.orderNumber, 
-      this.isBillCalculated,});
+    this.orderNumber,
+    this.isBillCalculated,
+  });
 
   BilledCalculatedRequest.fromJson(dynamic json) {
     orderNumber = json['orderNumber'];
@@ -16,5 +17,4 @@ class BilledCalculatedRequest {
     map['isBillCalculated'] = isBillCalculated;
     return map;
   }
-
 }

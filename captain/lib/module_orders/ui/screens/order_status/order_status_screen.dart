@@ -8,9 +8,11 @@ import 'package:mandob_moshtarayat_captain/module_orders/model/order/order_detai
 import 'package:mandob_moshtarayat_captain/module_orders/orders_routes.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/request/order_invoice_request.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/request/update_order_request/update_order_request.dart';
+import 'package:mandob_moshtarayat_captain/module_orders/request/update_store_order_status_request.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/state_manager/order_status/order_status.state_manager.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/ui/state/order_status/order_status.state.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/ui/state/order_status/order_status_error_state.dart';
+import 'package:mandob_moshtarayat_captain/module_orders/ui/state/order_status/order_status_store.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/ui/widgets/order_widget/invoice_dialog.dart';
 import 'package:mandob_moshtarayat_captain/utils/components/custom_alert_dialog.dart';
 import 'package:mandob_moshtarayat_captain/utils/components/custom_app_bar.dart';
@@ -98,21 +100,19 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
                 Navigator.of(context).pop();
                 if (currentOrder.order.state == OrderStatus.IN_STORE &&
                     invoiceRequest != null) {
-                  currentOrder.providedDistance =
-                      double.tryParse(distance ?? '0');
-                  widget._stateManager.updateInvoice(
-                      UpdateOrderRequest(
-                        id: int.tryParse(orderId ?? '-1'),
-                        state: StatusHelper.getStatusString(
-                            OrderStatus.values[index + 1]),
-                        orderCost: currentOrder.order.deliveryCost,
-                        distance: distance,
-                      ),
-                      invoiceRequest!,
-                      this);
+                  // currentOrder.providedDistance =
+                  //     double.tryParse(distance ?? '0');
+                  // widget._stateManager.updateInvoice(
+                  //     UpdateOrderRequest(
+                  //       id: int.tryParse(orderId ?? '-1'),
+                  //       state: StatusHelper.getStatusString(
+                  //           OrderStatus.values[index + 1]),
+                  //       orderCost: currentOrder.order.deliveryCost,
+                  //       distance: distance,
+                  //     ),
+                  //     invoiceRequest!,
+                  //     this);
                 } else {
-                  currentOrder.providedDistance =
-                      double.tryParse(distance ?? '0');
                   widget._stateManager.updateOrder(
                       UpdateOrderRequest(
                         id: int.tryParse(orderId ?? '-1'),
@@ -126,6 +126,37 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
               },
               content: S.of(context).confirmUpdateOrderStatus);
         });
+  }
+
+  void requestStoreOrderProgress(UpdateStoreOrderStatusRequest request,int index) {
+  showDialog(
+        context: context,
+        builder: (_) {
+          return CustomAlertDialog(
+              onPressed: () {
+                Navigator.of(context).pop();
+                if (OrderStatus.values[index] == OrderStatus.IN_STORE &&
+                    invoiceRequest != null) {
+                  // currentOrder.providedDistance =
+                  //     double.tryParse(distance ?? '0');
+                  // widget._stateManager.updateInvoice(
+                  //     UpdateOrderRequest(
+                  //       id: int.tryParse(orderId ?? '-1'),
+                  //       state: StatusHelper.getStatusString(
+                  //           OrderStatus.values[index + 1]),
+                  //       orderCost: currentOrder.order.deliveryCost,
+                  //       distance: distance,
+                  //     ),
+                  //     invoiceRequest!,
+                  //     this);
+                } else {
+                  widget._stateManager.updateStoreOrder(request,
+                      this);
+                }
+              },
+              content: S.of(context).confirmUpdateOrderStatus);
+        });
+  
   }
 
   void getOrderDetails(var orderId) {
@@ -147,7 +178,8 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
         }
       },
       child: Scaffold(
-        appBar: !(currentState is OrderStatusErrorState)
+        appBar: !(currentState is OrderStatusErrorState ||
+                currentState is OrderDetailsStoreLoaded)
             ? CustomTwaslnaAppBar.appBar(context,
                 title: S.of(context).orderDetails)
             : null,

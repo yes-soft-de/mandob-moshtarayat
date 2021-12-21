@@ -2,14 +2,13 @@ import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat_captain/consts/urls.dart';
 import 'package:mandob_moshtarayat_captain/module_auth/service/auth_service/auth_service.dart';
 import 'package:mandob_moshtarayat_captain/module_network/http_client/http_client.dart';
-import 'package:mandob_moshtarayat_captain/module_orders/request/accept_order_request/accept_order_request.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/request/billed_calculated.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/request/order_invoice_request.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/request/update_order_request/update_order_request.dart';
+import 'package:mandob_moshtarayat_captain/module_orders/request/update_store_order_status_request.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/response/company_info/company_info.dart';
-import 'package:mandob_moshtarayat_captain/module_orders/response/order_details/order_details_response.dart';
+import 'package:mandob_moshtarayat_captain/module_orders/response/order_details_response/order_details_response.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/response/order_status/order_action_response.dart';
-import 'package:mandob_moshtarayat_captain/module_orders/response/order_status/order_status_response.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/response/orders/accept_order_response.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/response/orders/order_response.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/response/orders_logs_response.dart';
@@ -48,14 +47,14 @@ class OrderRepository {
     return AcceptOrderResponse.fromJson(response);
   }
 
-  Future<OrderStatusResponse?> getOrderDetails(int orderId) async {
+  Future<OrderDetailsResponse?> getOrderDetails(int orderId) async {
     var token = await _authService.getToken();
     dynamic response = await _apiClient.get(
       Urls.ORDER_STATUS_API + '$orderId',
       headers: {'Authorization': 'Bearer $token'},
     );
     if (response == null) return null;
-    return OrderStatusResponse.fromJson(response);
+    return OrderDetailsResponse.fromJson(response);
   }
 
   Future<OrdersLogsResponse?> getOrdersLogs() async {
@@ -89,6 +88,19 @@ class OrderRepository {
 
     return OrderActionResponse.fromJson(
         response, Urls.CAPTAIN_ORDER_UPDATE_API);
+  }
+    Future<OrderActionResponse?> updateStoreOrderState(
+      UpdateStoreOrderStatusRequest request) async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.put(
+      '${Urls.UPDATE_STORE_ORDER_STATE}',
+      request.toJson(),
+      headers: {'Authorization': 'Bearer ' + token.toString()},
+    );
+    if (response == null) return null;
+
+    return OrderActionResponse.fromJson(
+        response, Urls.UPDATE_STORE_ORDER_STATE);
   }
 
   Future<OrderActionResponse?> updateOrderBill(

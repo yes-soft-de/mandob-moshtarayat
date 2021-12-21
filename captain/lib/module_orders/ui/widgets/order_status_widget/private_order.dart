@@ -13,7 +13,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 class PrivateOrder extends StatelessWidget {
   final TextEditingController distanceCalculator;
-  final List<Item> cart;
   final StoreOwnerInfo storeInfo;
   final OrderInfo orderInfo;
   final Function() acceptOrder;
@@ -22,7 +21,6 @@ class PrivateOrder extends StatelessWidget {
 
   PrivateOrder(
       {required this.distanceCalculator,
-      required this.cart,
       required this.storeInfo,
       required this.orderInfo,
       required this.acceptOrder,
@@ -91,7 +89,7 @@ class PrivateOrder extends StatelessWidget {
                         height: 4,
                       ),
                       Text(
-                        storeInfo.branchName ?? S.current.unknown,
+                        S.current.unknown,
                         style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
@@ -143,7 +141,7 @@ class PrivateOrder extends StatelessWidget {
           ),
         ),
         // note
-        orderInfo.note.isNotEmpty
+        orderInfo.note != null
             ? Padding(
                 padding: const EdgeInsets.only(right: 8.0, left: 8),
                 child: ListTile(
@@ -159,7 +157,7 @@ class PrivateOrder extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Text(
-                        orderInfo.note,
+                        orderInfo.note ?? '',
                         textAlign: TextAlign.start,
                       ),
                     ),
@@ -220,13 +218,13 @@ class PrivateOrder extends StatelessWidget {
             color: Theme.of(context).backgroundColor,
           ),
         ),
-        storeInfo.storePhone != null
+        storeInfo.phone != null
             ? Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
                   onTap: () {
-                    var url = WhatsAppLinkHelper.getWhatsAppLink(
-                        storeInfo.storePhone ?? '');
+                    var url =
+                        WhatsAppLinkHelper.getWhatsAppLink(storeInfo.phone!);
                     launch(url);
                   },
                   child: CommunicationCard(
@@ -241,7 +239,7 @@ class PrivateOrder extends StatelessWidget {
                 ),
               )
             : Container(),
-        storeInfo.storePhone != null
+        storeInfo.branchLocation != null
             ? Padding(
                 padding: const EdgeInsets.only(right: 24.0, left: 24.0),
                 child: Divider(
@@ -258,15 +256,15 @@ class PrivateOrder extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   onTap: () {
                     var url = WhatsAppLinkHelper.getMapsLink(
-                        storeInfo.branchLocation!.latitude,
-                        storeInfo.branchLocation!.longitude);
+                        storeInfo.branchLocation?.lat ?? 0,
+                        storeInfo.branchLocation?.long ?? 0);
                     launch(url);
                   },
                   child: CommunicationCard(
                     color: Colors.blue[900],
                     text: S.of(context).storeLocation +
-                        (storeInfo.branchDistance != null
-                            ? ' ( ${storeInfo.branchDistance} ${S.current.km} ) '
+                        (storeInfo.branchDestance != null
+                            ? ' ( ${storeInfo.branchDestance} ${S.current.km} ) '
                             : ''),
                     image: Icon(
                       Icons.store_rounded,
@@ -293,15 +291,15 @@ class PrivateOrder extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   onTap: () {
                     var url = WhatsAppLinkHelper.getMapsLink(
-                        orderInfo.destination!.latitude,
-                        orderInfo.destination!.longitude);
+                        orderInfo.destination?.lat ?? 0,
+                        orderInfo.destination?.long ?? 0);
                     launch(url);
                   },
                   child: CommunicationCard(
                     color: Colors.red[900],
                     text: S.of(context).locationOfCustomer +
                         (orderInfo.destination != null
-                            ? ' ( ${orderInfo.destinationDistanceValue} ${S.current.km} ) '
+                            ? ' ( ${orderInfo.recieveDistanceValue} ${S.current.km} ) '
                             : ''),
                     image: Icon(Icons.location_history, color: Colors.white),
                   ),

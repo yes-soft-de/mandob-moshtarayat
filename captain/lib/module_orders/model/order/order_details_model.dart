@@ -1,186 +1,46 @@
+import 'package:intl/intl.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:mandob_moshtarayat_captain/consts/order_status.dart';
-import 'package:mandob_moshtarayat_captain/consts/urls.dart';
 import 'package:mandob_moshtarayat_captain/generated/l10n.dart';
-import 'package:mandob_moshtarayat_captain/module_orders/response/order_status/order_status_response.dart';
+import 'package:mandob_moshtarayat_captain/module_orders/response/order_details_response/destination.dart';
+import 'package:mandob_moshtarayat_captain/module_orders/response/order_details_response/order.dart';
+import 'package:mandob_moshtarayat_captain/module_orders/response/order_details_response/order_detail.dart';
+import 'package:mandob_moshtarayat_captain/module_orders/response/order_details_response/order_details_response.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/response/orders/geojson.dart';
 import 'package:mandob_moshtarayat_captain/utils/helpers/order_status_helper.dart';
 
 class OrderDetailsModel {
-  List<Item> cart = [];
+  List<StoreOwnerInfo> carts = [];
   StoreOwnerInfo storeInfo = StoreOwnerInfo.Empty();
   OrderInfo order = OrderInfo.Empty();
-  String? _error;
-  bool _empty = false;
-  double? providedDistance;
-  OrderDetailsModel? _orderDetailsModel;
+  String? error;
+  bool empty = false;
+  OrderDetailsModel? orderDetailsModel;
 
-  OrderDetailsModel(
-      {required this.cart, required this.storeInfo, required this.order});
+  OrderDetailsModel({required this.carts, required this.order});
 
-  OrderDetailsModel.Error(this._error);
+  OrderDetailsModel.Error(this.error);
 
   OrderDetailsModel.Empty() {
-    _empty = true;
+    empty = true;
   }
 
-  bool get isEmpty => _empty;
+  bool get isEmpty => empty;
 
-  bool get hasError => _error != null;
+  bool get hasError => error != null;
 
-  String get error => _error ?? '';
-
-  OrderDetailsModel.Data(OrderStatusResponse response, [LatLng? initLocation]) {
-    List<Branches>? sortedBranches;
-    LatLng? branchLocation;
-    double? branchDistance;
-    String? branch;
-    response.data?.storeOwner ??= StoreOwner();
-    response.data?.storeOwner?.branches ??= [];
-    if (initLocation != null &&
-        response.data!.storeOwner!.branches!.isNotEmpty) {
-      sortedBranches = _sortLocations(
-          response.data?.storeOwner?.branches ?? [], initLocation);
-    }
-    if (sortedBranches != null) {
-      branchLocation = LatLng(sortedBranches.first.location?.lat ?? 0,
-          sortedBranches.first.location?.long ?? 0);
-      branchDistance = sortedBranches.first.distance;
-      branch = sortedBranches.first.branchName;
-    }
-    _orderDetailsModel = OrderDetailsModel(
-        cart: _toCartList(response.data?.orderDetails ?? <OrderDetails>[]),
-        order: _toOrder(response.data?.order, initLocation),
-        storeInfo: StoreOwnerInfo(
-            branchName: branch,
-            storeOwnerName: response.data?.storeOwner?.storeOwnerName ??
-                S.current.storeOwner,
-            storePhone: response.data?.storeOwner?.phone,
-            image: response.data?.storeOwner?.image ?? Urls.IMAGES_ROOT,
-            branchLocation: branchLocation,
-            branchDistance: branchDistance));
+  OrderDetailsModel.Data(OrderDetailsResponse response, LatLng? myLocation) {
+    orderDetailsModel = OrderDetailsModel(
+      carts: toCartList(
+          response.data?.orderDetails ?? <OrderDetail>[], myLocation),
+      order: toOrder(response.data?.order, myLocation),
+    );
   }
 
-  bool get hasData => _orderDetailsModel != null;
+  bool get hasData => orderDetailsModel != null;
 
   OrderDetailsModel get data =>
-      _orderDetailsModel ??
-      OrderDetailsModel(cart: cart, storeInfo: storeInfo, order: order);
-
-  List<Branches> _sortLocations(List<Branches> branches, var defaultLoc) {
-    if (defaultLoc == null && branches.length == 1) {
-      return branches;
-    }
-    LatLng myPos = defaultLoc;
-    final Distance distance = Distance();
-    var sorted = branches;
-    if (defaultLoc != null && branches.length == 1) {
-      var pos = LatLng(branches.first.location?.lat ?? 0,
-          branches.first.location?.long ?? 0);
-      var straightDistance = distance.as(LengthUnit.Kilometer, pos, myPos);
-      branches.first.distance = straightDistance;
-      return branches;
-    }
-
-    sorted.sort((a, b) {
-      try {
-        var pos1 = LatLng(a.location?.lat ?? 0, a.location?.long ?? 0);
-        var pos2 = LatLng(b.location?.lat ?? 0, b.location?.long ?? 0);
-        var straightDistance1 = distance.as(LengthUnit.Kilometer, pos1, myPos);
-        var straightDistance2 = distance.as(LengthUnit.Kilometer, pos2, myPos);
-        a.distance = straightDistance1;
-        b.distance = straightDistance2;
-        return straightDistance1.compareTo(straightDistance2);
-      } catch (e) {
-        print(
-            '##########################################################################');
-        print(e);
-        print(
-            '##########################################################################');
-        return 1;
-      }
-    });
-    return sorted.toList();
-  }
-
-  double? _getDestination(LatLng? defaultLoc, GeoJson? sources) {
-    if (defaultLoc == null || sources == null) {
-      return null;
-    }
-    LatLng myPos = defaultLoc;
-    final Distance distance = Distance();
-    var pos1 = LatLng(sources.lat ?? 0, sources.long ?? 0);
-    var straightDistance = distance.as(LengthUnit.Kilometer, pos1, myPos);
-    return straightDistance.abs();
-  }
-
-  List<Item> _toCartList(List<OrderDetails> ordersItems) {
-    if (ordersItems.isEmpty) return <Item>[];
-    List<Item> items = [];
-    ordersItems.forEach((element) {
-      items.add(Item(
-          productID: element.productID ?? -1,
-          productName: element.productName ?? S.current.product,
-          productImage: element.productImage?.image ?? Urls.IMAGES_ROOT,
-          productPrice: element.productPrice ?? 0,
-          countProduct: element.countProduct ?? 1,
-          storeOwnerProfileID: element.storeOwnerProfileID ?? -1,
-          productCategoryID: element.productCategoryID ?? -1,
-          orderNumber: element.orderNumber ?? '-1'));
-    });
-    return items;
-  }
-
-  OrderInfo _toOrder(Order? order, [LatLng? defaultLoc]) {
-    if (order != null) {
-      LatLng? sourceLocation;
-      LatLng? destinationLocation;
-      double? sourceDistance;
-      double? destinationDistance;
-
-      if (order.orderType == 3 && order.source != null) {
-        sourceLocation =
-            LatLng(order.source?.lat ?? 0, order.source?.long ?? 0);
-      }
-      if (order.destination != null) {
-        destinationLocation =
-            LatLng(order.destination?.lat ?? 0, order.destination?.long ?? 0);
-      }
-
-      if (defaultLoc != null) {
-        if (sourceLocation != null)
-          sourceDistance = _getDestination(defaultLoc, order.source);
-        if (destinationLocation != null)
-          destinationDistance = _getDestination(defaultLoc, order.destination);
-      }
-
-      var date = DateTime.fromMillisecondsSinceEpoch(
-              (order.deliveryDate?.timestamp ??
-                      DateTime.now().millisecondsSinceEpoch) *
-                  1000)
-          .toIso8601String();
-      return OrderInfo(
-          id: order.id ?? -1,
-          state: StatusHelper.getStatusEnum(order.state),
-          roomID: order.roomID ?? 'roomID',
-          ownerID: order.storeOwnerProfileID ?? -1,
-          orderCost: order.orderCost ?? 0,
-          deliveryDate: date,
-          deliveryCost: order.deliveryCost ?? 0,
-          payment: order.payment!,
-          note: order.note ?? '',
-          destination: destinationLocation,
-          orderType: order.orderType ?? 0,
-          orderDetails: order.detail,
-          recipientName: order.recipientName,
-          recipientPhoneNumber: order.recipientPhone,
-          source: sourceLocation,
-          sourceDistanceValue: sourceDistance,
-          destinationDistanceValue: destinationDistance);
-    } else {
-      return OrderInfo.Empty();
-    }
-  }
+      orderDetailsModel ?? OrderDetailsModel(carts: carts, order: order);
 }
 
 class Item {
@@ -206,25 +66,35 @@ class Item {
 
 class StoreOwnerInfo {
   String storeOwnerName = '';
+  int storeOwnerID = -1;
   String image = '';
-  bool _empty = false;
-  String? storePhone;
-  LatLng? branchLocation;
-  double? branchDistance;
-  String? branchName;
+  String? imageURL;
+  bool empty = false;
+  num? rating = 0;
+  String? phone;
+  Destination? branchLocation;
+  double? branchDestance;
+  String roomID = '';
+  OrderStatus state = OrderStatus.WAITING;
+  late List<Item> items;
   StoreOwnerInfo(
       {required this.storeOwnerName,
+      required this.storeOwnerID,
       required this.image,
-      this.storePhone,
+      this.imageURL,
+      this.rating,
+      required this.items,
+      this.phone,
+      this.branchDestance,
       this.branchLocation,
-      this.branchDistance,
-      this.branchName});
+      required this.state,
+      required this.roomID});
 
   StoreOwnerInfo.Empty() {
-    _empty = true;
+    empty = true;
   }
 
-  bool get isEmpty => _empty;
+  bool get isEmpty => empty;
 }
 
 class OrderInfo {
@@ -236,16 +106,19 @@ class OrderInfo {
   double deliveryCost = 0;
   double orderCost = 0;
   String payment = '';
-  String note = '';
-  LatLng? source;
-  LatLng? destination;
-  bool _empty = false;
+  String? note;
+  Destination? destination;
+  bool empty = false;
   int orderType = 0;
   String? orderDetails;
   String? recipientName;
   String? recipientPhoneNumber;
+  bool? removable;
+  String? invoiceImage;
+  num? invoiceAmount;
+  Destination? source;
   double? sourceDistanceValue;
-  double? destinationDistanceValue;
+  double? recieveDistanceValue;
   OrderInfo(
       {required this.id,
       required this.state,
@@ -255,19 +128,119 @@ class OrderInfo {
       required this.orderCost,
       required this.deliveryCost,
       required this.payment,
-      this.note = '',
+      this.note,
       this.destination,
       required this.orderType,
       this.orderDetails,
       this.recipientName,
       this.recipientPhoneNumber,
+      required this.removable,
+      this.invoiceImage,
+      this.invoiceAmount,
       this.source,
       this.sourceDistanceValue,
-      this.destinationDistanceValue});
+      this.recieveDistanceValue});
 
   OrderInfo.Empty() {
-    _empty = true;
+    empty = true;
   }
 
-  bool get isEmpty => _empty;
+  bool get isEmpty => empty;
+}
+
+List<StoreOwnerInfo> toCartList(List<OrderDetail> ordersItems, myLoc) {
+  if (ordersItems.isEmpty) return <StoreOwnerInfo>[];
+  List<StoreOwnerInfo> items = [];
+  ordersItems.forEach((element) {
+    List<Item> orders = [];
+    element.products?.forEach((product) {
+      orders.add(Item(
+        productID: product.productId ?? -1,
+        productName: product.productName ?? S.current.product,
+        productImage: product.productImage?.image ?? '',
+        productPrice: product.productPrice?.toDouble() ?? 0,
+        countProduct: product.countProduct ?? 1,
+        storeOwnerProfileID: element.storeOwnerProfileId ?? -1,
+        productCategoryID: product.productCategoryId ?? -1,
+        orderNumber: product.orderNumber ?? '-1',
+      ));
+    });
+    items.add(StoreOwnerInfo(
+        storeOwnerName: element.storeOwnerName ?? S.current.unknown,
+        storeOwnerID: element.storeOwnerProfileId ?? -1,
+        image: element.image?.image ?? '',
+        items: orders,
+        phone: element.phone,
+        roomID: element.roomID ?? '',
+        branchLocation: element.location,
+        branchDestance: _getDestination(myLoc, element.location),
+        state: StatusHelper.getStatusEnum(element.state)));
+  });
+  return items;
+}
+
+double? _getDestination(LatLng? defaultLoc, Destination? sources) {
+  if (defaultLoc == null || sources == null) {
+    return null;
+  }
+  try {
+    LatLng myPos = defaultLoc;
+    final Distance distance = Distance();
+    var pos1 = LatLng(sources.lat ?? 0, sources.long ?? 0);
+    var straightDistance = distance.as(LengthUnit.Kilometer, pos1, myPos);
+    return straightDistance.abs();
+  } catch (e) {
+    return null;
+  }
+}
+
+OrderInfo toOrder(Order? order, LatLng? defaultLoc) {
+  if (order != null) {
+    bool timeout = false;
+    var date = DateTime.fromMillisecondsSinceEpoch(
+        (order.createdAt?.timestamp ?? DateTime.now().millisecondsSinceEpoch) *
+            1000);
+    if (DateTime.now().difference(date).inMinutes > 30) {
+      timeout = true;
+    }
+
+    return OrderInfo(
+        id: order.id ?? -1,
+        state: StatusHelper.getStatusEnum(order.state),
+        roomID: order.roomId ?? 'roomID',
+        ownerID: -1,
+        orderCost: order.orderCost?.toDouble() ?? 0,
+        deliveryDate: DateTime.fromMillisecondsSinceEpoch(
+                (order.deliveryDate?.timestamp ??
+                        DateTime.now().millisecondsSinceEpoch) *
+                    1000)
+            .toUtc()
+            .toIso8601String(),
+        deliveryCost: order.deliveryCost?.toDouble() ?? 0,
+        payment: order.payment!,
+        note: order.note,
+        destination: order.destination,
+        orderType: order.orderType ?? 0,
+        orderDetails: order.detail,
+        recipientName: order.recipientName,
+        recipientPhoneNumber: order.recipientPhone,
+        source: order.source,
+        invoiceAmount: null,
+        invoiceImage: null,
+        sourceDistanceValue: _getDestination(defaultLoc, order.source),
+        recieveDistanceValue: _getDestination(defaultLoc, order.destination),
+        removable: !timeout);
+  } else {
+    return OrderInfo(
+        id: -1,
+        state: OrderStatus.WAITING,
+        roomID: 'roomID',
+        ownerID: -1,
+        deliveryDate: DateFormat('dd-MM-yyyy').format(DateTime.now()),
+        orderCost: 0,
+        deliveryCost: 0,
+        payment: 'cash',
+        orderType: 0,
+        removable: false);
+  }
 }

@@ -87,60 +87,7 @@ class OrderCard extends StatelessWidget {
                   ],
                 ),
                 // divider
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0, top: 8.0),
-                  child: Divider(
-                    color: Colors.grey[400]?.withOpacity(0.3),
-                    thickness: 2,
-                  ),
-                ),
-                // store name and branch name
-                orderType != 3 && orderStatus == null
-                    ? Flex(
-                        direction: Axis.horizontal,
-                        children: [
-                          Flex(
-                            direction: Axis.vertical,
-                            children: [
-                              Text(S.of(context).storeName,
-                                  style: TextStyle(fontSize: 14)),
-                              Container(
-                                height: 4,
-                              ),
-                              Text(
-                                '$storeName',
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                    color: Theme.of(context).disabledColor),
-                              ),
-                            ],
-                          ),
-                          Spacer(
-                            flex: 2,
-                          ),
-                          Flex(
-                            direction: Axis.vertical,
-                            children: [
-                              Text(S.of(context).branch,
-                                  style: TextStyle(fontSize: 14)),
-                              Container(
-                                height: 4,
-                              ),
-                              Text(
-                                branchName.toString(),
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                    color: Theme.of(context).disabledColor),
-                              )
-                            ],
-                          ),
-                        ],
-                      )
-                    : SizedBox(),
-                // divider
-                orderType != 3 && orderStatus == null
+                orderType != null
                     ? Padding(
                         padding: const EdgeInsets.only(bottom: 8.0, top: 8.0),
                         child: Divider(
@@ -206,25 +153,6 @@ class OrderCard extends StatelessWidget {
                     : Flex(
                         direction: Axis.horizontal,
                         children: [
-                          Flex(
-                            direction: Axis.vertical,
-                            children: [
-                              Text(S.of(context).distance,
-                                  style: TextStyle(fontSize: 14)),
-                              Container(
-                                height: 4,
-                              ),
-                              Text(
-                                orderDestination != null
-                                    ? '${orderDestination} ${S.of(context).km}'
-                                    : S.of(context).unknown,
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                    color: Theme.of(context).disabledColor),
-                              )
-                            ],
-                          ),
                           Spacer(
                             flex: 2,
                           ),

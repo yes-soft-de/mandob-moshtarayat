@@ -1,22 +1,17 @@
 class GeoJson {
-
   double? lat;
   double? long;
 
-  GeoJson({
-      this.lat, 
-      this.long
-  });
+  GeoJson({this.lat, this.long});
 
   GeoJson.fromJson(dynamic json) {
     try {
       lat = json['lat'];
       long = json['long'];
-    } catch(e) {
+    } catch (e) {
       lat = null;
       long = null;
     }
-
   }
 
   Map<String, dynamic> toJson() {
@@ -25,5 +20,4 @@ class GeoJson {
     map['long'] = long;
     return map;
   }
-
 }
