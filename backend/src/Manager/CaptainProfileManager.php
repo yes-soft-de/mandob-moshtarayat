@@ -66,6 +66,7 @@ class CaptainProfileManager
             $this->entityManager->persist($captainProfile);
             $this->entityManager->flush();
         }
+
         return $userRegister;
     }
 
@@ -159,6 +160,7 @@ class CaptainProfileManager
     {
         return $this->captainProfileEntityRepository->getCaptainsInVacation();
     }
+
     public function getCaptainAsArrayByCaptainId($captainID)
     {
         return $this->captainProfileEntityRepository->getCaptainAsArrayByCaptainId($captainID);
@@ -167,6 +169,16 @@ class CaptainProfileManager
     public function sumFinancialSumInvoiceAmount()
     {
         return $this->orderManager->sumFinancialSumInvoiceAmount();
+    }
+
+    public function countOrdersDeliveredInToday($captainID, $todayStart, $todayEnd)
+    {
+        return $this->orderManager->countOrdersDeliveredInToday($captainID, $todayStart, $todayEnd);
+    }
+
+    public function countCaptainOrdersDelivered($captainId)
+    {
+        return $this->orderManager->countCaptainOrdersDelivered($captainId);
     }
 
     public function sumDeliveryCostAmount()
@@ -199,4 +211,28 @@ class CaptainProfileManager
         return $this->captainProfileEntityRepository->captainFilter($name);
     }
 
+    public function sumInvoiceAmountWithoutOrderTypeSendIt($captainId)
+    {
+        return $this->orderManager->sumInvoiceAmountWithoutOrderTypeSendIt($captainId);
+    }
+
+    public function countOrdersInMonthForCaptain($fromDate, $toDate, $captainId)
+    {
+        return $this->orderManager->countOrdersInMonthForCaptain($fromDate, $toDate, $captainId);
+    }
+
+    public function sumInvoiceAmountWithoutOrderTypeSendItInMonthForCaptain($fromDate, $toDate, $captainId)
+    {
+        return $this->orderManager->sumInvoiceAmountWithoutOrderTypeSendItInMonthForCaptain($fromDate, $toDate, $captainId);
+    }
+
+    public function getOrderKilometers($captainId)
+    {
+        return $this->orderManager->getOrderKilometers($captainId);
+    }
+
+    public function getOrderKilometersInThisMonth($captainId, $fromDate, $toDate)
+    {
+        return $this->orderManager->getOrderKilometersInThisMonth($captainId, $fromDate, $toDate);
+    }
 }
