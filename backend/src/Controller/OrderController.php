@@ -1042,6 +1042,9 @@ class OrderController extends BaseController
      *                                 @OA\Property(type="object", property="image"),
      *                                 @OA\Property(type="object", property="baseURL"),
      *                                          ),
+     *                         @OA\Property(type="object", property="location"),
+     *                         @OA\Property(type="string", property="state"),
+     *                         @OA\Property(type="string", property="roomID"),
      *                         @OA\Property(type="array", property="products",
      *                              @OA\Items(
      *                                  @OA\Property(type="string", property="productName"),
