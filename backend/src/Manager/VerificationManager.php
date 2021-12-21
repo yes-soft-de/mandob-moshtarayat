@@ -79,28 +79,12 @@ class VerificationManager
 
     public function generateVerificationCode()
     {
-        do
+        $verificationCode = "";
+
+        for ($i = 0; $i < 6; $i++)
         {
-            // keep generating verification code while it is exist
-            $found = false;
-            $verificationCode = "";
-            $result = "";
-
-            for ($i = 0; $i < 7; $i++)
-            {
-                $verificationCode .= random_int(0, 9);
-            }
-
-            // Check if it is exist
-            $result = $this->getVerificationCodeByCode($verificationCode);
-
-            if($result)
-            {
-                $found = true;
-            }
-
+            $verificationCode .= random_int(0, 9);
         }
-        while($found);
 
         return $verificationCode;
     }

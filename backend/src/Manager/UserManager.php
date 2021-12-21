@@ -24,6 +24,7 @@ use App\Request\StoreOwnerProfileUpdateRequest;
 use App\Request\CaptainProfileUpdateByAdminRequest;
 use App\Request\CaptainProfileUpdateRequest;
 use App\Request\ClientProfileUpdateRequest;
+use App\Request\StoreOwnerVerificationStatusUpdateRequest;
 use App\Request\UserRegisterRequest;
 use App\Manager\StoreOwnerBranchManager;
 use App\Manager\OrderManager;
@@ -504,5 +505,25 @@ class UserManager
     public function getFavouriteCategoriesIDsByClientID($clientID)
     {
         return $this->clientProfileEntityRepository->getFavouriteCategoriesIDsByClientID($clientID);
+    }
+
+    public function updateStoreOwnerVerificationStatus(StoreOwnerVerificationStatusUpdateRequest $request)
+    {
+        $item = $this->userRepository->getStoreOwnerEntityByUserID($request->getUserID());
+
+        if (!$item)
+        {
+            // no store owner with the provided userID was found!
+            return 'noUserWasFound';
+        }
+        else
+        {
+            $item = $this->autoMapping->mapToObject(StoreOwnerVerificationStatusUpdateRequest::class, UserEntity::class, $request, $item);
+
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $item;
+        }
     }
 }

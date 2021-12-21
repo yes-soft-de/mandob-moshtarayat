@@ -2,15 +2,21 @@
 
 namespace App\Service;
 
+use App\AutoMapping;
+use App\Entity\UserEntity;
 use App\Manager\UserManager;
+use App\Request\StoreOwnerVerificationStatusUpdateRequest;
+use App\Response\StoreOwnerVerificationStatusUpdateResponse;
 
 
 class UserService
 {
+    private $autoMapping;
     private $userManager;
 
-    public function __construct(UserManager $userManager)
+    public function __construct(AutoMapping $autoMapping, UserManager $userManager)
     {
+        $this->autoMapping = $autoMapping;
         $this->userManager = $userManager;
     }
 
@@ -24,5 +30,19 @@ class UserService
     {
         return $this->userManager->getStoreProfileId($userID);
 
+    }
+
+    public function updateStoreOwnerVerificationStatus(StoreOwnerVerificationStatusUpdateRequest $request)
+    {
+        $userResult = $this->userManager->updateStoreOwnerVerificationStatus($request);
+
+        if ($userResult == 'noUserWasFound')
+        {
+
+        }
+        else
+        {
+            return $this->autoMapping->map(UserEntity::class, StoreOwnerVerificationStatusUpdateResponse::class, $userResult);
+        }
     }
 }
