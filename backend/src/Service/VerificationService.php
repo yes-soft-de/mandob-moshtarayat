@@ -6,10 +6,12 @@ use App\AutoMapping;
 use App\Constant\StoreOwnerVerificationStatusConstant;
 use App\Entity\VerificationEntity;
 use App\Manager\VerificationManager;
+use App\Request\ReSendNewVerificationCodeRequest;
 use App\Request\StoreOwnerVerificationStatusUpdateRequest;
 use App\Request\VerificationCreateRequest;
 use App\Request\VerifyCodeRequest;
 use App\Response\CodeVerificationResponse;
+use App\Response\NewVerificationCodeResponse;
 use App\Response\VerificationCreateResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
@@ -94,6 +96,48 @@ class VerificationService
         $storeOwnerVerificationUpdateRequest->setVerificationStatus($verificationStatus);
 
         $this->userService->updateStoreOwnerVerificationStatus($storeOwnerVerificationUpdateRequest);
+    }
+
+    public function reSendNewVerificationCode(ReSendNewVerificationCodeRequest $request)
+    {
+        $response = [];
+
+        /**
+         * First, check if the user which ask for new code is not verified yet.
+         */
+        $verificationStatus = $this->userService->getStoreOwnerVerificationStatusByUserID($request->getUserID());
+
+        if (!$verificationStatus)
+        {
+            // provided user isn't registered!
+            $response['result'] = 'userIsNotRegistered';
+        }
+        else
+        {
+            if (!$verificationStatus['verificationStatus'] || $verificationStatus['verificationStatus'] != StoreOwnerVerificationStatusConstant::$VERIFIED_STATUS)
+            {
+                // we can send new code
+                // Now, delete previous sent codes for the same user
+                $result = $this->verificationManager->deleteAllVerificationCodesForUser($request->getUserID());
+
+                if ($result == 'noMoreCodeAreExist')
+                {
+                    // Finally, insert new code for the user
+                    $newVerificationCodeRequest = $this->autoMapping->map(ReSendNewVerificationCodeRequest::class, VerificationCreateRequest::class, $request);
+
+                    $this->createVerificationCode($newVerificationCodeRequest);
+
+                    $response['result'] = 'newCodeWasSent';
+                }
+            }
+            else
+            {
+                // user is verified. we can't send new code
+                $response['result'] = 'userAlreadyVerified';
+            }
+        }
+
+        return $this->autoMapping->map('array', NewVerificationCodeResponse::class, $response);
     }
 
 }

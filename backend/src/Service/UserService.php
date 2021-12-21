@@ -45,4 +45,9 @@ class UserService
             return $this->autoMapping->map(UserEntity::class, StoreOwnerVerificationStatusUpdateResponse::class, $userResult);
         }
     }
+
+    public function getStoreOwnerVerificationStatusByUserID($userID)
+    {
+        return $this->userManager->getStoreOwnerVerificationStatusByUserID($userID);
+    }
 }

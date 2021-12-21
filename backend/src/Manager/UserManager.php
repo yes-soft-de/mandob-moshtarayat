@@ -526,4 +526,9 @@ class UserManager
             return $item;
         }
     }
+
+    public function getStoreOwnerVerificationStatusByUserID($userID)
+    {
+        return $this->userRepository->getStoreOwnerVerificationStatusByUserID($userID);
+    }
 }
