@@ -35,7 +35,14 @@ class ProductTranslationService
     {
         $productTranslationResult = $this->productTranslationManager->updateProductTranslationByProductIdAndLanguage($request);
 
-        return $this->autoMapping->map(ProductTranslationEntity::class, ProductTranslationUpdateResponse::class, $productTranslationResult);
+        if($productTranslationResult == 'productTranslationNotFound')
+        {
+            // do nothing
+        }
+        else
+        {
+            return $this->autoMapping->map(ProductTranslationEntity::class, ProductTranslationUpdateResponse::class, $productTranslationResult);
+        }
     }
 
 }
