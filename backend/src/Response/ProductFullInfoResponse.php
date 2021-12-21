@@ -44,4 +44,10 @@ class ProductFullInfoResponse
 
     public $productPriceWithOutCommission;
 
+    public $productCategoryName;
+
+    public $isLevel1;
+
+    public $isLevel2;
+
 }

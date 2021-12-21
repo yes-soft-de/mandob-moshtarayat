@@ -219,6 +219,8 @@ class ProductEntityRepository extends ServiceEntityRepository
 
             ->addSelect('storeOwnerBranch.location','storeOwnerBranch.branchName','storeOwnerBranch.city')
 
+            ->addSelect('StoreProductCategoryEntity.productCategoryName','StoreProductCategoryEntity.isLevel1','StoreProductCategoryEntity.isLevel2')
+
             ->leftJoin(
                 StoreOwnerProfileEntity::class,
                 'storeOwnerProfile',
@@ -230,6 +232,12 @@ class ProductEntityRepository extends ServiceEntityRepository
                 'storeOwnerBranch',
                 Join::WITH,
                 'storeOwnerBranch.storeOwnerProfileID = storeOwnerProfile.id ')
+
+            ->leftJoin(
+                StoreProductCategoryEntity::class,
+                'StoreProductCategoryEntity',
+                Join::WITH,
+                'StoreProductCategoryEntity.id = product.storeProductCategoryID ')
             
             ->andWhere('product.id = :id')
 
@@ -252,6 +260,8 @@ class ProductEntityRepository extends ServiceEntityRepository
 
             ->addSelect('storeOwnerBranch.location','storeOwnerBranch.branchName','storeOwnerBranch.city')
 
+            ->addSelect('StoreProductCategoryEntity.productCategoryName','StoreProductCategoryEntity.isLevel1','StoreProductCategoryEntity.isLevel2')
+
             ->leftJoin(
                 StoreOwnerProfileEntity::class,
                 'storeOwnerProfile',
@@ -270,6 +280,12 @@ class ProductEntityRepository extends ServiceEntityRepository
                 Join::WITH,
                 'productTranslationEntity.productID = product.id'
             )
+
+            ->leftJoin(
+                StoreProductCategoryEntity::class,
+                'StoreProductCategoryEntity',
+                Join::WITH,
+                'StoreProductCategoryEntity.id = product.storeProductCategoryID ')
 
             ->andWhere('product.id = :id')
 
