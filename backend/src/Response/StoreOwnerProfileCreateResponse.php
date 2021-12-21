@@ -45,4 +45,10 @@ class StoreOwnerProfileCreateResponse
     public $store;
 
     public $commission;
+
+    public $bankName;
+
+    public $bankAccountNumber;
+
+    public $stcPay;
 }

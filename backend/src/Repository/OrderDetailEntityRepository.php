@@ -82,8 +82,8 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('OrderDetailEntity')
 
-            ->select( 'OrderDetailEntity.id as orderDetailID', 'OrderDetailEntity.storeOwnerProfileID', 'OrderDetailEntity.orderID')
-            ->addSelect('StoreOwnerProfileEntity.storeOwnerName', 'StoreOwnerProfileEntity.image', 'StoreOwnerProfileEntity.phone', 'StoreOwnerProfileEntity.storeCategoryId')
+            ->select( 'OrderDetailEntity.id as orderDetailID', 'OrderDetailEntity.storeOwnerProfileID', 'OrderDetailEntity.orderID', 'OrderDetailEntity.state')
+            ->addSelect('StoreOwnerProfileEntity.storeOwnerName', 'StoreOwnerProfileEntity.image', 'StoreOwnerProfileEntity.phone', 'StoreOwnerProfileEntity.storeCategoryId', 'StoreOwnerProfileEntity.roomID')
             ->addSelect('StoreOwnerBranchEntity.location')
             ->addSelect('OrdersInvoicesEntity.invoiceAmount', 'OrdersInvoicesEntity.invoiceImage')
 
@@ -297,7 +297,7 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('OrderDetailEntity')
 
             ->select( 'OrderDetailEntity.id as orderDetailID', 'OrderDetailEntity.storeOwnerProfileID', 'OrderDetailEntity.orderID')
-            ->addSelect('StoreOwnerProfileEntity.storeOwnerName', 'StoreOwnerProfileEntity.image', 'StoreOwnerProfileEntity.phone', 'StoreOwnerProfileEntity.storeCategoryId')
+            ->addSelect('StoreOwnerProfileEntity.storeOwnerName', 'StoreOwnerProfileEntity.image', 'StoreOwnerProfileEntity.phone', 'StoreOwnerProfileEntity.storeCategoryId', 'StoreOwnerProfileEntity.roomID')
             ->addSelect('StoreOwnerBranchEntity.location')
             ->addSelect('OrdersInvoicesEntity.invoiceAmount', 'OrdersInvoicesEntity.invoiceImage')
             ->addSelect('OrderEntity.note', 'OrderEntity.createdAt', 'OrderEntity.detail', 'OrderEntity.orderType', 'OrderEntity.deliveryDate')

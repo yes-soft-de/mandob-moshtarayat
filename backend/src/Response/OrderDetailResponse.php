@@ -13,5 +13,8 @@ class OrderDetailResponse
     public $storeCategoryId;
     public $invoiceAmount;
     public $invoiceImage;
+    public $location;
+    public $state;
+    public $roomID;
     public $products;
 }

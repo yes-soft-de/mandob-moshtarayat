@@ -16,6 +16,7 @@ class OrderDetailForStoreResponse
     public $detail;
     public $createdAt;
     public $note;
+    public $roomID;
     public $products;
 
 }
