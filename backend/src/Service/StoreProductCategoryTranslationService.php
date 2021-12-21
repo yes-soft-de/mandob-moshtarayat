@@ -36,7 +36,14 @@ class StoreProductCategoryTranslationService
     {
         $storeProductCategoryTranslationResult = $this->storeProductCategoryTranslationManager->updateStoreProductCategoryTranslationByStoreProductCategoryIdAndLanguage($request);
 
-        return $this->autoMapping->map(StoreProductCategoryTranslationEntity::class, StoreProductCategoryTranslationUpdateResponse::class, $storeProductCategoryTranslationResult);
+        if ($storeProductCategoryTranslationResult == 'storeProductCategoryTranslationNotFound')
+        {
+            // do nothing
+        }
+        else
+        {
+            return $this->autoMapping->map(StoreProductCategoryTranslationEntity::class, StoreProductCategoryTranslationUpdateResponse::class, $storeProductCategoryTranslationResult);
+        }
     }
 
     public function getByStoreCategoryIdAndLanguage($storeCategoryID, $language)
