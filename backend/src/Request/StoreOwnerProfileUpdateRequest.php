@@ -26,6 +26,13 @@ class StoreOwnerProfileUpdateRequest
 
     private $branchName;
 
+    private $bankName;
+
+    private $bankAccountNumber;
+
+    private $stcPay;
+
+
     /**
      * Get the value of userID
      */
