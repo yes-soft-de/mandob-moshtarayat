@@ -77,6 +77,22 @@ class VerificationManager
         return $this->verificationEntityRepository->getVerificationCodeByCode($verificationCode);
     }
 
+    public function deleteAllVerificationCodesForUser($userID)
+    {
+        $verificationCodesResults = $this->verificationEntityRepository->getVerificationCodeByUserID($userID);
+
+        if ($verificationCodesResults)
+        {
+            foreach ($verificationCodesResults as $verificationCodeResult)
+            {
+                $this->entityManager->remove($verificationCodeResult);
+                $this->entityManager->flush();
+            }
+        }
+
+        return 'noMoreCodeAreExist';
+    }
+
     public function generateVerificationCode()
     {
         $verificationCode = "";

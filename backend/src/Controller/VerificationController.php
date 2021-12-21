@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\AutoMapping;
+use App\Request\ReSendNewVerificationCodeRequest;
 use App\Request\VerifyCodeRequest;
 use App\Service\VerificationService;
 use stdClass;
@@ -96,6 +97,70 @@ class VerificationController extends BaseController
         elseif ($result->resultMessage == 'activated')
         {
             return $this->response($result, self::FETCH);
+        }
+    }
+
+    /**
+     * store owner: re-send verification code.
+     * @Route("resendnewverificationcode", name="reSendNewVerificationCode", methods={"POST"})
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Verification")
+     *
+     * @OA\RequestBody(
+     *      description="re send new verification code",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="userID"),
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response="default",
+     *      description="Returns created successfully message",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code", example="9152"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="string", property="result")
+     *          )
+     *      )
+     * )
+     *
+     * or
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns already verified store owner message",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code", example="9154"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="string", property="result")
+     *          )
+     *      )
+     * )
+     *
+     */
+    public function reSendNewVerificationCode(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, ReSendNewVerificationCodeRequest::class, (object)$data);
+
+        $result = $this->verificationService->reSendNewVerificationCode($request);
+
+        if ($result->result == 'newCodeWasSent')
+        {
+            return $this->response($result, self::CREATE);
+        }
+        elseif ($result->result == 'userAlreadyVerified')
+        {
+            return $this->response($result, self::ALREADY_VERIFIED_STORE_OWNER);
+        }
+        elseif ($result->result == 'userIsNotRegistered')
+        {
+            return $this->response($result, self::STORE_OWNER_IS_NOT_REGISTERED);
         }
     }
 
