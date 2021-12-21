@@ -121,6 +121,8 @@ dependencies:
   is_first_run: ^1.0.0
   flutter_rating_bar: ^4.0.0
   cool_alert: ^1.1.0
+  getwidget: ^2.0.4
+
 
 
 
@@ -196,3 +198,5 @@ flutter_native_splash:
   image: assets/images/logo.png
   color_dark: "#303030"
   image_dark: assets/images/logo.png
+flutter_intl:
+  enabled: true

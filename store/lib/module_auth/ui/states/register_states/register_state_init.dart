@@ -47,11 +47,10 @@ class RegisterStateInit extends RegisterState {
             physics:
                 BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
             children: [
-              Container(height: 50,),
               MediaQuery.of(context).viewInsets.bottom == 0
                   ? Image.asset(
                 ImageAsset.LOGO,
-                height: 250,
+                height: 150,
                 width: 150,
                     )
                   : Container(),
@@ -123,8 +122,36 @@ class RegisterStateInit extends RegisterState {
                     title: Text(
                         S.of(context).iAgreeToTheTermsOfServicePrivacyPolicy,style: StyleText.textsAlmaraiNormal,),
                     onChanged: (v) {
-                      agreed = v ?? false;
-                      screen.refresh();
+                      if(v!= null && v)
+                      showDialog(
+                        context: screen.context,
+                        builder: (_){
+                          return AlertDialog(
+                            title: Text('عقد توريد'),
+                            content: SingleChildScrollView(child: Container(child: Text( S.current.contract))),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            actions: [
+                              TextButton(onPressed: (){
+                                Navigator.of(context).pop();
+                                agreed = v ;
+                                   screen.refresh();
+                              }, child: Text(S.current.confirm)),
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text(S.current.cancel)),
+                            ],
+                          );
+                        },
+                      );
+                      else{
+                        agreed = v ?? false;
+                        screen.refresh();
+                      }
+//e
                     })
               ),
               Container(

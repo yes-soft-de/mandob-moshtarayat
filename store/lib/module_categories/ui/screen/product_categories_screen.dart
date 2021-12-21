@@ -8,14 +8,17 @@ import 'package:mandob_moshtarayat/module_categories/request/update_product_requ
 import 'package:mandob_moshtarayat/module_categories/state_manager/products_category_state_manager.dart';
 import 'package:mandob_moshtarayat/module_categories/ui/state/product_category/product_categories_loading_state.dart';
 import 'package:mandob_moshtarayat/module_categories/ui/state/product_category/product_categories_state.dart';
+import 'package:mandob_moshtarayat/module_localization/service/localization_service/localization_service.dart';
+import 'package:mandob_moshtarayat/utils/components/custom_alert_dialog.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
 
 
 @injectable
 class ProductCategoriesScreen extends StatefulWidget {
   final ProductsCategoryStateManager _stateManager;
+  final LocalizationService _localizationService;
 
-  ProductCategoriesScreen(this._stateManager);
+  ProductCategoriesScreen(this._stateManager, this._localizationService);
 
   @override
   ProductCategoriesScreenState createState() => ProductCategoriesScreenState();
@@ -24,10 +27,12 @@ class ProductCategoriesScreen extends StatefulWidget {
 class ProductCategoriesScreenState extends State<ProductCategoriesScreen> {
   late ProductCategoriesState currentState;
   bool canAddCategories = true;
+  late String language ;
 
   @override
   void initState() {
-
+    language = widget._localizationService.getLanguage();
+    print("hihif"+language);
     currentState = ProductCategoriesLoadingState(this);
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
       widget._stateManager.getCategoryLevelOne(this);
@@ -57,20 +62,17 @@ class ProductCategoriesScreenState extends State<ProductCategoriesScreen> {
     widget._stateManager.updateProduct(this,request,levelOne ,levelTwo,nameOne: nameOne,nameTwo: nameTwo);
   }
 
-  void viewDeleteConfirm(){
-
-  }
 
   void updateProductStatus(UpdateProductStatusRequest request,List<ProductsCategoryModel> levelOne,List<ProductsCategoryModel> levelTwo,{String? nameOne ,String? nameTwo}) {
-    CoolAlert.show(
+    showDialog(
         context: context,
-        type: CoolAlertType.warning,
-        text: S.of(context).sureForDelete,
-        onConfirmBtnTap: (){
-          widget._stateManager.updateProductStatus(this,request,levelOne ,levelTwo,nameOne: nameOne,nameTwo: nameTwo);
-          Navigator.pop(context);
-        }
-    );
+        builder: (_) {
+          return CustomAlertDialog(
+              onPressed: () {
+                widget._stateManager.updateProductStatus(this,request,levelOne ,levelTwo,nameOne: nameOne,nameTwo: nameTwo);
+                Navigator.pop(context);
+              });
+        });
   }
   void createProduct(CreateProductRequest request,List<ProductsCategoryModel> levelOne,List<ProductsCategoryModel> levelTwo , {String? nameOne ,String? nameTwo}) {
     widget._stateManager.createProduct(this,request,levelOne,levelTwo,nameOne: nameOne,nameTwo: nameTwo);

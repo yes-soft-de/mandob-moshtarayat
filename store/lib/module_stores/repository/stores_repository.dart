@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/consts/urls.dart';
+import 'package:mandob_moshtarayat/module_localization/service/localization_service/localization_service.dart';
 import 'package:mandob_moshtarayat/module_network/http_client/http_client.dart';
 import 'package:mandob_moshtarayat/module_stores/response/products.dart';
 import 'package:mandob_moshtarayat/module_stores/response/store_categories.dart';
@@ -8,16 +9,24 @@ import 'package:mandob_moshtarayat/module_stores/response/store_categories.dart'
 @injectable
 class StoresRepository {
   final ApiClient _apiClient;
-  StoresRepository(this._apiClient);
+  final LocalizationService _localizationService;
+
+  StoresRepository(this._apiClient, this._localizationService);
 
   Future<ProductsResponse?> getLastProducts() async {
-    dynamic response = await _apiClient.get(Urls.GET_LAST_PRODUCT);
+    String lang = _localizationService.getLanguage();
+    dynamic response = await _apiClient.get(Urls.GET_LAST_PRODUCT,headers: {
+    'Accept-Language':lang
+    });
     if (response == null) return null;
     return ProductsResponse.fromJson(response);
   }
 
   Future<StoreAndCategoriesResponse?> getCategoriesAndStores() async {
-    dynamic response = await _apiClient.get(Urls.GET_CAT_AND_STORE);
+    String lang = _localizationService.getLanguage();
+    dynamic response = await _apiClient.get(Urls.GET_CAT_AND_STORE,headers: {
+      'Accept-Language':lang
+    });
     if (response == null) return null;
     return StoreAndCategoriesResponse.fromJson(response);
   }

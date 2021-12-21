@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
+import 'package:mandob_moshtarayat/module_categories/request/create_product_request.dart';
 import 'package:mandob_moshtarayat/module_categories/request/update_product_request.dart';
 import 'package:mandob_moshtarayat/module_categories/ui/state/product_category/product_categories_state.dart';
 
@@ -15,10 +16,12 @@ import 'package:mandob_moshtarayat/utils/effect/checked.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 
 class AddProductsForm extends StatefulWidget {
-  final Function(String, String, num,num) addProduct;
+  final Function(String, String, num,num,List<TranslateStoreProduct>) addProduct;
   final ProductCategoriesState? state;
+  final List<String> languages;
+  final String lang;
 
-  AddProductsForm({required this.addProduct, this.state});
+  AddProductsForm({required this.addProduct, this.state,required this.languages,required this.lang});
 
   @override
   _AddProductsFormState createState() => _AddProductsFormState();
@@ -34,6 +37,8 @@ class _AddProductsFormState extends State<AddProductsForm> {
   String? imagePath;
   final ImagePicker _imagePicker = ImagePicker();
 
+  late List<TranslateStoreProduct> translate;
+  late List<CustomFormFieldWithTranslate> translateWidgets;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,10 +81,36 @@ class _AddProductsFormState extends State<AddProductsForm> {
                     padding: const EdgeInsets.only(left: 12.0,bottom: 8,right: 12,top: 16.0),
                     child: Text(S.current.productName,style: TextStyle(fontWeight: FontWeight.bold),textAlign: TextAlign.start,),
                   ),
-                  CustomFormField(
-                    controller: _nameController,
-                    hintText: S.current.productName,
+//                  CustomFormField(
+//                    controller: _nameController,
+//                    hintText: S.current.productName,
+//                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: CustomFormFieldWithTranslate(
+                          controller: _nameController,
+                          hintText:S.current.productName,
+                          last: false,
+                          initLanguage:widget.lang,
+                          languages:widget.languages,
+                        ),
+                      ),
+                        InkWell(
+                          onTap: (){
+                            if(_nameController.text.isEmpty){
+                              CustomFlushBarHelper.createError(
+                                  title: S.current.warnning,
+                                  message: S.current.pleaseCompleteTheForm)
+                                  .show(context);
+                            }else if (translateWidgets.length != widget.languages.length){
+                              trans(true);
+                            }
+                          },
+                          child: Icon(Icons.add))
+                    ],
                   ),
+                  Column(children: trans(false),),
                   Padding(
                     padding: const EdgeInsets.only(left: 12.0,bottom: 8,right: 12,top: 16.0),
                     child: Text(S.current.productPrice,style: TextStyle(fontWeight: FontWeight.bold),textAlign: TextAlign.start,),
@@ -136,7 +167,7 @@ class _AddProductsFormState extends State<AddProductsForm> {
           label: S.current.save,
           onTap: () {
             if (_key.currentState!.validate() && imagePath != null ) {
-              widget.addProduct(_nameController.text,imagePath!,int.parse(_priceController.text),double.parse(_discountController.text));
+              widget.addProduct(_nameController.text,imagePath!,int.parse(_priceController.text),double.parse(_discountController.text),translate);
             } else {
               CustomFlushBarHelper.createError(
                   title: S.current.warnning,
@@ -147,6 +178,14 @@ class _AddProductsFormState extends State<AddProductsForm> {
     );
   }
 
+
+  @override
+  void initState() {
+    super.initState();
+    translate=[];
+    translateWidgets= [];
+    print('run' + widget.lang);
+  }
 
   void _openCamera() async {
 
@@ -196,6 +235,30 @@ class _AddProductsFormState extends State<AddProductsForm> {
         }
     );
   }
+  List<CustomFormFieldWithTranslate> trans(bool addNewField){
+    if(addNewField) {
+      TranslateStoreProduct translateStoreCategory = TranslateStoreProduct(lang:widget.languages.first );
+      TextEditingController _nameController = TextEditingController();
+      late String language = '';
+
+      translateWidgets.add(
+          CustomFormFieldWithTranslate(
+            initLanguage: widget.languages.first,
+            onChanged: (){
+              translateStoreCategory.productName=_nameController.text;
+            },
+            languages: widget.languages,
+            controller: _nameController,
+            onSelected: (lan){
+              language = lan;
+              translateStoreCategory.lang=language;
+            },));
+      setState(() {
+      });
+      translate.add(translateStoreCategory);
+    }
+    return translateWidgets;
+  }
 }
 
 class UpdateProductsForm extends StatefulWidget {
@@ -212,6 +275,7 @@ class _UpdateProductsFormState extends State<UpdateProductsForm> {
   final TextEditingController _nameController = TextEditingController();
  final TextEditingController _priceController = TextEditingController();
  final TextEditingController _discountController = TextEditingController();
+// final TextEditingController _quantityController = TextEditingController();
   String? imagePath;
   final ImagePicker _imagePicker = ImagePicker();
 
@@ -219,10 +283,11 @@ class _UpdateProductsFormState extends State<UpdateProductsForm> {
   @override
   void initState() {
     if (widget.request != null){
-      _nameController.text = widget.request?.productName ?? '';
-      imagePath = widget.request?.productImage;
-      _priceController.text = widget.request?.productPrice?.toString() ?? '0';
-      _discountController.text = widget.request?.discount?.toString() ?? '0';
+      _nameController.text =  widget.request?.dataStoreProduct?.productName ?? '';
+      imagePath = widget.request?.dataStoreProduct?.productImage;
+      _priceController.text =  widget.request?.dataStoreProduct?.productPrice?.toString() ?? '0';
+      _discountController.text =  widget.request?.dataStoreProduct?.discount?.toString() ?? '0';
+//      _quantityController.text =  widget.request?.dataStoreProduct?.productQuantity?.toString() ?? '0';
     }
     super.initState();
   }
@@ -312,6 +377,15 @@ class _UpdateProductsFormState extends State<UpdateProductsForm> {
                     numbers: true,
                   ),
 
+//                  Padding(
+//                    padding: const EdgeInsets.only(left: 12.0,bottom: 8,right: 12,top: 16.0),
+//                    child: Text(S.current.productQuantity,style: TextStyle(fontWeight: FontWeight.bold),textAlign: TextAlign.start,),
+//                  ),
+//                  CustomFormField(
+//                    controller: _quantityController,
+//                    hintText: S.current.productQuantity,
+//                    numbers: true,
+//                  ),
                   SizedBox(height:32),
                   InkWell(
                     onTap: () {

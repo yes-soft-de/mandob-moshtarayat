@@ -25,18 +25,18 @@ class OrderDetailsModel extends DataModel {
 
   OrderDetailsModel.Data(OrderDetailsResponse response) {
     orderDetailsModel = OrderDetailsModel(
-        carts: toCartList(response.data?.orderDetails ?? <OrderDetails>[]),
-      orderType: response.data!.orderType??-1,
+        carts: toCartList(response.data?.data![0].orderDetails ?? <OrderDetails>[]),
+      orderType: response.data!.data![0].orderType??-1,
       createdAt: DateFormat.jm()
-          .format(DateHelper.convert(response.data!.createdAt?.timestamp)) +
+          .format(DateHelper.convert(response.data!.data![0].createdAt?.timestamp)) +
           '   ' +
           DateFormat.yMd()
-              .format(DateHelper.convert(response.data!.createdAt?.timestamp)),
-      note: response.data!.note??'',
-      orderDetails: response.data!.detail??'',
-      invoiceAmount: response.data!.invoiceAmount??0,
-      state: StatusHelper.getStatusEnum(response.data!.state),
-      invoiceImage: response.data!.invoiceImage!.image??''
+              .format(DateHelper.convert(response.data!.data![0].createdAt?.timestamp)),
+      note: response.data!.data![0].note??'',
+      orderDetails: response.data!.data![0].detail??'',
+      invoiceAmount: response.data!.data![0].invoiceAmount??0,
+      state: StatusHelper.getStatusEnum(response.data!.data![0].state),
+      invoiceImage: response.data!.data![0].invoiceImage!.image??''
 
     );
 //        order: toOrder(response.data?.order),

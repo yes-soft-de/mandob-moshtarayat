@@ -9,19 +9,21 @@ class ProductsModel extends DataModel{
   ImageUrl productImage = ImageUrl();
   num productPrice = 0;
   num discount = 0;
+  num productQuantity = 0;
   int storeProductCategoryID = -1;
 
   List <ProductsModel> _model = [];
 
   ProductsModel({required this.id,required this.productName,required this.productImage,required this.productPrice,
     required  this.discount,
-    required this.storeProductCategoryID});
+    required this.storeProductCategoryID ,required this.productQuantity});
 
   ProductsModel.withData(List <Data> data) : super.withData() {
     _model = [];
     for (var element in data) {
       _model.add(ProductsModel(
         id:element.id ?? -1,
+        productQuantity: element.productQuantity??0,
         productName: element.productName ?? S.current.productCategory,
         productImage : element.productImage ??ImageUrl(image:ImageAsset.PLACEHOLDER ),
         productPrice : element.productPrice ?? 0,

@@ -19,6 +19,8 @@ class ProductComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    num disPrice =
+        (num.parse(price) * (100 - num.parse(discount))) / 100;
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(25),
@@ -44,17 +46,53 @@ class ProductComponent extends StatelessWidget {
                       SizedBox(
                         height: 8,
                       ),
+//                      Container(
+//                        constraints:
+//                        BoxConstraints(maxHeight: 50, maxWidth: 200),
+//                        child: Text(
+//                          description,
+//                          style: TextStyle(
+//                            fontSize: 14,
+//                          ),
+//                          textAlign: TextAlign.start,
+//                        ),
+//                      ),
                       Container(
-                        constraints:
-                        BoxConstraints(maxHeight: 50, maxWidth: 200),
-                        child: Text(
-                          description,
-                          style: TextStyle(
-                            fontSize: 14,
-                          ),
-                          textAlign: TextAlign.start,
-                        ),
-                      ),
+                          constraints:
+                          const BoxConstraints(maxHeight: 50, maxWidth: 200),
+                          child: RichText(
+                            text: TextSpan(
+                              style: DefaultTextStyle.of(context).style,
+                              children: <TextSpan>[
+                                TextSpan(
+                                    text:price,
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        decoration: discount != '0'
+                                            ? TextDecoration.lineThrough
+                                            : null)),
+                                const TextSpan(text: ' '),
+                                TextSpan(
+                                    text: discount == '0'
+                                        ? ' '
+                                        : disPrice.toStringAsFixed(2),
+                                    style: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.red)),
+                                const TextSpan(text: ' '),
+                                TextSpan(
+                                    text: S.current.sar,
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        color: discount != '0'
+                                            ? Colors.red
+                                            : null)),
+                              ],
+                            ),
+                          )),
                       SizedBox(
                         height: 16,
                       ),

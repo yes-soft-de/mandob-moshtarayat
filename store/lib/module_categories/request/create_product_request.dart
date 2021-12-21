@@ -1,4 +1,4 @@
-class CreateProductRequest {
+class DataStoreProduct {
   String? productName;
   String? productImage;
   String? description;
@@ -7,7 +7,7 @@ class CreateProductRequest {
   num? discount;
   int? storeProductCategoryID;
 
-  CreateProductRequest({
+  DataStoreProduct({
       this.productName, 
       this.productImage, 
       this.productPrice,
@@ -15,7 +15,7 @@ class CreateProductRequest {
       this.discount, this.description,
       this.storeProductCategoryID});
 
-  CreateProductRequest.fromJson(dynamic json) {
+  DataStoreProduct.fromJson(dynamic json) {
     productName = json['productName'];
     productImage = json['productImage'];
     productPrice = json['productPrice'];
@@ -37,4 +37,36 @@ class CreateProductRequest {
     return map;
   }
 
+}
+class CreateProductRequest {
+
+  DataStoreProduct? dataStoreProduct;
+  List<TranslateStoreProduct>? translate;
+
+  CreateProductRequest({
+    this.dataStoreProduct, this.translate});
+
+  Map<String, dynamic> toJson() {
+    var map = <String, dynamic>{};
+    map['data'] = dataStoreProduct?.toJson();
+    if (translate != null) {
+      map['translate'] = translate?.map((v) => v.toJson()).toList();
+    }
+    return map;
+  }
+
+
+}
+class TranslateStoreProduct{
+  String? productName;
+  String? lang;
+
+  TranslateStoreProduct({ this.productName, this.lang});
+
+  Map<String, dynamic> toJson() {
+    var map = <String, dynamic>{};
+    map['productName'] = productName;
+    map['language'] = lang;
+    return map;
+  }
 }
