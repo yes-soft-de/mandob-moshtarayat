@@ -368,7 +368,7 @@ class CaptainProfileController extends BaseController
      *               )
      *          )
      *      )
-     * )
+     *
      * @Security(name="Bearer")
      */
     public function getCaptainProfileByCaptainID(): JsonResponse
@@ -1136,6 +1136,7 @@ class CaptainProfileController extends BaseController
      *         )
      * )
      *)
+     *
      * @Security(name="Bearer")
      */
     public function captainFilter($name): JsonResponse

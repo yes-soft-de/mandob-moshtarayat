@@ -25,7 +25,6 @@ use App\Response\CaptainsRemainingOnItAmountResponse ;
 use App\Service\DeliveryCompanyPaymentsFromCaptainService;
 use App\Service\DeliveryCompanyPaymentsToCaptainService;
 use App\Service\RoomIdHelperService;
-use App\Service\CaptainService;
 use App\Service\RatingService;
 use App\Service\DateFactoryService;
 use App\Manager\UserManager;
@@ -44,18 +43,16 @@ class CaptainProfileService
     private $deliveryCompanyPaymentsToCaptainService;
     private $roomIdHelperService;
     private $dateFactoryService;
-    private $captainService;
     private $captainProfileManager;
 
     public function __construct(AutoMapping $autoMapping, ParameterBagInterface $params, DeliveryCompanyPaymentsFromCaptainService $deliveryCompanyPaymentsFromCaptainService, DeliveryCompanyPaymentsToCaptainService $deliveryCompanyPaymentsToCaptainService,   RoomIdHelperService $roomIdHelperService, UserManager $userManager,
-      RatingService $ratingService, DateFactoryService $dateFactoryService, CaptainService $captainService, CaptainProfileManager $captainProfileManager)
+      RatingService $ratingService, DateFactoryService $dateFactoryService, CaptainProfileManager $captainProfileManager)
     {
         $this->autoMapping = $autoMapping;
         $this->roomIdHelperService = $roomIdHelperService;
         $this->userManager = $userManager;
         $this->ratingService = $ratingService;
         $this->dateFactoryService = $dateFactoryService;
-        $this->captainService = $captainService;
         $this->deliveryCompanyPaymentsFromCaptainService = $deliveryCompanyPaymentsFromCaptainService;
         $this->deliveryCompanyPaymentsToCaptainService = $deliveryCompanyPaymentsToCaptainService;
         $this->captainProfileManager = $captainProfileManager;
@@ -111,7 +108,7 @@ class CaptainProfileService
 
 //        $bounce = $this->getCaptainFinancialAccountDetailsByCaptainId($captainID);
 
-        $countOrdersDelivered = $this->captainService->countCaptainOrdersDelivered($captainID);
+        $countOrdersDelivered = $this->captainProfileManager->countCaptainOrdersDelivered($captainID);
 
         $item['baseURL'] = $this->params;
         $item['image'] = $this->getImageParams($item['image'], $this->params.$item['image'], $this->params);
@@ -208,7 +205,7 @@ class CaptainProfileService
      {
        $sumKilometerBonus = [];
 
-       $orderKilometers = $this->captainService->getOrderKilometers($captainId);
+       $orderKilometers = $this->captainProfileManager->getOrderKilometers($captainId);
 
        foreach ($orderKilometers as $orderKilometer) {
            if ($orderKilometer['orderKilometers'] >= $orderKilometer['kilometers']) {
@@ -232,7 +229,7 @@ class CaptainProfileService
     {
       $sumKilometerBonus = [];
 
-      $orderKilometers = $this->captainService->getOrderKilometersInThisMonth($captainId, $fromDate, $toDate);
+      $orderKilometers = $this->captainProfileManager->getOrderKilometersInThisMonth($captainId, $fromDate, $toDate);
 
       foreach ($orderKilometers as $orderKilometer) {
           if ($orderKilometer['orderKilometers'] >= $orderKilometer['kilometers']) {
@@ -262,8 +259,8 @@ class CaptainProfileService
         $sumPaymentsToCaptainFromCompany = $this->deliveryCompanyPaymentsToCaptainService->deliveryCompanySumPaymentsToCaptain($captainId);
       
         if ($item) {
-            $countOrdersDelivered = $this->captainService->countCaptainOrdersDelivered($item[0]['captainID']);
-            $sumInvoiceAmountWithoutOrderTypeSendIt = $this->captainService->sumInvoiceAmountWithoutOrderTypeSendIt($item[0]['captainID']);
+            $countOrdersDelivered = $this->captainProfileManager->countCaptainOrdersDelivered($item[0]['captainID']);
+            $sumInvoiceAmountWithoutOrderTypeSendIt = $this->captainProfileManager->sumInvoiceAmountWithoutOrderTypeSendIt($item[0]['captainID']);
 
             $sumKilometerBonus = $this->getOrderKilometers($captainId);
              
@@ -303,9 +300,9 @@ class CaptainProfileService
         $paymentsToCaptainFromCompany = $this->deliveryCompanyPaymentsToCaptainService->deliveryCompanyPaymentsToCaptain($captainId);
 
         if ($item) {
-             $countOrdersDelivered = $this->captainService->countCaptainOrdersDelivered($item[0]['captainID']);
+             $countOrdersDelivered = $this->captainProfileManager->countCaptainOrdersDelivered($item[0]['captainID']);
 
-             $sumInvoiceAmountWithoutOrderTypeSendIt = $this->captainService->sumInvoiceAmountWithoutOrderTypeSendIt($item[0]['captainID']);
+             $sumInvoiceAmountWithoutOrderTypeSendIt = $this->captainProfileManager->sumInvoiceAmountWithoutOrderTypeSendIt($item[0]['captainID']);
 
              $sumKilometerBonus = $this->getOrderKilometers($captainId);
 
@@ -359,9 +356,9 @@ class CaptainProfileService
         }
 
         if ($item) {
-            $countOrdersDelivered = $this->captainService->countOrdersInMonthForCaptain($date[0], $date[1], $item[0]['captainID']);
+            $countOrdersDelivered = $this->captainProfileManager->countOrdersInMonthForCaptain($date[0], $date[1], $item[0]['captainID']);
 
-            $sumInvoiceAmount = $this->captainService->sumInvoiceAmountWithoutOrderTypeSendItInMonthForCaptain($date[0], $date[1], $item[0]['captainID']);
+            $sumInvoiceAmount = $this->captainProfileManager->sumInvoiceAmountWithoutOrderTypeSendItInMonthForCaptain($date[0], $date[1], $item[0]['captainID']);
 
             $paymentsToCaptainFromCompany = $this->deliveryCompanyPaymentsToCaptainService->deliveryCompanyPaymentsToCaptainInSpecificDate( $item[0]['captainID'] ,$date[0], $date[1]);
 
@@ -411,8 +408,8 @@ class CaptainProfileService
              }
 
         if ($item) {
-             $countOrdersDelivered = $this->captainService->countOrdersInMonthForCaptain($date[0], $date[1], $item[0]['captainID']);
-             $sumInvoiceAmount = $this->captainService->sumInvoiceAmountWithoutOrderTypeSendItInMonthForCaptain($date[0], $date[1], $item[0]['captainID']);
+             $countOrdersDelivered = $this->captainProfileManager->countOrdersInMonthForCaptain($date[0], $date[1], $item[0]['captainID']);
+             $sumInvoiceAmount = $this->captainProfileManager->sumInvoiceAmountWithoutOrderTypeSendItInMonthForCaptain($date[0], $date[1], $item[0]['captainID']);
              $paymentsToCaptainFromCompany = $this->deliveryCompanyPaymentsToCaptainService->deliveryCompanyPaymentsToCaptainInSpecificDate($item[0]['captainID'] ,$date[0], $date[1]);
 
              $paymentsFromCaptainToCompany = $this->deliveryCompanyPaymentsFromCaptainService->deliveryCompanyPaymentsFromCaptainInSpecificDate($item[0]['captainID'] ,$date[0], $date[1]);
@@ -467,8 +464,8 @@ class CaptainProfileService
              }
 
         if ($item) {
-             $countOrdersDelivered = $this->captainService->countOrdersInMonthForCaptain($date[0], $date[1], $item[0]['captainID']);
-             $sumInvoiceAmount = $this->captainService->sumInvoiceAmountWithoutOrderTypeSendItInMonthForCaptain($date[0], $date[1], $item[0]['captainID']);
+             $countOrdersDelivered = $this->captainProfileManager->countOrdersInMonthForCaptain($date[0], $date[1], $item[0]['captainID']);
+             $sumInvoiceAmount = $this->captainProfileManager->sumInvoiceAmountWithoutOrderTypeSendItInMonthForCaptain($date[0], $date[1], $item[0]['captainID']);
              $paymentsToCaptainFromCompany = $this->deliveryCompanyPaymentsToCaptainService->deliveryCompanyPaymentsToCaptainInSpecificDate($item[0]['captainID'] ,$date[0], $date[1]);
 
              $paymentsFromCaptainToCompany = $this->deliveryCompanyPaymentsFromCaptainService->deliveryCompanyPaymentsFromCaptainInSpecificDate($item[0]['captainID'] ,$date[0], $date[1]);
@@ -524,8 +521,8 @@ class CaptainProfileService
 
         if ($item) {
             
-            $countOrdersDelivered = $this->captainService->countOrdersInMonthForCaptain($date[0], $date[1], $item[0]['captainID']);
-            $sumInvoiceAmount = $this->captainService->sumInvoiceAmountWithoutOrderTypeSendItInMonthForCaptain($date[0], $date[1], $item[0]['captainID']);
+            $countOrdersDelivered = $this->captainProfileManager->countOrdersInMonthForCaptain($date[0], $date[1], $item[0]['captainID']);
+            $sumInvoiceAmount = $this->captainProfileManager->sumInvoiceAmountWithoutOrderTypeSendItInMonthForCaptain($date[0], $date[1], $item[0]['captainID']);
             $paymentsFromCompany = $this->deliveryCompanyPaymentsToCaptainService->deliveryCompanyPaymentsToCaptainInSpecificDate( $item[0]['captainID'] ,$date[0], $date[1]);
 
              $sumKilometerBonus = $this->getOrderKilometersInThisMonth($captainId, $date[0], $date[1]);
@@ -553,17 +550,14 @@ class CaptainProfileService
 
     public function countOrdersCaptainDeliveredInToday($captainID)
     {
-        $response = [];
-
         $dateNow =new DateTime("now");
         $todayStart = $dateNow->format("Y-m-d 00:00:00");
         $todayEnd = $dateNow->format("Y-m-d 23:59:59");
        
-        $countOrdersDeliveredInToday = $this->captainService->countOrdersDeliveredInToday($captainID, $todayStart, $todayEnd); 
+        $countOrdersDeliveredInToday = $this->captainProfileManager->countOrdersDeliveredInToday($captainID, $todayStart, $todayEnd);
 
-        $response = $this->autoMapping->map('array', CaptainCountOrdersDeliveredInTodayResponse::class, $countOrdersDeliveredInToday);
+        return $this->autoMapping->map('array', CaptainCountOrdersDeliveredInTodayResponse::class, $countOrdersDeliveredInToday);
 
-        return  $response;
     }
 
     public function getAllCaptains():array
@@ -692,5 +686,4 @@ class CaptainProfileService
 
         return $item;
     }
-
 }

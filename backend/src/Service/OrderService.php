@@ -19,7 +19,6 @@ use App\Request\OrderUpdateByClientRequest;
 use App\Request\OrderUpdateSpecialByClientRequest;
 use App\Request\OrderUpdateSendByClientRequest;
 use App\Request\OrderUpdateStateForEachStoreByCaptainRequest;
-use App\Request\OrderUpdateStateRequest;
 use App\Response\CountReportForStoreOwnerResponse;
 use App\Response\OrderCancelResponse;
 use App\Response\OrderDetailsByOrderNumberForStoreResponse;
@@ -128,6 +127,25 @@ class OrderService
         return $response;
     }
     
+    public function createNotificationLocal($state, $userID, $orderNumber)
+    {
+        if ($state == OrderStateConstant::$ORDER_STATE_ON_WAY){
+            $state = LocalNotificationList::$STATE_ON_WAY_PICK_ORDER;
+        }
+        if ($state == OrderStateConstant::$ORDER_STATE_IN_STORE){
+            $state =  LocalNotificationList::$STATE_IN_STORE;
+        }
+        if ($state == OrderStateConstant::$ORDER_STATE_ONGOING){
+            $state =  LocalNotificationList::$STATE_ONGOING;
+        }
+        if ($state == OrderStateConstant::$ORDER_STATE_DELIVERED){
+            $state =  LocalNotificationList::$STATE_DELIVERED;
+        }
+
+        $this->notificationLocalService->createNotificationLocal($userID,  LocalNotificationList::$STATE_TITLE, $state, $orderNumber);
+
+
+    }
     public function orderUpdateStateByCaptain(OrderUpdateStateByCaptainRequest $request)
     {
         $response = ResponseConstant::$ERROR;
@@ -138,24 +156,8 @@ class OrderService
             if($item){
                 $orderDetailUpdate = $this->orderDetailService->orderUpdateStateByOrderState($request->getState(), $request->getOrderNumber(), $request->getCaptainID());
                 if($orderDetailUpdate){
-
-                    //create notification local
-                    $state ="";
-                    if ($request->getState() == OrderStateConstant::$ORDER_STATE_ON_WAY){
-                        $state = LocalNotificationList::$STATE_ON_WAY_PICK_ORDER;
-                    }
-                    if ($request->getState() == OrderStateConstant::$ORDER_STATE_IN_STORE){
-                        $state =  LocalNotificationList::$STATE_IN_STORE;
-                    }
-                    if ($request->getState() == OrderStateConstant::$ORDER_STATE_ONGOING){
-                        $state =  LocalNotificationList::$STATE_ONGOING;
-                    }
-                    if ($request->getState() == OrderStateConstant::$ORDER_STATE_DELIVERED){
-                        $state =  LocalNotificationList::$STATE_DELIVERED;
-                    }
-
-                    $this->notificationLocalService->createNotificationLocal($item->getClientID(),  LocalNotificationList::$STATE_TITLE, $state, $request->getOrderNumber());
-
+                    //create Notification Local
+                    $this->createNotificationLocal($request->getState(), $item->getClientID(), $request->getOrderNumber());
                 }
 
                 //start-----> notification
@@ -190,8 +192,11 @@ class OrderService
                     $orderState->setId($orderDetails->orderID);
                     $orderState->setState($state['state']);
                     //update order state
-                    $this->orderManager->updateOrderState($orderState);
-
+                    $order = $this->orderManager->updateOrderState($orderState);
+                    if($order) {
+                        //create Notification Local
+                        $this->createNotificationLocal($state['state'], $order->getClientID(), $request->getOrderNumber());
+                    }
                     $response = $this->autoMapping->map(OrderUpdateStateForEachStoreResponse::class, OrderUpdateStateForEachStoreResponse::class, $orderDetails);
                 }
             }
