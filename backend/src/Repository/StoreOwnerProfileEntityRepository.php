@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Constant\StoreStatusConstant;
 use App\Entity\ProductEntity;
 use App\Entity\StoreOwnerProfileEntity;
 use App\Entity\StoreOwnerBranchEntity;
@@ -92,7 +93,7 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
             ->setParameter('storeCategoryId', $storeCategoryID)
 
             ->andWhere('profile.status = :status')
-            ->setParameter('status', self::STATUS_ACTIVE)
+            ->setParameter('status', StoreStatusConstant::$ACTIVE_STORE_STATUS)
 
             ->getQuery()
             ->getResult();
@@ -155,7 +156,7 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
             ->andWhere('profile.status = :status')
 
             ->setParameter('best','best')
-            ->setParameter('status', self::STATUS_ACTIVE)
+            ->setParameter('status', StoreStatusConstant::$ACTIVE_STORE_STATUS)
 
             ->groupBy('profile.id')
 

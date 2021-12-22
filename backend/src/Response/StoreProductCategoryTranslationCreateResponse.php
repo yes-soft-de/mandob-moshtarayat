@@ -8,7 +8,7 @@ class StoreProductCategoryTranslationCreateResponse
 
     public $storeProductCategoryID;
 
-    public $storeProductCategoryName;
+    public $productCategoryName;
 
     public $description;
 

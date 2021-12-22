@@ -453,7 +453,7 @@ class StoreProductCategoryService
         $storeOwnerProfileID = $this->userManager->getStoreProfileId($userID);
 
         // First, get the direct products of the store product category level one
-        $products = $this->productService->getProductsByCategoryIdAndStoreOwnerProfileId($userLocale, $storeProductCategoryID, $storeOwnerProfileID);
+        $products = $this->productService->getProductsByCategoryIdAndStoreOwnerProfileIdForStore($userLocale, $storeProductCategoryID, $storeOwnerProfileID);
 
         foreach($products as $product)
         {

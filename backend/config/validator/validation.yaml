@@ -400,3 +400,10 @@ App\Request\ProductCommissionByAdminUpdateRequest:
   properties:
     id:
       - NotBlank: ~
+
+App\Request\StoreProductCategoryTranslationCreateRequest:
+  properties:
+    storeProductCategoryID:
+      - NotBlank: ~
+    language:
+      - NotBlank: ~

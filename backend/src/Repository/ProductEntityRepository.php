@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+use App\Constant\ProductStatusConstant;
+use App\Constant\StoreStatusConstant;
 use App\Entity\ProductEntity;
 use App\Entity\ProductTranslationEntity;
 use App\Entity\StoreOwnerProfileEntity;
@@ -76,7 +78,17 @@ class ProductEntityRepository extends ServiceEntityRepository
 
             ->setParameter('storeProductCategoryID',$storeProductCategoryID)
 
-            ->setParameter('status',self::STATUS_ACTIVE)
+            ->setParameter('status', ProductStatusConstant::$ACTIVE_PRODUCT_STATUS)
+
+            ->leftJoin(
+                StoreOwnerProfileEntity::class,
+                'storeOwnerProfile',
+                Join::WITH,
+                'storeOwnerProfile.id = product.storeOwnerProfileID'
+            )
+
+            ->andWhere('storeOwnerProfile.status = :status')
+            ->setParameter('status', StoreStatusConstant::$ACTIVE_STORE_STATUS)
 
             ->getQuery()
             ->getResult();
@@ -92,7 +104,7 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->andWhere('product.status =:status')
 
             ->setParameter('storeProductCategoryID',$storeProductCategoryID)
-            ->setParameter('status',self::STATUS_ACTIVE)
+            ->setParameter('status', ProductStatusConstant::$ACTIVE_PRODUCT_STATUS)
 
             ->leftJoin(
                 ProductTranslationEntity::class,
@@ -100,6 +112,17 @@ class ProductEntityRepository extends ServiceEntityRepository
                 Join::WITH,
                 'productTranslationEntity.productID = product.id'
             )
+
+            ->leftJoin(
+                StoreOwnerProfileEntity::class,
+                'storeOwnerProfile',
+                Join::WITH,
+                'storeOwnerProfile.id = product.storeOwnerProfileID'
+            )
+
+            ->andWhere('storeOwnerProfile.status = :status')
+            ->setParameter('status', StoreStatusConstant::$ACTIVE_STORE_STATUS)
+
 
             ->getQuery()
             ->getResult();
@@ -120,6 +143,23 @@ class ProductEntityRepository extends ServiceEntityRepository
 
             ->andWhere('product.status = :status')
             ->setParameter('status', self::STATUS_ACTIVE)
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getProductsByCategoryIdAndStoreOwnerProfileIdForStore($storeProductCategoryID, $storeOwnerProfileId)
+    {
+        return $this->createQueryBuilder('product')
+
+            ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount', 'product.description',
+                'product.status', 'product.productQuantity', 'product.commission', 'product.isCommission')
+
+            ->andWhere('product.storeProductCategoryID =:storeProductCategoryID')
+            ->andWhere('product.storeOwnerProfileID =:storeOwnerProfileId')
+
+            ->setParameter('storeProductCategoryID',$storeProductCategoryID)
+            ->setParameter('storeOwnerProfileId',$storeOwnerProfileId)
 
             ->getQuery()
             ->getResult();
@@ -160,6 +200,30 @@ class ProductEntityRepository extends ServiceEntityRepository
 
             ->andWhere('product.status = :status')
             ->setParameter('status', self::STATUS_ACTIVE)
+
+            ->leftJoin(
+                ProductTranslationEntity::class,
+                'productTranslationEntity',
+                Join::WITH,
+                'productTranslationEntity.productID = product.id'
+            )
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getProductsTranslationByCategoryIdAndStoreOwnerProfileIdForStore($storeProductCategoryID, $storeOwnerProfileId)
+    {
+        return $this->createQueryBuilder('product')
+
+            ->select('product.id', 'product.productName as primaryProductName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount',
+                'product.commission', 'product.isCommission', 'product.description', 'product.status', 'product.productQuantity', 'productTranslationEntity.productName', 'productTranslationEntity.language')
+
+            ->andWhere('product.storeProductCategoryID =:storeProductCategoryID')
+            ->andWhere('product.storeOwnerProfileID =:storeOwnerProfileId')
+
+            ->setParameter('storeProductCategoryID',$storeProductCategoryID)
+            ->setParameter('storeOwnerProfileId',$storeOwnerProfileId)
 
             ->leftJoin(
                 ProductTranslationEntity::class,
@@ -317,6 +381,9 @@ class ProductEntityRepository extends ServiceEntityRepository
 
             ->setParameter('status', self::STATUS_ACTIVE)
 
+            ->andWhere('product.status = :productStatus')
+            ->setParameter('productStatus', ProductStatusConstant::$ACTIVE_PRODUCT_STATUS)
+
             ->addGroupBy('orderDetailEntity.productID')
 
             ->having('count(orderDetailEntity.productID) > 0')
@@ -348,6 +415,9 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->andWhere('storeOwnerProfile.status = :status')
 
             ->setParameter('status', self::STATUS_ACTIVE)
+
+            ->andWhere('product.status = :productStatus')
+            ->setParameter('productStatus', ProductStatusConstant::$ACTIVE_PRODUCT_STATUS)
 
             ->leftJoin(
                 ProductTranslationEntity::class,
@@ -385,6 +455,12 @@ class ProductEntityRepository extends ServiceEntityRepository
 
             ->andWhere('product.storeOwnerProfileID = :storeOwnerProfileId')
 
+            ->andWhere('product.status = :productStatus')
+            ->setParameter('productStatus', ProductStatusConstant::$ACTIVE_PRODUCT_STATUS)
+
+            ->andWhere('storeOwnerProfile.status = :status')
+            ->setParameter('status', StoreStatusConstant::$ACTIVE_STORE_STATUS)
+
             ->addGroupBy('orderDetailEntity.productID')
 
             ->having('count(orderDetailEntity.productID) > 0')
@@ -417,6 +493,12 @@ class ProductEntityRepository extends ServiceEntityRepository
 
             ->andWhere('product.storeOwnerProfileID = :storeOwnerProfileId')
             ->setParameter('storeOwnerProfileId',$storeOwnerProfileId)
+
+            ->andWhere('product.status = :productStatus')
+            ->setParameter('productStatus', ProductStatusConstant::$ACTIVE_PRODUCT_STATUS)
+
+            ->andWhere('storeOwnerProfile.status = :status')
+            ->setParameter('status', StoreStatusConstant::$ACTIVE_STORE_STATUS)
 
             ->leftJoin(
                 ProductTranslationEntity::class,
@@ -511,7 +593,7 @@ class ProductEntityRepository extends ServiceEntityRepository
                 ->andWhere('product.status = :status')
 
                 ->setParameter('storeProductCategoryID', $storeProductCategoryID)
-                ->setParameter('status', self::STATUS_ACTIVE)
+                ->setParameter('status', ProductStatusConstant::$ACTIVE_PRODUCT_STATUS)
 
                 ->getQuery()
                 ->getResult();
@@ -921,10 +1003,13 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->leftJoin(StoreOwnerProfileEntity::class, 'storeOwnerProfile', Join::WITH, 'storeOwnerProfile.id = product.storeOwnerProfileID')
 
             ->andWhere('product.storeOwnerProfileID =:storeOwnerProfileId')
-            ->andWhere('product.status = :status')
-
             ->setParameter('storeOwnerProfileId',$storeOwnerProfileId)
-            ->setParameter('status', self::STATUS_ACTIVE)
+
+            ->andWhere('product.status = :status')
+            ->setParameter('status', ProductStatusConstant::$ACTIVE_PRODUCT_STATUS)
+
+            ->andWhere('storeOwnerProfile.status = :status')
+            ->setParameter('status', StoreStatusConstant::$ACTIVE_STORE_STATUS)
 
             ->getQuery()
             ->getResult();
@@ -941,10 +1026,13 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->leftJoin(StoreOwnerProfileEntity::class, 'storeOwnerProfile', Join::WITH, 'storeOwnerProfile.id = product.storeOwnerProfileID')
 
             ->andWhere('product.storeOwnerProfileID =:storeOwnerProfileId')
-            ->andWhere('product.status = :status')
+            ->setParameter('storeOwnerProfileId', $storeOwnerProfileId)
 
-            ->setParameter('storeOwnerProfileId',$storeOwnerProfileId)
-            ->setParameter('status', self::STATUS_ACTIVE)
+            ->andWhere('product.status = :status')
+            ->setParameter('status', ProductStatusConstant::$ACTIVE_PRODUCT_STATUS)
+
+            ->andWhere('storeOwnerProfile.status = :status')
+            ->setParameter('status', StoreStatusConstant::$ACTIVE_STORE_STATUS)
 
             ->leftJoin(
                 ProductTranslationEntity::class,
