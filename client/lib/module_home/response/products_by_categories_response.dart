@@ -63,7 +63,7 @@ class Data {
 
   int? id;
   String? productName;
-  int? productPrice;
+  num? productPrice;
   int? storeOwnerProfileID;
   int? storeProductCategoryID;
   Image? image;
