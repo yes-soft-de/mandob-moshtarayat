@@ -80,23 +80,6 @@ void main() async {
 
 @injectable
 class MyApp extends StatefulWidget {
-  final AppThemeDataService _themeDataService;
-  final LocalizationService _localizationService;
-  final FireNotificationService _fireNotificationService;
-  final LocalNotificationService _localNotificationService;
-  final SplashModule _splashModule;
-  final AuthorizationModule _authorizationModule;
-  final SettingsModule _settingsModule;
-  final ChatModule _chatModule;
-  final MainModule _mainModule;
-  final StoreModule _storeModule;
-  final MyNotificationsModule _myNotificationsModule;
-  final AccountModule _accountModule;
-  final OrdersModule _ordersModule;
-  final ServicesModule _servicesModule;
-  final SearchModule _searchModule;
-  final ProductsModule _productsModule;
-
   const MyApp(
       this._themeDataService,
       this._localizationService,
@@ -115,6 +98,23 @@ class MyApp extends StatefulWidget {
       this._myNotificationsModule,
       this._productsModule);
 
+  final AccountModule _accountModule;
+  final AuthorizationModule _authorizationModule;
+  final ChatModule _chatModule;
+  final FireNotificationService _fireNotificationService;
+  final LocalNotificationService _localNotificationService;
+  final LocalizationService _localizationService;
+  final MainModule _mainModule;
+  final MyNotificationsModule _myNotificationsModule;
+  final OrdersModule _ordersModule;
+  final ProductsModule _productsModule;
+  final SearchModule _searchModule;
+  final ServicesModule _servicesModule;
+  final SettingsModule _settingsModule;
+  final SplashModule _splashModule;
+  final StoreModule _storeModule;
+  final AppThemeDataService _themeDataService;
+
   @override
   State<StatefulWidget> createState() => _MyAppState();
 }
@@ -123,9 +123,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   static FirebaseAnalytics analytics = FirebaseAnalytics();
   static FirebaseAnalyticsObserver observer =
       FirebaseAnalyticsObserver(analytics: analytics);
-  late String lang;
+
   late ThemeData activeTheme;
   bool authorized = false;
+  late String lang;
 
   @override
   void initState() {
@@ -153,11 +154,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return getConfiguratedApp(YesModule.RoutesMap);
-  }
-
   Widget getConfiguratedApp(
     Map<String, WidgetBuilder> fullRoutesList,
   ) {
@@ -182,5 +178,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         initialRoute: SplashRoutes.SPLASH_SCREEN,
       ),
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return getConfiguratedApp(YesModule.RoutesMap);
   }
 }
