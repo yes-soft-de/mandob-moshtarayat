@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mandob_moshtarayat_captain/module_orders/ui/state/order_status/order_status_store.dart';
 import 'package:simple_moment/simple_moment.dart';
 import 'package:mandob_moshtarayat_captain/consts/order_status.dart';
 import 'package:mandob_moshtarayat_captain/generated/l10n.dart';
@@ -22,8 +23,7 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
     this.screenState,
     this.currentOrder,
   ) : super(screenState) {
-    cart = this.currentOrder.cart;
-    storeInfo = this.currentOrder.storeInfo;
+    cart = this.currentOrder.carts;
     orderInfo = this.currentOrder.order;
     if (orderInfo.state == OrderStatus.IN_STORE) {
       screenState.makeInvoice = true;
@@ -36,8 +36,7 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
       }
     }
   }
-  late List<Item> cart;
-  late StoreOwnerInfo storeInfo;
+  late List<StoreOwnerInfo> cart;
   late OrderInfo orderInfo;
   @override
   Widget getUI(BuildContext context) {
@@ -202,10 +201,14 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
   Widget getOrderWidgets(int orderType) {
     if (orderType == 1) {
       return ProductsOrder(
+        onStore: (store) {
+          screenState.currentState =
+              OrderDetailsStoreLoaded(screenState, store);
+          screenState.refresh();
+        },
         orderNumber: screenState.orderId.toString(),
         acceptOrder: acceptOrder,
         provideDistance: (distance) => providedDistance(distance),
-        storeInfo: storeInfo,
         distanceCalculator: _distanceCalculator,
         orderInfo: orderInfo,
         cart: cart,
@@ -215,26 +218,25 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
         orderNumber: screenState.orderId.toString(),
         acceptOrder: acceptOrder,
         provideDistance: (distance) => providedDistance(distance),
-        storeInfo: storeInfo,
+        storeInfo: cart.first,
         distanceCalculator: _distanceCalculator,
         orderInfo: orderInfo,
-        cart: cart,
       );
     } else {
       return SendItForMe(
         orderNumber: screenState.orderId.toString(),
         acceptOrder: acceptOrder,
         provideDistance: (distance) => providedDistance(distance),
-        storeInfo: storeInfo,
         distanceCalculator: _distanceCalculator,
         orderInfo: orderInfo,
-        cart: cart,
+        cart: cart.first.items,
       );
     }
   }
 
   void acceptOrder() {
-    if (orderInfo.state != OrderStatus.IN_STORE) {
+    // orderInfo.state != OrderStatus.IN_STORE
+    if (true) {
       screenState.requestOrderProgress(
           currentOrder, StatusHelper.getOrderStatusIndex(orderInfo.state));
     } else {

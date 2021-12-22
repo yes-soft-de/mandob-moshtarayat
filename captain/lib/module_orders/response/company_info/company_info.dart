@@ -53,6 +53,7 @@ class CompanyInfoResponse {
     data['uuid'] = this.uuid;
     return data;
   }
+
   Map<String, dynamic> toJsonCaptain() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = this.id;

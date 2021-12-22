@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:simple_moment/simple_moment.dart';
-import 'package:mandob_moshtarayat_captain/consts/order_status.dart';
 import 'package:mandob_moshtarayat_captain/generated/l10n.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/model/order/accept_order.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/model/order/order_model.dart';

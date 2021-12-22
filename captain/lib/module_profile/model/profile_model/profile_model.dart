@@ -36,7 +36,7 @@ class ProfileModel {
   }
   ProfileModel.withData(ProfileResponseModel data) {
     _models = ProfileModel(
-        image: data.image,
+        image: data.image?.imageUrl,
         name: data.captainName,
         phone: data.phone,
         stcPay: data.stcPay,
@@ -44,9 +44,9 @@ class ProfileModel {
         bankNumber: data.bankAccountNumber,
         car: data.car,
         age: data.age,
-        mechanicLicense: data.mechanicLicense,
-        drivingLicence: data.drivingLicence,
-        identity: data.identity,
+        mechanicLicense: data.mechanicLicense?.imageUrl,
+        drivingLicence: data.drivingLicence?.imageUrl,
+        identity: data.identity?.imageUrl,
         isOnline: data.isOnline);
   }
   bool get hasError => _error != null;

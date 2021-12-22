@@ -1,13 +1,12 @@
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/repository/order_repository/order_repository.dart';
-import 'package:mandob_moshtarayat_captain/module_orders/request/accept_order_request/accept_order_request.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/request/billed_calculated.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/request/order_invoice_request.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/request/update_order_request/update_order_request.dart';
+import 'package:mandob_moshtarayat_captain/module_orders/request/update_store_order_status_request.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/response/company_info/company_info.dart';
-import 'package:mandob_moshtarayat_captain/module_orders/response/order_details/order_details_response.dart';
+import 'package:mandob_moshtarayat_captain/module_orders/response/order_details_response/order_details_response.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/response/order_status/order_action_response.dart';
-import 'package:mandob_moshtarayat_captain/module_orders/response/order_status/order_status_response.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/response/orders/accept_order_response.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/response/orders/order_response.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/response/orders_logs_response.dart';
@@ -20,7 +19,7 @@ class OrdersManager {
     this._repository,
   );
 
-  Future<OrderStatusResponse?> getOrderDetails(int orderId) =>
+  Future<OrderDetailsResponse?> getOrderDetails(int orderId) =>
       _repository.getOrderDetails(orderId);
 
   Future<OrdersResponse?> getNearbyOrders() => _repository.getNearbyOrders();
@@ -37,6 +36,9 @@ class OrdersManager {
   Future<OrderActionResponse?> updateOrder(
           UpdateOrderRequest updateOrderRequest) =>
       _repository.updateOrderState(updateOrderRequest);
+       Future<OrderActionResponse?> updateStoreOrderStatus(
+          UpdateStoreOrderStatusRequest updateOrderRequest) =>
+      _repository.updateStoreOrderState(updateOrderRequest);
 
   Future<OrderActionResponse?> updateBill(OrderInvoiceRequest request) =>
       _repository.updateOrderBill(request);

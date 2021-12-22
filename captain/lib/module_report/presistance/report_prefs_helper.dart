@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 @injectable
 class ReportPrefsHelper {
-  Future<void> setUUId(String? uuId,String orderId) async {
+  Future<void> setUUId(String? uuId, String orderId) async {
     SharedPreferences preferencesHelper = await SharedPreferences.getInstance();
     await preferencesHelper.setString('uuIdReport$orderId', uuId!);
     return;

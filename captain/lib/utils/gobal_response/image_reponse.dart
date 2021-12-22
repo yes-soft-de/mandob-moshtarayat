@@ -1,8 +1,9 @@
 class ImageResponse {
   ImageResponse({
-      this.imageURL, 
-      this.image, 
-      this.baseURL,});
+    this.imageURL,
+    this.image,
+    this.baseURL,
+  });
 
   ImageResponse.fromJson(dynamic json) {
     imageURL = json['imageURL'];
@@ -20,5 +21,4 @@ class ImageResponse {
     map['baseURL'] = baseURL;
     return map;
   }
-
 }

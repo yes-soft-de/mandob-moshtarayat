@@ -9,21 +9,19 @@ class AcceptOrderResponse {
   AcceptOrderResponse({this.statusCode, this.msg, this.data});
 
   AcceptOrderResponse.fromJson(dynamic json) {
-    // try {
-    //
-    // } catch(e){
-    //   Logger().error('AcceptOrder Response', e.toString(), StackTrace.current);
-    //   print(StackTrace.current);
-    //   statusCode = '-1';
-    // }
-
-    statusCode = json['status_code'];
-    msg = json['msg'];
-    if (json['Data'] != null) {
-      data = [];
-      json['Data'].forEach((v) {
-        data?.add(AcceptedOrder.fromJson(v));
-      });
+    try {
+      statusCode = json['status_code'];
+      msg = json['msg'];
+      if (json['Data'] != null) {
+        data = [];
+        json['Data'].forEach((v) {
+          data?.add(AcceptedOrder.fromJson(v));
+        });
+      }
+    } catch (e) {
+      Logger().error('AcceptOrder Response', e.toString(), StackTrace.current);
+      print(StackTrace.current);
+      statusCode = '-1';
     }
   }
 
@@ -95,14 +93,13 @@ class AcceptedOrder {
     recipientName = json['recipientName'];
     recipientPhone = json['recipientPhone'];
     state = json['state'];
+    orderNumber = json['orderNumber'];
+
     if (json['orderDetail'] != null) {
       orderDetail = [];
       json['orderDetail'].forEach((v) {
         orderDetail?.add(OrderDetail.fromJson(v));
       });
-      if (orderDetail!.isNotEmpty) {
-        orderNumber = orderDetail?.first.orderNumber ?? '-1';
-      }
     }
     deliveryCost = json['deliveryCost']?.toDouble();
     orderType = json['orderType'];

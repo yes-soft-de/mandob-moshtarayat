@@ -14,7 +14,6 @@ import 'package:url_launcher/url_launcher.dart';
 class SendItForMe extends StatelessWidget {
   final TextEditingController distanceCalculator;
   final List<Item> cart;
-  final StoreOwnerInfo storeInfo;
   final OrderInfo orderInfo;
   final Function() acceptOrder;
   final Function(String) provideDistance;
@@ -23,7 +22,6 @@ class SendItForMe extends StatelessWidget {
   SendItForMe(
       {required this.distanceCalculator,
       required this.cart,
-      required this.storeInfo,
       required this.orderInfo,
       required this.acceptOrder,
       required this.provideDistance,
@@ -100,7 +98,7 @@ class SendItForMe extends StatelessWidget {
           ),
         ),
         // note
-        orderInfo.note.isNotEmpty
+        orderInfo.note != null
             ? ListTile(
                 title: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -114,7 +112,7 @@ class SendItForMe extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Text(
-                      orderInfo.note,
+                      orderInfo.note ?? '',
                       textAlign: TextAlign.start,
                     ),
                   ),
@@ -252,8 +250,8 @@ class SendItForMe extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   onTap: () {
                     var url = WhatsAppLinkHelper.getMapsLink(
-                        orderInfo.source!.latitude,
-                        orderInfo.source!.longitude);
+                        orderInfo.source?.lat ?? 0.0,
+                        orderInfo.source?.long ?? 0.0);
                     launch(url);
                   },
                   child: CommunicationCard(
@@ -271,7 +269,7 @@ class SendItForMe extends StatelessWidget {
                 ),
               )
             : Container(),
-        orderInfo.source != null
+        orderInfo.destination != null
             ? Padding(
                 padding: const EdgeInsets.only(right: 24.0, left: 24.0),
                 child: Divider(
@@ -280,6 +278,7 @@ class SendItForMe extends StatelessWidget {
                 ),
               )
             : Container(),
+
         orderInfo.destination != null
             ? Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -287,15 +286,15 @@ class SendItForMe extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   onTap: () {
                     var url = WhatsAppLinkHelper.getMapsLink(
-                        orderInfo.destination!.latitude,
-                        orderInfo.destination!.longitude);
+                        orderInfo.destination?.lat ?? 0.0,
+                        orderInfo.destination?.long ?? 0.0);
                     launch(url);
                   },
                   child: CommunicationCard(
                     color: Colors.red[900],
                     text: S.of(context).destinationPoint +
                         (orderInfo.destination != null
-                            ? ' ( ${orderInfo.destinationDistanceValue} ${S.current.km} ) '
+                            ? ' ( ${orderInfo.recieveDistanceValue} ${S.current.km} ) '
                             : ''),
                     image: Icon(Icons.location_history, color: Colors.white),
                   ),

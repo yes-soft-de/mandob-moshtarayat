@@ -1,7 +1,6 @@
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mandob_moshtarayat_captain/consts/order_status.dart';
 import 'package:mandob_moshtarayat_captain/generated/l10n.dart';
 import 'package:mandob_moshtarayat_captain/module_chat/chat_routes.dart';
@@ -11,22 +10,25 @@ import 'package:mandob_moshtarayat_captain/module_orders/ui/widgets/order_widget
 import 'package:mandob_moshtarayat_captain/module_orders/ui/widgets/order_widget/order_chip.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/util/whatsapp_link_helper.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/utils/icon_helper/order_progression_helper.dart';
+import 'package:mandob_moshtarayat_captain/utils/components/hider.dart';
+import 'package:mandob_moshtarayat_captain/utils/components/progresive_image.dart';
 import 'package:mandob_moshtarayat_captain/utils/helpers/custom_flushbar.dart';
+import 'package:mandob_moshtarayat_captain/utils/helpers/order_status_helper.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProductsOrder extends StatelessWidget {
   final TextEditingController distanceCalculator;
-  final List<Item> cart;
-  final StoreOwnerInfo storeInfo;
+  final List<StoreOwnerInfo> cart;
   final OrderInfo orderInfo;
   final Function() acceptOrder;
   final Function(String) provideDistance;
+  final Function(StoreOwnerInfo) onStore;
   final String orderNumber;
 
   ProductsOrder(
       {required this.distanceCalculator,
+      required this.onStore,
       required this.cart,
-      required this.storeInfo,
       required this.orderInfo,
       required this.acceptOrder,
       required this.provideDistance,
@@ -37,76 +39,6 @@ class ProductsOrder extends StatelessWidget {
     return Flex(
       direction: Axis.vertical,
       children: [
-        // order info with store info
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Theme.of(context).backgroundColor.withOpacity(0.7),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Flex(
-                direction: Axis.horizontal,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Flex(
-                    direction: Axis.vertical,
-                    children: [
-                      Text(S.of(context).orderNumber,
-                          style: TextStyle(fontSize: 14)),
-                      Container(
-                        height: 4,
-                      ),
-                      Text(
-                        '$orderNumber',
-                        style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).disabledColor),
-                      ),
-                    ],
-                  ),
-                  Flex(
-                    direction: Axis.vertical,
-                    children: [
-                      Text(S.of(context).storeName,
-                          style: TextStyle(fontSize: 14)),
-                      Container(
-                        height: 4,
-                      ),
-                      Text(
-                        storeInfo.storeOwnerName,
-                        style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).disabledColor),
-                      ),
-                    ],
-                  ),
-                  Flex(
-                    direction: Axis.vertical,
-                    children: [
-                      Text(S.of(context).branch,
-                          style: TextStyle(fontSize: 14)),
-                      Container(
-                        height: 4,
-                      ),
-                      Text(
-                        storeInfo.branchName ?? S.current.unknown,
-                        style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).disabledColor),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
         // tile for titling cart
         Padding(
           padding: const EdgeInsets.only(left: 16, right: 16),
@@ -201,72 +133,6 @@ class ProductsOrder extends StatelessWidget {
             color: Theme.of(context).backgroundColor,
           ),
         ),
-        storeInfo.storePhone != null
-            ? Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: InkWell(
-                  onTap: () {
-                    var url = WhatsAppLinkHelper.getWhatsAppLink(
-                        storeInfo.storePhone ?? '');
-                    launch(url);
-                  },
-                  child: CommunicationCard(
-                    color: Colors.green,
-                    text: S.of(context).whatsappWithStoreOwner,
-                    image: FaIcon(
-                      FontAwesomeIcons.whatsapp,
-                      color: Colors.white,
-                      size: 28,
-                    ),
-                  ),
-                ),
-              )
-            : Container(),
-        storeInfo.storePhone != null
-            ? Padding(
-                padding: const EdgeInsets.only(right: 24.0, left: 24.0),
-                child: Divider(
-                  thickness: 2.5,
-                  color: Theme.of(context).backgroundColor,
-                ),
-              )
-            : Container(),
-        // To Open Maps
-        storeInfo.branchLocation != null
-            ? Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(10),
-                  onTap: () {
-                    var url = WhatsAppLinkHelper.getMapsLink(
-                        storeInfo.branchLocation!.latitude,
-                        storeInfo.branchLocation!.longitude);
-                    launch(url);
-                  },
-                  child: CommunicationCard(
-                    color: Colors.blue[900],
-                    text: S.of(context).storeLocation +
-                        (storeInfo.branchDistance != null
-                            ? ' ( ${storeInfo.branchDistance} ${S.current.km} ) '
-                            : ''),
-                    image: Icon(
-                      Icons.store_rounded,
-                      color: Colors.white,
-                      size: 28,
-                    ),
-                  ),
-                ),
-              )
-            : Container(),
-        storeInfo.branchLocation != null
-            ? Padding(
-                padding: const EdgeInsets.only(right: 24.0, left: 24.0),
-                child: Divider(
-                  thickness: 2.5,
-                  color: Theme.of(context).backgroundColor,
-                ),
-              )
-            : Container(),
         orderInfo.destination != null
             ? Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -274,15 +140,15 @@ class ProductsOrder extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   onTap: () {
                     var url = WhatsAppLinkHelper.getMapsLink(
-                        orderInfo.destination!.latitude,
-                        orderInfo.destination!.longitude);
+                        orderInfo.destination?.lat ?? 0,
+                        orderInfo.destination?.long ?? 0);
                     launch(url);
                   },
                   child: CommunicationCard(
                     color: Colors.red[900],
                     text: S.of(context).locationOfCustomer +
                         (orderInfo.destination != null
-                            ? ' ( ${orderInfo.destinationDistanceValue} ${S.current.km} ) '
+                            ? ' ( ${orderInfo.recieveDistanceValue} ${S.current.km} ) '
                             : ''),
                     image: Icon(Icons.location_history, color: Colors.white),
                   ),
@@ -395,17 +261,109 @@ class ProductsOrder extends StatelessWidget {
     }
   }
 
-  Widget getOrdersList(List<Item> carts, BuildContext context) {
+  Widget getOrdersList(List<StoreOwnerInfo> carts, BuildContext context) {
     List<Widget> orderChips = [];
     carts.forEach((element) {
-      orderChips.add(OrderChip(
-        productID: element.productID,
-        title: element.productName,
-        image: element.productImage,
-        price: element.productPrice,
-        currency: S.current.sar,
-        defaultQuantity: element.countProduct,
-      ));
+         orderChips.add(Hider(
+           active: carts.length != 1,
+           child: InkWell(
+                 onTap: orderInfo.state != OrderStatus.WAITING
+              ? () {
+                  onStore(element);
+                }
+              : null,
+                 borderRadius: BorderRadius.circular(10),
+                 child: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: orderInfo.state != OrderStatus.WAITING
+                    ? StatusHelper.getOrderStatusColor(element.state)
+                    : Theme.of(context).backgroundColor),
+            child: ListTile(
+              leading: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white,
+                  ),
+                  child: ClipOval(
+                    child: CustomNetworkImage(
+                      height: 40,
+                      imageSource: element.image,
+                      width: 40,
+                    ),
+                  )),
+              trailing: Hider(
+                active: orderInfo.state != OrderStatus.WAITING,
+                child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: StatusHelper.getOrderStatusColor(element.state)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.white,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Icon(
+                              Icons.arrow_forward_rounded,
+                              color: StatusHelper.getOrderStatusColor(
+                                  element.state),
+                            ),
+                          )),
+                    )),
+              ),
+              title: Text(
+                element.storeOwnerName,
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    color: element.state != OrderStatus.WAITING
+                        ? Colors.white
+                        : null),
+              ),
+              subtitle: orderInfo.state != OrderStatus.WAITING
+                  ? Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Text(
+                          StatusHelper.getOrderStatusDescriptionMessages(
+                              element.state),
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white70)),
+                    )
+                  : null,
+            ),
+                 ),
+               ),
+         ));
+      if (orderInfo.state == OrderStatus.WAITING || cart.length == 1) {
+        int i = 0;
+        element.items.forEach((item) {
+          i += 1;
+          orderChips.add(OrderChip(
+            productID: item.productID,
+            title: item.productName,
+            image: item.productImage,
+            price: item.productPrice,
+            currency: S.current.sar,
+            defaultQuantity: item.countProduct,
+          ));
+          if (element.items.length - 1 == i) {
+            orderChips.add(Padding(
+              padding: const EdgeInsets.only(
+                  right: 8.0, left: 8.0, top: 8.0, bottom: 8.0),
+              child: DottedLine(
+                dashColor: Theme.of(context).backgroundColor,
+                lineThickness: 2.5,
+                dashLength: 6,
+              ),
+            ));
+          }
+        });
+      }
       orderChips.add(Padding(
         padding:
             const EdgeInsets.only(right: 8.0, left: 8.0, top: 8.0, bottom: 8.0),

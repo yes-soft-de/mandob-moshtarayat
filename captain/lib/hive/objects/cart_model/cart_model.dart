@@ -1,7 +1,8 @@
 import 'package:hive/hive.dart';
 part 'cart_model.g.dart';
+
 @HiveType(typeId: 0)
-class CartModel extends HiveObject{
+class CartModel extends HiveObject {
   @HiveField(0)
   int id;
   @HiveField(1)
@@ -13,5 +14,10 @@ class CartModel extends HiveObject{
   @HiveField(4)
   String? image;
 
-  CartModel({required this.id,required this.quantity,required this.price,this.image,this.name});
+  CartModel(
+      {required this.id,
+      required this.quantity,
+      required this.price,
+      this.image,
+      this.name});
 }

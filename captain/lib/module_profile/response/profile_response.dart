@@ -1,3 +1,4 @@
+import 'package:mandob_moshtarayat_captain/module_orders/response/order_details_response/product_image.dart';
 import 'package:mandob_moshtarayat_captain/utils/logger/logger.dart';
 
 class ProfileResponse {
@@ -8,16 +9,15 @@ class ProfileResponse {
   ProfileResponse({this.statusCode, this.msg, this.data});
 
   ProfileResponse.fromJson(dynamic json) {
-    try {
-      statusCode = json['status_code'];
-      msg = json['msg'];
-      data = json['Data'] != null
-          ? ProfileResponseModel.fromJson(json['Data'])
-          : null;
-    } catch (e) {
-      Logger().error('Profile Response', e.toString(), StackTrace.current);
-      statusCode = '-1';
-    }
+    statusCode = json['status_code'];
+    msg = json['msg'];
+    data = json['Data'] != null
+        ? ProfileResponseModel.fromJson(json['Data'])
+        : null;
+    // try {} catch (e) {
+    //   Logger().error('Profile Response', e.toString(), StackTrace.current);
+    //   statusCode = '-1';
+    // }
   }
 
   Map<String, dynamic> toJson() {
@@ -38,17 +38,17 @@ class ProfileResponseModel {
   dynamic location;
   int? age;
   String? car;
-  String? drivingLicence;
+  ProductImage? drivingLicence;
   String? drivingLicenceURL;
   num? salary;
   String? status;
   List<CountOrdersDeliverd>? countOrdersDeliverd;
   Rating? rating;
   dynamic state;
-  List<Bounce>? bounce;
+  num? bounce;
   dynamic totalBounce;
   String? roomID;
-  String? image;
+  ProductImage? image;
   String? imageURL;
   String? baseURL;
   String? phone;
@@ -58,8 +58,8 @@ class ProfileResponseModel {
   String? stcPay;
   dynamic vacationStatus;
   dynamic newMessageStatus;
-  String? mechanicLicense;
-  String? identity;
+  ProductImage? mechanicLicense;
+  ProductImage? identity;
 
   ProfileResponseModel(
       {this.id,
@@ -98,7 +98,9 @@ class ProfileResponseModel {
     location = json['location'];
     age = json['age'];
     car = json['car'];
-    drivingLicence = json['drivingLicence'];
+    drivingLicence = json['drivingLicence'] != null
+        ? ProductImage.fromJson(json['drivingLicence'])
+        : null;
     drivingLicenceURL = json['drivingLicenceURL'];
     salary = json['salary'];
     status = json['status'];
@@ -110,15 +112,12 @@ class ProfileResponseModel {
     }
     rating = json['rating'] != null ? Rating.fromJson(json['rating']) : null;
     state = json['state'];
-    if (json['bounce'] != null) {
-      bounce = [];
-      json['bounce'].forEach((v) {
-        bounce?.add(Bounce.fromJson(v));
-      });
-    }
+    bounce = json['bounce'];
     totalBounce = json['totalBounce'];
     roomID = json['roomID'];
-    image = json['image'];
+    image = json['image'] != null
+        ? ProductImage.fromJson(json['image'])
+        : null;
     imageURL = json['imageURL'];
     baseURL = json['baseURL'];
     phone = json['phone'];
@@ -128,8 +127,12 @@ class ProfileResponseModel {
     stcPay = json['stcPay'];
     vacationStatus = json['vacationStatus'];
     newMessageStatus = json['newMessageStatus'];
-    mechanicLicense = json['mechanicLicense'];
-    identity = json['identity'];
+    mechanicLicense = json['mechanicLicense'] != null
+        ? ProductImage.fromJson(json['mechanicLicense'])
+        : null;
+    identity = json['identity'] != null
+        ? ProductImage.fromJson(json['identity'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -153,7 +156,6 @@ class ProfileResponseModel {
     }
     map['state'] = state;
     if (bounce != null) {
-      map['bounce'] = bounce?.map((v) => v.toJson()).toList();
     }
     map['totalBounce'] = totalBounce;
     map['roomID'] = roomID;

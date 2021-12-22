@@ -62,39 +62,32 @@ class OrderModel {
     _currentLocation = initLocation;
     data.forEach((element) {
       bool allow = false;
-      List<Branches>? sortedBranches;
-      element.branches ??= [];
-      if (initLocation != null && element.branches!.isNotEmpty) {
-        sortedBranches = _sortLocations(element.branches ?? [], initLocation);
-      }
       int nextYear = DateTime.now().year + 1;
       int timestamp = element.deliveryDate?.timestamp ??
           DateTime(nextYear).millisecondsSinceEpoch;
+
       var creationDate = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+
       if (creationDate.difference(DateTime.now()).inMinutes <= 45) allow = true;
-      allow = disableOrder(element, sortedBranches, initLocation);
+
       if (allow) {
-        GeoJson geoBranch =
-            sortedBranches?.first.location ?? GeoJson(lat: 0, long: 0);
         _models.add(OrderModel(
             id: element.id ?? -1,
             storeName: element.storeOwnerName ?? S.current.store,
             ownerPhone: null,
             clientPhone: null,
             chatRoomId: null,
-            storeDistance: element.orderType == 3 && element.source != null
-                ? _getDestination(initLocation, element.source)
-                : sortedBranches?.first.distance,
-            branchLocation: LatLng(geoBranch.lat ?? 0, geoBranch.long ?? 0),
+            storeDistance: null,
+            branchLocation: null,
             deliveryDate: creationDate,
             image: element.image,
             deliveryCost: element.deliveryCost ?? 0,
             orderCost: element.orderCost ?? 0,
             orderNumber: element.orderNumber ?? '0',
             storeId: element.storeOwnerProfileID,
-            branchCity: sortedBranches?.first.city ?? S.current.city,
-            branchId: sortedBranches?.first.id ?? -1,
-            branchName: sortedBranches?.first.branchName ?? S.current.branch,
+            branchCity: null,
+            branchId: null,
+            branchName: null,
             details: element.detail,
             orderType: element.orderType ?? 0,
             paymentMethod: element.payment ?? 'cash'));
@@ -159,37 +152,37 @@ class OrderModel {
     return straightDistance.abs();
   }
 
-  bool disableOrder(
-      Data element, List<Branches>? sortedBranches, LatLng? initLocation) {
-    if (element.orderType == null) {
-      print('Order ID => ${element.id} for reason order type is null');
-      return false;
-    }
-    if (element.orderNumber == null) {
-      print('Order ID => ${element.id} for reason order number is null');
-      return false;
-    }
-    if (element.orderType != 3 && element.branches!.isEmpty) {
-      print('Order ID => ${element.id} for reason there is no branches');
-      return false;
-    }
-    if (element.orderType == 3 && element.source == null) {
-      print('Order ID => ${element.id} for reason source is null');
-      return false;
-    }
-    if (element.orderType != 3 &&
-        sortedBranches != null &&
-        (sortedBranches.first.distance ?? 0) > 5500) {
-      print('Order ID => ${element.id} for reason store is too far');
-      return false;
-    }
-    if (element.orderType == 3 &&
-        element.source != null &&
-        initLocation != null &&
-        _getDestination(initLocation, element.source)! > 5500) {
-      print('Order ID => ${element.id} for reason there is no destination or source');
-      return false;
-    }
-    return true;
-  }
+  // bool disableOrder(
+  //     Data element, List<Branches>? sortedBranches, LatLng? initLocation) {
+  //   if (element.orderType == null) {
+  //     print('Order ID => ${element.id} for reason order type is null');
+  //     return false;
+  //   }
+  //   if (element.orderNumber == null) {
+  //     print('Order ID => ${element.id} for reason order number is null');
+  //     return false;
+  //   }
+  //   if (element.orderType != 3 && element.branches!.isEmpty) {
+  //     print('Order ID => ${element.id} for reason there is no branches');
+  //     return false;
+  //   }
+  //   if (element.orderType == 3 && element.source == null) {
+  //     print('Order ID => ${element.id} for reason source is null');
+  //     return false;
+  //   }
+  //   if (element.orderType != 3 &&
+  //       sortedBranches != null &&
+  //       (sortedBranches.first.distance ?? 0) > 5500) {
+  //     print('Order ID => ${element.id} for reason store is too far');
+  //     return false;
+  //   }
+  //   if (element.orderType == 3 &&
+  //       element.source != null &&
+  //       initLocation != null &&
+  //       _getDestination(initLocation, element.source)! > 5500) {
+  //     print('Order ID => ${element.id} for reason there is no destination or source');
+  //     return false;
+  //   }
+  //   return true;
+  // }
 }

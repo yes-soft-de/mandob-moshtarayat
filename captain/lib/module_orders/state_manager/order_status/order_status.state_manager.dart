@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:injectable/injectable.dart';
+import 'package:mandob_moshtarayat_captain/module_orders/request/update_store_order_status_request.dart';
+import 'package:mandob_moshtarayat_captain/module_orders/ui/state/order_status/order_status_store.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:mandob_moshtarayat_captain/generated/l10n.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/request/billed_calculated.dart';
@@ -35,8 +37,8 @@ class OrderStatusStateManager {
 
     _ordersService.getOrderDetails(orderId).then((value) {
       if (value.hasError) {
-        _stateSubject
-            .add(OrderStatusErrorState(screenState, value.error, orderId));
+        _stateSubject.add(
+            OrderStatusErrorState(screenState, value.error ?? '', orderId));
       } else if (value.isEmpty) {
         _stateSubject.add(OrderDetailsEmptyState(
             screenState, S.current.homeDataEmpty, orderId));
@@ -58,6 +60,32 @@ class OrderStatusStateManager {
             title: S.current.warnning, message: S.current.updateOrderSuccess)
           ..show(screenState.context);
         getOrderDetails(request.id ?? -1, screenState);
+      }
+    });
+  }
+
+  void updateStoreOrder(UpdateStoreOrderStatusRequest request,
+      OrderStatusScreenState screenState) {
+    _stateSubject.add(OrderDetailsStateLoading(screenState));
+    _ordersService.updateStoreOrderStatus(request).then((value) {
+      if (value.hasError) {
+        screenState.goBack(value.error);
+      } else {
+        CustomFlushBarHelper.createSuccess(
+            title: S.current.warnning, message: S.current.updateOrderSuccess)
+          ..show(screenState.context);
+        _ordersService.getOrderDetails(request.orderNumber ?? -1).then((value) {
+          if (value.hasError) {
+            _stateSubject.add(OrderStatusErrorState(
+                screenState, value.error ?? '', request.orderNumber ?? -1));
+          } else if (value.isEmpty) {
+            _stateSubject.add(OrderDetailsEmptyState(screenState,
+                S.current.homeDataEmpty, request.orderNumber ?? -1));
+          } else {
+           var store = value.data.carts.singleWhere((element) => element.storeOwnerID == request.storeOwnerProfileId);
+            _stateSubject.add(OrderDetailsStoreLoaded(screenState, store));
+          }
+        });
       }
     });
   }

@@ -38,12 +38,20 @@ class _SplashScreenState extends State<SplashScreen> {
         direction: Axis.vertical,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Spacer(flex: 1,),
+          Spacer(
+            flex: 1,
+          ),
           Padding(
             padding: EdgeInsets.only(),
-            child: Image.asset(ImageAsset.LOGO,width: 200,height: 200,),
+            child: Image.asset(
+              ImageAsset.LOGO,
+              width: 200,
+              height: 200,
+            ),
           ),
-          Spacer(flex: 1,),
+          Spacer(
+            flex: 1,
+          ),
           Image.asset(
             ImageAsset.DELIVERY_MOTOR,
           ),

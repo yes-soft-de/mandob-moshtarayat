@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:mandob_moshtarayat_captain/module_orders/request/update_store_order_status_request.dart';
+import 'package:mandob_moshtarayat_captain/module_orders/response/order_details_response/order_details_response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mandob_moshtarayat_captain/generated/l10n.dart';
 import 'package:mandob_moshtarayat_captain/module_deep_links/service/deep_links_service.dart';
@@ -16,7 +18,6 @@ import 'package:mandob_moshtarayat_captain/module_orders/request/order_invoice_r
 import 'package:mandob_moshtarayat_captain/module_orders/request/update_order_request/update_order_request.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/response/company_info/company_info.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/response/order_status/order_action_response.dart';
-import 'package:mandob_moshtarayat_captain/module_orders/response/order_status/order_status_response.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/response/orders/accept_order_response.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/response/orders/order_response.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/response/orders_logs_response.dart';
@@ -55,7 +56,7 @@ class OrdersService {
 
 //////////////////////////////////////////////////////////////////////
   Future<OrderDetailsModel> getOrderDetails(int orderId) async {
-    OrderStatusResponse? _ordersResponse =
+    OrderDetailsResponse? _ordersResponse =
         await _ordersManager.getOrderDetails(orderId);
     if (_ordersResponse == null)
       return OrderDetailsModel.Error(S.current.networkError);
@@ -83,6 +84,17 @@ class OrdersService {
   Future<ActionStateModel> updateOrder(UpdateOrderRequest request) async {
     OrderActionResponse? actionResponse =
         await _ordersManager.updateOrder(request);
+    if (actionResponse == null)
+      return ActionStateModel.error(S.current.networkError);
+    if (actionResponse.statusCode != '204')
+      return ActionStateModel.error(
+          StatusCodeHelper.getStatusCodeMessages(actionResponse.statusCode));
+    await insertWatcher();
+    return ActionStateModel.empty();
+  }
+   Future<ActionStateModel> updateStoreOrderStatus(UpdateStoreOrderStatusRequest request) async {
+    OrderActionResponse? actionResponse =
+        await _ordersManager.updateStoreOrderStatus(request);
     if (actionResponse == null)
       return ActionStateModel.error(S.current.networkError);
     if (actionResponse.statusCode != '204')
