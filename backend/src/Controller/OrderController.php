@@ -736,6 +736,11 @@ class OrderController extends BaseController
 
         $request = $this->autoMapping->map(stdClass::class, OrderClientCreateRequest::class, (object)$data);
         $request->setClientID($this->getUserId());
+
+        if(!isset($data['orderDetails'])){
+            return $this->response(ResponseConstant::$ERROR_VALIDATION_ORDER_DETAILS, self::ERROR);
+        }
+
         $request->setOrderDetails($data['orderDetails']);
 
         $response = $this->orderService->createClientOrder($request);
