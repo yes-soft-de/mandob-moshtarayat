@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field
+
 import 'dart:async';
 import 'dart:io';
 import 'package:device_info/device_info.dart';
@@ -162,10 +164,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return getConfiguratedApp(YesModule.RoutesMap);
+    return getConfiguredApp(YesModule.RoutesMap);
   }
 
-  Widget getConfiguratedApp(
+  Widget getConfiguredApp(
     Map<String, WidgetBuilder> fullRoutesList,
   ) {
     return FeatureDiscovery(
