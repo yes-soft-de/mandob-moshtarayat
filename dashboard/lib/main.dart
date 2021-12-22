@@ -19,7 +19,6 @@ import 'package:mandob_moshtarayat_dashboad/module_logs/logs_module.dart';
 import 'package:mandob_moshtarayat_dashboad/module_main/main_module.dart';
 import 'package:mandob_moshtarayat_dashboad/module_notifications/service/fire_notification_service/fire_notification_service.dart';
 import 'package:mandob_moshtarayat_dashboad/module_orders/orders_module.dart';
-import 'package:mandob_moshtarayat_dashboad/module_payment_portal/portals_module.dart';
 import 'package:mandob_moshtarayat_dashboad/module_payments/payments_module.dart';
 import 'package:mandob_moshtarayat_dashboad/module_settings/settings_module.dart';
 import 'package:mandob_moshtarayat_dashboad/module_splash/splash_module.dart';
@@ -97,7 +96,6 @@ class MyApp extends StatefulWidget {
   final PaymentsModule _paymentsModule;
   final FiltersModule _filtersModule;
   final LogsModule _logsModule;
-  final PortalsModule portalsModule;
   MyApp(
       this._themeDataService,
       this._localizationService,
@@ -116,7 +114,7 @@ class MyApp extends StatefulWidget {
       this._paymentsModule,
       this._filtersModule,
       this._logsModule,
-      this.portalsModule);
+      );
 
   @override
   State<StatefulWidget> createState() => _MyAppState();
