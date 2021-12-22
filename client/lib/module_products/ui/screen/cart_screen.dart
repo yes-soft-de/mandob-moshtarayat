@@ -129,11 +129,9 @@ class _CartScreenState extends State<CartScreen> {
                                     });
 
                                     CheckoutModel checkoutModel = CheckoutModel(
-                                        ownerId: CartHiveHelper().getStoreID(),
                                         cart: items,
                                         orderCost: double.parse(getTotal()),
                                         deliveryCost: 0);
-
                                     Navigator.of(context).pushNamed(
                                         OrdersRoutes.CLIENT_ORDER,
                                         arguments: checkoutModel);
@@ -222,6 +220,7 @@ class _CartScreenState extends State<CartScreen> {
     List<Products> products = [];
     carts.forEach((element) {
       products.add(Products(
+          storeId: element.storeOwnerProfileID.toString(),
           productID: element.productID,
           countProduct: element.countProduct,
           price: element.productPrice,

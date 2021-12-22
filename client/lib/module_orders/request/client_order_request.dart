@@ -51,7 +51,9 @@ class ClientOrderRequest {
     map['destination'] = destination?.toJson();
     map['note'] = note;
     map['payment'] = payment;
-    map['storeOwnerProfileID'] = ownerID;
+    if (ownerID != null) {
+      map['storeOwnerProfileID'] = ownerID;
+    }
     if (products != null) {
       map['orderDetails'] = products?.map((v) => v.toJson()).toList();
     }
