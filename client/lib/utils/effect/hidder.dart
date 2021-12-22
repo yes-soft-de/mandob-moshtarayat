@@ -10,7 +10,7 @@ class Hider extends StatelessWidget {
     if (active) {
       return child;
     } else {
-      return SizedBox();
+      return const SizedBox();
     }
   }
 }
@@ -20,7 +20,7 @@ class HiderWithDivider extends StatelessWidget {
   final Widget child;
   final Widget divider;
   final Axis direction;
-  HiderWithDivider(
+  const HiderWithDivider(
       {required this.active,
       required this.child,
       required this.divider,
@@ -34,7 +34,7 @@ class HiderWithDivider extends StatelessWidget {
         children: [child, divider],
       );
     } else {
-      return SizedBox();
+      return const SizedBox();
     }
   }
 }
