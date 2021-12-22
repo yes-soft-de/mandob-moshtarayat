@@ -25,4 +25,6 @@ abstract class ResponseConstant
     static $ORDER_NOT_REMOVE_CAPTAIN_RECEIVED = "can not remove it, The captain received the order";
 
     static $ERROR = "error";
+
+    static $ERROR_VALIDATION_ORDER_DETAILS = "please enter order Details.";
 }
