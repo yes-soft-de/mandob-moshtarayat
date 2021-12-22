@@ -318,6 +318,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "الرجاء اختيار صورة من نوع (vector) بقياس (96 بكسل)  و بخلفية شفافة"),
         "inActiveCaptains":
             MessageLookupByLibrary.simpleMessage("الكباتن الغير مفعلين"),
+        "inActiveDistributors":
+            MessageLookupByLibrary.simpleMessage("المناديب غير المفعلين"),
         "inactive": MessageLookupByLibrary.simpleMessage(
             "اشتراكك غير مفعل بعد الرجاء انتظار التفعيل من قبل الإدارة"),
         "info": MessageLookupByLibrary.simpleMessage("حول الطلب"),
@@ -620,6 +622,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ابحث عن متجر , منتج ... "),
         "searchForCaptain":
             MessageLookupByLibrary.simpleMessage("البحث عن كابتن"),
+        "searchForDistributor":
+            MessageLookupByLibrary.simpleMessage("ابحث عن مندوب"),
         "searchForNotifications":
             MessageLookupByLibrary.simpleMessage("ابحث عن إشعار"),
         "searchForOrder": MessageLookupByLibrary.simpleMessage(

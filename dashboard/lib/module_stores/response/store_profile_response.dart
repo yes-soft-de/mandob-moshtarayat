@@ -1,5 +1,4 @@
 import 'package:mandob_moshtarayat_dashboad/module_captain/response/captain_account_balance_response.dart';
-import 'package:mandob_moshtarayat_dashboad/module_distributor/module_captain/response/distirbutor_reponse/image.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/logger/logger.dart';
 
 class StoreProfileResponse {
