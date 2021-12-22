@@ -757,7 +757,7 @@ class StoreProductCategoryController extends BaseController
     }
 
     /**
-     * client: Get the products of the first subcategory
+     * Store: Get the products of the first subcategory
      * @Route("productsbystorecategroylevelone/{storeProductCategoryID}", name="getProductsByStoreCategroyLevelOne", methods={"GET"})
      * @return JsonResponse
      * @IsGranted("ROLE_OWNER")

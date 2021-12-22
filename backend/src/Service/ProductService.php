@@ -141,6 +141,33 @@ class ProductService
         return $response;
     }
 
+    public function getProductsByCategoryIdAndStoreOwnerProfileIdForStore($userLocale, $storeProductCategoryID, $storeOwnerProfileId)
+    {
+        $response = [];
+
+        if($userLocale != null && $userLocale != $this->primaryLanguage)
+        {
+            $productsTranslation = $this->productManager->getProductsTranslationByCategoryIdAndStoreOwnerProfileIdForStore($storeProductCategoryID, $storeOwnerProfileId);
+
+            $products = $this->replaceProductTranslatedNameByPrimaryOne($productsTranslation, $userLocale);
+        }
+        else
+        {
+            $products = $this->productManager->getProductsByCategoryIdAndStoreOwnerProfileIdForStore($storeProductCategoryID, $storeOwnerProfileId);
+        }
+
+        foreach ($products as $item) {
+            $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
+            $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
+            $item['soldCount'] = $this->getProductsSoldCount($item['id']);
+            $item['store'] = $this->storeOwnerProfileService->getStoreNameById($item['storeOwnerProfileID']);
+
+            $response[] = $this->autoMapping->map('array', ProductsByProductCategoryIdResponse::class, $item);
+        }
+
+        return $response;
+    }
+
     public function getProductsByCategoryIdAndStoreOwnerProfileIdForAdmin($userLocale, $storeProductCategoryID, $storeOwnerProfileId)
     {
         $response = [];

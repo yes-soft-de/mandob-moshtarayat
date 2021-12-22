@@ -148,6 +148,23 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getProductsByCategoryIdAndStoreOwnerProfileIdForStore($storeProductCategoryID, $storeOwnerProfileId)
+    {
+        return $this->createQueryBuilder('product')
+
+            ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount', 'product.description',
+                'product.status', 'product.productQuantity', 'product.commission', 'product.isCommission')
+
+            ->andWhere('product.storeProductCategoryID =:storeProductCategoryID')
+            ->andWhere('product.storeOwnerProfileID =:storeOwnerProfileId')
+
+            ->setParameter('storeProductCategoryID',$storeProductCategoryID)
+            ->setParameter('storeOwnerProfileId',$storeOwnerProfileId)
+
+            ->getQuery()
+            ->getResult();
+    }
+
     public function getProductsByCategoryIdAndStoreOwnerProfileIdForAdmin($storeProductCategoryID, $storeOwnerProfileId)
     {
         return $this->createQueryBuilder('product')
@@ -183,6 +200,30 @@ class ProductEntityRepository extends ServiceEntityRepository
 
             ->andWhere('product.status = :status')
             ->setParameter('status', self::STATUS_ACTIVE)
+
+            ->leftJoin(
+                ProductTranslationEntity::class,
+                'productTranslationEntity',
+                Join::WITH,
+                'productTranslationEntity.productID = product.id'
+            )
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getProductsTranslationByCategoryIdAndStoreOwnerProfileIdForStore($storeProductCategoryID, $storeOwnerProfileId)
+    {
+        return $this->createQueryBuilder('product')
+
+            ->select('product.id', 'product.productName as primaryProductName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount',
+                'product.commission', 'product.isCommission', 'product.description', 'product.status', 'product.productQuantity', 'productTranslationEntity.productName', 'productTranslationEntity.language')
+
+            ->andWhere('product.storeProductCategoryID =:storeProductCategoryID')
+            ->andWhere('product.storeOwnerProfileID =:storeOwnerProfileId')
+
+            ->setParameter('storeProductCategoryID',$storeProductCategoryID)
+            ->setParameter('storeOwnerProfileId',$storeOwnerProfileId)
 
             ->leftJoin(
                 ProductTranslationEntity::class,
