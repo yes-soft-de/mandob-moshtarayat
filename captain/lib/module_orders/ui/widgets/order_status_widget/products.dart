@@ -33,6 +33,8 @@ class ProductsOrder extends StatelessWidget {
       required this.acceptOrder,
       required this.provideDistance,
       required this.orderNumber});
+  bool canChangeState = false;
+  int storeDoneStates = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +98,9 @@ class ProductsOrder extends StatelessWidget {
           ),
         ),
         // To Progress the Order
-        _getNextStageCard(context),
+        Hider(
+            active: orderInfo.state == OrderStatus.WAITING || canChangeState,
+            child: _getNextStageCard(context)),
         Padding(
           padding: const EdgeInsets.only(right: 24.0, left: 24.0),
           child: Divider(
@@ -263,17 +267,19 @@ class ProductsOrder extends StatelessWidget {
 
   Widget getOrdersList(List<StoreOwnerInfo> carts, BuildContext context) {
     List<Widget> orderChips = [];
+    storeDoneStates = 0;
     carts.forEach((element) {
-         orderChips.add(Hider(
-           active: carts.length != 1,
-           child: InkWell(
-                 onTap: orderInfo.state != OrderStatus.WAITING
+      if (element.state == OrderStatus.DELIVERING) storeDoneStates += 1;
+      orderChips.add(Hider(
+        active: carts.length != 1,
+        child: InkWell(
+          onTap: orderInfo.state != OrderStatus.WAITING
               ? () {
                   onStore(element);
                 }
               : null,
-                 borderRadius: BorderRadius.circular(10),
-                 child: Container(
+          borderRadius: BorderRadius.circular(10),
+          child: Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: orderInfo.state != OrderStatus.WAITING
@@ -336,9 +342,9 @@ class ProductsOrder extends StatelessWidget {
                     )
                   : null,
             ),
-                 ),
-               ),
-         ));
+          ),
+        ),
+      ));
       if (orderInfo.state == OrderStatus.WAITING || cart.length == 1) {
         int i = 0;
         element.items.forEach((item) {
@@ -374,6 +380,9 @@ class ProductsOrder extends StatelessWidget {
         ),
       ));
     });
+    if (storeDoneStates == carts.length) {
+      canChangeState = true;
+    }
     return Padding(
       padding: const EdgeInsets.only(left: 8, right: 8, bottom: 16, top: 16),
       child: Flex(
