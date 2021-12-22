@@ -169,6 +169,9 @@ class StoreOwnerProfileController extends BaseController
      *          @OA\Property(type="string", property="branchName"),
      *          @OA\Property(type="string", property="openingTime"),
      *          @OA\Property(type="string", property="closingTime"),
+     *          @OA\Property(type="string", property="bankName"),
+     *          @OA\Property(type="string", property="bankAccountNumber"),
+     *          @OA\Property(type="string", property="stcPay"),
      *          @OA\Property(type="object", property="location",
      *              @OA\Property(type="string", property="lat"),
      *              @OA\Property(type="string", property="lon")
