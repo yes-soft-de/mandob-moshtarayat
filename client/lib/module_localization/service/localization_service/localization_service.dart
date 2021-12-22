@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'package:injectable/injectable.dart';
+import 'package:mandob_moshtarayat/di/di_config.dart';
+import 'package:mandob_moshtarayat/module_auth/service/auth_service/auth_service.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:mandob_moshtarayat/module_localization/presistance/localization_preferences_helper/localization_preferences_helper.dart';
 
@@ -15,6 +17,7 @@ class LocalizationService {
   void setLanguage(String lang) {
     _preferencesHelper.setLanguage(lang);
     _localizationSubject.add(lang);
+    getIt<AuthService>().updateCategoryFavorite(true);
   }
 
   String getLanguage() {

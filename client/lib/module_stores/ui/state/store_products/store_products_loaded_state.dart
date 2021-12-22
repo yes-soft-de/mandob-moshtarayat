@@ -157,6 +157,7 @@ class StoreProductsLoadedState extends StoreProductsState {
                                 List<Products> items = [];
                                 carts.forEach((element) {
                                   items.add(Products(
+                                      storeId: screenState.storeId.toString(),
                                       productID: element.id,
                                       countProduct: element.quantity));
                                 });

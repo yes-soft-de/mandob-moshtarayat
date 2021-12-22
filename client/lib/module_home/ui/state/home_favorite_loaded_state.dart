@@ -50,6 +50,7 @@ class HomeFavoriteLoadedState extends HomeState {
                 subCategory = '';
                 subCategoryLevel2ID = null;
                 catsLevel2 = [];
+                screenState.refresh();
               }
             },
             categoryName: getIt<FavoriteHiveHelper>()

@@ -65,7 +65,7 @@ class AuthService {
     _prefsHelper.setUsername(username);
     _prefsHelper.setPassword(password);
     _prefsHelper.setToken(loginResult.token);
-     await updateCategoryFavorite();
+    await updateCategoryFavorite();
     _authSubject.add(AuthStatus.AUTHORIZED);
   }
 
@@ -126,8 +126,9 @@ class AuthService {
     await _prefsHelper.cleanAll();
   }
 
-  Future<void> updateCategoryFavorite() async {
-    if (getIt<FavoriteHiveHelper>().getFavoriteCategory() == null) {
+  Future<void> updateCategoryFavorite([fource = false]) async {
+    if (isLoggedIn == false) return;
+    if (getIt<FavoriteHiveHelper>().getFavoriteCategory() == null || fource) {
       var fav = await getIt<AccountService>().getFavoriteCategoires();
       if (fav is UserFavouriteCategoriesModel) {
         var cats = await getIt<HomeService>().getStoreCategories();

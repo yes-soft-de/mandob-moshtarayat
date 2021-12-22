@@ -79,6 +79,7 @@ class CartHiveHelper {
     List<Products> products = [];
     cartModel.forEach((element) {
       products.add(Products(
+          storeId: element.storeID,
           productID: element.id,
           countProduct: element.quantity,
           price: element.price,

@@ -166,9 +166,15 @@ class _FavoriteHomeAppBarState extends State<FavoriteHomeAppBar> {
             selected: id == element.subCategoriesID.toString(),
             image: element.productCategoryImage,
             onTap: (selected) {
-              id = selected;
-              widget.categoriesCallback(id, element.productCategoriesLevel2);
-              setState(() {});
+              if (selected != id) {
+                id = selected;
+                widget.categoriesCallback(id, element.productCategoriesLevel2);
+                setState(() {});
+              } else {
+                id = '';
+                widget.categoriesCallback(selected, []);
+                setState(() {});
+              }
             }),
       );
     });
