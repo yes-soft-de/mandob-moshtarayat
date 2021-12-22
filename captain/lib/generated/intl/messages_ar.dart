@@ -91,7 +91,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "captainInStore":
             MessageLookupByLibrary.simpleMessage("الكابتن في المتجر"),
         "captainInStoreDescription":
-            MessageLookupByLibrary.simpleMessage("الكابتن يقوم بتجهيز طلبك"),
+            MessageLookupByLibrary.simpleMessage("المتجر يقوم بتجهيز الطلب"),
         "captainIsDelivering":
             MessageLookupByLibrary.simpleMessage("جار توصيل الطلب"),
         "captainIsInStore":
@@ -177,7 +177,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "deliverPrice": MessageLookupByLibrary.simpleMessage("التوصيل"),
         "deliverTo": MessageLookupByLibrary.simpleMessage("اسم المستلم"),
         "deliveringDescription":
-            MessageLookupByLibrary.simpleMessage("الكابتن في طريقه إليك"),
+            MessageLookupByLibrary.simpleMessage("الكابتن في طريقه للعميل"),
         "destinationAddress":
             MessageLookupByLibrary.simpleMessage("التوصيل إلى"),
         "destinationAddressHint":
