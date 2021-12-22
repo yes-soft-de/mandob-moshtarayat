@@ -246,6 +246,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "directSupport": MessageLookupByLibrary.simpleMessage("Direct Support"),
         "discount": MessageLookupByLibrary.simpleMessage("discount"),
         "distance": MessageLookupByLibrary.simpleMessage("Distance"),
+        "distributors": MessageLookupByLibrary.simpleMessage("Distributors"),
         "driverLicence": MessageLookupByLibrary.simpleMessage("Driver Licence"),
         "earnCash": MessageLookupByLibrary.simpleMessage("Earn Cash"),
         "earnCashDescribtion": MessageLookupByLibrary.simpleMessage(
@@ -327,6 +328,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please choose image of type (vector) with (96 px) rate with transparent background"),
         "inActiveCaptains":
             MessageLookupByLibrary.simpleMessage("Inactive Captains"),
+        "inActiveDistributors":
+            MessageLookupByLibrary.simpleMessage("Inactive Distributors"),
         "inactive": MessageLookupByLibrary.simpleMessage(
             "Your subscription not activate yet please wait"),
         "info": MessageLookupByLibrary.simpleMessage("Info"),
@@ -632,6 +635,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Search for store , product"),
         "searchForCaptain":
             MessageLookupByLibrary.simpleMessage("Search for captain"),
+        "searchForDistributor":
+            MessageLookupByLibrary.simpleMessage("Search For Distributor"),
         "searchForNotifications":
             MessageLookupByLibrary.simpleMessage("Search for a notification"),
         "searchForOrder": MessageLookupByLibrary.simpleMessage(

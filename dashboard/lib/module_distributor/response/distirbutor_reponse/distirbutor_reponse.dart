@@ -2,16 +2,16 @@ import 'package:mandob_moshtarayat_dashboad/utils/logger/logger.dart';
 
 import 'datum.dart';
 
-class DistirbutorReponse {
+class DistributorResponse {
   String? statusCode;
   String? msg;
   List<Datum>? data;
 
-  DistirbutorReponse({this.statusCode, this.msg, this.data});
+  DistributorResponse({this.statusCode, this.msg, this.data});
 
-  factory DistirbutorReponse.fromJson(Map<String, dynamic> json) {
+  factory DistributorResponse.fromJson(Map<String, dynamic> json) {
     try {
-      return DistirbutorReponse(
+      return DistributorResponse(
         statusCode: json['status_code'] as String?,
         msg: json['msg'] as String?,
         data: (json['Data'] as List<dynamic>?)
@@ -20,7 +20,7 @@ class DistirbutorReponse {
       );
     } catch (e) {
       Logger().error('Distirbutor Response',e.toString(),StackTrace.current);
-      return DistirbutorReponse(
+      return DistributorResponse(
         statusCode: '-1',
         msg: json['msg'] as String?,
       );

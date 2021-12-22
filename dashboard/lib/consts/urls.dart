@@ -114,6 +114,7 @@ class Urls {
       BASE_API + '/countOrdersEveryProductInLastMonth';
   static const DELETE_SUB_CATEGORIES = BASE_API + '/storeproductcategory/';
   static const DELETE_CATEGORIES = BASE_API + '/storecategory/';
-  static const UPDATE_PRODUCT_COMMISSION= BASE_API + '/updateproductcommissionbyadmin';
-
+  static const UPDATE_PRODUCT_COMMISSION =
+      BASE_API + '/updateproductcommissionbyadmin';
+  static const GET_DISTRO_API = BASE_API + '/mandobfilterbystatus/';
 }

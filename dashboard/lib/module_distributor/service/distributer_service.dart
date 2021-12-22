@@ -4,17 +4,15 @@ import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_captain/manager/captains_manager.dart';
 import 'package:mandob_moshtarayat_dashboad/module_captain/model/balance_model.dart';
 import 'package:mandob_moshtarayat_dashboad/module_captain/model/captain_model_payment_model.dart';
-import 'package:mandob_moshtarayat_dashboad/module_captain/model/inActiveModel.dart';
 import 'package:mandob_moshtarayat_dashboad/module_captain/model/porfile_model.dart';
 import 'package:mandob_moshtarayat_dashboad/module_captain/request/accept_captain_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_captain/response/captain_account_balance_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_captain/response/captain_profile_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_captain/response/captain_unfinished_pyments_response.dart';
-import 'package:mandob_moshtarayat_dashboad/module_captain/response/in_active_captain_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/response.dart';
-import 'package:mandob_moshtarayat_dashboad/module_distributor/module_captain/manager/distributors_manager.dart';
-import 'package:mandob_moshtarayat_dashboad/module_distributor/module_captain/model/inActiveModel.dart';
-import 'package:mandob_moshtarayat_dashboad/module_distributor/module_captain/response/distirbutor_reponse/distirbutor_reponse.dart';
+import 'package:mandob_moshtarayat_dashboad/module_distributor/manager/distributors_manager.dart';
+import 'package:mandob_moshtarayat_dashboad/module_distributor/model/inActiveModel.dart';
+import 'package:mandob_moshtarayat_dashboad/module_distributor/response/distirbutor_reponse/distirbutor_reponse.dart';
 import 'package:mandob_moshtarayat_dashboad/module_orders/model/order_account_model.dart';
 import 'package:mandob_moshtarayat_dashboad/module_orders/response/captain_remaining_payments_response.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/helpers/status_code_helper.dart';
@@ -26,7 +24,7 @@ class DistributerService {
   DistributerService(this._distroManager);
 
   Future<DataModel> getInActiveDistros() async {
-    DistirbutorReponse? _inActiveCaptainResponse =
+    DistributorResponse? _inActiveCaptainResponse =
         await _distroManager.getInActiveDistro();
     if (_inActiveCaptainResponse == null) {
       return DataModel.withError(S.current.networkError);
@@ -40,7 +38,7 @@ class DistributerService {
   }
 
   Future<DataModel> getDistros() async {
-    DistirbutorReponse? _inActiveCaptainResponse =
+    DistributorResponse? _inActiveCaptainResponse =
         await _distroManager.getDistros();
     if (_inActiveCaptainResponse == null) {
       return DataModel.withError(S.current.networkError);

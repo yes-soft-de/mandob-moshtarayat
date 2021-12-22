@@ -4,8 +4,8 @@ import 'package:mandob_moshtarayat_dashboad/module_captain/response/captain_acco
 import 'package:mandob_moshtarayat_dashboad/module_captain/response/captain_profile_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_captain/response/captain_unfinished_pyments_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/response.dart';
-import 'package:mandob_moshtarayat_dashboad/module_distributor/module_captain/repository/distributor_repository.dart';
-import 'package:mandob_moshtarayat_dashboad/module_distributor/module_captain/response/distirbutor_reponse/distirbutor_reponse.dart';
+import 'package:mandob_moshtarayat_dashboad/module_distributor/repository/distributor_repository.dart';
+import 'package:mandob_moshtarayat_dashboad/module_distributor/response/distirbutor_reponse/distirbutor_reponse.dart';
 import 'package:mandob_moshtarayat_dashboad/module_orders/response/captain_remaining_payments_response.dart';
 
 @injectable
@@ -14,10 +14,10 @@ class DistributorManager {
 
   DistributorManager(this._distributorRepository);
 
-  Future<DistirbutorReponse?> getInActiveDistro() =>
-      _distributorRepository.getInActiveDistro();
+  Future<DistributorResponse?> getInActiveDistro() =>
+      _distributorRepository.getInActiveDistributor();
       
-  Future<DistirbutorReponse?> getDistros() =>
+  Future<DistributorResponse?> getDistros() =>
       _distributorRepository.getDistro();
 
   Future<ActionResponse?> enableCaptain(AcceptCaptainRequest request) =>

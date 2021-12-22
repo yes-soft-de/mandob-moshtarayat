@@ -1,5 +1,5 @@
 import 'package:mandob_moshtarayat_dashboad/abstracts/data_model/data_model.dart';
-import 'package:mandob_moshtarayat_dashboad/module_distributor/module_captain/response/distirbutor_reponse/datum.dart';
+import 'package:mandob_moshtarayat_dashboad/module_distributor/response/distirbutor_reponse/datum.dart';
 
 class DistributorModel extends DataModel {
   late String distroID;

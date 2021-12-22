@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat_dashboad/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
-import 'package:mandob_moshtarayat_dashboad/module_captain/captains_routes.dart';
-import 'package:mandob_moshtarayat_dashboad/module_captain/model/inActiveModel.dart';
-import 'package:mandob_moshtarayat_dashboad/module_distributor/module_captain/model/inActiveModel.dart';
-import 'package:mandob_moshtarayat_dashboad/module_distributor/module_captain/ui/screen/in_active_distros_screen.dart';
+import 'package:mandob_moshtarayat_dashboad/module_distributor/model/inActiveModel.dart';
+import 'package:mandob_moshtarayat_dashboad/module_distributor/ui/screen/in_active_distros_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/costom_search.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_list_view.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/empty_screen.dart';
@@ -124,7 +122,7 @@ class InDistributedActiveLoadedState extends States {
           Padding(
             padding: EdgeInsets.only(left: 18.0, right: 18.0, bottom: 16),
             child: CustomDeliverySearch(
-              hintText: S.current.searchForCaptain,
+              hintText: S.current.searchForDistributor,
               onChanged: (s) {
                 if (s == '' || s.isEmpty) {
                   search = null;

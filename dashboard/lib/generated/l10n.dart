@@ -5439,6 +5439,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Distributors`
+  String get distributors {
+    return Intl.message(
+      'Distributors',
+      name: 'distributors',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Inactive Distributors`
+  String get inActiveDistributors {
+    return Intl.message(
+      'Inactive Distributors',
+      name: 'inActiveDistributors',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search For Distributor`
+  String get searchForDistributor {
+    return Intl.message(
+      'Search For Distributor',
+      name: 'searchForDistributor',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -7,6 +7,8 @@ import 'package:mandob_moshtarayat_dashboad/module_captain/captains_module.dart'
 import 'package:mandob_moshtarayat_dashboad/module_categories/categories_module.dart';
 import 'package:mandob_moshtarayat_dashboad/module_clients/clients_module.dart';
 import 'package:mandob_moshtarayat_dashboad/module_company/company_module.dart';
+import 'package:mandob_moshtarayat_dashboad/module_distributor/distros_module.dart';
+import 'package:mandob_moshtarayat_dashboad/module_distributor/ui/screen/distors_list_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/module_filters/filters_module.dart';
 import 'package:mandob_moshtarayat_dashboad/module_main/main_module.dart';
 import 'package:mandob_moshtarayat_dashboad/module_orders/orders_module.dart';
@@ -14,7 +16,6 @@ import 'package:mandob_moshtarayat_dashboad/module_reports/report_module.dart';
 import 'package:mandob_moshtarayat_dashboad/module_settings/settings_module.dart';
 import 'package:mandob_moshtarayat_dashboad/module_stores/stores_module.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_list_view.dart';
-import 'package:mandob_moshtarayat_dashboad/utils/customIcon/custom_icons.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/customIcon/mandob_icons_icons.dart';
 
 // current last index is 19
@@ -90,8 +91,11 @@ class _NavigatorMenuState extends State<NavigatorMenu> {
                     S.current.mainCategories, FontAwesomeIcons.circle, true),
                 customListTile(getIt<CategoriesModule>().subCategoriesScreen,
                     S.current.subCategories, FontAwesomeIcons.square, true),
-                customListTile(getIt<CategoriesModule>().productCategoriesScreen,
-                    S.current.categoriesLevel2, FontAwesomeIcons.dotCircle, true),
+                customListTile(
+                    getIt<CategoriesModule>().productCategoriesScreen,
+                    S.current.categoriesLevel2,
+                    FontAwesomeIcons.dotCircle,
+                    true),
               ],
               page: widget.currentPage),
           // Store
@@ -106,6 +110,17 @@ class _NavigatorMenuState extends State<NavigatorMenu> {
                     S.current.storesInActive,
                     FontAwesomeIcons.storeSlash,
                     true),
+              ],
+              page: widget.currentPage),
+          // Distros
+          customExpansionTile(
+              title: S.current.distributors,
+              icon: FontAwesomeIcons.adversal,
+              children: [
+                customListTile(getIt<DistributorsModule>().distro_screen,
+                    S.current.distributors, FontAwesomeIcons.adversal, true),
+                customListTile(getIt<DistributorsModule>().inActiveDistributorsScreen,
+                    S.current.inActiveDistributors, FontAwesomeIcons.adversal, true),
               ],
               page: widget.currentPage),
           // Captains

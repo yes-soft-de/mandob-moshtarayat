@@ -5,9 +5,8 @@ import 'package:mandob_moshtarayat_dashboad/module_captain/request/accept_captai
 import 'package:mandob_moshtarayat_dashboad/module_captain/response/captain_account_balance_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_captain/response/captain_profile_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_captain/response/captain_unfinished_pyments_response.dart';
-import 'package:mandob_moshtarayat_dashboad/module_captain/response/in_active_captain_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/response.dart';
-import 'package:mandob_moshtarayat_dashboad/module_distributor/module_captain/response/distirbutor_reponse/distirbutor_reponse.dart';
+import 'package:mandob_moshtarayat_dashboad/module_distributor/response/distirbutor_reponse/distirbutor_reponse.dart';
 import 'package:mandob_moshtarayat_dashboad/module_network/http_client/http_client.dart';
 import 'package:mandob_moshtarayat_dashboad/module_orders/response/captain_remaining_payments_response.dart';
 
@@ -18,20 +17,20 @@ class DistributorRepository {
 
   DistributorRepository(this._apiClient, this._authService);
 
-  Future<DistirbutorReponse?> getInActiveDistro() async {
+  Future<DistributorResponse?> getInActiveDistributor() async {
     var token = await _authService.getToken();
-    dynamic response = await _apiClient.get(Urls.GET_IN_ACTIVE_CAPTAINS,
+    dynamic response = await _apiClient.get(Urls.GET_DISTRO_API + 'inactive',
         headers: {'Authorization': 'Bearer ' + token.toString()});
     if (response == null) return null;
-    return DistirbutorReponse.fromJson(response);
+    return DistributorResponse.fromJson(response);
   }
 
-  Future<DistirbutorReponse?> getDistro() async {
+  Future<DistributorResponse?> getDistro() async {
     var token = await _authService.getToken();
-    dynamic response = await _apiClient.get(Urls.GET_CAPTAINS_LIST,
+    dynamic response = await _apiClient.get(Urls.GET_DISTRO_API + 'active',
         headers: {'Authorization': 'Bearer ' + token.toString()});
     if (response == null) return null;
-    return DistirbutorReponse.fromJson(response);
+    return DistributorResponse.fromJson(response);
   }
 
   Future<CaptainProfileResponse?> getCaptainProfile(int captainId) async {
