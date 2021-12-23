@@ -103,6 +103,26 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
             ),
           ),
         ),
+        // payments
+        Padding(
+          padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).backgroundColor,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: ListTile(
+              leading: Icon(
+                Icons.payment,
+                color: Theme.of(context).disabledColor,
+              ),
+              title: Text(S.current.paymentMethod),
+              subtitle: Text(orderInfo.payment == 'cash'
+                  ? S.current.cash
+                  : S.current.card),
+            ),
+          ),
+        ),
         // with order type we can get order widgets
         orderInfo.state == OrderStatus.CANCELLED
             ? SizedBox()
