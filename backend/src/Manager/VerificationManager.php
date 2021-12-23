@@ -5,6 +5,7 @@ namespace App\Manager;
 use App\AutoMapping;
 use App\Entity\VerificationEntity;
 use App\Repository\VerificationEntityRepository;
+use App\Request\DeleteRequest;
 use App\Request\VerificationCreateRequest;
 use App\Request\VerifyCodeRequest;
 use Doctrine\ORM\EntityManagerInterface;
@@ -103,6 +104,28 @@ class VerificationManager
         }
 
         return $verificationCode;
+    }
+
+    public function getVerificationCodeByUserID($userID)
+    {
+        return $this->verificationEntityRepository->getVerificationCodeByUserID($userID);
+    }
+
+    public function deleteByID(DeleteRequest $request)
+    {
+        $verificationEntity = $this->verificationEntityRepository->find($request->getId());
+
+        if (!$verificationEntity)
+        {
+            return 'notFound';
+        }
+        else
+        {
+            $this->entityManager->remove($verificationEntity);
+            $this->entityManager->flush();
+
+            return $verificationEntity;
+        }
     }
 
 }
