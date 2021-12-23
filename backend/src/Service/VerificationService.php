@@ -6,12 +6,14 @@ use App\AutoMapping;
 use App\Constant\StoreOwnerVerificationStatusConstant;
 use App\Entity\VerificationEntity;
 use App\Manager\VerificationManager;
+use App\Request\CheckStoreOwnerVerificationRequest;
 use App\Request\ReSendNewVerificationCodeRequest;
 use App\Request\StoreOwnerVerificationStatusUpdateRequest;
 use App\Request\VerificationCreateRequest;
 use App\Request\VerifyCodeRequest;
 use App\Response\CodeVerificationResponse;
 use App\Response\NewVerificationCodeResponse;
+use App\Response\StoreOwnerVerificationStatusGetResponse;
 use App\Response\VerificationCreateResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
@@ -39,21 +41,21 @@ class VerificationService
 
         if($item)
         {
-            $this->sendSMSMessage($request->getUserID());
+//            $this->sendSMSMessage($request->getUserID(), $item->getCode());
 
             return $this->autoMapping->map(VerificationEntity::class, VerificationCreateResponse::class, $item);
         }
     }
 
-    public function sendSMSMessage($phone)
+    public function sendSMSMessage($phone, $code)
     {
-        $messageText = "شركة Yes Soft, رسالة تجريبية، الرجاء إعلامنا في حال وصول هذه الرسالة لكم.";
+        $messageText = 'ي';
 
         // send SMS message
         $this->malathSMSService->setUserName($this->params->get('malath_username'));
         $this->malathSMSService->setPassword($this->params->get('malath_password'));
 
-        $result = $this->malathSMSService->sendSMS("966550031000", "ACTIVE", $messageText);
+        $result = $this->malathSMSService->sendSMS("971522808757", "ACTIVE", $messageText);
         //dd($result);
         if($result)
         {
@@ -138,6 +140,22 @@ class VerificationService
         }
 
         return $this->autoMapping->map('array', NewVerificationCodeResponse::class, $response);
+    }
+
+    public function getStoreOwnerVerificationStatusByUserID(CheckStoreOwnerVerificationRequest $request)
+    {
+        $result = $this->userService->getStoreOwnerVerificationStatusByUserID($request->getUserID());
+
+        if ($result['verificationStatus'])
+        {
+            return $this->autoMapping->map('array', StoreOwnerVerificationStatusGetResponse::class, $result);
+        }
+        else
+        {
+            $result['verificationStatus'] = 'notYet';
+
+            return $this->autoMapping->map('array', StoreOwnerVerificationStatusGetResponse::class, $result);
+        }
     }
 
 }

@@ -632,15 +632,42 @@ class ProductService
     {
         $response = [];
 
-        $storeProductCategoriesLevel1 = $this->productManager->getStoreProductCategoryLevel2($storeProductCategoryIdLevel1);
+        $storeProductCategoriesLevelTwo = $this->productManager->getStoreProductCategoryLevel2($storeProductCategoryIdLevel1);
 
-        foreach ($storeProductCategoriesLevel1 as $item)
+        foreach ($storeProductCategoriesLevelTwo as $item)
         {
             $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params . $item['productCategoryImage'], $this->params);
 
             $item['products'] = $this->getProductsByStoreProductCategoryID($userLocale, $item['id']);
 
             $response[] = $this->autoMapping->map('array', StoreProductCategoriesResponse::class, $item);
+        }
+
+        return $response;
+    }
+
+    public function getProductsByStoreProductCategoryLevelTwo($userLocale, $storeProductCategoryIdLevelTwo): array
+    {
+        $response = [];
+
+        if($userLocale != null && $userLocale != $this->primaryLanguage)
+        {
+            $productsTranslation = $this->productManager->getProductsTranslationByStoreProductCategoryID($storeProductCategoryIdLevelTwo);
+
+            $products = $this->replaceProductTranslatedNameByPrimaryOne($productsTranslation, $userLocale);
+        }
+        else
+        {
+            $products = $this->productManager->getProductsByStoreProductCategoryID($storeProductCategoryIdLevelTwo);
+        }
+
+        foreach ($products as $item) {
+            $item['store'] = $this->storeOwnerProfileService->getStoreNameById($item['storeOwnerProfileID']);
+            $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
+            $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
+            $item['soldCount'] = $this->getProductsSoldCount($item['id']);
+
+            $response[] = $this->autoMapping->map('array', ProductsByProductCategoryIdResponse::class, $item);
         }
 
         return $response;
