@@ -42,6 +42,7 @@ class BaseController extends AbstractController
     const CODE_DATE_IS_NOT_VALID = ["overdue cod!", "9153"];
     const ALREADY_VERIFIED_STORE_OWNER = ["already verified store owner!", "9154"];
     const STORE_OWNER_IS_NOT_REGISTERED = ["store owner is not registered!", "9155"];
+    const STORE_OWNER_IS_NOT_VERIFIED = ["store owner is not verified!", "9156"];
 
     const NOTFOUND=["Not found", "404"];
 //    const TEST = [
