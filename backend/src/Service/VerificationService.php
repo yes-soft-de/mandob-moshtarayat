@@ -171,4 +171,20 @@ class VerificationService
         return $this->verificationManager->getVerificationCodeByUserID($userID);
     }
 
+    public function deleteByID($request)
+    {
+        $verificationEntity = $this->verificationManager->deleteByID($request);
+
+        if($verificationEntity == 'notFound')
+        {
+
+        }
+        else
+        {
+            return $this->autoMapping->map(VerificationEntity::class, VerificationCreateResponse::class, $verificationEntity);
+        }
+
+        return $verificationEntity;
+    }
+
 }

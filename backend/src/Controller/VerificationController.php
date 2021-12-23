@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\CheckStoreOwnerVerificationRequest;
+use App\Request\DeleteRequest;
 use App\Request\ReSendNewVerificationCodeRequest;
 use App\Request\VerifyCodeRequest;
 use App\Service\VerificationService;
@@ -236,6 +237,20 @@ class VerificationController extends BaseController
         $result = $this->verificationService->getVerificationCodeByUserID($userID);
 
         return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("verificationrecord/{id}", name="deleteVerificationRecordByID", methods={"DELETE"})
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function deleteByID(Request $request): JsonResponse
+    {
+        $request = new DeleteRequest($request->get('id'));
+
+        $result = $this->verificationService->deleteByID($request);
+
+        return $this->response($result, self::DELETE);
     }
 
 }
