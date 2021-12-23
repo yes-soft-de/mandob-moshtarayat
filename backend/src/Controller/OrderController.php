@@ -1578,7 +1578,6 @@ class OrderController extends BaseController
      * @OA\RequestBody (
      *        description="Update the order invoice",
      *        @OA\JsonContent(
-     *              @OA\Property(type="integer", property="orderDetailID"),
      *              @OA\Property(type="integer", property="storeOwnerProfileID"),
      *              @OA\Property(type="integer", property="orderNumber"),
      *              @OA\Property(type="number", property="invoiceAmount"),
