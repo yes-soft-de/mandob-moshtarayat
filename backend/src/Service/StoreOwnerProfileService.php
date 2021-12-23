@@ -60,7 +60,7 @@ class StoreOwnerProfileService
 
         if($userRegister instanceof UserEntity)
         {
-//            $this->createVerificationCodeForStoreOwner($request);
+            $this->createVerificationCodeForStoreOwner($request);
 
             return $this->autoMapping->map(UserEntity::class, UserRegisterResponse::class, $userRegister);
         }

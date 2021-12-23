@@ -41,39 +41,47 @@ class VerificationService
 
         if($item)
         {
-//            $this->sendSMSMessage($request->getUserID(), $item->getCode());
+            $result = $this->sendSMSMessage($request->getUserID(), $item->getCode());
 
-            return $this->autoMapping->map(VerificationEntity::class, VerificationCreateResponse::class, $item);
+            $response = $this->autoMapping->map(VerificationEntity::class, VerificationCreateResponse::class, $item);
+
+            $response->smsMessageStatus = $result;
+
+            return $response;
         }
     }
 
     public function sendSMSMessage($phone, $code)
     {
-        $messageText = 'ي';
+        $messageText = 'Please use this code to activate your account:'.' '.$code;
 
         // send SMS message
         $this->malathSMSService->setUserName($this->params->get('malath_username'));
         $this->malathSMSService->setPassword($this->params->get('malath_password'));
 
-        $result = $this->malathSMSService->sendSMS("971522808757", "ACTIVE", $messageText);
-        //dd($result);
+        $result = $this->malathSMSService->sendSMS($phone, "MANDOB-AD", $messageText);
+
         if($result)
         {
             if ($result['RESULT'] == 0)
             {
                 // message sent successfully
+                return 'sentSuccessfully';
             }
             elseif ($result['RESULT'] == 101)
             {
                 // Parameter are missing
+                return 'parameterAreMissing';
             }
             elseif ($result['RESULT'] == 104)
             {
                 // either user name or password are missing or your Account is on hold
+                return 'userNameOrPasswordAreMissingOrYourAccountIsOnHold';
             }
             elseif ($result['RESULT'] == 105)
             {
                 // Credit are not available
+                return 'creditAreNotAvailable';
             }
         }
     }

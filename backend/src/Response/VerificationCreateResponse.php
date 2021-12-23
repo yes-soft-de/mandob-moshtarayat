@@ -6,4 +6,6 @@ class VerificationCreateResponse
 {
     public $createdAt;
 
+    public $smsMessageStatus;
+
 }
