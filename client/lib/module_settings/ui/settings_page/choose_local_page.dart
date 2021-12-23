@@ -90,6 +90,9 @@ class _ChooseLocalScreenState extends State<ChooseLocalScreen> {
                     active: myLocale.languageCode == 'ar',
                   ),
                 ),
+                Container(
+                  height: 18,
+                ),
                 InkWell(
                   onTap: () {
                     widget._localizationService.setLanguage('ur');
