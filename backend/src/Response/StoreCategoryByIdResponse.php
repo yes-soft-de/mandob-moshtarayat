@@ -9,4 +9,6 @@ class StoreCategoryByIdResponse
     public $image;
 
     public $language;
+
+    public $translate;
 }

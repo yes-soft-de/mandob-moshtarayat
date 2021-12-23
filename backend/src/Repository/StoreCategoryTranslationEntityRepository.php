@@ -56,4 +56,17 @@ class StoreCategoryTranslationEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getAllStoreCategoryTranslationsByStoreCategoryID($storeCategoryID)
+    {
+        return $this->createQueryBuilder('storeCategoryTranslationEntity')
+            ->select('storeCategoryTranslationEntity.id', 'storeCategoryTranslationEntity.language', 'storeCategoryTranslationEntity.storeCategoryName', 'storeCategoryTranslationEntity.storeCategoryName',
+             'storeCategoryTranslationEntity.description')
+
+            ->andWhere('storeCategoryTranslationEntity.storeCategoryID = :storeCategoryID')
+            ->setParameter('storeCategoryID', $storeCategoryID)
+
+            ->getQuery()
+            ->getResult();
+    }
+
 }

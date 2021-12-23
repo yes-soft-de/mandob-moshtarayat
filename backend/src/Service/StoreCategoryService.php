@@ -125,6 +125,8 @@ class StoreCategoryService
            $item['image'] = $this->getImageParams($item['image'], $this->params . $item['image'], $this->params);
        }
 
+       $item['translate'] = $this->storeCategoryManager->getAllStoreCategoryTranslationsByStoreCategoryID($id);
+
        return $this->autoMapping->map('array', StoreCategoryByIdResponse::class, $item);
     }
 

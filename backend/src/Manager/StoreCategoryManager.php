@@ -212,5 +212,10 @@ class StoreCategoryManager
             return $storeCategoryEntity;
         }
     }
+
+    public function getAllStoreCategoryTranslationsByStoreCategoryID($storeCategoryID)
+    {
+        return $this->storeCategoryTranslationManager->getAllStoreCategoryTranslationsByStoreCategoryID($storeCategoryID);
+    }
 }
 
