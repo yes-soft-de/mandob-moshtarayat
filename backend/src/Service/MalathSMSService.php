@@ -3,7 +3,6 @@
 namespace App\Service;
 
 use App\Constant\MalathURLConstant;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class MalathSMSService
 {
@@ -106,7 +105,7 @@ class MalathSMSService
             curl_setopt($curl, CURLOPT_URL, $_url);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl, CURLOPT_HEADER, false);
-            //dd($curl);
+
             // execute and return string (this should be an empty string '')
             $result = curl_exec($curl);
             curl_close($curl);

@@ -41,7 +41,7 @@ class VerificationService
 
         if($item)
         {
-//            $this->sendSMSMessage($request->getUserID(), $item->getCode());
+            $this->sendSMSMessage($request->getUserID(), $item->getCode());
 
             return $this->autoMapping->map(VerificationEntity::class, VerificationCreateResponse::class, $item);
         }
@@ -49,14 +49,14 @@ class VerificationService
 
     public function sendSMSMessage($phone, $code)
     {
-        $messageText = 'ي';
+        $messageText = 'Please use this code to activate your account'.' '.$code;
 
         // send SMS message
         $this->malathSMSService->setUserName($this->params->get('malath_username'));
         $this->malathSMSService->setPassword($this->params->get('malath_password'));
 
         $result = $this->malathSMSService->sendSMS("971522808757", "ACTIVE", $messageText);
-        //dd($result);
+
         if($result)
         {
             if ($result['RESULT'] == 0)
