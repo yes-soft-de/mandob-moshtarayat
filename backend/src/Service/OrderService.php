@@ -492,6 +492,7 @@ class OrderService
         $item['orderDetails'] = $this->orderDetailService->orderDetails($orderNumber);
 
         $item['deliveryCost'] = $this->deliveryCompanyFinancialService->getDeliveryCostScalar();
+        $item['invoices'] = $this->ordersInvoicesService->getInvoicesByOrderNumber($orderNumber);
 
         $item['rate'] = $this->ratingService->getAvgOrder($orderNumber);
         if($item['orderDetails']) {

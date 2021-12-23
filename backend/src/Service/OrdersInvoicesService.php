@@ -24,4 +24,9 @@ class OrdersInvoicesService
         return $this->autoMapping->map(OrdersInvoicesEntity::class, OrderUpdateInvoiceByCaptainResponse::class, $item);
     }
 
+    public function getInvoicesByOrderNumber($orderNumber)
+    {
+        return $this->ordersInvoicesManager->getInvoicesByOrderNumber($orderNumber);
+    }
+
 }
