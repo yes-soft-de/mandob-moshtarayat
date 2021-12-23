@@ -10,7 +10,18 @@ class OrderUpdateByClientRequest
 
     private $clientID;
 
-     /**
+    private $destination;
+
+    private $deliveryDate;
+
+    private $note;
+
+    private $payment;
+
+    private $orderCost;
+
+
+    /**
      * Get the value of orderNumber
      */ 
     public function getOrderNumber()
@@ -68,5 +79,21 @@ class OrderUpdateByClientRequest
         $this->clientID = $clientID;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeliveryDate()
+    {
+        return $this->deliveryDate;
+    }
+
+    /**
+     * @param mixed $deliveryDate
+     */
+    public function setDeliveryDate($deliveryDate): void
+    {
+        $this->deliveryDate = $deliveryDate;
     }
 }

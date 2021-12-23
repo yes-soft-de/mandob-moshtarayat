@@ -202,7 +202,11 @@ class OrderDetailManager
             $item = $this->autoMapping->mapToObject(OrderUpdateStateByOrderStateRequest::class, OrderDetailEntity::class, $request, $item);
             $this->entityManager->flush();
             if ($item) {
-                $this->orderLogManager->createOrderLogFromManager($item->getOrderNumber(), $item->getState(), $request->getCaptainID(), $item->getStoreOwnerProfileID());
+               if($item->getStoreOwnerProfileID()) {
+                   $this->orderLogManager->createOrderLogFromManager($item->getOrderNumber(), $item->getState(), $request->getCaptainID(), $item->getStoreOwnerProfileID());
+               }
+
+                $this->orderLogManager->createOrderLogFromManager($item->getOrderNumber(), $item->getState(), $request->getCaptainID());
             }
             return $item;
         }

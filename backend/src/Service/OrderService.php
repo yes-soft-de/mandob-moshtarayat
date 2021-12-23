@@ -492,6 +492,7 @@ class OrderService
         $item['orderDetails'] = $this->orderDetailService->orderDetails($orderNumber);
 
         $item['deliveryCost'] = $this->deliveryCompanyFinancialService->getDeliveryCostScalar();
+        $item['invoices'] = $this->ordersInvoicesService->getInvoicesByOrderNumber($orderNumber);
 
         $item['rate'] = $this->ratingService->getAvgOrder($orderNumber);
         if($item['orderDetails']) {
@@ -516,24 +517,28 @@ class OrderService
                 return ResponseConstant::$ORDER_NOT_UPDATE_STATE;
             }
 
-            $products = $request->getProducts();
+            $orderUpdate = $this->orderManager->updateOrderByClient($request, $orderId[0]['orderID']);
+            if($orderUpdate) {
+                $products = $request->getProducts();
 
-            foreach ($products as $product) {
+                foreach ($products as $product) {
 
-                $productID = $product['productID'];
-                $countProduct = $product['countProduct'];
+                    $productID = $product['productID'];
+                    $countProduct = $product['countProduct'];
 
-                $orderDetail = new OrderUpdateProductCountByClientRequest();
-                $orderDetail->setCountProduct($countProduct);
-                $orderDetail->setOrderNumber($request->getOrderNumber());
-                $orderDetail->setProductId($productID);
+                    $orderDetail = new OrderUpdateProductCountByClientRequest();
+                    $orderDetail->setCountProduct($countProduct);
+                    $orderDetail->setOrderNumber($request->getOrderNumber());
+                    $orderDetail->setProductId($productID);
 
-                $updateProductCount = $this->orderDetailService->UpdateProductCount($orderDetail);
+                    $updateProductCount = $this->orderDetailService->UpdateProductCount($orderDetail);
+                }
+                //notification local
+                $this->notificationLocalService->createNotificationLocal($request->GetClientID(), LocalNotificationList::$UPDATE_ORDER_TITLE, LocalNotificationList::$UPDATE_ORDER_SUCCESS, $request->getOrderNumber());
+                $response = $this->autoMapping->map(OrderUpdateProductCountByClientResponse::class, OrderUpdateProductCountByClientResponse::class, $updateProductCount);
             }
-            //notification local
-            $this->notificationLocalService->createNotificationLocal($request->GetClientID(), LocalNotificationList::$UPDATE_ORDER_TITLE, LocalNotificationList::$UPDATE_ORDER_SUCCESS, $request->getOrderNumber());
-            $response = $this->autoMapping->map(OrderUpdateProductCountByClientResponse::class, OrderUpdateProductCountByClientResponse::class, $updateProductCount);
         }
+
         return $response;
     }
 

@@ -23,6 +23,11 @@ class OrdersInvoicesManager
         $this->ordersInvoicesEntityRepository = $ordersInvoicesEntityRepository;
     }
 
+    public function getInvoicesByOrderNumber($orderNumber)
+    {
+       return $this->ordersInvoicesEntityRepository->getInvoicesByOrderNumber($orderNumber);
+    }
+
     public function orderUpdateInvoiceByCaptain(OrderUpdateInvoiceByCaptainRequest $request)
     {
         $item = $this->autoMapping->map(OrderUpdateInvoiceByCaptainRequest::class, OrdersInvoicesEntity::class, $request);

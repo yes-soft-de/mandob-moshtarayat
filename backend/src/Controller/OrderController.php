@@ -1187,10 +1187,15 @@ class OrderController extends BaseController
      * )
      *
      *  @OA\RequestBody (
-     *        description="Update the order invoice",
+     *        description="Update the order of type one",
      *        @OA\JsonContent(
      *              @OA\Property(type="string", property="orderNumber"),
-     *              @OA\Property(type="array", property="products",
+     *              @OA\Property(type="object", property="destination"),
+     *              @OA\Property(type="string", property="payment"),
+     *              @OA\Property(type="string", property="note"),
+     *              @OA\Property(type="string", property="deliveryDate"),
+     *              @OA\Property(type="string", property="orderCost"),
+     *              @OA\Property(type="array",  property="products",
      *                  @OA\Items(
      *                       @OA\Property(type="integer", property="productID"),
      *                       @OA\Property(type="integer", property="countProduct"),
@@ -1573,7 +1578,6 @@ class OrderController extends BaseController
      * @OA\RequestBody (
      *        description="Update the order invoice",
      *        @OA\JsonContent(
-     *              @OA\Property(type="integer", property="orderDetailID"),
      *              @OA\Property(type="integer", property="storeOwnerProfileID"),
      *              @OA\Property(type="integer", property="orderNumber"),
      *              @OA\Property(type="number", property="invoiceAmount"),

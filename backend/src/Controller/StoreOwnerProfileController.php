@@ -204,6 +204,7 @@ class StoreOwnerProfileController extends BaseController
      *      )
      *   )
      * )
+     *
      * @Security(name="Bearer")
      */
     public function storeOwnerProfileUpdate(Request $request): JsonResponse
@@ -671,11 +672,71 @@ class StoreOwnerProfileController extends BaseController
     }
 
      /**
+     * admin: Create Store Owner Profile By Admin.
      * @Route("/storeownercreatbyadmin", name="CreateStoreOwnerProfileByAdmin", methods={"POST"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
-     */
+      * *
+      * @OA\Tag(name="Store Owner Profile")
+      *
+      * @OA\Parameter(
+      *      name="token",
+      *      in="header",
+      *      description="token to be passed as a header",
+      *      required=true
+      * )
+      *
+      * @OA\RequestBody(
+      *      description="Update Store Owner Profile",
+      *      @OA\JsonContent(
+      *          @OA\Property(type="string", property="storeOwnerName"),
+      *          @OA\Property(type="string", property="image"),
+      *          @OA\Property(type="string", property="phone"),
+      *          @OA\Property(type="integer", property="storeCategoryId"),
+      *          @OA\Property(type="boolean", property="privateOrders"),
+      *          @OA\Property(type="boolean", property="hasProducts"),
+      *          @OA\Property(type="string", property="branchName"),
+      *          @OA\Property(type="string", property="openingTime"),
+      *          @OA\Property(type="string", property="closingTime"),
+      *          @OA\Property(type="string", property="bankName"),
+      *          @OA\Property(type="string", property="bankAccountNumber"),
+      *          @OA\Property(type="string", property="stcPay"),
+      *          @OA\Property(type="object", property="location",
+      *              @OA\Property(type="string", property="lat"),
+      *              @OA\Property(type="string", property="lon")
+      *
+      *          )
+      *      )
+      * )
+      *
+      * @OA\Response(
+      *      response=204,
+      *      description="Returns the store owner's profile",
+      *      @OA\JsonContent(
+      *          @OA\Property(type="string", property="status_code"),
+      *          @OA\Property(type="string", property="msg"),
+      *          @OA\Property(type="object", property="Data",
+      *              @OA\Property(type="string", property="storeOwnerName"),
+      *              @OA\Property(type="string", property="image"),
+      *              @OA\Property(type="string", property="phone"),
+      *              @OA\Property(type="integer", property="storeCategoryId"),
+      *              @OA\Property(type="boolean", property="privateOrders"),
+      *              @OA\Property(type="boolean", property="hasProducts"),
+      *              @OA\Property(type="string", property="branchName"),
+      *              @OA\Property(type="string", property="openingTime"),
+      *              @OA\Property(type="string", property="closingTime"),
+      *              @OA\Property(type="object", property="location",
+      *                   @OA\Property(type="string", property="lat"),
+      *                   @OA\Property(type="string", property="lon")
+      *
+      *          )
+      *      )
+      *   )
+      * )
+      *
+      * @Security(name="Bearer")
+      */
     public function createStoreOwnerProfileByAdmin(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);

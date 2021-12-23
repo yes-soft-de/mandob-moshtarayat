@@ -8,4 +8,5 @@ class OrderInfoResponse
     public $orderDetails;
     public $deliveryCost;
     public $rate;
+    public $invoices;
 }

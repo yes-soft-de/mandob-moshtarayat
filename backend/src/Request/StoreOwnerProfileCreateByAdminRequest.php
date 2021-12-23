@@ -36,6 +36,12 @@ class StoreOwnerProfileCreateByAdminRequest
 
     private $closingTime;
 
+    private $bankName;
+
+    private $bankAccountNumber;
+
+    private $stcPay;
+
 
     /**
      * @return mixed

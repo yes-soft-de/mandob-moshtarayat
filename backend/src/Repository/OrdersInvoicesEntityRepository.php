@@ -18,33 +18,16 @@ class OrdersInvoicesEntityRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, OrdersInvoicesEntity::class);
     }
-
-    // /**
-    //  * @return OrdersInvoicesEntity[] Returns an array of OrdersInvoicesEntity objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getInvoicesByOrderNumber($orderNumber)
     {
-        return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('o.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        return $this->createQueryBuilder('invoice')
 
-    /*
-    public function findOneBySomeField($value): ?OrdersInvoicesEntity
-    {
-        return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
-            ->setParameter('val', $value)
+            ->select('invoice.id', 'invoice.invoiceAmount')
+
+            ->andWhere('invoice.orderNumber = :orderNumber' )
+            ->setParameter('orderNumber',$orderNumber)
+
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult();
     }
-    */
 }
