@@ -3,8 +3,9 @@ class OrderInvoiceRequest {
   double? invoiceAmount;
   String? invoiceImage;
   int? isBilled;
+  String? storeID;
   OrderInvoiceRequest(
-      {this.orderNumber, this.invoiceAmount, this.invoiceImage, this.isBilled});
+      {this.orderNumber, this.invoiceAmount, this.invoiceImage, this.isBilled,this.storeID});
 
   OrderInvoiceRequest.fromJson(dynamic json) {
     orderNumber = json['orderNumber'];
@@ -17,6 +18,9 @@ class OrderInvoiceRequest {
     map['orderNumber'] = orderNumber;
     map['invoiceAmount'] = invoiceAmount;
     map['invoiceImage'] = invoiceImage;
+    if (storeID != null) {
+      map['storeOwnerProfileID'] = storeID;
+    }
     return map;
   }
 }

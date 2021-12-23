@@ -89,7 +89,7 @@ class PrivateOrder extends StatelessWidget {
                         height: 4,
                       ),
                       Text(
-                        S.current.unknown,
+                        S.current.defaultBranch,
                         style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.bold,

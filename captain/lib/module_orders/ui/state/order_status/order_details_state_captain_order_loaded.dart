@@ -25,9 +25,9 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
   ) : super(screenState) {
     cart = this.currentOrder.carts;
     orderInfo = this.currentOrder.order;
-    if (orderInfo.state == OrderStatus.IN_STORE) {
+    if (orderInfo.state == OrderStatus.IN_STORE && orderInfo.orderType == 2) {
       screenState.makeInvoice = true;
-      screenState.deliverOnMe = orderInfo.orderType == 3;
+      // screenState.deliverOnMe = orderInfo.orderType == 3;
       screenState.refresh();
     } else {
       if (screenState.makeInvoice) {
@@ -236,13 +236,14 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
 
   void acceptOrder() {
     // orderInfo.state != OrderStatus.IN_STORE
-    if (true) {
+    if (orderInfo.state != OrderStatus.IN_STORE || orderInfo.orderType != 2) {
       screenState.requestOrderProgress(
           currentOrder, StatusHelper.getOrderStatusIndex(orderInfo.state));
     } else {
-      if (screenState.invoiceRequest != null || orderInfo.orderType == 3) {
+      if (screenState.invoiceRequest != null) {
         screenState.requestOrderProgress(
-            currentOrder, StatusHelper.getOrderStatusIndex(orderInfo.state));
+            currentOrder, StatusHelper.getOrderStatusIndex(orderInfo.state),
+            storeID: cart.first.storeOwnerID.toString());
       } else {
         CustomFlushBarHelper.createError(
                 title: S.current.warnning,
