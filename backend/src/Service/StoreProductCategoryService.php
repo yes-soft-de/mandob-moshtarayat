@@ -324,7 +324,7 @@ class StoreProductCategoryService
         }
         else
         {
-            $items = $this->storeProductCategoryManager->getStoreProductsCategoryLevelTwoByStoreProductCategoryID($request->getStoreProductCategoryID());
+            $items = $this->storeProductCategoryManager->getOnlyStoreProductsCategoryLevelTwoByStoreProductCategoryLevelOneID($request->getStoreProductCategoryID());
         }
 
         foreach ($items as $item) {

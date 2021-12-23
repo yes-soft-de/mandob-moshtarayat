@@ -36,4 +36,11 @@ class ProductsByProductCategoryIdResponse
      * product commission - used for dashboard
      */
     public $commission;
+
+    /*
+     * For Store (for updating product)
+     */
+    public $isLevel1;
+
+    public $isLevel2;
 }
