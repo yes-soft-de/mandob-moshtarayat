@@ -265,7 +265,7 @@ class StoreCategoryController extends BaseController
      * @param Request $request
      * @param $id
      * @return JsonResponse
-     * *
+     *
      * @OA\Tag(name="Store Category")
      *
      * @OA\Parameter(
@@ -284,7 +284,12 @@ class StoreCategoryController extends BaseController
      *          @OA\Property(type="object", property="Data",
      *                  @OA\Property(type="string", property="storeCategoryName"),
      *                  @OA\Property(type="object", property="image"),
-     *                  @OA\Property(type="string", property="language")
+     *                  @OA\Property(type="string", property="language"),
+     *                  @OA\Property(type="object", property="translate",
+     *                      @OA\Property(type="integer", property="id"),
+     *                      @OA\Property(type="string", property="language"),
+     *                      @OA\Property(type="string", property="storeCategoryName")
+     *                  )
      *          )
      *      )
      * )
