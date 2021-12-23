@@ -25,4 +25,11 @@ class ProductsByProductCategoryIdForStoreResponse
     public $soldCount;
 
     public $status;
+
+    /*
+     * For Store (for updating product)
+     */
+    public $isLevel1;
+
+    public $isLevel2;
 }

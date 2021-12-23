@@ -794,6 +794,8 @@ class StoreProductCategoryController extends BaseController
      *                  @OA\Property(type="string", property="rate"),
      *                  @OA\Property(type="string", property="soldCount"),
      *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="boolean", property="isLevel1"),
+     *                  @OA\Property(type="boolean", property="isLevel2"),
      *              )
      *          )
      *      )
