@@ -225,4 +225,17 @@ class VerificationController extends BaseController
         }
     }
 
+    /**
+     * For testing issues
+     * @Route("getverificationcode/{userID}", name="getVerificationCodeByUserID", methods={"GET"})
+     * @param $userID
+     * @return JsonResponse
+     */
+    public function getVerificationCodeByUserID($userID)
+    {
+        $result = $this->verificationService->getVerificationCodeByUserID($userID);
+
+        return $this->response($result, self::FETCH);
+    }
+
 }

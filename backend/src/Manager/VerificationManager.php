@@ -105,4 +105,9 @@ class VerificationManager
         return $verificationCode;
     }
 
+    public function getVerificationCodeByUserID($userID)
+    {
+        return $this->verificationEntityRepository->getVerificationCodeByUserID($userID);
+    }
+
 }

@@ -166,4 +166,9 @@ class VerificationService
         }
     }
 
+    public function getVerificationCodeByUserID($userID)
+    {
+        return $this->verificationManager->getVerificationCodeByUserID($userID);
+    }
+
 }
