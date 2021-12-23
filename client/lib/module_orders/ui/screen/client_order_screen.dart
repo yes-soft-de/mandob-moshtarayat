@@ -11,6 +11,7 @@ import 'package:mandob_moshtarayat/module_orders/state_manager/client_order_stat
 import 'package:mandob_moshtarayat/module_orders/ui/state/client_order/client_order_loaded_state.dart';
 import 'package:mandob_moshtarayat/module_orders/ui/state/client_order/client_order_state.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
+import 'package:mandob_moshtarayat/utils/helpers/payment_portal.dart';
 
 @injectable
 class ClientOrderScreen extends StatefulWidget {
@@ -43,12 +44,12 @@ class ClientOrderScreenState extends State<ClientOrderScreen> {
       CustomFlushBarHelper.createSuccess(
         title: S.of(context).warnning,
         message: S.of(context).successCreateOrder,
-      )..show(context);
+      ).show(context);
     } else {
       Navigator.of(context).pop();
       CustomFlushBarHelper.createError(
-          title: S.of(context).warnning, message: err)
-        ..show(context);
+              title: S.of(context).warnning, message: err)
+          .show(context);
     }
   }
 

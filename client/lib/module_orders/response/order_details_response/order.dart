@@ -14,7 +14,7 @@ class Order {
   String? recipientPhone;
   String? state;
   String? roomId;
-  int? captainId;
+  String? captainId;
   CreatedAt? createdAt;
   String? detail;
   num? deliveryCost;
@@ -56,7 +56,7 @@ class Order {
       recipientPhone: json['recipientPhone'] as String?,
       state: json['state'] as String?,
       roomId: json['roomID'] as String?,
-      captainId: json['captainID'] as int?,
+      captainId: json['captainID']?.toString(),
       createdAt: json['createdAt'] == null
           ? null
           : CreatedAt.fromJson(json['createdAt'] as Map<String, dynamic>),
