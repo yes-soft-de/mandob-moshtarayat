@@ -113,6 +113,25 @@ class StoreProductCategoryEntityRepository extends ServiceEntityRepository
         ;
     }
 
+    public function getOnlyStoreProductsCategoryLevelTwoByStoreProductCategoryLevelOneID($storeProductCategoryID)
+    {
+        return $this->createQueryBuilder('storeProductCategory')
+
+            ->select('storeProductCategory.id', 'storeProductCategory.productCategoryName', 'storeProductCategory.isLevel1', 'storeProductCategory.productCategoryImage')
+
+            ->andWhere('storeProductCategory.storeProductCategoryID = :storeProductCategoryID')
+            //Add the next line to get only products that have a one subcategory .
+            ->orWhere('storeProductCategory.id = :storeProductCategoryID')
+            ->andWhere('storeProductCategory.isLevel2 = :isLevel2')
+
+            ->setParameter('isLevel2', true)
+            ->setParameter('storeProductCategoryID', $storeProductCategoryID)
+
+            ->getQuery()
+            ->getArrayResult()
+            ;
+    }
+
     public function getStoreProductsCategoryLevelTwoByStoreProductCategoryIdForAdmin($storeProductCategoryID)
     {
         return $this->createQueryBuilder('storeProductCategory')
