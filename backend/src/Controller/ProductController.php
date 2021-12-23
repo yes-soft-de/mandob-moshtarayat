@@ -531,6 +531,8 @@ class ProductController extends BaseController
      *                      @OA\Property(type="integer", property="id"),
      *                      @OA\Property(type="string", property="storeOwnerName"),
      *                  ),
+     *                  @OA\Property(type="boolean", property="isLevel1"),
+     *                  @OA\Property(type="boolean", property="isLevel2"),
      *              )
      *          )
      *      )
