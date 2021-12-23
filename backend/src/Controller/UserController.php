@@ -65,4 +65,16 @@ class UserController extends BaseController
             return $this->response($response, self::ERROR_USER_CHECK); 
           }
     }
+
+    /**
+     * For testing issues
+     *
+     * @Route("updateallstoreownersverificationstatus", name="updateAllStoreOwnersVerificationStatus", methods={"PUT"})
+     */
+    public function updateAllStoreOwnersVerificationStatusByDeveloper()
+    {
+        $response = $this->userService->updateAllStoreOwnersVerificationStatusByDeveloper();
+
+        return $this->response($response, self::UPDATE);
+    }
 }

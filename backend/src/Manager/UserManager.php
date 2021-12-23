@@ -3,6 +3,7 @@
 namespace App\Manager;
 
 use App\AutoMapping;
+use App\Constant\StoreOwnerVerificationStatusConstant;
 use App\Request\ClientUpdateFavouriteCategoriesRequest;
 use App\Request\storeOwnerProfileStatusUpdateByAdminRequest;
 use App\Entity\UserEntity;
@@ -530,5 +531,26 @@ class UserManager
     public function getStoreOwnerVerificationStatusByUserID($userID)
     {
         return $this->userRepository->getStoreOwnerVerificationStatusByUserID($userID);
+    }
+
+    public function updateAllStoreOwnersVerificationStatusByDeveloper()
+    {
+        $users = $this->userRepository->getAllStoreOwners();
+
+        if (!$users)
+        {
+            return 'noUsers';
+        }
+        else
+        {
+            foreach ($users as $user)
+            {
+                $user->setVerificationStatus(StoreOwnerVerificationStatusConstant::$VERIFIED_STATUS);
+
+                $this->entityManager->flush();
+            }
+
+            return $users;
+        }
     }
 }

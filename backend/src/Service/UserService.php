@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\UserEntity;
 use App\Manager\UserManager;
 use App\Request\StoreOwnerVerificationStatusUpdateRequest;
+use App\Response\AllStoreOwnerVerificationUpdateResponse;
 use App\Response\StoreOwnerVerificationStatusUpdateResponse;
 
 
@@ -49,5 +50,26 @@ class UserService
     public function getStoreOwnerVerificationStatusByUserID($userID)
     {
         return $this->userManager->getStoreOwnerVerificationStatusByUserID($userID);
+    }
+
+    public function updateAllStoreOwnersVerificationStatusByDeveloper()
+    {
+        $response = [];
+
+        $result = $this->userManager->updateAllStoreOwnersVerificationStatusByDeveloper();
+
+        if ($result == 'noUsers')
+        {
+
+        }
+        else
+        {
+            foreach ($result as $user)
+            {
+                $response[] = $this->autoMapping->map(UserEntity::class, AllStoreOwnerVerificationUpdateResponse::class, $user);
+            }
+
+            return $response;
+        }
     }
 }
