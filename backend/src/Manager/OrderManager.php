@@ -335,6 +335,21 @@ class OrderManager
         }
     }
 
+    public function updateOrderByClient(OrderUpdateByClientRequest $request, $orderId)
+    {
+        $item = $this->orderEntityRepository->find($orderId);
+
+        if ($item) {
+            $item = $this->autoMapping->mapToObject(OrderUpdateByClientRequest::class, OrderEntity::class, $request, $item);
+
+            $item->setDeliveryDate($request->getDeliveryDate());
+
+            $this->entityManager->flush();
+
+            return $item;
+        }
+    }
+
     public function orderUpdateBillCalculatedByCaptain(orderUpdateBillCalculatedByCaptainRequest $request)
     {
         $item = $this->orderEntityRepository->find($request->getId());
