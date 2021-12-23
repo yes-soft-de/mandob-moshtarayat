@@ -72,7 +72,7 @@ dependencies:
   # Svg Loader
   flutter_svg: ^0.22.0
   # Stream And RX
-  rxdart: ^0.27.1
+  rxdart: ^0.27.3
   # Firebase
   firebase_core: ^1.2.0
   firebase_auth: ^1.2.0
