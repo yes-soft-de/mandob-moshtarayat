@@ -15,7 +15,7 @@ import 'package:mandob_moshtarayat_dashboad/utils/components/fixed_container.dar
 class CaptainLogsLoadedState extends States {
   final CaptainLogsScreenState screenState;
   final List<String>? error;
-  final bool empty;
+  bool empty;
   final CaptainLogsModel? captainBalance;
 
   CaptainLogsLoadedState(this.screenState, this.captainBalance,
@@ -23,6 +23,9 @@ class CaptainLogsLoadedState extends States {
       : super(screenState) {
     if (error != null) {
       screenState.refresh();
+    }
+    if (captainBalance?.data.length == 0) {
+      empty = true;
     }
   }
 
