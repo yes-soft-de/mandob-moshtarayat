@@ -13,6 +13,7 @@ import 'package:mandob_moshtarayat/module_auth/request/login_request/login_reque
 import 'package:mandob_moshtarayat/module_auth/request/register_request/register_request.dart';
 import 'package:mandob_moshtarayat/module_auth/response/login_response/login_response.dart';
 import 'package:mandob_moshtarayat/module_home/service/home_service.dart';
+import 'package:mandob_moshtarayat/module_stores/presistance/cart_hive_box_helper.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:mandob_moshtarayat/module_auth/response/regester_response/regester_response.dart';
 import 'package:mandob_moshtarayat/utils/helpers/status_code_helper.dart';
@@ -124,6 +125,7 @@ class AuthService {
 
   Future<void> logout() async {
     await _prefsHelper.cleanAll();
+    await CartHiveHelper().deleteCart();
   }
 
   Future<void> updateCategoryFavorite([fource = false]) async {
