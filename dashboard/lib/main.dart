@@ -1,7 +1,7 @@
 // ignore_for_file: unused_field
 
 import 'dart:async';
-import 'dart:io';
+import 'dart:io' as p;
 import 'package:device_info/device_info.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/global/global_state_manager.dart';
@@ -46,11 +46,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   timeago.setLocaleMessages('ar', timeago.ArMessages());
   timeago.setLocaleMessages('en', timeago.EnMessages());
-  if (Platform.isAndroid){
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-    if (androidInfo.version.sdkInt < 26) {
-      HttpOverrides.global = LEHttpOverrides();
+  if (!kIsWeb) {
+    if (p.Platform.isAndroid) {
+      DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      if (androidInfo.version.sdkInt < 26) {
+        p.HttpOverrides.global = LEHttpOverrides();
+      }
     }
   }
   await HiveSetUp.init();
@@ -99,24 +101,24 @@ class MyApp extends StatefulWidget {
   final FiltersModule _filtersModule;
   final LogsModule _logsModule;
   MyApp(
-      this._themeDataService,
-      this._localizationService,
-      this._fireNotificationService,
-      this._localNotificationService,
-      this._splashModule,
-      this._authorizationModule,
-      this._chatModule,
-      this._settingsModule,
-      this._mainModule,
-      this._categoriesModule,
-      this._storesModule,
-      this._productsModule,
-      this._companyModule,
-      this._ordersModule,
-      this._paymentsModule,
-      this._filtersModule,
-      this._logsModule,
-      );
+    this._themeDataService,
+    this._localizationService,
+    this._fireNotificationService,
+    this._localNotificationService,
+    this._splashModule,
+    this._authorizationModule,
+    this._chatModule,
+    this._settingsModule,
+    this._mainModule,
+    this._categoriesModule,
+    this._storesModule,
+    this._productsModule,
+    this._companyModule,
+    this._ordersModule,
+    this._paymentsModule,
+    this._filtersModule,
+    this._logsModule,
+  );
 
   @override
   State<StatefulWidget> createState() => _MyAppState();
@@ -151,9 +153,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     // widget._localNotificationService.onLocalNotificationStream
     //     .listen((event) {});
     getIt<GlobalStateManager>().stateStream.listen((event) {
-      if (mounted){
-        setState(() {
-        });
+      if (mounted) {
+        setState(() {});
       }
     });
     widget._themeDataService.darkModeStream.listen((event) {
