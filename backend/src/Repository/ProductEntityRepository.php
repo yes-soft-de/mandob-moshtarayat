@@ -204,6 +204,12 @@ class ProductEntityRepository extends ServiceEntityRepository
                 'product.commission', 'product.isCommission', 'product.description', 'product.status', 'product.productQuantity', 'productTranslationEntity.productName', 'productTranslationEntity.language')
             ->addSelect('storeOwnerProfile.commission as storeCommission')
 
+            ->leftJoin(
+                StoreOwnerProfileEntity::class,
+                'storeOwnerProfile',
+                Join::WITH,
+                'storeOwnerProfile.id = product.storeOwnerProfileID')
+
             ->andWhere('product.storeProductCategoryID =:storeProductCategoryID')
             ->andWhere('product.storeOwnerProfileID =:storeOwnerProfileId')
 
