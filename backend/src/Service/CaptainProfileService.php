@@ -27,6 +27,7 @@ use App\Service\DeliveryCompanyPaymentsToCaptainService;
 use App\Service\RoomIdHelperService;
 use App\Service\RatingService;
 use App\Service\DateFactoryService;
+use App\Service\OrdersInvoicesService;
 use App\Manager\UserManager;
 use App\Manager\CaptainProfileManager;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -44,9 +45,10 @@ class CaptainProfileService
     private $roomIdHelperService;
     private $dateFactoryService;
     private $captainProfileManager;
+    private $ordersInvoicesService;
 
     public function __construct(AutoMapping $autoMapping, ParameterBagInterface $params, DeliveryCompanyPaymentsFromCaptainService $deliveryCompanyPaymentsFromCaptainService, DeliveryCompanyPaymentsToCaptainService $deliveryCompanyPaymentsToCaptainService,   RoomIdHelperService $roomIdHelperService, UserManager $userManager,
-      RatingService $ratingService, DateFactoryService $dateFactoryService, CaptainProfileManager $captainProfileManager)
+      RatingService $ratingService, DateFactoryService $dateFactoryService, CaptainProfileManager $captainProfileManager, OrdersInvoicesService $ordersInvoicesService)
     {
         $this->autoMapping = $autoMapping;
         $this->roomIdHelperService = $roomIdHelperService;
@@ -56,6 +58,7 @@ class CaptainProfileService
         $this->deliveryCompanyPaymentsFromCaptainService = $deliveryCompanyPaymentsFromCaptainService;
         $this->deliveryCompanyPaymentsToCaptainService = $deliveryCompanyPaymentsToCaptainService;
         $this->captainProfileManager = $captainProfileManager;
+        $this->ordersInvoicesService = $ordersInvoicesService;
 
         $this->params = $params->get('upload_base_url') . '/';
     }
@@ -260,7 +263,10 @@ class CaptainProfileService
       
         if ($item) {
             $countOrdersDelivered = $this->captainProfileManager->countCaptainOrdersDelivered($item[0]['captainID']);
-            $sumInvoiceAmountWithoutOrderTypeSendIt = $this->captainProfileManager->sumInvoiceAmountWithoutOrderTypeSendIt($item[0]['captainID']);
+            $invoicesIDs = $this->captainProfileManager->getInvoicesIDs($item[0]['captainID']);
+            $sumInvoiceAmountWithoutOrderTypeSendIt = $this->ordersInvoicesService->sumInvoiceAmountWithoutOrderTypeSendIt($invoicesIDs);
+
+//            $sumInvoiceAmountWithoutOrderTypeSendIt = $this->captainProfileManager->sumInvoiceAmountWithoutOrderTypeSendIt($invoicesIDs);
 
             $sumKilometerBonus = $this->getOrderKilometers($captainId);
              
@@ -268,6 +274,7 @@ class CaptainProfileService
              $item['kilometerBonus'] = $sumKilometerBonus;
 
              $item['sumInvoiceAmount'] = (float)$sumInvoiceAmountWithoutOrderTypeSendIt;
+
              $item['deliveryCost'] = (float)$countOrdersDelivered[0]['deliveryCost'];
              $item['amountYouOwn'] = (float)$sumInvoiceAmountWithoutOrderTypeSendIt + $countOrdersDelivered[0]['deliveryCost'];
 
@@ -301,8 +308,10 @@ class CaptainProfileService
 
         if ($item) {
              $countOrdersDelivered = $this->captainProfileManager->countCaptainOrdersDelivered($item[0]['captainID']);
+            $invoicesIDs = $this->captainProfileManager->getInvoicesIDs($item[0]['captainID']);
+            $sumInvoiceAmountWithoutOrderTypeSendIt = $this->ordersInvoicesService->sumInvoiceAmountWithoutOrderTypeSendIt($invoicesIDs);
 
-             $sumInvoiceAmountWithoutOrderTypeSendIt = $this->captainProfileManager->sumInvoiceAmountWithoutOrderTypeSendIt($item[0]['captainID']);
+//             $sumInvoiceAmountWithoutOrderTypeSendIt = $this->captainProfileManager->sumInvoiceAmountWithoutOrderTypeSendIt($item[0]['captainID']);
 
              $sumKilometerBonus = $this->getOrderKilometers($captainId);
 

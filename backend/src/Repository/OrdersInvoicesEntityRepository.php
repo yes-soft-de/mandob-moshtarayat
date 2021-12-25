@@ -18,6 +18,7 @@ class OrdersInvoicesEntityRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, OrdersInvoicesEntity::class);
     }
+
     public function getInvoicesByOrderNumber($orderNumber)
     {
         return $this->createQueryBuilder('invoice')
@@ -29,5 +30,18 @@ class OrdersInvoicesEntityRepository extends ServiceEntityRepository
 
             ->getQuery()
             ->getResult();
+    }
+
+    public function sumInvoiceAmountWithoutOrderTypeSendIt($invoicesIDs)
+    {
+        return $this->createQueryBuilder('invoice')
+
+            ->select('sum(invoice.invoiceAmount) as sumInvoiceAmount')
+
+            ->andWhere('invoice.id IN (:invoicesIDs)' )
+            ->setParameter('invoicesIDs',$invoicesIDs)
+
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 }

@@ -527,6 +527,28 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
+    public function getInvoicesIDs($captainId)
+    {
+        return $this->createQueryBuilder('OrderEntity')
+            ->select('orderDetailEntity.orderInvoiceId')
+
+            ->leftJoin(OrderDetailEntity::class, 'orderDetailEntity', Join::WITH, 'orderDetailEntity.orderID = OrderEntity.id')
+
+            ->andWhere('OrderEntity.captainID = :captainId')
+            ->andWhere("OrderEntity.state = :delivered")
+
+            ->andWhere("OrderEntity.isBillCalculated = :true")
+
+            ->setParameter('true', 1)
+            ->setParameter('captainId', $captainId)
+            ->setParameter('delivered', OrderStateConstant::$ORDER_STATE_DELIVERED)
+
+            ->groupBy('orderDetailEntity.storeOwnerProfileID')
+
+            ->getQuery()
+            ->getResult();
+    }
+
     public function sumDeliveryCostAmount()
     {
         return $this->createQueryBuilder('OrderEntity')
@@ -1011,6 +1033,28 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->setParameter('isBillCalculated', 1)
             ->getQuery()
             ->getSingleScalarResult();
+    }
+
+    public function getInvoicesIDsForStore($storeOwnerProfileId)
+    {
+        return $this->createQueryBuilder('OrderEntity')
+            ->select('orderDetailEntity.orderInvoiceId')
+
+            ->leftJoin(OrderDetailEntity::class, 'orderDetailEntity', Join::WITH, 'orderDetailEntity.orderID = OrderEntity.id')
+
+            ->andWhere('orderDetailEntity.storeOwnerProfileID = :storeOwnerProfileId')
+            ->andWhere("OrderEntity.state = :delivered")
+
+            ->andWhere("OrderEntity.isBillCalculated = :true")
+
+            ->setParameter('true', 1)
+            ->setParameter('storeOwnerProfileId', $storeOwnerProfileId)
+            ->setParameter('delivered', OrderStateConstant::$ORDER_STATE_DELIVERED)
+
+            ->groupBy('orderDetailEntity.storeOwnerProfileID')
+
+            ->getQuery()
+            ->getResult();
     }
 
     public function getSumInvoicesForStoreInSpecificDate($storeOwnerProfileId, $fromDate, $toDate)

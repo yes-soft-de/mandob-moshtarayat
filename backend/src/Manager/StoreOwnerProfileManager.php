@@ -159,10 +159,15 @@ class StoreOwnerProfileManager
     {
         return $this->storeOwnerProfileEntityRepository->getLast15Stores();
     }
-
+//TODO for remove
     public function getSumInvoicesForStore($storeOwnerProfileId)
     {
         return $this->orderManager->getSumInvoicesForStore($storeOwnerProfileId);
+    }
+
+    public function getInvoicesIDs($storeOwnerProfileId)
+    {
+        return $this->orderManager->getInvoicesIDsForStore($storeOwnerProfileId);
     }
 
     public function getSumInvoicesForStoreInSpecificDate($storeOwnerProfileId, $fromDate, $toDate)

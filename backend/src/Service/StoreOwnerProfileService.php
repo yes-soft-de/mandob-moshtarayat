@@ -23,6 +23,7 @@ use App\Response\StoreOwnerProfileResponse;
 use App\Response\StoreOwnerByCategoryIdResponse;
 use App\Response\StoresFilterByNameResponse;
 use App\Response\UserRegisterResponse;
+use App\Service\OrdersInvoicesService;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class StoreOwnerProfileService
@@ -36,10 +37,11 @@ class StoreOwnerProfileService
     private $ratingService;
     private $deliveryCompanyPaymentsToStoreService;
     private $verificationService;
+    private $ordersInvoicesService;
 
     public function __construct(AutoMapping $autoMapping, UserManager $userManager, RatingService $ratingService, StoreOwnerBranchService $storeOwnerBranchService,
                                 ParameterBagInterface $params, RoomIdHelperService $roomIdHelperService, StoreOwnerProfileManager $storeOwnerProfileManager, DeliveryCompanyPaymentsToStoreService $deliveryCompanyPaymentsToStoreService,
-     VerificationService $verificationService)
+     VerificationService $verificationService, OrdersInvoicesService $ordersInvoicesService)
     {
         $this->autoMapping = $autoMapping;
         $this->userManager = $userManager;
@@ -50,6 +52,8 @@ class StoreOwnerProfileService
         $this->deliveryCompanyPaymentsToStoreService = $deliveryCompanyPaymentsToStoreService;
         $this->verificationService = $verificationService;
         $this->params = $params->get('upload_base_url') . '/';
+        $this->ordersInvoicesService = $ordersInvoicesService;
+
     }
 
     public function storeOwnerRegister(UserRegisterRequest $request)
@@ -307,8 +311,10 @@ class StoreOwnerProfileService
     public function storeFinancialAccountForStore($userID)
     {
         $storeOwnerProfileId = $this->storeOwnerProfileManager->getStoreProfileId($userID);
+        $invoicesIDs = $this->storeOwnerProfileManager->getInvoicesIDs($storeOwnerProfileId);
+        $item['amountOwedToStore'] = (float)$this->ordersInvoicesService->sumInvoiceAmountWithoutOrderTypeSendIt($invoicesIDs);
 
-        $item['amountOwedToStore'] = (float)$this->storeOwnerProfileManager->getSumInvoicesForStore($storeOwnerProfileId);
+//        $item['amountOwedToStore'] = (float)$this->storeOwnerProfileManager->getSumInvoicesForStore($storeOwnerProfileId);
         $item['sumPaymentsToStore'] = (float)$this->deliveryCompanyPaymentsToStoreService->deliveryCompanySumPaymentsToStore($storeOwnerProfileId);
         $item['total'] =  $item['amountOwedToStore'] -  $item['sumPaymentsToStore'];
         $item['paymentsToStore'] = $this->deliveryCompanyPaymentsToStoreService->deliveryCompanyPaymentsToStore($storeOwnerProfileId);
@@ -330,7 +336,10 @@ class StoreOwnerProfileService
 
     public function storeFinancialAccountForAdmin($storeOwnerProfileId)
     {
-        $item['amountOwedToStore'] = (float)$this->storeOwnerProfileManager->getSumInvoicesForStore($storeOwnerProfileId);
+//        $item['amountOwedToStore'] = (float)$this->storeOwnerProfileManager->getSumInvoicesForStore($storeOwnerProfileId);
+        $invoicesIDs = $this->storeOwnerProfileManager->getInvoicesIDs($storeOwnerProfileId);
+        $item['amountOwedToStore'] = (float)$this->ordersInvoicesService->sumInvoiceAmountWithoutOrderTypeSendIt($invoicesIDs);
+
         $item['sumPaymentsToStore'] = (float)$this->deliveryCompanyPaymentsToStoreService->deliveryCompanySumPaymentsToStore($storeOwnerProfileId);
         $item['total'] = $item['sumPaymentsToStore'] - $item['amountOwedToStore'];
         $item['paymentsToStore'] = $this->deliveryCompanyPaymentsToStoreService->deliveryCompanyPaymentsToStore($storeOwnerProfileId);
