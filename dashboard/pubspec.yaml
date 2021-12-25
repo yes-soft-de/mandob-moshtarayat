@@ -61,7 +61,7 @@ dependencies:
   share: ^2.0.4
   # Network Agent
   dio: ^4.0.0
-  dio_firebase_performance: ^0.3.0
+  dio_firebase_performance: ^0.3.1-dev.3
   # Analyzer
   analyzer_plugin: ^0.6.0
   # Time Ago Generator
@@ -79,7 +79,6 @@ dependencies:
   firebase_analytics: ^8.1.0
   firebase_remote_config: ^0.10.0
   cloud_firestore: ^2.2.0
-  firebase_performance: ^0.7.0+6
   firebase_messaging: ^10.0.0
   firebase_crashlytics: ^2.0.4
   # Sign In
