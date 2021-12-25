@@ -160,12 +160,12 @@ class OrderDetailsLoadedState extends OrderDetailsState {
                                     color: StatusHelper.getOrderStatusColor(
                                         orderDetails.order.state)),
                                 child: ListTile(
-                                  onTap: () {
+                                  onTap:orderDetails.order.state != OrderStatus.CANCELLED ? () {
                                     Navigator.of(context).pushNamed(
                                         OrdersRoutes.ORDER_STATUS,
                                         arguments:
                                             screenState.orderNumber.toString());
-                                  },
+                                  } : null,
                                   title: Text(
                                     S.of(context).orderStatus,
                                     style: const TextStyle(
@@ -184,9 +184,12 @@ class OrderDetailsLoadedState extends OrderDetailsState {
                                     color: Colors.white,
                                     size: 35,
                                   ),
-                                  trailing: const Icon(
-                                    Icons.arrow_forward,
-                                    color: Colors.white,
+                                  trailing: Hider(
+                                    active: orderDetails.order.state != OrderStatus.CANCELLED,
+                                    child: const Icon(
+                                      Icons.arrow_forward,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
                               ),
