@@ -14,6 +14,7 @@ use App\Request\ProductUpdateByStoreOwnerRequest;
 use App\Request\ProductUpdateRequest;
 use App\Request\ProductWithTranslationCreateRequest;
 use App\Request\ProductWithTranslationUpdateRequest;
+use App\Response\CostDetailsResponse;
 use App\Response\ProductCreateResponse;
 use App\Response\ProductsByProductCategoryIdAndStoreOwnerProfileIdResponse;
 use App\Response\ProductsByStoreOwnerProfileIdResponse;
@@ -102,6 +103,7 @@ class ProductService
         }
 
         foreach ($products as $item) {
+            $item['costDetails'] = $this->costDetails($item['isCommission'], $item['productPrice'], $item['commission'], $item['storeCommission'], $item['discount']);
 
             $item['store'] = $this->storeOwnerProfileService->getStoreNameById($item['storeOwnerProfileID']);
             $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
@@ -130,6 +132,7 @@ class ProductService
         }
 
         foreach ($products as $item) {
+            $item['costDetails'] = $this->costDetails($item['isCommission'], $item['productPrice'], $item['commission'], $item['storeCommission'], $item['discount']);
             $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
             $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
             $item['soldCount'] = $this->getProductsSoldCount($item['id']);
@@ -264,6 +267,27 @@ class ProductService
         }
     }
 
+    public function costDetails($isCommission, $productPrice, $commission, $storeCommission, $discount)
+    {
+        $item = [];
+        $item['price'] = $productPrice;
+        $item['discount'] = $discount;
+        $item['priceWithDiscount'] = $item['price'] - ($productPrice * $discount / 100);;
+
+        if($isCommission == true){
+            $item['priceWithCommission'] = ($productPrice * $commission  / 100) + $productPrice;
+            $item['priceWithCommissionAfterDiscount'] = ( $item['priceWithDiscount'] * $commission  / 100) + $item['priceWithDiscount'];
+            $item['commission'] = $commission;
+        }
+        $item['priceWithCommission'] = ($productPrice * $storeCommission  / 100) + $productPrice;
+        $item['priceWithCommissionAfterDiscount'] = ( $item['priceWithDiscount'] * $storeCommission  / 100) + $item['priceWithDiscount'];
+        $item['commission'] = $storeCommission;
+
+        $item['priceFinal'] = $item['priceWithCommissionAfterDiscount'];
+
+        return $this->autoMapping->map('array', CostDetailsResponse::class, $item);
+    }
+
     public function getProductsTopWanted($userLocale): ?array
     {
         $response = [];
@@ -314,6 +338,9 @@ class ProductService
         }
 
         foreach ($Products as $product) {
+
+            $product['costDetails'] = $this->costDetails($product['isCommission'], $product['productPrice'], $product['commission'], $product['storeCommission'], $product['discount']);
+
             $product['productPrice'] = $this->willProductCommissionBeCharged($product['isCommission'], $product['productPrice'], $product['commission'], $product['storeCommission']);
 
             $img = isset($product['image']);
@@ -422,6 +449,9 @@ class ProductService
         }
 
         foreach ($products as $item) {
+
+            $item['costDetails'] = $this->costDetails($item['isCommission'], $item['productPrice'], $item['commission'], $item['storeCommission'], $item['discount']);
+
             $item['store'] = $this->storeOwnerProfileService->getStoreNameById($item['storeOwnerProfileID']);
             $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
             $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);

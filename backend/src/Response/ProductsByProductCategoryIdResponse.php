@@ -32,6 +32,8 @@ class ProductsByProductCategoryIdResponse
 
     public $productPriceWithOutCommission;
 
+    public $costDetails;
+
     /*
      * product commission - used for dashboard
      */

@@ -27,4 +27,6 @@ class ProductsByStoreProductCategoryIdResponse
     public $status;
 
     public $store;
+
+    public $costDetails;
 }

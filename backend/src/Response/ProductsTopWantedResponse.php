@@ -40,5 +40,5 @@ class ProductsTopWantedResponse
 
     public $productPriceWithOutCommission;
 
-
+    public $costDetails;
 }

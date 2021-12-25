@@ -22,4 +22,5 @@ class ClientFilterProductResponse
 
     public $storeImage;
 
+    public $costDetails;
 }
