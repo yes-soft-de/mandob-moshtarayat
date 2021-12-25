@@ -3,7 +3,7 @@
 // Named Domain ===> 'https://mandoob.password-please.com'
 
 class Urls {
-  static const String DOMAIN = 'http://206.189.61.207';
+  static const String DOMAIN = 'http://138.197.186.138';
   static const String BASE_API = DOMAIN + '';
   static const String IMAGES_ROOT = DOMAIN + '/upload/';
   static const UPLOAD_API = BASE_API + '/uploadfile';
@@ -31,12 +31,12 @@ class Urls {
   static const TERMS_CAPTAIN = BASE_API + '/termscaptain';
   static const LOG_API = BASE_API + '/getRecords';
   static const CAPTAIN_BALANCE_ACCOUNT =
-      BASE_API + '/captainFinancialAccountForAdmin';
+      BASE_API + '/captainfinancialaccountforadmin';
   static const CAPTAIN_BALANCE_LAST_MONTH =
       BASE_API + '/captainFinancialAccountInLastMonthForAdmin';
   static const GET_ORDER_LOGS = BASE_API + '/orderLogs';
-  static const GET_CAPTAINS_LOGS = BASE_API + '/ordersAndCountByCaptainId/';
-  static const GET_STORES_LOGS = BASE_API + '/ordersAndCountByStoreProfileId/';
+  static const GET_CAPTAINS_LOGS = BASE_API + '/ordersandcountbycaptainid/';
+  static const GET_STORES_LOGS = BASE_API + '/ordersandcountbystoreprofileid/';
   static const CHECK_USER_ROLE = BASE_API + '/checkUserType';
   static const STORE_CATEGORIES = BASE_API + '/storecategories';
   static const CREATE_STORE_CATEGORIES = BASE_API + '/createstorecategory';
@@ -61,7 +61,7 @@ class Urls {
   static const CREATE_PRODUCTS = BASE_API + '/createproductbyadmin';
   static const CREATE_PRODUCTS_CATEGORY_FOR_STORE = '/StoreProductCategory';
   static const GET_IN_ACTIVE_CAPTAINS = BASE_API + '/getcaptainsinactive';
-  static const CAPTAIN_FILTER = BASE_API + '/captainFilter/';
+  static const CAPTAIN_FILTER = BASE_API + '/captainfilter/';
   static const STORE_FILTER = BASE_API + '/storeFilter/';
   static const CLIENT_FILTER = BASE_API + '/clientfilterbyname/';
   static const ACTIVATE_CAPTAIN = BASE_API + '/captainprofileupdatebyadmin';
@@ -87,31 +87,31 @@ class Urls {
   static const GET_CLIENTS_LIST = BASE_API + '/clientsprofile';
   static const GET_REPORT = BASE_API + '/countreport';
   static const GET_ACCOUNT_BALANCE_CAPTAIN =
-      BASE_API + '/captainFinancialAccountForAdmin/';
+      BASE_API + '/captainfinancialaccountforadmin/';
   static const GET_ACCOUNT_BALANCE_CAPTAIN_LAST_MONTH =
-      BASE_API + '/captainFinancialAccountInLastMonthForAdmin/';
+      BASE_API + '/captainfinancialaccountinlastmonthforadmin/';
   static const GET_ACCOUNT_BALANCE_CAPTAIN_SPECIFIC =
-      BASE_API + '/captainFinancialAccountInSpecificDateForAdmin/';
+      BASE_API + '/captainfinancialaccountinspecificdateforadmin/';
   static const GET_UNFINISHED_PAYMENT =
-      BASE_API + '/captainsRemainingForItAmount';
+      BASE_API + '/captainsremainingforitamount';
   static const GET_REMAINING_PAYMENT =
-      BASE_API + '/captainsRemainingOnItAmount';
+      BASE_API + '/captainsremainingonitamount';
   static const GET_PENDING_ORDER = BASE_API + '/getpendingorders';
   static const GET_WITHOUT_PENDING_ORDER =
       BASE_API + '/getOrdersWithOutPending ';
-  static const GET_ONGOING_ORDERS = BASE_API + '/getOrdersOngoing';
+  static const GET_ONGOING_ORDERS = BASE_API + '/getordersongoing';
   static const GET_SPECIFIC_DATE_ORDERS =
-      BASE_API + '/getOrdersInSpecificDate/';
+      BASE_API + '/getordersinspecificdate/';
   static const GET_ORDER_DETAILS = BASE_API + '/orderdetailsforadmin/';
   static const GET_ORDER_TIMELINE = BASE_API + '/orderLogsTimeLine/';
   static const GET_CAPTAINS_REPORT =
-      BASE_API + '/countOrdersEveryCaptainInLastMonth';
+      BASE_API + '/countorderseverycaptaininlastmonth';
   static const GET_STORES_REPORT =
       BASE_API + '/countOrdersEveryStoreInLastMonth';
   static const GET_CLIENTS_REPORT =
-      BASE_API + '/countOrdersEveryClientInLastMonth';
+      BASE_API + '/countorderseveryclientinlastmonth';
   static const GET_PRODUCTS_REPORT =
-      BASE_API + '/countOrdersEveryProductInLastMonth';
+      BASE_API + '/countorderseveryproductinlastmonth';
   static const DELETE_SUB_CATEGORIES = BASE_API + '/storeproductcategory/';
   static const DELETE_CATEGORIES = BASE_API + '/storecategory/';
   static const UPDATE_PRODUCT_COMMISSION =
