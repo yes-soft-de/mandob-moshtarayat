@@ -54,6 +54,7 @@ class DistrosLoadedState extends States {
         continue;
       }
       widgets.add(CaptainCard(
+        onTap: () {},
         key: ValueKey(element.distroID),
         captainId: element.distroID,
         captainName: element.distroName,
