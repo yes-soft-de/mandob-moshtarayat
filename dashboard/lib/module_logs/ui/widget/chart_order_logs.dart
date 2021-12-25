@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_logs/ui/widget/indector.dart';
+import 'package:mandob_moshtarayat_dashboad/utils/effect/hidder.dart';
 
 class PieChartSample2 extends StatefulWidget {
   final int countProducts;
@@ -75,20 +76,29 @@ class PieChart2State extends State<PieChartSample2> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Indicator(
-                  color: Theme.of(context).primaryColor,
-                  text: S.current.products,
-                  isSquare: false,
+                Hider(
+                  active: widget.countProducts > 0,
+                  child: Indicator(
+                    color: Theme.of(context).primaryColor,
+                    text: S.current.products,
+                    isSquare: false,
+                  ),
                 ),
-                Indicator(
-                  color: Colors.amber,
-                  text: S.current.privateOrder,
-                  isSquare: false,
+                Hider(
+                  active:widget.countPrivate > 0,
+                  child: Indicator(
+                    color: Colors.amber,
+                    text: S.current.privateOrder,
+                    isSquare: false,
+                  ),
                 ),
-                Indicator(
-                  color: Colors.grey[800]!,
-                  text: S.current.deliverForMe,
-                  isSquare: false,
+                Hider(
+                  active:widget.countDeliver > 0,
+                  child: Indicator(
+                    color: Colors.grey[800]!,
+                    text: S.current.deliverForMe,
+                    isSquare: false,
+                  ),
                 ),
               ],
             ),
