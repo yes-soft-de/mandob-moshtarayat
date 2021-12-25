@@ -181,6 +181,11 @@ class CaptainProfileManager
         return $this->orderManager->countCaptainOrdersDelivered($captainId);
     }
 
+    public function getInvoicesIDs($captainId)
+    {
+        return $this->orderManager->getInvoicesIDs($captainId);
+    }
+
     public function sumDeliveryCostAmount()
     {
         return $this->orderManager->sumDeliveryCostAmount();

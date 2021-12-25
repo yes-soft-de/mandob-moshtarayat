@@ -28,6 +28,11 @@ class OrdersInvoicesManager
        return $this->ordersInvoicesEntityRepository->getInvoicesByOrderNumber($orderNumber);
     }
 
+    public function sumInvoiceAmountWithoutOrderTypeSendIt($invoicesIDs)
+    {
+       return $this->ordersInvoicesEntityRepository->sumInvoiceAmountWithoutOrderTypeSendIt($invoicesIDs);
+    }
+
     public function orderUpdateInvoiceByCaptain(OrderUpdateInvoiceByCaptainRequest $request)
     {
         $item = $this->autoMapping->map(OrderUpdateInvoiceByCaptainRequest::class, OrdersInvoicesEntity::class, $request);

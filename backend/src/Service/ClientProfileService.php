@@ -140,6 +140,8 @@ class ClientProfileService
 
         foreach($products as $product)
         {
+            $product['costDetails'] = $this->productService->costDetails($product['isCommission'], $product['productPrice'], $product['commission'], $product['storeCommission'], $product['discount']);
+
             if($product['productImage'])
             {
                 $product['productImage'] = $this->params . $product['productImage'];
