@@ -21,7 +21,7 @@ class CaptainsReportModel extends DataModel {
       _models.add(CaptainsReportModel(
           captainID: element.captainID ?? '-1',
           countOrdersInMonth: element.countOrdersInMonth ?? 0,
-          image: element.image ?? '',
+          image: element.image?.image ?? '',
           captainName: element.captainName ?? ''));
     });
   }

@@ -21,7 +21,7 @@ class ClientsReportModel extends DataModel {
       _models.add(ClientsReportModel(
           clientID: element.clientID ?? '-1',
           countOrdersInMonth: element.countOrdersInMonth ?? 0,
-          image: element.image ?? '',
+          image: element.image?.image ?? '',
           clientName: element.clientName ?? ''));
     });
   }

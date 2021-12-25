@@ -1,3 +1,4 @@
+import 'package:mandob_moshtarayat_dashboad/module_categories/response/store_categories_response.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/logger/logger.dart';
 
 class ReportsCaptainResponse {
@@ -39,7 +40,7 @@ class Data {
   String? captainID;
   int? countOrdersInMonth;
   String? captainName;
-  String? image;
+  Image? image;
 
   Data({this.captainID, this.countOrdersInMonth, this.captainName, this.image});
 
@@ -47,7 +48,7 @@ class Data {
     captainID = json['captainID'];
     countOrdersInMonth = json['countOrdersInMonth'];
     captainName = json['captainName'];
-    image = json['image'];
+    image =json['image'] != null ?  Image.fromJson(json['image']) : null;
   }
 
   Map<String, dynamic> toJson() {

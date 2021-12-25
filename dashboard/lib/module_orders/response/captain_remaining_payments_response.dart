@@ -31,7 +31,7 @@ class CaptainRemainingPaymentsResponse {
 }
 
 class Data {
-  int? totalAmountForCompany;
+  num? totalAmountForCompany;
   List<Captains>? captains;
 
   Data({this.totalAmountForCompany, this.captains});
