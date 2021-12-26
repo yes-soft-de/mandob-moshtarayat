@@ -50,4 +50,5 @@ class ProductFullInfoResponse
 
     public $isLevel2;
 
+    public $costDetails;
 }
