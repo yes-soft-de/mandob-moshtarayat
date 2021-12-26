@@ -21,6 +21,7 @@ class OrdersInvoicesService
     public function orderUpdateInvoiceByCaptain(OrderUpdateInvoiceByCaptainRequest $request)
     {
         $item = $this->ordersInvoicesManager->orderUpdateInvoiceByCaptain($request);
+
         return $this->autoMapping->map(OrdersInvoicesEntity::class, OrderUpdateInvoiceByCaptainResponse::class, $item);
     }
 

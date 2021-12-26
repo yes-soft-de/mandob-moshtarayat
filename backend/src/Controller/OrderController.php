@@ -993,7 +993,7 @@ class OrderController extends BaseController
      */
     public function getOrderDetailsForClient($orderNumber): JsonResponse
     {
-        $result = $this->orderService->getOrderDetailsByOrderNumber($orderNumber);
+        $result = $this->orderService->getOrderDetailsForClient($orderNumber);
   
         return $this->response($result, self::FETCH);
       }
@@ -1079,7 +1079,7 @@ class OrderController extends BaseController
      */
     public function getOrderDetailsByOrderNumber($orderNumber): JsonResponse
     {
-        $result = $this->orderService->getOrderDetailsByOrderNumber($orderNumber);
+        $result = $this->orderService->getOrderDetailsByOrderNumberForCaptain($orderNumber);
   
         return $this->response($result, self::FETCH);
       }
@@ -1163,9 +1163,9 @@ class OrderController extends BaseController
      *  )
      *)
      */
-    public function getOrderDetailsByOrderNumberForAdmin($orderNumber)
-      {
-        $result = $this->orderService->getOrderDetailsByOrderNumber($orderNumber);
+    public function getOrderDetailsByOrderNumberForAdmin($orderNumber): JsonResponse
+    {
+        $result = $this->orderService->getOrderDetailsByOrderNumberForAdmin($orderNumber);
   
         return $this->response($result, self::FETCH);
       }

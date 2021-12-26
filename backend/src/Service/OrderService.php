@@ -485,11 +485,11 @@ class OrderService
         return $response;
     }
 
-    public function getOrderDetailsByOrderNumber($orderNumber)
+    public function getOrderDetailsByOrderNumberForAdmin($orderNumber)
     {
         $response = [];
 
-        $item['orderDetails'] = $this->orderDetailService->orderDetails($orderNumber);
+        $item['orderDetails'] = $this->orderDetailService->getOrderDetailsByOrderNumberForAdmin($orderNumber);
 
         $item['deliveryCost'] = $this->deliveryCompanyFinancialService->getDeliveryCostScalar();
         $item['invoices'] = $this->ordersInvoicesService->getInvoicesByOrderNumber($orderNumber);
@@ -498,7 +498,40 @@ class OrderService
         if($item['orderDetails']) {
             $item['order'] = $this->orderManager->orderStatusByOrderId($item['orderDetails'][0]->orderID);
             $response = $this->autoMapping->map('array', OrderInfoResponse::class, $item);
+        }
+        return $response;
     }
+
+    public function getOrderDetailsByOrderNumberForCaptain($orderNumber)
+    {
+        $response = [];
+
+        $item['orderDetails'] = $this->orderDetailService->getOrderDetailsByOrderNumberForCaptain($orderNumber);
+
+        $item['deliveryCost'] = $this->deliveryCompanyFinancialService->getDeliveryCostScalar();
+        $item['invoices'] = $this->ordersInvoicesService->getInvoicesByOrderNumber($orderNumber);
+
+        $item['rate'] = $this->ratingService->getAvgOrder($orderNumber);
+        if($item['orderDetails']) {
+            $item['order'] = $this->orderManager->orderStatusByOrderId($item['orderDetails'][0]->orderID);
+            $response = $this->autoMapping->map('array', OrderInfoResponse::class, $item);
+        }
+        return $response;
+    }
+
+    public function getOrderDetailsForClient($orderNumber)
+    {
+        $response = [];
+
+        $item['orderDetails'] = $this->orderDetailService->orderDetailsForClient($orderNumber);
+        $item['deliveryCost'] = $this->deliveryCompanyFinancialService->getDeliveryCostScalar();
+        $item['invoices'] = $this->ordersInvoicesService->getInvoicesByOrderNumber($orderNumber);
+
+        $item['rate'] = $this->ratingService->getAvgOrder($orderNumber);
+        if($item['orderDetails']) {
+            $item['order'] = $this->orderManager->orderStatusByOrderId($item['orderDetails'][0]->orderID);
+            $response = $this->autoMapping->map('array', OrderInfoResponse::class, $item);
+        }
         return $response;
     }
 
@@ -704,7 +737,6 @@ class OrderService
         if(!$orderInvoice) {
             return $response;
         }
-
         $request->setOrderInvoiceId($orderInvoice->id);
 
         $item = $this->orderDetailService->orderUpdateInvoiceByCaptain($request);

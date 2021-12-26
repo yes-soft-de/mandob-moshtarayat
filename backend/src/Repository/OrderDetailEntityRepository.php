@@ -64,9 +64,11 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('OrderDetailEntity')
 
             ->select('OrderDetailEntity.id','OrderDetailEntity.orderID', 'OrderDetailEntity.productID', 'OrderDetailEntity.countProduct', 'OrderDetailEntity.orderNumber')
-            ->addSelect('ProductEntity.id as productID', 'ProductEntity.productName', 'ProductEntity.productImage', 'ProductEntity.storeProductCategoryID as productCategoryID', 'ProductEntity.productPrice', 'ProductEntity.storeOwnerProfileID')
+            ->addSelect('ProductEntity.id as productID', 'ProductEntity.productName', 'ProductEntity.productImage', 'ProductEntity.storeProductCategoryID as productCategoryID', 'ProductEntity.productPrice', 'ProductEntity.storeOwnerProfileID', 'ProductEntity.isCommission', 'ProductEntity.commission', 'ProductEntity.discount')
+            ->addSelect('StoreOwnerProfileEntity.commission as storeCommission')
 
             ->leftJoin(ProductEntity::class, 'ProductEntity', Join::WITH, 'ProductEntity.id = OrderDetailEntity.productID')
+            ->leftJoin(StoreOwnerProfileEntity::class, 'StoreOwnerProfileEntity', Join::WITH, 'StoreOwnerProfileEntity.id = OrderDetailEntity.storeOwnerProfileID')
 
             ->andWhere('OrderDetailEntity.orderNumber = :orderNumber')
             ->andWhere('OrderDetailEntity.storeOwnerProfileID = :storeOwnerProfileID')
@@ -330,10 +332,16 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
 
             ->leftJoin(OrderEntity::class, 'OrderEntity', Join::WITH, 'orderDetailEntity.orderID = OrderEntity.id')
 
-            ->andWhere('orderDetailEntity.state = :state ')
-            ->andWhere('orderDetailEntity.storeOwnerProfileID = :storeOwnerProfileId ')
+            ->where('orderDetailEntity.storeOwnerProfileID = :storeOwnerProfileId ')
+            ->andWhere('orderDetailEntity.state = :ongoing ')
+            ->orWhere('orderDetailEntity.state = :onWay ')
+            ->orWhere('orderDetailEntity.state = :inStore ')
+            ->orWhere('orderDetailEntity.state = :picked ')
 
-            ->setParameter('state', OrderStateConstant::$ORDER_STATE_ONGOING)
+            ->setParameter('ongoing', OrderStateConstant::$ORDER_STATE_ONGOING)
+            ->setParameter('inStore', OrderStateConstant::$ORDER_STATE_IN_STORE)
+            ->setParameter('onWay', OrderStateConstant::$ORDER_STATE_ON_WAY)
+            ->setParameter('picked', OrderStateConstant::$ORDER_STATE_PICKED)
             ->setParameter('storeOwnerProfileId', $storeOwnerProfileId)
 
             ->addGroupBy('OrderEntity.id')

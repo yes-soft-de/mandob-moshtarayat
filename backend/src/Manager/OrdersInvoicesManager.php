@@ -35,6 +35,17 @@ class OrdersInvoicesManager
 
     public function orderUpdateInvoiceByCaptain(OrderUpdateInvoiceByCaptainRequest $request)
     {
+        $item = $this->ordersInvoicesEntityRepository->getInvoicesByOrderNumberAndStoreID($request->getStoreOwnerProfileID(), $request->getOrderNumber());
+
+        if ($item) {
+            $this->autoMapping->mapToObject(OrderUpdateInvoiceByCaptainRequest::class, OrdersInvoicesEntity::class, $request, $item);
+
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $this->ordersInvoicesEntityRepository->getInvoicesByOrderNumberAndStoreID($request->getStoreOwnerProfileID(), $request->getOrderNumber());
+        }
+
         $item = $this->autoMapping->map(OrderUpdateInvoiceByCaptainRequest::class, OrdersInvoicesEntity::class, $request);
 
         $this->entityManager->persist($item);
@@ -42,5 +53,4 @@ class OrdersInvoicesManager
 
         return $item;
     }
-
 }

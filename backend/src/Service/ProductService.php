@@ -248,6 +248,8 @@ class ProductService
             $item['image'] = $this->params . $item['image'];
         }
 
+        $item['costDetails'] = $this->costDetails($item['isCommission'], $item['productPrice'], $item['commission'], $item['storeCommission'], $item['discount']);
+
         $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
 
         $item['soldCount'] = $this->getProductsSoldCount($item['id']);
