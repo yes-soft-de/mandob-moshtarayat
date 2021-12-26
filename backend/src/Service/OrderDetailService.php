@@ -103,6 +103,23 @@ class OrderDetailService
         return $response;
     }
 
+    public function getOrderDetailsByOrderNumberForCaptain($orderNumber): array
+    {
+        $response = [];
+
+        $stores = $this->orderDetailManager->getStoreOwnerProfileByOrderNumber($orderNumber);
+        foreach ($stores as $store) {
+            $store['image'] = $this->getImageParams($store['image'], $this->params . $store['image'], $this->params);
+            $store['invoiceImage'] = $this->getImageParams($store['invoiceImage'], $this->params . $store['invoiceImage'], $this->params);
+
+            $store['products'] = $this->getProductsByOrderNumberAndStoreIDForCaptain($orderNumber, $store['storeOwnerProfileID']);
+
+            $response[] = $this->autoMapping->map('array', OrderDetailResponse::class, $store);
+        }
+
+        return $response;
+    }
+
     public function getProductsByOrderNumberAndStoreID($orderNumber, $storeOwnerProfileID): array
     {
         $response = [];
@@ -135,6 +152,23 @@ class OrderDetailService
     }
 
     public function getProductsByOrderNumberAndStoreIDForAdmin($orderNumber, $storeOwnerProfileID): array
+    {
+        $response = [];
+
+        $items = $this->orderDetailManager->getProductsByOrderNumberAndStoreID($orderNumber, $storeOwnerProfileID);
+        foreach ($items as $item) {
+
+            $item['productPrice'] = $this->priceForAdmin($item['productPrice'], $item['discount']);
+
+            $item['productImage'] = $this->getImageParams($item['productImage'], $this->params . $item['productImage'], $this->params);
+
+            $response[] = $this->autoMapping->map('array', OrderDetailProductsResponse::class, $item);
+        }
+
+        return $response;
+    }
+
+    public function getProductsByOrderNumberAndStoreIDForCaptain($orderNumber, $storeOwnerProfileID): array
     {
         $response = [];
 

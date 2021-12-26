@@ -502,6 +502,23 @@ class OrderService
         return $response;
     }
 
+    public function getOrderDetailsByOrderNumberForCaptain($orderNumber)
+    {
+        $response = [];
+
+        $item['orderDetails'] = $this->orderDetailService->getOrderDetailsByOrderNumberForCaptain($orderNumber);
+
+        $item['deliveryCost'] = $this->deliveryCompanyFinancialService->getDeliveryCostScalar();
+        $item['invoices'] = $this->ordersInvoicesService->getInvoicesByOrderNumber($orderNumber);
+
+        $item['rate'] = $this->ratingService->getAvgOrder($orderNumber);
+        if($item['orderDetails']) {
+            $item['order'] = $this->orderManager->orderStatusByOrderId($item['orderDetails'][0]->orderID);
+            $response = $this->autoMapping->map('array', OrderInfoResponse::class, $item);
+        }
+        return $response;
+    }
+
     public function getOrderDetailsForClient($orderNumber)
     {
         $response = [];
