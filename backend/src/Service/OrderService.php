@@ -737,7 +737,6 @@ class OrderService
         if(!$orderInvoice) {
             return $response;
         }
-
         $request->setOrderInvoiceId($orderInvoice->id);
 
         $item = $this->orderDetailService->orderUpdateInvoiceByCaptain($request);

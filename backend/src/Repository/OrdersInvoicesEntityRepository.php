@@ -32,6 +32,20 @@ class OrdersInvoicesEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getInvoicesByOrderNumberAndStoreID($storeOwnerProfileID, $orderNumber)
+    {
+        return $this->createQueryBuilder('invoice')
+
+            ->andWhere('invoice.orderNumber = :orderNumber' )
+            ->andWhere('invoice.storeOwnerProfileID = :storeOwnerProfileID' )
+
+            ->setParameter('orderNumber',$orderNumber)
+            ->setParameter('storeOwnerProfileID',$storeOwnerProfileID)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     public function sumInvoiceAmountWithoutOrderTypeSendIt($invoicesIDs)
     {
         return $this->createQueryBuilder('invoice')
