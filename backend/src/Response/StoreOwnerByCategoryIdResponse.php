@@ -35,4 +35,10 @@ class StoreOwnerByCategoryIdResponse
     public $status;
 
     public $commission;
+
+    public $bankName;
+
+    public $bankAccountNumber;
+
+    public $stcPay;
 }
