@@ -1,3 +1,4 @@
+import 'package:hexagon/hexagon.dart';
 import 'package:mandob_moshtarayat/abstracts/states/state.dart';
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat/di/di_config.dart';
@@ -47,45 +48,48 @@ class FavoriteLoadedState extends States {
             shape: BoxShape.circle,
           ),
           key: ValueKey(element.id),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(25),
-            child: Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25)),
-              child: Stack(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(25),
-                    child: CustomNetworkImage(
-                        imagePreview: false,
-                        height: 125,
-                        width: 125,
-                        imageSource: element.image),
-                  ),
-                  Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        width: double.maxFinite,
-                        height: 40,
-                        decoration: BoxDecoration(
-                            color: Theme.of(screenState.context)
-                                .primaryColor
-                                .withOpacity(0.95),
-                            borderRadius: const BorderRadius.vertical(
-                              bottom: Radius.circular(25),
-                            )),
-                        child: Center(
-                            child: Text(
+          child: HexagonWidget.flat(
+            width: 125,
+            height: 125,
+            cornerRadius: 25,
+            elevation: 3,
+            child: Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(25),
+                  child: CustomNetworkImage(
+                      imagePreview: false,
+                      height: 125,
+                      width: 125,
+                      imageSource: element.image),
+                ),
+                Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      width: 100,
+                      height: 40,
+                      decoration: BoxDecoration(
+                          color: Theme.of(screenState.context)
+                              .primaryColor
+                              .withOpacity(0.95),
+                          borderRadius: const BorderRadius.vertical(
+                            bottom: Radius.circular(25),
+                          )),
+                      child: Padding(
+                        padding:
+                            const EdgeInsets.only(top: 8.0, right: 8, left: 8),
+                        child: Text(
                           element.storeCategoryName,
                           style: const TextStyle(
                               fontSize: 14,
                               color: Colors.white,
                               fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center,
-                        )),
-                      )),
-                ],
-              ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    )),
+              ],
             ),
           ),
         ),
