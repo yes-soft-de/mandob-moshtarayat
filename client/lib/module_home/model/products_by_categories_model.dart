@@ -2,6 +2,7 @@ import 'package:mandob_moshtarayat/abstracts/data_model/data_model.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_home/response/products_by_categories_response.dart';
 import 'package:mandob_moshtarayat/utils/images/images.dart';
+import 'package:mandob_moshtarayat/utils/response/cost_details_response/cost_details_response.dart';
 
 class ProductsByCategoriesModel extends DataModel {
   late int id;
@@ -15,6 +16,7 @@ class ProductsByCategoriesModel extends DataModel {
   late String soldCount;
   late String description;
   late String storeName;
+  CostDetailsResponse? costDetails;
   ProductsByCategoriesModel(
       {required this.id,
       required this.productName,
@@ -26,7 +28,9 @@ class ProductsByCategoriesModel extends DataModel {
       required this.rate,
       required this.discount,
       required this.soldCount,
-      required this.storeName});
+      required this.storeName,
+      required this.costDetails
+      });
 
   List<ProductsByCategoriesModel> _products = [];
 
@@ -43,7 +47,9 @@ class ProductsByCategoriesModel extends DataModel {
           discount: element.discount ?? '0',
           rate: num.parse(element.rate ?? '0'),
           soldCount: element.soldCount ?? '0',
-          storeName: element.store?.storeOwnerName ?? S.current.unknown));
+          storeName: element.store?.storeOwnerName ?? S.current.unknown,
+          costDetails: element.costDetailsResponse
+          ));
     });
   }
 

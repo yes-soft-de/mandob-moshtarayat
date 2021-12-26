@@ -1,4 +1,5 @@
 import 'package:mandob_moshtarayat/module_home/response/store_response/store_response.dart';
+import 'package:mandob_moshtarayat/utils/response/cost_details_response/cost_details_response.dart';
 
 class ProductsByCategoriesResponse {
   ProductsByCategoriesResponse({
@@ -59,6 +60,7 @@ class Data {
     image = json['image'] != null ? Image.fromJson(json['image']) : null;
     store =
         json['store'] != null ? StoreResponse.fromJson(json['store']) : null;
+    costDetailsResponse = CostDetailsResponse.fromJson(json);    
   }
 
   int? id;
@@ -72,6 +74,7 @@ class Data {
   String? soldCount;
   String? description;
   StoreResponse? store;
+  CostDetailsResponse? costDetailsResponse;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

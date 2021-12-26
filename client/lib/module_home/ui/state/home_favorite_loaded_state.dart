@@ -127,6 +127,7 @@ class HomeFavoriteLoadedState extends HomeState {
         rating: element.rate.toDouble(),
         description: element.description,
         price: element.productPrice.toStringAsFixed(2),
+        costDetailsResponse: element.costDetails,
         onSelect: (cartModel) {
           if (cartModel.quantity > 0) {
             CartHiveHelper().addProductsToCart(cartModel);

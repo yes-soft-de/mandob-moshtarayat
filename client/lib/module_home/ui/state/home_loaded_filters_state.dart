@@ -150,6 +150,7 @@ class HomeLoadedFilterState extends HomeState {
         description: element.description,
         price: element.productPrice.toStringAsFixed(2),
         quantity: getQuantity(element.id),
+        costDetailsResponse: element.costDetails,
         onSelect: (cartModel) {
           if (cartModel.quantity > 0) {
             CartHiveHelper().addProductsToCart(cartModel);

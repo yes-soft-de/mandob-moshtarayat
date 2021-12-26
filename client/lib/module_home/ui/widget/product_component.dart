@@ -7,6 +7,7 @@ import 'package:mandob_moshtarayat/hive/objects/cart_model/cart_model.dart';
 import 'package:mandob_moshtarayat/module_products/products_routes.dart';
 import 'package:mandob_moshtarayat/utils/components/progresive_image.dart';
 import 'package:mandob_moshtarayat/utils/customIcon/mandob_icons_icons.dart';
+import 'package:mandob_moshtarayat/utils/response/cost_details_response/cost_details_response.dart';
 
 class ProductComponent extends StatefulWidget {
   final String productId;
@@ -19,6 +20,7 @@ class ProductComponent extends StatefulWidget {
   final String storeId;
   final String storeName;
   final String price;
+  final CostDetailsResponse? costDetailsResponse;
   int quantity;
   final Function(CartModel) onSelect;
   ProductComponent(
@@ -33,7 +35,9 @@ class ProductComponent extends StatefulWidget {
       required this.storeName,
       required this.price,
       this.quantity = 0,
-      required this.onSelect});
+      required this.onSelect,
+      required this.costDetailsResponse
+      });
 
   @override
   State<ProductComponent> createState() => _ProductComponentState();
@@ -43,7 +47,7 @@ class _ProductComponentState extends State<ProductComponent> {
   double imageSize = 175;
   @override
   Widget build(BuildContext context) {
-    num disPrice =
+    num disPrice = widget.costDetailsResponse?.costDetails?.priceFinal ??
         (num.parse(widget.price) * (100 - num.parse(widget.discount))) / 100;
     return InkWell(
       borderRadius: BorderRadius.circular(25),
@@ -86,7 +90,7 @@ class _ProductComponentState extends State<ProductComponent> {
                             style: DefaultTextStyle.of(context).style,
                             children: <TextSpan>[
                               TextSpan(
-                                  text: widget.price,
+                                  text:widget.costDetailsResponse?.costDetails?.priceWithCommission?.toStringAsFixed(2) ??  widget.price,
                                   style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
