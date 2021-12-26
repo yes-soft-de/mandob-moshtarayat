@@ -23,7 +23,7 @@ class ProductDetailsLoadedState extends States {
   late int quantity;
   @override
   Widget getUI(BuildContext context) {
-        num disPrice =
+    num disPrice =
         (model.productPrice * (100 - num.parse(model.discount))) / 100;
     return SingleChildScrollView(
       physics:

@@ -41,30 +41,30 @@ class Order {
   });
 
   factory Order.fromJson(Map<String, dynamic> json) => Order(
-      id: json['id'] as int?,
-      source: json['source'] as dynamic,
-      destination: json['destination'] == null
-          ? null
-          : Destination.fromJson(json['destination'] as Map<String, dynamic>),
-      deliveryDate: json['deliveryDate'] == null
-          ? null
-          : DeliveryDate.fromJson(json['deliveryDate'] as Map<String, dynamic>),
-      updatedAt: json['updatedAt'] as dynamic?,
-      note: json['note'] as String?,
-      payment: json['payment'] as String?,
-      recipientName: json['recipientName'] as String?,
-      recipientPhone: json['recipientPhone'] as String?,
-      state: json['state'] as String?,
-      roomId: json['roomID'] as String?,
-      captainId: json['captainID']?.toString(),
-      createdAt: json['createdAt'] == null
-          ? null
-          : CreatedAt.fromJson(json['createdAt'] as Map<String, dynamic>),
-      detail: json['detail'] as String?,
-      deliveryCost: json['deliveryCost'] as num?,
-      orderCost: json['orderCost'] as num?,
-      orderType: json['orderType'] as int?,
-      
+        id: json['id'] as int?,
+        source: json['source'] as dynamic,
+        destination: json['destination'] == null
+            ? null
+            : Destination.fromJson(json['destination'] as Map<String, dynamic>),
+        deliveryDate: json['deliveryDate'] == null
+            ? null
+            : DeliveryDate.fromJson(
+                json['deliveryDate'] as Map<String, dynamic>),
+        updatedAt: json['updatedAt'] as dynamic?,
+        note: json['note'] as String?,
+        payment: json['payment'] as String?,
+        recipientName: json['recipientName'] as String?,
+        recipientPhone: json['recipientPhone'] as String?,
+        state: json['state'] as String?,
+        roomId: json['roomID'] as String?,
+        captainId: json['captainID']?.toString(),
+        createdAt: json['createdAt'] == null
+            ? null
+            : CreatedAt.fromJson(json['createdAt'] as Map<String, dynamic>),
+        detail: json['detail'] as String?,
+        deliveryCost: json['deliveryCost'] as num?,
+        orderCost: json['orderCost'] as num?,
+        orderType: json['orderType'] as int?,
       );
 
   Map<String, dynamic> toJson() => {

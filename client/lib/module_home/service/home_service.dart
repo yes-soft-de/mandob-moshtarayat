@@ -204,7 +204,8 @@ class HomeService {
         to: getIt<LocalizationService>().getLanguage());
     print('++++++++++++++++++++++++++++++++++++++++++++++++++++++');
     print('source ${translation.source} translated to ${translation.text}');
-    print('source ${translation.sourceLanguage} target ${translation.targetLanguage}');
+    print(
+        'source ${translation.sourceLanguage} target ${translation.targetLanguage}');
     print('++++++++++++++++++++++++++++++++++++++++++++++++++++++');
 
     return translation.text;

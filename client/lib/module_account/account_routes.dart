@@ -4,5 +4,4 @@ class AccountRoutes {
   static const ABOUT_SCREEN = '/about_screen';
   static const PRIVECY_POLICY = '/privecy_policy';
   static const TERMS_OF_USE = '/terms_of_use';
-
 }

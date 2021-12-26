@@ -44,8 +44,8 @@ class PersonalDataLoadedState extends PersonalDataState {
     return Stack(
       children: [
         ListView(
-          physics:
-              const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+          physics: const BouncingScrollPhysics(
+              parent: AlwaysScrollableScrollPhysics()),
           children: [
             const SizedBox(
               height: 16,

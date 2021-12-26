@@ -15,7 +15,8 @@ class AccountModule extends YesModule {
   final AboutScreen _aboutScreen;
   final PrivecyPolicy _privecyPolicy;
   final TermsOfUse _termsOfUse;
-  AccountModule(this._accountScreen, this._personalDataScreen,this._aboutScreen,this._privecyPolicy,this._termsOfUse) {
+  AccountModule(this._accountScreen, this._personalDataScreen,
+      this._aboutScreen, this._privecyPolicy, this._termsOfUse) {
     YesModule.RoutesMap.addAll(getRoutes());
   }
 
@@ -26,7 +27,6 @@ class AccountModule extends YesModule {
       AccountRoutes.ABOUT_SCREEN: (context) => _aboutScreen,
       AccountRoutes.PRIVECY_POLICY: (context) => _privecyPolicy,
       AccountRoutes.TERMS_OF_USE: (context) => _termsOfUse,
-
     };
   }
 }

@@ -51,7 +51,7 @@ class FavoritScreenState extends State<FavouritScreen> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async{
+      onWillPop: () async {
         return canGoBack;
       },
       child: GestureDetector(
@@ -63,7 +63,7 @@ class FavoritScreenState extends State<FavouritScreen> {
         },
         child: Scaffold(
           appBar: CustomTwaslnaAppBar.appBar(context,
-              title: S.current.favoriteCategories,canGoBack: canGoBack),
+              title: S.current.favoriteCategories, canGoBack: canGoBack),
           body: currentState?.getUI(context),
         ),
       ),

@@ -13,12 +13,12 @@ class NotificationsPrefHelper {
   bool? getIsActive() {
     return box.get('client_active');
   }
-  RemoteMessage getBackgroundMessage(){
+
+  RemoteMessage getBackgroundMessage() {
     return box.get('BackgroundMessage');
   }
-  void setBackgroundMessage(RemoteMessage message){
 
-    box.put('BackgroundMessage',message);
-
+  void setBackgroundMessage(RemoteMessage message) {
+    box.put('BackgroundMessage', message);
   }
 }

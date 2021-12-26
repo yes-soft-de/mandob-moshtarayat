@@ -41,8 +41,8 @@ class PersonalDataScreenState extends State<PersonalDataScreen> {
     } else {
       Navigator.of(context).pop();
       CustomFlushBarHelper.createError(
-          title: S.of(context).warnning, message: err)
-        .show(context);
+              title: S.of(context).warnning, message: err)
+          .show(context);
     }
   }
 

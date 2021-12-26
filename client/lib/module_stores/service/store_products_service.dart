@@ -78,7 +78,7 @@ class StoreProductsService {
           productsByCategory.statusCode));
     }
     if (productsByCategory.data == null) return ProductModel.Empty();
-     for (var element in productsByCategory.data!) {
+    for (var element in productsByCategory.data!) {
       element.productName = await translateService(element.productName ?? '');
     }
     return ProductModel.Data(productsByCategory);
