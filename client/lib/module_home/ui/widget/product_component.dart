@@ -133,7 +133,7 @@ class _ProductComponentState extends State<ProductComponent> {
                           width: 4.0,
                         ),
                         Text(
-                          S.current.saller,
+                          S.current.seller,
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 12,

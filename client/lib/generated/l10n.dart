@@ -3741,7 +3741,7 @@ class S {
   }
 
   /// `Saller`
-  String get saller {
+  String get seller {
     return Intl.message(
       'Saller',
       name: 'saller',
