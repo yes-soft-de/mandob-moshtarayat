@@ -23,7 +23,7 @@ class Urls {
   static const ACCEPT_ORDER_API = BASE_API + '/acceptedOrder';
   static const CAPTAIN_ORDER_UPDATE_API = BASE_API + '/orderupdatestate';
   static const ORDER_UPDATE_BILL_API =
-      BASE_API + '/orderUpdateInvoiceByCaptain';
+      BASE_API + '/orderupdateinvoicebycaptain';
   static const BILLED_FOR_COMPANY_API =
       BASE_API + '/orderupdatebillcalculatedbycaptain';
   static const UPDATES_API = BASE_API + '/updateall';

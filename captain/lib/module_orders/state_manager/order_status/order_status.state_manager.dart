@@ -82,7 +82,8 @@ class OrderStatusStateManager {
             _stateSubject.add(OrderDetailsEmptyState(screenState,
                 S.current.homeDataEmpty, request.orderNumber ?? -1));
           } else {
-           var store = value.data.carts.singleWhere((element) => element.storeOwnerID == request.storeOwnerProfileId);
+            var store = value.data.carts.singleWhere((element) =>
+                element.storeOwnerID == request.storeOwnerProfileId);
             _stateSubject.add(OrderDetailsStoreLoaded(screenState, store));
           }
         });
@@ -90,8 +91,10 @@ class OrderStatusStateManager {
     });
   }
 
-  void updateInvoice(UpdateOrderRequest orderRequest,
-      OrderInvoiceRequest request, OrderStatusScreenState screenState) {
+  void updateInvoice(
+      OrderInvoiceRequest request, OrderStatusScreenState screenState,
+      {UpdateOrderRequest? orderRequest,
+      UpdateStoreOrderStatusRequest? storeRequest}) {
     _stateSubject.add(OrderDetailsStateLoading(screenState));
     _ordersService.updateOrderBill(request).then((value) {
       if (value.hasError) {
@@ -111,11 +114,19 @@ class OrderStatusStateManager {
                       message: S.current.saveInvoiceFailed)
                   .show(screenState.context);
             } else {
-              updateOrder(orderRequest, screenState);
+              if (orderRequest != null) {
+                updateOrder(orderRequest, screenState);
+              } else if (storeRequest != null) {
+                updateStoreOrder(storeRequest, screenState);
+              }
             }
           });
         } else {
-          updateOrder(orderRequest, screenState);
+          if (orderRequest != null) {
+            updateOrder(orderRequest, screenState);
+          } else if (storeRequest != null) {
+            updateStoreOrder(storeRequest, screenState);
+          }
         }
       }
     });
@@ -123,7 +134,7 @@ class OrderStatusStateManager {
 
   Future<void> uploadBill(
       OrderStatusScreenState screenState, String image, double totalPrice,
-      [bool? isBilled]) async {
+      {bool? isBilled, String? storeID}) async {
     await CustomFlushBarHelper.createSuccess(
       title: S.current.warnning,
       message: S.current.savingInvoice,
@@ -137,7 +148,7 @@ class OrderStatusStateManager {
         CustomFlushBarHelper.createSuccess(
             title: S.current.warnning, message: S.current.saveInvoiceSuccess)
           ..show(screenState.context);
-        screenState.saveBill(uploadedImageLink, totalPrice, isBilled);
+        screenState.saveBill(uploadedImageLink, totalPrice, isBilled, storeID);
       }
     });
   }

@@ -22,9 +22,9 @@ import 'package:mandob_moshtarayat_captain/utils/logger/logger.dart';
 
 @injectable
 class OrderStatusScreen extends StatefulWidget {
-  final OrderStatusStateManager _stateManager;
+  final OrderStatusStateManager stateManager;
 
-  OrderStatusScreen(this._stateManager);
+  OrderStatusScreen(this.stateManager);
 
   @override
   OrderStatusScreenState createState() => OrderStatusScreenState();
@@ -39,7 +39,7 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
   @override
   void initState() {
     currentState = OrderDetailsStateInit(this);
-    widget._stateManager.stateStream.listen((event) {
+    widget.stateManager.stateStream.listen((event) {
       currentState = event;
       if (mounted) {
         setState(() {});
@@ -49,7 +49,7 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
   }
 
   void sendOrderReportState(var orderId, bool answar) {
-    widget._stateManager.sendOrderReportState(orderId, answar, this);
+    widget.stateManager.sendOrderReportState(orderId, answar, this);
   }
 
   void sendState(bool success) {
@@ -75,11 +75,12 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
     )..show(context);
   }
 
-  void saveBill(String image, double price, bool? isBilled) {
+  void saveBill(String image, double price, bool? isBilled, String? storeID) {
     invoiceRequest = OrderInvoiceRequest(
         invoiceAmount: price,
         invoiceImage: image,
         orderNumber: orderId,
+        storeID: storeID,
         isBilled: isBilled == null ? null : (isBilled == true ? 1 : 0));
     refresh();
   }
@@ -91,7 +92,7 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
   }
 
   void requestOrderProgress(OrderDetailsModel currentOrder, int index,
-      {String? distance}) {
+      {String? distance, String? storeID}) {
     showDialog(
         context: context,
         builder: (_) {
@@ -100,20 +101,21 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
                 Navigator.of(context).pop();
                 if (currentOrder.order.state == OrderStatus.IN_STORE &&
                     invoiceRequest != null) {
-                  // currentOrder.providedDistance =
-                  //     double.tryParse(distance ?? '0');
-                  // widget._stateManager.updateInvoice(
-                  //     UpdateOrderRequest(
-                  //       id: int.tryParse(orderId ?? '-1'),
-                  //       state: StatusHelper.getStatusString(
-                  //           OrderStatus.values[index + 1]),
-                  //       orderCost: currentOrder.order.deliveryCost,
-                  //       distance: distance,
-                  //     ),
-                  //     invoiceRequest!,
-                  //     this);
+                  print(storeID);
+                  invoiceRequest?.storeID = storeID;
+                  widget.stateManager.updateInvoice(
+                    invoiceRequest!,
+                    this,
+                    orderRequest: UpdateOrderRequest(
+                      id: int.tryParse(orderId ?? '-1'),
+                      state: StatusHelper.getStatusString(
+                          OrderStatus.values[index + 1]),
+                      orderCost: currentOrder.order.deliveryCost,
+                      distance: distance,
+                    ),
+                  );
                 } else {
-                  widget._stateManager.updateOrder(
+                  widget.stateManager.updateOrder(
                       UpdateOrderRequest(
                         id: int.tryParse(orderId ?? '-1'),
                         state: StatusHelper.getStatusString(
@@ -128,8 +130,9 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
         });
   }
 
-  void requestStoreOrderProgress(UpdateStoreOrderStatusRequest request,int index) {
-  showDialog(
+  void requestStoreOrderProgress(
+      UpdateStoreOrderStatusRequest request, int index) {
+    showDialog(
         context: context,
         builder: (_) {
           return CustomAlertDialog(
@@ -137,30 +140,18 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
                 Navigator.of(context).pop();
                 if (OrderStatus.values[index] == OrderStatus.IN_STORE &&
                     invoiceRequest != null) {
-                  // currentOrder.providedDistance =
-                  //     double.tryParse(distance ?? '0');
-                  // widget._stateManager.updateInvoice(
-                  //     UpdateOrderRequest(
-                  //       id: int.tryParse(orderId ?? '-1'),
-                  //       state: StatusHelper.getStatusString(
-                  //           OrderStatus.values[index + 1]),
-                  //       orderCost: currentOrder.order.deliveryCost,
-                  //       distance: distance,
-                  //     ),
-                  //     invoiceRequest!,
-                  //     this);
+                  widget.stateManager.updateInvoice(invoiceRequest!, this,
+                      storeRequest: request);
                 } else {
-                  widget._stateManager.updateStoreOrder(request,
-                      this);
+                  widget.stateManager.updateStoreOrder(request, this);
                 }
               },
               content: S.of(context).confirmUpdateOrderStatus);
         });
-  
   }
 
   void getOrderDetails(var orderId) {
-    widget._stateManager.getOrderDetails(orderId, this);
+    widget.stateManager.getOrderDetails(orderId, this);
   }
 
   @override
@@ -168,7 +159,7 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
     var args = ModalRoute.of(context)!.settings.arguments;
     if (args != null && currentState is OrderDetailsStateInit) {
       orderId = args.toString();
-      widget._stateManager.getOrderDetails(int.tryParse(orderId!) ?? -1, this);
+      widget.stateManager.getOrderDetails(int.tryParse(orderId!) ?? -1, this);
     }
     return GestureDetector(
       onTap: () {
@@ -256,8 +247,9 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
                 isBilledCalculated: deliverOnMe,
                 onPressed: (isBilled) {
                   Navigator.of(context).pop();
-                  widget._stateManager.uploadBill(this, imagePath!,
-                      double.tryParse(totalCost.text) ?? 0, isBilled);
+                  widget.stateManager.uploadBill(
+                      this, imagePath!, double.tryParse(totalCost.text) ?? 0,
+                      isBilled: isBilled);
                 },
               ),
             );

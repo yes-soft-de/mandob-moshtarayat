@@ -162,7 +162,7 @@ class _MyAppState extends State<MyApp> {
         ],
         theme: activeTheme,
         supportedLocales: S.delegate.supportedLocales,
-        title: 'Twaslna Captain',
+        title: 'Mandoob Captain',
         routes: fullRoutesList,
         initialRoute: SplashRoutes.SPLASH_SCREEN,
       ),
