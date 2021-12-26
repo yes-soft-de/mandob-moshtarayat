@@ -10,6 +10,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mandob_moshtarayat_captain/utils/components/custom_feild.dart';
 import 'package:mandob_moshtarayat_captain/utils/components/custom_list_view.dart';
 import 'package:mandob_moshtarayat_captain/utils/components/faded_button_bar.dart';
+import 'package:mandob_moshtarayat_captain/utils/components/hider.dart';
+import 'package:mandob_moshtarayat_captain/utils/helpers/custom_flushbar.dart';
 
 class InitAccountCaptainInitProfile extends InitAccountState {
   Uri? captainImage;
@@ -247,30 +249,50 @@ class InitAccountCaptainInitProfile extends InitAccountState {
             ),
             Align(
               alignment: Alignment.bottomCenter,
-              child: FadedButtonBar(
-                text: S.of(context).uploadAndSubmit,
-                onPressed: driverLicence == null ||
-                        captainImage == null ||
-                        mechanicLicence == null ||
-                        identity == null
-                    ? null
-                    : () {
-                        if (_initKey.currentState!.validate()) {
-                          screen.submitProfile(
-                              CreateCaptainProfileRequest.withUriImages(
-                                  age: int.parse(_ageController.text),
-                                  car: _carController.text,
-                                  captainImage: captainImage,
-                                  driving: driverLicence,
-                                  mechanic: mechanicLicence,
-                                  idImage: identity,
-                                  phone: _phoneController.text,
-                                  bankAccountNumber:
-                                      _bankAccountNumberController.text,
-                                  bankName: _bankNameController.text,
-                                  stcPay: _stcPayController.text));
+              child: Hider(
+                active: MediaQuery.of(context).viewInsets.bottom == 0,
+                child: FadedButtonBar(
+                  text: S.of(context).uploadAndSubmit,
+                  onPressed: () {
+                    if (_initKey.currentState!.validate()) {
+                      if (identity != null &&
+                          driverLicence != null &&
+                          captainImage != null &&
+                          mechanicLicence != null) {
+                        screen.submitProfile(
+                            CreateCaptainProfileRequest.withUriImages(
+                                age: int.parse(_ageController.text),
+                                car: _carController.text,
+                                captainImage: captainImage,
+                                driving: driverLicence,
+                                mechanic: mechanicLicence,
+                                idImage: identity,
+                                phone: _phoneController.text,
+                                bankAccountNumber:
+                                    _bankAccountNumberController.text,
+                                bankName: _bankNameController.text,
+                                stcPay: _stcPayController.text));
+                      } else {
+                        if (captainImage == null) {
+                          CustomFlushBarHelper.createError(title: S.current.warnning, message: S.current.pleaseProvideProfileImage).show(context);
                         }
-                      },
+                        if (mechanicLicence == null) {
+                          CustomFlushBarHelper.createError(title: S.current.warnning, message: S.current.pleaseProvideMechImage).show(context);
+                        }
+                        if (identity == null) {
+                          CustomFlushBarHelper.createError(title: S.current.warnning, message: S.current.pleaseProvideIdentityImage).show(context);
+                        }
+                        if (driverLicence == null) {
+                          CustomFlushBarHelper.createError(title: S.current.warnning, message: S.current.pleaseProvideDrivingImage).show(context);
+                        }
+                      }
+                    }
+                    else {
+                          CustomFlushBarHelper.createError(title: S.current.warnning, message: S.current.pleaseCompleteTheForm).show(context);
+
+                    }
+                  },
+                ),
               ),
             ),
           ],

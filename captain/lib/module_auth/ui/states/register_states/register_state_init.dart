@@ -8,6 +8,7 @@ import 'package:mandob_moshtarayat_captain/module_auth/ui/widget/login_widgets/c
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat_captain/module_auth/ui/widget/rigester/custom_register_app_bar.dart';
 import 'package:mandob_moshtarayat_captain/utils/components/auth_buttons.dart';
+import 'package:mandob_moshtarayat_captain/utils/components/hider.dart';
 import 'package:mandob_moshtarayat_captain/utils/helpers/custom_flushbar.dart';
 import 'package:mandob_moshtarayat_captain/utils/images/images.dart';
 
@@ -133,24 +134,27 @@ class RegisterStateInit extends RegisterState {
         ),
         Align(
           alignment: Alignment.bottomCenter,
-          child: AuthButtons(
-            firstButtonTitle: S.of(context).register,
-            secondButtonTitle: S.of(context).iHaveAnAccount,
-            loading: screen.loadingSnapshot.connectionState ==
-                ConnectionState.waiting,
-            secondButtonTab: () => Navigator.of(context).pushReplacementNamed(
-                AuthorizationRoutes.LOGIN_SCREEN,
-                arguments: screen.args),
-            firstButtonTab: agreed
-                ? () {
-                    if (_registerKey.currentState!.validate()) {
-                      screen.registerClient(RegisterRequest(
-                          userID: usernameController.text,
-                          password: passwordController.text,
-                          userName: nameController.text));
+          child: Hider(
+            active: MediaQuery.of(context).viewInsets.bottom == 0,
+            child: AuthButtons(
+              firstButtonTitle: S.of(context).register,
+              secondButtonTitle: S.of(context).iHaveAnAccount,
+              loading: screen.loadingSnapshot.connectionState ==
+                  ConnectionState.waiting,
+              secondButtonTab: () => Navigator.of(context).pushReplacementNamed(
+                  AuthorizationRoutes.LOGIN_SCREEN,
+                  arguments: screen.args),
+              firstButtonTab: agreed
+                  ? () {
+                      if (_registerKey.currentState!.validate()) {
+                        screen.registerClient(RegisterRequest(
+                            userID: usernameController.text,
+                            password: passwordController.text,
+                            userName: nameController.text));
+                      }
                     }
-                  }
-                : null,
+                  : null,
+            ),
           ),
         ),
       ],
