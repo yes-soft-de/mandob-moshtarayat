@@ -485,11 +485,11 @@ class OrderService
         return $response;
     }
 
-    public function getOrderDetailsByOrderNumber($orderNumber)
+    public function getOrderDetailsByOrderNumberForAdmin($orderNumber)
     {
         $response = [];
 
-        $item['orderDetails'] = $this->orderDetailService->orderDetails($orderNumber);
+        $item['orderDetails'] = $this->orderDetailService->getOrderDetailsByOrderNumberForAdmin($orderNumber);
 
         $item['deliveryCost'] = $this->deliveryCompanyFinancialService->getDeliveryCostScalar();
         $item['invoices'] = $this->ordersInvoicesService->getInvoicesByOrderNumber($orderNumber);

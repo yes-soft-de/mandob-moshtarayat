@@ -1163,9 +1163,9 @@ class OrderController extends BaseController
      *  )
      *)
      */
-    public function getOrderDetailsByOrderNumberForAdmin($orderNumber)
-      {
-        $result = $this->orderService->getOrderDetailsByOrderNumber($orderNumber);
+    public function getOrderDetailsByOrderNumberForAdmin($orderNumber): JsonResponse
+    {
+        $result = $this->orderService->getOrderDetailsByOrderNumberForAdmin($orderNumber);
   
         return $this->response($result, self::FETCH);
       }
