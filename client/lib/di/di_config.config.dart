@@ -160,8 +160,8 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       _i12.LocalizationService(get<_i11.LocalizationPreferencesHelper>()));
   gh.factory<_i13.Logger>(() => _i13.Logger());
   gh.factory<_i14.MainScreen>(() => _i14.MainScreen());
-  gh.factory<_i15.NotificationsPrefsHelper>(
-      () => _i15.NotificationsPrefsHelper());
+  gh.factory<_i15.NotificationsPrefHelper>(
+      () => _i15.NotificationsPrefHelper());
   gh.factory<_i16.PaymentsPortal>(() => _i16.PaymentsPortal());
   gh.factory<_i17.PrivecyPolicy>(() => _i17.PrivecyPolicy());
   gh.factory<_i18.TermsOfUse>(() => _i18.TermsOfUse());
@@ -230,7 +230,7 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.factory<_i52.ChatStateManager>(
       () => _i52.ChatStateManager(get<_i51.ChatService>()));
   gh.factory<_i53.FireNotificationService>(() => _i53.FireNotificationService(
-      get<_i15.NotificationsPrefsHelper>(), get<_i37.NotificationRepo>()));
+      get<_i15.NotificationsPrefHelper>(), get<_i37.NotificationRepo>()));
   gh.factory<_i54.HomeManager>(
       () => _i54.HomeManager(get<_i32.HomeRepository>()));
   gh.factory<_i55.HomeService>(() => _i55.HomeService(get<_i54.HomeManager>()));

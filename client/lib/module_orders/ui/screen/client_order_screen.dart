@@ -34,6 +34,11 @@ class ClientOrderScreenState extends State<ClientOrderScreen> {
   }
 
   void postClientOrder(ClientOrderRequest request) {
+    // showDialog(
+    //     context: context,
+    //     builder: (context) {
+    //       return PaymentsPortal();
+    //     });
     widget._clientOrderStateManager.postClientOrder(request, this);
   }
 

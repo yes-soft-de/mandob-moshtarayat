@@ -51,10 +51,10 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
             : 'iOS-BUNDLE-ID',
         productionSecreteKey: Platform.isAndroid
             ? 'sk_live_Nii9aC8wbQsh3rMK:DIAjpfZ'
-            : 'iOS-Live-Key',
+            : 'sk_live_Nii9aC8wbQsh3rMK:DIAjpfZ',
         sandBoxsecretKey: Platform.isAndroid
-            ? 'sk_test_46BsGCc3d80UHWZ1krFPuIDE'
-            : 'iOS-SANDBOX-KEY',
+            ? 'sk_test_46BsGCc3d8aUHWZ1krFPulDE'
+            : 'sk_test_46BsGCc3d8aUHWZ1krFPulDE',
         lang: getIt<LocalizationService>().getLanguage());
   }
 
@@ -62,20 +62,20 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
   Future<void> setupSDKSession() async {
     try {
       GoSellSdkFlutter.sessionConfigurations(
-          trxMode: TransactionMode.PURCHASE,
+          trxMode: TransactionMode.TOKENIZE_CARD,
           paymentItems: [],
           paymentMetaData: {},
           taxes: [],
           shippings: [],
           customer: Customer(
               customerId:
-                  "", // customer id is important to retrieve cards saved for this customer
-              email: "test@test.com",
-              isdNumber: "965",
-              number: "00000000",
-              firstName: "test",
-              middleName: "test",
-              lastName: "test",
+                  '', // customer id is important to retrieve cards saved for this customer
+              email: '',
+              isdNumber: '',
+              number: '',
+              firstName: '',
+              middleName: '',
+              lastName: '',
               metaData: null),
           transactionCurrency: 'sar',
           amount: '10',

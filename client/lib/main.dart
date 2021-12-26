@@ -143,11 +143,15 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       lang = event;
       setState(() {});
     });
-    // widget._fireNotificationService.onNotificationStream.listen((event) {
-    //   widget._localNotificationService.showNotification(event);
-    // });
-    // widget._localNotificationService.onLocalNotificationStream
-    //     .listen((event) {});
+    widget._fireNotificationService.onNotificationStream.listen((event) {
+      widget._localNotificationService.showNotification(event);
+    });
+    widget._localNotificationService.onLocalNotificationStream
+        .listen((event) {
+      Navigator.pushNamed(
+          GlobalVariable.navState.currentContext!, event.clickAction.toString(),
+          arguments: event?.argument);
+    });
     widget._themeDataService.darkModeStream.listen((event) {
       activeTheme = event;
       setState(() {});
