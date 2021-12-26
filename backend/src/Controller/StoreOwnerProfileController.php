@@ -92,7 +92,7 @@ class StoreOwnerProfileController extends BaseController
     }
 
     /**
-     * @Route("createstoreowner", name="createStoreOwner", methods={"POST"})
+     * @Route("createstoreownerbydeveloper", name="createStoreOwner", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
      *
@@ -136,7 +136,7 @@ class StoreOwnerProfileController extends BaseController
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
 
-        $response = $this->storeOwnerProfileService->storeOwnerRegister($request);
+        $response = $this->storeOwnerProfileService->storeOwnerRegisterByDeveloper($request);
 
         return new JsonResponse('correct_response', 200);
     }
