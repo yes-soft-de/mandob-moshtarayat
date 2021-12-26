@@ -23,7 +23,7 @@ class StatusCodeHelper {
         return S.current.invalidCredentials;
       case '9001':
         return S.current.accountAlreadyExist;
-      case '9002':
+      case '9100':
         return S.current.captainAccountInActive;
       case '-1':
         return S.current.dataDecodeError;
