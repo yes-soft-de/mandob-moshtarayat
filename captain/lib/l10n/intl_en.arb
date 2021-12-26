@@ -425,7 +425,11 @@
   "isBilledForCompany": "Is billed on company",
   "preferredLanguage":"Preferred Language",
   "selectLanguage":"Select Language",
-  "chooseCaptainProfile":"Choose captain profile photo"
+  "chooseCaptainProfile":"Choose captain profile photo",
+  "pleaseProvideDrivingImage":"Please provide driving license image",
+  "pleaseProvideIdentityImage":"Please provide identity image",
+  "pleaseProvideMechImage":"Please provide Mechanic image",
+  "pleaseProvideProfileImage":"Please provide profile image"
   
 
 

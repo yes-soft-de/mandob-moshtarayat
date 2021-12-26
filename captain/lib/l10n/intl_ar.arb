@@ -422,7 +422,11 @@
   "isBilledForCompany": "الفاتورة على حساب الشركة",
   "preferredLanguage":"اللغة المفضلة",
   "selectLanguage":"اختر لغتك المفضلة",
-  "chooseCaptainProfile":"اختر صورة الكابتن الشخصية"
+  "chooseCaptainProfile":"اختر صورة الكابتن الشخصية",
+  "pleaseProvideDrivingImage":"من فضلك قم بتزويدنا بشهادة القيادة",
+  "pleaseProvideIdentityImage":"من فضلك قم بتزويدنا بالهوية الشخصية",
+  "pleaseProvideMechImage":"من فضلك قم بتزويدنا بشهادة السير",
+  "pleaseProvideProfileImage":"من فضلك قم بتزويدنا بصورتك الشخصية"
 
 
 }
