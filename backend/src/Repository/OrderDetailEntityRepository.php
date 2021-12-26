@@ -330,10 +330,16 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
 
             ->leftJoin(OrderEntity::class, 'OrderEntity', Join::WITH, 'orderDetailEntity.orderID = OrderEntity.id')
 
-            ->andWhere('orderDetailEntity.state = :state ')
-            ->andWhere('orderDetailEntity.storeOwnerProfileID = :storeOwnerProfileId ')
+            ->where('orderDetailEntity.storeOwnerProfileID = :storeOwnerProfileId ')
+            ->andWhere('orderDetailEntity.state = :ongoing ')
+            ->orWhere('orderDetailEntity.state = :onWay ')
+            ->orWhere('orderDetailEntity.state = :inStore ')
+            ->orWhere('orderDetailEntity.state = :picked ')
 
-            ->setParameter('state', OrderStateConstant::$ORDER_STATE_ONGOING)
+            ->setParameter('ongoing', OrderStateConstant::$ORDER_STATE_ONGOING)
+            ->setParameter('inStore', OrderStateConstant::$ORDER_STATE_IN_STORE)
+            ->setParameter('onWay', OrderStateConstant::$ORDER_STATE_ON_WAY)
+            ->setParameter('picked', OrderStateConstant::$ORDER_STATE_PICKED)
             ->setParameter('storeOwnerProfileId', $storeOwnerProfileId)
 
             ->addGroupBy('OrderEntity.id')
