@@ -170,9 +170,9 @@ class StoreOwnerProfileManager
         return $this->orderManager->getInvoicesIDsForStore($storeOwnerProfileId);
     }
 
-    public function getSumInvoicesForStoreInSpecificDate($storeOwnerProfileId, $fromDate, $toDate)
+    public function getInvoicesIDsForStoreInSpecificDate($storeOwnerProfileId, $fromDate, $toDate)
     {
-        return $this->orderManager->getSumInvoicesForStoreInSpecificDate($storeOwnerProfileId, $fromDate, $toDate);
+        return $this->orderManager->getInvoicesIDsForStoreInSpecificDate($storeOwnerProfileId, $fromDate, $toDate);
     }
 
     public function getStoreOwnerProfileByCategoryID($storeCategoryID)

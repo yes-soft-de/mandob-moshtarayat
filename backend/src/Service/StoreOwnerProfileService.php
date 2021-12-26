@@ -314,7 +314,6 @@ class StoreOwnerProfileService
         $invoicesIDs = $this->storeOwnerProfileManager->getInvoicesIDs($storeOwnerProfileId);
         $item['amountOwedToStore'] = (float)$this->ordersInvoicesService->sumInvoiceAmountWithoutOrderTypeSendIt($invoicesIDs);
 
-//        $item['amountOwedToStore'] = (float)$this->storeOwnerProfileManager->getSumInvoicesForStore($storeOwnerProfileId);
         $item['sumPaymentsToStore'] = (float)$this->deliveryCompanyPaymentsToStoreService->deliveryCompanySumPaymentsToStore($storeOwnerProfileId);
         $item['total'] =  $item['amountOwedToStore'] -  $item['sumPaymentsToStore'];
         $item['paymentsToStore'] = $this->deliveryCompanyPaymentsToStoreService->deliveryCompanyPaymentsToStore($storeOwnerProfileId);
@@ -325,8 +324,9 @@ class StoreOwnerProfileService
     public function storeFinancialAccountForStoreInSpecificDate($userID, $fromDate, $toDate)
     {
         $storeOwnerProfileId = $this->storeOwnerProfileManager->getStoreProfileId($userID);
+        $invoicesIDs = $this->storeOwnerProfileManager->getInvoicesIDsForStoreInSpecificDate($storeOwnerProfileId['id'], $fromDate, $toDate);
+        $item['amountOwedToStore'] = (float)$this->ordersInvoicesService->sumInvoiceAmountWithoutOrderTypeSendIt($invoicesIDs);
 
-        $item['amountOwedToStore'] = (float)$this->storeOwnerProfileManager->getSumInvoicesForStoreInSpecificDate($storeOwnerProfileId, $fromDate, $toDate);
         $item['sumPaymentsToStore'] = (float)$this->deliveryCompanyPaymentsToStoreService->deliveryCompanySumPaymentsToStoreInSpecificDate($storeOwnerProfileId, $fromDate, $toDate);
         $item['total'] = $item['amountOwedToStore'] -  $item['sumPaymentsToStore'];
         $item['paymentsToStore'] = $this->deliveryCompanyPaymentsToStoreService->deliveryCompanyPaymentsToStoreInSpecificDate($storeOwnerProfileId, $fromDate, $toDate);

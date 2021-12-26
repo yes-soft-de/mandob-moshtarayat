@@ -186,6 +186,11 @@ class CaptainProfileManager
         return $this->orderManager->getInvoicesIDs($captainId);
     }
 
+    public function getInvoicesIDsInSpecificDate($fromDate, $toDate, $captainId)
+    {
+        return $this->orderManager->getInvoicesIDsInSpecificDate($fromDate, $toDate, $captainId);
+    }
+
     public function sumDeliveryCostAmount()
     {
         return $this->orderManager->sumDeliveryCostAmount();

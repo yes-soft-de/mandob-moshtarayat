@@ -158,6 +158,11 @@ class OrderManager
         return $this->orderEntityRepository->getInvoicesIDs($captainId);
     }
 
+    public function  getInvoicesIDsInSpecificDate($fromDate, $toDate, $captainId)
+    {
+        return $this->orderEntityRepository->getInvoicesIDsInSpecificDate($fromDate, $toDate, $captainId);
+    }
+
     public function  sumInvoiceAmountWithoutOrderTypeSendIt($captainId)
     {
         return $this->orderEntityRepository->sumInvoiceAmountWithoutOrderTypeSendIt($captainId);
@@ -455,9 +460,9 @@ class OrderManager
         return $this->orderEntityRepository->getInvoicesIDsForStore($storeOwnerProfileId);
     }
 
-    public function getSumInvoicesForStoreInSpecificDate($storeOwnerProfileId, $fromDate, $toDate)
+    public function getInvoicesIDsForStoreInSpecificDate($storeOwnerProfileId, $fromDate, $toDate)
     {
-        return $this->orderEntityRepository->getSumInvoicesForStoreInSpecificDate($storeOwnerProfileId, $fromDate, $toDate);
+        return $this->orderEntityRepository->getInvoicesIDsForStoreInSpecificDate($storeOwnerProfileId, $fromDate, $toDate);
     }
 
     public function updateOrderState(OrderStateRequest $request)
