@@ -26,6 +26,12 @@ class StoreOwnerUpdateByAdminRequest
 
     private $commission;
 
+    private $bankName;
+
+    private $bankAccountNumber;
+
+    private $stcPay;
+
     /**
      * Get the value of id
      */ 
