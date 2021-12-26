@@ -74,7 +74,7 @@ class PaymentsForCaptainLoadedState extends States {
             CustomFormField(
               controller: _amount,
               hintText: S.current.paymentAmount,
-              last: true,
+              numbers:true,
             ),
             Padding(
               padding: const EdgeInsets.only(

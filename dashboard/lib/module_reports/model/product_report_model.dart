@@ -21,7 +21,7 @@ class ProductsReportModel extends DataModel {
       _models.add(ProductsReportModel(
           productID: element.productID ?? -1,
           countOrdersInMonth: element.countOrdersInMonth ?? 0,
-          productImage: element.productImage ?? '',
+          productImage: element.productImage?.image ?? '',
           productName: element.productName ?? ''));
     });
   }

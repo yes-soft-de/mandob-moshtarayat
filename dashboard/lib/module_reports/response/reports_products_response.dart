@@ -1,3 +1,4 @@
+import 'package:mandob_moshtarayat_dashboad/module_categories/response/store_categories_response.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/logger/logger.dart';
 
 class ReportsProductsResponse {
@@ -39,7 +40,7 @@ class Data {
   int? productID;
   int? countOrdersInMonth;
   String? productName;
-  String? productImage;
+  Image? productImage;
 
   Data(
       {this.productID,
@@ -51,7 +52,9 @@ class Data {
     productID = json['productID'];
     countOrdersInMonth = json['countOrdersInMonth'];
     productName = json['productName'];
-    productImage = json['productImage'];
+    productImage = json['productImage'] != null
+        ? Image.fromJson(json['productImage'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {

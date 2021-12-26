@@ -72,9 +72,9 @@ class OrderDetailsLoadedState extends OrderDetailsState {
                 alignment: AlignmentDirectional.centerStart,
                 child: Text(
                   '${S.of(context).orderNumber} #${screenState.orderNumber}',
-                  style:
-                      const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.start,
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.start,
                 ),
               ),
             ),
@@ -93,10 +93,6 @@ class OrderDetailsLoadedState extends OrderDetailsState {
                     color: StatusHelper.getOrderStatusColor(
                         orderDetails.order.state)),
                 child: ListTile(
-                  onTap: () {
-                    Navigator.of(context).pushNamed(OrdersRoutes.ORDER_STATUS,
-                        arguments: screenState.orderNumber.toString());
-                  },
                   title: Text(
                     S.of(context).orderStatus,
                     style: const TextStyle(
@@ -113,10 +109,6 @@ class OrderDetailsLoadedState extends OrderDetailsState {
                     StatusHelper.getOrderStatusIcon(orderDetails.order.state),
                     color: Colors.white,
                     size: 35,
-                  ),
-                  trailing: const Icon(
-                    Icons.arrow_forward,
-                    color: Colors.white,
                   ),
                 ),
               ),
@@ -191,9 +183,7 @@ class OrderDetailsLoadedState extends OrderDetailsState {
               ),
             ),
           ),
-          ListView(
-            physics: const ScrollPhysics(),
-            shrinkWrap: true,
+          Column(
             children: getOrdersList(orderDetails.carts),
           ),
           Padding(

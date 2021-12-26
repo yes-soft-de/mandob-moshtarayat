@@ -30,18 +30,13 @@ class CaptainLogsResponse {
 }
 
 class Data {
-  List<OrdersCount>? ordersCount;
+  String? ordersCount;
   List<Orders>? orders;
 
   Data({this.ordersCount, this.orders});
 
   Data.fromJson(dynamic json) {
-    if (json['ordersCount'] != null) {
-      ordersCount = [];
-      json['ordersCount'].forEach((v) {
-        ordersCount?.add(OrdersCount.fromJson(v));
-      });
-    }
+    ordersCount = json['ordersCount']?.toString();
     if (json['orders'] != null) {
       orders = [];
       json['orders'].forEach((v) {
@@ -52,9 +47,6 @@ class Data {
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
-    if (ordersCount != null) {
-      map['ordersCount'] = ordersCount?.map((v) => v.toJson()).toList();
-    }
     if (orders != null) {
       map['orders'] = orders?.map((v) => v.toJson()).toList();
     }

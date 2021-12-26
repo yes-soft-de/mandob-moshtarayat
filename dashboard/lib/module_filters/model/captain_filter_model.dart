@@ -19,7 +19,7 @@ class CaptainFilterModel extends DataModel {
     for (var element in data.stores!) {
       _model.add(CaptainFilterModel(
           captainID: element.captainID ?? '-1',
-          image: element.image ?? '',
+          image: element.image?.image ?? '',
           captainName: element.captainName ?? ''));
     }
   }
