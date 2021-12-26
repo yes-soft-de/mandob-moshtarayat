@@ -993,7 +993,7 @@ class OrderController extends BaseController
      */
     public function getOrderDetailsForClient($orderNumber): JsonResponse
     {
-        $result = $this->orderService->getOrderDetailsByOrderNumber($orderNumber);
+        $result = $this->orderService->getOrderDetailsForClient($orderNumber);
   
         return $this->response($result, self::FETCH);
       }

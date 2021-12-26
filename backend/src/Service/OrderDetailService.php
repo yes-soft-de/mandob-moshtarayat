@@ -100,6 +100,51 @@ class OrderDetailService
         return $response;
     }
 
+    public function getProductsByOrderNumberAndStoreIDForClient($orderNumber, $storeOwnerProfileID): array
+    {
+        $response = [];
+
+        $items = $this->orderDetailManager->getProductsByOrderNumberAndStoreID($orderNumber, $storeOwnerProfileID);
+        foreach ($items as $item) {
+
+            $item['productPrice'] = $this->priceForClient($item['isCommission'], $item['productPrice'], $item['commission'], $item['storeCommission'], $item['discount']);
+
+            $item['productImage'] = $this->getImageParams($item['productImage'], $this->params . $item['productImage'], $this->params);
+
+            $response[] = $this->autoMapping->map('array', OrderDetailProductsResponse::class, $item);
+        }
+
+        return $response;
+    }
+
+    public function orderDetailsForClient($orderNumber): array
+    {
+        $response = [];
+
+        $stores = $this->orderDetailManager->getStoreOwnerProfileByOrderNumber($orderNumber);
+        foreach ($stores as $store) {
+            $store['image'] = $this->getImageParams($store['image'], $this->params . $store['image'], $this->params);
+            $store['invoiceImage'] = $this->getImageParams($store['invoiceImage'], $this->params . $store['invoiceImage'], $this->params);
+
+            $store['products'] = $this->getProductsByOrderNumberAndStoreIDForClient($orderNumber, $store['storeOwnerProfileID']);
+
+            $response[] = $this->autoMapping->map('array', OrderDetailResponse::class, $store);
+        }
+
+        return $response;
+    }
+
+    public function priceForClient($isCommission, $productPrice, $commission, $storeCommission, $discount)
+    {
+        $priceWithDiscount = $productPrice - ($productPrice * $discount / 100);;
+
+        if($isCommission == true){
+            return ( $priceWithDiscount * $commission  / 100) + $priceWithDiscount;
+        }
+
+        return ( $priceWithDiscount * $storeCommission  / 100) + $priceWithDiscount;
+    }
+
     public function orderDetails($orderNumber): array
     {
        return $this->getStoresWithProducts($orderNumber);

@@ -64,9 +64,11 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('OrderDetailEntity')
 
             ->select('OrderDetailEntity.id','OrderDetailEntity.orderID', 'OrderDetailEntity.productID', 'OrderDetailEntity.countProduct', 'OrderDetailEntity.orderNumber')
-            ->addSelect('ProductEntity.id as productID', 'ProductEntity.productName', 'ProductEntity.productImage', 'ProductEntity.storeProductCategoryID as productCategoryID', 'ProductEntity.productPrice', 'ProductEntity.storeOwnerProfileID')
+            ->addSelect('ProductEntity.id as productID', 'ProductEntity.productName', 'ProductEntity.productImage', 'ProductEntity.storeProductCategoryID as productCategoryID', 'ProductEntity.productPrice', 'ProductEntity.storeOwnerProfileID', 'ProductEntity.isCommission', 'ProductEntity.commission', 'ProductEntity.discount')
+            ->addSelect('StoreOwnerProfileEntity.commission as storeCommission')
 
             ->leftJoin(ProductEntity::class, 'ProductEntity', Join::WITH, 'ProductEntity.id = OrderDetailEntity.productID')
+            ->leftJoin(StoreOwnerProfileEntity::class, 'StoreOwnerProfileEntity', Join::WITH, 'StoreOwnerProfileEntity.id = OrderDetailEntity.storeOwnerProfileID')
 
             ->andWhere('OrderDetailEntity.orderNumber = :orderNumber')
             ->andWhere('OrderDetailEntity.storeOwnerProfileID = :storeOwnerProfileID')
