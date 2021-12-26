@@ -461,7 +461,7 @@ class StoreProductCategoryService
         }
 
         // Then, get the store product categories level two of the store product category level one id
-        $storeProductCategoriesLevelTwo = $this->storeProductCategoryManager->getStoreProductsCategoryLevelTwoByStoreProductCategoryID($storeProductCategoryID);
+        $storeProductCategoriesLevelTwo = $this->storeProductCategoryManager->getOnlyStoreProductsCategoryLevelTwoByStoreProductCategoryLevelOneID($storeProductCategoryID);
 
         if ($storeProductCategoriesLevelTwo)
         {
