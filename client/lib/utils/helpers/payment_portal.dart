@@ -50,10 +50,10 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
             ? 'de.yessoft.mandob_moshtarayat_client'
             : 'iOS-BUNDLE-ID',
         productionSecreteKey: Platform.isAndroid
-            ? 'pk_test_cLa0fBJPAM8v9p6gxu1UiTDn'
+            ? 'sk_live_cgYJZXHL0e4QhCItbmj5PNS6'
             : 'pk_test_cLa0fBJPAM8v9p6gxu1UiTDn',
         sandBoxsecretKey: Platform.isAndroid
-            ? 'sk_test_46BsGCc3d8aUHWZ1krFPulDE'
+            ? 'sk_test_akT9tQsUBcKbDjIuEHWiA7xd'
             : 'sk_test_46BsGCc3d8aUHWZ1krFPulDE',
         lang: getIt<LocalizationService>().getLanguage());
   }
@@ -62,7 +62,7 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
   Future<void> setupSDKSession() async {
     try {
       GoSellSdkFlutter.sessionConfigurations(
-          trxMode: TransactionMode.TOKENIZE_CARD,
+          trxMode: TransactionMode.PURCHASE,
           paymentItems: [],
           paymentMetaData: {},
           taxes: [],
@@ -70,19 +70,19 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
           customer: Customer(
               customerId:
                   '', // customer id is important to retrieve cards saved for this customer
-              email: '',
+              email: 'mandoobquick@gmail.com',
               isdNumber: '',
               number: '',
-              firstName: '',
-              middleName: '',
-              lastName: '',
+              firstName: 'KHALED',
+              middleName: 'M',
+              lastName: 'ALSHRABI',
               metaData: null),
           transactionCurrency: 'sar',
-          amount: '10',
+          amount: '0.1',
           // Post URL
           postURL: 'https://tap.company',
           // Payment description
-          paymentDescription: 'paymentDescription',
+          paymentDescription: 'Mandoob Client Payments',
           // Payment Reference
           paymentReference: Reference(
               acquirer: 'acquirer',
@@ -90,15 +90,16 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
               payment: 'payment',
               track: 'track',
               transaction: 'trans_910101',
-              order: 'order_262625'),
+              order: 'order_262625',
+              ),
           // payment Descriptor
           paymentStatementDescriptor: 'paymentStatementDescriptor',
           // Save Card Switch
           isUserAllowedToSaveCard: false,
           // Enable/Disable 3DSecure
-          isRequires3DSecure: false,
+          isRequires3DSecure: true,
           // Receipt SMS/Email
-          receipt: Receipt(true, false),
+          receipt: Receipt(true, true),
           // Authorize Action [Capture - Void]
           authorizeAction: AuthorizeAction(
               type: AuthorizeActionType.CAPTURE, timeInHours: 10),
@@ -108,12 +109,12 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
           merchantID: '13120685',
           // Allowed cards
           allowedCadTypes: CardType.ALL,
-          applePayMerchantID: 'applePayMerchantID',
+          applePayMerchantID: '',
           allowsToSaveSameCardMoreThanOnce: false,
           // pass the card holder name to the SDK
-          cardHolderName: 'Card Holder NAME',
+          cardHolderName: 'KHALED M ALSHRABI',
           // disable changing the card holder name by the user
-          allowsToEditCardHolderName: true,
+          allowsToEditCardHolderName: false,
           // select payments you need to show [Default is all, and you can choose between WEB-CARD-APPLEPAY ]
           paymentType: PaymentType.ALL,
           // Transaction mode

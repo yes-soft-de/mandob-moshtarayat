@@ -39,7 +39,7 @@ class ClientOrderScreenState extends State<ClientOrderScreen> {
     //     builder: (context) {
     //       return PaymentsPortal();
     //     });
-   widget._clientOrderStateManager.postClientOrder(request, this);
+    widget._clientOrderStateManager.postClientOrder(request, this);
   }
 
   void moveDecision(bool success, [String err = '']) {
