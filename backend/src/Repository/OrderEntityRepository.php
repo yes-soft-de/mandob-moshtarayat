@@ -527,6 +527,40 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
+    public function sumOrderCostByCaptainID($captainId)
+    {
+        return $this->createQueryBuilder('OrderEntity')
+            ->select('sum(OrderEntity.orderCost) as orderCost')
+
+            ->andWhere('OrderEntity.captainID = :captainId')
+            ->andWhere("OrderEntity.state = :delivered")
+
+            ->andWhere("OrderEntity.isBillCalculated = :true")
+
+            ->setParameter('true', 1)
+            ->setParameter('captainId', $captainId)
+            ->setParameter('delivered', OrderStateConstant::$ORDER_STATE_DELIVERED)
+
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function sumOrderCost()
+    {
+        return $this->createQueryBuilder('OrderEntity')
+            ->select('sum(OrderEntity.orderCost) as orderCost')
+
+            ->andWhere("OrderEntity.state = :delivered")
+
+            ->andWhere("OrderEntity.isBillCalculated = :true")
+
+            ->setParameter('true', 1)
+            ->setParameter('delivered', OrderStateConstant::$ORDER_STATE_DELIVERED)
+
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     public function getInvoicesIDs($captainId)
     {
         return $this->createQueryBuilder('OrderEntity')
@@ -616,12 +650,35 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function sumOrderCostByCaptainIDInSpecificDate($fromDate, $toDate, $captainId)
+    {
+        return $this->createQueryBuilder('OrderEntity')
+            ->select('sum(OrderEntity.orderCost) as orderCost')
+
+            ->where('OrderEntity.deliveryDate >= :fromDate')
+            ->andWhere('OrderEntity.deliveryDate < :toDate')
+
+            ->andWhere('OrderEntity.captainID = :captainId')
+            ->andWhere("OrderEntity.state = :delivered")
+
+            ->andWhere("OrderEntity.isBillCalculated = :true")
+
+            ->setParameter('true', 1)
+            ->setParameter('captainId', $captainId)
+            ->setParameter('delivered', OrderStateConstant::$ORDER_STATE_DELIVERED)
+            ->setParameter('fromDate', $fromDate)
+            ->setParameter('toDate', $toDate)
+
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     public function countOrdersInMonthForCaptain($fromDate, $toDate, $captainId)
     {
         return $this->createQueryBuilder('OrderEntity')
 
             ->select('count(OrderEntity.id) as countOrdersInMonth', 'sum(OrderEntity.deliveryCost) as deliveryCost')
-       
+
             ->where('OrderEntity.deliveryDate >= :fromDate')
             ->andWhere('OrderEntity.deliveryDate < :toDate')
             ->andWhere('OrderEntity.captainID = :captainId')

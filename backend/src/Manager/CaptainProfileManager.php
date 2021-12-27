@@ -226,9 +226,24 @@ class CaptainProfileManager
         return $this->orderManager->sumInvoiceAmountWithoutOrderTypeSendIt($captainId);
     }
 
+    public function sumOrderCostByCaptainID($captainId)
+    {
+        return $this->orderManager->sumOrderCostByCaptainID($captainId);
+    }
+
+    public function sumOrderCost()
+    {
+        return $this->orderManager->sumOrderCost();
+    }
+
     public function countOrdersInMonthForCaptain($fromDate, $toDate, $captainId)
     {
         return $this->orderManager->countOrdersInMonthForCaptain($fromDate, $toDate, $captainId);
+    }
+
+    public function sumOrderCostByCaptainIDInSpecificDate($fromDate, $toDate, $captainId)
+    {
+        return $this->orderManager->sumOrderCostByCaptainIDInSpecificDate($fromDate, $toDate, $captainId);
     }
 
     public function sumInvoiceAmountWithoutOrderTypeSendItInMonthForCaptain($fromDate, $toDate, $captainId)
