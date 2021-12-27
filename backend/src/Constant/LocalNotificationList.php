@@ -10,6 +10,8 @@ abstract class LocalNotificationList
 
     static $STATE_IN_STORE = "الكابتن في المتجر";
 
+    static $STATE_PICKED = "الكابتن إلتقط الطلب من المتجر";
+
     static $STATE_ONGOING = "الكابتن في طريقه إليك";
 
     static $STATE_DELIVERED = "تم تسليم الطلب";

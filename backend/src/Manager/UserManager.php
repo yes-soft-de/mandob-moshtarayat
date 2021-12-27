@@ -5,6 +5,7 @@ namespace App\Manager;
 use App\AutoMapping;
 use App\Constant\StoreOwnerVerificationStatusConstant;
 use App\Request\ClientUpdateFavouriteCategoriesRequest;
+use App\Request\DeleteRequest;
 use App\Request\storeOwnerProfileStatusUpdateByAdminRequest;
 use App\Entity\UserEntity;
 use App\Entity\ClientProfileEntity;
@@ -573,6 +574,21 @@ class UserManager
             $this->entityManager->flush();
 
             return $result;
+        }
+    }
+
+    public function deleteUser($userID)
+    {
+        $user= $this->userRepository->find($userID);
+
+        if(!$user){
+            return 'userNotFound';
+        }
+        else{
+            $this->entityManager->remove($user);
+            $this->entityManager->flush();
+
+            return $user;
         }
     }
 }

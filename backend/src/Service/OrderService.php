@@ -127,23 +127,27 @@ class OrderService
         return $response;
     }
     
-    public function createNotificationLocal($state, $userID, $orderNumber)
+    public function createNotificationLocal($state, $userID, $orderNumber, $storeName = null)
     {
+
         if ($state == OrderStateConstant::$ORDER_STATE_ON_WAY){
-            $state = LocalNotificationList::$STATE_ON_WAY_PICK_ORDER;
+            $state = LocalNotificationList::$STATE_ON_WAY_PICK_ORDER." ".$storeName;
         }
         if ($state == OrderStateConstant::$ORDER_STATE_IN_STORE){
-            $state =  LocalNotificationList::$STATE_IN_STORE;
+            $state =  LocalNotificationList::$STATE_IN_STORE." ".$storeName;
+        }
+        if ($state == OrderStateConstant::$ORDER_STATE_PICKED){
+            $state =  LocalNotificationList::$STATE_PICKED." ".$storeName;
         }
         if ($state == OrderStateConstant::$ORDER_STATE_ONGOING){
-            $state =  LocalNotificationList::$STATE_ONGOING;
+            $state =  LocalNotificationList::$STATE_ONGOING." ".$storeName;
         }
         if ($state == OrderStateConstant::$ORDER_STATE_DELIVERED){
-            $state =  LocalNotificationList::$STATE_DELIVERED;
+            $state =  LocalNotificationList::$STATE_DELIVERED." ".$storeName;
         }
 
-        $this->notificationLocalService->createNotificationLocal($userID,  LocalNotificationList::$STATE_TITLE, $state, $orderNumber);
 
+        $this->notificationLocalService->createNotificationLocal($userID,  LocalNotificationList::$STATE_TITLE, $state, $orderNumber);
 
     }
     public function orderUpdateStateByCaptain(OrderUpdateStateByCaptainRequest $request)
@@ -194,8 +198,10 @@ class OrderService
                     //update order state
                     $order = $this->orderManager->updateOrderState($orderState);
                     if($order) {
-                        //create Notification Local
-                        $this->createNotificationLocal($state['state'], $order->getClientID(), $request->getOrderNumber());
+                       $storeOwnerProfile = $this->storeOwnerProfileService->getStoreOwnerProfileById($request->getStoreOwnerProfileID());
+
+                       //create Notification Local
+                        $this->createNotificationLocal($request->getState(), $order->getClientID(), $request->getOrderNumber(), $storeOwnerProfile->storeOwnerName);
                     }
                     $response = $this->autoMapping->map(OrderUpdateStateForEachStoreResponse::class, OrderUpdateStateForEachStoreResponse::class, $orderDetails);
                 }

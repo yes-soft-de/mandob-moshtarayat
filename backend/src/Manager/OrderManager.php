@@ -168,6 +168,16 @@ class OrderManager
         return $this->orderEntityRepository->sumInvoiceAmountWithoutOrderTypeSendIt($captainId);
     }
 
+    public function  sumOrderCostByCaptainID($captainId)
+    {
+        return $this->orderEntityRepository->sumOrderCostByCaptainID($captainId);
+    }
+
+    public function  sumOrderCost()
+    {
+        return $this->orderEntityRepository->sumOrderCost();
+    }
+
     public function  sumFinancialSumInvoiceAmount()
     {
         return $this->orderEntityRepository->sumFinancialSumInvoiceAmount();
@@ -186,6 +196,11 @@ class OrderManager
     public function countOrdersInMonthForCaptain($fromDate, $toDate, $captainId)
     {
         return $this->orderEntityRepository->countOrdersInMonthForCaptain($fromDate, $toDate, $captainId);
+    }
+
+    public function sumOrderCostByCaptainIDInSpecificDate($fromDate, $toDate, $captainId)
+    {
+        return $this->orderEntityRepository->sumOrderCostByCaptainIDInSpecificDate($fromDate, $toDate, $captainId);
     }
 
     public function sumInvoiceAmountWithoutOrderTypeSendItInMonthForCaptain($fromDate, $toDate, $captainId)
