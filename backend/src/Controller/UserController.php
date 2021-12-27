@@ -77,4 +77,16 @@ class UserController extends BaseController
 
         return $this->response($response, self::UPDATE);
     }
+
+    /**
+     * For testing issues
+     *
+     * @Route("getallstoreownersusers", name="getAllStoreOwnersUsers", methods={"GET"})
+     */
+    public function getAllStoreOwners()
+    {
+        $response = $this->userService->getAllStoreOwners();
+
+        return $this->response($response, self::FETCH);
+    }
 }

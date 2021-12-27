@@ -553,4 +553,9 @@ class UserManager
             return $users;
         }
     }
+
+    public function getAllStoreOwners()
+    {
+        return $this->userRepository->getAllStoreOwners();
+    }
 }
