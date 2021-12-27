@@ -376,5 +376,11 @@
     "selectLanguage": " زبان منتخب کریں۔",
     "cartItemAdded": " آئٹم کو کارٹ میں شامل کیا گیا۔",
     "cartItemRemoved": " آئٹم کو کارٹ سے ہٹا دیا گیا۔",
-    "productDetails": " مصنوعات کی تفصیلات"
+    "productDetails": " مصنوعات کی تفصیلات",
+    "invalidNumber": "ناموزوں نمبر",
+    "invalidCode": "غلط کوڈ",
+    "codeNumber": "کوڈ نمبر",
+    "codeTimeOut": "کوڈ کی میعاد ختم ہو گئی ہے۔",
+    "resendCodeSuccessfully": "کوڈ کامیابی سے بھیج دیا گیا ہے۔",
+    "notVerifiedNumber": "آپ کو پہلے کوڈ درج کرنا ہوگا"
 }

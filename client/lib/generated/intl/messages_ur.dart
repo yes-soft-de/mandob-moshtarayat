@@ -121,6 +121,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("اپنے شہر کا انتخاب کریں۔"),
         "chooseYourSize":
             MessageLookupByLibrary.simpleMessage("اپنا سائز منتخب کریں۔"),
+        "codeNumber": MessageLookupByLibrary.simpleMessage("کوڈ نمبر"),
+        "codeTimeOut":
+            MessageLookupByLibrary.simpleMessage("کوڈ کی میعاد ختم ہو گئی ہے۔"),
         "community": MessageLookupByLibrary.simpleMessage(" برادری"),
         "completeTime": MessageLookupByLibrary.simpleMessage(" تکمیل کا وقت"),
         "completedOrders":
@@ -240,8 +243,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "initData": MessageLookupByLibrary.simpleMessage("ڈیٹا شروع کریں۔"),
         "internalServerError":
             MessageLookupByLibrary.simpleMessage(" اندرونی سرور کی خرابی"),
+        "invalidCode": MessageLookupByLibrary.simpleMessage("غلط کوڈ"),
         "invalidCredentials": MessageLookupByLibrary.simpleMessage(
             " غلط استعملاتی نام یا خفیہ کوڈ"),
+        "invalidNumber": MessageLookupByLibrary.simpleMessage("ناموزوں نمبر"),
         "invoiceCost": MessageLookupByLibrary.simpleMessage(" انوائس لاگت"),
         "invoiceImage":
             MessageLookupByLibrary.simpleMessage(" انوائس کی تصویر"),
@@ -300,6 +305,8 @@ class MessageLookup extends MessageLookupByLibrary {
             " آپ کے پاس ابھی تک سبسکرپشن نہیں ہے۔"),
         "notVerified": MessageLookupByLibrary.simpleMessage(
             " آپ کی رکنیت کی تصدیق ابھی تک نہیں ہوئی ہے۔"),
+        "notVerifiedNumber": MessageLookupByLibrary.simpleMessage(
+            "آپ کو پہلے کوڈ درج کرنا ہوگا"),
         "note": MessageLookupByLibrary.simpleMessage(" نوٹس"),
         "noteOfOrder": MessageLookupByLibrary.simpleMessage(
             " براہ کرم اپنے آرڈر نوٹ رکھیں"),
@@ -458,7 +465,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "requestMeeting":
             MessageLookupByLibrary.simpleMessage("میٹنگ کی درخواست کریں۔"),
         "resendCode": MessageLookupByLibrary.simpleMessage("کوڈ پھر سے بھیجو"),
-        "saller": MessageLookupByLibrary.simpleMessage(" سیلر"),
+        "resendCodeSuccessfully": MessageLookupByLibrary.simpleMessage(
+            "کوڈ کامیابی سے بھیج دیا گیا ہے۔"),
         "sar": MessageLookupByLibrary.simpleMessage(" SAR"),
         "saudiArabia": MessageLookupByLibrary.simpleMessage("Saudi Arabia"),
         "saudiRiyal": MessageLookupByLibrary.simpleMessage(" سعودی ریال"),
@@ -483,6 +491,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "seconds": MessageLookupByLibrary.simpleMessage(" سیکنڈ"),
         "selectLanguage":
             MessageLookupByLibrary.simpleMessage(" زبان منتخب کریں۔"),
+        "seller": MessageLookupByLibrary.simpleMessage(" سیلر"),
         "sendMeCode": MessageLookupByLibrary.simpleMessage("مجھے کوڈ بھیجیں۔"),
         "settings": MessageLookupByLibrary.simpleMessage("ترتیبات"),
         "share": MessageLookupByLibrary.simpleMessage(" بانٹیں"),

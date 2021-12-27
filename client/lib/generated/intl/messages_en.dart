@@ -120,6 +120,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Choose Your City"),
         "chooseYourSize":
             MessageLookupByLibrary.simpleMessage("Choose Your Size"),
+        "codeNumber": MessageLookupByLibrary.simpleMessage("Code number"),
+        "codeTimeOut": MessageLookupByLibrary.simpleMessage("Code has expired"),
         "community": MessageLookupByLibrary.simpleMessage("Community"),
         "completeTime": MessageLookupByLibrary.simpleMessage("Completion Time"),
         "completedOrders":
@@ -235,8 +237,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "initData": MessageLookupByLibrary.simpleMessage("Init Data"),
         "internalServerError":
             MessageLookupByLibrary.simpleMessage("Internal server error"),
+        "invalidCode": MessageLookupByLibrary.simpleMessage("Invalid Code"),
         "invalidCredentials":
             MessageLookupByLibrary.simpleMessage("Wrong username or password"),
+        "invalidNumber": MessageLookupByLibrary.simpleMessage("Invalid number"),
         "invoiceCost": MessageLookupByLibrary.simpleMessage("Invoice Cost"),
         "invoiceImage": MessageLookupByLibrary.simpleMessage("Invoice Image"),
         "item": MessageLookupByLibrary.simpleMessage("Item"),
@@ -293,6 +297,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "You dont have a subscription yet"),
         "notVerified": MessageLookupByLibrary.simpleMessage(
             "Your subscription not verified yet"),
+        "notVerifiedNumber": MessageLookupByLibrary.simpleMessage(
+            "You must enter the code first"),
         "note": MessageLookupByLibrary.simpleMessage("Notes"),
         "noteOfOrder": MessageLookupByLibrary.simpleMessage(
             "Please place your order notes"),
@@ -442,7 +448,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "requestMeeting":
             MessageLookupByLibrary.simpleMessage("Request Meeting"),
         "resendCode": MessageLookupByLibrary.simpleMessage("Resend Code"),
-        "saller": MessageLookupByLibrary.simpleMessage("Saller"),
+        "resendCodeSuccessfully": MessageLookupByLibrary.simpleMessage(
+            "The code has been successfully sent"),
         "sar": MessageLookupByLibrary.simpleMessage("SAR"),
         "saudiArabia": MessageLookupByLibrary.simpleMessage("Saudi Arabia"),
         "saudiRiyal": MessageLookupByLibrary.simpleMessage("Saudi Riyal"),
@@ -465,6 +472,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "seconds": MessageLookupByLibrary.simpleMessage("seconds"),
         "selectLanguage":
             MessageLookupByLibrary.simpleMessage("Select Language"),
+        "seller": MessageLookupByLibrary.simpleMessage("Saller"),
         "sendMeCode": MessageLookupByLibrary.simpleMessage("Send me code"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "share": MessageLookupByLibrary.simpleMessage("Share"),
