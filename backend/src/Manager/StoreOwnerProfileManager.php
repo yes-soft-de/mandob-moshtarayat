@@ -3,6 +3,7 @@
 namespace App\Manager;
 
 use App\AutoMapping;
+use App\Constant\StoreOwnerVerificationStatusConstant;
 use App\Entity\StoreOwnerBranchEntity;
 use App\Entity\StoreOwnerProfileEntity;
 use App\Entity\UserEntity;
@@ -142,6 +143,112 @@ class StoreOwnerProfileManager
             return $userResult;
 
 //            return $found = 2;
+        }
+    }
+
+    public function storeOwnerRegisterByDeveloper(UserRegisterRequest $request)
+    {
+        $userResult = $this->userManager->getUserByUserID($request->getUserID());
+
+        if($userResult == null)
+        {
+            $userRegister = $this->autoMapping->map(UserRegisterRequest::class, UserEntity::class, $request);
+
+            $user = new UserEntity($request->getUserID());
+
+            if($request->getPassword())
+            {
+                $userRegister->setPassword($this->encoder->encodePassword($user, $request->getPassword()));
+            }
+
+            $userRegister->setRoles(['ROLE_OWNER']);
+            $userRegister->setVerificationStatus(StoreOwnerVerificationStatusConstant::$VERIFIED_STATUS);
+
+            $this->entityManager->persist($userRegister);
+            $this->entityManager->flush();
+
+            // Second, create the owner's profile
+            $storeOwnerProfile = $this->storeOwnerProfileByStoreID($request->getUserID());
+
+            if($storeOwnerProfile == null)
+            {
+                $storeOwnerProfile = $this->autoMapping->map(UserRegisterRequest::class, StoreOwnerProfileEntity::class, $request);
+
+                $storeOwnerProfile->setStoreOwnerID($userRegister->getId());
+                $storeOwnerProfile->setStoreOwnerName($request->getUserName());
+                $storeOwnerProfile->setRoomID($request->getRoomID());
+                $storeOwnerProfile->setStatus('inactive');
+                $storeOwnerProfile->setFree(false);
+                $storeOwnerProfile->setIs_best(false);
+
+                $this->entityManager->persist($storeOwnerProfile);
+                $this->entityManager->flush();
+
+                //create branch
+                $branch = $this->storeOwnerBranchManager->getBranchesByStoreOwnerProfileID($storeOwnerProfile->getId());
+
+                if(count($branch) == 0)
+                {
+                    $branch = $this->autoMapping->map(UserRegisterRequest::class, StoreOwnerBranchEntity::class, $request);
+
+                    $branch->setIsActive(1);
+                    $branch->setStoreOwnerProfileID($storeOwnerProfile->getId());
+
+                    if($request->getLocation())
+                    {
+                        $branch->setLocation($request->getLocation());
+                    }
+
+                    $branch->setBranchName("default");
+
+                    $this->entityManager->persist($branch);
+                    $this->entityManager->flush();
+                }
+            }
+
+            return $userRegister;
+        }
+        else
+        {
+            $storeOwnerProfile = $this->storeOwnerProfileByStoreID($userResult['id']);
+
+            if($storeOwnerProfile == null)
+            {
+                $storeOwnerProfile = $this->autoMapping->map(UserRegisterRequest::class, StoreOwnerProfileEntity::class, $request);
+
+                $storeOwnerProfile->setStoreOwnerID($userResult['id']);
+                $storeOwnerProfile->setStoreOwnerName($request->getUserName());
+                $storeOwnerProfile->setRoomID($request->getRoomID());
+                $storeOwnerProfile->setStatus('inactive');
+                $storeOwnerProfile->setFree(false);
+                $storeOwnerProfile->setIs_best(false);
+
+                $this->entityManager->persist($storeOwnerProfile);
+                $this->entityManager->flush();
+
+                //create branch
+                $branch = $this->storeOwnerBranchManager->getBranchesByStoreOwnerProfileID($storeOwnerProfile->getId());
+
+                if(count($branch) == 0)
+                {
+                    $branch = $this->autoMapping->map(UserRegisterRequest::class, StoreOwnerBranchEntity::class, $request);
+
+                    $branch->setIsActive(1);
+                    $branch->setStoreOwnerProfileID($storeOwnerProfile->getId());
+
+                    if($request->getLocation())
+                    {
+                        $branch->setLocation($request->getLocation());
+                    }
+
+                    $branch->setBranchName("default");
+
+                    $this->entityManager->persist($branch);
+                    $this->entityManager->flush();
+                }
+            }
+
+            return $userResult;
         }
     }
 

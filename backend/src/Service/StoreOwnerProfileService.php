@@ -78,6 +78,26 @@ class StoreOwnerProfileService
         }
     }
 
+    public function storeOwnerRegisterByDeveloper(UserRegisterRequest $request)
+    {
+        $request->setRoomID($this->roomIdHelperService->roomIdGenerate());
+
+        $userRegister = $this->storeOwnerProfileManager->storeOwnerRegisterByDeveloper($request);
+
+        if($userRegister instanceof UserEntity)
+        {
+            return $this->autoMapping->map(UserEntity::class, UserRegisterResponse::class, $userRegister);
+        }
+        elseif(is_array($userRegister))
+        {
+            $response = $this->autoMapping->map('array', UserRegisterResponse::class, $userRegister);
+
+            $response->found = 1;
+
+            return $response;
+        }
+    }
+
     public function createVerificationCodeForStoreOwner(UserRegisterRequest $userEntity)
     {
         $createVerificationRequest = $this->autoMapping->map(UserRegisterRequest::class, VerificationCreateRequest::class, $userEntity);

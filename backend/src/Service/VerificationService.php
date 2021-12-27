@@ -90,7 +90,7 @@ class VerificationService
     {
         $result = $this->verificationManager->checkVerificationCode($request);
 
-        if($result['resultMessage'] = 'activated')
+        if($result['resultMessage'] == 'activated')
         {
             // update the verification status of the user
             $this->updateVerificationStatusOfUser($request, StoreOwnerVerificationStatusConstant::$VERIFIED_STATUS);
