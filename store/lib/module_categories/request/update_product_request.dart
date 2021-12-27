@@ -8,6 +8,8 @@ class DataStoreUpdateProduct {
   int? storeOwnerProfileID;
   int? storeProductCategoryID;
   int? storeMainCategoryID;
+  bool? isLevelOne;
+  bool? isLevelTwo;
 
   DataStoreUpdateProduct({
       this.id,
@@ -18,7 +20,7 @@ class DataStoreUpdateProduct {
       this.storeOwnerProfileID,
       this.storeProductCategoryID,
     this.productQuantity,
-    this.storeMainCategoryID
+    this.storeMainCategoryID,this.isLevelTwo,this.isLevelOne
   });
 
   DataStoreUpdateProduct.fromJson(dynamic json) {
@@ -30,6 +32,8 @@ class DataStoreUpdateProduct {
     productQuantity = json['productQuantity'];
     storeOwnerProfileID = json['storeOwnerProfileID'];
     storeProductCategoryID = json['storeProductCategoryID'];
+    isLevelOne = json['isLevel1'];
+    isLevelTwo = json['isLevel2'];
   }
 
   Map<String, dynamic> toJson() {

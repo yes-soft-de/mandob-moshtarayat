@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/module_auth/enums/auth_status.dart';
+import 'package:mandob_moshtarayat/module_auth/request/register_request/verify_code_request.dart';
 import 'package:mandob_moshtarayat/module_auth/service/auth_service/auth_service.dart';
 import 'package:mandob_moshtarayat/module_auth/ui/screen/login_screen/login_screen.dart';
 import 'package:mandob_moshtarayat/module_auth/ui/states/login_states/login_state.dart';
@@ -21,6 +22,9 @@ class LoginStateManager {
       switch (event) {
         case AuthStatus.AUTHORIZED:
           _screenState.moveToNext();
+          break;
+          case AuthStatus.CODE_SENT:
+          _screenState.verifyFirst();
           break;
         default:
           _loginStateSubject.add(LoginStateInit(_screenState));
@@ -45,4 +49,20 @@ class LoginStateManager {
     _loadingStateSubject.add(AsyncSnapshot.waiting());
     _authService.loginApi(username, password);
   }
+//  void verifyClient(
+//      VerifyCodeRequest request, LoginScreenState _loginScreenState) {
+//    _loadingStateSubject.add(AsyncSnapshot.waiting());
+//    _screenState = _loginScreenState;
+//    _authService
+//        .verifyCodeApi(request)
+//        .whenComplete(() => _loadingStateSubject.add(AsyncSnapshot.nothing()));
+//  }
+//  void resendCode(
+//      VerifyCodeRequest request, LoginScreenState _loginScreenState) {
+//    _loadingStateSubject.add(AsyncSnapshot.waiting());
+//    _screenState = _loginScreenState;
+//    _authService
+//        .resendCode(request)
+//        .whenComplete(() => _loadingStateSubject.add(AsyncSnapshot.nothing()));
+//  }
 }

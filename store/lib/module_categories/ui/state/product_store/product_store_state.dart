@@ -3,9 +3,12 @@ import 'package:mandob_moshtarayat/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_categories/model/products_categories_model.dart';
 import 'package:mandob_moshtarayat/module_categories/model/products_model.dart';
+import 'package:mandob_moshtarayat/module_categories/request/update_product_request.dart';
 import 'package:mandob_moshtarayat/module_categories/ui/screen/store_products_screen.dart';
+import 'package:mandob_moshtarayat/module_categories/ui/widget/add_product_form.dart';
 import 'package:mandob_moshtarayat/module_categories/ui/widget/category_card.dart';
 import 'package:mandob_moshtarayat/module_categories/ui/widget/product_component.dart';
+import 'package:mandob_moshtarayat/module_theme/service/theme_service/theme_service.dart';
 import 'package:mandob_moshtarayat/utils/components/costom_search.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_list_view.dart';
 import 'package:mandob_moshtarayat/utils/components/empty_screen.dart';
@@ -122,14 +125,91 @@ class ProductStoreState extends States {
       if (id != null && id != element.storeProductCategoryID.toString()) {
         continue;
       }
-      widgets.add(ProductComponent(
-          discount: element.discount.toString(),
-          description: '',
-          image: element.productImage.image ?? '',
-          rating: 0,
-          title: element.productName,
-          productId: element.id.toString(),
-          price: element.productPrice.toString()));
+      widgets.add(
+          Row(
+            children: [
+              Expanded(child: ProductComponent(discount: element.discount.toString(),description: '',image: element.productImage.image??'',rating: 0,title: element.productName, productId: element.id.toString(),price: element.productPrice.toString(),)),
+              Column(
+                children: [
+                  InkWell(
+                    onTap: (){
+                      showDialog(context: screenState.context, builder:(context){
+                        return UpdateProductsForm(
+                          categoriesService: screenState.widget.categoriesService,
+                          categoriesOne: getChoicesOne(),
+                          categoriesTwo: getChoicesTwo(),
+                          request: UpdateProductRequest(
+                            dataStoreProduct: DataStoreUpdateProduct(
+                                productName: element.productName,
+                                productImage: element.productImage.image??'',
+                                productPrice: element.productPrice.toDouble(),
+                                discount: element.discount,
+                                productQuantity: element.productQuantity,
+                                storeProductCategoryID: element.storeProductCategoryID,
+                              isLevelTwo: element.levelTwo,
+                              isLevelOne: element.levelOne
+                            ),
+
+                          ),
+                          addProduct: (name,price,image,discount,catID){
+                            Navigator.of(context).pop();
+                            screenState.updateProduct(UpdateProductRequest(
+                              dataStoreProduct: DataStoreUpdateProduct(
+                                  id: element.id,
+                                  productName: name,
+                                  productImage: image,
+                                  discount: double.parse(discount),
+                                  productPrice:double.parse(price),
+                                  storeProductCategoryID:int.parse(catID),
+                              ),
+
+                            ), categoriesOne??[]);
+                          },
+                        );
+                      });
+                    },
+                    child: Padding(
+                      padding: const EdgeInsetsDirectional.only(end: 8),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: AppThemeDataService.AccentColor,
+                            shape: BoxShape.circle),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(Icons.edit),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 8,),
+                  InkWell(
+                    onTap: (){
+                      screenState.updateProductStatus(
+                          UpdateProductStatusRequest(
+                              status: 'inactive',
+                              id: element.id,
+                              storeProductCategoryID:element.storeProductCategoryID,
+                              storeMainCategoryID: -1
+                          ),categoriesOne??[]);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsetsDirectional.only(end: 8),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: AppThemeDataService.AccentColor,
+                            shape: BoxShape.circle),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(Icons.delete),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          )
+      );
     }
     return widgets;
   }
@@ -139,15 +219,24 @@ class ProductStoreState extends States {
 //
 //    });
 //  }
-//  List<DropdownMenuItem<String>> getChoices() {
-//    List<DropdownMenuItem<String>> items = [];
-//    model?.forEach((element) {
-//      items.add(DropdownMenuItem(
-//        value: element.id.toString(),
-//        child: Text(element.categoryName),
-//      ));
-//    });
-//    return items;
-//  }
-
+  List<DropdownMenuItem<String>> getChoicesOne() {
+    List<DropdownMenuItem<String>> items = [];
+    categoriesOne?.forEach((element) {
+      items.add(DropdownMenuItem(
+        value: element.id.toString(),
+        child: Text(element.categoryName),
+      ));
+    });
+    return items;
+  }
+  List<DropdownMenuItem<String>> getChoicesTwo() {
+    List<DropdownMenuItem<String>> items = [];
+    categoriesTwo?.forEach((element) {
+      items.add(DropdownMenuItem(
+        value: element.id.toString(),
+        child: Text(element.categoryName),
+      ));
+    });
+    return items;
+  }
 }

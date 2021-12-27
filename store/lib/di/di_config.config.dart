@@ -294,8 +294,11 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.factory<_i79.SettingsModule>(
       () => _i79.SettingsModule(get<_i60.SettingsScreen>()));
   gh.factory<_i80.StoreProductsStateManager>(() =>
-      _i80.StoreProductsStateManager(get<_i46.CategoriesService>(),
-          get<_i25.AuthService>(), get<_i64.StoresService>()));
+      _i80.StoreProductsStateManager(
+          get<_i46.CategoriesService>(),
+          get<_i25.AuthService>(),
+          get<_i64.StoresService>(),
+          get<_i30.ImageUploadService>()));
   gh.factory<_i81.StoreProfileStateManager>(() => _i81.StoreProfileStateManager(
       get<_i64.StoresService>(),
       get<_i30.ImageUploadService>(),
@@ -328,11 +331,12 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       get<_i76.OrdersWithoutPendingScreen>()));
   gh.factory<_i93.ProductCategoriesScreen>(() => _i93.ProductCategoriesScreen(
       get<_i77.ProductsCategoryStateManager>(),
-      get<_i8.LocalizationService>()));
+      get<_i8.LocalizationService>(),
+      get<_i46.CategoriesService>()));
   gh.factory<_i94.StoreInfoScreen>(
       () => _i94.StoreInfoScreen(get<_i81.StoreProfileStateManager>()));
-  gh.factory<_i95.StoreProductScreen>(
-      () => _i95.StoreProductScreen(get<_i80.StoreProductsStateManager>()));
+  gh.factory<_i95.StoreProductScreen>(() => _i95.StoreProductScreen(
+      get<_i80.StoreProductsStateManager>(), get<_i46.CategoriesService>()));
   gh.factory<_i96.StoresProfileModule>(
       () => _i96.StoresProfileModule(get<_i94.StoreInfoScreen>()));
   gh.factory<_i97.AboutModule>(() => _i97.AboutModule(get<_i83.AboutScreen>()));

@@ -302,10 +302,6 @@ class ProductsCategoryStateManager {
       }
     });
   }
-
-
-
-
   void updateProductStatus(
       ProductCategoriesScreenState screenState,UpdateProductStatusRequest request,List<ProductsCategoryModel> levelOne,List<ProductsCategoryModel> levelTwo,{String? nameOne  ,String? nameTwo}) {
     _stateSubject.add(ProductCategoriesLoadingState(screenState));
@@ -356,4 +352,22 @@ class ProductsCategoryStateManager {
         }
       });
     }
+
+  Future<List<ProductsCategoryModel>?> getLevelTwo(int id) async {
+
+   await _categoriesService.getCategoryLevelTwo(id).then((value) {
+      if (value.hasError) {
+       return ProductsCategoryModel(id: -1,categoryName: '');
+      } else if (value.isEmpty) {
+        return ProductsCategoryModel(id: -1,categoryName: '');
+      } else {
+        print('fuk');
+        ProductsCategoryModel model = value as ProductsCategoryModel;
+        print(model.data.length);
+        return model.data;
+      }
+    });
+
+  }
+
 }

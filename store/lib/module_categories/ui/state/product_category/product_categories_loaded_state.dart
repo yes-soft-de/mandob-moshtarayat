@@ -218,6 +218,26 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
     });
     return items;
   }
+  List<DropdownMenuItem<String>> getChoicesOne() {
+    List<DropdownMenuItem<String>> items = [];
+    categoriesOne.forEach((element) {
+      items.add(DropdownMenuItem(
+        value: element.id.toString(),
+        child: Text(element.categoryName),
+      ));
+    });
+    return items;
+  }
+  List<DropdownMenuItem<String>> getChoicesTwo() {
+    List<DropdownMenuItem<String>> items = [];
+    categoriesTwo.forEach((element) {
+      items.add(DropdownMenuItem(
+        value: element.id.toString(),
+        child: Text(element.categoryName),
+      ));
+    });
+    return items;
+  }
   List<DropdownMenuItem<ProductsCategoryModel>> getChoicesCategoriesTwo() {
     List<DropdownMenuItem<ProductsCategoryModel>> items = [];
     categoriesTwo.forEach((element) {
@@ -250,19 +270,23 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
                     onTap: (){
                       showDialog(context: screenState.context, builder:(context){
                         return UpdateProductsForm(
+                          categoriesService: screenState.widget.categoriesService,
                           request: UpdateProductRequest(
                             dataStoreProduct: DataStoreUpdateProduct(
                               productName: element.productName,
                               productImage: element.productImage.image??'',
                               productPrice: element.productPrice.toDouble(),
                               discount: element.discount,
-                              productQuantity: element.productQuantity
+                              productQuantity: element.productQuantity,
+                              storeProductCategoryID: element.storeProductCategoryID,
+                              isLevelOne: element.levelOne,isLevelTwo: element.levelTwo
                             ),
 
                           ),
-                          addProduct: (name,price,image,discount){
+                          categoriesOne: getChoicesOne(),
+                          categoriesTwo: getChoicesTwo(),
+                          addProduct: (name,price,image,discount,catID){
                             Navigator.of(context).pop();
-
                             screenState.updateProduct(UpdateProductRequest(
                               dataStoreProduct: DataStoreUpdateProduct(
                                   id: element.id,
@@ -270,11 +294,12 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
                                   productImage: image,
                                   discount: double.parse(discount),
                                   productPrice:double.parse(price),
-                                  storeProductCategoryID:element.storeProductCategoryID,
+                                  storeProductCategoryID:int.parse(catID),
                                   storeMainCategoryID: idFirstCat
                               ),
 
-                            ),categoriesOne,categoriesTwo,nameTwo: nameTwo,nameOne: nameOne);
+                            ),
+                                categoriesOne,categoriesTwo,nameTwo: nameTwo,nameOne: nameOne);
                           },
                         );
                       });

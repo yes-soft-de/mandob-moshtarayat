@@ -31,11 +31,11 @@ class StoresScreen extends StatefulWidget {
 class StoresScreenState extends State<StoresScreen> {
   StoresState? currentState;
 //  late AsyncSnapshot snapshot = AsyncSnapshot.nothing();
-  StoreProfileModel model = StoreProfileModel(id: 0,
-      storeOwnerName: 'storeOwnerName', phone: '323230',
-      deliveryCost: 0, image: ImageUrl(image: ''), privateOrders: true,
-      storeCategoryName: '',
-      hasProducts: true, storeCategoryId: -1);
+//  StoreProfileModel model = StoreProfileModel(id: 0,
+//      storeOwnerName: 'storeOwnerName', phone: '323230',
+//      deliveryCost: 0, image: ImageUrl(image: ''), privateOrders: true,
+//      storeCategoryName: '',
+//      hasProducts: true, storeCategoryId: -1);
   void refresh() {
     if (mounted) {
       setState(() {});
@@ -112,7 +112,7 @@ class StoresScreenState extends State<StoresScreen> {
             child: currentState?.getUI(context)),
         childDecoration: BoxDecoration(
             borderRadius: BorderRadius.circular(18)
-        ),  drawer: MenuScreen(model,widget._authService.isLoggedIn),
+        ),  drawer: MenuScreen(widget._authService.isLoggedIn),
       ),
       ),
     );

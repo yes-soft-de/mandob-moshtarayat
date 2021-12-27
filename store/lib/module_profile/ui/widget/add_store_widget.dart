@@ -16,7 +16,7 @@ import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 
 class UpdateStoreWidget extends StatefulWidget {
-   final Function(String, String, String, bool, bool, String?, String?,String)
+   final Function(String, String, String, bool, bool, String?, String?,String,String,String,String)
        updateStore;
    final CreateStoreRequest? request;
 
@@ -31,6 +31,9 @@ class UpdateStoreWidget extends StatefulWidget {
    late TextEditingController _nameController;
    late TextEditingController _phoneController;
    late TextEditingController _deliveryController;
+   late TextEditingController _bankName ;
+   late TextEditingController _bankAccountNumber;
+   late TextEditingController _stcPay;
    LatLng? storeLocation;
    String? imagePath;
    bool privateOrder = false;
@@ -170,6 +173,48 @@ class UpdateStoreWidget extends StatefulWidget {
                                  fit: BoxFit.cover,
                                ))),
                      ),
+                   ),
+                   //account
+                   Padding(
+                     padding: const EdgeInsets.only(
+                         left: 12.0, bottom: 8, right: 12, top: 16.0),
+                     child: Text(
+                       S.current.bankName,
+                       style: TextStyle(fontWeight: FontWeight.bold),
+                       textAlign: TextAlign.start,
+                     ),
+                   ),
+                   CustomFormField(
+                     controller: _bankName,
+                     hintText: S.current.bankName,
+                   ),
+
+                   Padding(
+                     padding: const EdgeInsets.only(
+                         left: 12.0, bottom: 8, right: 12, top: 16.0),
+                     child: Text(
+                       S.current.bankAccountNumber,
+                       style: TextStyle(fontWeight: FontWeight.bold),
+                       textAlign: TextAlign.start,
+                     ),
+                   ),
+                   CustomFormField(
+                     controller: _bankAccountNumber,
+                     hintText: S.current.bankAccountNumber,
+                   ),
+
+                   Padding(
+                     padding: const EdgeInsets.only(
+                         left: 12.0, bottom: 8, right: 12, top: 16.0),
+                     child: Text(
+                       S.current.stc,
+                       style: TextStyle(fontWeight: FontWeight.bold),
+                       textAlign: TextAlign.start,
+                     ),
+                   ),
+                   CustomFormField(
+                     controller: _stcPay,
+                     hintText: S.current.stc,
                    ),
                    // Store Shift
                    Padding(
@@ -314,7 +359,7 @@ class UpdateStoreWidget extends StatefulWidget {
                    date.day, closingTime!.hour, closingTime!.minute)
                    .toUtc()
                    .toIso8601String(),
-               status
+               status,_bankName.text,_bankAccountNumber.text,_stcPay.text
              );
            } else {
              CustomFlushBarHelper.createError(
@@ -330,6 +375,9 @@ class UpdateStoreWidget extends StatefulWidget {
      _nameController = TextEditingController();
      _deliveryController = TextEditingController();
      _phoneController = TextEditingController();
+     _bankAccountNumber = TextEditingController();
+     _bankName = TextEditingController();
+     _stcPay = TextEditingController();
      if (widget.request != null) {
        _nameController.text = widget.request?.storeOwnerName ?? '';
        _phoneController.text = widget.request?.phone ?? '';
@@ -342,6 +390,9 @@ class UpdateStoreWidget extends StatefulWidget {
        closingTime = TimeOfDay.fromDateTime(DateTime.parse(
            widget.request?.closingTime ?? DateTime.now().toString()));
        status = widget.request?.status ?? 'active';
+       _bankAccountNumber.text = widget.request?.bankAccountNumber??'';
+       _bankName.text = widget.request?.bankName??'';
+       _stcPay.text = widget.request?.stcPay??'';
      }
      super.initState();
    }

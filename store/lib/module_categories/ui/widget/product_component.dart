@@ -168,41 +168,6 @@ class ProductComponent extends StatelessWidget {
 
                               ],
                             ),
-                            Column(
-                              children: [
-                                Text(
-                                  S.current.price,
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                  ),
-                                  textAlign: TextAlign.start,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                SizedBox(
-                                  height: 8,
-                                ),
-                                Row(
-                                  children: [
-                                    Icon(
-                                      FontAwesomeIcons.shoppingBag,
-                                      size: 12,
-                                      color: Theme.of(context).primaryColor,
-                                    ),
-                                    SizedBox(
-                                      width: 4,
-                                    ),
-                                    Text(
-                                      '$price',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                      ),
-                                      textAlign: TextAlign.start,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
                           ],
                         ),
                       ),

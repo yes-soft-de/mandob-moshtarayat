@@ -5,6 +5,7 @@ import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_categories/model/products_categories_model.dart';
 import 'package:mandob_moshtarayat/module_categories/request/create_product_request.dart';
 import 'package:mandob_moshtarayat/module_categories/request/update_product_request.dart';
+import 'package:mandob_moshtarayat/module_categories/service/store_categories_service.dart';
 import 'package:mandob_moshtarayat/module_categories/state_manager/products_category_state_manager.dart';
 import 'package:mandob_moshtarayat/module_categories/ui/state/product_category/product_categories_loading_state.dart';
 import 'package:mandob_moshtarayat/module_categories/ui/state/product_category/product_categories_state.dart';
@@ -17,8 +18,8 @@ import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
 class ProductCategoriesScreen extends StatefulWidget {
   final ProductsCategoryStateManager _stateManager;
   final LocalizationService _localizationService;
-
-  ProductCategoriesScreen(this._stateManager, this._localizationService);
+  final CategoriesService categoriesService;
+  ProductCategoriesScreen(this._stateManager, this._localizationService, this.categoriesService);
 
   @override
   ProductCategoriesScreenState createState() => ProductCategoriesScreenState();
@@ -77,7 +78,14 @@ class ProductCategoriesScreenState extends State<ProductCategoriesScreen> {
   void createProduct(CreateProductRequest request,List<ProductsCategoryModel> levelOne,List<ProductsCategoryModel> levelTwo , {String? nameOne ,String? nameTwo}) {
     widget._stateManager.createProduct(this,request,levelOne,levelTwo,nameOne: nameOne,nameTwo: nameTwo);
   }
+  Future<List<ProductsCategoryModel>?> getCategoriesUpdateLevelTwo(int id) async {
+    await  widget._stateManager.getLevelTwo(id).then((value) {
+      print(value);
+      print(value?.length.toString());
+      return value;
+    });
 
+  }
   void refresh() {
     if (mounted) {
       setState(() {});

@@ -25,6 +25,7 @@ class InitAccountScreen extends StatefulWidget {
 class InitAccountScreenState extends State<InitAccountScreen> {
   StreamSubscription? _streamSubscription;
  InitAccountState? currentState;
+ String? phoneNumber;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -77,9 +78,18 @@ class InitAccountScreenState extends State<InitAccountScreen> {
   // void getRoleInitState() {
   //   widget._stateManager.getRoleInit(this);
   // }
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    var args = ModalRoute.of(context)?.settings.arguments;
+    if (args != null) {
+      phoneNumber = args.toString();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+
     return GestureDetector(
       onTap: () {
         final node = FocusScope.of(context);

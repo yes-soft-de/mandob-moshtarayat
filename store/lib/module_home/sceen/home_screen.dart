@@ -25,11 +25,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
-  StoreProfileModel model = StoreProfileModel(id: 0,
-      storeOwnerName: 'storeOwnerName', phone: '323230',
-      deliveryCost: 0, image: ImageUrl(image: ''), privateOrders: true,
-      storeCategoryName: '',
-      hasProducts: true, storeCategoryId: -1);
+
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +62,7 @@ class HomeScreenState extends State<HomeScreen> {
                 state.getUI(context)
               ],
             ),),
-        drawer: MenuScreen(model,widget._authService.isLoggedIn),
+        drawer: MenuScreen(widget._authService.isLoggedIn),
       ),
     );
   }
