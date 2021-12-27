@@ -89,4 +89,16 @@ class UserController extends BaseController
 
         return $this->response($response, self::FETCH);
     }
+
+    /**
+     * For testing issues
+     *
+     * @Route("deleteuser/{id}", name="deleteUserByID", methods={"DELETE"})
+     */
+    public function deleteUserById($id)
+    {
+        $response = $this->userService->deleteUserById($id);
+
+        return $this->response($response, self::DELETE);
+    }
 }

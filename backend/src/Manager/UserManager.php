@@ -558,4 +558,21 @@ class UserManager
     {
         return $this->userRepository->getAllStoreOwners();
     }
+
+    public function deleteUserById($id)
+    {
+        $result = $this->userRepository->find($id);
+
+        if(!$result)
+        {
+
+        }
+        else
+        {
+            $this->entityManager->remove($result);
+            $this->entityManager->flush();
+
+            return $result;
+        }
+    }
 }

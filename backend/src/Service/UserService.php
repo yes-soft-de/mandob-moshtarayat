@@ -87,4 +87,9 @@ class UserService
 
         return $response;
     }
+
+    public function deleteUserById($id)
+    {
+        return $this->userManager->deleteUserById($id);
+    }
 }
