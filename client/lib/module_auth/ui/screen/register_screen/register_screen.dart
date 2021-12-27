@@ -6,8 +6,10 @@ import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_account/account_routes.dart';
 import 'package:mandob_moshtarayat/module_account/ui/screen/favourite_screen.dart';
 import 'package:mandob_moshtarayat/module_auth/request/register_request/register_request.dart';
+import 'package:mandob_moshtarayat/module_auth/request/register_request/verfy_code_request.dart';
 import 'package:mandob_moshtarayat/module_auth/state_manager/register_state_manager/register_state_manager.dart';
 import 'package:mandob_moshtarayat/module_auth/ui/states/register_states/register_state.dart';
+import 'package:mandob_moshtarayat/module_auth/ui/states/register_states/register_state_code_sent.dart';
 import 'package:mandob_moshtarayat/module_auth/ui/states/register_states/register_state_init.dart';
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat/module_main/main_routes.dart';
@@ -30,6 +32,10 @@ class RegisterScreenState extends State<RegisterScreen> {
   late StreamSubscription _stateSubscription;
   int? returnToMainScreen;
   bool? returnToPreviousScreen;
+  late String userID;
+  late String pass;
+  late bool flags = true;
+  bool activeResend = false;
   @override
   void initState() {
     super.initState();
@@ -52,6 +58,20 @@ class RegisterScreenState extends State<RegisterScreen> {
   }
 
   dynamic args;
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    var args = ModalRoute.of(context)?.settings.arguments;
+    if (args != null && flags) {
+      var args = ModalRoute.of(context)?.settings.arguments as Map;
+      userID = args['userID'];
+      pass = args['pass'];
+      activeResend = true;
+      _currentState = RegisterStatePhoneCodeSent(this);
+      flags = false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     args = ModalRoute.of(context)?.settings.arguments;
@@ -103,6 +123,39 @@ class RegisterScreenState extends State<RegisterScreen> {
 
   void registerClient(RegisterRequest request) {
     widget._stateManager.registerClient(request, this);
+  }
+
+  void verifyClient(VerifyCodeRequest request) {
+    widget._stateManager.verifyClient(request, this);
+  }
+
+  void resendCode(VerifyCodeRequest request) {
+    widget._stateManager.resendCode(request, this);
+  }
+
+  void resentCodeSucc() {
+    CustomFlushBarHelper.createSuccess(
+            title: S.current.warnning,
+            message: S.current.resendCodeSuccessfully)
+        .show(context);
+  }
+
+  void wrongCode() {
+    CustomFlushBarHelper.createError(
+            title: S.current.warnning, message: S.current.invalidCode)
+        .show(context);
+  }
+
+  void resendError() {
+    CustomFlushBarHelper.createError(
+            title: S.current.warnning, message: S.current.errorHappened)
+        .show(context);
+  }
+
+  void verifyFirst() {
+    CustomFlushBarHelper.createError(
+            title: S.current.warnning, message: S.current.notVerifiedNumber)
+        .show(context);
   }
 
   void moveToNext() {

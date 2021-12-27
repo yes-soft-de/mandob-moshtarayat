@@ -14,7 +14,7 @@ class LoginStateInit extends LoginState {
     if (error != null) {
       CustomFlushBarHelper.createError(
           title: S.current.warnning, message: error)
-        ..show(screen.context);
+        .show(screen.context);
     }
   }
   TextEditingController usernameController = TextEditingController();
@@ -28,7 +28,7 @@ class LoginStateInit extends LoginState {
         children: [
           ListView(
             physics:
-                BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
             children: [
               MediaQuery.of(context).viewInsets.bottom == 0
                   ? Padding(
@@ -44,8 +44,8 @@ class LoginStateInit extends LoginState {
                 padding: const EdgeInsets.only(
                     bottom: 8.0, left: 85, right: 85, top: 8),
                 child: Text(
-                  S.of(context).username,
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  S.of(context).phoneNumber,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
               ListTile(
@@ -54,16 +54,16 @@ class LoginStateInit extends LoginState {
                     borderRadius: BorderRadius.circular(10),
                     color: Theme.of(context).backgroundColor,
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(Icons.email),
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Icon(Icons.phone),
                   ),
                 ),
                 title: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: CustomLoginFormField(
                     controller: usernameController,
-                    hintText: S.of(context).registerHint,
+                    hintText: '05xxxxxxxx'
                   ),
                 ),
               ),
@@ -72,7 +72,7 @@ class LoginStateInit extends LoginState {
                     bottom: 8.0, left: 85, right: 85, top: 8),
                 child: Text(
                   S.of(context).password,
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
               ListTile(
