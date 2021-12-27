@@ -16,6 +16,14 @@ class OrderUpdateStateForEachStoreByCaptainRequest
 
 
     /**
+     * @return mixed
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
      * Get the value of id
      */
     public function getId()
