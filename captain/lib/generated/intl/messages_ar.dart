@@ -430,8 +430,16 @@ class MessageLookup extends MessageLookupByLibrary {
             "من فضلك قم بتسجيل الدخول للمتابعة"),
         "pleaseLoginToMakeOrder": MessageLookupByLibrary.simpleMessage(
             "من فضلك قم بتسجيل الدخول لاستكمال طلبك"),
+        "pleaseProvideDrivingImage": MessageLookupByLibrary.simpleMessage(
+            "من فضلك قم بتزويدنا بشهادة القيادة"),
+        "pleaseProvideIdentityImage": MessageLookupByLibrary.simpleMessage(
+            "من فضلك قم بتزويدنا بالهوية الشخصية"),
+        "pleaseProvideMechImage": MessageLookupByLibrary.simpleMessage(
+            "من فضلك قم بتزويدنا بشهادة السير"),
         "pleaseProvidePaymentMethode":
             MessageLookupByLibrary.simpleMessage("من فضلك اختر طريقة للدفع"),
+        "pleaseProvideProfileImage": MessageLookupByLibrary.simpleMessage(
+            "من فضلك قم بتزويدنا بصورتك الشخصية"),
         "pleaseProvideStoreBill": MessageLookupByLibrary.simpleMessage(
             "يرجى تزويدنا بالفاتورة المستحقة للطلب"),
         "pleaseProvideTheDistance": MessageLookupByLibrary.simpleMessage(

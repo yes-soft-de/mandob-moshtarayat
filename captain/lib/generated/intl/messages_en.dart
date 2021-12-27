@@ -443,8 +443,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Please login to continue"),
         "pleaseLoginToMakeOrder": MessageLookupByLibrary.simpleMessage(
             "Please login to resuming order sending"),
+        "pleaseProvideDrivingImage": MessageLookupByLibrary.simpleMessage(
+            "Please provide driving license image"),
+        "pleaseProvideIdentityImage": MessageLookupByLibrary.simpleMessage(
+            "Please provide identity image"),
+        "pleaseProvideMechImage": MessageLookupByLibrary.simpleMessage(
+            "Please provide Mechanic image"),
         "pleaseProvidePaymentMethode": MessageLookupByLibrary.simpleMessage(
             "Please choose payment method"),
+        "pleaseProvideProfileImage": MessageLookupByLibrary.simpleMessage(
+            "Please provide profile image"),
         "pleaseProvideStoreBill": MessageLookupByLibrary.simpleMessage(
             "Please provide the bill of the order"),
         "pleaseProvideTheDistance":

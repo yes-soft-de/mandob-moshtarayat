@@ -4289,6 +4289,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Please provide driving license image`
+  String get pleaseProvideDrivingImage {
+    return Intl.message(
+      'Please provide driving license image',
+      name: 'pleaseProvideDrivingImage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please provide identity image`
+  String get pleaseProvideIdentityImage {
+    return Intl.message(
+      'Please provide identity image',
+      name: 'pleaseProvideIdentityImage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please provide Mechanic image`
+  String get pleaseProvideMechImage {
+    return Intl.message(
+      'Please provide Mechanic image',
+      name: 'pleaseProvideMechImage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please provide profile image`
+  String get pleaseProvideProfileImage {
+    return Intl.message(
+      'Please provide profile image',
+      name: 'pleaseProvideProfileImage',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
