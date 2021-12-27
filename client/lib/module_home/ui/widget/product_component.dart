@@ -342,7 +342,7 @@ class _ProductComponentState extends State<ProductComponent> {
                           ),
                           Padding(
                             padding:
-                                const EdgeInsets.only(left: 8.0, right: 8.0),
+                                const EdgeInsets.only(left: 4.0, right: 4.0),
                             child: Text(widget.quantity.toString()),
                           ),
                           TextButton(
@@ -390,9 +390,6 @@ class _ProductComponentState extends State<ProductComponent> {
                   ],
                 ),
               )),
-              const SizedBox(
-                width: 16,
-              ),
               SizedBox(
                 width: imageSize,
                 height: imageSize,
