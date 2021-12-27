@@ -407,3 +407,8 @@ App\Request\StoreProductCategoryTranslationCreateRequest:
       - NotBlank: ~
     language:
       - NotBlank: ~
+
+App\Request\ResetPasswordOrderCreateRequest:
+  properties:
+    userID:
+      - NotBlank: ~

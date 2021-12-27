@@ -88,6 +88,16 @@ class UserService
         return $response;
     }
 
+    public function getUserByUserID($userID)
+    {
+        $user = $this->userManager->getUserByUserID($userID);
+
+        if($user)
+        {
+            return $this->autoMapping->map('array', UsersGetResponse::class, $user);
+        }
+    }
+
     public function deleteUserById($id)
     {
         return $this->userManager->deleteUserById($id);
