@@ -117,14 +117,14 @@ class VerificationService
          */
         $verificationStatus = $this->userService->getStoreOwnerVerificationStatusByUserID($request->getUserID());
 
-        if (!$verificationStatus)
+        if (!$verificationStatus['verificationStatus'])
         {
             // provided user isn't registered!
             $response['result'] = 'userIsNotRegistered';
         }
         else
         {
-            if (!$verificationStatus['verificationStatus'] || $verificationStatus['verificationStatus'] != StoreOwnerVerificationStatusConstant::$VERIFIED_STATUS)
+            if ($verificationStatus['verificationStatus'] != StoreOwnerVerificationStatusConstant::$VERIFIED_STATUS)
             {
                 // we can send new code
                 // Now, delete previous sent codes for the same user
@@ -140,7 +140,7 @@ class VerificationService
                     $response['result'] = 'newCodeWasSent';
                 }
             }
-            else
+            elseif ($verificationStatus['verificationStatus'] == StoreOwnerVerificationStatusConstant::$VERIFIED_STATUS)
             {
                 // user is verified. we can't send new code
                 $response['result'] = 'userAlreadyVerified';

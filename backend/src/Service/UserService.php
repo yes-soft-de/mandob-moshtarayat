@@ -8,6 +8,7 @@ use App\Manager\UserManager;
 use App\Request\StoreOwnerVerificationStatusUpdateRequest;
 use App\Response\AllStoreOwnerVerificationUpdateResponse;
 use App\Response\StoreOwnerVerificationStatusUpdateResponse;
+use App\Response\UsersGetResponse;
 
 
 class UserService
@@ -71,5 +72,24 @@ class UserService
 
             return $response;
         }
+    }
+
+    public function getAllStoreOwners()
+    {
+        $response = [];
+
+        $result = $this->userManager->getAllStoreOwners();
+
+        foreach ($result as $user)
+        {
+            $response[] = $this->autoMapping->map(UserEntity::class, UsersGetResponse::class, $user);
+        }
+
+        return $response;
+    }
+
+    public function deleteUserById($id)
+    {
+        return $this->userManager->deleteUserById($id);
     }
 }
