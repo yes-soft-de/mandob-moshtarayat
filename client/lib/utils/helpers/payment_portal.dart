@@ -50,8 +50,8 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
             ? 'de.yessoft.mandob_moshtarayat_client'
             : 'iOS-BUNDLE-ID',
         productionSecreteKey: Platform.isAndroid
-            ? 'sk_live_Nii9aC8wbQsh3rMK:DIAjpfZ'
-            : 'sk_live_Nii9aC8wbQsh3rMK:DIAjpfZ',
+            ? 'pk_test_cLa0fBJPAM8v9p6gxu1UiTDn'
+            : 'pk_test_cLa0fBJPAM8v9p6gxu1UiTDn',
         sandBoxsecretKey: Platform.isAndroid
             ? 'sk_test_46BsGCc3d8aUHWZ1krFPulDE'
             : 'sk_test_46BsGCc3d8aUHWZ1krFPulDE',

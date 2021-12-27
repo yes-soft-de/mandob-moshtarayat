@@ -1,4 +1,5 @@
 import 'package:mandob_moshtarayat/utils/logger/logger.dart';
+import 'package:mandob_moshtarayat/utils/response/cost_details_response/cost_details_response.dart';
 
 class ProductsResponse {
   String? statusCode;
@@ -39,21 +40,24 @@ class Data {
   dynamic branchName;
   dynamic city;
   double? deliveryCost;
-  Data(
-      {this.id,
-      this.productName,
-      this.productImage,
-      this.productPrice,
-      this.storeOwnerProfileID,
-      this.productCategoryID,
-      this.storeOwnerName,
-      this.storeOwnerID,
-      this.image,
-      this.phone,
-      this.location,
-      this.branchName,
-      this.city,
-      this.deliveryCost});
+  CostDetailsResponse? costDetails;
+  Data({
+    this.id,
+    this.productName,
+    this.productImage,
+    this.productPrice,
+    this.storeOwnerProfileID,
+    this.productCategoryID,
+    this.storeOwnerName,
+    this.storeOwnerID,
+    this.image,
+    this.phone,
+    this.location,
+    this.branchName,
+    this.city,
+    this.deliveryCost,
+    this.costDetails,
+  });
 
   Data.fromJson(dynamic json) {
     id = json['id'];
@@ -70,5 +74,6 @@ class Data {
     branchName = json['branchName'];
     city = json['city'];
     deliveryCost = json['deliveryCost']?.toDouble();
+    costDetails = CostDetailsResponse.fromJson(json);
   }
 }

@@ -39,7 +39,8 @@ class ApiClient {
           client.options.headers['Authorization'] = headers['Authorization'];
         }
       }
-      client.options.headers['Accept-Language'] = getIt<LocalizationService>().getLanguage();
+      client.options.headers['Accept-Language'] =
+          getIt<LocalizationService>().getLanguage();
       //  client.options.headers['Access-Control-Allow-Origin'] = '*';
       var response = await client.get(
         url,

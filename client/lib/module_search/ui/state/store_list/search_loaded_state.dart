@@ -105,7 +105,7 @@ class SearchLoadedState extends SearchState {
       searchWidget.add(ProductsSearchCard(
         title: element.title,
         image: element.image,
-        price: element.price,
+        price: element.costDetails?.priceFinal ?? element.price,
         onTap: () {
           Navigator.of(screenState.context)
               .pushNamed(StoreRoutes.STORE_PRODUCTS,

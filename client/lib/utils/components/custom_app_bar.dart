@@ -17,29 +17,31 @@ class CustomTwaslnaAppBar {
         title,
         style: TextStyle(color: Theme.of(context).textTheme.bodyText1!.color),
       ),
-      leading:canGoBack ? Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Align(
-          alignment: AlignmentDirectional.centerStart,
-          child: InkWell(
-            borderRadius: BorderRadius.circular(10),
-            onTap: onTap ?? () => Navigator.of(context).pop(),
-            child: Container(
-              decoration: BoxDecoration(
-                color: buttonBackground ?? Theme.of(context).primaryColor,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Icon(
-                  Icons.arrow_back,
-                  color: colorIcon ?? Colors.white,
+      leading: canGoBack
+          ? Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Align(
+                alignment: AlignmentDirectional.centerStart,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(10),
+                  onTap: onTap ?? () => Navigator.of(context).pop(),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: buttonBackground ?? Theme.of(context).primaryColor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(
+                        Icons.arrow_back,
+                        color: colorIcon ?? Colors.white,
+                      ),
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
-        ),
-      ) : const SizedBox(),
+            )
+          : const SizedBox(),
       elevation: 0,
     );
   }

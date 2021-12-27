@@ -2,6 +2,7 @@
 
 import 'package:mandob_moshtarayat/module_home/response/favorite_response/image.dart';
 import 'package:mandob_moshtarayat/utils/logger/logger.dart';
+import 'package:mandob_moshtarayat/utils/response/cost_details_response/cost_details.dart';
 
 class StoreProducts {
   String? statusCode;
@@ -52,6 +53,7 @@ class Data {
   dynamic location;
   dynamic branchName;
   dynamic city;
+  CostDetails? costDetails;
 
   Data(
       {this.id,
@@ -66,7 +68,8 @@ class Data {
       this.phone,
       this.location,
       this.branchName,
-      this.city});
+      this.city,
+      this.costDetails});
 
   Data.fromJson(dynamic json) {
     id = json['id'];
@@ -84,6 +87,9 @@ class Data {
     location = json['location'];
     branchName = json['branchName'];
     city = json['city'];
+    costDetails = json['costDetails'] != null
+        ? CostDetails.fromJson(json['costDetails'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {

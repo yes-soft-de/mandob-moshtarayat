@@ -1,6 +1,7 @@
 import 'package:mandob_moshtarayat/utils/models/product.dart';
 import 'package:mandob_moshtarayat/utils/models/store.dart';
 import 'package:mandob_moshtarayat/module_search/response/search_response.dart';
+import 'package:mandob_moshtarayat/utils/response/cost_details_response/cost_details.dart';
 
 class SearchModel {
   String? _error;
@@ -12,7 +13,6 @@ class SearchModel {
   List<ProductModel> product = [];
 
   SearchModel? _data;
-
   SearchModel({required this.product, required this.store});
 
   SearchModel.Data(Data data) {
@@ -25,6 +25,7 @@ class SearchModel {
         image: element.productImage ?? '',
         price: element.productPrice ?? 0,
         id: element.storeOwnerProfileID ?? 0,
+        costDetails: element.costDetails
       ));
     });
 

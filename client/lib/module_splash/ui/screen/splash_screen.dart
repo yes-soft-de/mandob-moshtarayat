@@ -80,5 +80,4 @@ class _SplashScreenState extends State<SplashScreen> {
       return SettingRoutes.CHOOSE_LANGUAGE;
     }
   }
-
 }

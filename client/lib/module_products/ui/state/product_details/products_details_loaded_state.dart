@@ -10,6 +10,7 @@ import 'package:mandob_moshtarayat/module_products/model/products_details_model.
 import 'package:mandob_moshtarayat/module_products/ui/screen/products_details_screen.dart';
 import 'package:mandob_moshtarayat/module_products/ui/widget/quantity_control.dart';
 import 'package:mandob_moshtarayat/module_stores/presistance/cart_hive_box_helper.dart';
+import 'package:mandob_moshtarayat/module_stores/store_routes.dart';
 import 'package:mandob_moshtarayat/utils/components/progresive_image.dart';
 import 'package:mandob_moshtarayat/utils/customIcon/mandob_icons_icons.dart';
 import 'package:mandob_moshtarayat/utils/images/images.dart';
@@ -23,18 +24,20 @@ class ProductDetailsLoadedState extends States {
   late int quantity;
   @override
   Widget getUI(BuildContext context) {
-        num disPrice =
+    num disPrice =
         (model.productPrice * (100 - num.parse(model.discount))) / 100;
     return SingleChildScrollView(
       physics:
           const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
       child: Column(
         children: [
+          // product name
           Center(
               child: Text(
             model.productName,
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
           )),
+          // product image
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: SizedBox(
@@ -50,6 +53,7 @@ class ProductDetailsLoadedState extends States {
               ),
             ),
           ),
+          // product info
           Padding(
             padding: const EdgeInsets.only(top: 16.0),
             child: Container(
@@ -60,6 +64,7 @@ class ProductDetailsLoadedState extends States {
               ),
               child: Column(
                 children: [
+                  // statistics card
                   Padding(
                     padding: const EdgeInsets.all(16),
                     child: Container(
@@ -203,12 +208,41 @@ class ProductDetailsLoadedState extends States {
                                             color: Colors.white),
                                       ),
                                     ),
-                                  )
+                                  ),
                                 ],
                               ),
                             ),
                           ],
                         ),
+                      ),
+                    ),
+                  ),
+                  // Seller
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25),
+                          color: Theme.of(context).backgroundColor),
+                      child: ListTile(
+                        onTap: () {
+                          Navigator.of(context).pushNamed(
+                              StoreRoutes.STORE_PRODUCTS,
+                              arguments: {'storeId':model.storeOwnerProfileID.toString()});
+                        },
+                        leading: Icon(
+                          FontAwesomeIcons.store,
+                          size: 16,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                        title: Text(S.current.seller),
+                        subtitle: Text(
+                          model.storeOwnerName,
+                          style: const TextStyle(
+                            fontSize: 15,
+                          ),
+                        ),
+                        trailing: const Icon(Icons.arrow_forward_rounded),
                       ),
                     ),
                   ),

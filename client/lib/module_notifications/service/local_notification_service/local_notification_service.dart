@@ -17,10 +17,10 @@ class LocalNotificationService {
 
   Future<void> init() async {
     AndroidInitializationSettings initializationSettingsAndroid =
-        const AndroidInitializationSettings('logo');
+        const AndroidInitializationSettings('icon');
 
     const IOSInitializationSettings initializationSettingsIOS =
-         IOSInitializationSettings(requestSoundPermission: true);
+        IOSInitializationSettings(requestSoundPermission: true);
 
     final InitializationSettings initializationSettings =
         InitializationSettings(
@@ -35,10 +35,10 @@ class LocalNotificationService {
   void showNotification(RemoteMessage message) {
     RemoteNotification notification = message.notification!;
     IOSNotificationDetails iOSPlatformChannelSpecifics =
-      const  IOSNotificationDetails();
+        const IOSNotificationDetails();
 
     AndroidNotificationDetails androidPlatformChannelSpecifics =
-      const  AndroidNotificationDetails(
+        const AndroidNotificationDetails(
       'Local_notification',
       'Local Notification',
       'Showing notifications while the app running',
@@ -62,7 +62,7 @@ class LocalNotificationService {
         notification.title,
         notification.body,
         platformChannelSpecifics,
-        payload:json.encode(message.data));
+        payload: json.encode(message.data));
   }
 
   Future selectNotification(String? payload) async {

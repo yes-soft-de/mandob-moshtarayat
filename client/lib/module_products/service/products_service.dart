@@ -29,7 +29,8 @@ class ProductsService {
           storeProfileResponse.statusCode));
     }
     if (storeProfileResponse.data == null) return DataModel.empty();
-    storeProfileResponse.data?.productName = await translateService(storeProfileResponse.data?.productName ?? '');
+    storeProfileResponse.data?.productName =
+        await translateService(storeProfileResponse.data?.productName ?? '');
     return ProductsDetailsModel.withData(storeProfileResponse.data!);
   }
 

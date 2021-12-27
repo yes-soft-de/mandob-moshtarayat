@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
+
 @injectable
 class TermsOfUse extends StatelessWidget {
-    Future<String> getText(String lang) async {
+  Future<String> getText(String lang) async {
     return await rootBundle.loadString('assets/text/terms.txt');
   }
+
   @override
   Widget build(BuildContext context) {
-    String local = Localizations.localeOf(context).languageCode; 
+    String local = Localizations.localeOf(context).languageCode;
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.white),

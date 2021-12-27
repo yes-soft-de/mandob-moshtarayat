@@ -171,7 +171,8 @@ class _AwesomeLoaderState extends State<AwesomeLoader>
 
   _startRotation() {
     if (timer != null && timer?.isActive == true) timer?.cancel();
-    timer = Timer.periodic(const Duration(milliseconds: TIME_PORTION), (Timer t) {
+    timer =
+        Timer.periodic(const Duration(milliseconds: TIME_PORTION), (Timer t) {
       if (mounted) {
         setState(() {
           if (!reverseFlag) {

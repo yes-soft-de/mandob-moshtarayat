@@ -218,7 +218,7 @@ class StoreProductsLoadedState extends StoreProductsState {
             id: element.id,
             title: element.title,
             image: element.image,
-            price: element.price,
+            price:element.costDetails?.priceFinal ?? element.price,
             defaultQuantity: getQuantity(element.id),
             quantity: (cartModel) {
               if (cartModel.quantity > 0) {

@@ -8,6 +8,7 @@ import 'package:mandob_moshtarayat/utils/logger/logger.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:flutter/material.dart';
+
 @injectable
 class FireNotificationService {
   final NotificationsPrefHelper _prefHelper;
@@ -46,26 +47,28 @@ class FireNotificationService {
         _notificationRepo.postToken(token);
         FirebaseMessaging.onMessage.listen((RemoteMessage message) {
           Logger().info('FireNotificationService', 'onMessage: $message');
-          SchedulerBinding.instance?.addPostFrameCallback((_) {
-            Navigator.pushNamed(GlobalVariable.navState.currentContext!,
-                message.data['navigate_route'].toString(),arguments:message.data['argument']);
-          },);
+          SchedulerBinding.instance?.addPostFrameCallback(
+            (_) {
+              Navigator.pushNamed(GlobalVariable.navState.currentContext!,
+                  message.data['navigate_route'].toString(),
+                  arguments: message.data['argument']);
+            },
+          );
         });
         FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
           _onNotificationReceived.add(message);
         });
         FirebaseMessaging.onBackgroundMessage(backgroundMessageHandler);
       } catch (e) {
-       print(e.toString());
+        print(e.toString());
       }
-
     }
   }
-  static Future<dynamic> backgroundMessageHandler(
-      RemoteMessage message) async {
-      print('AppPush myBackgroundMessageHandler : $message');
-      NotificationsPrefHelper().setBackgroundMessage(message);
-      _onNotificationReceived.add(message);
+
+  static Future<dynamic> backgroundMessageHandler(RemoteMessage message) async {
+    print('AppPush myBackgroundMessageHandler : $message');
+    NotificationsPrefHelper().setBackgroundMessage(message);
+    _onNotificationReceived.add(message);
     return Future<void>.value();
   }
 }
