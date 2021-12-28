@@ -4,6 +4,9 @@
 namespace App\Service;
 
 use App\AutoMapping;
+use App\Constant\LocalNotificationList;
+use App\Constant\LocalStoreNotificationList;
+use App\Constant\OrderStateConstant;
 use App\Entity\NotificationLocalEntity;
 use App\Manager\NotificationLocalManager;
 use App\Request\NotificationLocalCreateRequest;
@@ -58,5 +61,62 @@ class NotificationLocalService
         }
 
         return $response;
+    }
+
+    public function createUpdateOrderStateClientNotificationLocal($state, $userID, $orderNumber, $storeName = null)
+    {
+        if ($state == OrderStateConstant::$ORDER_STATE_ON_WAY){
+            $state = LocalNotificationList::$STATE_ON_WAY_PICK_ORDER." ".$storeName;
+        }
+        if ($state == OrderStateConstant::$ORDER_STATE_IN_STORE){
+            $state =  LocalNotificationList::$STATE_IN_STORE." ".$storeName;
+        }
+        if ($state == OrderStateConstant::$ORDER_STATE_PICKED){
+            $state =  LocalNotificationList::$STATE_PICKED." ".$storeName;
+        }
+        if ($state == OrderStateConstant::$ORDER_STATE_ONGOING){
+            $state =  LocalNotificationList::$STATE_ONGOING." ".$storeName;
+        }
+        if ($state == OrderStateConstant::$ORDER_STATE_DELIVERED){
+            $state =  LocalNotificationList::$STATE_DELIVERED." ".$storeName;
+        }
+
+        $this->createNotificationLocal($userID,  LocalNotificationList::$STATE_TITLE, $state, $orderNumber);
+    }
+
+    public function createStoreNotificationLocal($storeIDs, $title, $message, $orderNumber, $stateChange  = null )
+    {
+        //remove item duplicated
+        $storeIDs = array_unique($storeIDs);
+        foreach ($storeIDs as $storeOwnerProfileID){
+            if($stateChange == true){
+                $this->createUpdateOrderStateStoreNotificationLocal($message, $title, $storeOwnerProfileID, $orderNumber);
+            }
+            else {
+                //create store notification local
+                $this->createNotificationLocal($storeOwnerProfileID, $title, $message, $orderNumber);
+            }
+        }
+    }
+
+    public function createUpdateOrderStateStoreNotificationLocal($state, $title, $userID, $orderNumber)
+    {
+        if ($state == OrderStateConstant::$ORDER_STATE_ON_WAY){
+            $state = LocalStoreNotificationList::$STATE_ON_WAY_PICK_ORDER;
+        }
+        if ($state == OrderStateConstant::$ORDER_STATE_IN_STORE){
+            $state =  LocalStoreNotificationList::$STATE_IN_STORE;
+        }
+        if ($state == OrderStateConstant::$ORDER_STATE_PICKED){
+            $state =  LocalStoreNotificationList::$STATE_PICKED;
+        }
+        if ($state == OrderStateConstant::$ORDER_STATE_ONGOING){
+            $state =  LocalStoreNotificationList::$STATE_ONGOING;
+        }
+        if ($state == OrderStateConstant::$ORDER_STATE_DELIVERED){
+            $state =  LocalStoreNotificationList::$STATE_DELIVERED;
+        }
+
+        $this->createNotificationLocal($userID,  $title, $state, $orderNumber);
     }
 }

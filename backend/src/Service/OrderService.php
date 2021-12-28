@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\AutoMapping;
 use App\Constant\LocalNotificationList;
+use App\Constant\LocalStoreNotificationList;
 use App\Constant\OrderStateConstant;
 use App\Entity\OrderEntity;
 use App\Manager\OrderManager;
@@ -126,30 +127,7 @@ class OrderService
 
         return $response;
     }
-    
-    public function createNotificationLocal($state, $userID, $orderNumber, $storeName = null)
-    {
 
-        if ($state == OrderStateConstant::$ORDER_STATE_ON_WAY){
-            $state = LocalNotificationList::$STATE_ON_WAY_PICK_ORDER." ".$storeName;
-        }
-        if ($state == OrderStateConstant::$ORDER_STATE_IN_STORE){
-            $state =  LocalNotificationList::$STATE_IN_STORE." ".$storeName;
-        }
-        if ($state == OrderStateConstant::$ORDER_STATE_PICKED){
-            $state =  LocalNotificationList::$STATE_PICKED." ".$storeName;
-        }
-        if ($state == OrderStateConstant::$ORDER_STATE_ONGOING){
-            $state =  LocalNotificationList::$STATE_ONGOING." ".$storeName;
-        }
-        if ($state == OrderStateConstant::$ORDER_STATE_DELIVERED){
-            $state =  LocalNotificationList::$STATE_DELIVERED." ".$storeName;
-        }
-
-
-        $this->notificationLocalService->createNotificationLocal($userID,  LocalNotificationList::$STATE_TITLE, $state, $orderNumber);
-
-    }
     public function orderUpdateStateByCaptain(OrderUpdateStateByCaptainRequest $request)
     {
         $response = ResponseConstant::$ERROR;
@@ -161,7 +139,9 @@ class OrderService
                 $orderDetailUpdate = $this->orderDetailService->orderUpdateStateByOrderState($request->getState(), $request->getOrderNumber(), $request->getCaptainID());
                 if($orderDetailUpdate){
                     //create Notification Local
-                    $this->createNotificationLocal($request->getState(), $item->getClientID(), $request->getOrderNumber());
+                    $this->notificationLocalService->createUpdateOrderStateClientNotificationLocal($request->getState(), $item->getClientID(), $request->getOrderNumber());
+                    //create store notification local
+                    $this->notificationLocalService->createStoreNotificationLocal($orderDetailUpdate['storeIds'], LocalStoreNotificationList::$STATE_TITLE, $request->getState(), $request->getOrderNumber(), true);
                 }
 
                 //start-----> notification
@@ -200,13 +180,17 @@ class OrderService
                     if($order) {
                        $storeOwnerProfile = $this->storeOwnerProfileService->getStoreOwnerProfileById($request->getStoreOwnerProfileID());
 
-                       //create Notification Local
-                        $this->createNotificationLocal($request->getState(), $order->getClientID(), $request->getOrderNumber(), $storeOwnerProfile->storeOwnerName);
+                        //create Notification Local
+                        $this->notificationLocalService->createUpdateOrderStateClientNotificationLocal($request->getState(), $order->getClientID(), $request->getOrderNumber(), $storeOwnerProfile->storeOwnerName);
+
+                        //create store notification local
+                        $this->notificationLocalService->createUpdateOrderStateStoreNotificationLocal($request->getState(),LocalNotificationList::$STATE_TITLE , $request->getStoreOwnerProfileID(), $request->getOrderNumber());
                     }
                     $response = $this->autoMapping->map(OrderUpdateStateForEachStoreResponse::class, OrderUpdateStateForEachStoreResponse::class, $orderDetails);
                 }
             }
         }
+
         return $response;
     }
 
@@ -367,7 +351,7 @@ class OrderService
     public function createClientOrder(OrderClientCreateRequest $request)
     {  
         $response = ResponseConstant::$ORDER_NOT_CREATED;
-
+        $storeIDs = [];
         $orderNumber = 1;
 
         $lastOrderNumber = $this->orderDetailService->getLastOrderNumber();
@@ -390,11 +374,16 @@ class OrderService
                if(!$orderDetail) {
                    return $response;
                }
+
+               $storeIDs[] = $orderDetail->storeOwnerProfileID;
                //create log
-              $this->orderLogService->createOrderLog($orderNumber, $item->getState(), $request->getClientID(), $storeOwnerProfileID);
+               $this->orderLogService->createOrderLog($orderNumber, $item->getState(), $request->getClientID(), $storeOwnerProfileID);
             }
 
-            //create notification local
+            //create store notification local
+            $this->notificationLocalService->createStoreNotificationLocal($storeIDs, LocalStoreNotificationList::$NEW_ORDER_TITLE, LocalStoreNotificationList::$CREATE_ORDER_SUCCESS, $orderNumber);
+
+            //create client notification local
             $this->notificationLocalService->createNotificationLocal($request->getClientID(), LocalNotificationList::$NEW_ORDER_TITLE, LocalNotificationList::$CREATE_ORDER_SUCCESS, $orderNumber);
 
             $response = $this->autoMapping->map(OrderEntity::class, OrderCreateClientResponse::class, $item);
@@ -457,11 +446,15 @@ class OrderService
             if(!$orderDetail){
                return $response;
             }
+
             //create log
             $this->orderLogService->createOrderLog($orderNumber, $item->getState(), $request->getClientID(), $request->getStoreOwnerProfileID());
 
             //create notification local
             $this->notificationLocalService->createNotificationLocal($request->getClientID(), LocalNotificationList::$NEW_ORDER_TITLE, LocalNotificationList::$CREATE_ORDER_SUCCESS, $orderNumber);
+
+            //create store notification local
+            $this->notificationLocalService->createNotificationLocal($request->getStoreOwnerProfileID(), LocalStoreNotificationList::$NEW_ORDER_TITLE, LocalStoreNotificationList::$CREATE_ORDER_SUCCESS, $orderNumber);
 
             $response = $this->autoMapping->map(OrderEntity::class, OrderClientSendCreateResponse::class, $item);
             $response->orderDetail['orderNumber'] = $orderDetail->orderNumber;
