@@ -412,3 +412,10 @@ App\Request\ResetPasswordOrderCreateRequest:
   properties:
     userID:
       - NotBlank: ~
+
+App\Request\UserPasswordUpdateRequest:
+  properties:
+    userID:
+      - NotBlank: ~
+    password:
+      - NotBlank: ~
