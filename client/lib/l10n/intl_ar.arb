@@ -382,6 +382,11 @@
   "codeNumber": "رمز التحقق",
   "codeTimeOut": "انتهت صلاحية رمز التحقق",
   "resendCodeSuccessfully":"تم إرسال الرمز بنجاح",
-  "notVerifiedNumber": "يجب عليك إدخال الرمز أولاً"
+  "notVerifiedNumber": "يجب عليك إدخال الرمز أولاً",
+  "pay":"ادفع",
+  "firstName":"الاسم الأول",
+  "middleName":"الاسم الاوسط او اسم الأب",
+  "lastName":"الكنية",
+  "paymentFailed":"للأسف فشلت عملية الدفع الرجاء ، إعادة المحاولة"
 
 }

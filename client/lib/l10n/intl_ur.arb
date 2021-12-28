@@ -382,5 +382,10 @@
     "codeNumber": "کوڈ نمبر",
     "codeTimeOut": "کوڈ کی میعاد ختم ہو گئی ہے۔",
     "resendCodeSuccessfully": "کوڈ کامیابی سے بھیج دیا گیا ہے۔",
-    "notVerifiedNumber": "آپ کو پہلے کوڈ درج کرنا ہوگا"
+    "notVerifiedNumber": "آپ کو پہلے کوڈ درج کرنا ہوگا",
+    "pay": "دھکا",
+    "firstName": "پہلا نام",
+    "middleName": "درمیانی نام",
+    "lastName": "آخری نام",
+    "paymentFailed": "ادائیگی کا عمل ناکام ہو گیا ہے، براہ کرم بعد میں دوبارہ کوشش کریں۔"
 }

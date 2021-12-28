@@ -382,5 +382,12 @@
   "codeNumber": "Code number",
   "codeTimeOut": "Code has expired",
   "resendCodeSuccessfully": "The code has been successfully sent",
-  "notVerifiedNumber": "You must enter the code first"
+  "notVerifiedNumber": "You must enter the code first",
+  "pay":"Pay",
+  "firstName":"First name",
+  "middleName":"Middle name",
+  "lastName":"Last name",
+  "paymentFailed":"Payment process has been failed , please try again later"
+  
+
 }

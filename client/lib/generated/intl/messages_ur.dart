@@ -204,6 +204,7 @@ class MessageLookup extends MessageLookupByLibrary {
             " آپ کی سبسکرپشن پرانی ہو گئی ہے براہ کرم اپنی رکنیت کی تجدید کریں۔"),
         "finishedOrdering":
             MessageLookupByLibrary.simpleMessage(" آرڈر ختم کریں۔"),
+        "firstName": MessageLookupByLibrary.simpleMessage("پہلا نام"),
         "firstSendMessage": MessageLookupByLibrary.simpleMessage(
             "پیغام بھیجنے والے پہلے فرد بنیں۔"),
         "fromWhatsapp": MessageLookupByLibrary.simpleMessage("واٹس ایپ سے"),
@@ -254,6 +255,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "language": MessageLookupByLibrary.simpleMessage("زبان"),
         "largeMoreThan100Employees":
             MessageLookupByLibrary.simpleMessage("+100 Employees"),
+        "lastName": MessageLookupByLibrary.simpleMessage("آخری نام"),
         "lastSeenMessage": MessageLookupByLibrary.simpleMessage(" نئے پیغامات"),
         "latestUpdates":
             MessageLookupByLibrary.simpleMessage(" تازہ ترین اپڈیٹس"),
@@ -268,6 +270,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "me": MessageLookupByLibrary.simpleMessage("مجھے"),
         "mediumMoreThan20EmployeesLessThan100":
             MessageLookupByLibrary.simpleMessage("21 - 100 Employees"),
+        "middleName": MessageLookupByLibrary.simpleMessage("درمیانی نام"),
         "minute": MessageLookupByLibrary.simpleMessage(" منٹ"),
         "minutes": MessageLookupByLibrary.simpleMessage(" منٹ"),
         "mohammad": MessageLookupByLibrary.simpleMessage("محمد"),
@@ -358,8 +361,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "password": MessageLookupByLibrary.simpleMessage("پاس ورڈ"),
         "passwordIsTooShort":
             MessageLookupByLibrary.simpleMessage("پاس ورڈ بہت چھوٹا ہے۔"),
+        "pay": MessageLookupByLibrary.simpleMessage("دھکا"),
         "paySubscription":
             MessageLookupByLibrary.simpleMessage("سبسکرپشن ادا کریں۔"),
+        "paymentFailed": MessageLookupByLibrary.simpleMessage(
+            "ادائیگی کا عمل ناکام ہو گیا ہے، براہ کرم بعد میں دوبارہ کوشش کریں۔"),
         "paymentHistory":
             MessageLookupByLibrary.simpleMessage(" ادائیگی کی تاریخ"),
         "paymentMethod":
