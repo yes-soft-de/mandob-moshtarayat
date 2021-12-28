@@ -231,6 +231,21 @@ class VerificationController extends BaseController
      * @Route("getverificationcode/{userID}", name="getVerificationCodeByUserID", methods={"GET"})
      * @param $userID
      * @return JsonResponse
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns verification code record info",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code", example="9156"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="userID"),
+     *                  @OA\Property(type="string", property="code"),
+     *                  @OA\Property(type="object", property="createdAt")
+     *          )
+     *      )
+     * )
      */
     public function getVerificationCodeByUserID($userID)
     {
