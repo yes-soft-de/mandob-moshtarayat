@@ -66,6 +66,7 @@ class AuthService {
     }
     RegisterResponse? responseVerify = await _authManager
         .checkUserIfVerified(VerifyCodeRequest(userID: username));
+        
     if (responseVerify?.statusCode != '200') {
       _prefsHelper.setUsername(username);
       _prefsHelper.setPassword(password);
@@ -92,6 +93,8 @@ class AuthService {
       throw AuthorizationException(StatusCodeHelper.getStatusCodeMessages(
           registerResponse.statusCode ?? '0'));
     }
+    _prefsHelper.setUsername(request.userID ?? '');
+    _prefsHelper.setPassword(request.password ?? '');
     _authSubject.add(AuthStatus.CODE_SENT);
   }
 

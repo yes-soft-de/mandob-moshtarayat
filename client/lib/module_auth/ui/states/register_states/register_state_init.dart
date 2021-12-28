@@ -112,7 +112,7 @@ class RegisterStateInit extends RegisterState {
                     contentPadding: const EdgeInsets.only(left:8,right: 8,top: 16),
                     sufIcon: const Padding(
                      padding: EdgeInsets.only(left:8,right: 8,top: 16),
-                      child: Text(CountryCode.COUNTRY_CODE_SY),
+                      child: Text(CountryCode.COUNTRY_CODE_KSA),
                     ),
                   ),
                 ),

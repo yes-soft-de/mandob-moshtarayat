@@ -63,7 +63,8 @@ class LoginStateInit extends LoginState {
                   padding: const EdgeInsets.all(8.0),
                   child: CustomLoginFormField(
                     controller: usernameController,
-                    hintText: '05xxxxxxxx'
+                    phone: true,
+                    hintText: '5xxxxxxxx'
                   ),
                 ),
               ),
