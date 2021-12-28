@@ -19,7 +19,7 @@ use App\Response\OrderUpdateProductCountByClientResponse;
 use App\Response\OrderUpdateStateForEachStoreResponse;
 use App\Response\OrderUpdateStateResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-
+use App\Service\NotificationLocalService;
 
 class OrderDetailService
 {
@@ -28,10 +28,11 @@ class OrderDetailService
     private $params;
     const PENDING="pending";
 
-    public function __construct(AutoMapping $autoMapping, OrderDetailManager $orderDetailManager, ParameterBagInterface $params)
+    public function __construct(AutoMapping $autoMapping, OrderDetailManager $orderDetailManager, ParameterBagInterface $params, NotificationLocalService $notificationLocalService)
     {
         $this->autoMapping = $autoMapping;
         $this->orderDetailManager = $orderDetailManager;
+        $this->notificationLocalService = $notificationLocalService;
         $this->params = $params->get('upload_base_url') . '/';
     }
 
@@ -305,7 +306,7 @@ class OrderDetailService
     public function orderUpdateStateByOrderState($state, $orderNumber, $captainID)
     {
         $item=(object)[];
-
+        $storeIds = [];
         $orderDetailIds = $this->getOrderId($orderNumber);
 
         $request = new OrderUpdateStateByOrderStateRequest;
@@ -316,9 +317,14 @@ class OrderDetailService
             $request->setId($orderDetailId['id']);
 
             $item = $this->orderDetailManager->orderUpdateStateByOrderState($request);
+
+            $storeIds[] = $item->getStoreOwnerProfileID();
         }
 
-        return $this->autoMapping->map(OrderDetailEntity::class, OrderUpdateStateForEachStoreResponse::class, $item);
+        $response[] = $this->autoMapping->map(OrderDetailEntity::class, OrderUpdateStateForEachStoreResponse::class, $item);
+        $response['storeIds']= $storeIds;
+
+        return $response;
     }
 
     public function getOrderDetailStates($orderNumber)

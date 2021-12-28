@@ -66,7 +66,7 @@ class NotificationLocalController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns Local Notifications",
+     *      description="Returns Local Notifications For client",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -87,6 +87,47 @@ class NotificationLocalController extends BaseController
     public function getLocalNotifications(): JsonResponse
     {
         $result = $this->notificationLocalService->getLocalNotifications($this->getUserId());
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * store: Local Notifications.
+     * @Route("notificationsstoreLocal", name="getLocalStoreNotifications", methods={"GET"})
+     * @IsGranted("ROLE_OWNER")
+     * *
+     * @OA\Tag(name="Local Notification")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns Local Notifications For Store",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *             @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="title"),
+     *                  @OA\Property(type="string", property="message"),
+     *                  @OA\Property(type="string", property="orderNumber"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *              ),
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function getLocalStoreNotifications(): JsonResponse
+    {
+        $result = $this->notificationLocalService->getLocalStoreNotifications($this->getUserId());
 
         return $this->response($result, self::FETCH);
     }

@@ -26,6 +26,15 @@ class OrderLogService
         $this->dateFactoryService = $dateFactoryService;
     }
 
+    public function createOrderLogWithMultiStore($storeIDs, $orderNumber, $state, $userID )
+    {
+        //remove item duplicated
+        $storeIDs = array_unique($storeIDs);
+        foreach ($storeIDs as $storeOwnerProfileID){
+            $this->createOrderLog($orderNumber, $state, $userID, $storeOwnerProfileID);
+        }
+    }
+
     public function createOrderLog($orderNumber, $state, $userID, $storeOwnerProfileID = 0)
     {
         //TODO It is better to build a request file instead of using parameters
