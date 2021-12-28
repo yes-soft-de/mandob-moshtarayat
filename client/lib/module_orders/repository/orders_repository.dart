@@ -41,7 +41,7 @@ class MyOrdersRepository {
     return OrderDetailsResponse.fromJson(response);
   }
 
-  Future<ClientOrderResponse?> postClientOrder(
+  Future<OrderDetailsResponse?> postClientOrder(
       ClientOrderRequest request) async {
     var token = await _authService.getToken();
 
@@ -49,7 +49,7 @@ class MyOrdersRepository {
         Urls.POST_CLIENT_ORDER_API, request.toJson(),
         headers: {'Authorization': 'Bearer ' + token.toString()});
     if (response == null) return null;
-    return ClientOrderResponse.fromJson(response);
+    return OrderDetailsResponse.fromJson(response);
   }
 
   Future<ClientOrderResponse?> deleteClientOrder(int id) async {

@@ -6,6 +6,7 @@ import 'package:location/location.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_auth/authorization_routes.dart';
 import 'package:mandob_moshtarayat/module_main/main_routes.dart';
+import 'package:mandob_moshtarayat/module_orders/model/order_details_model.dart';
 import 'package:mandob_moshtarayat/module_orders/request/client_order_request.dart';
 import 'package:mandob_moshtarayat/module_orders/state_manager/client_order_state_manager.dart';
 import 'package:mandob_moshtarayat/module_orders/ui/state/client_order/client_order_loaded_state.dart';
@@ -34,12 +35,26 @@ class ClientOrderScreenState extends State<ClientOrderScreen> {
   }
 
   void postClientOrder(ClientOrderRequest request) {
-    // showDialog(
-    //     context: context,
-    //     builder: (context) {
-    //       return PaymentsPortal();
-    //     });
     widget._clientOrderStateManager.postClientOrder(request, this);
+  }
+
+  void needToPay(OrderDetailsModel model) {
+    if (model.order.payment == 'card') {
+      showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (context) {
+            return PaymentsPortal(
+              model: model,
+              callback: (success, message) {
+                Navigator.of(context).pop();
+                moveDecision(success, message);
+              },
+            );
+          });
+    } else {
+      moveDecision(true);
+    }
   }
 
   void moveDecision(bool success, [String err = '']) {

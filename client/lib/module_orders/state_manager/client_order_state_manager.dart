@@ -23,7 +23,7 @@ class ClientOrderStateManager {
         if (value.hasError) {
           screenState.moveDecision(false, value.error!);
         } else {
-          screenState.moveDecision(true);
+          screenState.needToPay(value.data);
         }
       });
     } else {

@@ -1,18 +1,29 @@
+import 'dart:async';
 import 'dart:io';
+
+import 'package:analyzer_plugin/protocol/protocol.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_sell_sdk_flutter/go_sell_sdk_flutter.dart';
 import 'package:go_sell_sdk_flutter/model/models.dart';
 import 'package:injectable/injectable.dart';
-import 'package:mandob_moshtarayat/di/di_config.dart';
-import 'package:mandob_moshtarayat/module_localization/service/localization_service/localization_service.dart';
-import 'package:flutter/material.dart';
-import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
-import 'dart:async';
+import 'package:mandob_moshtarayat/consts/country_code.dart';
 
+import 'package:mandob_moshtarayat/di/di_config.dart';
+import 'package:mandob_moshtarayat/generated/l10n.dart';
+import 'package:mandob_moshtarayat/module_auth/service/auth_service/auth_service.dart';
+import 'package:mandob_moshtarayat/module_auth/ui/widget/login_widgets/custom_field.dart';
+import 'package:mandob_moshtarayat/module_localization/service/localization_service/localization_service.dart';
+import 'package:mandob_moshtarayat/module_orders/model/order_details_model.dart';
+import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
+import 'package:mandob_moshtarayat/utils/components/custom_feild.dart';
 import 'package:mandob_moshtarayat/utils/helpers/tab_loader.dart';
 
-@injectable
 class PaymentsPortal extends StatefulWidget {
+  final OrderDetailsModel model;
+  final Function(bool, String) callback;
+  const PaymentsPortal({Key? key, required this.model, required this.callback})
+      : super(key: key);
   @override
   _PaymentsPortalState createState() => _PaymentsPortalState();
 }
@@ -40,7 +51,7 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
     // configure app
     configureApp();
     // sdk session configurations
-    setupSDKSession();
+    // setupSDKSession();
   }
 
   // configure app key and bundle-id (You must get those keys from tap)
@@ -63,37 +74,34 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
     try {
       GoSellSdkFlutter.sessionConfigurations(
           trxMode: TransactionMode.PURCHASE,
-          paymentItems: [],
+          paymentItems: payments,
           paymentMetaData: {},
           taxes: [],
           shippings: [],
           customer: Customer(
-              customerId:
-                  '', // customer id is important to retrieve cards saved for this customer
-              email: 'mandoobquick@gmail.com',
-              isdNumber: '',
-              number: '',
-              firstName: 'KHALED',
-              middleName: 'M',
-              lastName: 'ALSHRABI',
+              customerId: getIt<AuthService>()
+                  .username, // customer id is important to retrieve cards saved for this customer
+              email: emailController.text,
+              isdNumber: CountryCode.COUNTRY_CODE_KSA,
+              number: phoneNumberController.text,
+              firstName: firstNameController.text,
+              middleName: middleNameController.text,
+              lastName: lastNameController.text,
               metaData: null),
           transactionCurrency: 'sar',
-          amount: '0.1',
+          amount: widget.model.order.orderCost.toString(),
           // Post URL
           postURL: 'https://tap.company',
           // Payment description
           paymentDescription: 'Mandoob Client Payments',
           // Payment Reference
           paymentReference: Reference(
-              acquirer: 'acquirer',
-              gateway: 'gateway',
-              payment: 'payment',
-              track: 'track',
-              transaction: 'trans_910101',
-              order: 'order_262625',
-              ),
+              transaction:
+                  'trans_${widget.model.order.orderType}${widget.model.order.deliveryDate}${widget.model.order.orderCost}${widget.model.order.id}',
+              order: widget.model.order.id.toString(),
+              gosellID: '36tap13'),
           // payment Descriptor
-          paymentStatementDescriptor: 'paymentStatementDescriptor',
+          paymentStatementDescriptor: 'Mandoob Client payments',
           // Save Card Switch
           isUserAllowedToSaveCard: false,
           // Enable/Disable 3DSecure
@@ -112,7 +120,8 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
           applePayMerchantID: '',
           allowsToSaveSameCardMoreThanOnce: false,
           // pass the card holder name to the SDK
-          cardHolderName: 'KHALED M ALSHRABI',
+          cardHolderName:
+              '${firstNameController.text} ${middleNameController.text} ${lastNameController.text}',
           // disable changing the card holder name by the user
           allowsToEditCardHolderName: false,
           // select payments you need to show [Default is all, and you can choose between WEB-CARD-APPLEPAY ]
@@ -137,17 +146,18 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
 
     tapSDKResult = await GoSellSdkFlutter.startPaymentSDK;
     loaderController.stopWhenFull();
-
     print('>>>> ${tapSDKResult['sdk_result']}');
     setState(() {
       switch (tapSDKResult['sdk_result']) {
         case 'SUCCESS':
           sdkStatus = 'SUCCESS';
           handleSDKResult();
+          widget.callback(true,responseID);
           break;
         case 'FAILED':
           sdkStatus = 'FAILED';
           handleSDKResult();
+          widget.callback(false,S.current.paymentFailed);
           break;
         case 'SDK_ERROR':
           print('sdk error............');
@@ -158,6 +168,7 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
           sdkErrorCode = tapSDKResult['sdk_error_code'].toString();
           sdkErrorMessage = tapSDKResult['sdk_error_message'];
           sdkErrorDescription = tapSDKResult['sdk_error_description'];
+          widget.callback(false,S.current.paymentFailed);
           break;
 
         case 'NOT_IMPLEMENTED':
@@ -172,7 +183,6 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
       case 'CHARGE':
         printSDKResult('Charge');
         break;
-
       case 'AUTHORIZE':
         printSDKResult('Authorize');
         break;
@@ -219,64 +229,176 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
     responseID = tapSDKResult['charge_id'];
   }
 
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController middleNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
+  List<PaymentItem> payments = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CustomTwaslnaAppBar.appBar(context, title: 'Taps Payments'),
         body: SafeArea(
-          child: Stack(
-            alignment: Alignment.center,
+          child: Column(
             children: <Widget>[
-              Positioned(
-                top: 300,
-                left: 18,
-                right: 18,
-                child: Text('Status: [$sdkStatus $responseID ]',
-                    style: const TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: 'Roboto',
-                        fontStyle: FontStyle.normal,
-                        fontSize: 15.0),
-                    textAlign: TextAlign.center),
+              ListView(
+                shrinkWrap: true,
+                children: [
+                  ListTile(
+                    leading: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Theme.of(context).backgroundColor,
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Icon(Icons.person),
+                      ),
+                    ),
+                    title: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CustomFormField(
+                          controller: firstNameController,
+                          hintText: S.current.firstName),
+                    ),
+                  ),
+                  ListTile(
+                    leading: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Theme.of(context).backgroundColor,
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Icon(Icons.person),
+                      ),
+                    ),
+                    title: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CustomFormField(
+                        controller: middleNameController,
+                        hintText: S.of(context).middleName,
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    leading: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Theme.of(context).backgroundColor,
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Icon(Icons.person),
+                      ),
+                    ),
+                    title: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CustomFormField(
+                        controller: lastNameController,
+                        hintText: S.of(context).lastName,
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    leading: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Theme.of(context).backgroundColor,
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Icon(Icons.email),
+                      ),
+                    ),
+                    title: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CustomFormField(
+                        controller: emailController,
+                        hintText: S.of(context).email,
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    leading: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Theme.of(context).backgroundColor,
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Icon(Icons.phone),
+                      ),
+                    ),
+                    title: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CustomLoginFormField(
+                          last: true,
+                          phone: true,
+                          controller: phoneNumberController,
+                          hintText: S.of(context).phoneNumber,
+                          borderRadius: 25),
+                    ),
+                  ),
+                ],
               ),
-              Positioned(
-                bottom: Platform.isIOS ? 0 : 10,
-                left: 18,
-                right: 18,
-                child: SizedBox(
-                    height: 45,
-                    child: RaisedButton(
-                      color: _buttonColor,
-                      clipBehavior: Clip.hardEdge,
-                      shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadiusDirectional.all(Radius.circular(30))),
-                      onPressed: startSDK,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: 25,
-                              height: 25,
-                              child: AwesomeLoader(
-                                outerColor: Colors.white,
-                                innerColor: Colors.white,
-                                strokeWidth: 3.0,
-                                controller: loaderController,
-                              ),
-                            ),
-                            Spacer(),
-                            Text('PAY',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 16.0)),
-                            Spacer(),
-                            Icon(
-                              Icons.lock_outline,
-                              color: Colors.white,
-                            ),
-                          ]),
-                    )),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: SizedBox(
+                        height: 45,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            onPrimary: _buttonColor,
+                            shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadiusDirectional.all(
+                                    Radius.circular(30))),
+                          ),
+                          onPressed: () async {
+                            widget.model.carts.forEach((e) {
+                              e.items.forEach((element) {
+                                payments.add(PaymentItem(
+                                    amountPerUnit: element.productPrice,
+                                    name: element.productName,
+                                    quantity:
+                                        Quantity(value: element.countProduct),
+                                    totalAmount: (element.productPrice *
+                                            element.countProduct)
+                                        .toInt()));
+                              });
+                            });
+                            await setupSDKSession();
+                            await startSDK();
+                          },
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: 25,
+                                  height: 25,
+                                  child: AwesomeLoader(
+                                    outerColor: Colors.white,
+                                    innerColor: Colors.white,
+                                    strokeWidth: 3.0,
+                                    controller: loaderController,
+                                  ),
+                                ),
+                                const Spacer(),
+                                Text(S.current.pay,
+                                    style: const TextStyle(
+                                        color: Colors.white, fontSize: 16.0)),
+                                const Spacer(),
+                                const Icon(
+                                  Icons.lock_outline,
+                                  color: Colors.white,
+                                ),
+                              ]),
+                        )),
+                  ),
+                ),
               ),
             ],
           ),
