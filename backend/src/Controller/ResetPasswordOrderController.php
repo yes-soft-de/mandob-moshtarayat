@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\ResetPasswordOrderCreateRequest;
-use App\Request\UserPasswordUpdateByCodeRequest;
+use App\Request\VerifyResetPasswordCodeRequest;
 use App\Service\ResetPasswordOrderService;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -97,7 +97,7 @@ class ResetPasswordOrderController extends BaseController
     }
 
     /**
-     * @Route("authenticateupdatepassword", name="updateUserPassword", methods={"PUT"})
+     * @Route("verifyresetpasswordcode", name="verifyResetPasswordCode", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
      *
@@ -114,16 +114,12 @@ class ResetPasswordOrderController extends BaseController
      *
      * @OA\Response(
      *      response="default",
-     *      description="Returns the info of the user",
+     *      description="Returns the status of the code",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code", example=""),
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
-     *                  @OA\Property(type="object", property="createDate"),
-     *                  @OA\Property(type="string", property="status"),
-     *                  @OA\Property(type="array", property="roles",
-     *                      @OA\Items()
-     *                  )
+     *                  @OA\Property(type="string", property="status")
      *          )
      *      )
      * )
@@ -132,25 +128,21 @@ class ResetPasswordOrderController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns the info of the user",
+     *      description="Returns the status of the code",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code", example="9153"),
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
-     *                  @OA\Property(type="object", property="createDate"),
-     *                  @OA\Property(type="string", property="status"),
-     *                  @OA\Property(type="array", property="roles",
-     *                      @OA\Items()
-     *                  )
+     *                  @OA\Property(type="string", property="status")
      *          )
      *      )
      * )
      */
-    public function authenticateUpdateUserPassword(Request $request)
+    public function verifyResetPasswordCode(Request $request)
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class, UserPasswordUpdateByCodeRequest::class, (object)$data);
+        $request = $this->autoMapping->map(stdClass::class, VerifyResetPasswordCodeRequest::class, (object)$data);
 
         $violations = $this->validator->validate($request);
 
@@ -161,17 +153,9 @@ class ResetPasswordOrderController extends BaseController
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
 
-        $result = $this->resetPasswordOrderService->authenticateUpdateUserPassword($request);
+        $result = $this->resetPasswordOrderService->verifyResetPasswordCode($request);
 
-        if ($result->status == 'unmatchedPasswords')
-        {
-            return $this->response($result, self::ERROR_UNMATCHED_PASSWORDS);
-        }
-        elseif ($result->status == 'invalid')
-        {
-            return $this->response($result, self::CODE_DATE_IS_NOT_VALID);
-        }
-        elseif ($result->status == 'noUserFound')
+        if ($result->status == 'invalid')
         {
             return $this->response($result, self::CODE_DATE_IS_NOT_VALID);
         }
@@ -180,7 +164,7 @@ class ResetPasswordOrderController extends BaseController
             return $this->response($result, self::INCORRECT_ENTERED_DATA);
         }
 
-        return $this->response($result, self::UPDATE);
+        return $this->response($result, self::FETCH);
     }
 
     /**
