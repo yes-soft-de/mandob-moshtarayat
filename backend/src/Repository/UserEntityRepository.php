@@ -103,4 +103,26 @@ class UserEntityRepository extends ServiceEntityRepository implements PasswordUp
             ->getQuery()
             ->getResult();
     }
+
+    public function getAllClients()
+    {
+        return $this->createQueryBuilder('userEntity')
+
+            ->andWhere('userEntity.roles LIKE :roles')
+            ->setParameter('roles', '%"'.'ROLE_CLIENT'.'"%')
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getAllCaptains()
+    {
+        return $this->createQueryBuilder('userEntity')
+
+            ->andWhere('userEntity.roles LIKE :roles')
+            ->setParameter('roles', '%"'.'ROLE_CAPTAIN'.'"%')
+
+            ->getQuery()
+            ->getResult();
+    }
 }

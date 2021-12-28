@@ -7,6 +7,8 @@ use App\Entity\UserEntity;
 use App\Manager\UserManager;
 use App\Request\UserVerificationStatusUpdateRequest;
 use App\Request\UserPasswordUpdateRequest;
+use App\Response\AllCaptainsVerificationUpdateResponse;
+use App\Response\AllClientsVerificationUpdateResponse;
 use App\Response\AllStoreOwnerVerificationUpdateResponse;
 use App\Response\StoreOwnerVerificationStatusUpdateResponse;
 use App\Response\UsersGetResponse;
@@ -69,6 +71,48 @@ class UserService
             foreach ($result as $user)
             {
                 $response[] = $this->autoMapping->map(UserEntity::class, AllStoreOwnerVerificationUpdateResponse::class, $user);
+            }
+
+            return $response;
+        }
+    }
+
+    public function updateAllClientsVerificationStatusByDeveloper()
+    {
+        $response = [];
+
+        $result = $this->userManager->updateAllClientsVerificationStatusByDeveloper();
+
+        if ($result == 'noUsers')
+        {
+
+        }
+        else
+        {
+            foreach ($result as $user)
+            {
+                $response[] = $this->autoMapping->map(UserEntity::class, AllClientsVerificationUpdateResponse::class, $user);
+            }
+
+            return $response;
+        }
+    }
+
+    public function updateAllCaptainsVerificationStatusByDeveloper()
+    {
+        $response = [];
+
+        $result = $this->userManager->updateAllCaptainsVerificationStatusByDeveloper();
+
+        if ($result == 'noUsers')
+        {
+
+        }
+        else
+        {
+            foreach ($result as $user)
+            {
+                $response[] = $this->autoMapping->map(UserEntity::class, AllCaptainsVerificationUpdateResponse::class, $user);
             }
 
             return $response;
