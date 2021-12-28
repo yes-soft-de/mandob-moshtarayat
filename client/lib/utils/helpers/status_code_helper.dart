@@ -33,6 +33,12 @@ class StatusCodeHelper {
         return S.current.invalidCredentials;
       case '9001':
         return S.current.accountAlreadyExist;
+      case '9152':
+        return S.current.invalidCode;
+      case '9153':
+        return S.current.codeTimeOut;
+      case '9156':
+        return S.current.notVerifiedNumber;
       case '-1':
         return S.current.dataDecodeError;
       default:
