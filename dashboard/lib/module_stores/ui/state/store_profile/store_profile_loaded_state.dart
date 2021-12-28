@@ -96,6 +96,18 @@ class StoreProfileLoadedState extends States {
         title: S.current.storePhone,
         subTitle: profile?.phone,
       ),
+          CustomListTile(
+            title: S.current.bankName,
+            subTitle: profile?.bankName,
+          ),
+          CustomListTile(
+            title: S.current.bankAccountNumber,
+            subTitle: profile?.bankNumber,
+          ),
+          CustomListTile(
+            title: S.current.stc,
+            subTitle: profile?.stcPay,
+          ),
       CustomListTile(
         title: S.current.deliverPrice,
         subTitle:

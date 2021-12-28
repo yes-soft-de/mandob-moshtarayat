@@ -42,6 +42,10 @@ class Data {
   String? status;
   String? imageUrl;
   double? commission;
+
+  String? bankName;
+  String? bankAccountNumber;
+  String? stcPay;
   Data(
       {this.id,
       this.storeOwnerName,
@@ -56,7 +60,10 @@ class Data {
       this.openingTime,
       this.status,
       this.imageUrl,
-      this.commission});
+      this.commission,
+        this.bankAccountNumber,this.bankName,this.stcPay,
+
+      });
 
   Data.fromJson(dynamic json) {
     id = json['id'];
@@ -75,6 +82,9 @@ class Data {
         json['openingTime'] != null ? Date.fromJson(json['openingTime']) : null;
     status = json['status'];
     commission = json['commission']?.toDouble();
+    bankName = json['bankName'];
+    bankAccountNumber = json['bankAccountNumber'];
+    stcPay = json['stcPay'];
   }
 }
 

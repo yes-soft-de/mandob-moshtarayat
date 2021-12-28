@@ -136,6 +136,9 @@ class StoresLoadedState extends StoresState {
                                 (e) => e.id.toString() == element.categoryId)
                             .categoryName ??
                         S.current.categoryName,
+                    bankName: element.bankName,
+                    bankNumber: element.bankNumber,
+                    stcPay: element.stcPay,
                     status: element.status));
           },
           child: Container(
@@ -200,9 +203,12 @@ class StoresLoadedState extends StoresState {
                                         element.closingTime?.toIso8601String(),
                                     status: element.status,
                                     baseImage: element.imageUrl,
+                                  bankAccountNumber: element.bankNumber,
+                                  bankName: element.bankName,
+                                  stcPay: element.stcPay
                                     ),
                                 updateStore: (id, name, image, products,
-                                    privateOrder, open, close, status,commission) {
+                                    privateOrder, open, close, status,commission,bankName,bankNumber,sty) {
                                   Navigator.of(context).pop();
                                   screenState.updateStore(UpdateStoreRequest(
                                     status: status,
@@ -214,7 +220,10 @@ class StoresLoadedState extends StoresState {
                                     privateOrders: privateOrder ? 1 : 0,
                                     openingTime: open,
                                     closingTime: close,
-                                    commission: double.parse(commission)
+                                    commission: double.parse(commission),
+                                    stcPay: sty,
+                                    bankName: bankName,
+                                    bankAccountNumber: bankNumber
                                   ));
                                 },
                               ),

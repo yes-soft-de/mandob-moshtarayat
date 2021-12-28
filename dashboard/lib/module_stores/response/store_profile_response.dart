@@ -46,10 +46,12 @@ class Data {
   dynamic? deliveryCost;
   bool? privateOrders;
   bool? hasProducts;
-  Rating? rating;
+//  Rating? rating;
   Date? openingTime;
   Date? closingTime;
-
+  String? bankName;
+  String? bankAccountNumber;
+  String? stcPay;
   Data(
       {this.id,
       this.storeOwnerName,
@@ -65,9 +67,12 @@ class Data {
       this.deliveryCost,
       this.privateOrders,
       this.hasProducts,
-      this.rating,
+//      this.rating,
       this.openingTime,
-      this.closingTime});
+      this.closingTime,
+        this.bankAccountNumber,this.bankName,this.stcPay,
+
+      });
 
   Data.fromJson(dynamic json) {
     id = json['id'];
@@ -89,11 +94,14 @@ class Data {
     deliveryCost = json['deliveryCost'];
     privateOrders = json['privateOrders'];
     hasProducts = json['hasProducts'];
-    rating = json['rating'] != null ? Rating.fromJson(json['rating']) : null;
+//    rating = json['rating'] != null ? Rating.fromJson(json['rating']) : null;
     openingTime =
         json['openingTime'] != null ? Date.fromJson(json['openingTime']) : null;
     closingTime =
         json['closingTime'] != null ? Date.fromJson(json['closingTime']) : null;
+    bankName = json['bankName'];
+    bankAccountNumber = json['bankAccountNumber'];
+    stcPay = json['stcPay'];
   }
 
   Map<String, dynamic> toJson() {
@@ -114,9 +122,9 @@ class Data {
     map['deliveryCost'] = deliveryCost;
     map['privateOrders'] = privateOrders;
     map['hasProducts'] = hasProducts;
-    if (rating != null) {
-      map['rating'] = rating?.toJson();
-    }
+//    if (rating != null) {
+//      map['rating'] = rating?.toJson();
+//    }
     map['openingTime'] = openingTime;
     map['closingTime'] = closingTime;
     return map;

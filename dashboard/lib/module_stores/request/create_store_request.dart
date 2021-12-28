@@ -12,6 +12,9 @@ class CreateStoreRequest {
   String? closingTime;
   String? openingTime;
   String? status;
+  String? bankName;
+  String? bankAccountNumber;
+  String? stcPay;
   CreateStoreRequest(
       {this.storeOwnerName,
       this.image,
@@ -23,7 +26,10 @@ class CreateStoreRequest {
       this.location,
       this.closingTime,
       this.openingTime,
-      this.status});
+      this.status,
+      this.stcPay,this.bankAccountNumber,this.bankName
+
+      });
 
   CreateStoreRequest.fromJson(dynamic json) {
     storeOwnerName = json['storeOwnerName'];
@@ -47,6 +53,9 @@ class CreateStoreRequest {
     map['openingTime'] = openingTime;
     map['status'] = status;
     map['location'] = location?.toJson();
+    map['stcPay'] = stcPay;
+    map['bankAccountNumber'] = bankAccountNumber;
+    map['bankName'] = bankName;
     return map;
   }
 }

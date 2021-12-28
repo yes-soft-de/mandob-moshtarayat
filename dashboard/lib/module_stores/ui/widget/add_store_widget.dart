@@ -19,7 +19,7 @@ import 'package:mandob_moshtarayat_dashboad/utils/helpers/custom_flushbar.dart';
 
 class AddStoreWidget extends StatefulWidget {
   final Function(String, String, String, String, GeoJson, bool, bool, String,
-      String, String) addStore;
+      String, String,String,String,String) addStore;
   final StoresLoadedState? state;
 
   AddStoreWidget({required this.addStore, this.state});
@@ -33,6 +33,10 @@ class _AddStoreWidgetState extends State<AddStoreWidget> {
   late TextEditingController _nameController;
   late TextEditingController _phoneController;
   late TextEditingController _deliveryController;
+  late TextEditingController _bankName ;
+  late TextEditingController _bankAccountNumber;
+  late TextEditingController _stcPay;
+
   LatLng? storeLocation;
   String? imagePath;
   bool privateOrder = false;
@@ -116,6 +120,50 @@ class _AddStoreWidgetState extends State<AddStoreWidget> {
                           phone: true,
                           numbers: true,
                         ),
+
+                        //account
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 12.0, bottom: 8, right: 12, top: 16.0),
+                          child: Text(
+                            S.current.bankName,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
+                        CustomFormField(
+                          controller: _bankName,
+                          hintText: S.current.bankName,
+                        ),
+
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 12.0, bottom: 8, right: 12, top: 16.0),
+                          child: Text(
+                            S.current.bankAccountNumber,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
+                        CustomFormField(
+                          controller: _bankAccountNumber,
+                          hintText: S.current.bankAccountNumber,
+                        ),
+
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 12.0, bottom: 8, right: 12, top: 16.0),
+                          child: Text(
+                            S.current.stc,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
+                        CustomFormField(
+                          controller: _stcPay,
+                          hintText: S.current.stc,
+                        ),
+
                         // Store Location
                         Padding(
                           padding: const EdgeInsets.only(bottom: 32, top: 32.0),
@@ -368,7 +416,7 @@ class _AddStoreWidgetState extends State<AddStoreWidget> {
                         closingTime!.minute)
                     .toUtc()
                     .toIso8601String(),
-                status);
+                status,_bankName.text.trim(),_bankAccountNumber.text.trim(),_stcPay.text.trim());
           } else if (storeLocation == null) {
             CustomFlushBarHelper.createError(
                     title: S.current.warnning,
@@ -388,13 +436,17 @@ class _AddStoreWidgetState extends State<AddStoreWidget> {
     _nameController = TextEditingController();
     _deliveryController = TextEditingController();
     _phoneController = TextEditingController();
+
+    _bankAccountNumber = TextEditingController();
+    _bankName = TextEditingController();
+    _stcPay = TextEditingController();
     super.initState();
   }
 }
 
 class UpdateStoreWidget extends StatefulWidget {
   final Function(
-          String, String, String?, bool, bool, String?, String?, String, String)
+          String, String, String?, bool, bool, String?, String?, String, String,String,String,String)
       updateStore;
   final UpdateStoreRequest? request;
   final List<DropdownMenuItem<String>>? categories;
@@ -411,6 +463,10 @@ class _UpdateStoreWidgetState extends State<UpdateStoreWidget> {
   late TextEditingController _phoneController;
   late TextEditingController _deliveryController;
   late TextEditingController _commissionController;
+
+  late TextEditingController _bankName ;
+  late TextEditingController _bankAccountNumber;
+  late TextEditingController _stcPay;
 
   LatLng? storeLocation;
   String? imagePath;
@@ -541,7 +597,51 @@ class _UpdateStoreWidgetState extends State<UpdateStoreWidget> {
                       SizedBox(
                         height: 16,
                       ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 12.0, bottom: 8, right: 12, top: 16.0),
+                        child: Text(
+                          S.current.bankName,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                      CustomFormField(
+                        controller: _bankName,
+                        hintText: S.current.bankName,
+                      ),
 
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 12.0, bottom: 8, right: 12, top: 16.0),
+                        child: Text(
+                          S.current.bankAccountNumber,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                      CustomFormField(
+                        controller: _bankAccountNumber,
+                        hintText: S.current.bankAccountNumber,
+                      ),
+
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 12.0, bottom: 8, right: 12, top: 16.0),
+                        child: Text(
+                          S.current.stc,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                      CustomFormField(
+                        controller: _stcPay,
+                        hintText: S.current.stc,
+                      ),
+
+                      SizedBox(
+                        height: 16,
+                      ),
                       // store commission
                       Padding(
                         padding: const EdgeInsets.only(left: 16.0, right: 16.0),
@@ -767,7 +867,7 @@ class _UpdateStoreWidgetState extends State<UpdateStoreWidget> {
                     .toUtc()
                     .toIso8601String(),
                 status,
-                _commissionController.text);
+                _commissionController.text,_bankName.text.trim(),_bankAccountNumber.text.trim(),_stcPay.text);
           } else {
             CustomFlushBarHelper.createError(
                     title: S.current.warnning,
@@ -783,6 +883,10 @@ class _UpdateStoreWidgetState extends State<UpdateStoreWidget> {
     _deliveryController = TextEditingController();
     _phoneController = TextEditingController();
     _commissionController = TextEditingController();
+
+    _bankAccountNumber = TextEditingController();
+    _bankName = TextEditingController();
+    _stcPay = TextEditingController();
 
     if (widget.request != null) {
       _nameController.text = widget.request?.storeOwnerName ?? '';
@@ -801,6 +905,9 @@ class _UpdateStoreWidgetState extends State<UpdateStoreWidget> {
       if (widget.request?.storeCategoryId != -1) {
         catId = widget.request?.storeCategoryId.toString();
       }
+      _bankAccountNumber.text = widget.request?.bankAccountNumber??'';
+      _bankName.text = widget.request?.bankName??'';
+      _stcPay.text = widget.request?.stcPay??'';
     }
     super.initState();
   }

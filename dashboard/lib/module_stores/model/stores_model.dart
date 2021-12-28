@@ -14,6 +14,9 @@ class StoresModel extends DataModel {
   String phone = '';
   num deliveryCost = 0;
   String image = '';
+  String stcPay = '';
+  String bankName = '';
+  String bankNumber = '';
   bool privateOrders = false;
   bool hasProducts = false;
   DateTime? closingTime;
@@ -36,7 +39,9 @@ class StoresModel extends DataModel {
       this.closingTime,
       required this.status,
       this.imageUrl,
-      this.commission
+      this.commission,
+        required this.stcPay ,required this.bankName ,required this.bankNumber
+
       });
 
   StoresModel.withData(List<Data> data) : super.withData() {
@@ -55,7 +60,10 @@ class StoresModel extends DataModel {
         closingTime: DateHelper.convert(element.closingTime?.timestamp),
         status: element.status ?? '',
         imageUrl: element.image?.imageURL ?? element.imageUrl,
-        commission: element.commission
+        commission: element.commission,
+          stcPay: element.stcPay??'',
+          bankName: element.bankName??'',
+          bankNumber: element.bankAccountNumber??''
       ));
     }
   }

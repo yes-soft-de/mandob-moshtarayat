@@ -127,6 +127,9 @@ class StoresInActiveLoadedState extends States {
                                 (e) => e.id.toString() == element.categoryId)
                             .categoryName ??
                         S.current.categoryName,
+                    stcPay: element.stcPay,
+                    bankNumber: element.bankNumber,
+                    bankName: element.bankName,
                     status: element.status));
           },
           child: Container(
@@ -199,7 +202,7 @@ class StoresInActiveLoadedState extends States {
                                     open,
                                     close,
                                     status,
-                                    commission) {
+                                    commission,bankName,bankNumber,stc) {
                                   Navigator.of(context).pop();
                                   screenState.updateStore(UpdateStoreRequest(
                                       status: status,
@@ -212,7 +215,11 @@ class StoresInActiveLoadedState extends States {
                                       privateOrders: privateOrder ? 1 : 0,
                                       openingTime: open,
                                       closingTime: close,
-                                      commission: double.parse(commission)));
+                                      commission: double.parse(commission),
+                                    bankAccountNumber: bankNumber,
+                                    bankName: bankName,
+                                    stcPay: stc
+                                  ));
                                 },
                               ),
                             ),

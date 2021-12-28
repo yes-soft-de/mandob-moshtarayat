@@ -359,6 +359,9 @@ class OrderDetailsLoadedState extends OrderDetailsState {
                           phone: '',
                           privateOrders: false,
                           status: '',
+                          stcPay: '',
+                          bankName: '',
+                          bankNumber: ''
                         ));
               },
               title: Text(element.storeOwnerName),
