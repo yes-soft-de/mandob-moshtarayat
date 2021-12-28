@@ -11,18 +11,24 @@ use App\Request\UserPasswordUpdateRequest;
 use App\Response\ResetPasswordOrderCreateResponse;
 use App\Response\UpdatePasswordResponse;
 use App\Response\UsersGetResponse;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class ResetPasswordOrderService
 {
     private $autoMapping;
     private $resetPasswordOrderManager;
     private $userService;
+    private $params;
+    private $malathSMSService;
 
-    public function __construct(AutoMapping $autoMapping, ResetPasswordOrderManager $resetPasswordOrderManager, UserService $userService)
+    public function __construct(AutoMapping $autoMapping, ResetPasswordOrderManager $resetPasswordOrderManager, UserService $userService, ParameterBagInterface $params,
+     MalathSMSService $malathSMSService)
     {
         $this->autoMapping = $autoMapping;
         $this->resetPasswordOrderManager = $resetPasswordOrderManager;
         $this->userService = $userService;
+        $this->params = $params;
+        $this->malathSMSService = $malathSMSService;
     }
 
     public function createResetPasswordOrder(ResetPasswordOrderCreateRequest $request)
@@ -90,9 +96,37 @@ class ResetPasswordOrderService
 
     public function sendSMSMessage($phone, $code)
     {
-        /*
-         * To be used later
-         */
+        $messageText = 'Please use this code to reset your password:'.' '.$code;
+
+        // send SMS message
+        $this->malathSMSService->setUserName($this->params->get('malath_username'));
+        $this->malathSMSService->setPassword($this->params->get('malath_password'));
+
+        $result = $this->malathSMSService->sendSMS($phone, "MANDOB-AD", $messageText);
+
+        if($result)
+        {
+            if ($result['RESULT'] == 0)
+            {
+                // message sent successfully
+                return 'sentSuccessfully';
+            }
+            elseif ($result['RESULT'] == 101)
+            {
+                // Parameter are missing
+                return 'parameterAreMissing';
+            }
+            elseif ($result['RESULT'] == 104)
+            {
+                // either user name or password are missing or your Account is on hold
+                return 'userNameOrPasswordAreMissingOrYourAccountIsOnHold';
+            }
+            elseif ($result['RESULT'] == 105)
+            {
+                // Credit are not available
+                return 'creditAreNotAvailable';
+            }
+        }
     }
 
     public function checkCodeValidation($code)
