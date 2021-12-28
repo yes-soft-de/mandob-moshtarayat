@@ -49,9 +49,9 @@ class UserService
         }
     }
 
-    public function getStoreOwnerVerificationStatusByUserID($userID)
+    public function getUserVerificationStatusByUserID($userID)
     {
-        return $this->userManager->getStoreOwnerVerificationStatusByUserID($userID);
+        return $this->userManager->getUserVerificationStatusByUserID($userID);
     }
 
     public function updateAllStoreOwnersVerificationStatusByDeveloper()

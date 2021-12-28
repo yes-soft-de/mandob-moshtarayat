@@ -208,13 +208,13 @@ class VerificationController extends BaseController
      * )
      *
      */
-    public function getStoreOwnerVerificationStatusByUserID(Request $request)
+    public function getUserVerificationStatusByUserID(Request $request)
     {
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class, CheckStoreOwnerVerificationRequest::class, (object)$data);
 
-        $result = $this->verificationService->getStoreOwnerVerificationStatusByUserID($request);
+        $result = $this->verificationService->getUserVerificationStatusByUserID($request);
 
         if ($result->verificationStatus == 'verified')
         {

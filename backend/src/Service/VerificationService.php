@@ -115,7 +115,7 @@ class VerificationService
         /**
          * First, check if the user which ask for new code is not verified yet.
          */
-        $verificationStatus = $this->userService->getStoreOwnerVerificationStatusByUserID($request->getUserID());
+        $verificationStatus = $this->userService->getUserVerificationStatusByUserID($request->getUserID());
 
         if (!$verificationStatus['verificationStatus'])
         {
@@ -150,9 +150,9 @@ class VerificationService
         return $this->autoMapping->map('array', NewVerificationCodeResponse::class, $response);
     }
 
-    public function getStoreOwnerVerificationStatusByUserID(CheckStoreOwnerVerificationRequest $request)
+    public function getUserVerificationStatusByUserID(CheckStoreOwnerVerificationRequest $request)
     {
-        $result = $this->userService->getStoreOwnerVerificationStatusByUserID($request->getUserID());
+        $result = $this->userService->getUserVerificationStatusByUserID($request->getUserID());
 
         if ($result['verificationStatus'])
         {
