@@ -138,8 +138,12 @@ class OrderService
             if($item){
                 $orderDetailUpdate = $this->orderDetailService->orderUpdateStateByOrderState($request->getState(), $request->getOrderNumber(), $request->getCaptainID());
                 if($orderDetailUpdate){
+                    //create log
+                    $this->orderLogService->createOrderLogWithMultiStore($orderDetailUpdate['storeIds'], $request->getOrderNumber(), $request->getState(), $item->getClientID());
+
                     //create Notification Local
                     $this->notificationLocalService->createUpdateOrderStateClientNotificationLocal($request->getState(), $item->getClientID(), $request->getOrderNumber());
+
                     //create store notification local
                     $this->notificationLocalService->createStoreNotificationLocal($orderDetailUpdate['storeIds'], LocalStoreNotificationList::$STATE_TITLE, $request->getState(), $request->getOrderNumber(), true);
                 }
@@ -179,6 +183,9 @@ class OrderService
                     $order = $this->orderManager->updateOrderState($orderState);
                     if($order) {
                        $storeOwnerProfile = $this->storeOwnerProfileService->getStoreOwnerProfileById($request->getStoreOwnerProfileID());
+
+                        //create log
+                        $this->orderLogService->createOrderLog($request->getOrderNumber(), $request->getState(), $order->getClientID(), $request->getStoreOwnerProfileID());
 
                         //create Notification Local
                         $this->notificationLocalService->createUpdateOrderStateClientNotificationLocal($request->getState(), $order->getClientID(), $request->getOrderNumber(), $storeOwnerProfile->storeOwnerName);
@@ -376,9 +383,9 @@ class OrderService
                }
 
                $storeIDs[] = $orderDetail->storeOwnerProfileID;
-               //create log
-               $this->orderLogService->createOrderLog($orderNumber, $item->getState(), $request->getClientID(), $storeOwnerProfileID);
             }
+            //create log
+            $this->orderLogService->createOrderLogWithMultiStore($storeIDs, $orderNumber, $item->getState(), $request->getClientID());
 
             //create store notification local
             $this->notificationLocalService->createStoreNotificationLocal($storeIDs, LocalStoreNotificationList::$NEW_ORDER_TITLE, LocalStoreNotificationList::$CREATE_ORDER_SUCCESS, $orderNumber);

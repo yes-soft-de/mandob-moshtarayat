@@ -66,7 +66,7 @@ class NotificationLocalController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns Local Notifications",
+     *      description="Returns Local Notifications For client",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -107,7 +107,7 @@ class NotificationLocalController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns Local Notifications",
+     *      description="Returns Local Notifications For Store",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
