@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\ResetPasswordOrderCreateRequest;
+use App\Request\UserPasswordUpdateRequest;
 use App\Request\VerifyResetPasswordCodeRequest;
 use App\Service\ResetPasswordOrderService;
 use stdClass;
@@ -162,6 +163,80 @@ class ResetPasswordOrderController extends BaseController
         elseif ($result->status == 'noCodeExist')
         {
             return $this->response($result, self::INCORRECT_ENTERED_DATA);
+        }
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("updatepassword", name="updateUserPassword", methods={"PUT"})
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Reset Password Order")
+     *
+     * @OA\RequestBody(
+     *      description="update old password request fields",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="userID"),
+     *          @OA\Property(type="string", property="password")
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response="default",
+     *      description="Returns the info of the updated user",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code", example=""),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="array", property="roles",
+     *                      @OA\Items()
+     *                  ),
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="object", property="createDate")
+     *          )
+     *      )
+     * )
+     *
+     * or
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the info of the updated user",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code", example="9001"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="array", property="roles",
+     *                      @OA\Items()
+     *                  ),
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="object", property="createDate")
+     *          )
+     *      )
+     * )
+     */
+    public function updateUserPassword(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, UserPasswordUpdateRequest::class, (object)$data);
+
+        $violations = $this->validator->validate($request);
+
+        if (\count($violations) > 0)
+        {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $result = $this->resetPasswordOrderService->updateUserPassword($request);
+
+        if ($result->status == 'noUserFound')
+        {
+            return $this->response($result, self::ERROR_USER_FOUND);
         }
 
         return $this->response($result, self::FETCH);

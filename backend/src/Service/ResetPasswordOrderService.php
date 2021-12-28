@@ -10,6 +10,7 @@ use App\Request\VerifyResetPasswordCodeRequest;
 use App\Request\UserPasswordUpdateRequest;
 use App\Response\ResetPasswordOrderCreateResponse;
 use App\Response\ResetPasswordOrdersGetResponse;
+use App\Response\UserPasswordUpdateResponse;
 use App\Response\VerifyResetPasswordCodeResponse;
 use App\Response\UsersGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -129,15 +130,18 @@ class ResetPasswordOrderService
         }
     }
 
-    public function updateUserPassword(VerifyResetPasswordCodeRequest $request)
+    public function updateUserPassword(UserPasswordUpdateRequest $request)
     {
-        $userID = $this->resetPasswordOrderManager->getResetPasswordOrderByCode($request->getCode())['userID'];
+        $result = $this->userService->updateUserPassword($request);
 
-        $updatePasswordRequest = $this->autoMapping->map(VerifyResetPasswordCodeRequest::class, UserPasswordUpdateRequest::class, $request);
+        if ($result == 'noUserFound')
+        {
+            $response['status'] = 'noUserFound';
 
-        $updatePasswordRequest->setUserID($userID);
+            return $this->autoMapping->map('array', UserPasswordUpdateResponse::class, $response);
+        }
 
-        return $this->userService->updateUserPassword($updatePasswordRequest);
+        return $this->autoMapping->map(UsersGetResponse::class, UserPasswordUpdateResponse::class, $result);
     }
 
     public function getAllResetPasswordOrders()
