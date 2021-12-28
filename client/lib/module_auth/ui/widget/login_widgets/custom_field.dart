@@ -14,6 +14,7 @@ class CustomLoginFormField extends StatefulWidget {
   final bool last;
   final bool password;
   final bool phone;
+  final double? borderRadius;
 
   @override
   _CustomLoginFormFieldState createState() => _CustomLoginFormFieldState();
@@ -29,7 +30,9 @@ class CustomLoginFormField extends StatefulWidget {
       this.onTap,
       this.last = false,
       this.password = false,
-      this.phone = false});
+      this.phone = false,
+      this.borderRadius
+      });
 }
 
 class _CustomLoginFormFieldState extends State<CustomLoginFormField> {
@@ -42,7 +45,7 @@ class _CustomLoginFormFieldState extends State<CustomLoginFormField> {
 
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(widget.borderRadius ?? 8),
         color: Theme.of(context).backgroundColor,
       ),
       child: Padding(
@@ -72,7 +75,7 @@ class _CustomLoginFormFieldState extends State<CustomLoginFormField> {
             } else if (widget.phone && value.length < 9) {
               clean = false;
               return S.of(context).phoneNumbertooShort;
-            }else {
+            } else {
               clean = true;
               return null;
             }
