@@ -30,7 +30,6 @@ class ResetPasswordOrderController extends BaseController
     }
 
     /**
-     * store owner: create new reset password order.
      * @Route("resetpasswordorder", name="createResetPasswordOrderByStoreOwner", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
@@ -98,7 +97,6 @@ class ResetPasswordOrderController extends BaseController
     }
 
     /**
-     * store owner.
      * @Route("authenticateupdatepassword", name="updateUserPassword", methods={"PUT"})
      * @param Request $request
      * @return JsonResponse
