@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\UserEntity;
 use App\Manager\UserManager;
 use App\Request\StoreOwnerVerificationStatusUpdateRequest;
+use App\Request\UserPasswordUpdateRequest;
 use App\Response\AllStoreOwnerVerificationUpdateResponse;
 use App\Response\StoreOwnerVerificationStatusUpdateResponse;
 use App\Response\UsersGetResponse;
@@ -95,6 +96,20 @@ class UserService
         if($user)
         {
             return $this->autoMapping->map('array', UsersGetResponse::class, $user);
+        }
+    }
+
+    public function updateUserPassword(UserPasswordUpdateRequest $request)
+    {
+        $result = $this->userManager->updateUserPassword($request);
+
+        if ($result == 'noUserFound')
+        {
+            return 'noUserFound';
+        }
+        else
+        {
+            return $this->autoMapping->map(UserEntity::class, UsersGetResponse::class, $result);
         }
     }
 

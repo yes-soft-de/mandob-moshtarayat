@@ -27,6 +27,7 @@ use App\Request\CaptainProfileUpdateByAdminRequest;
 use App\Request\CaptainProfileUpdateRequest;
 use App\Request\ClientProfileUpdateRequest;
 use App\Request\StoreOwnerVerificationStatusUpdateRequest;
+use App\Request\UserPasswordUpdateRequest;
 use App\Request\UserRegisterRequest;
 use App\Manager\StoreOwnerBranchManager;
 use App\Manager\OrderManager;
@@ -558,6 +559,26 @@ class UserManager
     public function getAllStoreOwners()
     {
         return $this->userRepository->getAllStoreOwners();
+    }
+
+    public function updateUserPassword(UserPasswordUpdateRequest $request)
+    {
+        $userEntity = $this->userRepository->findOneBy(['userID'=>$request->getUserID()]);
+
+        if (!$userEntity)
+        {
+            return 'noUserFound';
+        }
+        else
+        {
+            $userEntity = $this->autoMapping->mapToObject(UserPasswordUpdateRequest::class, UserEntity::class, $request, $userEntity);
+
+            $userEntity->setPassword($this->encoder->encodePassword($userEntity, $request->getPassword()));
+
+            $this->entityManager->flush();
+
+            return $userEntity;
+        }
     }
 
     public function deleteUserById($id)
