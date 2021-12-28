@@ -38,6 +38,11 @@ class ResetPasswordOrderManager
         return $this->resetPasswordOrderEntityRepository->getResetPasswordOrderByCode($code);
     }
 
+    public function getAllResetPasswordOrders()
+    {
+        return $this->resetPasswordOrderEntityRepository->getAllResetPasswordOrders();
+    }
+
     public function generateCode()
     {
         do

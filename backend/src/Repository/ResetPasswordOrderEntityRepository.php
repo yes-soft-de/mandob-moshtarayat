@@ -31,4 +31,13 @@ class ResetPasswordOrderEntityRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    public function getAllResetPasswordOrders()
+    {
+        return $this->createQueryBuilder('resetPasswordOrderEntity')
+            ->select('resetPasswordOrderEntity.id', 'resetPasswordOrderEntity.code', 'resetPasswordOrderEntity.userID', 'resetPasswordOrderEntity.createdAt')
+
+            ->getQuery()
+            ->getResult();
+    }
+
 }

@@ -9,6 +9,7 @@ use App\Request\ResetPasswordOrderCreateRequest;
 use App\Request\UserPasswordUpdateByCodeRequest;
 use App\Request\UserPasswordUpdateRequest;
 use App\Response\ResetPasswordOrderCreateResponse;
+use App\Response\ResetPasswordOrdersGetResponse;
 use App\Response\UpdatePasswordResponse;
 use App\Response\UsersGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -172,6 +173,20 @@ class ResetPasswordOrderService
         $updatePasswordRequest->setUserID($userID);
 
         return $this->userService->updateUserPassword($updatePasswordRequest);
+    }
+
+    public function getAllResetPasswordOrders()
+    {
+        $response = [];
+
+        $resetPasswordOrders = $this->resetPasswordOrderManager->getAllResetPasswordOrders();
+
+        foreach ($resetPasswordOrders as $resetPasswordOrder)
+        {
+            $response[] = $this->autoMapping->map('array', ResetPasswordOrdersGetResponse::class, $resetPasswordOrder);
+        }
+
+        return $response;
     }
 
 }

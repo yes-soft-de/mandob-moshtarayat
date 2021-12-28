@@ -183,4 +183,15 @@ class ResetPasswordOrderController extends BaseController
         return $this->response($result, self::UPDATE);
     }
 
+    /**
+     * @Route("resetpasswordorders", name="getALLResetPasswordOrders", methods={"GET"})
+     * @return JsonResponse
+     */
+    public function getAllResetPasswordOrders()
+    {
+        $result = $this->resetPasswordOrderService->getAllResetPasswordOrders();
+
+        return $this->response($result, self::FETCH);
+    }
+
 }
