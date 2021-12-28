@@ -63,6 +63,19 @@ class NotificationLocalService
         return $response;
     }
 
+    public function getLocalStoreNotifications($userID)
+    {
+        $response = [];
+
+        $items = $this->notificationLocalManager->getLocalStoreNotifications($userID);
+
+        foreach ($items as $item) {
+            $response[] = $this->autoMapping->map("array", NotificationLocalResponse::class, $item);
+        }
+
+        return $response;
+    }
+
     public function createUpdateOrderStateClientNotificationLocal($state, $userID, $orderNumber, $storeName = null)
     {
         if ($state == OrderStateConstant::$ORDER_STATE_ON_WAY){

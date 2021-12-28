@@ -90,4 +90,45 @@ class NotificationLocalController extends BaseController
 
         return $this->response($result, self::FETCH);
     }
+
+    /**
+     * store: Local Notifications.
+     * @Route("notificationsstoreLocal", name="getLocalStoreNotifications", methods={"GET"})
+     * @IsGranted("ROLE_OWNER")
+     * *
+     * @OA\Tag(name="Local Notification")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns Local Notifications",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *             @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="title"),
+     *                  @OA\Property(type="string", property="message"),
+     *                  @OA\Property(type="string", property="orderNumber"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *              ),
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function getLocalStoreNotifications(): JsonResponse
+    {
+        $result = $this->notificationLocalService->getLocalStoreNotifications($this->getUserId());
+
+        return $this->response($result, self::FETCH);
+    }
 }
