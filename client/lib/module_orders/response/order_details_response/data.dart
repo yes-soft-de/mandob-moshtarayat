@@ -16,7 +16,7 @@ class Data {
         orderDetails: (json['orderDetails'] as List<dynamic>?)
             ?.map((e) => OrderDetail.fromJson(e as Map<String, dynamic>))
             .toList(),
-        deliveryCost: json['deliveryCost'] as String?,
+        deliveryCost: json['deliveryCost']?.toString(),
         rate: json['rate']?.toString(),
       );
 
