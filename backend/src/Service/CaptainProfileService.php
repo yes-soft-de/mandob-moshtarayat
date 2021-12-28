@@ -10,6 +10,7 @@ use App\Request\CaptainProfileUpdateRequest;
 use App\Request\CaptainProfileUpdateLocationRequest;
 use App\Request\UserRegisterRequest;
 use App\Request\CaptainProfileUpdateByAdminRequest;
+use App\Request\VerificationCreateRequest;
 use App\Response\CaptainIsActiveResponse;
 use App\Response\CaptainProfileCreateResponse;
 use App\Response\CaptainFinancialAccountDetailsResponse;
@@ -46,9 +47,10 @@ class CaptainProfileService
     private $dateFactoryService;
     private $captainProfileManager;
     private $ordersInvoicesService;
+    private $verificationService;
 
     public function __construct(AutoMapping $autoMapping, ParameterBagInterface $params, DeliveryCompanyPaymentsFromCaptainService $deliveryCompanyPaymentsFromCaptainService, DeliveryCompanyPaymentsToCaptainService $deliveryCompanyPaymentsToCaptainService,   RoomIdHelperService $roomIdHelperService, UserManager $userManager,
-      RatingService $ratingService, DateFactoryService $dateFactoryService, CaptainProfileManager $captainProfileManager, OrdersInvoicesService $ordersInvoicesService)
+      RatingService $ratingService, DateFactoryService $dateFactoryService, CaptainProfileManager $captainProfileManager, OrdersInvoicesService $ordersInvoicesService, VerificationService $verificationService)
     {
         $this->autoMapping = $autoMapping;
         $this->roomIdHelperService = $roomIdHelperService;
@@ -59,6 +61,7 @@ class CaptainProfileService
         $this->deliveryCompanyPaymentsToCaptainService = $deliveryCompanyPaymentsToCaptainService;
         $this->captainProfileManager = $captainProfileManager;
         $this->ordersInvoicesService = $ordersInvoicesService;
+        $this->verificationService = $verificationService;
 
         $this->params = $params->get('upload_base_url') . '/';
     }
@@ -68,12 +71,23 @@ class CaptainProfileService
         $request->setRoomID($this->roomIdHelperService->roomIdGenerate());
 
         $userRegister = $this->captainProfileManager->captainRegister($request);
-        if ($userRegister == "user is found") {
+        if ($userRegister == "user is found")
+        {
             $user['found']="yes";
 
             return $this->autoMapping->map("array", UserRegisterResponse::class, $user);
         }
+
+        $this->createVerificationCodeForCaptain($request);
+
         return $this->autoMapping->map(UserEntity::class, UserRegisterResponse::class, $userRegister);
+    }
+
+    public function createVerificationCodeForCaptain(UserRegisterRequest $userEntity)
+    {
+        $createVerificationRequest = $this->autoMapping->map(UserRegisterRequest::class, VerificationCreateRequest::class, $userEntity);
+
+        $this->verificationService->createVerificationCode($createVerificationRequest);
     }
 
     public function updateCaptainProfile(CaptainProfileUpdateRequest $request)
