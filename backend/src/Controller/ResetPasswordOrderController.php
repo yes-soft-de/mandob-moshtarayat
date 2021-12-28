@@ -108,8 +108,6 @@ class ResetPasswordOrderController extends BaseController
      *      description="update old password request fields",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="code"),
-     *          @OA\Property(type="string", property="password"),
-     *          @OA\Property(type="string", property="passwordConfirmation")
      *      )
      * )
      *

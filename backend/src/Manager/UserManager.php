@@ -530,9 +530,9 @@ class UserManager
         }
     }
 
-    public function getStoreOwnerVerificationStatusByUserID($userID)
+    public function getUserVerificationStatusByUserID($userID)
     {
-        return $this->userRepository->getStoreOwnerVerificationStatusByUserID($userID);
+        return $this->userRepository->getUserVerificationStatusByUserID($userID);
     }
 
     public function updateAllStoreOwnersVerificationStatusByDeveloper()

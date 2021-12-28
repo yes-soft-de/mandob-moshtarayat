@@ -9,6 +9,7 @@ use App\Manager\UserManager;
 use App\Request\ClientUpdateFavouriteCategoriesRequest;
 use App\Request\UserRegisterRequest;
 use App\Request\ClientProfileUpdateRequest;
+use App\Request\VerificationCreateRequest;
 use App\Response\clientOrdersCountResponse;
 use App\Response\ClientProfileResponse;
 use App\Response\ClientProfileWithFavouriteCategoriesResponse;
@@ -33,9 +34,11 @@ class ClientProfileService
     private $storeOwnerProfileService;
     private $productService;
     private $ratingService;
+    private $verificationService;
     private $params;
 
-    public function __construct(AutoMapping $autoMapping, UserManager $userManager,  RatingService $ratingService, ParameterBagInterface $params, RoomIdHelperService $roomIdHelperService, ProductService $productService, StoreOwnerProfileService $storeOwnerProfileService)
+    public function __construct(AutoMapping $autoMapping, UserManager $userManager,  RatingService $ratingService, ParameterBagInterface $params, RoomIdHelperService $roomIdHelperService,
+                                ProductService $productService, StoreOwnerProfileService $storeOwnerProfileService, VerificationService $verificationService)
     {
         $this->autoMapping = $autoMapping;
         $this->userManager = $userManager;
@@ -43,6 +46,7 @@ class ClientProfileService
         $this->roomIdHelperService = $roomIdHelperService;
         $this->productService = $productService;
         $this->storeOwnerProfileService = $storeOwnerProfileService;
+        $this->verificationService = $verificationService;
 
         $this->params = $params->get('upload_base_url') . '/';
     }
@@ -51,9 +55,11 @@ class ClientProfileService
     {
         $roomID = $this->roomIdHelperService->roomIdGenerate();
         $userRegister = $this->userManager->clientRegister($request, $roomID);
-        if ($userRegister instanceof UserEntity) {
+        if ($userRegister instanceof UserEntity)
+        {
+            $this->createVerificationCodeForClient($request);
             
-        return $this->autoMapping->map(UserEntity::class, UserRegisterResponse::class, $userRegister);
+            return $this->autoMapping->map(UserEntity::class, UserRegisterResponse::class, $userRegister);
 
         }
         if ($userRegister == true) {
@@ -62,6 +68,13 @@ class ClientProfileService
             $user['found']="yes";
             return $user;
         }
+    }
+
+    public function createVerificationCodeForClient(UserRegisterRequest $userEntity)
+    {
+        $createVerificationRequest = $this->autoMapping->map(UserRegisterRequest::class, VerificationCreateRequest::class, $userEntity);
+
+        $this->verificationService->createVerificationCode($createVerificationRequest);
     }
 
     public function updateClientProfile(ClientProfileUpdateRequest $request)
