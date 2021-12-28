@@ -31,7 +31,6 @@ class VerificationController extends BaseController
     }
 
     /**
-     * store owner: verify code.
      * @Route("verifycode", name="createVerificationCodeRequest", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
@@ -167,7 +166,6 @@ class VerificationController extends BaseController
     }
 
     /**
-     * store owner: verify code.
      * @Route("checkverificationstatus", name="checkVerificationStatus", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
