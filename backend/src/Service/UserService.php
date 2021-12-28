@@ -5,7 +5,7 @@ namespace App\Service;
 use App\AutoMapping;
 use App\Entity\UserEntity;
 use App\Manager\UserManager;
-use App\Request\StoreOwnerVerificationStatusUpdateRequest;
+use App\Request\UserVerificationStatusUpdateRequest;
 use App\Request\UserPasswordUpdateRequest;
 use App\Response\AllStoreOwnerVerificationUpdateResponse;
 use App\Response\StoreOwnerVerificationStatusUpdateResponse;
@@ -35,9 +35,9 @@ class UserService
 
     }
 
-    public function updateStoreOwnerVerificationStatus(StoreOwnerVerificationStatusUpdateRequest $request)
+    public function updateUserVerificationStatus(UserVerificationStatusUpdateRequest $request)
     {
-        $userResult = $this->userManager->updateStoreOwnerVerificationStatus($request);
+        $userResult = $this->userManager->updateUserVerificationStatus($request);
 
         if ($userResult == 'noUserWasFound')
         {

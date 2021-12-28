@@ -2,7 +2,7 @@
 
 namespace App\Request;
 
-class StoreOwnerVerificationStatusUpdateRequest
+class UserVerificationStatusUpdateRequest
 {
     private $userID;
 

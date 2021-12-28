@@ -8,7 +8,7 @@ use App\Entity\VerificationEntity;
 use App\Manager\VerificationManager;
 use App\Request\CheckStoreOwnerVerificationRequest;
 use App\Request\ReSendNewVerificationCodeRequest;
-use App\Request\StoreOwnerVerificationStatusUpdateRequest;
+use App\Request\UserVerificationStatusUpdateRequest;
 use App\Request\VerificationCreateRequest;
 use App\Request\VerifyCodeRequest;
 use App\Response\CodeVerificationResponse;
@@ -101,11 +101,11 @@ class VerificationService
 
     public function updateVerificationStatusOfUser(VerifyCodeRequest $request, $verificationStatus)
     {
-        $storeOwnerVerificationUpdateRequest = $this->autoMapping->map(VerifyCodeRequest::class, StoreOwnerVerificationStatusUpdateRequest::class, $request);
+        $userVerificationUpdateRequest = $this->autoMapping->map(VerifyCodeRequest::class, UserVerificationStatusUpdateRequest::class, $request);
 
-        $storeOwnerVerificationUpdateRequest->setVerificationStatus($verificationStatus);
+        $userVerificationUpdateRequest->setVerificationStatus($verificationStatus);
 
-        $this->userService->updateStoreOwnerVerificationStatus($storeOwnerVerificationUpdateRequest);
+        $this->userService->updateUserVerificationStatus($userVerificationUpdateRequest);
     }
 
     public function reSendNewVerificationCode(ReSendNewVerificationCodeRequest $request)
