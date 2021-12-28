@@ -26,7 +26,7 @@ use App\Request\StoreOwnerProfileUpdateRequest;
 use App\Request\CaptainProfileUpdateByAdminRequest;
 use App\Request\CaptainProfileUpdateRequest;
 use App\Request\ClientProfileUpdateRequest;
-use App\Request\StoreOwnerVerificationStatusUpdateRequest;
+use App\Request\UserVerificationStatusUpdateRequest;
 use App\Request\UserPasswordUpdateRequest;
 use App\Request\UserRegisterRequest;
 use App\Manager\StoreOwnerBranchManager;
@@ -510,18 +510,18 @@ class UserManager
         return $this->clientProfileEntityRepository->getFavouriteCategoriesIDsByClientID($clientID);
     }
 
-    public function updateStoreOwnerVerificationStatus(StoreOwnerVerificationStatusUpdateRequest $request)
+    public function updateUserVerificationStatus(UserVerificationStatusUpdateRequest $request)
     {
-        $item = $this->userRepository->getStoreOwnerEntityByUserID($request->getUserID());
+        $item = $this->userRepository->getUserEntityByUserID($request->getUserID());
 
         if (!$item)
         {
-            // no store owner with the provided userID was found!
+            // no user with the provided userID was found!
             return 'noUserWasFound';
         }
         else
         {
-            $item = $this->autoMapping->mapToObject(StoreOwnerVerificationStatusUpdateRequest::class, UserEntity::class, $request, $item);
+            $item = $this->autoMapping->mapToObject(UserVerificationStatusUpdateRequest::class, UserEntity::class, $request, $item);
 
             $this->entityManager->flush();
             $this->entityManager->clear();
