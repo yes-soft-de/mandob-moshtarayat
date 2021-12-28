@@ -237,7 +237,7 @@ class ResetPasswordOrderController extends BaseController
             return $this->response($result, self::ERROR_USER_FOUND);
         }
 
-        return $this->response($result, self::FETCH);
+        return $this->response($result, self::UPDATE);
     }
 
     /**
