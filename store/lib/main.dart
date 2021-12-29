@@ -28,6 +28,7 @@ import 'module_categories/categories_module.dart';
 import 'module_init/init_account_module.dart';
 import 'module_main/main_module.dart';
 import 'module_notifications/service/local_notification_service/local_notification_service.dart';
+import 'module_privacy/privacy_module.dart';
 import 'module_profile/stores_module.dart';
 import 'module_splash/splash_routes.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -40,6 +41,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   timeago.setLocaleMessages('ar', timeago.ArMessages());
   timeago.setLocaleMessages('en', timeago.EnMessages());
+  timeago.setLocaleMessages('ur', timeago.ArMessages());
   await HiveSetUp.init();
   await Firebase.initializeApp();
   if (kIsWeb) {
@@ -84,6 +86,7 @@ class MyApp extends StatefulWidget {
   final CategoriesModule _categoriesModule;
   final StoresProfileModule _profileModule;
   final BalanceModule _balanceModule;
+  final PrivacyModule _privacyModule;
   MyApp(
     this._themeDataService,
     this._localizationService,
@@ -100,7 +103,8 @@ class MyApp extends StatefulWidget {
       this._ordersModule,
       this._categoriesModule,
       this._profileModule,
-      this._balanceModule
+      this._balanceModule,
+      this._privacyModule
   );
 
   @override

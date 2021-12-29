@@ -8,6 +8,9 @@ class Urls {
   static const UPLOAD_API = BASE_API + '/uploadfile';
   static const SIGN_UP_API = BASE_API + '/storeownerregister';
   static const CREATE_TOKEN_API = BASE_API + '/login_check';
+  static const VERIFY_CODE_API = BASE_API + '/verifycode';
+  static const CHECK_USER_VERIFIED_API = BASE_API + '/checkverificationstatus';
+  static const RESEND_CODE_API = BASE_API + '/resendnewverificationcode';
   static const NOTIFICATION_API = BASE_API + '/notificationtoken';
   static const NOTIFICATIONNEWCHAT_API = BASE_API + '/notificationnewchat';
   static const NOTIFICATIONTOADMIN_API = BASE_API + '/notificationtoadmin';

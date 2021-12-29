@@ -5,6 +5,8 @@ import 'package:mandob_moshtarayat/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_auth/authorization_routes.dart';
 import 'package:mandob_moshtarayat/module_categories/model/products_categories_model.dart';
+import 'package:mandob_moshtarayat/module_categories/request/update_product_request.dart';
+import 'package:mandob_moshtarayat/module_categories/service/store_categories_service.dart';
 import 'package:mandob_moshtarayat/module_categories/state_manager/store_products_state_manager.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
@@ -12,8 +14,9 @@ import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 @injectable
 class StoreProductScreen extends StatefulWidget {
   final StoreProductsStateManager _stateManager;
+  final CategoriesService categoriesService;
 
-  StoreProductScreen(this._stateManager);
+  StoreProductScreen(this._stateManager, this.categoriesService);
 
   @override
   StoreProductScreenState createState() =>
@@ -29,7 +32,7 @@ class StoreProductScreenState
   void initState() {
     currentState = LoadingState(this);
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-      widget._stateManager.getCategoriesLevelOneWithAllProducts(this,'');
+      widget._stateManager.getCategoriesLevelOne(this,'');
     });
     widget._stateManager.stateStream.listen((event) {
       currentState = event;
@@ -55,6 +58,24 @@ class StoreProductScreenState
     Navigator.of(context).pushReplacementNamed(AuthorizationRoutes.LOGIN_SCREEN,arguments:1);
     CustomFlushBarHelper.createError(title:S.current.warnning, message:S.current.pleaseLoginToContinue).show(context);
   }
+   void updateProduct(UpdateProductRequest request,List<ProductsCategoryModel> levelOne) {
+     widget._stateManager.updateProduct(request,this,levelOne);
+   }
+   void updateProductStatus(UpdateProductStatusRequest request,List<ProductsCategoryModel> levelOne) {
+     widget._stateManager.updateProductStatus(request,this,levelOne);
+   }
+
+//   void updateProductStatus(UpdateProductStatusRequest request,List<ProductsCategoryModel> levelOne,List<ProductsCategoryModel> levelTwo,{String? nameOne ,String? nameTwo}) {
+//     showDialog(
+//         context: context,
+//         builder: (_) {
+//           return CustomAlertDialog(
+//               onPressed: () {
+//                 widget._stateManager.updateProductStatus(this,request,levelOne ,levelTwo,nameOne: nameOne,nameTwo: nameTwo);
+//                 Navigator.pop(context);
+//               });
+//         });
+//   }
   void refresh() {
     if (mounted) {
       setState(() {});

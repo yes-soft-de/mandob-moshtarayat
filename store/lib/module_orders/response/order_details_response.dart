@@ -6,20 +6,39 @@ import 'package:mandob_moshtarayat/utils/logger/logger.dart';
 class OrderDetailsResponse {
   String? statusCode;
   String? msg;
-  Data? data;
+  Orders? data;
 
   OrderDetailsResponse({this.statusCode, this.msg, this.data});
 
   OrderDetailsResponse.fromJson(dynamic json) {
     statusCode = json['status_code'];
     msg = json['msg'];
-    data = json['Data'] != null ? Data.fromJson(json['Data']) : null;
+    data = json['Data'] != null ? Orders.fromJson(json['Data']) : null;
     try {
 
     } catch (e) {
       Logger().error(
           'Order Details Response', '${e.toString()}', StackTrace.current);
       statusCode = '-1';
+    }
+  }
+
+}
+class Orders{
+  List<Data>? data;
+
+  Orders(this.data);
+  Orders.fromJson(dynamic json) {
+    try {
+      if (json['orderDetails'] != null) {
+        data = [];
+        json['orderDetails'].forEach((v) {
+          data?.add(Data.fromJson(v));
+        });
+      }
+    } catch (e) {
+      Logger()
+          .error('My Orders Response', '${e.toString()}', StackTrace.current);
     }
   }
 
@@ -38,9 +57,9 @@ class Data {
   Data({this.orderDetails ,this.invoiceAmount ,this.orderType ,this.createdAt,this.invoiceImage,this.state,this.note,this.detail});
 
   Data.fromJson(dynamic json) {
-    if (json['orderDetails'] != null) {
+    if (json['products'] != null) {
       orderDetails = [];
-      json['orderDetails'].forEach((v) {
+      json['products'].forEach((v) {
         orderDetails?.add(OrderDetails.fromJson(v));
       });
     }

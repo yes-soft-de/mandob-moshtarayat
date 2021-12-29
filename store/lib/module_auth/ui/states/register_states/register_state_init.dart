@@ -1,4 +1,5 @@
 import 'package:flutter_svg/svg.dart';
+import 'package:mandob_moshtarayat/consts/country_code.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_auth/authorization_routes.dart';
 import 'package:mandob_moshtarayat/module_auth/request/register_request/register_request.dart';
@@ -36,6 +37,7 @@ class RegisterStateInit extends RegisterState {
   TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> _registerKey = GlobalKey<FormState>();
   bool agreed = false;
+  AutovalidateMode mode = AutovalidateMode.disabled;
 
   @override
   Widget getUI(BuildContext context) {
@@ -47,7 +49,6 @@ class RegisterStateInit extends RegisterState {
             physics:
                 BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
             children: [
-              Container(height: 50,),
               MediaQuery.of(context).viewInsets.bottom == 0
                   ? Image.asset(
                 ImageAsset.LOGO,
@@ -79,19 +80,47 @@ class RegisterStateInit extends RegisterState {
                 padding: const EdgeInsets.only(
                     bottom: 4.0, left: 32, right: 32, top: 8),
                 child: Text(
-                  S.of(context).username,
+                  S.of(context).phoneNumber,
                   style: StyleText.textsAlmaraiNormalBold,
                 ),
               ),
               ListTile(
                 title: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: CustomLoginFormField(
-                    contentPadding:
-                        EdgeInsets.only(left: 0, right: 0, top: 15, bottom: 0),
-                    controller: usernameController,
-                    hintText: S.of(context).registerHint,
-                    preIcon: Icon(Icons.email),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: TextFormField(
+                      autofocus: false,
+                      autovalidateMode: mode,
+                      toolbarOptions: ToolbarOptions(
+                          copy: true, paste: true, selectAll: true, cut: true),
+                      controller: usernameController,
+                      keyboardType: TextInputType.phone,
+                      maxLength: 9,
+                      validator: (value){
+                        if (mode == AutovalidateMode.disabled) {
+                            mode = AutovalidateMode.onUserInteraction;
+                            screen.refresh();
+                        }
+                        if (value == null) {
+                          return S.of(context).pleaseCompleteField;
+                        }else if (value.length <9){
+                          return S.of(context).invalidNumber;
+                        }
+                      },
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: S.of(context).phone,
+                        prefixIcon:Icon(Icons.phone) ,
+                        filled: true,
+                        fillColor: Theme.of(context).backgroundColor,
+                        prefix: Text(CountryCode.COUNTRY_CODE),
+                        enabledBorder: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -123,8 +152,36 @@ class RegisterStateInit extends RegisterState {
                     title: Text(
                         S.of(context).iAgreeToTheTermsOfServicePrivacyPolicy,style: StyleText.textsAlmaraiNormal,),
                     onChanged: (v) {
-                      agreed = v ?? false;
-                      screen.refresh();
+                      if(v!= null && v)
+                      showDialog(
+                        context: screen.context,
+                        builder: (_){
+                          return AlertDialog(
+                            title: Text('عقد توريد'),
+                            content: SingleChildScrollView(child: Container(child: Text( S.current.contract))),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            actions: [
+                              TextButton(onPressed: (){
+                                Navigator.of(context).pop();
+                                agreed = v ;
+                                   screen.refresh();
+                              }, child: Text(S.current.confirm)),
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text(S.current.cancel)),
+                            ],
+                          );
+                        },
+                      );
+                      else{
+                        agreed = v ?? false;
+                        screen.refresh();
+                      }
+//e
                     })
               ),
               Container(
@@ -146,6 +203,8 @@ class RegisterStateInit extends RegisterState {
             firstButtonTab: agreed
                 ? () {
                     if (_registerKey.currentState!.validate()) {
+                      screen.userID = usernameController.text;
+                      screen.pass=passwordController.text;
                       screen.registerClient(RegisterRequest(
                           userID: usernameController.text,
                           password: passwordController.text,

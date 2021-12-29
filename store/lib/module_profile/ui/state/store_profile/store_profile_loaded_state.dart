@@ -104,7 +104,7 @@ class StoreProfileLoadedState extends States {
                                   closingTime:profile!.closingTime!.toIso8601String(),
                               ),
                               updateStore:
-                                  (name,phone,image,products, privateOrder,open,close,status) {
+                                  (name,phone,image,products, privateOrder,open,close,status,bankName,AccountNumber,stc) {
                                 Navigator.of(context).pop();
                                 screenState.updateStore(CreateStoreRequest(
                                   status: status,
@@ -116,7 +116,8 @@ class StoreProfileLoadedState extends States {
                                   openingTime: open,
                                   closingTime: close,
                                   phone: phone,
-                                  location: GeoJson(lat: 2215,long: 5641)
+                                  location: GeoJson(lat: 2215,long: 5641),
+                                  bankName: bankName,bankAccountNumber: AccountNumber,stcPay: stc
 
                                 ));
                               },
@@ -191,6 +192,16 @@ class StoreProfileLoadedState extends States {
         subTitle:DateFormat.jm()
             .format( profile?.closingTime ?? DateTime.now()),
       ),
+          CustomListTile(
+            title: S.current.bankName,
+            subTitle: profile?.bankName,
+          ), CustomListTile(
+            title: S.current.bankAccountNumber,
+            subTitle: profile?.bankNumber,
+          ),CustomListTile(
+            title: S.current.stc,
+            subTitle: profile?.stcPay,
+          ),
       CustomListTile(title: S.current.products, serve: profile?.hasProducts),
       CustomListTile(
           title: S.current.privateOrder, serve: profile?.privateOrders),

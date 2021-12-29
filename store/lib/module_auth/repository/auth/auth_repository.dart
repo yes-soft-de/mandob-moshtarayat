@@ -2,6 +2,7 @@ import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/consts/urls.dart';
 import 'package:mandob_moshtarayat/module_auth/request/login_request/login_request.dart';
 import 'package:mandob_moshtarayat/module_auth/request/register_request/register_request.dart';
+import 'package:mandob_moshtarayat/module_auth/request/register_request/verify_code_request.dart';
 import 'package:mandob_moshtarayat/module_auth/response/login_response/login_response.dart';
 import 'package:mandob_moshtarayat/module_auth/response/regester_response/regester_response.dart';
 import 'package:mandob_moshtarayat/module_network/http_client/http_client.dart';
@@ -21,7 +22,30 @@ class AuthRepository {
     if (result == null) return null;
     return RegisterResponse.fromJson(result);
   }
-
+  Future<RegisterResponse?> verifyUser(VerifyCodeRequest request) async {
+    dynamic result = await _apiClient.post(
+      Urls.VERIFY_CODE_API,
+      request.toJson(),
+    );
+    if (result == null) return null;
+    return RegisterResponse.fromJson(result);
+  }
+  Future<RegisterResponse?> checkUserIfVerified(VerifyCodeRequest request) async {
+    dynamic result = await _apiClient.post(
+      Urls.CHECK_USER_VERIFIED_API,
+      request.toJson(),
+    );
+    if (result == null) return null;
+    return RegisterResponse.fromJson(result);
+  }
+  Future<RegisterResponse?>  resendCode(VerifyCodeRequest request) async {
+    dynamic result = await _apiClient.post(
+      Urls.RESEND_CODE_API,
+      request.toJson(),
+    );
+    if (result == null) return null;
+    return RegisterResponse.fromJson(result);
+  }
   Future<LoginResponse?> getToken(LoginRequest loginRequest) async {
     var result = await _apiClient.post(
       Urls.CREATE_TOKEN_API,

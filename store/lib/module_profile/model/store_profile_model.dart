@@ -11,6 +11,9 @@ class StoreProfileModel extends DataModel {
   String storeOwnerName = '';
   int storeCategoryId = -1;
   String phone = '';
+  String stcPay = '';
+  String bankName = '';
+  String bankNumber = '';
   String storeCategoryName = '';
   num deliveryCost = 0;
   ImageUrl image = ImageUrl(image: null);
@@ -34,7 +37,8 @@ class StoreProfileModel extends DataModel {
       required this.storeCategoryId,
       this.closingTime,
       this.openingTime,
-        this.branches
+        this.branches,
+       required this.stcPay ,required this.bankName ,required this.bankNumber
       });
 
   StoreProfileModel.withData(Data data) : super.withData() {
@@ -56,7 +60,10 @@ class StoreProfileModel extends DataModel {
         phone: data.phone ?? '',
        openingTime:DateHelper.convert(data.openingTime?.timestamp),
        closingTime:DateHelper.convert(data.closingTime?.timestamp),
-      branches: branches
+      branches: branches,
+      stcPay: data.stcPay??'',
+      bankName: data.bankName??'',
+      bankNumber: data.bankAccountNumber??''
     );
   }
 

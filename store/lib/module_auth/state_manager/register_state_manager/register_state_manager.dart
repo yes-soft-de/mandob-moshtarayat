@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/module_about/service/about_service/about_service.dart';
 import 'package:mandob_moshtarayat/module_auth/enums/auth_status.dart';
 import 'package:mandob_moshtarayat/module_auth/request/register_request/register_request.dart';
+import 'package:mandob_moshtarayat/module_auth/request/register_request/verify_code_request.dart';
 import 'package:mandob_moshtarayat/module_auth/service/auth_service/auth_service.dart';
 import 'package:mandob_moshtarayat/module_auth/ui/screen/register_screen/register_screen.dart';
 import 'package:mandob_moshtarayat/module_auth/ui/states/register_states/register_state.dart';
@@ -23,9 +24,22 @@ class RegisterStateManager {
     _authService.authListener.listen((event) {
       _loadingStateSubject.add(AsyncSnapshot.nothing());
       switch (event) {
+        case AuthStatus.CODE_SENT:
+          _registerScreen.verifyFirst();
+          _registerStateSubject.add(RegisterStatePhoneCodeSent(_registerScreen));
+          break;
+          case AuthStatus.CODE_RESENT:
+          _registerScreen.resentCodeSucc();
+          break;
+          case AuthStatus.UNVERIFIED:
+          _registerScreen.resendError();
+          break;
+           case AuthStatus.CODE_TIMEOUT:
+          _registerScreen.wrongCode();
+          break;
         case AuthStatus.AUTHORIZED:
           _aboutService.setInitialized();
-          _registerScreen.moveToNext();
+          _registerScreen.moveToNext(_registerScreen.userID);
           break;
         case AuthStatus.REGISTERED:
           registered = true;
@@ -49,6 +63,22 @@ class RegisterStateManager {
     _registerScreen = _registerScreenState;
     _authService
         .registerApi(request)
+        .whenComplete(() => _loadingStateSubject.add(AsyncSnapshot.nothing()));
+  }
+  void verifyClient(
+      VerifyCodeRequest request, RegisterScreenState _registerScreenState) {
+    _loadingStateSubject.add(AsyncSnapshot.waiting());
+    _registerScreen = _registerScreenState;
+    _authService
+        .verifyCodeApi(request)
+        .whenComplete(() => _loadingStateSubject.add(AsyncSnapshot.nothing()));
+  }
+  void resendCode(
+      VerifyCodeRequest request, RegisterScreenState _registerScreenState) {
+    _loadingStateSubject.add(AsyncSnapshot.waiting());
+    _registerScreen = _registerScreenState;
+    _authService
+        .resendCode(request)
         .whenComplete(() => _loadingStateSubject.add(AsyncSnapshot.nothing()));
   }
 }

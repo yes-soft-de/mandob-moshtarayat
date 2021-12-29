@@ -70,8 +70,15 @@ class InitAccountCaptainInitProfile extends InitAccountState {
 
   final _nameController = TextEditingController();
   final _phoneController = TextEditingController();
+  final _bankName = TextEditingController();
+  final _bankAccountNumber= TextEditingController();
+  final _stcPay= TextEditingController();
+
+
   @override
   Widget getUI(BuildContext context) {
+    _phoneController.text=screenState.phoneNumber??'';
+
     return SafeArea(
       child: Form(
         key: _initKey,
@@ -80,38 +87,6 @@ class InitAccountCaptainInitProfile extends InitAccountState {
             CustomListView.custom(
               padding: EdgeInsets.only(right: 16, left: 16),
               children: [
-                // MediaQuery.of(context).viewInsets.bottom != 0
-                //     ? Container()
-                //     : Padding(
-                //         padding: const EdgeInsets.all(8.0),
-                //         child: GestureDetector(
-                //           onTap: () {
-                //             ImagePicker()
-                //                 .getImage(source: ImageSource.gallery)
-                //                 .then((value) {
-                //               if (value != null) {
-                //                 restaurantIamge = Uri(path: value.path);
-                //                 screen.refresh();
-                //               }
-                //             });
-                //           },
-                //           child: Container(
-                //               height: 75,
-                //               width: 75,
-                //               decoration: BoxDecoration(
-                //                 color: Theme.of(context).primaryColor,
-                //                 shape: BoxShape.circle,
-                //               ),
-                //               child: Stack(
-                //                 children: [
-                //                   Positioned.fill(
-                //                       child: Icon(Icons.person,
-                //                           size: 45, color: Colors.white)),
-                //                   _getCaptainImageFG(),
-                //                 ],
-                //               )),
-                //         ),
-                //       ),
                 Container(height: 50,),
                 Hider(
                   active: true,
@@ -170,6 +145,7 @@ class InitAccountCaptainInitProfile extends InitAccountState {
                   hintText: S.current.storePhone,
                   phone: true,
                   numbers: true,
+                  readOnly: true,
                 ),
                 // Store Location
                 Padding(
@@ -261,6 +237,50 @@ class InitAccountCaptainInitProfile extends InitAccountState {
                   ),
                 ),
 
+                //account
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: 12.0, bottom: 8, right: 12, top: 16.0),
+                  child: Text(
+                    S.current.bankName,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                CustomFormField(
+                  controller: _bankName,
+                  hintText: S.current.bankName,
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: 12.0, bottom: 8, right: 12, top: 16.0),
+                  child: Text(
+                    S.current.bankAccountNumber,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                CustomFormField(
+                  controller: _bankAccountNumber,
+                  hintText: S.current.bankAccountNumber,
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: 12.0, bottom: 8, right: 12, top: 16.0),
+                  child: Text(
+                    S.current.stc,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                CustomFormField(
+                  controller: _stcPay,
+                  hintText: S.current.stc,
+                ),
+
+                //hours
                 Padding(
                   padding: const EdgeInsets.only(top: 32.0, left: 16, right: 16),
                   child: Align(
@@ -411,6 +431,9 @@ class InitAccountCaptainInitProfile extends InitAccountState {
                                 image: imagePath!.toString(),
                                 storeOwnerName: _nameController.text,
                                 phone: _phoneController.text,
+                                bankAccountNumber: _bankAccountNumber.text,
+                                bankName: _bankName.text,
+                                stcPay: _stcPay.text
 
 
                               ));

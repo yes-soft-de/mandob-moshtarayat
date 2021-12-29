@@ -40,6 +40,10 @@ class Data {
   int? storeCategoryId;
   String? storeOwnerName;
   String? storeCategoryName;
+
+  String? bankName;
+  String? bankAccountNumber;
+  String? stcPay;
   // String? image;
   bool? free;
 
@@ -60,7 +64,8 @@ class Data {
     this.storeCategoryName,
       // this.image,
 
-      this.free, 
+      this.free,
+    this.bankAccountNumber,this.bankName,this.stcPay,
 
 
       this.phone, 
@@ -90,6 +95,9 @@ class Data {
     deliveryCost = json['deliveryCost'];
     privateOrders = json['privateOrders'];
     hasProducts = json['hasProducts'];
+    bankName = json['bankName'];
+    bankAccountNumber = json['bankAccountNumber'];
+    stcPay = json['stcPay'];
     // openingTime=DateTime.now();
     // openingTime=DateTime.now();
     openingTime = json['openingTime'] != null ? Date.fromJson(json['openingTime']) : null;

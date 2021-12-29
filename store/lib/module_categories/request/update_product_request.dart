@@ -1,4 +1,4 @@
-class UpdateProductRequest {
+class DataStoreUpdateProduct {
   int? id;
   String? productName;
   String? productImage;
@@ -8,26 +8,32 @@ class UpdateProductRequest {
   int? storeOwnerProfileID;
   int? storeProductCategoryID;
   int? storeMainCategoryID;
+  bool? isLevelOne;
+  bool? isLevelTwo;
 
-  UpdateProductRequest({
-      this.id, 
-      this.productName, 
-      this.productImage, 
+  DataStoreUpdateProduct({
+      this.id,
+      this.productName,
+      this.productImage,
       this.productPrice,
       this.discount,
-      this.storeOwnerProfileID, 
+      this.storeOwnerProfileID,
       this.storeProductCategoryID,
     this.productQuantity,
-    this.storeMainCategoryID
+    this.storeMainCategoryID,this.isLevelTwo,this.isLevelOne
   });
 
-  UpdateProductRequest.fromJson(dynamic json) {
+  DataStoreUpdateProduct.fromJson(dynamic json) {
     id = json['id'];
     productName = json['productName'];
     productImage = json['productImage'];
     productPrice = json['productPrice'];
+    discount = json['discount'];
+    productQuantity = json['productQuantity'];
     storeOwnerProfileID = json['storeOwnerProfileID'];
     storeProductCategoryID = json['storeProductCategoryID'];
+    isLevelOne = json['isLevel1'];
+    isLevelTwo = json['isLevel2'];
   }
 
   Map<String, dynamic> toJson() {
@@ -44,6 +50,42 @@ class UpdateProductRequest {
   }
 
 }
+
+
+
+class UpdateProductRequest {
+
+  DataStoreUpdateProduct? dataStoreProduct;
+  List<TranslateStoreUpdateProduct>? translate;
+
+  UpdateProductRequest({
+    this.dataStoreProduct, this.translate});
+
+  Map<String, dynamic> toJson() {
+    var map = <String, dynamic>{};
+    map['data'] = dataStoreProduct?.toJson();
+    if (translate != null) {
+      map['translate'] = translate?.map((v) => v.toJson()).toList();
+    }
+    return map;
+  }
+
+
+}
+class TranslateStoreUpdateProduct{
+  String? productName;
+  String? lang;
+
+  TranslateStoreUpdateProduct({ this.productName, this.lang});
+
+  Map<String, dynamic> toJson() {
+    var map = <String, dynamic>{};
+    map['productName'] = productName;
+    map['language'] = lang;
+    return map;
+  }
+}
+
 
 class UpdateProductStatusRequest{
   int id;

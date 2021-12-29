@@ -168,15 +168,20 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
               print("storeProductCategoryID" +idTwo.toString());
               showDialog(context: context, builder:(_){
                 return AddProductsForm(
+                  lang: screenState.language,
                   state:this,
-                  addProduct: (name,image,price,discount){
+                  languages: ['ar','en','ur'],
+                  addProduct: (name,image,price,discount,trans){
                     Navigator.of(context).pop();
                     screenState.createProduct(CreateProductRequest(
+                      dataStoreProduct: DataStoreProduct(
                         productName: name,
                         productImage: image,
                         productPrice: price,
                         discount: discount,
                         storeProductCategoryID: storeProductCategoryID,
+                      ),translate: trans
+
                     ),categoriesOne,categoriesTwo,nameOne: nameOne,nameTwo: nameTwo);
                   },
                 );
@@ -208,6 +213,26 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
     categoriesOne.forEach((element) {
       items.add(DropdownMenuItem(
         value: element,
+        child: Text(element.categoryName),
+      ));
+    });
+    return items;
+  }
+  List<DropdownMenuItem<String>> getChoicesOne() {
+    List<DropdownMenuItem<String>> items = [];
+    categoriesOne.forEach((element) {
+      items.add(DropdownMenuItem(
+        value: element.id.toString(),
+        child: Text(element.categoryName),
+      ));
+    });
+    return items;
+  }
+  List<DropdownMenuItem<String>> getChoicesTwo() {
+    List<DropdownMenuItem<String>> items = [];
+    categoriesTwo.forEach((element) {
+      items.add(DropdownMenuItem(
+        value: element.id.toString(),
         child: Text(element.categoryName),
       ));
     });
@@ -245,23 +270,36 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
                     onTap: (){
                       showDialog(context: screenState.context, builder:(context){
                         return UpdateProductsForm(
+                          categoriesService: screenState.widget.categoriesService,
                           request: UpdateProductRequest(
+                            dataStoreProduct: DataStoreUpdateProduct(
                               productName: element.productName,
                               productImage: element.productImage.image??'',
                               productPrice: element.productPrice.toDouble(),
-                          ),
-                          addProduct: (name,price,image,discount){
-                            Navigator.of(context).pop();
+                              discount: element.discount,
+                              productQuantity: element.productQuantity,
+                              storeProductCategoryID: element.storeProductCategoryID,
+                              isLevelOne: element.levelOne,isLevelTwo: element.levelTwo
+                            ),
 
+                          ),
+                          categoriesOne: getChoicesOne(),
+                          categoriesTwo: getChoicesTwo(),
+                          addProduct: (name,price,image,discount,catID){
+                            Navigator.of(context).pop();
                             screenState.updateProduct(UpdateProductRequest(
-                              id: element.id,
-                              productName: name,
-                              productImage: image,
-                              discount: double.parse(discount),
-                              productPrice:double.parse(price),
-                              storeProductCategoryID:element.storeProductCategoryID,
-                               storeMainCategoryID: idFirstCat
-                            ),categoriesOne,categoriesTwo,nameTwo: nameTwo,nameOne: nameOne);
+                              dataStoreProduct: DataStoreUpdateProduct(
+                                  id: element.id,
+                                  productName: name,
+                                  productImage: image,
+                                  discount: double.parse(discount),
+                                  productPrice:double.parse(price),
+                                  storeProductCategoryID:int.parse(catID),
+                                  storeMainCategoryID: idFirstCat
+                              ),
+
+                            ),
+                                categoriesOne,categoriesTwo,nameTwo: nameTwo,nameOne: nameOne);
                           },
                         );
                       });

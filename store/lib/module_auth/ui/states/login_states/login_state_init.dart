@@ -1,4 +1,5 @@
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mandob_moshtarayat/consts/country_code.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_auth/authorization_routes.dart';
 import 'package:mandob_moshtarayat/module_auth/ui/screen/login_screen/login_screen.dart';
@@ -20,6 +21,7 @@ class LoginStateInit extends LoginState {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> _loginKey = GlobalKey<FormState>();
+  AutovalidateMode mode = AutovalidateMode.disabled;
   TextStyle tileStyle = TextStyle(fontWeight: FontWeight.w600);
   @override
   Widget getUI(BuildContext context) {
@@ -44,18 +46,57 @@ class LoginStateInit extends LoginState {
                 padding: const EdgeInsets.only(
                     bottom: 4.0, left: 32, right: 32, top: 8),
                 child: Text(
-                  S.of(context).username,
+                  S.of(context).phone,
                   style: tileStyle,
                 ),
               ),
+//              ListTile(
+//                title: Padding(
+//                  padding: const EdgeInsets.all(8.0),
+//                  child: CustomLoginFormField(
+//                    contentPadding:EdgeInsets.only(left: 0,right: 0,top: 15,bottom: 0),
+//                    controller: usernameController,
+//                    hintText: S.of(context).registerHint,
+//                    preIcon: Icon(Icons.email),
+//                  ),
+//                ),
+//              ),
               ListTile(
                 title: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: CustomLoginFormField(
-                    contentPadding:EdgeInsets.only(left: 0,right: 0,top: 15,bottom: 0),
-                    controller: usernameController,
-                    hintText: S.of(context).registerHint,
-                    preIcon: Icon(Icons.email),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: TextFormField(
+                      autovalidateMode: mode,
+                      toolbarOptions: ToolbarOptions(
+                          copy: true, paste: true, selectAll: true, cut: true),
+                      controller: usernameController,
+                      keyboardType: TextInputType.phone,
+                      maxLength: 9,
+                      validator: (value){
+                        if (mode == AutovalidateMode.disabled) {
+                          mode = AutovalidateMode.onUserInteraction;
+                          screen.refresh();
+                        }
+                        if (value == null) {
+                          return S.of(context).pleaseCompleteField;
+                        }else if (value.length <9){
+                          return S.of(context).invalidNumber;
+                        }
+                      },
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: S.of(context).phone,
+                        prefixIcon:Icon(Icons.phone) ,
+                        filled: true,
+                        fillColor: Theme.of(context).backgroundColor,
+                        prefix: Text(CountryCode.COUNTRY_CODE),
+                        enabledBorder: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -97,6 +138,8 @@ class LoginStateInit extends LoginState {
                         arguments: screen.args),
                 firstButtonTab: () {
                   if (_loginKey.currentState!.validate()) {
+                    screen.userID = usernameController.text.trim();
+                    screen.pass = passwordController.text.trim();
                     screen.loginClient(
                         usernameController.text, passwordController.text);
                   }

@@ -113,8 +113,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               ),
                               value: 'en',
                             ),
+                            DropdownMenuItem(
+                              child: Text(
+                                'Urdu',
+                                style: TextStyle(),
+                              ),
+                              value: 'ur',
+                            ),
                           ],
                           onChanged: (newLang) {
+                            print("hihihih"+ newLang.toString() );
                             widget._localizationService
                                 .setLanguage(newLang.toString());
                           }),

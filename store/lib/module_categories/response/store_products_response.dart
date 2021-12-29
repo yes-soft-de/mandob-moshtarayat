@@ -44,7 +44,10 @@ class Data {
   ImageUrl? productImage;
   num? productPrice;
   num? discount;
+  num? productQuantity;
   int? storeProductCategoryID;
+  bool? isLevelOne;
+  bool? isLevelTwo;
 
   Data({
       this.id, 
@@ -52,6 +55,8 @@ class Data {
       this.productImage, 
       this.productPrice, 
       this.discount,
+    this.productQuantity,
+    this.isLevelOne,this.isLevelTwo,
       this.storeProductCategoryID});
 
   Data.fromJson(dynamic json) {
@@ -61,6 +66,8 @@ class Data {
     productPrice = json['productPrice'];
     discount = json['discount'];
     storeProductCategoryID = json['storeProductCategoryID'];
+    isLevelOne = json['isLevel1'];
+    isLevelTwo = json['isLevel2'];
   }
 
   Map<String, dynamic> toJson() {
@@ -70,6 +77,7 @@ class Data {
     map['productImage'] = productImage;
     map['productPrice'] = productPrice;
     map['discount'] = discount;
+    map['productQuantity'] = productQuantity;
     map['storeProductCategoryID'] = storeProductCategoryID;
     return map;
   }
@@ -85,7 +93,7 @@ class ImageUrl {
   });
 
   ImageUrl.fromJson(dynamic json) {
-    image = json['image'];
+    image = json['image']?? '';
     imageURL = json['imageURL'];
     baseURL = json['baseURL'];
   }
