@@ -18,15 +18,14 @@ class SearchModel {
   SearchModel.Data(Data data) {
     data.products?.forEach((element) {
       product.add(ProductModel(
-        storeName: element.storeOwnerName ?? '',
-        storeImage: element.storeImage ?? '',
-        deliveryCost: element.deliveryCost ?? 0,
-        title: element.productName ?? '',
-        image: element.productImage ?? '',
-        price: element.productPrice ?? 0,
-        id: element.storeOwnerProfileID ?? 0,
-        costDetails: element.costDetails
-      ));
+          storeName: element.storeOwnerName ?? '',
+          storeImage: element.storeImage ?? '',
+          deliveryCost: element.deliveryCost ?? 0,
+          title: element.productName ?? '',
+          image: element.productImage ?? '',
+          price: element.productPrice ?? 0,
+          id: element.storeOwnerProfileID ?? 0,
+          costDetails: element.costDetails));
     });
 
     data.stores?.forEach((element) {

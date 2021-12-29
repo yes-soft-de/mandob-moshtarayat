@@ -160,16 +160,16 @@ class _BillCardDetailsState extends State<BillCardDetails> {
         Padding(
           padding: const EdgeInsets.all(16),
           child: DottedLine(
-          dashColor: Colors.grey[400]!.withOpacity(0.3),
-          lineThickness: 2.5,
-          dashLength: 6,
-        ),
+            dashColor: Colors.grey[400]!.withOpacity(0.3),
+            lineThickness: 2.5,
+            dashLength: 6,
+          ),
         ),
       );
     }
     widget.items.forEach((element) {
       items.add(Padding(
-        padding: const EdgeInsets.only(top:8.0,bottom: 8.0),
+        padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [

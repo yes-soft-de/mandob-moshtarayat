@@ -78,7 +78,7 @@ class HomeFavoriteLoadedState extends HomeState {
           Checked(
             checked: screenState.snapshot.hasData &&
                 screenState.snapshot.connectionState != ConnectionState.waiting,
-            child: Image.asset(ImageAsset.LOGO,width: 125, height: 125),
+            child: Image.asset(ImageAsset.LOGO, width: 125, height: 125),
             checkedWidget: Column(
               children: _getProductsByCategories(),
             ),

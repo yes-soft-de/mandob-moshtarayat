@@ -22,7 +22,8 @@ class AuthRepository {
     if (result == null) return null;
     return RegisterResponse.fromJson(result);
   }
-    Future<RegisterResponse?> verifyUser(VerifyCodeRequest request) async {
+
+  Future<RegisterResponse?> verifyUser(VerifyCodeRequest request) async {
     dynamic result = await _apiClient.post(
       Urls.VERIFY_CODE_API,
       request.toJson(),
@@ -30,7 +31,9 @@ class AuthRepository {
     if (result == null) return null;
     return RegisterResponse.fromJson(result);
   }
-  Future<RegisterResponse?> checkUserIfVerified(VerifyCodeRequest request) async {
+
+  Future<RegisterResponse?> checkUserIfVerified(
+      VerifyCodeRequest request) async {
     dynamic result = await _apiClient.post(
       Urls.CHECK_USER_VERIFIED_API,
       request.toJson(),
@@ -38,7 +41,8 @@ class AuthRepository {
     if (result == null) return null;
     return RegisterResponse.fromJson(result);
   }
-  Future<RegisterResponse?>  resendCode(VerifyCodeRequest request) async {
+
+  Future<RegisterResponse?> resendCode(VerifyCodeRequest request) async {
     dynamic result = await _apiClient.post(
       Urls.RESEND_CODE_API,
       request.toJson(),

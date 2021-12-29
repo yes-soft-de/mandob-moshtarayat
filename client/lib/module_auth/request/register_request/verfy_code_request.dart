@@ -5,7 +5,7 @@ class VerifyCodeRequest {
   String? code;
   String? password;
 
-  VerifyCodeRequest({required this.userID,this.code,this.password});
+  VerifyCodeRequest({required this.userID, this.code, this.password});
 
 //  VerifyCodeRequest.fromJson(Map<String, dynamic> json) {
 //    userID = json['userID'];
@@ -16,7 +16,7 @@ class VerifyCodeRequest {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['userID'] = CountryCode.COUNTRY_CODE_KSA + userID;
     if (code != null) {
-    data['code'] = code;
+      data['code'] = code;
     }
     return data;
   }

@@ -66,7 +66,7 @@ class AuthService {
     }
     RegisterResponse? responseVerify = await _authManager
         .checkUserIfVerified(VerifyCodeRequest(userID: username));
-        
+
     if (responseVerify?.statusCode != '200') {
       _prefsHelper.setUsername(username);
       _prefsHelper.setPassword(password);

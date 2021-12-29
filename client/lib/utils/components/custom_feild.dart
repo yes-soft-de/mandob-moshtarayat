@@ -15,11 +15,13 @@ class CustomFormField extends StatefulWidget {
   final bool numbers;
   final bool last;
   final bool validator;
+  final TextStyle? hintStyle;
   @override
   _CustomFormFieldState createState() => _CustomFormFieldState();
 
   CustomFormField(
       {this.height = 50,
+      this.hintStyle,
       this.contentPadding = const EdgeInsets.fromLTRB(16, 8, 16, 8),
       this.hintText,
       this.preIcon,
@@ -93,14 +95,14 @@ class _CustomFormFieldState extends State<CustomFormField> {
                 }
               : null,
           decoration: InputDecoration(
-            border: InputBorder.none,
-            hintText: widget.hintText,
-            prefixIcon: widget.preIcon,
-            suffixIcon: widget.sufIcon,
-            enabledBorder: InputBorder.none,
-            contentPadding: widget.contentPadding,
-            focusedBorder: InputBorder.none,
-          ),
+              border: InputBorder.none,
+              hintText: widget.hintText,
+              prefixIcon: widget.preIcon,
+              suffixIcon: widget.sufIcon,
+              enabledBorder: InputBorder.none,
+              contentPadding: widget.contentPadding,
+              focusedBorder: InputBorder.none,
+              hintStyle: widget.hintStyle),
         ),
       ),
     );

@@ -22,7 +22,8 @@ class LoginStateManager {
       _loadingStateSubject.add(AsyncSnapshot.nothing());
       switch (event) {
         case AuthStatus.CODE_SENT:
-          _screenState.verifyFirst(getIt<AuthPrefsHelper>().getUsername(),getIt<AuthPrefsHelper>().getPassword());
+          _screenState.verifyFirst(getIt<AuthPrefsHelper>().getUsername(),
+              getIt<AuthPrefsHelper>().getPassword());
           break;
         case AuthStatus.AUTHORIZED:
           _screenState.moveToNext();

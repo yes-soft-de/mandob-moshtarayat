@@ -31,8 +31,7 @@ class CustomLoginFormField extends StatefulWidget {
       this.last = false,
       this.password = false,
       this.phone = false,
-      this.borderRadius
-      });
+      this.borderRadius});
 }
 
 class _CustomLoginFormFieldState extends State<CustomLoginFormField> {

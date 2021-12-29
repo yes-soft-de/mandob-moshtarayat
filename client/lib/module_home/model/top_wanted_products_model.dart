@@ -28,8 +28,7 @@ class TopWantedProductsModel {
       required this.storeImage,
       required this.phone,
       required this.deliveryCost,
-      required this.costDetails
-      });
+      required this.costDetails});
 
   TopWantedProductsModel.Empty() {
     this.empty = true;
@@ -50,8 +49,7 @@ class TopWantedProductsModel {
           storeName: element.storeOwnerName ?? S.current.storeOwner,
           phone: element.phone ?? '0',
           deliveryCost: element.deliveryCost ?? 0,
-          costDetails: element.costDetails
-          ));
+          costDetails: element.costDetails));
     });
   }
 

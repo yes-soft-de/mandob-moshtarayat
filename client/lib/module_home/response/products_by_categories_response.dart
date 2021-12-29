@@ -60,7 +60,7 @@ class Data {
     image = json['image'] != null ? Image.fromJson(json['image']) : null;
     store =
         json['store'] != null ? StoreResponse.fromJson(json['store']) : null;
-    costDetailsResponse = CostDetailsResponse.fromJson(json);    
+    costDetailsResponse = CostDetailsResponse.fromJson(json);
   }
 
   int? id;

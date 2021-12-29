@@ -21,13 +21,13 @@ class RegisterStateInit extends RegisterState {
       if (registered) {
         screenState.userRegistered().whenComplete(() {
           CustomFlushBarHelper.createError(
-              title: S.current.warnning, message: error)
-            .show(screenState.context);
+                  title: S.current.warnning, message: error)
+              .show(screenState.context);
         });
       } else {
         CustomFlushBarHelper.createError(
-            title: S.current.warnning, message: error)
-          .show(screenState.context);
+                title: S.current.warnning, message: error)
+            .show(screenState.context);
       }
     }
   }
@@ -44,8 +44,8 @@ class RegisterStateInit extends RegisterState {
         Form(
           key: _registerKey,
           child: ListView(
-            physics:
-                const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+            physics: const BouncingScrollPhysics(
+                parent: AlwaysScrollableScrollPhysics()),
             children: [
               MediaQuery.of(context).viewInsets.bottom == 0
                   ? Padding(
@@ -109,9 +109,10 @@ class RegisterStateInit extends RegisterState {
                     controller: usernameController,
                     hintText: '5xxxxxxxxx',
                     phone: true,
-                    contentPadding: const EdgeInsets.only(left:8,right: 8,top: 16),
+                    contentPadding:
+                        const EdgeInsets.only(left: 8, right: 8, top: 16),
                     sufIcon: const Padding(
-                     padding: EdgeInsets.only(left:8,right: 8,top: 16),
+                      padding: EdgeInsets.only(left: 8, right: 8, top: 16),
                       child: Text(CountryCode.COUNTRY_CODE_KSA),
                     ),
                   ),

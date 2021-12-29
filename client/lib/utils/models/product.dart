@@ -43,8 +43,7 @@ class ProductModel {
           image: element.productImage?.image ?? '',
           price: element.productPrice ?? 0,
           id: element.id ?? -1,
-          costDetails: element.costDetails
-          ));
+          costDetails: element.costDetails));
     });
   }
 
@@ -56,8 +55,7 @@ class ProductModel {
               'https://images.unsplash.com/photo-1513104890138-7c749659a591?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
           id: element.id ?? -1,
           price: element.productPrice ?? 0,
-          costDetails: element.costDetails
-          ));
+          costDetails: element.costDetails));
     });
   }
 

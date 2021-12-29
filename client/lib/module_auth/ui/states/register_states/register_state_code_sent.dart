@@ -128,9 +128,8 @@ class RegisterStatePhoneCodeSent extends RegisterState {
                               : Text(
                                   S.of(context).confirm,
                                   style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white
-                                  ),
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
                                 ),
                         )),
                   ),
@@ -150,7 +149,7 @@ class RegisterStatePhoneCodeSent extends RegisterState {
                           screen.resendCode(
                               VerifyCodeRequest(userID: screen.userID));
                         }
-                      : null, 
+                      : null,
                   child: Center(
                     child: Padding(
                       padding: const EdgeInsets.only(
