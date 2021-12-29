@@ -419,3 +419,8 @@ App\Request\UserPasswordUpdateRequest:
       - NotBlank: ~
     password:
       - NotBlank: ~
+
+App\Request\CustomProductNotFoundCreateRequest:
+  properties:
+    productName:
+      - NotBlank: ~
