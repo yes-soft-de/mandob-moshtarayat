@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\AutoMapping;
 use App\Request\CustomProductNotFoundCreateRequest;
 use App\Service\CustomProductNotFoundService;
+use Nelmio\ApiDocBundle\Annotation\Security;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use OpenApi\Annotations as OA;
 
 class CustomProductNotFoundController extends BaseController
 {
@@ -28,10 +30,46 @@ class CustomProductNotFoundController extends BaseController
     }
 
     /**
+     * client:Create Custom Product Not Found.
      * @Route("customproductnotfound", name="createCustomProductNotFound", methods={"POST"})
      * @IsGranted("ROLE_CLIENT")
      * @param Request $request
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Custom Product Not Found")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\RequestBody(
+     *      description="Create Custom Product Not Found",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="productName"),
+     *          @OA\Property(type="string", property="productImage"),
+     *          @OA\Property(type="number", property="detail"),
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=201,
+     *      description="Returns data of product",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="productName"),
+     *                  @OA\Property(type="string", property="productImage"),
+     *                  @OA\Property(type="number", property="detail"),
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
      */
     public function createCustomProductNotFound(Request $request): JsonResponse
     {
@@ -53,9 +91,42 @@ class CustomProductNotFoundController extends BaseController
     }
 
     /**
+     * admin: get Custom Products Not Found.
      * @Route("customproductsnotfound", name="getCustomProductsNotFound", methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Custom Product Not Found")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=201,
+     *      description="Returns the products not found",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *                @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="productName"),
+     *                  @OA\Property(type="object", property="productImage",
+     *                      @OA\Property(type="string", property="imageURL"),
+     *                      @OA\Property(type="string", property="image"),
+     *                      @OA\Property(type="string", property="baseURL"),
+     *                  ),
+     *                  @OA\Property(type="number", property="detail"),
+     *                  )
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
      */
     public function getCustomProductsNotFound()
     {
@@ -65,8 +136,40 @@ class CustomProductNotFoundController extends BaseController
     }
 
     /**
+     * admin: get Custom Product Not Found.
      * @Route("customproductnotfound/{id}", name="getCustomProductNotFound", methods={"GET"})
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Custom Product Not Found")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=201,
+     *      description="Returns the product not found",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="productName"),
+     *                  @OA\Property(type="object", property="productImage",
+     *                      @OA\Property(type="string", property="imageURL"),
+     *                      @OA\Property(type="string", property="image"),
+     *                      @OA\Property(type="string", property="baseURL"),
+     *                      ),
+     *                  @OA\Property(type="number", property="detail"),
+     *                  )
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
      */
     public function getCustomProductNotFound($id): JsonResponse
     {
