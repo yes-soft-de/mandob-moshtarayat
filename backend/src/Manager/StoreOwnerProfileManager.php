@@ -8,7 +8,6 @@ use App\Entity\StoreOwnerBranchEntity;
 use App\Entity\StoreOwnerProfileEntity;
 use App\Entity\UserEntity;
 use App\Repository\StoreOwnerProfileEntityRepository;
-use App\Repository\UserEntityRepository;
 use App\Request\DeleteRequest;
 use App\Request\UserRegisterRequest;
 use Doctrine\ORM\EntityManagerInterface;
