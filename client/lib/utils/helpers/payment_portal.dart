@@ -80,8 +80,8 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
           taxes: [],
           shippings: [],
           customer: Customer(
-              customerId: getIt<AuthService>()
-                  .username, // customer id is important to retrieve cards saved for this customer
+              customerId:
+                  '', // customer id is important to retrieve cards saved for this customer
               email: emailController.text,
               isdNumber: CountryCode.COUNTRY_CODE_KSA,
               number: phoneNumberController.text,
@@ -153,12 +153,12 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
         case 'SUCCESS':
           sdkStatus = 'SUCCESS';
           handleSDKResult();
-          widget.callback(true,responseID);
+          widget.callback(true, responseID);
           break;
         case 'FAILED':
           sdkStatus = 'FAILED';
           handleSDKResult();
-          widget.callback(false,S.current.paymentFailed);
+          widget.callback(false, S.current.paymentFailed);
           break;
         case 'SDK_ERROR':
           print('sdk error............');
@@ -169,7 +169,7 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
           sdkErrorCode = tapSDKResult['sdk_error_code'].toString();
           sdkErrorMessage = tapSDKResult['sdk_error_message'];
           sdkErrorDescription = tapSDKResult['sdk_error_description'];
-          widget.callback(false,S.current.paymentFailed);
+          widget.callback(false, S.current.paymentFailed);
           break;
 
         case 'NOT_IMPLEMENTED':
