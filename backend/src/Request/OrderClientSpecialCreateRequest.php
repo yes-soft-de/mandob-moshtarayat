@@ -23,6 +23,10 @@ class OrderClientSpecialCreateRequest
    
     private $detail;
 
+    private $token;
+
+    private $transactionID;
+
      /**
      * @param mixed $ownerID
      */

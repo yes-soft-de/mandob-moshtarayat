@@ -12,7 +12,6 @@ class OrderClientCreateRequest
    
     private $payment;
 
-    //create by backend by special rules
     private $state;
    
     private $roomID;
@@ -24,6 +23,10 @@ class OrderClientCreateRequest
     private $orderCost;
    
     private $deliveryCost;
+
+    private $token;
+
+    private $transactionID;
 
 
     public function getState(): ?string

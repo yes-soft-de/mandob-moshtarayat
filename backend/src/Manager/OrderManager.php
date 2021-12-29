@@ -230,7 +230,9 @@ class OrderManager
         $item = $this->autoMapping->map(OrderClientCreateRequest::class, OrderEntity::class, $request);
 
         $item->setDeliveryDate($item->getDeliveryDate());
-        $item->setState('pending');
+        if(!$request->getState()){
+            $item->setState('pending');
+        }
         $item->setOrderType(1);
         $item->setBillCalculated(1);
 
@@ -264,7 +266,9 @@ class OrderManager
         $item = $this->autoMapping->map(OrderClientSpecialCreateRequest::class, OrderEntity::class, $request);
 
         $item->setDeliveryDate($item->getDeliveryDate());
-        $item->setState('pending');
+        if(!$request->getState()){
+            $item->setState('pending');
+        }
         $item->setOrderType(2);
         $item->setBillCalculated(1);
 

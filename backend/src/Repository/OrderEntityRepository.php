@@ -54,7 +54,7 @@ class OrderEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('OrderEntity')
 
-            ->select('OrderEntity.id', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.deliveryDate', 'OrderEntity.updatedAt', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'OrderEntity.state', 'OrderEntity.roomID', 'OrderEntity.captainID', 'OrderEntity.createdAt', 'OrderEntity.detail','OrderEntity.deliveryCost', 'OrderEntity.orderCost', 'OrderEntity.orderType')
+            ->select('OrderEntity.id', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.deliveryDate', 'OrderEntity.updatedAt', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'OrderEntity.state', 'OrderEntity.roomID', 'OrderEntity.captainID', 'OrderEntity.createdAt', 'OrderEntity.detail','OrderEntity.deliveryCost', 'OrderEntity.orderCost', 'OrderEntity.orderType', 'OrderEntity.transactionID', 'OrderEntity.token')
 
             ->andWhere('OrderEntity.id = :orderId')
 
@@ -534,10 +534,12 @@ class OrderEntityRepository extends ServiceEntityRepository
 
             ->andWhere('OrderEntity.captainID = :captainId')
             ->andWhere("OrderEntity.state = :delivered")
+//            ->andWhere("OrderEntity.payment != :card")
 
             ->andWhere("OrderEntity.isBillCalculated = :true")
 
             ->setParameter('true', 1)
+//            ->setParameter('card', 'card')
             ->setParameter('captainId', $captainId)
             ->setParameter('delivered', OrderStateConstant::$ORDER_STATE_DELIVERED)
 
