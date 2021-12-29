@@ -80,7 +80,7 @@ class ProductComponent extends StatelessWidget {
                                     style: const TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold,
-                                        color: Colors.red)),
+                                        color: Colors.green)),
                                 const TextSpan(text: ' '),
                                 TextSpan(
                                     text: S.current.sar,
@@ -88,7 +88,7 @@ class ProductComponent extends StatelessWidget {
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold,
                                         color: discount != '0'
-                                            ? Colors.red
+                                            ? Colors.green
                                             : null)),
                               ],
                             ),

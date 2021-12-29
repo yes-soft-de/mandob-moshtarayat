@@ -116,6 +116,20 @@ class _SplashScreenState extends State<SplashScreen> {
                 },
                 child: Text('English'),
               ),
+              SizedBox(width: 16,),
+              CustomAppButton(
+                margin: EdgeInsets.zero,
+                padding: EdgeInsets.all(3),
+                elevation: 0,
+                color: Colors.white,
+                onTap: (){
+                  widget._localizationService
+                      .setLanguage('ur');
+                  Navigator.pop(context);
+                  _getNextRoutFirst();
+                },
+                child: Text('Urdu'),
+              ),
             ],
           ),
         );
