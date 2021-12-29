@@ -3,7 +3,7 @@
 namespace App\Manager;
 
 use App\AutoMapping;
-use App\Constant\StoreOwnerVerificationStatusConstant;
+use App\Constant\UserVerificationStatusConstant;
 use App\Entity\StoreOwnerBranchEntity;
 use App\Entity\StoreOwnerProfileEntity;
 use App\Entity\UserEntity;
@@ -12,7 +12,6 @@ use App\Request\DeleteRequest;
 use App\Request\UserRegisterRequest;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use App\Manager\OrderManager;
 
 class StoreOwnerProfileManager
 {
@@ -161,7 +160,7 @@ class StoreOwnerProfileManager
             }
 
             $userRegister->setRoles(['ROLE_OWNER']);
-            $userRegister->setVerificationStatus(StoreOwnerVerificationStatusConstant::$VERIFIED_STATUS);
+            $userRegister->setVerificationStatus(UserVerificationStatusConstant::$VERIFIED_STATUS);
 
             $this->entityManager->persist($userRegister);
             $this->entityManager->flush();

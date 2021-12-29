@@ -3,7 +3,7 @@
 namespace App\Service;
 
 use App\AutoMapping;
-use App\Constant\StoreOwnerVerificationStatusConstant;
+use App\Constant\UserVerificationStatusConstant;
 use App\Entity\VerificationEntity;
 use App\Manager\VerificationManager;
 use App\Request\CheckStoreOwnerVerificationRequest;
@@ -93,7 +93,7 @@ class VerificationService
         if($result['resultMessage'] == 'activated')
         {
             // update the verification status of the user
-            $this->updateVerificationStatusOfUser($request, StoreOwnerVerificationStatusConstant::$VERIFIED_STATUS);
+            $this->updateVerificationStatusOfUser($request, UserVerificationStatusConstant::$VERIFIED_STATUS);
         }
 
         return $this->autoMapping->map('array', CodeVerificationResponse::class, $result);
@@ -124,7 +124,7 @@ class VerificationService
         }
         else
         {
-            if ($verificationStatus['verificationStatus'] != StoreOwnerVerificationStatusConstant::$VERIFIED_STATUS)
+            if ($verificationStatus['verificationStatus'] != UserVerificationStatusConstant::$VERIFIED_STATUS)
             {
                 // we can send new code
                 // Now, delete previous sent codes for the same user
@@ -140,7 +140,7 @@ class VerificationService
                     $response['result'] = 'newCodeWasSent';
                 }
             }
-            elseif ($verificationStatus['verificationStatus'] == StoreOwnerVerificationStatusConstant::$VERIFIED_STATUS)
+            elseif ($verificationStatus['verificationStatus'] == UserVerificationStatusConstant::$VERIFIED_STATUS)
             {
                 // user is verified. we can't send new code
                 $response['result'] = 'userAlreadyVerified';

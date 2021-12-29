@@ -3,9 +3,8 @@
 namespace App\Manager;
 
 use App\AutoMapping;
-use App\Constant\StoreOwnerVerificationStatusConstant;
+use App\Constant\UserVerificationStatusConstant;
 use App\Request\ClientUpdateFavouriteCategoriesRequest;
-use App\Request\DeleteRequest;
 use App\Request\storeOwnerProfileStatusUpdateByAdminRequest;
 use App\Entity\UserEntity;
 use App\Entity\ClientProfileEntity;
@@ -16,10 +15,8 @@ use App\Repository\UserEntityRepository;
 use App\Repository\StoreOwnerProfileEntityRepository;
 use App\Repository\CaptainProfileEntityRepository;
 use App\Repository\ClientProfileEntityRepository;
-use App\Request\StoreOwnerProfileCreateRequest;
 use App\Request\StoreOwnerProfileCreateByAdminRequest;
 use App\Request\StoreOwnerUpdateByAdminRequest;
-use App\Request\CaptainProfileCreateRequest;
 use App\Request\CaptainProfileUpdateLocationRequest;
 use App\Request\CaptainVacationCreateRequest;
 use App\Request\StoreOwnerProfileUpdateRequest;
@@ -29,8 +26,6 @@ use App\Request\ClientProfileUpdateRequest;
 use App\Request\UserVerificationStatusUpdateRequest;
 use App\Request\UserPasswordUpdateRequest;
 use App\Request\UserRegisterRequest;
-use App\Manager\StoreOwnerBranchManager;
-use App\Manager\OrderManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -547,7 +542,7 @@ class UserManager
         {
             foreach ($users as $user)
             {
-                $user->setVerificationStatus(StoreOwnerVerificationStatusConstant::$VERIFIED_STATUS);
+                $user->setVerificationStatus(UserVerificationStatusConstant::$VERIFIED_STATUS);
 
                 $this->entityManager->flush();
             }
@@ -568,7 +563,7 @@ class UserManager
         {
             foreach ($users as $user)
             {
-                $user->setVerificationStatus(StoreOwnerVerificationStatusConstant::$VERIFIED_STATUS);
+                $user->setVerificationStatus(UserVerificationStatusConstant::$VERIFIED_STATUS);
 
                 $this->entityManager->flush();
             }
@@ -589,7 +584,7 @@ class UserManager
         {
             foreach ($users as $user)
             {
-                $user->setVerificationStatus(StoreOwnerVerificationStatusConstant::$VERIFIED_STATUS);
+                $user->setVerificationStatus(UserVerificationStatusConstant::$VERIFIED_STATUS);
 
                 $this->entityManager->flush();
             }
