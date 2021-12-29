@@ -78,7 +78,7 @@ class CaptainProfileService
             return $this->autoMapping->map("array", UserRegisterResponse::class, $user);
         }
 
-//        $this->createVerificationCodeForCaptain($request);
+        $this->createVerificationCodeForCaptain($request);
 
         return $this->autoMapping->map(UserEntity::class, UserRegisterResponse::class, $userRegister);
     }
