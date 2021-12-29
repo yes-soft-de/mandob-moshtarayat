@@ -11,7 +11,6 @@ use App\Repository\StoreOwnerProfileEntityRepository;
 use App\Repository\UserEntityRepository;
 use App\Request\DeleteRequest;
 use App\Request\UserRegisterRequest;
-use Doctrine\DBAL\LockMode;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use App\Manager\OrderManager;
@@ -360,7 +359,7 @@ class StoreOwnerProfileManager
     public function deleteStoreOwnerProfile(DeleteRequest $request)
     {
 
-        $storeOwnerProfileEntity = $this->storeOwnerProfileEntityRepository->find($request->getId(),LockMode::OPTIMISTIC);
+        $storeOwnerProfileEntity = $this->storeOwnerProfileEntityRepository->find($request->getId());
 
         if(!$storeOwnerProfileEntity)
         {
@@ -370,10 +369,11 @@ class StoreOwnerProfileManager
         {
             $this->entityManager->remove($storeOwnerProfileEntity);
             $this->entityManager->flush();
-
-           $user = $this->userManager->deleteUser($storeOwnerProfileEntity->getStoreOwnerID());
-            if($user == "userNotFound"){
-                return 'storeOwnerProfileNotFound';
+            if($storeOwnerProfileEntity->getStoreOwnerID()) {
+                $user = $this->userManager->deleteUser($storeOwnerProfileEntity->getStoreOwnerID());
+                if ($user == "userNotFound") {
+                    return 'storeOwnerProfileNotFound';
+                }
             }
             return $storeOwnerProfileEntity;
         }
