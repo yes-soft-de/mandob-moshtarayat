@@ -81,6 +81,30 @@ class UserController extends BaseController
     /**
      * For testing issues
      *
+     * @Route("updateallclientsverificationstatus", name="updateAllClientsVerificationStatus", methods={"PUT"})
+     */
+    public function updateAllClientsVerificationStatusByDeveloper()
+    {
+        $response = $this->userService->updateAllClientsVerificationStatusByDeveloper();
+
+        return $this->response($response, self::UPDATE);
+    }
+
+    /**
+     * For testing issues
+     *
+     * @Route("updateallcaptainsverificationstatus", name="updateAllCaptainsVerificationStatus", methods={"PUT"})
+     */
+    public function updateAllCaptainsVerificationStatusByDeveloper()
+    {
+        $response = $this->userService->updateAllCaptainsVerificationStatusByDeveloper();
+
+        return $this->response($response, self::UPDATE);
+    }
+
+    /**
+     * For testing issues
+     *
      * @Route("getallstoreownersusers", name="getAllStoreOwnersUsers", methods={"GET"})
      */
     public function getAllStoreOwners()

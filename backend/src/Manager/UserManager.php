@@ -556,6 +556,48 @@ class UserManager
         }
     }
 
+    public function updateAllClientsVerificationStatusByDeveloper()
+    {
+        $users = $this->userRepository->getAllClients();
+
+        if (!$users)
+        {
+            return 'noUsers';
+        }
+        else
+        {
+            foreach ($users as $user)
+            {
+                $user->setVerificationStatus(StoreOwnerVerificationStatusConstant::$VERIFIED_STATUS);
+
+                $this->entityManager->flush();
+            }
+
+            return $users;
+        }
+    }
+
+    public function updateAllCaptainsVerificationStatusByDeveloper()
+    {
+        $users = $this->userRepository->getAllCaptains();
+
+        if (!$users)
+        {
+            return 'noUsers';
+        }
+        else
+        {
+            foreach ($users as $user)
+            {
+                $user->setVerificationStatus(StoreOwnerVerificationStatusConstant::$VERIFIED_STATUS);
+
+                $this->entityManager->flush();
+            }
+
+            return $users;
+        }
+    }
+
     public function getAllStoreOwners()
     {
         return $this->userRepository->getAllStoreOwners();
