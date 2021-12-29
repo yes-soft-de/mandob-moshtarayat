@@ -65,7 +65,7 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
             ? SecretPaymentsKeys.production
             : 'pk_test_cLa0fBJPAM8v9p6gxu1UiTDn',
         sandBoxsecretKey: Platform.isAndroid
-            ? SecretPaymentsKeys.sandbox
+            ? SecretPaymentsKeys.sandBox
             : 'sk_test_46BsGCc3d8aUHWZ1krFPulDE',
         lang: getIt<LocalizationService>().getLanguage());
   }
