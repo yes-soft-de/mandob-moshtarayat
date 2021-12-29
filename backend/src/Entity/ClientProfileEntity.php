@@ -52,6 +52,11 @@ class ClientProfileEntity
      */
     private $favouriteCategories = [];
 
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     */
+    private $preferredLanguage;
+
 
     public function getId(): ?int
     {
@@ -138,6 +143,18 @@ class ClientProfileEntity
     public function setFavouriteCategories(?array $favouriteCategories): self
     {
         $this->favouriteCategories = $favouriteCategories;
+
+        return $this;
+    }
+
+    public function getPreferredLanguage(): ?string
+    {
+        return $this->preferredLanguage;
+    }
+
+    public function setPreferredLanguage(?string $preferredLanguage): self
+    {
+        $this->preferredLanguage = $preferredLanguage;
 
         return $this;
     }

@@ -117,6 +117,11 @@ class StoreOwnerProfileEntity
      */
     private $stcPay;
 
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     */
+    private $preferredLanguage;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -365,6 +370,18 @@ class StoreOwnerProfileEntity
     public function setStcPay(?string $stcPay): self
     {
         $this->stcPay = $stcPay;
+
+        return $this;
+    }
+
+    public function getPreferredLanguage(): ?string
+    {
+        return $this->preferredLanguage;
+    }
+
+    public function setPreferredLanguage(?string $preferredLanguage): self
+    {
+        $this->preferredLanguage = $preferredLanguage;
 
         return $this;
     }
