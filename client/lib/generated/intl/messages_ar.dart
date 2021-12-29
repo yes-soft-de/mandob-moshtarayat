@@ -170,6 +170,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("البريد الالكتروني"),
         "emailAddressIsRequired": MessageLookupByLibrary.simpleMessage(
             "يرجى توفير البريد الالكتروني"),
+        "enterProductInfo":
+            MessageLookupByLibrary.simpleMessage("ادخل معلومات المنتج"),
         "errOc": MessageLookupByLibrary.simpleMessage("حصلت المشاكل التالية"),
         "errorDownloadingImage":
             MessageLookupByLibrary.simpleMessage("لم نستطع تحميل الصورة"),
@@ -186,6 +188,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "exceededAllowedTime": MessageLookupByLibrary.simpleMessage(
             "لقد تجاوزت الوقت المسموح لإزالة الطلب"),
         "externalOrder": MessageLookupByLibrary.simpleMessage("طلبية خارجية"),
+        "extraDetails": MessageLookupByLibrary.simpleMessage("تفاصيل إضافية"),
         "favoriteCategories":
             MessageLookupByLibrary.simpleMessage("التصنيفات المفضلة"),
         "favoriteStores":
@@ -395,10 +398,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("الرجاء اختيار فرع تجاري"),
         "preferredLanguage":
             MessageLookupByLibrary.simpleMessage("اللغة المفضلة"),
+        "pressHere": MessageLookupByLibrary.simpleMessage("اضغط هنا"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("شروط الخصوصية"),
         "privateOrder": MessageLookupByLibrary.simpleMessage("طلب خاص"),
         "product": MessageLookupByLibrary.simpleMessage("منتج"),
         "productDetails": MessageLookupByLibrary.simpleMessage("تفاصيل منتج"),
+        "productName": MessageLookupByLibrary.simpleMessage("اسم المنتج"),
         "productQuantity": MessageLookupByLibrary.simpleMessage("عدد الوحدات"),
         "productRated": MessageLookupByLibrary.simpleMessage("تم تقييم المنتج"),
         "products": MessageLookupByLibrary.simpleMessage("منتجات"),
@@ -471,6 +476,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "selectLanguage":
             MessageLookupByLibrary.simpleMessage("اختر لغتك المفضلة"),
         "seller": MessageLookupByLibrary.simpleMessage("البائع"),
+        "send": MessageLookupByLibrary.simpleMessage("إرسال"),
         "sendMeCode": MessageLookupByLibrary.simpleMessage("ارسل رمز التأكيد"),
         "settings": MessageLookupByLibrary.simpleMessage("الاعدادات"),
         "share": MessageLookupByLibrary.simpleMessage("المشاركة"),
@@ -552,6 +558,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تحديث البيانات"),
         "uploadAndSubmit":
             MessageLookupByLibrary.simpleMessage("رفع الصور وارسال الطلب"),
+        "uploadImageIfyouHave":
+            MessageLookupByLibrary.simpleMessage("ارفع صورة إذا عندك"),
         "uploadImageSuccess":
             MessageLookupByLibrary.simpleMessage("تم رفع الصورة بنجاح"),
         "uploadProfileSuccess": MessageLookupByLibrary.simpleMessage(
@@ -592,6 +600,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveProductsFromDifferentStore": MessageLookupByLibrary.simpleMessage(
             "السلة تحتوي على أصناف من متجر آخر , هل تريد حذف أصناف السلة وإضافة الأصناف الجديدة"),
         "yourCartEmpty": MessageLookupByLibrary.simpleMessage(
-            "قائمة طلباتك فارغة من فضلك اختر ما تريد طلبه")
+            "قائمة طلباتك فارغة من فضلك اختر ما تريد طلبه"),
+        "yourRequestSent": MessageLookupByLibrary.simpleMessage("تم إرسال طلبك")
       };
 }

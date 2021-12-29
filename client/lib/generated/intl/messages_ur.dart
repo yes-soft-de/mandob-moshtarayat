@@ -175,6 +175,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("ای میل"),
         "emailAddressIsRequired":
             MessageLookupByLibrary.simpleMessage("ای میل ایڈریس درکار ہے۔"),
+        "enterProductInfo":
+            MessageLookupByLibrary.simpleMessage("مصنوعات کی معلومات درج کریں"),
         "errOc": MessageLookupByLibrary.simpleMessage(" اگلے مسائل پیش آئے"),
         "errorDownloadingImage": MessageLookupByLibrary.simpleMessage(
             " تصویر ڈاؤن لوڈ کرنے میں غلطی"),
@@ -191,6 +193,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "exceededAllowedTime": MessageLookupByLibrary.simpleMessage(
             " اسے ہٹایا نہیں جا سکتا، اجازت شدہ وقت سے زیادہ"),
         "externalOrder": MessageLookupByLibrary.simpleMessage(" بیرونی آرڈر"),
+        "extraDetails": MessageLookupByLibrary.simpleMessage("اضافی تفصیلات"),
         "failureRenew": MessageLookupByLibrary.simpleMessage(
             " آپ کی تجدید ناکام ہو گئی ہے براہ کرم دوبارہ کوشش کریں۔"),
         "favoriteCategories":
@@ -412,12 +415,14 @@ class MessageLookup extends MessageLookupByLibrary {
             "براہ کرم ایک برانچ منتخب کریں۔"),
         "preferredLanguage":
             MessageLookupByLibrary.simpleMessage(" ترجیحی زبان"),
+        "pressHere": MessageLookupByLibrary.simpleMessage("یہاں دبائیں"),
         "privacyPolicy":
             MessageLookupByLibrary.simpleMessage("رازداری کی پالیسی"),
         "privateOrder": MessageLookupByLibrary.simpleMessage(" پرائیویٹ آرڈر"),
         "product": MessageLookupByLibrary.simpleMessage(" مصنوعات"),
         "productDetails":
             MessageLookupByLibrary.simpleMessage(" مصنوعات کی تفصیلات"),
+        "productName": MessageLookupByLibrary.simpleMessage("پروڈکٹ کا نام"),
         "productQuantity":
             MessageLookupByLibrary.simpleMessage(" مصنوعات کی مقدار"),
         "productRated":
@@ -498,6 +503,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "selectLanguage":
             MessageLookupByLibrary.simpleMessage(" زبان منتخب کریں۔"),
         "seller": MessageLookupByLibrary.simpleMessage(" سیلر"),
+        "send": MessageLookupByLibrary.simpleMessage("بھیجیں"),
         "sendMeCode": MessageLookupByLibrary.simpleMessage("مجھے کوڈ بھیجیں۔"),
         "settings": MessageLookupByLibrary.simpleMessage("ترتیبات"),
         "share": MessageLookupByLibrary.simpleMessage(" بانٹیں"),
@@ -579,6 +585,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(" ڈیٹا کو اپ ڈیٹ کریں۔"),
         "uploadAndSubmit":
             MessageLookupByLibrary.simpleMessage("اپ لوڈ کریں اور جمع کرائیں۔"),
+        "uploadImageIfyouHave": MessageLookupByLibrary.simpleMessage(
+            "تصویر اپ لوڈ کریں اگر آپ کے پاس ہے"),
         "uploadImageSuccess": MessageLookupByLibrary.simpleMessage(
             " تصویر اپ لوڈ کرنا کامیاب رہا۔"),
         "uploadProfileSuccess": MessageLookupByLibrary.simpleMessage(
@@ -618,6 +626,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveProductsFromDifferentStore": MessageLookupByLibrary.simpleMessage(
             " آپ کے پاس دوسرے اسٹور کے پروڈکٹس ہیں، کیا آپ اپنی ٹوکری کو صاف کرنا چاہتے ہیں اور نئی شامل کرنا چاہتے ہیں؟"),
         "yourCartEmpty": MessageLookupByLibrary.simpleMessage(
-            " آپ کی ٹوکری خالی ہے براہ کرم شامل کرنے کے لیے آئٹمز کا انتخاب کریں۔")
+            " آپ کی ٹوکری خالی ہے براہ کرم شامل کرنے کے لیے آئٹمز کا انتخاب کریں۔"),
+        "yourRequestSent": MessageLookupByLibrary.simpleMessage(
+            "آپ کی درخواست بھیج دی گئی ہے۔")
       };
 }

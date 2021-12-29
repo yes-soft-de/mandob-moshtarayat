@@ -387,6 +387,13 @@
   "firstName":"الاسم الأول",
   "middleName":"الاسم الاوسط او اسم الأب",
   "lastName":"الكنية",
-  "paymentFailed":"للأسف فشلت عملية الدفع الرجاء ، إعادة المحاولة"
+  "paymentFailed":"للأسف فشلت عملية الدفع الرجاء ، إعادة المحاولة",
+  "extraDetails":"تفاصيل إضافية",
+  "productName":"اسم المنتج",
+  "enterProductInfo":"ادخل معلومات المنتج",
+  "uploadImageIfyouHave":"ارفع صورة إذا عندك",
+  "pressHere":"اضغط هنا",
+  "send":"إرسال",
+  "yourRequestSent":"تم إرسال طلبك"
 
 }

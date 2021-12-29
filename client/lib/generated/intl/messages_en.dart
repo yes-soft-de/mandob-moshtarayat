@@ -170,6 +170,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "emailAddressIsRequired":
             MessageLookupByLibrary.simpleMessage("Email Address is Required"),
+        "enterProductInfo":
+            MessageLookupByLibrary.simpleMessage("Enter product information"),
         "errOc":
             MessageLookupByLibrary.simpleMessage("The next problems occurred"),
         "errorDownloadingImage":
@@ -187,6 +189,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "exceededAllowedTime": MessageLookupByLibrary.simpleMessage(
             "Can not remove it, Exceeded time allowed"),
         "externalOrder": MessageLookupByLibrary.simpleMessage("External Order"),
+        "extraDetails": MessageLookupByLibrary.simpleMessage("Extra details"),
         "failureRenew": MessageLookupByLibrary.simpleMessage(
             "Your renew has been failed please try again"),
         "favoriteCategories":
@@ -401,11 +404,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Please Select a Branch"),
         "preferredLanguage":
             MessageLookupByLibrary.simpleMessage("Preferred Language"),
+        "pressHere": MessageLookupByLibrary.simpleMessage("Press here"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "privateOrder": MessageLookupByLibrary.simpleMessage("Private Order"),
         "product": MessageLookupByLibrary.simpleMessage("product"),
         "productDetails":
             MessageLookupByLibrary.simpleMessage("Products Details"),
+        "productName": MessageLookupByLibrary.simpleMessage("Product Name"),
         "productQuantity":
             MessageLookupByLibrary.simpleMessage("Product Quantity"),
         "productRated": MessageLookupByLibrary.simpleMessage("Product Rated"),
@@ -479,6 +484,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "selectLanguage":
             MessageLookupByLibrary.simpleMessage("Select Language"),
         "seller": MessageLookupByLibrary.simpleMessage("Saller"),
+        "send": MessageLookupByLibrary.simpleMessage("Send"),
         "sendMeCode": MessageLookupByLibrary.simpleMessage("Send me code"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "share": MessageLookupByLibrary.simpleMessage("Share"),
@@ -557,6 +563,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "updateYourData": MessageLookupByLibrary.simpleMessage("Update Data"),
         "uploadAndSubmit":
             MessageLookupByLibrary.simpleMessage("Upload and submit"),
+        "uploadImageIfyouHave":
+            MessageLookupByLibrary.simpleMessage("Upload image if you have"),
         "uploadImageSuccess":
             MessageLookupByLibrary.simpleMessage("Upload image was a success"),
         "uploadProfileSuccess": MessageLookupByLibrary.simpleMessage(
@@ -595,6 +603,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveProductsFromDifferentStore": MessageLookupByLibrary.simpleMessage(
             "You have products from other store , Do you want to clear your cart and add the new ones"),
         "yourCartEmpty": MessageLookupByLibrary.simpleMessage(
-            "Your cart is empty please choose items to add")
+            "Your cart is empty please choose items to add"),
+        "yourRequestSent":
+            MessageLookupByLibrary.simpleMessage("Your Request have been sent")
       };
 }

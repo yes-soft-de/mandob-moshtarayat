@@ -387,7 +387,15 @@
   "firstName":"First name",
   "middleName":"Middle name",
   "lastName":"Last name",
-  "paymentFailed":"Payment process has been failed , please try again later"
+  "paymentFailed":"Payment process has been failed , please try again later",
+  "extraDetails":"Extra details",
+  "productName":"Product Name",
+  "enterProductInfo":"Enter product information",
+  "uploadImageIfyouHave":"Upload image if you have",
+  "pressHere":"Press here",
+  "send":"Send",
+  "yourRequestSent":"Your Request have been sent"
+
   
 
 }

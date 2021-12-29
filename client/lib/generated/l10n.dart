@@ -3929,6 +3929,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Extra details`
+  String get extraDetails {
+    return Intl.message(
+      'Extra details',
+      name: 'extraDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Product Name`
+  String get productName {
+    return Intl.message(
+      'Product Name',
+      name: 'productName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter product information`
+  String get enterProductInfo {
+    return Intl.message(
+      'Enter product information',
+      name: 'enterProductInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upload image if you have`
+  String get uploadImageIfyouHave {
+    return Intl.message(
+      'Upload image if you have',
+      name: 'uploadImageIfyouHave',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Press here`
+  String get pressHere {
+    return Intl.message(
+      'Press here',
+      name: 'pressHere',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Send`
+  String get send {
+    return Intl.message(
+      'Send',
+      name: 'send',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your Request have been sent`
+  String get yourRequestSent {
+    return Intl.message(
+      'Your Request have been sent',
+      name: 'yourRequestSent',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
