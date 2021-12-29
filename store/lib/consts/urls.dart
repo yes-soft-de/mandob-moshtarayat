@@ -35,8 +35,10 @@ class Urls {
   static const GET_CAT_AND_STORE = BASE_API + '/storecategoriesandstores';
   static const UPDATE_PRODUCT_Status = BASE_API + '/updateproductstatusbystore';
   static const GET_STORE_BALANCE = BASE_API + '/storefinancialaccountforstore';
-
-
+  static const RESET_PASSWORD = BASE_API + '/resetpasswordorder';
+  static const VERIFY_RESET_PASSWORD_CODE = BASE_API + '/verifyresetpasswordcode';
+  static const UPDATE_PASSWORD = BASE_API + '/updatepassword';
+  static const GET_MY_NOTIFICATION = BASE_API + '/notificationsstoreLocal';
 
 
 }

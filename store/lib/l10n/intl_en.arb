@@ -251,7 +251,7 @@
   "mostWanted": "Most wanted",
   "checkout": "Checkout",
   "birthDate": "Birth Date",
-  "nameHint": "e.g yazan",
+  "nameHint": "store name",
   "birthDateHint": "choose your birth data",
   "gender": "Gender",
   "male": "Male",
@@ -550,6 +550,16 @@
   "codeTimeOut": "Code has expired",
   "resendCodeSuccessfully":"The code has been successfully sent",
 
-  "notVerifiedNumber": "You must enter the code first"
+  "notVerifiedNumber": "You must enter the code first",
 
+  "forgotPass": "Forgot password?",
+  "partners": "Our partners",
+
+  "paymentsVia": "Payments via",
+  "newPassword": "New password",
+
+  "confirmNewPass": "Confirm new password",
+  "passwordUpdatedSuccess": "Password updated successfully",
+  "informSendCode": "We will send a verification code to your number",
+  "passwordNotMatch": "Password not matching"
 }

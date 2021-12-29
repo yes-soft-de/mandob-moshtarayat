@@ -251,7 +251,7 @@
   "mostWanted": "انتہائی مطلوب",
   "checkout": "چیک آؤٹ",
   "birthDate": "تاریخ پیدائش",
-  "nameHint": "جیسے یازان",
+  "nameHint": "اسٹور کا نام",
   "birthDateHint": "اپنا پیدائشی ڈیٹا منتخب کریں",
   "gender": "جنس",
   "male": "مرد",
@@ -552,6 +552,14 @@
   "codeNumber": "کوڈ نمبر",
   "codeTimeOut": "کوڈ کی میعاد ختم ہو گئی ہے۔",
   "resendCodeSuccessfully": "کوڈ کامیابی سے بھیج دیا گیا ہے۔",
-  "notVerifiedNumber": "آپ کو پہلے کوڈ درج کرنا ہوگا"
+  "notVerifiedNumber": "آپ کو پہلے کوڈ درج کرنا ہوگا",
 
+  "forgotPass": "پاسورڈ بھول گے؟",
+  "partners": "ہمارے شراکت دار",
+  "paymentsVia": "کے ذریعے ادائیگی",
+  "newPassword": "نیا پاس ورڈ",
+  "confirmNewPass": "نئے پاس ورڈ کی تصدیق کریں",
+  "passwordUpdatedSuccess": "پاس ورڈ کامیابی کے ساتھ اپ ڈیٹ ہو گیا۔",
+  "informSendCode": "ہم آپ کے نمبر پر ایک تصدیقی کوڈ بھیجیں گے۔",
+  "passwordNotMatch": "پاس ورڈ میچ نہیں کرتا"
 }
