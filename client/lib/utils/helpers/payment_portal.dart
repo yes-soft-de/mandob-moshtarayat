@@ -8,6 +8,7 @@ import 'package:go_sell_sdk_flutter/go_sell_sdk_flutter.dart';
 import 'package:go_sell_sdk_flutter/model/models.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/consts/country_code.dart';
+import 'package:mandob_moshtarayat/consts/payment_secret_keys.dart';
 
 import 'package:mandob_moshtarayat/di/di_config.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
@@ -61,10 +62,10 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
             ? 'de.yessoft.mandob_moshtarayat_client'
             : 'iOS-BUNDLE-ID',
         productionSecreteKey: Platform.isAndroid
-            ? 'sk_live_cgYJZXHL0e4QhCItbmj5PNS6'
+            ? SecretPaymentsKeys.production
             : 'pk_test_cLa0fBJPAM8v9p6gxu1UiTDn',
         sandBoxsecretKey: Platform.isAndroid
-            ? 'sk_test_akT9tQsUBcKbDjIuEHWiA7xd'
+            ? SecretPaymentsKeys.sandbox
             : 'sk_test_46BsGCc3d8aUHWZ1krFPulDE',
         lang: getIt<LocalizationService>().getLanguage());
   }
