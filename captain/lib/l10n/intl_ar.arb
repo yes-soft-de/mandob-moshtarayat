@@ -426,7 +426,13 @@
   "pleaseProvideDrivingImage":"من فضلك قم بتزويدنا بشهادة القيادة",
   "pleaseProvideIdentityImage":"من فضلك قم بتزويدنا بالهوية الشخصية",
   "pleaseProvideMechImage":"من فضلك قم بتزويدنا بشهادة السير",
-  "pleaseProvideProfileImage":"من فضلك قم بتزويدنا بصورتك الشخصية"
+  "pleaseProvideProfileImage":"من فضلك قم بتزويدنا بصورتك الشخصية",
+  "invalidNumber": "الرقم غير صالح",
+  "invalidCode": "رمز التحقق خطأ",
+  "codeNumber": "رمز التحقق",
+  "codeTimeOut": "انتهت صلاحية رمز التحقق",
+  "resendCodeSuccessfully":"تم إرسال الرمز بنجاح",
+  "notVerifiedNumber": "يجب عليك إدخال الرمز أولاً"
 
 
 }

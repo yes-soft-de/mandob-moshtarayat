@@ -134,6 +134,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("عدد الموظفين العاملين"),
         "chooseYourState": MessageLookupByLibrary.simpleMessage("اختر حالتك"),
         "city": MessageLookupByLibrary.simpleMessage("المدينة"),
+        "codeNumber": MessageLookupByLibrary.simpleMessage("رمز التحقق"),
+        "codeTimeOut":
+            MessageLookupByLibrary.simpleMessage("انتهت صلاحية رمز التحقق"),
         "community":
             MessageLookupByLibrary.simpleMessage("مواقع التواصل الاجتماعي"),
         "completeTime": MessageLookupByLibrary.simpleMessage("مدة الإنجاز"),
@@ -256,8 +259,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "initData": MessageLookupByLibrary.simpleMessage("تعيين البيانات"),
         "internalServerError":
             MessageLookupByLibrary.simpleMessage("هناك مشكلة ما في الخادم"),
+        "invalidCode": MessageLookupByLibrary.simpleMessage("رمز التحقق خطأ"),
         "invalidCredentials": MessageLookupByLibrary.simpleMessage(
             "هناك خطأ في كلمة السر أو اسم المستخدم"),
+        "invalidNumber": MessageLookupByLibrary.simpleMessage("الرقم غير صالح"),
         "isBilledForCompany":
             MessageLookupByLibrary.simpleMessage("الفاتورة على حساب الشركة"),
         "kiloBonus": MessageLookupByLibrary.simpleMessage("اجور التوصيل"),
@@ -339,6 +344,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "لم تشترك بباقة بعد الرجاء الاشتراك من الإعدادات"),
         "notVerified":
             MessageLookupByLibrary.simpleMessage("لم يتم تفعيل الباقة بعد"),
+        "notVerifiedNumber":
+            MessageLookupByLibrary.simpleMessage("يجب عليك إدخال الرمز أولاً"),
         "note": MessageLookupByLibrary.simpleMessage("ملاحظة"),
         "noteOfOrder":
             MessageLookupByLibrary.simpleMessage("دون ملاحظاتك حول الطلب"),
@@ -497,6 +504,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "requestMeeting":
             MessageLookupByLibrary.simpleMessage("اطلب موعدا للقاء"),
         "resendCode": MessageLookupByLibrary.simpleMessage("اعادة الارسال"),
+        "resendCodeSuccessfully":
+            MessageLookupByLibrary.simpleMessage("تم إرسال الرمز بنجاح"),
         "sOrder": MessageLookupByLibrary.simpleMessage("طلب"),
         "sar": MessageLookupByLibrary.simpleMessage("ر.س"),
         "saudiArabia": MessageLookupByLibrary.simpleMessage("السعودية"),

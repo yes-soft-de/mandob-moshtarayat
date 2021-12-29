@@ -4329,6 +4329,66 @@ class S {
       args: [],
     );
   }
+
+  /// `Invalid number`
+  String get invalidNumber {
+    return Intl.message(
+      'Invalid number',
+      name: 'invalidNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid Code`
+  String get invalidCode {
+    return Intl.message(
+      'Invalid Code',
+      name: 'invalidCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Code number`
+  String get codeNumber {
+    return Intl.message(
+      'Code number',
+      name: 'codeNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Code has expired`
+  String get codeTimeOut {
+    return Intl.message(
+      'Code has expired',
+      name: 'codeTimeOut',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The code has been successfully sent`
+  String get resendCodeSuccessfully {
+    return Intl.message(
+      'The code has been successfully sent',
+      name: 'resendCodeSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You must enter the code first`
+  String get notVerifiedNumber {
+    return Intl.message(
+      'You must enter the code first',
+      name: 'notVerifiedNumber',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
