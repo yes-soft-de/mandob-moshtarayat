@@ -45,4 +45,4 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 # Payment Secret Keys
-/consts/payment_secret_keys.dart
+/lib/consts/payment_secret_keys.dart
