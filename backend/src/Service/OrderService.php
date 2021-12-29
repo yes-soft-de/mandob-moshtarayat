@@ -393,9 +393,10 @@ class OrderService
             //create client notification local
             $this->notificationLocalService->createNotificationLocal($request->getClientID(), LocalNotificationList::$NEW_ORDER_TITLE, LocalNotificationList::$CREATE_ORDER_SUCCESS, $orderNumber);
 
-            $response = $this->autoMapping->map(OrderEntity::class, OrderCreateClientResponse::class, $item);
-            $response->orderDetail = $orderDetail;
-          }
+//            $response = $this->autoMapping->map(OrderEntity::class, OrderCreateClientResponse::class, $item);
+//            $response->orderDetail = $orderDetail;
+            $response = $this->getOrderDetailsForClient($orderNumber);
+        }
 
         return $response;
     }
@@ -463,10 +464,11 @@ class OrderService
             //create store notification local
             $this->notificationLocalService->createNotificationLocal($request->getStoreOwnerProfileID(), LocalStoreNotificationList::$NEW_ORDER_TITLE, LocalStoreNotificationList::$CREATE_ORDER_SUCCESS, $orderNumber);
 
-            $response = $this->autoMapping->map(OrderEntity::class, OrderClientSendCreateResponse::class, $item);
-            $response->orderDetail['orderNumber'] = $orderDetail->orderNumber;
-            $response->orderDetail['orderDetailId'] = $orderDetail->id;
-          }
+//            $response = $this->autoMapping->map(OrderEntity::class, OrderClientSendCreateResponse::class, $item);
+//            $response->orderDetail['orderNumber'] = $orderDetail->orderNumber;
+//            $response->orderDetail['orderDetailId'] = $orderDetail->id;
+            $response = $this->getOrderDetailsForClient($orderNumber);
+        }
           
         return $response;
     }
