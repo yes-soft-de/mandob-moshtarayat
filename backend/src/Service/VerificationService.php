@@ -11,6 +11,7 @@ use App\Request\ReSendNewVerificationCodeRequest;
 use App\Request\UserVerificationStatusUpdateRequest;
 use App\Request\VerificationCreateRequest;
 use App\Request\VerifyCodeRequest;
+use App\Response\AllVerificationGetResponse;
 use App\Response\CodeVerificationResponse;
 use App\Response\NewVerificationCodeResponse;
 use App\Response\StoreOwnerVerificationStatusGetResponse;
@@ -166,9 +167,18 @@ class VerificationService
         }
     }
 
-    public function getVerificationCodeByUserID($userID)
+    public function getAllVerificationCodeByUserID($userID)
     {
-        return $this->verificationManager->getVerificationCodeByUserID($userID);
+        $response = [];
+
+        $verificationCodes = $this->verificationManager->getAllVerificationCodeByUserID($userID);
+
+        foreach ($verificationCodes as $verificationCode)
+        {
+            $response[] = $this->autoMapping->map(VerificationEntity::class, AllVerificationGetResponse::class, $verificationCode);
+        }
+
+        return $response;
     }
 
     public function deleteByID($request)
