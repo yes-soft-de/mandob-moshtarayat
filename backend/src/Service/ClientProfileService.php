@@ -57,7 +57,7 @@ class ClientProfileService
         $userRegister = $this->userManager->clientRegister($request, $roomID);
         if ($userRegister instanceof UserEntity)
         {
-//            $this->createVerificationCodeForClient($request);
+            $this->createVerificationCodeForClient($request);
             
             return $this->autoMapping->map(UserEntity::class, UserRegisterResponse::class, $userRegister);
 
