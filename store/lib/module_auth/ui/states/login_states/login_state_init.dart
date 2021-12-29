@@ -2,13 +2,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mandob_moshtarayat/consts/country_code.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_auth/authorization_routes.dart';
+import 'package:mandob_moshtarayat/module_auth/request/forgot_pass_request/reset_pass_request.dart';
 import 'package:mandob_moshtarayat/module_auth/ui/screen/login_screen/login_screen.dart';
 import 'package:mandob_moshtarayat/module_auth/ui/states/login_states/login_state.dart';
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat/module_auth/ui/widget/login_widgets/custom_field.dart';
 import 'package:mandob_moshtarayat/utils/components/auth_buttons.dart';
+import 'package:mandob_moshtarayat/utils/components/custom_alert_dialog.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 import 'package:mandob_moshtarayat/utils/images/images.dart';
+import 'package:mandob_moshtarayat/utils/text_style/text_style.dart';
 
 class LoginStateInit extends LoginState {
   LoginStateInit(LoginScreenState screen, {String? error}) : super(screen) {
@@ -21,6 +24,7 @@ class LoginStateInit extends LoginState {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> _loginKey = GlobalKey<FormState>();
+  final GlobalKey<FormFieldState> _phoneKey = GlobalKey<FormFieldState>();
   AutovalidateMode mode = AutovalidateMode.disabled;
   TextStyle tileStyle = TextStyle(fontWeight: FontWeight.w600);
   @override
@@ -69,6 +73,7 @@ class LoginStateInit extends LoginState {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: TextFormField(
+                      key: _phoneKey,
                       autovalidateMode: mode,
                       toolbarOptions: ToolbarOptions(
                           copy: true, paste: true, selectAll: true, cut: true),
@@ -122,6 +127,27 @@ class LoginStateInit extends LoginState {
                 ),
               ),
               Container(
+                height: 10,
+              ),
+              InkWell(
+                  onTap: (){
+                    FocusScope.of(context).unfocus();
+                    if(_phoneKey.currentState!.validate())
+                    showDialog(
+                        context: context,
+                        builder: (_) {
+                          return CustomAlertDialog(
+                            message: S.of(context).informSendCode,
+                              onPressed: () {
+                                Navigator.pop(context);
+                              screen.userID = usernameController.text;
+                              screen.restPass(ResetPassRequest(userID:usernameController.text ));
+
+                              });
+                        });
+                  },
+                  child: Center(child: Text(S.of(context).forgotPass, style: StyleText.textsAlmaraiNormal,))),
+              Container(
                 height: 150,
               ),
             ],
@@ -145,6 +171,7 @@ class LoginStateInit extends LoginState {
                   }
                 }),
           ),
+
         ],
       ),
     );
