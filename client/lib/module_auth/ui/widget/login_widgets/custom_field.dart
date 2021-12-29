@@ -19,7 +19,7 @@ class CustomLoginFormField extends StatefulWidget {
   @override
   _CustomLoginFormFieldState createState() => _CustomLoginFormFieldState();
 
-  CustomLoginFormField(
+  const CustomLoginFormField(
       {this.height = 50,
       this.contentPadding = const EdgeInsets.fromLTRB(16, 0, 16, 0),
       this.hintText,
