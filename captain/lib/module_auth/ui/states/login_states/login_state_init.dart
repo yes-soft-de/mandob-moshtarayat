@@ -1,4 +1,5 @@
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mandob_moshtarayat_captain/consts/country_code.dart';
 import 'package:mandob_moshtarayat_captain/generated/l10n.dart';
 import 'package:mandob_moshtarayat_captain/module_auth/authorization_routes.dart';
 import 'package:mandob_moshtarayat_captain/module_auth/ui/screen/login_screen/login_screen.dart';
@@ -41,7 +42,7 @@ class LoginStateInit extends LoginState {
                 padding: const EdgeInsets.only(
                     bottom: 4.0, left: 32, right: 32, top: 8),
                 child: Text(
-                  S.of(context).username,
+                  S.of(context).phoneNumber,
                   style: tileStyle,
                 ),
               ),
@@ -52,7 +53,12 @@ class LoginStateInit extends LoginState {
                     contentPadding:
                         EdgeInsets.only(left: 0, right: 0, top: 15, bottom: 0),
                     controller: usernameController,
-                    hintText: S.of(context).registerHint,
+                    hintText: '5xxxxxxx',
+                    phone: true,
+                    sufIcon: Padding(
+                      padding: const EdgeInsets.only(top: 15.0),
+                      child: Text(CountryCode.COUNTRY_CODE_KSA),
+                    ),
                     preIcon: Icon(Icons.email),
                   ),
                 ),
