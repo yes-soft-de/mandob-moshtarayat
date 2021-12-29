@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mandob_moshtarayat_captain/generated/l10n.dart';
 
 class CustomLoginFormField extends StatefulWidget {
@@ -12,11 +13,13 @@ class CustomLoginFormField extends StatefulWidget {
   final GestureTapCallback? onTap;
   final bool last;
   final bool password;
+  final bool phone;
+  final double? borderRadius;
 
   @override
   _CustomLoginFormFieldState createState() => _CustomLoginFormFieldState();
 
-  CustomLoginFormField(
+  const CustomLoginFormField(
       {this.height = 50,
       this.contentPadding = const EdgeInsets.fromLTRB(16, 0, 16, 0),
       this.hintText,
@@ -26,7 +29,10 @@ class CustomLoginFormField extends StatefulWidget {
       this.readOnly = false,
       this.onTap,
       this.last = false,
-      this.password = false});
+      this.password = false,
+      this.phone = false,
+      this.borderRadius
+      });
 }
 
 class _CustomLoginFormFieldState extends State<CustomLoginFormField> {
@@ -39,7 +45,7 @@ class _CustomLoginFormFieldState extends State<CustomLoginFormField> {
 
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(widget.borderRadius ?? 8),
         color: Theme.of(context).backgroundColor,
       ),
       child: Padding(
@@ -66,6 +72,9 @@ class _CustomLoginFormFieldState extends State<CustomLoginFormField> {
             } else if (value.length < 6 && widget.password) {
               clean = false;
               return S.of(context).passwordIsTooShort;
+            } else if (widget.phone && value.length < 9) {
+              clean = false;
+              return S.of(context).phoneNumbertooShort;
             } else {
               clean = true;
               return null;
@@ -74,6 +83,13 @@ class _CustomLoginFormFieldState extends State<CustomLoginFormField> {
           onTap: widget.onTap,
           controller: widget.controller,
           readOnly: widget.readOnly,
+          keyboardType: widget.phone ? TextInputType.phone : null,
+          inputFormatters: widget.phone
+              ? <TextInputFormatter>[
+                  FilteringTextInputFormatter.allow(RegExp('^[5|9][0-9]*')),
+                  FilteringTextInputFormatter.allow(RegExp('[0-9]')),
+                ]
+              : [],
           obscureText: widget.password && !showPassword,
           onEditingComplete: widget.last ? null : () => node.nextFocus(),
           onFieldSubmitted: widget.last ? (_) => node.unfocus() : null,
@@ -95,7 +111,7 @@ class _CustomLoginFormFieldState extends State<CustomLoginFormField> {
                     icon: Icon(!showPassword
                         ? Icons.remove_red_eye_rounded
                         : Icons.visibility_off_rounded))
-                : null,
+                : widget.sufIcon,
             enabledBorder: InputBorder.none,
             contentPadding: widget.contentPadding,
             focusedBorder: InputBorder.none,

@@ -1,4 +1,5 @@
 import 'package:flutter_svg/svg.dart';
+import 'package:mandob_moshtarayat_captain/consts/country_code.dart';
 import 'package:mandob_moshtarayat_captain/generated/l10n.dart';
 import 'package:mandob_moshtarayat_captain/module_auth/authorization_routes.dart';
 import 'package:mandob_moshtarayat_captain/module_auth/request/register_request/register_request.dart';
@@ -78,7 +79,7 @@ class RegisterStateInit extends RegisterState {
                 padding: const EdgeInsets.only(
                     bottom: 4.0, left: 32, right: 32, top: 8),
                 child: Text(
-                  S.of(context).username,
+                  S.of(context).phoneNumber,
                   style: tileStyle,
                 ),
               ),
@@ -89,8 +90,13 @@ class RegisterStateInit extends RegisterState {
                     contentPadding:
                         EdgeInsets.only(left: 0, right: 0, top: 15, bottom: 0),
                     controller: usernameController,
-                    hintText: S.of(context).registerHint,
-                    preIcon: Icon(Icons.email),
+                    hintText: '5xxxxxxx',
+                    preIcon: Icon(Icons.phone),
+                    phone: true,
+                    sufIcon: Padding(
+                      padding: const EdgeInsets.only(top: 15.0),
+                      child: Text(CountryCode.COUNTRY_CODE_KSA),
+                    ),
                   ),
                 ),
               ),

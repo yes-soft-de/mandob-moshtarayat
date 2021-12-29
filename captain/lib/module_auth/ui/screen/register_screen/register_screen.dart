@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat_captain/generated/l10n.dart';
 import 'package:mandob_moshtarayat_captain/module_auth/request/register_request/register_request.dart';
+import 'package:mandob_moshtarayat_captain/module_auth/request/register_request/verfy_code_request.dart';
 import 'package:mandob_moshtarayat_captain/module_auth/state_manager/register_state_manager/register_state_manager.dart';
 import 'package:mandob_moshtarayat_captain/module_auth/ui/states/register_states/register_state.dart';
 import 'package:mandob_moshtarayat_captain/module_auth/ui/states/register_states/register_state_init.dart';
@@ -95,6 +96,38 @@ class RegisterScreenState extends State<RegisterScreen> {
             title: S.current.warnning,
             message: S.current.registerSuccess,
             timeout: 2)
+        .show(context);
+  }
+    void verifyClient(VerifyCodeRequest request) {
+    widget._stateManager.verifyClient(request, this);
+  }
+
+  void resendCode(VerifyCodeRequest request) {
+    widget._stateManager.resendCode(request, this);
+  }
+
+  void resentCodeSucc() {
+    CustomFlushBarHelper.createSuccess(
+            title: S.current.warnning,
+            message: S.current.resendCodeSuccessfully)
+        .show(context);
+  }
+
+  void wrongCode() {
+    CustomFlushBarHelper.createError(
+            title: S.current.warnning, message: S.current.invalidCode)
+        .show(context);
+  }
+
+  void resendError() {
+    CustomFlushBarHelper.createError(
+            title: S.current.warnning, message: S.current.errorHappened)
+        .show(context);
+  }
+
+  void verifyFirst() {
+    CustomFlushBarHelper.createError(
+            title: S.current.warnning, message: S.current.notVerifiedNumber)
         .show(context);
   }
 

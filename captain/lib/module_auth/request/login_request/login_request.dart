@@ -1,3 +1,5 @@
+import 'package:mandob_moshtarayat_captain/consts/country_code.dart';
+
 class LoginRequest {
   String? username;
   String? password;
@@ -11,7 +13,7 @@ class LoginRequest {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['username'] = this.username;
+    data['username'] = CountryCode.COUNTRY_CODE_KSA + username.toString();
     data['password'] = this.password;
     return data;
   }

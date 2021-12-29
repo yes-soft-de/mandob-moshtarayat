@@ -25,6 +25,12 @@ class StatusCodeHelper {
         return S.current.accountAlreadyExist;
       case '9100':
         return S.current.captainAccountInActive;
+      case '9152':
+        return S.current.invalidCode;
+      case '9153':
+        return S.current.codeTimeOut;
+      case '9156':
+        return S.current.notVerifiedNumber;
       case '-1':
         return S.current.dataDecodeError;
       default:
