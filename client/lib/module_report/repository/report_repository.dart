@@ -28,7 +28,8 @@ class ReportRepository {
     return null;
   }
 
-  Future<ActionResponse?> customProductRequest(CustomProductRequest request) async {
+  Future<ActionResponse?> customProductRequest(
+      CustomProductRequest request) async {
     await _authService.refreshToken();
     var token = await _authService.getToken();
     var response = await _apiClient.post(
