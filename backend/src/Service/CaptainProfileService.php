@@ -321,9 +321,7 @@ class CaptainProfileService
 
         if ($item) {
              $countOrdersDelivered = $this->captainProfileManager->countCaptainOrdersDelivered($item[0]['captainID']);
-//            $invoicesIDs = $this->captainProfileManager->getInvoicesIDs($item[0]['captainID']);
-//            $sumInvoiceAmountWithoutOrderTypeSendIt = $this->ordersInvoicesService->sumInvoiceAmountWithoutOrderTypeSendIt($invoicesIDs);
-            $sumOrderCost = $this->captainProfileManager->sumOrderCostByCaptainID($item[0]['captainID']);
+             $sumOrderCost = $this->captainProfileManager->sumOrderCostByCaptainID($item[0]['captainID']);
              $sumKilometerBonus = $this->getOrderKilometers($captainId);
 
              $item['countOrdersDelivered'] = (float)$countOrdersDelivered[0]['countOrdersDelivered'];
@@ -378,9 +376,6 @@ class CaptainProfileService
         if ($item) {
             $countOrdersDelivered = $this->captainProfileManager->countOrdersInMonthForCaptain($date[0], $date[1], $item[0]['captainID']);
 
-//            $sumInvoiceAmount = $this->captainProfileManager->sumInvoiceAmountWithoutOrderTypeSendItInMonthForCaptain($date[0], $date[1], $item[0]['captainID']);
-//            $invoicesIDs = $this->captainProfileManager->getInvoicesIDsInSpecificDate($date[0], $date[1], $item[0]['captainID']);
-//            $sumInvoiceAmount = $this->ordersInvoicesService->sumInvoiceAmountWithoutOrderTypeSendIt($invoicesIDs);
             $sumOrderCost = $this->captainProfileManager->sumOrderCostByCaptainIDInSpecificDate($date[0], $date[1], $item[0]['captainID']);
 
             $paymentsToCaptainFromCompany = $this->deliveryCompanyPaymentsToCaptainService->deliveryCompanyPaymentsToCaptainInSpecificDate( $item[0]['captainID'] ,$date[0], $date[1]);
@@ -551,9 +546,6 @@ class CaptainProfileService
             
             $countOrdersDelivered = $this->captainProfileManager->countOrdersInMonthForCaptain($date[0], $date[1], $item[0]['captainID']);
 
-//            $invoicesIDs = $this->captainProfileManager->getInvoicesIDsInSpecificDate($date[0], $date[1], $item[0]['captainID']);
-//
-//            $sumInvoiceAmount = $this->ordersInvoicesService->sumInvoiceAmountWithoutOrderTypeSendIt($invoicesIDs);
             $sumOrderCost = $this->captainProfileManager->sumOrderCostByCaptainIDInSpecificDate($date[0], $date[1], $item[0]['captainID']);
 
             $paymentsFromCompany = $this->deliveryCompanyPaymentsToCaptainService->deliveryCompanyPaymentsToCaptainInSpecificDate( $item[0]['captainID'] ,$date[0], $date[1]);

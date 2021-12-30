@@ -534,12 +534,12 @@ class OrderEntityRepository extends ServiceEntityRepository
 
             ->andWhere('OrderEntity.captainID = :captainId')
             ->andWhere("OrderEntity.state = :delivered")
-//            ->andWhere("OrderEntity.payment != :card")
+            ->andWhere("OrderEntity.payment != :card")
 
             ->andWhere("OrderEntity.isBillCalculated = :true")
 
             ->setParameter('true', 1)
-//            ->setParameter('card', 'card')
+            ->setParameter('card', 'card')
             ->setParameter('captainId', $captainId)
             ->setParameter('delivered', OrderStateConstant::$ORDER_STATE_DELIVERED)
 
@@ -553,11 +553,13 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->select('sum(OrderEntity.orderCost) as orderCost')
 
             ->andWhere("OrderEntity.state = :delivered")
-
             ->andWhere("OrderEntity.isBillCalculated = :true")
+            ->andWhere("OrderEntity.payment != :card")
+
 
             ->setParameter('true', 1)
             ->setParameter('delivered', OrderStateConstant::$ORDER_STATE_DELIVERED)
+            ->setParameter('card', 'card')
 
             ->getQuery()
             ->getSingleScalarResult();
@@ -659,17 +661,17 @@ class OrderEntityRepository extends ServiceEntityRepository
 
             ->where('OrderEntity.deliveryDate >= :fromDate')
             ->andWhere('OrderEntity.deliveryDate < :toDate')
-
             ->andWhere('OrderEntity.captainID = :captainId')
             ->andWhere("OrderEntity.state = :delivered")
-
             ->andWhere("OrderEntity.isBillCalculated = :true")
+            ->andWhere("OrderEntity.payment != :card")
 
             ->setParameter('true', 1)
             ->setParameter('captainId', $captainId)
             ->setParameter('delivered', OrderStateConstant::$ORDER_STATE_DELIVERED)
             ->setParameter('fromDate', $fromDate)
             ->setParameter('toDate', $toDate)
+            ->setParameter('card', "card")
 
             ->getQuery()
             ->getSingleScalarResult();
