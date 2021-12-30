@@ -5,6 +5,7 @@ namespace App\Manager;
 use App\AutoMapping;
 use App\Entity\OrderEntity;
 use App\Repository\OrderEntityRepository;
+use App\Request\AddInfoPayByClientRequest;
 use App\Request\OrderClientCreateRequest;
 use App\Request\OrderClientSendCreateRequest;
 use App\Request\OrderClientSpecialCreateRequest;
@@ -233,6 +234,11 @@ class OrderManager
         if(!$request->getState()){
             $item->setState('pending');
         }
+
+        if($request->getPayment() == "card"){
+            $item->setState('not paid');
+        }
+
         $item->setOrderType(1);
         $item->setBillCalculated(1);
 
@@ -266,9 +272,15 @@ class OrderManager
         $item = $this->autoMapping->map(OrderClientSpecialCreateRequest::class, OrderEntity::class, $request);
 
         $item->setDeliveryDate($item->getDeliveryDate());
+
         if(!$request->getState()){
             $item->setState('pending');
         }
+
+        if($request->getPayment() == "card"){
+            $item->setState('not paid');
+        }
+
         $item->setOrderType(2);
         $item->setBillCalculated(1);
 
@@ -492,6 +504,19 @@ class OrderManager
             $item = $this->autoMapping->mapToObject(OrderStateRequest::class, OrderEntity::class, $request, $item);
 
             $this->entityManager->flush();
+            return $item;
+        }
+    }
+
+    public function addInfoPay(AddInfoPayByClientRequest $request)
+    {
+        $item = $this->orderEntityRepository->find($request->getId());
+
+        if ($item) {
+            $item = $this->autoMapping->mapToObject(AddInfoPayByClientRequest::class, OrderEntity::class, $request, $item);
+
+            $this->entityManager->flush();
+
             return $item;
         }
     }

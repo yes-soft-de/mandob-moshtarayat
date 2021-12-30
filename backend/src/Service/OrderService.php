@@ -8,6 +8,7 @@ use App\Constant\LocalStoreNotificationList;
 use App\Constant\OrderStateConstant;
 use App\Entity\OrderEntity;
 use App\Manager\OrderManager;
+use App\Request\AddInfoPayByClientRequest;
 use App\Request\OrderClientCreateRequest;
 use App\Request\OrderClientSendCreateRequest;
 use App\Request\OrderClientSpecialCreateRequest;
@@ -20,6 +21,7 @@ use App\Request\OrderUpdateByClientRequest;
 use App\Request\OrderUpdateSpecialByClientRequest;
 use App\Request\OrderUpdateSendByClientRequest;
 use App\Request\OrderUpdateStateForEachStoreByCaptainRequest;
+use App\Response\AddInfoPayByClientResponse;
 use App\Response\CountReportForStoreOwnerResponse;
 use App\Response\OrderCancelResponse;
 use App\Response\OrderDetailsByOrderNumberForStoreResponse;
@@ -937,6 +939,21 @@ class OrderService
             $response[] = $this->autoMapping->map('array', OrdersPendingForStoreResponse::class, $order);
         }
 
+        return $response;
+    }
+
+    public function addInfoPay(AddInfoPayByClientRequest $request)
+    {
+        $response = ResponseConstant::$ERROR;
+
+        $orderDetails = $this->orderDetailService->getOrderIdByOrderNumber($request->getOrderNumber());
+        if($orderDetails){
+            $request->setId($orderDetails[0]->orderID);
+
+            $item = $this->orderManager->addInfoPay($request);
+
+            $response = $this->autoMapping->map(OrderEntity::class, AddInfoPayByClientResponse::class, $item);
+        }
         return $response;
     }
 }
