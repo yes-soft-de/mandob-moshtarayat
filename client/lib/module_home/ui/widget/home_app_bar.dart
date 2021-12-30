@@ -48,10 +48,6 @@ class _CustomHomeAppBarState extends State<CustomHomeAppBar> {
                           Navigator.of(context).pushNamed(
                               AuthorizationRoutes.LOGIN_SCREEN,
                               arguments: 0);
-                          CustomFlushBarHelper.createError(
-                                  title: S.current.warnning,
-                                  message: S.current.pleaseLoginToContinue)
-                              .show(context);
                         }
                       },
                       child: SvgPicture.asset(SvgAsset.LOGO_SVG, width: 35)),

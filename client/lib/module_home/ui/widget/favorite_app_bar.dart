@@ -54,10 +54,6 @@ class _FavoriteHomeAppBarState extends State<FavoriteHomeAppBar> {
                           Navigator.of(context).pushNamed(
                               AuthorizationRoutes.LOGIN_SCREEN,
                               arguments: 0);
-                          CustomFlushBarHelper.createError(
-                                  title: S.current.warnning,
-                                  message: S.current.pleaseLoginToContinue)
-                              .show(context);
                         }
                       },
                       child: getIt<FavoriteHiveHelper>()
