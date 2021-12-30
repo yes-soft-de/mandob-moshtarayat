@@ -96,4 +96,16 @@ class ClientProfileEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function getClientByUserID($clientID)
+    {
+        return $this->createQueryBuilder('clientProfileEntity')
+            ->select('clientProfileEntity.id', 'clientProfileEntity.roomID', 'clientProfileEntity.clientName', 'clientProfileEntity.image')
+
+            ->andWhere('clientProfileEntity.clientID = :clientID')
+            ->setParameter('clientID', $clientID)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
