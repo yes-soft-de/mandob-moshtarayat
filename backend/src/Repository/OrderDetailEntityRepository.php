@@ -218,10 +218,10 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
 
             ->andWhere('OrderDetailEntity.storeOwnerProfileID = :storeOwnerProfileId')
 
-            ->andWhere('OrderDetailEntity.state != :card')
+            ->andWhere('OrderDetailEntity.state != :notPaid')
 
             ->setParameter('storeOwnerProfileId', $storeOwnerProfileId)
-            ->setParameter('card', OrderStateConstant::$ORDER_STATE_NOT_PAID)
+            ->setParameter('notPaid', OrderStateConstant::$ORDER_STATE_NOT_PAID)
 
             ->groupBy('OrderDetailEntity.orderNumber')
 
@@ -288,12 +288,12 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
             ->andWhere('OrderEntity.createdAt >= :fromDate')
             ->andWhere('OrderEntity.createdAt < :toDate')
             ->andWhere('orderDetailEntity.storeOwnerProfileID = :storeOwnerProfileId ')
-            ->andWhere('orderDetailEntity.state != :card ')
+            ->andWhere('orderDetailEntity.state != :notPaid ')
 
             ->setParameter('storeOwnerProfileId', $storeOwnerProfileId)
             ->setParameter('fromDate', $fromDate)
             ->setParameter('toDate', $toDate)
-            ->setParameter('card', OrderStateConstant::$ORDER_STATE_NOT_PAID)
+            ->setParameter('notPaid', OrderStateConstant::$ORDER_STATE_NOT_PAID)
 
             ->addGroupBy('OrderEntity.id')
 
@@ -387,7 +387,7 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
           ->andWhere('OrderEntity.createdAt < :toDate')
           ->andWhere("OrderEntity.state != :cancelled")
           ->andWhere("OrderEntity.state != :pending")
-          ->andWhere('OrderEntity.state != :card ')
+          ->andWhere('OrderEntity.state != :notPaid ')
 
 
             ->addGroupBy('OrderDetailEntity.productID')
@@ -402,7 +402,7 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
           ->setParameter('toDate', $toDate)
           ->setParameter('cancelled', OrderStateConstant::$ORDER_STATE_CANCEL)
           ->setParameter('pending', OrderStateConstant::$ORDER_STATE_PENDING)
-          ->setParameter('card', OrderStateConstant::$ORDER_STATE_NOT_PAID)
+          ->setParameter('notPaid', OrderStateConstant::$ORDER_STATE_NOT_PAID)
 
           ->getQuery()
           ->getResult();
