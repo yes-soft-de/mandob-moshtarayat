@@ -12,4 +12,5 @@ class AcceptedOrderResponse
     public $orderCost;
     public $orderType;
     public $note;
+    public $state;
 }

@@ -201,7 +201,7 @@ class OrderEntityRepository extends ServiceEntityRepository
     public function getAcceptedOrderByCaptainId($captainID)
     {
         return $this->createQueryBuilder('OrderEntity')
-            ->select('OrderEntity.id', 'OrderEntity.deliveryDate', 'OrderEntity.createdAt', 'OrderEntity.payment', 'OrderEntity.detail', 'OrderEntity.deliveryCost', 'OrderEntity.orderCost', 'OrderEntity.orderType', 'OrderEntity.note')
+            ->select('OrderEntity.id', 'OrderEntity.deliveryDate', 'OrderEntity.createdAt', 'OrderEntity.payment', 'OrderEntity.detail', 'OrderEntity.deliveryCost', 'OrderEntity.orderCost', 'OrderEntity.orderType', 'OrderEntity.note', 'OrderEntity.state')
             ->addSelect('orderDetailEntity.id as orderDetailId', 'orderDetailEntity.orderNumber')
 
             ->leftJoin(OrderDetailEntity::class, 'orderDetailEntity', Join::WITH, 'orderDetailEntity.orderID = OrderEntity.id')
