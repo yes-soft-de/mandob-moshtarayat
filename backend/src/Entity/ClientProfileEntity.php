@@ -57,6 +57,11 @@ class ClientProfileEntity
      */
     private $preferredLanguage;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $needSupport;
+
 
     public function getId(): ?int
     {
@@ -155,6 +160,18 @@ class ClientProfileEntity
     public function setPreferredLanguage(?string $preferredLanguage): self
     {
         $this->preferredLanguage = $preferredLanguage;
+
+        return $this;
+    }
+
+    public function getNeedSupport(): ?bool
+    {
+        return $this->needSupport;
+    }
+
+    public function setNeedSupport(?bool $needSupport): self
+    {
+        $this->needSupport = $needSupport;
 
         return $this;
     }
