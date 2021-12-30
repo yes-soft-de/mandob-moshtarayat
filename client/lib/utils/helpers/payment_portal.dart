@@ -243,108 +243,113 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
         body: SafeArea(
           child: Column(
             children: <Widget>[
-              ListView(
-                shrinkWrap: true,
-                children: [
-                  ListTile(
-                    leading: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Theme.of(context).backgroundColor,
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Icon(Icons.person),
-                      ),
-                    ),
-                    title: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: CustomFormField(
-                          controller: firstNameController,
-                          hintText: S.current.firstName),
-                    ),
-                  ),
-                  ListTile(
-                    leading: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Theme.of(context).backgroundColor,
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Icon(Icons.person),
-                      ),
-                    ),
-                    title: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: CustomFormField(
-                        controller: middleNameController,
-                        hintText: S.of(context).middleName,
-                      ),
-                    ),
-                  ),
-                  ListTile(
-                    leading: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Theme.of(context).backgroundColor,
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Icon(Icons.person),
-                      ),
-                    ),
-                    title: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: CustomFormField(
-                        controller: lastNameController,
-                        hintText: S.of(context).lastName,
-                      ),
-                    ),
-                  ),
-                  ListTile(
-                    leading: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Theme.of(context).backgroundColor,
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Icon(Icons.email),
-                      ),
-                    ),
-                    title: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: CustomFormField(
-                        controller: emailController,
-                        hintText: S.of(context).email,
-                      ),
-                    ),
-                  ),
-                  ListTile(
-                    leading: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Theme.of(context).backgroundColor,
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Icon(Icons.phone),
-                      ),
-                    ),
-                    title: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: CustomLoginFormField(
-                          last: true,
-                          phone: true,
-                          controller: phoneNumberController,
-                          hintText: S.of(context).phoneNumber,
-                          borderRadius: 25),
-                    ),
-                  ),
-                ],
-              ),
               Expanded(
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                  child: Column(
+                    children: [
+                      ListTile(
+                        leading: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Theme.of(context).backgroundColor,
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Icon(Icons.person),
+                          ),
+                        ),
+                        title: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CustomFormField(
+                              controller: firstNameController,
+                              hintText: S.current.firstName),
+                        ),
+                      ),
+                      ListTile(
+                        leading: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Theme.of(context).backgroundColor,
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Icon(Icons.person),
+                          ),
+                        ),
+                        title: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CustomFormField(
+                            controller: middleNameController,
+                            hintText: S.of(context).middleName,
+                          ),
+                        ),
+                      ),
+                      ListTile(
+                        leading: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Theme.of(context).backgroundColor,
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Icon(Icons.person),
+                          ),
+                        ),
+                        title: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CustomFormField(
+                            controller: lastNameController,
+                            hintText: S.of(context).lastName,
+                          ),
+                        ),
+                      ),
+                      ListTile(
+                        leading: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Theme.of(context).backgroundColor,
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Icon(Icons.email),
+                          ),
+                        ),
+                        title: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CustomFormField(
+                            controller: emailController,
+                            hintText: S.of(context).email,
+                          ),
+                        ),
+                      ),
+                      ListTile(
+                        leading: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Theme.of(context).backgroundColor,
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Icon(Icons.phone),
+                          ),
+                        ),
+                        title: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CustomLoginFormField(
+                              last: true,
+                              phone: true,
+                              controller: phoneNumberController,
+                              hintText: S.of(context).phoneNumber,
+                              borderRadius: 25),
+                        ),
+                      ),
+                              ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 60,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Align(
