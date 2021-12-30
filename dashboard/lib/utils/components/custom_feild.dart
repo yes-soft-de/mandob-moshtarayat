@@ -156,7 +156,7 @@ class CustomFormFieldWithTranslate extends StatefulWidget {
       this.phone = false,
       this.onChanged,
       required this.languages,
-       required this.initLanguage,
+      required this.initLanguage,
       this.onSelected});
 }
 
@@ -164,7 +164,7 @@ class _CustomFormFieldWithTranslateState
     extends State<CustomFormFieldWithTranslate> {
   AutovalidateMode mode = AutovalidateMode.disabled;
   bool clean = true;
- late bool enabled;
+  late bool enabled;
   var lan;
   @override
   Widget build(BuildContext context) {
@@ -250,12 +250,14 @@ class _CustomFormFieldWithTranslateState
                   if (widget.onSelected != null) {
                     widget.onSelected!(c);
                   }
-                  setState(() {lan = c;});
+                  setState(() {
+                    lan = c;
+                  });
                 },
                 child: Row(
                   children: <Widget>[
                     Text(lan),
-                  enabled?  Icon(Icons.arrow_drop_down):Container(),
+                    enabled ? Icon(Icons.arrow_drop_down) : Container(),
                   ],
                 ),
                 itemBuilder: (context) => widget.languages
@@ -272,8 +274,7 @@ class _CustomFormFieldWithTranslateState
   @override
   void initState() {
     super.initState();
-     lan = widget.languages.first;
-    enabled =widget.languages.length==1?false :true;
+    lan = widget.languages.first;
+    enabled = widget.languages.length == 1 ? false : true;
   }
-
 }

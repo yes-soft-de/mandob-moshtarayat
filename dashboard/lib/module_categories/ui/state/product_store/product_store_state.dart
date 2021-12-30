@@ -145,7 +145,7 @@ class ProductStoreState extends States {
                 price: element.productPrice.toString()),
           ),
           InkWell(
-            onTap: (){
+            onTap: () {
               showDialog(
                   barrierDismissible: false,
                   context: screenState.context,
@@ -155,24 +155,24 @@ class ProductStoreState extends States {
                       height: MediaQuery.of(context).size.height,
                       child: Scaffold(
                         backgroundColor:
-                        Theme.of(context).scaffoldBackgroundColor,
+                            Theme.of(context).scaffoldBackgroundColor,
                         body: UpdateProductsCommissionForm(
-                          updateCommission: (inCon , con){
+                          updateCommission: (inCon, con) {
                             Navigator.of(context).pop();
-                            screenState.updateProductCommission(UpdateProductCommissionRequest(
-                              isCommission: inCon,
-                              commission: con.toString(),
-                              storeOwnerProfileID:element.storeOwnerProfileID,
-                              id: element.id
-                            ));
-
+                            screenState.updateProductCommission(
+                                UpdateProductCommissionRequest(
+                                    isCommission: inCon,
+                                    commission: con.toString(),
+                                    storeOwnerProfileID:
+                                        element.storeOwnerProfileID,
+                                    id: element.id));
                           },
-                          request:UpdateProductCommissionRequest(
-                            id: element.id,
-                            storeOwnerProfileID: element.storeOwnerProfileID,
-                            commission: element.commission.toString(),
-                            isCommission: element.commission != 0? true:false
-                          ) ,
+                          request: UpdateProductCommissionRequest(
+                              id: element.id,
+                              storeOwnerProfileID: element.storeOwnerProfileID,
+                              commission: element.commission.toString(),
+                              isCommission:
+                                  element.commission != 0 ? true : false),
                         ),
                       ),
                     );
@@ -196,6 +196,7 @@ class ProductStoreState extends States {
     }
     return widgets;
   }
+
   List<DropdownMenuItem<String>> getChoices() {
     List<DropdownMenuItem<String>> items = [];
     model?.forEach((element) {

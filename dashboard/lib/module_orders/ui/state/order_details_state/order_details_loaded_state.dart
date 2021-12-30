@@ -347,22 +347,21 @@ class OrderDetailsLoadedState extends OrderDetailsState {
               ),
               trailing: const Icon(Icons.arrow_forward_rounded),
               onTap: () {
-                Navigator.of(screenState.context)
-                    .pushNamed(StoresRoutes.STORE_INFO,
-                        arguments: StoresModel(
-                          id: element.storeOwnerID,
-                          storeOwnerName: element.storeOwnerName,
-                          categoryId: '',
-                          deliveryCost: 0,
-                          hasProducts: false,
-                          image: '',
-                          phone: '',
-                          privateOrders: false,
-                          status: '',
-                          stcPay: '',
-                          bankName: '',
-                          bankNumber: ''
-                        ));
+                Navigator.of(screenState.context).pushNamed(
+                    StoresRoutes.STORE_INFO,
+                    arguments: StoresModel(
+                        id: element.storeOwnerID,
+                        storeOwnerName: element.storeOwnerName,
+                        categoryId: '',
+                        deliveryCost: 0,
+                        hasProducts: false,
+                        image: '',
+                        phone: '',
+                        privateOrders: false,
+                        status: '',
+                        stcPay: '',
+                        bankName: '',
+                        bankNumber: ''));
               },
               title: Text(element.storeOwnerName),
             ),

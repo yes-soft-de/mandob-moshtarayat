@@ -38,7 +38,9 @@ class LogsService {
       return DataModel.withError(StatusCodeHelper.getStatusCodeMessages(
           _captainProfileResponse.statusCode));
     }
-    if (_captainProfileResponse.data == null || _captainProfileResponse.data?.orders?.length == 0) return DataModel.empty();
+    if (_captainProfileResponse.data == null ||
+        _captainProfileResponse.data?.orders?.length == 0)
+      return DataModel.empty();
     return CaptainLogsModel.withData(_captainProfileResponse.data!);
   }
 }

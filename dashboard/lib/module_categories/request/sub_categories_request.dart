@@ -30,15 +30,11 @@
 //
 //}
 
-
-
 class SubCategoriesRequest {
-
   DataStoreCategory? dataStoreCategory;
   List<TranslateSubCategory>? translate;
 
-  SubCategoriesRequest({
-    this.dataStoreCategory, this.translate});
+  SubCategoriesRequest({this.dataStoreCategory, this.translate});
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
@@ -48,16 +44,15 @@ class SubCategoriesRequest {
     }
     return map;
   }
-
-
 }
 
-class TranslateSubCategory{
+class TranslateSubCategory {
   String? productCategoryName;
   String? lang;
   int? productCategoryID;
 
-  TranslateSubCategory({ this.productCategoryName, this.lang , this.productCategoryID});
+  TranslateSubCategory(
+      {this.productCategoryName, this.lang, this.productCategoryID});
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
@@ -68,7 +63,7 @@ class TranslateSubCategory{
   }
 }
 
-class DataStoreCategory{
+class DataStoreCategory {
   int? id;
   String? productCategoryName;
   String? productCategoryImage;
@@ -83,7 +78,7 @@ class DataStoreCategory{
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    if (id != null){
+    if (id != null) {
       map['id'] = id;
     }
     map['productCategoryName'] = productCategoryName;

@@ -6,12 +6,12 @@ class UpdateProductRequest {
   int? storeOwnerProfileID;
   int? storeProductCategoryID;
 
-  UpdateProductRequest({
-      this.id, 
-      this.productName, 
-      this.productImage, 
-      this.productPrice, 
-      this.storeOwnerProfileID, 
+  UpdateProductRequest(
+      {this.id,
+      this.productName,
+      this.productImage,
+      this.productPrice,
+      this.storeOwnerProfileID,
       this.storeProductCategoryID});
 
   UpdateProductRequest.fromJson(dynamic json) {
@@ -33,7 +33,6 @@ class UpdateProductRequest {
     map['storeProductCategoryID'] = storeProductCategoryID;
     return map;
   }
-
 }
 
 class UpdateProductCommissionRequest {
@@ -47,7 +46,7 @@ class UpdateProductCommissionRequest {
     this.storeOwnerProfileID,
     this.isCommission,
     this.commission,
-    });
+  });
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
@@ -56,5 +55,4 @@ class UpdateProductCommissionRequest {
     map['commission'] = commission;
     return map;
   }
-
 }

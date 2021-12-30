@@ -207,18 +207,25 @@ class ProductCategoriesLoadedState extends States {
                               subCatID: screenState.subCatId,
                               languages: [],
                               subCategoriesModel: element,
-                              addSubCategories: (id, subId, name, image,trs) {
+                              addSubCategories: (id, subId, name, image, trs) {
                                 screenState.updateCategoryLevel2(
                                     CategoryLevelTowRequest(
-                                      translate:screenState.languageSelected =='ar'? [] : [TranslateSubTwoCategory(lang: screenState.languageSelected,productCategoryName: name,productCategoryID: element.id)],
-                                      dataStoreCategory: DataStoreCategoryTwo(
-                                          storeProductCategoryID:
-                                          int.parse(subId),
-                                          productCategoryName: name,
-                                          productCategoryImage: image,
-                                          id: element.id
-                                      ),
-                                     ));
+                                  translate: screenState.languageSelected ==
+                                          'ar'
+                                      ? []
+                                      : [
+                                          TranslateSubTwoCategory(
+                                              lang:
+                                                  screenState.languageSelected,
+                                              productCategoryName: name,
+                                              productCategoryID: element.id)
+                                        ],
+                                  dataStoreCategory: DataStoreCategoryTwo(
+                                      storeProductCategoryID: int.parse(subId),
+                                      productCategoryName: name,
+                                      productCategoryImage: image,
+                                      id: element.id),
+                                ));
                               },
                             ),
                           ),
@@ -291,7 +298,9 @@ class ProductCategoriesLoadedState extends States {
                 underline: Container(),
                 icon: Padding(
                   padding: const EdgeInsets.all(4.0),
-                  child: Icon(Icons.arrow_drop_down_rounded,),
+                  child: Icon(
+                    Icons.arrow_drop_down_rounded,
+                  ),
                 ),
                 items: [
                   DropdownMenuItem(
@@ -319,7 +328,8 @@ class ProductCategoriesLoadedState extends States {
                 onChanged: (newLang) {
                   screenState.languageSelected = newLang.toString();
                   screenState.refresh();
-                  screenState.getSubCategoriesLevelTow( categories, subCategories);
+                  screenState.getSubCategoriesLevelTow(
+                      categories, subCategories);
                 }),
           ));
     }

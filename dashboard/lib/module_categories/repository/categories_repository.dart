@@ -25,34 +25,45 @@ class CategoriesRepository {
   final AuthService _authService;
   final LocalizationService _localizationService;
 
-  CategoriesRepository(this._apiClient, this._authService, this._localizationService);
+  CategoriesRepository(
+      this._apiClient, this._authService, this._localizationService);
 
   Future<StoreCategoriesResponse?> getStoreCategories() async {
     var token = await _authService.getToken();
     var lang = _localizationService.getLanguage();
-    dynamic response = await _apiClient.get(Urls.STORE_CATEGORIES,
-        headers: {'Authorization': 'Bearer ' + token.toString(), 'Accept-Language':lang});
+    dynamic response = await _apiClient.get(Urls.STORE_CATEGORIES, headers: {
+      'Authorization': 'Bearer ' + token.toString(),
+      'Accept-Language': lang
+    });
     if (response == null) return null;
     return StoreCategoriesResponse.fromJson(response);
   }
-  Future<StoreCategoriesResponse?> getStoreCategoriesWithLang(FilterLanguageCategoryRequest request) async {
+
+  Future<StoreCategoriesResponse?> getStoreCategoriesWithLang(
+      FilterLanguageCategoryRequest request) async {
     var token = await _authService.getToken();
-    dynamic response = await _apiClient.post(Urls.STORE_CATEGORIES,request.toJson(),
+    dynamic response = await _apiClient.post(
+        Urls.STORE_CATEGORIES, request.toJson(),
         headers: {'Authorization': 'Bearer ' + token.toString()});
     if (response == null) return null;
     return StoreCategoriesResponse.fromJson(response);
   }
-  Future<SubCategoriesResponse?> getSubcategoriesLevelOne(FilterLanguageAndCategoryRequest request) async {
+
+  Future<SubCategoriesResponse?> getSubcategoriesLevelOne(
+      FilterLanguageAndCategoryRequest request) async {
     var token = await _authService.getToken();
-    dynamic response = await _apiClient.post(Urls.GET_SUBCATEGORIES_LEVEL_ONE,request.toJson(),
+    dynamic response = await _apiClient.post(
+        Urls.GET_SUBCATEGORIES_LEVEL_ONE, request.toJson(),
         headers: {'Authorization': 'Bearer ' + token.toString()});
     if (response == null) return null;
     return SubCategoriesResponse.fromJson(response);
   }
 
-  Future<SubCategoriesResponse?> getSubcategoriesLevelTow(FilterLanguageAndProductCategoryRequest request) async {
+  Future<SubCategoriesResponse?> getSubcategoriesLevelTow(
+      FilterLanguageAndProductCategoryRequest request) async {
     var token = await _authService.getToken();
-    dynamic response = await _apiClient.post(Urls.GET_SUBCATEGORIES_LEVEL_TOW ,request.toJson(),
+    dynamic response = await _apiClient.post(
+        Urls.GET_SUBCATEGORIES_LEVEL_TOW, request.toJson(),
         headers: {'Authorization': 'Bearer ' + token.toString()});
     if (response == null) return null;
     return SubCategoriesResponse.fromJson(response);
@@ -80,7 +91,10 @@ class CategoriesRepository {
     var token = await _authService.getToken();
     var lang = _localizationService.getLanguage();
     dynamic response = await _apiClient.get(Urls.GET_PRODUCTS + '$id',
-        headers: {'Authorization': 'Bearer ' + token.toString(),'Accept-Language':lang});
+        headers: {
+          'Authorization': 'Bearer ' + token.toString(),
+          'Accept-Language': lang
+        });
     if (response == null) return null;
     return StoreProductsResponse.fromJson(response);
   }
@@ -140,7 +154,9 @@ class CategoriesRepository {
     if (response == null) return null;
     return ActionResponse.fromJson(response);
   }
-  Future<ActionResponse?> updateProductCommission(UpdateProductCommissionRequest request) async {
+
+  Future<ActionResponse?> updateProductCommission(
+      UpdateProductCommissionRequest request) async {
     var token = await _authService.getToken();
     dynamic response = await _apiClient.put(
         Urls.UPDATE_PRODUCT_COMMISSION, request.toJson(),
@@ -148,7 +164,9 @@ class CategoriesRepository {
     if (response == null) return null;
     return ActionResponse.fromJson(response);
   }
-  Future<ActionResponse?> createSubCategories(SubCategoriesRequest request) async {
+
+  Future<ActionResponse?> createSubCategories(
+      SubCategoriesRequest request) async {
     var token = await _authService.getToken();
     dynamic response = await _apiClient.post(
         Urls.CREATE_SUB_CATEGORIES, request.toJson(),
@@ -157,7 +175,8 @@ class CategoriesRepository {
     return ActionResponse.fromJson(response);
   }
 
-  Future<ActionResponse?> updateSubCategories(SubCategoriesRequest request) async {
+  Future<ActionResponse?> updateSubCategories(
+      SubCategoriesRequest request) async {
     var token = await _authService.getToken();
     dynamic response = await _apiClient.put(
         Urls.CREATE_SUB_CATEGORIES, request.toJson(),
@@ -168,20 +187,20 @@ class CategoriesRepository {
 
   Future<ActionResponse?> deleteCategories(String id) async {
     var token = await _authService.getToken();
-    dynamic response = await _apiClient.delete(
-        Urls.DELETE_CATEGORIES + '$id',
+    dynamic response = await _apiClient.delete(Urls.DELETE_CATEGORIES + '$id',
         headers: {'Authorization': 'Bearer ' + token.toString()});
     if (response == null) return null;
     return ActionResponse.fromJson(response);
   }
+
   Future<ActionResponse?> getCategory(String id) async {
     var token = await _authService.getToken();
-    dynamic response = await _apiClient.get(
-        Urls.DELETE_CATEGORIES + '$id',
+    dynamic response = await _apiClient.get(Urls.DELETE_CATEGORIES + '$id',
         headers: {'Authorization': 'Bearer ' + token.toString()});
     if (response == null) return null;
     return ActionResponse.fromJson(response);
   }
+
   Future<ActionResponse?> deleteSubCategories(String id) async {
     var token = await _authService.getToken();
     dynamic response = await _apiClient.delete(
@@ -190,5 +209,4 @@ class CategoriesRepository {
     if (response == null) return null;
     return ActionResponse.fromJson(response);
   }
-
 }

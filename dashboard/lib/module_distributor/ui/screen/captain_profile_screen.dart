@@ -34,11 +34,11 @@ class CaptainProfileScreenState extends State<CaptainProfileScreen> {
   }
 
   void getCaptain() {
-  //  widget._stateManager.getCaptainProfile(this, captainId);
+    //  widget._stateManager.getCaptainProfile(this, captainId);
   }
 
   void enableCaptain(AcceptCaptainRequest request) {
-   // widget._stateManager.acceptCaptainProfile(this, captainId, request);
+    // widget._stateManager.acceptCaptainProfile(this, captainId, request);
   }
 
   void refresh() {
@@ -55,7 +55,7 @@ class CaptainProfileScreenState extends State<CaptainProfileScreen> {
       var arg = ModalRoute.of(context)?.settings.arguments;
       if (arg != null && arg is int) {
         captainId = arg;
-      //  widget._stateManager.getCaptainProfile(this, captainId);
+        //  widget._stateManager.getCaptainProfile(this, captainId);
       }
     }
     return Scaffold(

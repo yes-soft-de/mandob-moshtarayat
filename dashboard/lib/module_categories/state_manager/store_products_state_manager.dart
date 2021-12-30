@@ -55,20 +55,21 @@ class StoreProductsStateManager {
     });
   }
 
-  void getProducts(StoreProductScreenState screenState, int id){
+  void getProducts(StoreProductScreenState screenState, int id) {
     _categoriesService.getProducts(id).then((products) {
       if (products.hasError) {
-        _stateSubject.add(ProductStoreState(screenState, null, null,
-            error: products.error));
+        _stateSubject.add(
+            ProductStoreState(screenState, null, null, error: products.error));
       } else if (products.isEmpty) {
         _stateSubject.add(ProductStoreState(screenState, null, []));
       } else {
         ProductsModel storeProducts = products as ProductsModel;
-        _stateSubject.add(
-            ProductStoreState(screenState,[], storeProducts.data));
+        _stateSubject
+            .add(ProductStoreState(screenState, [], storeProducts.data));
       }
     });
   }
+
   void createProduct(
       StoreProductScreenState screenState, CreateProductRequest request) {
     _stateSubject.add(LoadingState(screenState));
@@ -147,24 +148,21 @@ class StoreProductsStateManager {
     }
   }
 
-
-
-  void updateProductCommission(
-      StoreProductScreenState screenState, UpdateProductCommissionRequest request) {
+  void updateProductCommission(StoreProductScreenState screenState,
+      UpdateProductCommissionRequest request) {
     _stateSubject.add(LoadingState(screenState));
-      _categoriesService.updateProductCommission(request).then((value) {
-        if (value.hasError) {
-          getProducts(screenState, request.storeOwnerProfileID ?? -1);
-          CustomFlushBarHelper.createError(
-              title: S.current.warnning, message: value.error ?? '')
-            ..show(screenState.context);
-        } else {
-          getProducts(screenState, request.storeOwnerProfileID ?? -1);
-          CustomFlushBarHelper.createSuccess(
-              title: S.current.warnning,
-              message: S.current.updateProduct)
-            ..show(screenState.context);
-        }
-      });
-    }
+    _categoriesService.updateProductCommission(request).then((value) {
+      if (value.hasError) {
+        getProducts(screenState, request.storeOwnerProfileID ?? -1);
+        CustomFlushBarHelper.createError(
+            title: S.current.warnning, message: value.error ?? '')
+          ..show(screenState.context);
+      } else {
+        getProducts(screenState, request.storeOwnerProfileID ?? -1);
+        CustomFlushBarHelper.createSuccess(
+            title: S.current.warnning, message: S.current.updateProduct)
+          ..show(screenState.context);
+      }
+    });
   }
+}

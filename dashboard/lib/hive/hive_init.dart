@@ -8,9 +8,7 @@ class HiveSetUp {
     await publicBoxes();
   }
 
-  static Future<void> adapterRegistration() async {
-
-  }
+  static Future<void> adapterRegistration() async {}
 
   static Future<void> publicBoxes() async {
     await Hive.openBox('Authorization');

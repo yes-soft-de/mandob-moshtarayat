@@ -39,21 +39,26 @@ class SubCategoriesStateManager {
             empty: value.isEmpty));
       } else {
         StoreCategoriesModel model = value as StoreCategoriesModel;
-        _stateSubject.add(SubCategoriesLoadedState(screenState, null ,model.data));
+        _stateSubject
+            .add(SubCategoriesLoadedState(screenState, null, model.data));
       }
     });
   }
 
-  void getCategoriesLevelOne(SubCategoriesScreenState screenState,FilterLanguageAndCategoryRequest id,List<StoreCategoriesModel> model) {
-   // _stateSubject.add(LoadingState(screenState));
+  void getCategoriesLevelOne(SubCategoriesScreenState screenState,
+      FilterLanguageAndCategoryRequest id, List<StoreCategoriesModel> model) {
+    // _stateSubject.add(LoadingState(screenState));
     _categoriesService.getSubCategories(id).then((value) {
       if (value.hasError) {
-        CustomFlushBarHelper.createError(title: S.current.warnning, message: value.error ?? '').show(screenState.context);
+        CustomFlushBarHelper.createError(
+                title: S.current.warnning, message: value.error ?? '')
+            .show(screenState.context);
       } else if (value.isEmpty) {
         _stateSubject.add(SubCategoriesLoadedState(screenState, null, model));
       } else {
         SubCategoriesModel cats = value as SubCategoriesModel;
-        _stateSubject.add(SubCategoriesLoadedState(screenState, cats.data ,model));
+        _stateSubject
+            .add(SubCategoriesLoadedState(screenState, cats.data, model));
       }
     });
   }
@@ -61,29 +66,33 @@ class SubCategoriesStateManager {
   void createSubCategory(
       SubCategoriesScreenState screenState, SubCategoriesRequest request) {
     _stateSubject.add(LoadingState(screenState));
-    _uploadService.uploadImage(request.dataStoreCategory?.productCategoryImage).then((value) {
+    _uploadService
+        .uploadImage(request.dataStoreCategory?.productCategoryImage)
+        .then((value) {
       request.dataStoreCategory?.productCategoryImage = value;
-        _categoriesService.createSubCategories(request).then((value) {
-          if (value.hasError) {
-            getStoreCategories(screenState);
-            CustomFlushBarHelper.createError(
-                title: S.current.warnning, message: value.error ?? '')
-              ..show(screenState.context);
-          } else {
-            getStoreCategories(screenState);
-            CustomFlushBarHelper.createSuccess(
-                title: S.current.warnning,
-                message: S.current.categoryCreatedSuccessfully)
-              ..show(screenState.context);
-          }
-        });
-
+      _categoriesService.createSubCategories(request).then((value) {
+        if (value.hasError) {
+          getStoreCategories(screenState);
+          CustomFlushBarHelper.createError(
+              title: S.current.warnning, message: value.error ?? '')
+            ..show(screenState.context);
+        } else {
+          getStoreCategories(screenState);
+          CustomFlushBarHelper.createSuccess(
+              title: S.current.warnning,
+              message: S.current.categoryCreatedSuccessfully)
+            ..show(screenState.context);
+        }
+      });
     });
   }
 
-  void updateSubCategory(SubCategoriesScreenState screenState,
-      SubCategoriesRequest request) {
-    if (request.dataStoreCategory?.productCategoryImage?.contains('/original-image/') == true || request.dataStoreCategory?.productCategoryImage == null) {
+  void updateSubCategory(
+      SubCategoriesScreenState screenState, SubCategoriesRequest request) {
+    if (request.dataStoreCategory?.productCategoryImage
+                ?.contains('/original-image/') ==
+            true ||
+        request.dataStoreCategory?.productCategoryImage == null) {
       _stateSubject.add(LoadingState(screenState));
       _categoriesService.updateSubCategories(request).then((value) {
         if (value.hasError) {
@@ -100,22 +109,24 @@ class SubCategoriesStateManager {
       });
     } else {
       _stateSubject.add(LoadingState(screenState));
-      _uploadService.uploadImage(request.dataStoreCategory?.productCategoryImage).then((value) {
+      _uploadService
+          .uploadImage(request.dataStoreCategory?.productCategoryImage)
+          .then((value) {
         request.dataStoreCategory?.productCategoryImage = value;
-          _categoriesService.updateSubCategories(request).then((value) {
-            if (value.hasError) {
-              getStoreCategories(screenState);
-              CustomFlushBarHelper.createError(
-                  title: S.current.warnning, message: value.error ?? '')
-                ..show(screenState.context);
-            } else {
-              getStoreCategories(screenState);
-              CustomFlushBarHelper.createSuccess(
-                  title: S.current.warnning,
-                  message: S.current.updateStoreCategory)
-                ..show(screenState.context);
-            }
-          });
+        _categoriesService.updateSubCategories(request).then((value) {
+          if (value.hasError) {
+            getStoreCategories(screenState);
+            CustomFlushBarHelper.createError(
+                title: S.current.warnning, message: value.error ?? '')
+              ..show(screenState.context);
+          } else {
+            getStoreCategories(screenState);
+            CustomFlushBarHelper.createSuccess(
+                title: S.current.warnning,
+                message: S.current.updateStoreCategory)
+              ..show(screenState.context);
+          }
+        });
       });
     }
   }
@@ -124,20 +135,16 @@ class SubCategoriesStateManager {
     _stateSubject.add(LoadingState(screenState));
     _categoriesService.deleteSubCategories(id).then((value) {
       if (value.hasError) {
-          getStoreCategories(screenState);
-            CustomFlushBarHelper.createError(
+        getStoreCategories(screenState);
+        CustomFlushBarHelper.createError(
                 title: S.current.warnning, message: value.error ?? '')
-              .show(screenState.context);
-         
+            .show(screenState.context);
       } else {
-         getStoreCategories(screenState);
-            CustomFlushBarHelper.createSuccess(
-                title: S.current.warnning,
-                message: S.current.deleteSuccess)
-              .show(screenState.context);
-          }
+        getStoreCategories(screenState);
+        CustomFlushBarHelper.createSuccess(
+                title: S.current.warnning, message: S.current.deleteSuccess)
+            .show(screenState.context);
       }
-    );
+    });
   }
-
 }

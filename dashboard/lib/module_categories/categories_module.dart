@@ -14,7 +14,7 @@ class CategoriesModule extends YesModule {
   final StoreProductScreen productStoreCategoriesScreen;
   final SubCategoriesScreen subCategoriesScreen;
   CategoriesModule(this.storeCategoriesScreen, this.productCategoriesScreen,
-      this.productStoreCategoriesScreen,this.subCategoriesScreen) {
+      this.productStoreCategoriesScreen, this.subCategoriesScreen) {
     YesModule.RoutesMap.addAll(getRoutes());
   }
   Map<String, WidgetBuilder> getRoutes() {
@@ -23,7 +23,7 @@ class CategoriesModule extends YesModule {
       CategoriesRoutes.PRODUCT_CATEGORIES: (context) => productCategoriesScreen,
       CategoriesRoutes.PRODUCT_STORE_CATEGORIES: (context) =>
           productStoreCategoriesScreen,
-      CategoriesRoutes.SUB_CATEGORIES : (context) => subCategoriesScreen
+      CategoriesRoutes.SUB_CATEGORIES: (context) => subCategoriesScreen
     };
   }
 }

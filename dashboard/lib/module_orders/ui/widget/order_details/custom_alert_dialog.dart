@@ -4,7 +4,7 @@ import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 class CustomAlertDialog extends StatelessWidget {
   final VoidCallback? onPressed;
   final String? message;
-  CustomAlertDialog({required this.onPressed,this.message});
+  CustomAlertDialog({required this.onPressed, this.message});
 
   @override
   Widget build(BuildContext context) {

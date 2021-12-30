@@ -16,9 +16,7 @@ class OrderDetailsTitleBar extends StatelessWidget {
             alignment: AlignmentDirectional.centerStart,
             child: Text(
               title,
-              style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
             ),
           ),
           Container(

@@ -97,8 +97,8 @@ class AuthService {
         throw TokenExpiredException('Token is created ${diff} minutes ago');
       }
 
-        await this._prefsHelper.getToken();
-      String? token =  await this._prefsHelper.getToken();
+      await this._prefsHelper.getToken();
+      String? token = await this._prefsHelper.getToken();
       if (token == null) {
         throw AuthorizationException;
       }

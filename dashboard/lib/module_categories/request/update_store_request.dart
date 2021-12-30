@@ -29,9 +29,9 @@ class UpdateStoreRequest {
       this.openingTime,
       this.baseImage,
       this.commission,
-        this.stcPay,this.bankAccountNumber,this.bankName
-
-      });
+      this.stcPay,
+      this.bankAccountNumber,
+      this.bankName});
 
   UpdateStoreRequest.fromJson(dynamic json) {
     id = json['id'];

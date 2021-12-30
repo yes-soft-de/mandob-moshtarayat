@@ -5,10 +5,7 @@ class StoreProductsResponse {
   String? msg;
   List<Data>? data;
 
-  StoreProductsResponse({
-    this.statusCode,
-    this.msg,
-    this.data});
+  StoreProductsResponse({this.statusCode, this.msg, this.data});
 
   StoreProductsResponse.fromJson(dynamic json) {
     try {
@@ -36,7 +33,6 @@ class StoreProductsResponse {
     }
     return map;
   }
-
 }
 
 class Data {
@@ -49,19 +45,21 @@ class Data {
   int? storeProductCategoryID;
   num? commission;
 
-  Data({
-    this.id,
-    this.storeOwnerProfileID,
-    this.productName,
-    this.productImage,
-    this.productPrice,
-    this.discount,
-    this.storeProductCategoryID , this.commission});
+  Data(
+      {this.id,
+      this.storeOwnerProfileID,
+      this.productName,
+      this.productImage,
+      this.productPrice,
+      this.discount,
+      this.storeProductCategoryID,
+      this.commission});
 
   Data.fromJson(dynamic json) {
     id = json['id'];
     productName = json['productName'];
-    productImage = json['image'] != null ?ImageUrl.fromJson(json['image']) : null;
+    productImage =
+        json['image'] != null ? ImageUrl.fromJson(json['image']) : null;
     productPrice = json['productPrice'];
     discount = json['discount'];
     storeProductCategoryID = json['storeProductCategoryID'];
@@ -79,16 +77,13 @@ class Data {
     map['storeProductCategoryID'] = storeProductCategoryID;
     return map;
   }
-
 }
+
 class ImageUrl {
   String? image;
   String? imageURL;
   String? baseURL;
-  ImageUrl({
-    this.image,
-    this.imageURL,this.baseURL
-  });
+  ImageUrl({this.image, this.imageURL, this.baseURL});
 
   ImageUrl.fromJson(dynamic json) {
     image = json['image'];

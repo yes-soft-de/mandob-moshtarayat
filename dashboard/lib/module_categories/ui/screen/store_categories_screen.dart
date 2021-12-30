@@ -19,7 +19,7 @@ class StoreCategoriesScreen extends StatefulWidget {
   final StoreCategoriesStateManager _stateManager;
   final LocalizationService _localizationService;
 
-  StoreCategoriesScreen(this._stateManager,this._localizationService);
+  StoreCategoriesScreen(this._stateManager, this._localizationService);
 
   @override
   StoreCategoriesScreenState createState() => StoreCategoriesScreenState();
@@ -32,7 +32,7 @@ class StoreCategoriesScreenState extends State<StoreCategoriesScreen> {
 
   @override
   void initState() {
-    languageSelected = widget._localizationService.getLanguage() ;
+    languageSelected = widget._localizationService.getLanguage();
     currentState = StoreCategoriesLoadingState(this);
     widget._stateManager.stateStream.listen((event) {
       currentState = event;
@@ -41,11 +41,14 @@ class StoreCategoriesScreenState extends State<StoreCategoriesScreen> {
     widget._stateManager.getStoreCategories(this);
     super.initState();
   }
+
   void getStoreCategories() {
     widget._stateManager.getStoreCategories(this);
   }
+
   void getStoreCategoriesWithLang(String lang) {
-    widget._stateManager.getStoreCategoriesWithLang(this,FilterLanguageCategoryRequest(language: lang));
+    widget._stateManager.getStoreCategoriesWithLang(
+        this, FilterLanguageCategoryRequest(language: lang));
   }
 
   void addCategory(CreateStoreCategoryRequest request) {
@@ -57,7 +60,7 @@ class StoreCategoriesScreenState extends State<StoreCategoriesScreen> {
   }
 
   void deleteCategories(String id) {
-    widget._stateManager.deleteCategories(this,id);
+    widget._stateManager.deleteCategories(this, id);
   }
 
   void refresh() {
@@ -87,11 +90,16 @@ class StoreCategoriesScreenState extends State<StoreCategoriesScreen> {
                     context,
                     S.current.addNewCategory,
                     S.current.category,
-                    (name, image,tras) {
+                    (name, image, tras) {
                       Navigator.of(context).pop();
                       addCategory(CreateStoreCategoryRequest(
-                        dataStoreCategory: DataStoreCategory(image: image,lang: 'ar',storeCategoryName: name,description: name),
-                          translate: tras,));
+                        dataStoreCategory: DataStoreCategory(
+                            image: image,
+                            lang: 'ar',
+                            storeCategoryName: name,
+                            description: name),
+                        translate: tras,
+                      ));
                     },
                   );
                 });

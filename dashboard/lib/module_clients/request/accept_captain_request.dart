@@ -4,11 +4,7 @@ class AcceptCaptainRequest {
   String? status;
   num? bounce;
 
-  AcceptCaptainRequest({
-      this.captainID, 
-      this.salary, 
-      this.status, 
-      this.bounce});
+  AcceptCaptainRequest({this.captainID, this.salary, this.status, this.bounce});
 
   AcceptCaptainRequest.fromJson(dynamic json) {
     captainID = json['captainID'];
@@ -25,5 +21,4 @@ class AcceptCaptainRequest {
     map['bounce'] = bounce;
     return map;
   }
-
 }

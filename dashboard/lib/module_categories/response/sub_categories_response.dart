@@ -1,8 +1,9 @@
 class SubCategoriesResponse {
   SubCategoriesResponse({
-      this.statusCode, 
-      this.msg, 
-      this.data,});
+    this.statusCode,
+    this.msg,
+    this.data,
+  });
 
   SubCategoriesResponse.fromJson(dynamic json) {
     statusCode = json['status_code'];
@@ -27,19 +28,21 @@ class SubCategoriesResponse {
     }
     return map;
   }
-
 }
 
 class Data {
   Data({
-      this.id, 
-      this.productCategoryName, 
-      this.productCategoryImage,});
+    this.id,
+    this.productCategoryName,
+    this.productCategoryImage,
+  });
 
   Data.fromJson(dynamic json) {
     id = json['id'];
     productCategoryName = json['productCategoryName'];
-    productCategoryImage = json['productCategoryImage'] != null ? ProductCategoryImage.fromJson(json['productCategoryImage']) : null;
+    productCategoryImage = json['productCategoryImage'] != null
+        ? ProductCategoryImage.fromJson(json['productCategoryImage'])
+        : null;
   }
   int? id;
   String? productCategoryName;
@@ -54,14 +57,14 @@ class Data {
     }
     return map;
   }
-
 }
 
 class ProductCategoryImage {
   ProductCategoryImage({
-      this.imageURL, 
-      this.image, 
-      this.baseURL,});
+    this.imageURL,
+    this.image,
+    this.baseURL,
+  });
 
   ProductCategoryImage.fromJson(dynamic json) {
     imageURL = json['imageURL'];
@@ -79,5 +82,4 @@ class ProductCategoryImage {
     map['baseURL'] = baseURL;
     return map;
   }
-
 }

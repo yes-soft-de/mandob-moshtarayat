@@ -16,10 +16,12 @@ class InActiveDistributorsScreen extends StatefulWidget {
   InActiveDistributorsScreen(this._stateManager);
 
   @override
-  InActiveDistributorsScreenState createState() => InActiveDistributorsScreenState();
+  InActiveDistributorsScreenState createState() =>
+      InActiveDistributorsScreenState();
 }
 
-class InActiveDistributorsScreenState extends State<InActiveDistributorsScreen> {
+class InActiveDistributorsScreenState
+    extends State<InActiveDistributorsScreen> {
   late States currentState;
 
   @override
@@ -50,7 +52,8 @@ class InActiveDistributorsScreenState extends State<InActiveDistributorsScreen> 
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomTwaslnaAppBar.appBar(context,
-          title: S.of(context).inActiveDistributors, icon: Icons.menu, onTap: () {
+          title: S.of(context).inActiveDistributors,
+          icon: Icons.menu, onTap: () {
         GlobalVariable.mainScreenScaffold.currentState?.openDrawer();
       }),
       body: currentState.getUI(context),

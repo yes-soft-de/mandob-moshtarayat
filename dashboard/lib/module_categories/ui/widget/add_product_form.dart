@@ -267,23 +267,24 @@ class _UpdateProductsFormState extends State<UpdateProductsForm> {
   }
 }
 
-
 class UpdateProductsCommissionForm extends StatefulWidget {
   final Function(bool, String) updateCommission;
   final UpdateProductCommissionRequest? request;
   UpdateProductsCommissionForm({required this.updateCommission, this.request});
   @override
-  _UpdateProductsCommissionFormState createState() => _UpdateProductsCommissionFormState();
+  _UpdateProductsCommissionFormState createState() =>
+      _UpdateProductsCommissionFormState();
 }
 
-class _UpdateProductsCommissionFormState extends State<UpdateProductsCommissionForm> {
+class _UpdateProductsCommissionFormState
+    extends State<UpdateProductsCommissionForm> {
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   final TextEditingController _priceController = TextEditingController();
   bool agreed = false;
   @override
   void initState() {
     if (widget.request != null) {
-      if(widget.request?.commission != '0'){
+      if (widget.request?.commission != '0') {
         agreed = true;
       }
       _priceController.text = widget.request?.commission?.toString() ?? '0';
@@ -295,7 +296,7 @@ class _UpdateProductsCommissionFormState extends State<UpdateProductsCommissionF
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:
-      CustomTwaslnaAppBar.appBar(context, title: S.current.updateProduct),
+          CustomTwaslnaAppBar.appBar(context, title: S.current.updateProduct),
       body: StackedForm(
           child: Form(
             key: _key,
@@ -321,14 +322,10 @@ class _UpdateProductsCommissionFormState extends State<UpdateProductsCommissionF
                       padding: const EdgeInsets.only(top: 16.0),
                       child: CheckboxListTile(
                           value: agreed,
-                          title: Text(S
-                              .of(context)
-                              .addCommission),
+                          title: Text(S.of(context).addCommission),
                           onChanged: (v) {
                             agreed = v ?? false;
-                            setState(() {
-
-                            });
+                            setState(() {});
                           }),
                     ),
                     SizedBox(
@@ -341,11 +338,13 @@ class _UpdateProductsCommissionFormState extends State<UpdateProductsCommissionF
           onTap: () {
             if (_key.currentState!.validate()) {
               widget.updateCommission(
-                  agreed, _priceController.text,);
+                agreed,
+                _priceController.text,
+              );
             } else {
               CustomFlushBarHelper.createError(
-                  title: S.current.warnning,
-                  message: S.current.pleaseCompleteTheForm)
+                      title: S.current.warnning,
+                      message: S.current.pleaseCompleteTheForm)
                   .show(context);
             }
           }),

@@ -17,9 +17,7 @@ class StoresFilterResponse {
         data?.add(Data.fromJson(v));
       });
     }
-    try {
-
-    } catch (e) {
+    try {} catch (e) {
       Logger()
           .error('Stores Filter Response', e.toString(), StackTrace.current);
       statusCode = '-1';

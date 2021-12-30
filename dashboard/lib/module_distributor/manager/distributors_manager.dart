@@ -16,7 +16,7 @@ class DistributorManager {
 
   Future<DistributorResponse?> getInActiveDistro() =>
       _distributorRepository.getInActiveDistributor();
-      
+
   Future<DistributorResponse?> getDistros() =>
       _distributorRepository.getDistro();
 
@@ -35,5 +35,6 @@ class DistributorManager {
       _distributorRepository.captainRemainingPayments();
   Future<CaptainAccountBalanceResponse?> getAccountBalanceSpecific(
           int captainId, firstDate, lastDate) =>
-      _distributorRepository.getCaptainSpecificDate(captainId, firstDate, lastDate);
+      _distributorRepository.getCaptainSpecificDate(
+          captainId, firstDate, lastDate);
 }

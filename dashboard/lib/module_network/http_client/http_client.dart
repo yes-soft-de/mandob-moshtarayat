@@ -38,7 +38,8 @@ class ApiClient {
         }
         if (headers['Accept-Language'] != null) {
           _logger.info(tag, 'LANG');
-          client.options.headers['Accept-Language'] = headers['Accept-Language'];
+          client.options.headers['Accept-Language'] =
+              headers['Accept-Language'];
         }
       }
       //  client.options.headers['Access-Control-Allow-Origin'] = '*';

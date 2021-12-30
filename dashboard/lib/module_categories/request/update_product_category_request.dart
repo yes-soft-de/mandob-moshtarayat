@@ -3,10 +3,8 @@ class UpdateProductCategoryRequest {
   String? productCategoryName;
   int? storeOwnerProfileId;
 
-  UpdateProductCategoryRequest({
-      this.id, 
-      this.productCategoryName, 
-      this.storeOwnerProfileId});
+  UpdateProductCategoryRequest(
+      {this.id, this.productCategoryName, this.storeOwnerProfileId});
 
   UpdateProductCategoryRequest.fromJson(dynamic json) {
     id = json['id'];
@@ -21,5 +19,4 @@ class UpdateProductCategoryRequest {
     map['storeOwnerProfileId'] = storeOwnerProfileId;
     return map;
   }
-
 }

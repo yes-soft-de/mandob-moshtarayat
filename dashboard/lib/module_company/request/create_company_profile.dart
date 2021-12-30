@@ -8,14 +8,14 @@ class CreateCompanyProfile {
   String? email;
   double? deliveryCost;
 
-  CreateCompanyProfile({
-      this.phone, 
-      this.phone2, 
-      this.whatsapp, 
-      this.fax, 
-      this.bank, 
-      this.stc, 
-      this.email, 
+  CreateCompanyProfile(
+      {this.phone,
+      this.phone2,
+      this.whatsapp,
+      this.fax,
+      this.bank,
+      this.stc,
+      this.email,
       this.deliveryCost});
 
   CreateCompanyProfile.fromJson(dynamic json) {
@@ -39,5 +39,4 @@ class CreateCompanyProfile {
     map['email'] = email;
     return map;
   }
-
 }
