@@ -218,7 +218,10 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
 
             ->andWhere('OrderDetailEntity.storeOwnerProfileID = :storeOwnerProfileId')
 
+            ->andWhere('OrderDetailEntity.state != :notPaid')
+
             ->setParameter('storeOwnerProfileId', $storeOwnerProfileId)
+            ->setParameter('notPaid', OrderStateConstant::$ORDER_STATE_NOT_PAID)
 
             ->groupBy('OrderDetailEntity.orderNumber')
 
@@ -258,10 +261,12 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
 
             ->leftJoin(OrderEntity::class, 'OrderEntity', Join::WITH, 'orderDetailEntity.orderID = OrderEntity.id')
 
-            ->andWhere('orderDetailEntity.state != :state ')
+            ->andWhere('orderDetailEntity.state != :cancelled ')
             ->andWhere('orderDetailEntity.storeOwnerProfileID = :storeOwnerProfileId ')
+            ->andWhere('orderDetailEntity.state != :notPaid ')
 
-            ->setParameter('state', OrderStateConstant::$ORDER_STATE_CANCEL)
+            ->setParameter('cancelled', OrderStateConstant::$ORDER_STATE_CANCEL)
+            ->setParameter('notPaid', OrderStateConstant::$ORDER_STATE_NOT_PAID)
             ->setParameter('storeOwnerProfileId', $storeOwnerProfileId)
 
             ->addGroupBy('OrderEntity.id')
@@ -283,10 +288,12 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
             ->andWhere('OrderEntity.createdAt >= :fromDate')
             ->andWhere('OrderEntity.createdAt < :toDate')
             ->andWhere('orderDetailEntity.storeOwnerProfileID = :storeOwnerProfileId ')
+            ->andWhere('orderDetailEntity.state != :notPaid ')
 
             ->setParameter('storeOwnerProfileId', $storeOwnerProfileId)
             ->setParameter('fromDate', $fromDate)
             ->setParameter('toDate', $toDate)
+            ->setParameter('notPaid', OrderStateConstant::$ORDER_STATE_NOT_PAID)
 
             ->addGroupBy('OrderEntity.id')
 
@@ -380,8 +387,10 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
           ->andWhere('OrderEntity.createdAt < :toDate')
           ->andWhere("OrderEntity.state != :cancelled")
           ->andWhere("OrderEntity.state != :pending")
+          ->andWhere('OrderEntity.state != :notPaid ')
 
-          ->addGroupBy('OrderDetailEntity.productID')
+
+            ->addGroupBy('OrderDetailEntity.productID')
 
           ->having('count(OrderDetailEntity.productID) > 0')
 
@@ -393,6 +402,7 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
           ->setParameter('toDate', $toDate)
           ->setParameter('cancelled', OrderStateConstant::$ORDER_STATE_CANCEL)
           ->setParameter('pending', OrderStateConstant::$ORDER_STATE_PENDING)
+          ->setParameter('notPaid', OrderStateConstant::$ORDER_STATE_NOT_PAID)
 
           ->getQuery()
           ->getResult();

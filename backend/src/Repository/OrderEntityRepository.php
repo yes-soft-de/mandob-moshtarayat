@@ -154,10 +154,12 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->andWhere("OrderEntity.state != :pending")
             ->andWhere("OrderEntity.state != :cancel")
             ->andWhere("OrderEntity.state != :delivered")
+            ->andWhere("OrderEntity.state != :notPaid")
 
             ->setParameter('pending', OrderStateConstant::$ORDER_STATE_PENDING)
             ->setParameter('cancel', OrderStateConstant::$ORDER_STATE_CANCEL)
             ->setParameter('delivered', OrderStateConstant::$ORDER_STATE_DELIVERED)
+            ->setParameter('notPaid', OrderStateConstant::$ORDER_STATE_NOT_PAID)
             ->setParameter('id', $ids)
 
             ->getQuery()
@@ -199,7 +201,7 @@ class OrderEntityRepository extends ServiceEntityRepository
     public function getAcceptedOrderByCaptainId($captainID)
     {
         return $this->createQueryBuilder('OrderEntity')
-            ->select('OrderEntity.id', 'OrderEntity.deliveryDate', 'OrderEntity.createdAt', 'OrderEntity.payment', 'OrderEntity.detail', 'OrderEntity.deliveryCost', 'OrderEntity.orderCost', 'OrderEntity.orderType', 'OrderEntity.note')
+            ->select('OrderEntity.id', 'OrderEntity.deliveryDate', 'OrderEntity.createdAt', 'OrderEntity.payment', 'OrderEntity.detail', 'OrderEntity.deliveryCost', 'OrderEntity.orderCost', 'OrderEntity.orderType', 'OrderEntity.note', 'OrderEntity.state')
             ->addSelect('orderDetailEntity.id as orderDetailId', 'orderDetailEntity.orderNumber')
 
             ->leftJoin(OrderDetailEntity::class, 'orderDetailEntity', Join::WITH, 'orderDetailEntity.orderID = OrderEntity.id')
@@ -239,8 +241,10 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->leftJoin(OrderDetailEntity::class, 'orderDetailEntity', Join::WITH, 'orderDetailEntity.orderID = OrderEntity.id')
 
             ->andWhere('OrderEntity.state != :pending ')
+            ->andWhere('OrderEntity.state != :notPaid ')
 
             ->setParameter('pending', OrderStateConstant::$ORDER_STATE_PENDING)
+            ->setParameter('notPaid', OrderStateConstant::$ORDER_STATE_NOT_PAID)
 
             ->addGroupBy('OrderEntity.id')
 
@@ -259,9 +263,11 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->andWhere('OrderEntity.state != :pending')
             ->andWhere('OrderEntity.state != :delivered')
             ->andWhere('OrderEntity.state != :cancel')
+            ->andWhere('OrderEntity.state != :notPaid')
 
             ->setParameter('pending', OrderStateConstant::$ORDER_STATE_PENDING)
             ->setParameter('delivered', OrderStateConstant::$ORDER_STATE_DELIVERED)
+            ->setParameter('notPaid', OrderStateConstant::$ORDER_STATE_NOT_PAID)
             ->setParameter('cancel', OrderStateConstant::$ORDER_STATE_CANCEL)
 
             ->addGroupBy('OrderEntity.id')
@@ -322,10 +328,13 @@ class OrderEntityRepository extends ServiceEntityRepository
 
             ->leftJoin(OrderDetailEntity::class, 'orderDetailEntity', Join::WITH, 'orderDetailEntity.orderID = OrderEntity.id')
 
-            ->andWhere('OrderEntity.state != :state ')
+            ->andWhere('OrderEntity.state != :cancelled ')
+            ->andWhere('OrderEntity.state != :notPaid ')
             ->andWhere('OrderEntity.createdAt >= :fromDate')
             ->andWhere('OrderEntity.createdAt < :toDate')
-            ->setParameter('state', OrderStateConstant::$ORDER_STATE_CANCEL)
+
+            ->setParameter('notPaid', OrderStateConstant::$ORDER_STATE_NOT_PAID)
+            ->setParameter('cancelled', OrderStateConstant::$ORDER_STATE_CANCEL)
             ->setParameter('fromDate', $fromDate)
             ->setParameter('toDate', $toDate)
 
@@ -461,11 +470,13 @@ class OrderEntityRepository extends ServiceEntityRepository
           ->andWhere("OrderEntity.state != :cancelled")
           ->andWhere('OrderEntity.createdAt >= :fromDate')
           ->andWhere('OrderEntity.createdAt < :toDate')
+          ->andWhere('OrderEntity.state != :notPaid')
 
           ->setParameter('fromDate', $fromDate)
           ->setParameter('toDate', $toDate)
-          ->setParameter('cancelled', self::CANCEL)
-          
+          ->setParameter('cancelled', OrderStateConstant::$ORDER_STATE_CANCEL)
+          ->setParameter('notPaid', OrderStateConstant::$ORDER_STATE_NOT_PAID)
+
           ->getQuery()
           ->getSingleScalarResult();
     }
@@ -480,10 +491,12 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->andWhere("OrderEntity.state != :cancelled")
             ->andWhere('OrderEntity.createdAt >= :fromDate')
             ->andWhere('OrderEntity.createdAt < :toDate')
+            ->andWhere("OrderEntity.state != :notPaid")
 
             ->setParameter('fromDate', $fromDate)
             ->setParameter('toDate', $toDate)
             ->setParameter('cancelled', OrderStateConstant::$ORDER_STATE_CANCEL)
+            ->setParameter('notPaid', OrderStateConstant::$ORDER_STATE_NOT_PAID)
             ->setParameter('id', $ids)
 
             ->getQuery()
@@ -534,12 +547,12 @@ class OrderEntityRepository extends ServiceEntityRepository
 
             ->andWhere('OrderEntity.captainID = :captainId')
             ->andWhere("OrderEntity.state = :delivered")
-//            ->andWhere("OrderEntity.payment != :card")
+            ->andWhere("OrderEntity.payment != :card")
 
             ->andWhere("OrderEntity.isBillCalculated = :true")
 
             ->setParameter('true', 1)
-//            ->setParameter('card', 'card')
+            ->setParameter('card', 'card')
             ->setParameter('captainId', $captainId)
             ->setParameter('delivered', OrderStateConstant::$ORDER_STATE_DELIVERED)
 
@@ -553,11 +566,13 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->select('sum(OrderEntity.orderCost) as orderCost')
 
             ->andWhere("OrderEntity.state = :delivered")
-
             ->andWhere("OrderEntity.isBillCalculated = :true")
+            ->andWhere("OrderEntity.payment != :card")
+
 
             ->setParameter('true', 1)
             ->setParameter('delivered', OrderStateConstant::$ORDER_STATE_DELIVERED)
+            ->setParameter('card', 'card')
 
             ->getQuery()
             ->getSingleScalarResult();
@@ -659,17 +674,17 @@ class OrderEntityRepository extends ServiceEntityRepository
 
             ->where('OrderEntity.deliveryDate >= :fromDate')
             ->andWhere('OrderEntity.deliveryDate < :toDate')
-
             ->andWhere('OrderEntity.captainID = :captainId')
             ->andWhere("OrderEntity.state = :delivered")
-
             ->andWhere("OrderEntity.isBillCalculated = :true")
+            ->andWhere("OrderEntity.payment != :card")
 
             ->setParameter('true', 1)
             ->setParameter('captainId', $captainId)
             ->setParameter('delivered', OrderStateConstant::$ORDER_STATE_DELIVERED)
             ->setParameter('fromDate', $fromDate)
             ->setParameter('toDate', $toDate)
+            ->setParameter('card', "card")
 
             ->getQuery()
             ->getSingleScalarResult();
@@ -795,10 +810,12 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->andWhere('OrderEntity.clientID = :clientID')
             ->andWhere("OrderEntity.state != :delivered")
             ->andWhere("OrderEntity.state != :cancelled")
+            ->andWhere("OrderEntity.state != :notPaid")
 
             ->setParameter('clientID', $clientID)
             ->setParameter('delivered', OrderStateConstant::$ORDER_STATE_DELIVERED)
             ->setParameter('cancelled', OrderStateConstant::$ORDER_STATE_CANCEL)
+            ->setParameter('notPaid', OrderStateConstant::$ORDER_STATE_NOT_PAID)
 
             ->addGroupBy('OrderEntity.id')
 
@@ -968,10 +985,12 @@ class OrderEntityRepository extends ServiceEntityRepository
 
             ->select('count(OrderEntity.id) as count')
 
-            ->andWhere("OrderEntity.state != :state")
+            ->andWhere("OrderEntity.state != :cancelled")
+            ->andWhere("OrderEntity.state != :notPaid")
             ->andWhere("OrderEntity.id IN (:id)")
 
-            ->setParameter('state', OrderStateConstant::$ORDER_STATE_CANCEL)
+            ->setParameter('cancelled', OrderStateConstant::$ORDER_STATE_CANCEL)
+            ->setParameter('notPaid', OrderStateConstant::$ORDER_STATE_NOT_PAID)
             ->setParameter('id', $ids)
 
             ->getQuery()

@@ -24,10 +24,6 @@ class OrderClientCreateRequest
    
     private $deliveryCost;
 
-    private $token;
-
-    private $transactionID;
-
 
     public function getState(): ?string
     {
@@ -111,5 +107,21 @@ class OrderClientCreateRequest
         $this->deliveryCost = $deliveryCost;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPayment()
+    {
+        return $this->payment;
+    }
+
+    /**
+     * @param mixed $payment
+     */
+    public function setPayment($payment): void
+    {
+        $this->payment = $payment;
     }
 }

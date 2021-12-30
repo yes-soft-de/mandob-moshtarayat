@@ -19,7 +19,6 @@ use App\Response\OrderUpdateProductCountByClientResponse;
 use App\Response\OrderUpdateStateForEachStoreResponse;
 use App\Response\OrderUpdateStateResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use App\Service\NotificationLocalService;
 
 class OrderDetailService
 {
@@ -28,22 +27,21 @@ class OrderDetailService
     private $params;
     const PENDING="pending";
 
-    public function __construct(AutoMapping $autoMapping, OrderDetailManager $orderDetailManager, ParameterBagInterface $params, NotificationLocalService $notificationLocalService)
+    public function __construct(AutoMapping $autoMapping, OrderDetailManager $orderDetailManager, ParameterBagInterface $params)
     {
         $this->autoMapping = $autoMapping;
         $this->orderDetailManager = $orderDetailManager;
-        $this->notificationLocalService = $notificationLocalService;
         $this->params = $params->get('upload_base_url') . '/';
     }
 
-    public function createOrderDetail($orderID, $productID, $countProduct, $orderNumber, $storeOwnerProfileID = 0)
+    public function createOrderDetail($orderID, $productID, $countProduct, $orderNumber, $state, $storeOwnerProfileID = 0)
     {
         $item['orderID'] = $orderID;
         $item['orderNumber'] = $orderNumber;
         $item['productID'] = $productID;
         $item['countProduct'] = $countProduct;
         $item['storeOwnerProfileID'] = $storeOwnerProfileID;
-        $item['state'] = self::PENDING;
+        $item['state'] = $state;
 
         $result = $this->orderDetailManager->createOrderDetail($item);
 
