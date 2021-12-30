@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/module_orders/repository/orders_repository.dart';
 import 'package:mandob_moshtarayat/module_orders/request/client_order_request.dart';
+import 'package:mandob_moshtarayat/module_orders/request/create_payment_record_request.dart';
 import 'package:mandob_moshtarayat/module_orders/response/client_order_response.dart';
 import 'package:mandob_moshtarayat/module_orders/response/my_orders_response.dart';
 import 'package:mandob_moshtarayat/module_orders/response/order_details_response/order_details_response.dart';
@@ -26,6 +27,8 @@ class MyOrdersManager {
       _myOrdersRepository.deleteClientOrder(id);
   Future<ClientOrderResponse?> updateClientOrder(ClientOrderRequest request) =>
       _myOrdersRepository.updateClientOrder(request);
+        Future<ClientOrderResponse?> updatePaymentRecord(CreatePaymentRecordRequest request) =>
+      _myOrdersRepository.updatePaymentRecord(request);
   Future<RateResponse?> rateCaptain(RateCaptainRequest request) =>
       _myOrdersRepository.createRateCaptain(request);
 }
