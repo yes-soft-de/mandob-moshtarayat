@@ -120,6 +120,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Choose Your City"),
         "chooseYourSize":
             MessageLookupByLibrary.simpleMessage("Choose Your Size"),
+        "codeNumber": MessageLookupByLibrary.simpleMessage("Code number"),
+        "codeTimeOut": MessageLookupByLibrary.simpleMessage("Code has expired"),
         "community": MessageLookupByLibrary.simpleMessage("Community"),
         "completeTime": MessageLookupByLibrary.simpleMessage("Completion Time"),
         "completedOrders":
@@ -168,6 +170,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "emailAddressIsRequired":
             MessageLookupByLibrary.simpleMessage("Email Address is Required"),
+        "enterProductInfo":
+            MessageLookupByLibrary.simpleMessage("Enter product information"),
         "errOc":
             MessageLookupByLibrary.simpleMessage("The next problems occurred"),
         "errorDownloadingImage":
@@ -185,6 +189,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "exceededAllowedTime": MessageLookupByLibrary.simpleMessage(
             "Can not remove it, Exceeded time allowed"),
         "externalOrder": MessageLookupByLibrary.simpleMessage("External Order"),
+        "extraDetails": MessageLookupByLibrary.simpleMessage("Extra details"),
         "failureRenew": MessageLookupByLibrary.simpleMessage(
             "Your renew has been failed please try again"),
         "favoriteCategories":
@@ -198,6 +203,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Your subscription is out of date please renew your subscription"),
         "finishedOrdering":
             MessageLookupByLibrary.simpleMessage("Finish Order"),
+        "firstName": MessageLookupByLibrary.simpleMessage("First name"),
         "firstSendMessage": MessageLookupByLibrary.simpleMessage(
             "Be the first one to send message"),
         "fromWhatsapp": MessageLookupByLibrary.simpleMessage("From WhatsApp"),
@@ -235,14 +241,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "initData": MessageLookupByLibrary.simpleMessage("Init Data"),
         "internalServerError":
             MessageLookupByLibrary.simpleMessage("Internal server error"),
+        "invalidCode": MessageLookupByLibrary.simpleMessage("Invalid Code"),
         "invalidCredentials":
             MessageLookupByLibrary.simpleMessage("Wrong username or password"),
+        "invalidNumber": MessageLookupByLibrary.simpleMessage("Invalid number"),
         "invoiceCost": MessageLookupByLibrary.simpleMessage("Invoice Cost"),
         "invoiceImage": MessageLookupByLibrary.simpleMessage("Invoice Image"),
         "item": MessageLookupByLibrary.simpleMessage("Item"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "largeMoreThan100Employees":
             MessageLookupByLibrary.simpleMessage("+100 Employees"),
+        "lastName": MessageLookupByLibrary.simpleMessage("Last name"),
         "lastSeenMessage": MessageLookupByLibrary.simpleMessage("New Messages"),
         "latestUpdates": MessageLookupByLibrary.simpleMessage("Latest Updates"),
         "lebanon": MessageLookupByLibrary.simpleMessage("Lebanon"),
@@ -256,6 +265,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "me": MessageLookupByLibrary.simpleMessage("ME"),
         "mediumMoreThan20EmployeesLessThan100":
             MessageLookupByLibrary.simpleMessage("21 - 100 Employees"),
+        "middleName": MessageLookupByLibrary.simpleMessage("Middle name"),
         "minute": MessageLookupByLibrary.simpleMessage("minute"),
         "minutes": MessageLookupByLibrary.simpleMessage("minutes"),
         "mohammad": MessageLookupByLibrary.simpleMessage("Mohammad"),
@@ -293,6 +303,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "You dont have a subscription yet"),
         "notVerified": MessageLookupByLibrary.simpleMessage(
             "Your subscription not verified yet"),
+        "notVerifiedNumber": MessageLookupByLibrary.simpleMessage(
+            "You must enter the code first"),
         "note": MessageLookupByLibrary.simpleMessage("Notes"),
         "noteOfOrder": MessageLookupByLibrary.simpleMessage(
             "Please place your order notes"),
@@ -343,8 +355,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "passwordIsTooShort":
             MessageLookupByLibrary.simpleMessage("Password is too short"),
+        "pay": MessageLookupByLibrary.simpleMessage("Pay"),
         "paySubscription":
             MessageLookupByLibrary.simpleMessage("Pay Subscription"),
+        "paymentFailed": MessageLookupByLibrary.simpleMessage(
+            "Payment process has been failed , please try again later"),
         "paymentHistory":
             MessageLookupByLibrary.simpleMessage("Payment History"),
         "paymentMethod": MessageLookupByLibrary.simpleMessage("Payment Method"),
@@ -389,11 +404,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Please Select a Branch"),
         "preferredLanguage":
             MessageLookupByLibrary.simpleMessage("Preferred Language"),
+        "pressHere": MessageLookupByLibrary.simpleMessage("Press here"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "privateOrder": MessageLookupByLibrary.simpleMessage("Private Order"),
         "product": MessageLookupByLibrary.simpleMessage("product"),
         "productDetails":
             MessageLookupByLibrary.simpleMessage("Products Details"),
+        "productName": MessageLookupByLibrary.simpleMessage("Product Name"),
         "productQuantity":
             MessageLookupByLibrary.simpleMessage("Product Quantity"),
         "productRated": MessageLookupByLibrary.simpleMessage("Product Rated"),
@@ -442,7 +459,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "requestMeeting":
             MessageLookupByLibrary.simpleMessage("Request Meeting"),
         "resendCode": MessageLookupByLibrary.simpleMessage("Resend Code"),
-        "saller": MessageLookupByLibrary.simpleMessage("Saller"),
+        "resendCodeSuccessfully": MessageLookupByLibrary.simpleMessage(
+            "The code has been successfully sent"),
         "sar": MessageLookupByLibrary.simpleMessage("SAR"),
         "saudiArabia": MessageLookupByLibrary.simpleMessage("Saudi Arabia"),
         "saudiRiyal": MessageLookupByLibrary.simpleMessage("Saudi Riyal"),
@@ -465,6 +483,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "seconds": MessageLookupByLibrary.simpleMessage("seconds"),
         "selectLanguage":
             MessageLookupByLibrary.simpleMessage("Select Language"),
+        "seller": MessageLookupByLibrary.simpleMessage("Saller"),
+        "send": MessageLookupByLibrary.simpleMessage("Send"),
         "sendMeCode": MessageLookupByLibrary.simpleMessage("Send me code"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "share": MessageLookupByLibrary.simpleMessage("Share"),
@@ -543,6 +563,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "updateYourData": MessageLookupByLibrary.simpleMessage("Update Data"),
         "uploadAndSubmit":
             MessageLookupByLibrary.simpleMessage("Upload and submit"),
+        "uploadImageIfyouHave":
+            MessageLookupByLibrary.simpleMessage("Upload image if you have"),
         "uploadImageSuccess":
             MessageLookupByLibrary.simpleMessage("Upload image was a success"),
         "uploadProfileSuccess": MessageLookupByLibrary.simpleMessage(
@@ -581,6 +603,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveProductsFromDifferentStore": MessageLookupByLibrary.simpleMessage(
             "You have products from other store , Do you want to clear your cart and add the new ones"),
         "yourCartEmpty": MessageLookupByLibrary.simpleMessage(
-            "Your cart is empty please choose items to add")
+            "Your cart is empty please choose items to add"),
+        "yourRequestSent":
+            MessageLookupByLibrary.simpleMessage("Your Request have been sent")
       };
 }

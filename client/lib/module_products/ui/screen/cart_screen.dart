@@ -149,10 +149,9 @@ class _CartScreenState extends State<CartScreen> {
                         active: CartHiveHelper().getCart().isNotEmpty,
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
-                          child: BillCard(
-                            id: null,
-                            deliveryCost: 0,
+                          child: BillCardDetails(
                             orderCost: total,
+                            items: CartHiveHelper().getCart(),
                           ),
                         ),
                       ),

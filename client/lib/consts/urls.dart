@@ -12,7 +12,11 @@ class Urls {
   static const SIGN_UP_API = BASE_API + '/clientregister';
   static const OWNER_PROFILE_API = BASE_API + '/userprofile';
   static const CREATE_TOKEN_API = BASE_API + '/login_check';
+  static const VERIFY_CODE_API = BASE_API + '/verifycode';
+  static const CHECK_USER_VERIFIED_API = BASE_API + '/checkverificationstatus';
+  static const RESEND_CODE_API = BASE_API + '/resendnewverificationcode';
   static const REPORT_API = BASE_API + '/report';
+  static const CREATE_CUSTOM_PRODUCT_API = BASE_API + '/customproductnotfound';
   static const NOTIFICATION_API = BASE_API + '/notificationtoken';
   static const COMPANYINFO_API = BASE_API + '/companyinfoforuser';
   static const NOTIFICATIONNEWCHAT_API = BASE_API + '/notificationnewchat';

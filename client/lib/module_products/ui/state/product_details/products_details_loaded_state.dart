@@ -228,7 +228,9 @@ class ProductDetailsLoadedState extends States {
                         onTap: () {
                           Navigator.of(context).pushNamed(
                               StoreRoutes.STORE_PRODUCTS,
-                              arguments: {'storeId':model.storeOwnerProfileID.toString()});
+                              arguments: {
+                                'storeId': model.storeOwnerProfileID.toString()
+                              });
                         },
                         leading: Icon(
                           FontAwesomeIcons.store,

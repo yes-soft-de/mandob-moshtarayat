@@ -2,6 +2,7 @@ import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/module_auth/repository/auth/auth_repository.dart';
 import 'package:mandob_moshtarayat/module_auth/request/login_request/login_request.dart';
 import 'package:mandob_moshtarayat/module_auth/request/register_request/register_request.dart';
+import 'package:mandob_moshtarayat/module_auth/request/register_request/verfy_code_request.dart';
 import 'package:mandob_moshtarayat/module_auth/response/login_response/login_response.dart';
 import 'package:mandob_moshtarayat/module_auth/response/regester_response/regester_response.dart';
 
@@ -17,4 +18,12 @@ class AuthManager {
       _authRepository.getToken(loginRequest);
   Future<RegisterResponse?> userTypeCheck(String role, String token) =>
       _authRepository.checkUserType(role, token);
+  Future<RegisterResponse?> verify(VerifyCodeRequest registerRequest) =>
+      _authRepository.verifyUser(registerRequest);
+
+  Future<RegisterResponse?> checkUserIfVerified(
+          VerifyCodeRequest registerRequest) =>
+      _authRepository.checkUserIfVerified(registerRequest);
+  Future<RegisterResponse?> resendCode(VerifyCodeRequest registerRequest) =>
+      _authRepository.resendCode(registerRequest);
 }

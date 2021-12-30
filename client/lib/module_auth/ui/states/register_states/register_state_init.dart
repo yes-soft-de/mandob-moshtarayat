@@ -1,4 +1,5 @@
 import 'package:flutter_svg/svg.dart';
+import 'package:mandob_moshtarayat/consts/country_code.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_auth/authorization_routes.dart';
 import 'package:mandob_moshtarayat/module_auth/request/register_request/register_request.dart';
@@ -20,13 +21,13 @@ class RegisterStateInit extends RegisterState {
       if (registered) {
         screenState.userRegistered().whenComplete(() {
           CustomFlushBarHelper.createError(
-              title: S.current.warnning, message: error)
-            ..show(screenState.context);
+                  title: S.current.warnning, message: error)
+              .show(screenState.context);
         });
       } else {
         CustomFlushBarHelper.createError(
-            title: S.current.warnning, message: error)
-          ..show(screenState.context);
+                title: S.current.warnning, message: error)
+            .show(screenState.context);
       }
     }
   }
@@ -43,8 +44,8 @@ class RegisterStateInit extends RegisterState {
         Form(
           key: _registerKey,
           child: ListView(
-            physics:
-                BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+            physics: const BouncingScrollPhysics(
+                parent: AlwaysScrollableScrollPhysics()),
             children: [
               MediaQuery.of(context).viewInsets.bottom == 0
                   ? Padding(
@@ -61,7 +62,7 @@ class RegisterStateInit extends RegisterState {
                     bottom: 8.0, left: 85, right: 85, top: 24),
                 child: Text(
                   S.of(context).name,
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
               ListTile(
@@ -70,8 +71,8 @@ class RegisterStateInit extends RegisterState {
                     borderRadius: BorderRadius.circular(10),
                     color: Theme.of(context).backgroundColor,
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
                     child: Icon(Icons.person),
                   ),
                 ),
@@ -87,8 +88,8 @@ class RegisterStateInit extends RegisterState {
                 padding: const EdgeInsets.only(
                     bottom: 8.0, left: 85, right: 85, top: 8),
                 child: Text(
-                  S.of(context).username,
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  S.of(context).phoneNumber,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
               ListTile(
@@ -97,16 +98,23 @@ class RegisterStateInit extends RegisterState {
                     borderRadius: BorderRadius.circular(10),
                     color: Theme.of(context).backgroundColor,
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(Icons.email),
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Icon(Icons.phone),
                   ),
                 ),
                 title: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: CustomLoginFormField(
                     controller: usernameController,
-                    hintText: S.of(context).registerHint,
+                    hintText: '5xxxxxxxxx',
+                    phone: true,
+                    contentPadding:
+                        const EdgeInsets.only(left: 8, right: 8, top: 16),
+                    sufIcon: const Padding(
+                      padding: EdgeInsets.only(left: 8, right: 8, top: 16),
+                      child: Text(CountryCode.COUNTRY_CODE_KSA),
+                    ),
                   ),
                 ),
               ),
@@ -115,7 +123,7 @@ class RegisterStateInit extends RegisterState {
                     bottom: 8.0, left: 85, right: 85, top: 8),
                 child: Text(
                   S.of(context).password,
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
               ListTile(
@@ -124,8 +132,8 @@ class RegisterStateInit extends RegisterState {
                     borderRadius: BorderRadius.circular(10),
                     color: Theme.of(context).backgroundColor,
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
                     child: Icon(Icons.lock),
                   ),
                 ),
@@ -135,7 +143,7 @@ class RegisterStateInit extends RegisterState {
                     last: true,
                     controller: passwordController,
                     password: true,
-                    contentPadding: EdgeInsets.fromLTRB(16, 16, 16, 0),
+                    contentPadding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
                     hintText: S.of(context).password,
                   ),
                 ),

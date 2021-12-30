@@ -3,11 +3,15 @@ import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/di/di_config.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_account/ui/screen/favourite_screen.dart';
+import 'package:mandob_moshtarayat/module_auth/authorization_routes.dart';
+import 'package:mandob_moshtarayat/module_auth/presistance/auth_prefs_helper.dart';
+import 'package:mandob_moshtarayat/module_auth/service/auth_service/auth_service.dart';
 import 'package:mandob_moshtarayat/module_auth/state_manager/login_state_manager/login_state_manager.dart';
 import 'package:mandob_moshtarayat/module_auth/ui/states/login_states/login_state.dart';
 import 'package:mandob_moshtarayat/module_auth/ui/states/login_states/login_state_init.dart';
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat/module_main/main_routes.dart';
+import 'package:mandob_moshtarayat/module_splash/splash_routes.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 
@@ -128,6 +132,21 @@ class LoginScreenState extends State<LoginScreen> {
     }
     CustomFlushBarHelper.createSuccess(
             title: S.current.warnning, message: S.current.loginSuccess)
+        .show(context);
+  }
+
+  void verifyFirst(String? userID, String? password) {
+    if (userID == null || password == null) {
+      getIt<AuthService>().logout();
+      Navigator.pushNamedAndRemoveUntil(
+          context, SplashRoutes.SPLASH_SCREEN, (route) => false);
+      return;
+    }
+    Navigator.of(context).pushNamedAndRemoveUntil(
+        AuthorizationRoutes.REGISTER_SCREEN, (route) => false,
+        arguments: {"userID": userID, "pass": password});
+    CustomFlushBarHelper.createError(
+            title: S.current.warnning, message: S.current.confirmCode)
         .show(context);
   }
 }

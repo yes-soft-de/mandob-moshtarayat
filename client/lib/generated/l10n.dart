@@ -3744,7 +3744,7 @@ class S {
   String get seller {
     return Intl.message(
       'Saller',
-      name: 'saller',
+      name: 'seller',
       desc: '',
       args: [],
     );
@@ -3815,6 +3815,186 @@ class S {
     return Intl.message(
       'Products Details',
       name: 'productDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid number`
+  String get invalidNumber {
+    return Intl.message(
+      'Invalid number',
+      name: 'invalidNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid Code`
+  String get invalidCode {
+    return Intl.message(
+      'Invalid Code',
+      name: 'invalidCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Code number`
+  String get codeNumber {
+    return Intl.message(
+      'Code number',
+      name: 'codeNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Code has expired`
+  String get codeTimeOut {
+    return Intl.message(
+      'Code has expired',
+      name: 'codeTimeOut',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The code has been successfully sent`
+  String get resendCodeSuccessfully {
+    return Intl.message(
+      'The code has been successfully sent',
+      name: 'resendCodeSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You must enter the code first`
+  String get notVerifiedNumber {
+    return Intl.message(
+      'You must enter the code first',
+      name: 'notVerifiedNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pay`
+  String get pay {
+    return Intl.message(
+      'Pay',
+      name: 'pay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `First name`
+  String get firstName {
+    return Intl.message(
+      'First name',
+      name: 'firstName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Middle name`
+  String get middleName {
+    return Intl.message(
+      'Middle name',
+      name: 'middleName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Last name`
+  String get lastName {
+    return Intl.message(
+      'Last name',
+      name: 'lastName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payment process has been failed , please try again later`
+  String get paymentFailed {
+    return Intl.message(
+      'Payment process has been failed , please try again later',
+      name: 'paymentFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Extra details`
+  String get extraDetails {
+    return Intl.message(
+      'Extra details',
+      name: 'extraDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Product Name`
+  String get productName {
+    return Intl.message(
+      'Product Name',
+      name: 'productName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter product information`
+  String get enterProductInfo {
+    return Intl.message(
+      'Enter product information',
+      name: 'enterProductInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upload image if you have`
+  String get uploadImageIfyouHave {
+    return Intl.message(
+      'Upload image if you have',
+      name: 'uploadImageIfyouHave',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Press here`
+  String get pressHere {
+    return Intl.message(
+      'Press here',
+      name: 'pressHere',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Send`
+  String get send {
+    return Intl.message(
+      'Send',
+      name: 'send',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your Request have been sent`
+  String get yourRequestSent {
+    return Intl.message(
+      'Your Request have been sent',
+      name: 'yourRequestSent',
       desc: '',
       args: [],
     );

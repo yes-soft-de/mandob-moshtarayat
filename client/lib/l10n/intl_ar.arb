@@ -376,6 +376,24 @@
   "selectLanguage":"اختر لغتك المفضلة",
   "cartItemAdded":"تم إضافة عنصر إلى سلة الشراء",
   "cartItemRemoved":"تمت إزالة عنصر من سلة الشراء",
-  "productDetails":"تفاصيل منتج"
+  "productDetails":"تفاصيل منتج",
+  "invalidNumber": "الرقم غير صالح",
+  "invalidCode": "رمز التحقق خطأ",
+  "codeNumber": "رمز التحقق",
+  "codeTimeOut": "انتهت صلاحية رمز التحقق",
+  "resendCodeSuccessfully":"تم إرسال الرمز بنجاح",
+  "notVerifiedNumber": "يجب عليك إدخال الرمز أولاً",
+  "pay":"ادفع",
+  "firstName":"الاسم الأول",
+  "middleName":"الاسم الاوسط او اسم الأب",
+  "lastName":"الكنية",
+  "paymentFailed":"للأسف فشلت عملية الدفع الرجاء ، إعادة المحاولة",
+  "extraDetails":"تفاصيل إضافية",
+  "productName":"اسم المنتج",
+  "enterProductInfo":"ادخل معلومات المنتج",
+  "uploadImageIfyouHave":"ارفع صورة إذا عندك",
+  "pressHere":"اضغط هنا",
+  "send":"إرسال",
+  "yourRequestSent":"تم إرسال طلبك"
 
 }

@@ -121,6 +121,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("اپنے شہر کا انتخاب کریں۔"),
         "chooseYourSize":
             MessageLookupByLibrary.simpleMessage("اپنا سائز منتخب کریں۔"),
+        "codeNumber": MessageLookupByLibrary.simpleMessage("کوڈ نمبر"),
+        "codeTimeOut":
+            MessageLookupByLibrary.simpleMessage("کوڈ کی میعاد ختم ہو گئی ہے۔"),
         "community": MessageLookupByLibrary.simpleMessage(" برادری"),
         "completeTime": MessageLookupByLibrary.simpleMessage(" تکمیل کا وقت"),
         "completedOrders":
@@ -172,6 +175,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("ای میل"),
         "emailAddressIsRequired":
             MessageLookupByLibrary.simpleMessage("ای میل ایڈریس درکار ہے۔"),
+        "enterProductInfo":
+            MessageLookupByLibrary.simpleMessage("مصنوعات کی معلومات درج کریں"),
         "errOc": MessageLookupByLibrary.simpleMessage(" اگلے مسائل پیش آئے"),
         "errorDownloadingImage": MessageLookupByLibrary.simpleMessage(
             " تصویر ڈاؤن لوڈ کرنے میں غلطی"),
@@ -188,6 +193,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "exceededAllowedTime": MessageLookupByLibrary.simpleMessage(
             " اسے ہٹایا نہیں جا سکتا، اجازت شدہ وقت سے زیادہ"),
         "externalOrder": MessageLookupByLibrary.simpleMessage(" بیرونی آرڈر"),
+        "extraDetails": MessageLookupByLibrary.simpleMessage("اضافی تفصیلات"),
         "failureRenew": MessageLookupByLibrary.simpleMessage(
             " آپ کی تجدید ناکام ہو گئی ہے براہ کرم دوبارہ کوشش کریں۔"),
         "favoriteCategories":
@@ -201,6 +207,7 @@ class MessageLookup extends MessageLookupByLibrary {
             " آپ کی سبسکرپشن پرانی ہو گئی ہے براہ کرم اپنی رکنیت کی تجدید کریں۔"),
         "finishedOrdering":
             MessageLookupByLibrary.simpleMessage(" آرڈر ختم کریں۔"),
+        "firstName": MessageLookupByLibrary.simpleMessage("پہلا نام"),
         "firstSendMessage": MessageLookupByLibrary.simpleMessage(
             "پیغام بھیجنے والے پہلے فرد بنیں۔"),
         "fromWhatsapp": MessageLookupByLibrary.simpleMessage("واٹس ایپ سے"),
@@ -240,8 +247,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "initData": MessageLookupByLibrary.simpleMessage("ڈیٹا شروع کریں۔"),
         "internalServerError":
             MessageLookupByLibrary.simpleMessage(" اندرونی سرور کی خرابی"),
+        "invalidCode": MessageLookupByLibrary.simpleMessage("غلط کوڈ"),
         "invalidCredentials": MessageLookupByLibrary.simpleMessage(
             " غلط استعملاتی نام یا خفیہ کوڈ"),
+        "invalidNumber": MessageLookupByLibrary.simpleMessage("ناموزوں نمبر"),
         "invoiceCost": MessageLookupByLibrary.simpleMessage(" انوائس لاگت"),
         "invoiceImage":
             MessageLookupByLibrary.simpleMessage(" انوائس کی تصویر"),
@@ -249,6 +258,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "language": MessageLookupByLibrary.simpleMessage("زبان"),
         "largeMoreThan100Employees":
             MessageLookupByLibrary.simpleMessage("+100 Employees"),
+        "lastName": MessageLookupByLibrary.simpleMessage("آخری نام"),
         "lastSeenMessage": MessageLookupByLibrary.simpleMessage(" نئے پیغامات"),
         "latestUpdates":
             MessageLookupByLibrary.simpleMessage(" تازہ ترین اپڈیٹس"),
@@ -263,6 +273,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "me": MessageLookupByLibrary.simpleMessage("مجھے"),
         "mediumMoreThan20EmployeesLessThan100":
             MessageLookupByLibrary.simpleMessage("21 - 100 Employees"),
+        "middleName": MessageLookupByLibrary.simpleMessage("درمیانی نام"),
         "minute": MessageLookupByLibrary.simpleMessage(" منٹ"),
         "minutes": MessageLookupByLibrary.simpleMessage(" منٹ"),
         "mohammad": MessageLookupByLibrary.simpleMessage("محمد"),
@@ -300,6 +311,8 @@ class MessageLookup extends MessageLookupByLibrary {
             " آپ کے پاس ابھی تک سبسکرپشن نہیں ہے۔"),
         "notVerified": MessageLookupByLibrary.simpleMessage(
             " آپ کی رکنیت کی تصدیق ابھی تک نہیں ہوئی ہے۔"),
+        "notVerifiedNumber": MessageLookupByLibrary.simpleMessage(
+            "آپ کو پہلے کوڈ درج کرنا ہوگا"),
         "note": MessageLookupByLibrary.simpleMessage(" نوٹس"),
         "noteOfOrder": MessageLookupByLibrary.simpleMessage(
             " براہ کرم اپنے آرڈر نوٹ رکھیں"),
@@ -351,8 +364,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "password": MessageLookupByLibrary.simpleMessage("پاس ورڈ"),
         "passwordIsTooShort":
             MessageLookupByLibrary.simpleMessage("پاس ورڈ بہت چھوٹا ہے۔"),
+        "pay": MessageLookupByLibrary.simpleMessage("دھکا"),
         "paySubscription":
             MessageLookupByLibrary.simpleMessage("سبسکرپشن ادا کریں۔"),
+        "paymentFailed": MessageLookupByLibrary.simpleMessage(
+            "ادائیگی کا عمل ناکام ہو گیا ہے، براہ کرم بعد میں دوبارہ کوشش کریں۔"),
         "paymentHistory":
             MessageLookupByLibrary.simpleMessage(" ادائیگی کی تاریخ"),
         "paymentMethod":
@@ -399,12 +415,14 @@ class MessageLookup extends MessageLookupByLibrary {
             "براہ کرم ایک برانچ منتخب کریں۔"),
         "preferredLanguage":
             MessageLookupByLibrary.simpleMessage(" ترجیحی زبان"),
+        "pressHere": MessageLookupByLibrary.simpleMessage("یہاں دبائیں"),
         "privacyPolicy":
             MessageLookupByLibrary.simpleMessage("رازداری کی پالیسی"),
         "privateOrder": MessageLookupByLibrary.simpleMessage(" پرائیویٹ آرڈر"),
         "product": MessageLookupByLibrary.simpleMessage(" مصنوعات"),
         "productDetails":
             MessageLookupByLibrary.simpleMessage(" مصنوعات کی تفصیلات"),
+        "productName": MessageLookupByLibrary.simpleMessage("پروڈکٹ کا نام"),
         "productQuantity":
             MessageLookupByLibrary.simpleMessage(" مصنوعات کی مقدار"),
         "productRated":
@@ -458,7 +476,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "requestMeeting":
             MessageLookupByLibrary.simpleMessage("میٹنگ کی درخواست کریں۔"),
         "resendCode": MessageLookupByLibrary.simpleMessage("کوڈ پھر سے بھیجو"),
-        "saller": MessageLookupByLibrary.simpleMessage(" سیلر"),
+        "resendCodeSuccessfully": MessageLookupByLibrary.simpleMessage(
+            "کوڈ کامیابی سے بھیج دیا گیا ہے۔"),
         "sar": MessageLookupByLibrary.simpleMessage(" SAR"),
         "saudiArabia": MessageLookupByLibrary.simpleMessage("Saudi Arabia"),
         "saudiRiyal": MessageLookupByLibrary.simpleMessage(" سعودی ریال"),
@@ -483,6 +502,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "seconds": MessageLookupByLibrary.simpleMessage(" سیکنڈ"),
         "selectLanguage":
             MessageLookupByLibrary.simpleMessage(" زبان منتخب کریں۔"),
+        "seller": MessageLookupByLibrary.simpleMessage(" سیلر"),
+        "send": MessageLookupByLibrary.simpleMessage("بھیجیں"),
         "sendMeCode": MessageLookupByLibrary.simpleMessage("مجھے کوڈ بھیجیں۔"),
         "settings": MessageLookupByLibrary.simpleMessage("ترتیبات"),
         "share": MessageLookupByLibrary.simpleMessage(" بانٹیں"),
@@ -564,6 +585,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(" ڈیٹا کو اپ ڈیٹ کریں۔"),
         "uploadAndSubmit":
             MessageLookupByLibrary.simpleMessage("اپ لوڈ کریں اور جمع کرائیں۔"),
+        "uploadImageIfyouHave": MessageLookupByLibrary.simpleMessage(
+            "تصویر اپ لوڈ کریں اگر آپ کے پاس ہے"),
         "uploadImageSuccess": MessageLookupByLibrary.simpleMessage(
             " تصویر اپ لوڈ کرنا کامیاب رہا۔"),
         "uploadProfileSuccess": MessageLookupByLibrary.simpleMessage(
@@ -603,6 +626,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveProductsFromDifferentStore": MessageLookupByLibrary.simpleMessage(
             " آپ کے پاس دوسرے اسٹور کے پروڈکٹس ہیں، کیا آپ اپنی ٹوکری کو صاف کرنا چاہتے ہیں اور نئی شامل کرنا چاہتے ہیں؟"),
         "yourCartEmpty": MessageLookupByLibrary.simpleMessage(
-            " آپ کی ٹوکری خالی ہے براہ کرم شامل کرنے کے لیے آئٹمز کا انتخاب کریں۔")
+            " آپ کی ٹوکری خالی ہے براہ کرم شامل کرنے کے لیے آئٹمز کا انتخاب کریں۔"),
+        "yourRequestSent": MessageLookupByLibrary.simpleMessage(
+            "آپ کی درخواست بھیج دی گئی ہے۔")
       };
 }

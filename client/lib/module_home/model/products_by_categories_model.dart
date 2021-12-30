@@ -29,8 +29,7 @@ class ProductsByCategoriesModel extends DataModel {
       required this.discount,
       required this.soldCount,
       required this.storeName,
-      required this.costDetails
-      });
+      required this.costDetails});
 
   List<ProductsByCategoriesModel> _products = [];
 
@@ -48,8 +47,7 @@ class ProductsByCategoriesModel extends DataModel {
           rate: num.parse(element.rate ?? '0'),
           soldCount: element.soldCount ?? '0',
           storeName: element.store?.storeOwnerName ?? S.current.unknown,
-          costDetails: element.costDetailsResponse
-          ));
+          costDetails: element.costDetailsResponse));
     });
   }
 

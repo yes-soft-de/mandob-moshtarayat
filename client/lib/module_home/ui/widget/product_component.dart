@@ -36,8 +36,7 @@ class ProductComponent extends StatefulWidget {
       required this.price,
       this.quantity = 0,
       required this.onSelect,
-      required this.costDetailsResponse
-      });
+      required this.costDetailsResponse});
 
   @override
   State<ProductComponent> createState() => _ProductComponentState();
@@ -90,7 +89,10 @@ class _ProductComponentState extends State<ProductComponent> {
                             style: DefaultTextStyle.of(context).style,
                             children: <TextSpan>[
                               TextSpan(
-                                  text:widget.costDetailsResponse?.costDetails?.priceWithCommission?.toStringAsFixed(2) ??  widget.price,
+                                  text: widget.costDetailsResponse?.costDetails
+                                          ?.priceWithCommission
+                                          ?.toStringAsFixed(2) ??
+                                      widget.price,
                                   style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
@@ -342,7 +344,7 @@ class _ProductComponentState extends State<ProductComponent> {
                           ),
                           Padding(
                             padding:
-                                const EdgeInsets.only(left: 8.0, right: 8.0),
+                                const EdgeInsets.only(left: 4.0, right: 4.0),
                             child: Text(widget.quantity.toString()),
                           ),
                           TextButton(
@@ -390,9 +392,6 @@ class _ProductComponentState extends State<ProductComponent> {
                   ],
                 ),
               )),
-              const SizedBox(
-                width: 16,
-              ),
               SizedBox(
                 width: imageSize,
                 height: imageSize,

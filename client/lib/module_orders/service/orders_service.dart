@@ -65,18 +65,18 @@ class OrdersService {
     return OrderDetailsModel.Data(_ordersResponse);
   }
 
-  Future<MyOrderState> postClientOrder(ClientOrderRequest request) async {
-    ClientOrderResponse? clientOrderResponse =
+  Future<OrderDetailsModel> postClientOrder(ClientOrderRequest request) async {
+    OrderDetailsResponse? clientOrderResponse =
         await _myOrdersManager.postClintOrder(request);
     if (clientOrderResponse == null) {
-      return MyOrderState.error(S.current.networkError);
+      return OrderDetailsModel.Error(S.current.networkError);
     }
     if (clientOrderResponse.statusCode != '201') {
-      return MyOrderState.error(StatusCodeHelper.getStatusCodeMessages(
+      return OrderDetailsModel.Error(StatusCodeHelper.getStatusCodeMessages(
           clientOrderResponse.statusCode));
     }
     await _fireStoreHelper.insertWatcher();
-    return MyOrderState.empty();
+    return OrderDetailsModel.Data(clientOrderResponse);
   }
 
   Future<MyOrderState> deleteClientOrder(int id) async {
