@@ -27,6 +27,7 @@ import 'module_balance/balance_module.dart';
 import 'module_categories/categories_module.dart';
 import 'module_init/init_account_module.dart';
 import 'module_main/main_module.dart';
+import 'module_my_notifications/my_notifications_module.dart';
 import 'module_notifications/service/local_notification_service/local_notification_service.dart';
 import 'module_privacy/privacy_module.dart';
 import 'module_profile/stores_module.dart';
@@ -87,6 +88,7 @@ class MyApp extends StatefulWidget {
   final StoresProfileModule _profileModule;
   final BalanceModule _balanceModule;
   final PrivacyModule _privacyModule;
+  final MyNotificationsModule _myNotificationsModule;
   MyApp(
     this._themeDataService,
     this._localizationService,
@@ -104,7 +106,8 @@ class MyApp extends StatefulWidget {
       this._categoriesModule,
       this._profileModule,
       this._balanceModule,
-      this._privacyModule
+      this._privacyModule,
+      this._myNotificationsModule
   );
 
   @override

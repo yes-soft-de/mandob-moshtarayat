@@ -85,6 +85,9 @@ class UpdateStoreWidget extends StatefulWidget {
                    CustomFormField(
                      controller: _phoneController,
                      hintText: S.current.phoneNumber,
+                     validator: true,
+                     phone: true,
+                     numbers: true,
                    ),
 
                    Hider(

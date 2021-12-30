@@ -25,7 +25,7 @@ class RegisterStateManager {
       _loadingStateSubject.add(AsyncSnapshot.nothing());
       switch (event) {
         case AuthStatus.CODE_SENT:
-          _registerScreen.verifyFirst();
+//          _registerScreen.verifyFirst();
           _registerStateSubject.add(RegisterStatePhoneCodeSent(_registerScreen));
           break;
           case AuthStatus.CODE_RESENT:

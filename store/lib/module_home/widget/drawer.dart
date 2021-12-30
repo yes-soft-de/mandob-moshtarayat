@@ -6,6 +6,7 @@ import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_auth/authorization_routes.dart';
 import 'package:mandob_moshtarayat/module_balance/balance_routes.dart';
 import 'package:mandob_moshtarayat/module_categories/categories_routes.dart';
+import 'package:mandob_moshtarayat/module_my_notifications/my_notifications_routes.dart';
 import 'package:mandob_moshtarayat/module_orders/orders_module.dart';
 import 'package:mandob_moshtarayat/module_orders/orders_routes.dart';
 import 'package:mandob_moshtarayat/module_privacy/policy_routes.dart';
@@ -308,20 +309,29 @@ class MenuScreen extends StatelessWidget {
                     child: Icon(Icons.arrow_forward),
                   )),
             ),
-//              customExpansionTile(
-//                  title: S.current.orders,
-//                  icon: FontAwesomeIcons.box,
-//                  children: [
-//                    customListTile(getIt<OrdersModule>().myOrdersScreen,
-//                        S.current.orderPending, FontAwesomeIcons.solidClock, true),
+            isLoggedIn ?  ListTile(
+              onTap: () {
+                Navigator.pushNamed(context, MyNotificationsRoutes.MY_NOTIFICATIONS);
+              },
+              leading: Container(
+                  decoration: BoxDecoration(
+                      color: AppThemeDataService.PrimaryColor,
+                      borderRadius: BorderRadius.circular(8)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Icon(Icons.notifications,color: Colors.white,),
+                  )),
+              title: Text('${S.of(context).notifications}'),
+              trailing: Container(
+                  decoration: BoxDecoration(
+                      color: StyleText.geyApp,
+                      borderRadius: BorderRadius.circular(8)),
 
-//                    customListTile(getIt<OrdersModule>().onGoingOrdersScreen,
-//                        S.current.ongoingOrders, FontAwesomeIcons.play, true),
-
-//                    customListTile(getIt<OrdersModule>().ordersWithoutPendingScreen,
-//                        S.current.orders, FontAwesomeIcons.boxes, true),
-//                  ],
-//                  page: widget.currentPage),
+                  child: Padding(
+                    padding: const EdgeInsets.all(3.0),
+                    child: Icon(Icons.arrow_forward),
+                  )),
+            ) : Container() ,
             ListTile(
               onTap: () {
                 // if (screenState.currentState is CaptainOrdersListStateOrdersLoaded){
@@ -352,10 +362,6 @@ class MenuScreen extends StatelessWidget {
             ),
             ListTile(
               onTap: () {
-                // if (screenState.currentState is CaptainOrdersListStateOrdersLoaded){
-                //   screenState.currentState = CaptainOrdersListStateLoading(screenState);
-                //   screenState.getMyOrders();
-                // }
                 Navigator.of(context).pushNamed(PoliciesRoutes.ROUTE_TERM);
               },
               leading: Container(
@@ -380,10 +386,6 @@ class MenuScreen extends StatelessWidget {
             ),
             ListTile(
               onTap: () {
-                // if (screenState.currentState is CaptainOrdersListStateOrdersLoaded){
-                //   screenState.currentState = CaptainOrdersListStateLoading(screenState);
-                //   screenState.getMyOrders();
-                // }
                 Navigator.of(context).pushNamed(PoliciesRoutes.ROUTE_POLICE);
               },
               leading: Container(
@@ -408,10 +410,6 @@ class MenuScreen extends StatelessWidget {
             ),
             ListTile(
               onTap: () {
-                // if (screenState.currentState is CaptainOrdersListStateOrdersLoaded){
-                //   screenState.currentState = CaptainOrdersListStateLoading(screenState);
-                //   screenState.getMyOrders();
-                // }
                 Navigator.of(context).pushNamed(PoliciesRoutes.ROUTE_ABOUT);
               },
               leading: Container(

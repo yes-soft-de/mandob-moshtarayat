@@ -1,5 +1,8 @@
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/consts/urls.dart';
+import 'package:mandob_moshtarayat/module_auth/request/forgot_pass_request/reset_pass_request.dart';
+import 'package:mandob_moshtarayat/module_auth/request/forgot_pass_request/update_pass_request.dart';
+import 'package:mandob_moshtarayat/module_auth/request/forgot_pass_request/verify_code_pass_request.dart';
 import 'package:mandob_moshtarayat/module_auth/request/login_request/login_request.dart';
 import 'package:mandob_moshtarayat/module_auth/request/register_request/register_request.dart';
 import 'package:mandob_moshtarayat/module_auth/request/register_request/verify_code_request.dart';
@@ -55,6 +58,30 @@ class AuthRepository {
       return null;
     }
     return LoginResponse.fromJson(result);
+  }
+  Future<RegisterResponse?> resetPassRequest(ResetPassRequest request) async {
+    dynamic result = await _apiClient.post(
+      Urls.RESET_PASSWORD,
+      request.toJson(),
+    );
+    if (result == null) return null;
+    return RegisterResponse.fromJson(result);
+  }
+  Future<RegisterResponse?> verifyResetPassCodeRequest(VerifyResetPassCodeRequest request) async {
+    dynamic result = await _apiClient.post(
+      Urls.VERIFY_RESET_PASSWORD_CODE,
+      request.toJson(),
+    );
+    if (result == null) return null;
+    return RegisterResponse.fromJson(result);
+  }
+  Future<RegisterResponse?> updatePassRequest(UpdatePassRequest request) async {
+    dynamic result = await _apiClient.put(
+      Urls.UPDATE_PASSWORD,
+      request.toJson(),
+    );
+    if (result == null) return null;
+    return RegisterResponse.fromJson(result);
   }
   Future<RegisterResponse?> checkUserType(String role, String token) async {
     dynamic result = await _apiClient.post(Urls.CHECK_USER_ROLE + '/$role', {},

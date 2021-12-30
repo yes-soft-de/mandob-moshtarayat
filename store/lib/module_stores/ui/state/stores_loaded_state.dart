@@ -3,20 +3,11 @@ import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_stores/model/productsByCategoriesModel.dart';
 import 'package:mandob_moshtarayat/module_stores/model/top_wanted_products_model.dart';
 import 'package:mandob_moshtarayat/module_stores/ui/screen/stores_screen.dart';
-import 'package:mandob_moshtarayat/module_stores/ui/state/stores_loaded_filters_state.dart';
 import 'package:mandob_moshtarayat/module_stores/ui/state/stores_state.dart';
-import 'package:mandob_moshtarayat/module_stores/ui/widget/home_app_bar.dart';
 import 'package:mandob_moshtarayat/module_stores/ui/widget/product_card.dart';
 import 'package:mandob_moshtarayat/module_stores/ui/widget/show_all.dart';
-import 'package:mandob_moshtarayat/module_stores/model/top_wanted_products_model.dart';
-import 'package:mandob_moshtarayat/module_stores/stores_routes.dart';
-import 'package:mandob_moshtarayat/module_stores/ui/screen/stores_screen.dart';
-import 'package:mandob_moshtarayat/module_stores/ui/state/stores_state.dart';
 import 'package:mandob_moshtarayat/utils/customIcon/custom_icons.dart';
 import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
-import 'package:mandob_moshtarayat/utils/images/images.dart';
-//import 'package:mandob_moshtarayat/utils/models/store.dart';
-//import 'package:mandob_moshtarayat/utils/models/store_category.dart';
 import 'package:mandob_moshtarayat/utils/text_style/text_style.dart';
 
 class StoresLoadedState extends StoresState {
@@ -37,14 +28,6 @@ class StoresLoadedState extends StoresState {
     return ListView(
       physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
       children: [
-//          CustomHomeAppBar(categoriesCallback: (categoriesId){
-//            if (categoriesId != '0') {
-//              screenState.getCategories(categoriesId, categories);
-//              screenState.getMainCategoryProducts(categoriesId);
-//              screenState.refresh();
-//            }
-//          },categories: categories,),
-
           Hider(
             active: topProducts.isNotEmpty,
             child: ListTile(
@@ -81,7 +64,7 @@ class StoresLoadedState extends StoresState {
               size: 18,
             ),
             title: Text(
-              S.of(context).bestStore,
+              S.of(context).partners,
               style: StyleText.categoryStyle,
             ),
             trailing: showAll(context),
@@ -99,39 +82,7 @@ class StoresLoadedState extends StoresState {
             ),
           ),
         ),
-        Hider(
-          active: false,
-          child: ListTile(
-            leading: Icon(
-              CustomIcon.near_me,
-              color: Theme.of(context).primaryColor,
-              size: 18,
-            ),
-            title: Text(
-              S.of(context).nearbyStore,
-              style: StyleText.categoryStyle,
-            ),
-            trailing: showAll(context),
-          ),
-        ),
-        Hider(
-          active: false,
-          child: SizedBox(
-            height: 125,
-            child: ListView.builder(
-              physics: BouncingScrollPhysics(
-                  parent: AlwaysScrollableScrollPhysics()),
-              scrollDirection: Axis.horizontal,
-              itemCount: 10,
-              itemBuilder: (_, index) {
-                return HomeCard(
-                    title: 'متجر',
-                    image:
-                    'https://media-cdn.tripadvisor.com/media/photo-s/17/75/3f/d1/restaurant-in-valkenswaard.jpg');
-              },
-            ),
-          ),
-        ),
+
         Hider(
           active: categories.isNotEmpty,
           child: ListTile(

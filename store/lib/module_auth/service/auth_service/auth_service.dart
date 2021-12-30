@@ -4,6 +4,9 @@ import 'package:mandob_moshtarayat/module_auth/enums/auth_status.dart';
 import 'package:mandob_moshtarayat/module_auth/exceptions/auth_exception.dart';
 import 'package:mandob_moshtarayat/module_auth/manager/auth_manager/auth_manager.dart';
 import 'package:mandob_moshtarayat/module_auth/presistance/auth_prefs_helper.dart';
+import 'package:mandob_moshtarayat/module_auth/request/forgot_pass_request/reset_pass_request.dart';
+import 'package:mandob_moshtarayat/module_auth/request/forgot_pass_request/update_pass_request.dart';
+import 'package:mandob_moshtarayat/module_auth/request/forgot_pass_request/verify_code_pass_request.dart';
 import 'package:mandob_moshtarayat/module_auth/request/login_request/login_request.dart';
 import 'package:mandob_moshtarayat/module_auth/request/register_request/register_request.dart';
 import 'package:mandob_moshtarayat/module_auth/request/register_request/verify_code_request.dart';
@@ -162,4 +165,53 @@ class AuthService {
       _authSubject.add(AuthStatus.CODE_RESENT);
     }
   }
+
+
+  Future<void> resetPassRequest(ResetPassRequest request) async {
+    // Create the profile in our database
+    RegisterResponse? registerResponse = await _authManager.resetPassRequest(request);
+    if (registerResponse == null) {
+      _authSubject.addError(S.current.networkError);
+      throw AuthorizationException(S.current.networkError);
+    } else if (registerResponse.statusCode != '201') {
+      _authSubject.addError(StatusCodeHelper.getStatusCodeMessages(
+          registerResponse.statusCode ?? '0'));
+      throw AuthorizationException(StatusCodeHelper.getStatusCodeMessages(
+          registerResponse.statusCode ?? '0'));
+    }else{
+      _authSubject.add(AuthStatus.NOT_LOGGED_IN);
+    }
+  }
+
+  Future<void> verifyResetPassCodeRequest(VerifyResetPassCodeRequest request) async {
+    // Create the profile in our database
+    RegisterResponse? registerResponse = await _authManager.verifyResetPassCodeRequest(request);
+    if (registerResponse == null) {
+      _authSubject.addError(S.current.networkError);
+      throw AuthorizationException(S.current.networkError);
+    } else if (registerResponse.statusCode != '200') {
+      _authSubject.addError(StatusCodeHelper.getStatusCodeMessages(
+          registerResponse.statusCode ?? '0'));
+      throw AuthorizationException(StatusCodeHelper.getStatusCodeMessages(
+          registerResponse.statusCode ?? '0'));
+    }else{
+      _authSubject.add(AuthStatus.VERIFIED);
+    }
+  }
+
+  Future<void> updatePassword(UpdatePassRequest request) async {
+    // Create the profile in our database
+    RegisterResponse? registerResponse = await _authManager.updatePassRequest(request);
+    if (registerResponse == null) {
+      _authSubject.addError(S.current.networkError);
+      throw AuthorizationException(S.current.networkError);
+    } else if (registerResponse.statusCode != '204') {
+      _authSubject.add(AuthStatus.UNVERIFIED);
+      throw AuthorizationException(StatusCodeHelper.getStatusCodeMessages(
+          registerResponse.statusCode ?? '0'));
+    }else{
+      _authSubject.add(AuthStatus.AUTHORIZED);
+    }
+  }
+
 }
