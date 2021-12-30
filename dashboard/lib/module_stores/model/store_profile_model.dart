@@ -33,28 +33,27 @@ class StoreProfileModel extends DataModel {
       required this.categoryId,
       this.closingTime,
       this.openingTime,
-        required this.stcPay ,required this.bankName ,required this.bankNumber
-
-      });
+      required this.stcPay,
+      required this.bankName,
+      required this.bankNumber});
 
   StoreProfileModel.withData(Data data) : super.withData() {
     _models = StoreProfileModel(
-      id: data.id ?? -1,
-      categoryId: '-1',
-      storeOwnerName: data.storeOwnerName ?? S.current.store,
-      deliveryCost: data.deliveryCost ?? 0,
-      hasProducts: data.hasProducts ?? false,
-      privateOrders: data.privateOrders ?? false,
-      image: data.image?.imageURL ?? ImageAsset.PLACEHOLDER,
-      phone: data.phone ?? '',
-      openingTime: DateFormat.jm()
-          .format(DateHelper.convert(data.openingTime?.timestamp)),
-      closingTime: DateFormat.jm()
-          .format(DateHelper.convert(data.closingTime?.timestamp)),
-        stcPay: data.stcPay??'',
-        bankName: data.bankName??'',
-        bankNumber: data.bankAccountNumber??''
-    );
+        id: data.id ?? -1,
+        categoryId: '-1',
+        storeOwnerName: data.storeOwnerName ?? S.current.store,
+        deliveryCost: data.deliveryCost ?? 0,
+        hasProducts: data.hasProducts ?? false,
+        privateOrders: data.privateOrders ?? false,
+        image: data.image?.imageURL ?? ImageAsset.PLACEHOLDER,
+        phone: data.phone ?? '',
+        openingTime: DateFormat.jm()
+            .format(DateHelper.convert(data.openingTime?.timestamp)),
+        closingTime: DateFormat.jm()
+            .format(DateHelper.convert(data.closingTime?.timestamp)),
+        stcPay: data.stcPay ?? '',
+        bankName: data.bankName ?? '',
+        bankNumber: data.bankAccountNumber ?? '');
   }
 
   StoreProfileModel get data {

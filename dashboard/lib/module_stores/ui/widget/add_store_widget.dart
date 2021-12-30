@@ -19,7 +19,7 @@ import 'package:mandob_moshtarayat_dashboad/utils/helpers/custom_flushbar.dart';
 
 class AddStoreWidget extends StatefulWidget {
   final Function(String, String, String, String, GeoJson, bool, bool, String,
-      String, String,String,String,String) addStore;
+      String, String, String, String, String) addStore;
   final StoresLoadedState? state;
 
   AddStoreWidget({required this.addStore, this.state});
@@ -33,7 +33,7 @@ class _AddStoreWidgetState extends State<AddStoreWidget> {
   late TextEditingController _nameController;
   late TextEditingController _phoneController;
   late TextEditingController _deliveryController;
-  late TextEditingController _bankName ;
+  late TextEditingController _bankName;
   late TextEditingController _bankAccountNumber;
   late TextEditingController _stcPay;
 
@@ -416,7 +416,10 @@ class _AddStoreWidgetState extends State<AddStoreWidget> {
                         closingTime!.minute)
                     .toUtc()
                     .toIso8601String(),
-                status,_bankName.text.trim(),_bankAccountNumber.text.trim(),_stcPay.text.trim());
+                status,
+                _bankName.text.trim(),
+                _bankAccountNumber.text.trim(),
+                _stcPay.text.trim());
           } else if (storeLocation == null) {
             CustomFlushBarHelper.createError(
                     title: S.current.warnning,
@@ -445,9 +448,8 @@ class _AddStoreWidgetState extends State<AddStoreWidget> {
 }
 
 class UpdateStoreWidget extends StatefulWidget {
-  final Function(
-          String, String, String?, bool, bool, String?, String?, String, String,String,String,String)
-      updateStore;
+  final Function(String, String, String?, bool, bool, String?, String?, String,
+      String, String, String, String) updateStore;
   final UpdateStoreRequest? request;
   final List<DropdownMenuItem<String>>? categories;
 
@@ -464,7 +466,7 @@ class _UpdateStoreWidgetState extends State<UpdateStoreWidget> {
   late TextEditingController _deliveryController;
   late TextEditingController _commissionController;
 
-  late TextEditingController _bankName ;
+  late TextEditingController _bankName;
   late TextEditingController _bankAccountNumber;
   late TextEditingController _stcPay;
 
@@ -867,7 +869,10 @@ class _UpdateStoreWidgetState extends State<UpdateStoreWidget> {
                     .toUtc()
                     .toIso8601String(),
                 status,
-                _commissionController.text,_bankName.text.trim(),_bankAccountNumber.text.trim(),_stcPay.text);
+                _commissionController.text,
+                _bankName.text.trim(),
+                _bankAccountNumber.text.trim(),
+                _stcPay.text);
           } else {
             CustomFlushBarHelper.createError(
                     title: S.current.warnning,
@@ -905,9 +910,9 @@ class _UpdateStoreWidgetState extends State<UpdateStoreWidget> {
       if (widget.request?.storeCategoryId != -1) {
         catId = widget.request?.storeCategoryId.toString();
       }
-      _bankAccountNumber.text = widget.request?.bankAccountNumber??'';
-      _bankName.text = widget.request?.bankName??'';
-      _stcPay.text = widget.request?.stcPay??'';
+      _bankAccountNumber.text = widget.request?.bankAccountNumber ?? '';
+      _bankName.text = widget.request?.bankName ?? '';
+      _stcPay.text = widget.request?.stcPay ?? '';
     }
     super.initState();
   }

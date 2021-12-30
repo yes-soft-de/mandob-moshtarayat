@@ -88,8 +88,19 @@ class StoresScreenState extends State<StoresScreen> {
                         state: currentState is StoresLoadedState
                             ? currentState as StoresLoadedState
                             : null,
-                        addStore: (id, name, phone, image, location, products,
-                            privateOrder, open, close, status,bankName,bankNumber,sty) {
+                        addStore: (id,
+                            name,
+                            phone,
+                            image,
+                            location,
+                            products,
+                            privateOrder,
+                            open,
+                            close,
+                            status,
+                            bankName,
+                            bankNumber,
+                            sty) {
                           Navigator.of(context).pop();
                           addStore(CreateStoreRequest(
                               location: location,
@@ -102,11 +113,9 @@ class StoresScreenState extends State<StoresScreen> {
                               openingTime: open,
                               closingTime: close,
                               status: status,
-                            bankName: bankName,
-                            bankAccountNumber: bankNumber,
-                            stcPay: sty
-
-                          ));
+                              bankName: bankName,
+                              bankAccountNumber: bankNumber,
+                              stcPay: sty));
                         },
                       ),
                     ),

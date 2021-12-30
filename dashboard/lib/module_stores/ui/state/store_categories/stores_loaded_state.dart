@@ -188,7 +188,7 @@ class StoresLoadedState extends StoresState {
                               body: UpdateStoreWidget(
                                 categories: getChoices(),
                                 request: UpdateStoreRequest(
-                                    commission:element.commission ,
+                                    commission: element.commission,
                                     id: element.id.toString(),
                                     storeCategoryId:
                                         int.parse(element.categoryId),
@@ -203,28 +203,36 @@ class StoresLoadedState extends StoresState {
                                         element.closingTime?.toIso8601String(),
                                     status: element.status,
                                     baseImage: element.imageUrl,
-                                  bankAccountNumber: element.bankNumber,
-                                  bankName: element.bankName,
-                                  stcPay: element.stcPay
-                                    ),
-                                updateStore: (id, name, image, products,
-                                    privateOrder, open, close, status,commission,bankName,bankNumber,sty) {
+                                    bankAccountNumber: element.bankNumber,
+                                    bankName: element.bankName,
+                                    stcPay: element.stcPay),
+                                updateStore: (id,
+                                    name,
+                                    image,
+                                    products,
+                                    privateOrder,
+                                    open,
+                                    close,
+                                    status,
+                                    commission,
+                                    bankName,
+                                    bankNumber,
+                                    sty) {
                                   Navigator.of(context).pop();
                                   screenState.updateStore(UpdateStoreRequest(
-                                    status: status,
-                                    id: element.id.toString(),
-                                    storeOwnerName: name,
-                                    storeCategoryId: int.parse(id),
-                                    image: image,
-                                    hasProducts: products ? 1 : 0,
-                                    privateOrders: privateOrder ? 1 : 0,
-                                    openingTime: open,
-                                    closingTime: close,
-                                    commission: double.parse(commission),
-                                    stcPay: sty,
-                                    bankName: bankName,
-                                    bankAccountNumber: bankNumber
-                                  ));
+                                      status: status,
+                                      id: element.id.toString(),
+                                      storeOwnerName: name,
+                                      storeCategoryId: int.parse(id),
+                                      image: image,
+                                      hasProducts: products ? 1 : 0,
+                                      privateOrders: privateOrder ? 1 : 0,
+                                      openingTime: open,
+                                      closingTime: close,
+                                      commission: double.parse(commission),
+                                      stcPay: sty,
+                                      bankName: bankName,
+                                      bankAccountNumber: bankNumber));
                                 },
                               ),
                             ),

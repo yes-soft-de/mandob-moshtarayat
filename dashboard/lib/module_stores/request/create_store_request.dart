@@ -27,9 +27,9 @@ class CreateStoreRequest {
       this.closingTime,
       this.openingTime,
       this.status,
-      this.stcPay,this.bankAccountNumber,this.bankName
-
-      });
+      this.stcPay,
+      this.bankAccountNumber,
+      this.bankName});
 
   CreateStoreRequest.fromJson(dynamic json) {
     storeOwnerName = json['storeOwnerName'];

@@ -202,7 +202,10 @@ class StoresInActiveLoadedState extends States {
                                     open,
                                     close,
                                     status,
-                                    commission,bankName,bankNumber,stc) {
+                                    commission,
+                                    bankName,
+                                    bankNumber,
+                                    stc) {
                                   Navigator.of(context).pop();
                                   screenState.updateStore(UpdateStoreRequest(
                                       status: status,
@@ -216,10 +219,9 @@ class StoresInActiveLoadedState extends States {
                                       openingTime: open,
                                       closingTime: close,
                                       commission: double.parse(commission),
-                                    bankAccountNumber: bankNumber,
-                                    bankName: bankName,
-                                    stcPay: stc
-                                  ));
+                                      bankAccountNumber: bankNumber,
+                                      bankName: bankName,
+                                      stcPay: stc));
                                 },
                               ),
                             ),

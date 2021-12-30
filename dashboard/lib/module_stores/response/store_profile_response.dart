@@ -9,12 +9,10 @@ class StoreProfileResponse {
   StoreProfileResponse({this.statusCode, this.msg, this.data});
 
   StoreProfileResponse.fromJson(dynamic json) {
-        statusCode = json['status_code'];
-      msg = json['msg'];
-      data = json['Data'] != null ? Data.fromJson(json['Data']) : null;
-    try {
-  
-    } catch (e) {
+    statusCode = json['status_code'];
+    msg = json['msg'];
+    data = json['Data'] != null ? Data.fromJson(json['Data']) : null;
+    try {} catch (e) {
       Logger().error('Store Profile', e.toString(), StackTrace.current);
       statusCode = '-1';
     }
@@ -52,32 +50,33 @@ class Data {
   String? bankName;
   String? bankAccountNumber;
   String? stcPay;
-  Data(
-      {this.id,
-      this.storeOwnerName,
-      this.image,
-      this.branch,
-      this.free,
-      this.branches,
-      this.city,
-      this.phone,
-      this.imageURL,
-      this.baseURL,
-      this.bank,
-      this.deliveryCost,
-      this.privateOrders,
-      this.hasProducts,
+  Data({
+    this.id,
+    this.storeOwnerName,
+    this.image,
+    this.branch,
+    this.free,
+    this.branches,
+    this.city,
+    this.phone,
+    this.imageURL,
+    this.baseURL,
+    this.bank,
+    this.deliveryCost,
+    this.privateOrders,
+    this.hasProducts,
 //      this.rating,
-      this.openingTime,
-      this.closingTime,
-        this.bankAccountNumber,this.bankName,this.stcPay,
-
-      });
+    this.openingTime,
+    this.closingTime,
+    this.bankAccountNumber,
+    this.bankName,
+    this.stcPay,
+  });
 
   Data.fromJson(dynamic json) {
     id = json['id'];
     storeOwnerName = json['storeOwnerName'];
-    image =ImageUrl.fromJson(json['image']) ;
+    image = ImageUrl.fromJson(json['image']);
     branch = json['branch'];
     free = json['free'];
     if (json['branches'] != null) {
@@ -213,14 +212,12 @@ class Location {
     return map;
   }
 }
+
 class ImageUrl {
   String? image;
   String? imageURL;
   String? baseURL;
-  ImageUrl({
-    this.image,
-    this.imageURL,this.baseURL
-  });
+  ImageUrl({this.image, this.imageURL, this.baseURL});
 
   ImageUrl.fromJson(dynamic json) {
     image = json['image'];

@@ -10,17 +10,15 @@ class StoresResponse {
   StoresResponse({this.statusCode, this.msg, this.data});
 
   StoresResponse.fromJson(dynamic json) {
-      statusCode = json['status_code'];
-      msg = json['msg'];
-      if (json['Data'] != null) {
-        data = [];
-        json['Data'].forEach((v) {
-          data?.add(Data.fromJson(v));
-        });
-      }
-    try {
-
-    } catch (e) {
+    statusCode = json['status_code'];
+    msg = json['msg'];
+    if (json['Data'] != null) {
+      data = [];
+      json['Data'].forEach((v) {
+        data?.add(Data.fromJson(v));
+      });
+    }
+    try {} catch (e) {
       Logger().error('stores response', '${e.toString()}', StackTrace.current);
       statusCode = '-1';
     }
@@ -46,24 +44,25 @@ class Data {
   String? bankName;
   String? bankAccountNumber;
   String? stcPay;
-  Data(
-      {this.id,
-      this.storeOwnerName,
-      this.image,
-      this.phone,
-      this.location,
-      this.deliveryCost,
-      this.privateOrders,
-      this.hasProducts,
-      this.categoryId,
-      this.closingTime,
-      this.openingTime,
-      this.status,
-      this.imageUrl,
-      this.commission,
-        this.bankAccountNumber,this.bankName,this.stcPay,
-
-      });
+  Data({
+    this.id,
+    this.storeOwnerName,
+    this.image,
+    this.phone,
+    this.location,
+    this.deliveryCost,
+    this.privateOrders,
+    this.hasProducts,
+    this.categoryId,
+    this.closingTime,
+    this.openingTime,
+    this.status,
+    this.imageUrl,
+    this.commission,
+    this.bankAccountNumber,
+    this.bankName,
+    this.stcPay,
+  });
 
   Data.fromJson(dynamic json) {
     id = json['id'];
