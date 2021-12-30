@@ -379,7 +379,7 @@ class OrderService
                $countProduct = $orderDetail['countProduct'];
                $storeOwnerProfileID = $orderDetail['storeOwnerProfileID'];
 
-               $orderDetail = $this->orderDetailService->createOrderDetail($item->getId(), $productID, $countProduct, $orderNumber, $storeOwnerProfileID);
+               $orderDetail = $this->orderDetailService->createOrderDetail($item->getId(), $productID, $countProduct, $orderNumber, $item->getState(), $storeOwnerProfileID);
                if(!$orderDetail) {
                    return $response;
                }
@@ -418,7 +418,7 @@ class OrderService
 
         $item = $this->orderManager->createClientSendOrder($request, $roomID);
         if ($item) {
-            $orderDetail = $this->orderDetailService->createOrderDetail($item->getId(), null, null, $orderNumber);
+            $orderDetail = $this->orderDetailService->createOrderDetail($item->getId(), null, null, $orderNumber, $item->getState());
             if(!$orderDetail){
                 return $response;
             }
@@ -452,7 +452,7 @@ class OrderService
 
         $item = $this->orderManager->createClientSpecialOrder($request, $roomID);
         if ($item) {
-            $orderDetail = $this->orderDetailService->createOrderDetail($item->getId(), null, null, $orderNumber, $request->getStoreOwnerProfileID());
+            $orderDetail = $this->orderDetailService->createOrderDetail($item->getId(), null, null, $orderNumber, $item->getState(),$request->getStoreOwnerProfileID());
             if(!$orderDetail){
                return $response;
             }
