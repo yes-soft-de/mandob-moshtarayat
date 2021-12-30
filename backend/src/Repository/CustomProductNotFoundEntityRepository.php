@@ -23,7 +23,7 @@ class CustomProductNotFoundEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('CustomProduct')
 
-            ->addSelect('CustomProduct.id', 'CustomProduct.productName', 'CustomProduct.productImage', 'CustomProduct.detail', 'CustomProduct.clientID')
+            ->select('CustomProduct.id', 'CustomProduct.productName', 'CustomProduct.productImage', 'CustomProduct.detail', 'CustomProduct.clientID')
             ->getQuery()
             ->getResult();
     }
@@ -32,7 +32,7 @@ class CustomProductNotFoundEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('CustomProduct')
 
-            ->addSelect('CustomProduct.id', 'CustomProduct.productName', 'CustomProduct.productImage', 'CustomProduct.detail', 'CustomProduct.clientID')
+            ->select('CustomProduct.id', 'CustomProduct.productName', 'CustomProduct.productImage', 'CustomProduct.detail', 'CustomProduct.clientID')
 
             ->andWhere('CustomProduct.id = :id')
 

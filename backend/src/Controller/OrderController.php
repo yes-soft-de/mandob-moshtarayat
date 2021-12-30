@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\AutoMapping;
+use App\Request\AddInfoPayByClientRequest;
 use App\Request\orderUpdateBillCalculatedByCaptainRequest;
 use App\Request\OrderUpdateStateForEachStoreByCaptainRequest;
 use App\Service\OrderService;
@@ -206,6 +207,7 @@ class OrderController extends BaseController
      *          @OA\Property(type="string", property="Data", description="error"),
      *      )
      * )
+     *
      * @Security(name="Bearer")
      */
     public function orderUpdateStateByCaptain(Request $request): JsonResponse
@@ -676,10 +678,10 @@ class OrderController extends BaseController
       *        @OA\JsonContent(
       *              @OA\Property(type="object", property="destination"),
       *              @OA\Property(type="string", property="note"),
-      *              @OA\Property(type="string", property="payment"),
+      *              @OA\Property(type="string", property="payment", description="cash or card"),
       *              @OA\Property(type="string", property="token"),
       *              @OA\Property(type="string", property="transactionID"),
-      *              @OA\Property(type="string", property="state"),
+      *              @OA\Property(type="string", property="state", description="not required"),
       *              @OA\Property(type="array", property="orderDetails",
       *                 @OA\Items(
       *                     @OA\Property(type="integer", property="storeOwnerProfileID"),
@@ -901,10 +903,10 @@ class OrderController extends BaseController
       *        @OA\JsonContent(
       *              @OA\Property(type="object", property="destination"),
       *              @OA\Property(type="string", property="note"),
-      *              @OA\Property(type="string", property="payment"),
+      *              @OA\Property(type="string", property="payment", description="cash or card"),
       *              @OA\Property(type="string", property="transactionID"),
       *              @OA\Property(type="string", property="token"),
-      *              @OA\Property(type="string", property="state"),
+      *              @OA\Property(type="string", property="state", description="not required"),
       *              @OA\Property(type="string", property="detail"),
       *              @OA\Property(type="string", property="deliveryDate"),
       *              @OA\Property(type="integer", property="storeOwnerProfileID"),
@@ -2191,5 +2193,81 @@ class OrderController extends BaseController
         $response = $this->orderService->getStorePendingOrders($this->getUserId());
 
         return $this->response($response, self::FETCH);
+    }
+
+    /**
+     * client: add payment info online.
+     * @Route("/addinfopay", name="addInfoPay", methods={"PUT"})
+     * @IsGranted("ROLE_CLIENT")
+     * @param Request $request
+     * @return JsonResponse
+     * *
+     * @OA\Tag(name="Order")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\RequestBody (
+     *        description="add payment info online",
+     *        @OA\JsonContent(
+     *              @OA\Property(type="integer", property="orderNumber"),
+     *              @OA\Property(type="string", property="transactionID"),
+     *              @OA\Property(type="string", property="state", description="not paid or pending"),
+     *              @OA\Property(type="string", property="token"),
+     *         ),
+     *      ),
+     *
+     * @OA\Response(
+     *      response=204,
+     *      description="Return object.",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="integer", property="id"),
+     *              @OA\Property(type="string", property="state"),
+     *              @OA\Property(type="string", property="token"),
+     *              @OA\Property(type="string", property="transactionID"),
+     *              )
+     *          )
+     *     )
+     *
+     * or
+     *
+     * @OA\Response(
+     *      response="default",
+     *      description="Return Not updated.",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code", description="9201"),
+     *          @OA\Property(type="string", property="msg", description="error Successfully."),
+     *          @OA\Property(type="string", property="Data", description="error"),
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function addInfoPay(Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, AddInfoPayByClientRequest::class, (object) $data);
+
+        $violations = $this->validator->validate($request);
+        if (\count($violations) > 0) {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $response = $this->orderService->addInfoPay($request);
+        if($response == ResponseConstant::$ERROR){
+            return $this->response($response, self::ERROR);
+        }
+
+        return $this->response($response, self::UPDATE);
     }
 }

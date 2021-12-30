@@ -424,3 +424,12 @@ App\Request\CustomProductNotFoundCreateRequest:
   properties:
     productName:
       - NotBlank: ~
+
+App\Request\AddInfoPayByClientRequest:
+  properties:
+    orderNumber:
+      - NotBlank: ~
+    state:
+      - NotBlank: ~
+    transactionID:
+      - NotBlank: ~
