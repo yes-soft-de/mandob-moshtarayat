@@ -5,6 +5,7 @@ namespace App\Service;
 use App\AutoMapping;
 use App\Entity\CaptainProfileEntity;
 use App\Entity\UserEntity;
+use App\Request\CaptainProfilePreferredLanguageUpdateRequest;
 use App\Request\CaptainVacationCreateRequest;
 use App\Request\CaptainProfileUpdateRequest;
 use App\Request\CaptainProfileUpdateLocationRequest;
@@ -15,6 +16,7 @@ use App\Response\CaptainIsActiveResponse;
 use App\Response\CaptainProfileCreateResponse;
 use App\Response\CaptainFinancialAccountDetailsResponse;
 use App\Response\CaptainProfileInActiveGetResponse;
+use App\Response\CaptainProfilePreferredLanguageUpdateResponse;
 use App\Response\CaptainsProfilesResponse;
 use App\Response\CaptainTotalFinancialAccountInMonthResponse;
 use App\Response\CaptainTotalFinancialAccountInMonthForAdminResponse;
@@ -115,6 +117,22 @@ class CaptainProfileService
     {
         return $this->captainProfileManager->updateCaptainStateByAdmin($request);
 
+    }
+
+    public function updateCaptainProfilePreferredLanguage(CaptainProfilePreferredLanguageUpdateRequest $request)
+    {
+        $captainProfile = $this->captainProfileManager->updateCaptainProfilePreferredLanguage($request);
+
+        if ($captainProfile == 'noCaptainProfileWasFound')
+        {
+            $response['status'] = 'noCaptainProfileWasFound';
+
+            return $this->autoMapping->map('array', CaptainProfilePreferredLanguageUpdateResponse::class, $response);
+        }
+        else
+        {
+            return $this->autoMapping->map(CaptainProfileEntity::class, CaptainProfilePreferredLanguageUpdateResponse::class, $captainProfile);
+        }
     }
 
     public function getCaptainProfileByCaptainID($captainID):object
