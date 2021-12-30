@@ -5469,6 +5469,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Store Balance`
+  String get storeBalance {
+    return Intl.message(
+      'Store Balance',
+      name: 'storeBalance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payments for store`
+  String get paymentsForStore {
+    return Intl.message(
+      'Payments for store',
+      name: 'paymentsForStore',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Amount owed for store`
+  String get remainingAmountForStore {
+    return Intl.message(
+      'Amount owed for store',
+      name: 'remainingAmountForStore',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total payments for store`
+  String get sumPaymentsForStore {
+    return Intl.message(
+      'Total payments for store',
+      name: 'sumPaymentsForStore',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

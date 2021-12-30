@@ -3,7 +3,7 @@
 // Named Domain ===> 'https://mandoob.password-please.com'
 
 class Urls {
-  static const String DOMAIN = 'http://206.189.61.207';
+  static const String DOMAIN = 'http://138.197.186.138';
   static const String BASE_API = DOMAIN + '';
   static const String IMAGES_ROOT = DOMAIN + '/upload/';
   static const UPLOAD_API = BASE_API + '/uploadfile';
@@ -117,4 +117,11 @@ class Urls {
   static const UPDATE_PRODUCT_COMMISSION =
       BASE_API + '/updateproductcommissionbyadmin';
   static const GET_DISTRO_API = BASE_API + '/mandobfilterbystatus/';
+
+    static const GET_ACCOUNT_BALANCE_STORE =
+      BASE_API + '/storefinancialaccountforadmin/';
+  static const GET_ACCOUNT_BALANCE_STORE_LAST_MONTH =
+      BASE_API + '/captainfinancialaccountinlastmonthforadmin/';
+  static const GET_ACCOUNT_BALANCE_STORE_SPECIFIC =
+      BASE_API + '/captainfinancialaccountinspecificdateforadmin/';
 }

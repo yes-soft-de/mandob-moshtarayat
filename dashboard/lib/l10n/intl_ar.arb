@@ -542,7 +542,11 @@
   "addCommission": "إضافة عمولة",
   "distributors":"مناديب",
   "searchForDistributor":"ابحث عن مندوب",
-  "inActiveDistributors":"المناديب غير المفعلين"
+  "inActiveDistributors":"المناديب غير المفعلين",
+  "storeBalance":"حساب المتجر",
+  "paymentsForStore":"دفعات للمتجر",
+  "remainingAmountForStore":"المبلغ المتبقي للمتجر",
+  "sumPaymentsForStore":"إجمالي الدفعات"
 
 
 }
