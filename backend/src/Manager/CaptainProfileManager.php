@@ -4,13 +4,13 @@ namespace App\Manager;
 
 use App\AutoMapping;
 use App\Manager\OrderManager;
+use App\Request\CaptainProfilePreferredLanguageUpdateRequest;
 use App\Request\CaptainProfileUpdateByAdminRequest;
 use App\Request\CaptainProfileUpdateLocationRequest;
 use App\Request\CaptainProfileUpdateRequest;
 use App\Request\CaptainVacationCreateRequest;
 use App\Request\UserRegisterRequest;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Manager\UserManager;
 use App\Repository\CaptainProfileEntityRepository;
 use App\Entity\CaptainProfileEntity;
 
@@ -138,6 +138,25 @@ class CaptainProfileManager
             $this->entityManager->flush();
 
             return $item;
+        }
+    }
+
+    public function updateCaptainProfilePreferredLanguage(CaptainProfilePreferredLanguageUpdateRequest $request)
+    {
+        $captainProfile = $this->captainProfileEntityRepository->getByCaptainIDForUpdate($request->getUserID());
+
+        if (!$captainProfile)
+        {
+            return 'noCaptainProfileWasFound';
+        }
+        else
+        {
+            $captainProfile = $this->autoMapping->mapToObject(CaptainProfilePreferredLanguageUpdateRequest::class, CaptainProfileEntity::class,
+                $request, $captainProfile);
+
+            $this->entityManager->flush();
+
+            return $captainProfile;
         }
     }
 

@@ -10,5 +10,7 @@ abstract class UserConstant
     
     static $CAPTAIN = "captain";
 
+    static $CLIENT = "client";
+
     static $CAPTAIN_TOPIC = "captains";
 }

@@ -106,9 +106,9 @@ class VerificationManager
         return $verificationCode;
     }
 
-    public function getVerificationCodeByUserID($userID)
+    public function getAllVerificationCodeByUserID($userID)
     {
-        return $this->verificationEntityRepository->getVerificationCodeByUserID($userID);
+        return $this->verificationEntityRepository->getAllVerificationCodeByUserID($userID);
     }
 
     public function deleteByID(DeleteRequest $request)

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\AutoMapping;
+use App\Request\ClientByUserIdGetRequest;
 use App\Request\ClientProfileUpdateRequest;
 use App\Request\ClientUpdateFavouriteCategoriesRequest;
 use App\Request\UserRegisterRequest;
@@ -230,6 +231,50 @@ class ClientProfileController extends BaseController
     public function getClientProfileByID($id)
     {
         $response = $this->clientProfileService->getClientProfileByID($id);
+
+        return $this->response($response, self::FETCH);
+    }
+
+    /**
+     * admin: Get client's info by roomID
+     * @Route("clientinfobyuserid", name="getClientInfoByUserID", methods={"POST"})
+     * @IsGranted("ROLE_CLIENT")
+     * @return JsonResponse
+     * *
+     * @OA\Tag(name="Client")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Get client's profile by profileID, for admin",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="clientName"),
+     *                  @OA\Property(type="string", property="roomID"),
+     *                  @OA\Property(type="string", property="image")
+     *          )
+     *      )
+     * )
+     * @Security(name="Bearer")
+     */
+    public function getClientByRoomID(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, ClientByUserIdGetRequest::class, (object)$data);
+
+        $request->setClientID($this->getUserId());
+
+        $response = $this->clientProfileService->getClientByUserID($this->getUserId());
 
         return $this->response($response, self::FETCH);
     }

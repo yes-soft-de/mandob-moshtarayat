@@ -5,12 +5,15 @@ namespace App\Service;
 use App\AutoMapping;
 use App\Entity\ClientProfileEntity;
 use App\Entity\UserEntity;
+use App\Manager\ClientProfileManager;
 use App\Manager\UserManager;
+use App\Request\ClientByUserIdGetRequest;
 use App\Request\ClientUpdateFavouriteCategoriesRequest;
 use App\Request\UserRegisterRequest;
 use App\Request\ClientProfileUpdateRequest;
 use App\Request\VerificationCreateRequest;
 use App\Response\clientOrdersCountResponse;
+use App\Response\ClientProfileByUserIdGetResponse;
 use App\Response\ClientProfileResponse;
 use App\Response\ClientProfileWithFavouriteCategoriesResponse;
 use App\Response\ClientsProfileResponse;
@@ -30,6 +33,7 @@ class ClientProfileService
 {
     private $autoMapping;
     private $userManager;
+    private $clientProfileManager;
     private $roomIdHelperService;
     private $storeOwnerProfileService;
     private $productService;
@@ -38,10 +42,11 @@ class ClientProfileService
     private $params;
 
     public function __construct(AutoMapping $autoMapping, UserManager $userManager,  RatingService $ratingService, ParameterBagInterface $params, RoomIdHelperService $roomIdHelperService,
-                                ProductService $productService, StoreOwnerProfileService $storeOwnerProfileService, VerificationService $verificationService)
+                                ProductService $productService, StoreOwnerProfileService $storeOwnerProfileService, VerificationService $verificationService, ClientProfileManager $clientProfileManager)
     {
         $this->autoMapping = $autoMapping;
         $this->userManager = $userManager;
+        $this->clientProfileManager = $clientProfileManager;
         $this->ratingService = $ratingService;
         $this->roomIdHelperService = $roomIdHelperService;
         $this->productService = $productService;
@@ -89,6 +94,15 @@ class ClientProfileService
         $item = $this->userManager->getClientProfileByClientID($clientID);  
             
         return $this->autoMapping->map('array', ClientProfileWithFavouriteCategoriesResponse::class, $item);
+    }
+
+    public function getClientByUserID($clientID)
+    {
+        $client = $this->clientProfileManager->getClientByUserID($clientID);
+
+        $client['image'] = $this->params.$client['image'];
+
+        return $this->autoMapping->map('array', ClientProfileByUserIdGetResponse::class, $client);
     }
 
     public function getClientProfileByID($id)
