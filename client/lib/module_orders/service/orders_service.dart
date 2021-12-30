@@ -8,6 +8,7 @@ import 'package:mandob_moshtarayat/module_orders/model/order_details_model.dart'
 import 'package:mandob_moshtarayat/module_orders/model/order_logs.dart';
 import 'package:mandob_moshtarayat/module_orders/model/order_model.dart';
 import 'package:mandob_moshtarayat/module_orders/request/client_order_request.dart';
+import 'package:mandob_moshtarayat/module_orders/request/create_payment_record_request.dart';
 import 'package:mandob_moshtarayat/module_orders/response/client_order_response.dart';
 import 'package:mandob_moshtarayat/module_orders/response/my_orders_response.dart';
 import 'package:mandob_moshtarayat/module_orders/response/order_details_response/order_details_response.dart';
@@ -128,4 +129,18 @@ class OrdersService {
     }
     return MyOrderState.empty();
   }
+  
+  Future<MyOrderState> updatePaymentInfo(CreatePaymentRecordRequest request) async {
+    ClientOrderResponse? _clientOrderResponse =
+        await _myOrdersManager.updatePaymentRecord(request);
+    if (_clientOrderResponse == null) {
+      return MyOrderState.error(S.current.networkError);
+    }
+    if (_clientOrderResponse.statusCode != '204') {
+      return MyOrderState.error(
+          StatusCodeHelper.getStatusCodeMessages(_clientOrderResponse.statusCode));
+    }
+    return MyOrderState.empty();
+  }
+
 }

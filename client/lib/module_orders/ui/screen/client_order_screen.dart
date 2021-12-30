@@ -8,6 +8,7 @@ import 'package:mandob_moshtarayat/module_auth/authorization_routes.dart';
 import 'package:mandob_moshtarayat/module_main/main_routes.dart';
 import 'package:mandob_moshtarayat/module_orders/model/order_details_model.dart';
 import 'package:mandob_moshtarayat/module_orders/request/client_order_request.dart';
+import 'package:mandob_moshtarayat/module_orders/request/create_payment_record_request.dart';
 import 'package:mandob_moshtarayat/module_orders/state_manager/client_order_state_manager.dart';
 import 'package:mandob_moshtarayat/module_orders/ui/state/client_order/client_order_loaded_state.dart';
 import 'package:mandob_moshtarayat/module_orders/ui/state/client_order/client_order_state.dart';
@@ -46,7 +47,14 @@ class ClientOrderScreenState extends State<ClientOrderScreen> {
           builder: (context) {
             return PaymentsPortal(
               model: model,
-              callback: (success, message) {
+              callback: (success,token,transaction,message) {
+                widget._clientOrderStateManager
+                    .updatePaymentInfo(CreatePaymentRecordRequest(
+                      state: success ? 'pending' : 'not paid',
+                      token:token,
+                      transactionId:transaction,
+                      orderNumber: model.order.id,
+                    ), this);
                 Navigator.of(context).pop();
                 moveDecision(success, message);
               },
