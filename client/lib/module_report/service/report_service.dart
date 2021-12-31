@@ -16,8 +16,10 @@ class ReportService {
   Future<dynamic> createReport(int id, String reason) {
     return _manager.createReport(ReportRequest(id, reason));
   }
+
   Future<DataModel> createCustomProduct(CustomProductRequest request) async {
-       ActionResponse? _ordersResponse = await _manager.createCustomProduct(request);
+    ActionResponse? _ordersResponse =
+        await _manager.createCustomProduct(request);
     if (_ordersResponse == null) {
       return DataModel.withError(S.current.networkError);
     }

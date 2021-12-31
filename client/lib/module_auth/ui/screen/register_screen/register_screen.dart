@@ -62,8 +62,7 @@ class RegisterScreenState extends State<RegisterScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     var args = ModalRoute.of(context)?.settings.arguments;
-    if (args != null && flags) {
-      var args = ModalRoute.of(context)?.settings.arguments as Map;
+    if (args != null && flags && args is Map) {
       userID = args['userID'];
       pass = args['pass'];
       activeResend = true;

@@ -73,4 +73,5 @@ class Urls {
   static const CREATE_FAVORITE_CLIENT_API =
       BASE_API + '/updateclientfavouritecategories';
   static const GET_FAVORITE_CLIENT_API = BASE_API + '/userfavoritecategories';
+  static const UPDATE_PAYMENT_RECORD_API = BASE_API + '/addinfopay';
 }

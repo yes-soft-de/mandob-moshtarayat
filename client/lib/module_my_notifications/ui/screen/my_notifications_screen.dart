@@ -32,9 +32,6 @@ class MyNotificationsScreenState extends State<MyNotificationsScreen> {
   void goToLogin() {
     Navigator.of(context)
         .pushNamed(AuthorizationRoutes.LOGIN_SCREEN, arguments: 3);
-    CustomFlushBarHelper.createError(
-            title: S.current.warnning, message: S.current.pleaseLoginToContinue)
-        .show(context);
   }
 
   @override

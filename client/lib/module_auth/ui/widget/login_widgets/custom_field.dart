@@ -15,7 +15,7 @@ class CustomLoginFormField extends StatefulWidget {
   final bool password;
   final bool phone;
   final double? borderRadius;
-
+  final bool validator;
   @override
   _CustomLoginFormFieldState createState() => _CustomLoginFormFieldState();
 
@@ -31,7 +31,9 @@ class CustomLoginFormField extends StatefulWidget {
       this.last = false,
       this.password = false,
       this.phone = false,
-      this.borderRadius});
+      this.borderRadius,
+      this.validator = true
+      });
 }
 
 class _CustomLoginFormFieldState extends State<CustomLoginFormField> {
@@ -56,7 +58,7 @@ class _CustomLoginFormFieldState extends State<CustomLoginFormField> {
           },
           toolbarOptions: ToolbarOptions(
               copy: true, paste: true, selectAll: true, cut: true),
-          validator: (value) {
+          validator:widget.validator ? (value) {
             if (mode == AutovalidateMode.disabled) {
               setState(() {
                 mode = AutovalidateMode.onUserInteraction;
@@ -78,7 +80,7 @@ class _CustomLoginFormFieldState extends State<CustomLoginFormField> {
               clean = true;
               return null;
             }
-          },
+          } : null,
           onTap: widget.onTap,
           controller: widget.controller,
           readOnly: widget.readOnly,

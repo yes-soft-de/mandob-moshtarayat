@@ -3,6 +3,7 @@ import 'package:mandob_moshtarayat/consts/urls.dart';
 import 'package:mandob_moshtarayat/module_auth/service/auth_service/auth_service.dart';
 import 'package:mandob_moshtarayat/module_network/http_client/http_client.dart';
 import 'package:mandob_moshtarayat/module_orders/request/client_order_request.dart';
+import 'package:mandob_moshtarayat/module_orders/request/create_payment_record_request.dart';
 import 'package:mandob_moshtarayat/module_orders/response/client_order_response.dart';
 import 'package:mandob_moshtarayat/module_orders/response/my_orders_response.dart';
 import 'package:mandob_moshtarayat/module_orders/response/order_details_response/order_details_response.dart';
@@ -85,5 +86,13 @@ class MyOrdersRepository {
         headers: {'Authorization': 'Bearer ' + token.toString()});
     if (response == null) return null;
     return RateResponse.fromJson(response);
+  }
+    Future<ClientOrderResponse?> updatePaymentRecord(
+      CreatePaymentRecordRequest request) async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.put(Urls.UPDATE_PAYMENT_RECORD_API, request.toJson(),
+        headers: {'Authorization': 'Bearer ' + token.toString()});
+    if (response == null) return null;
+    return ClientOrderResponse.fromJson(response);
   }
 }
