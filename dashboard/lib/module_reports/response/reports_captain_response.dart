@@ -48,7 +48,7 @@ class Data {
     captainID = json['captainID'];
     countOrdersInMonth = json['countOrdersInMonth'];
     captainName = json['captainName'];
-    image =json['image'] != null ?  Image.fromJson(json['image']) : null;
+    image = json['image'] != null ? Image.fromJson(json['image']) : null;
   }
 
   Map<String, dynamic> toJson() {

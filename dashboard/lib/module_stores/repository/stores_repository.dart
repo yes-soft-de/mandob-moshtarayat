@@ -4,6 +4,7 @@ import 'package:mandob_moshtarayat_dashboad/module_auth/service/auth_service/aut
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_network/http_client/http_client.dart';
 import 'package:mandob_moshtarayat_dashboad/module_stores/request/create_store_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_stores/response/store_balance_response/store_balance_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_stores/response/store_profile_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_stores/response/stores_response.dart';
 
@@ -54,5 +55,38 @@ class StoresRepository {
         headers: {'Authorization': 'Bearer ' + token.toString()});
     if (response == null) return null;
     return ActionResponse.fromJson(response);
+  }
+
+  Future<StoreBalanceResponse?> getStoreSpecificDate(
+      int captainId, String firstDate, String lastDate) async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.get(
+        Urls.GET_ACCOUNT_BALANCE_CAPTAIN_SPECIFIC +
+            '$captainId' +
+            '/$firstDate' +
+            '/$lastDate',
+        headers: {'Authorization': 'Bearer ' + token.toString()});
+    if (response == null) return null;
+    return StoreBalanceResponse.fromJson(response);
+  }
+
+  Future<StoreBalanceResponse?> getStoreAccountBalance(
+      int storeId) async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.get(
+        Urls.GET_ACCOUNT_BALANCE_STORE + '$storeId',
+        headers: {'Authorization': 'Bearer ' + token.toString()});
+    if (response == null) return null;
+    return StoreBalanceResponse.fromJson(response);
+  }
+
+  Future<StoreBalanceResponse?> getCaptainAccountBalanceLastBalance(
+      int captainId) async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.get(
+        Urls.GET_ACCOUNT_BALANCE_CAPTAIN_LAST_MONTH + '$captainId',
+        headers: {'Authorization': 'Bearer ' + token.toString()});
+    if (response == null) return null;
+    return StoreBalanceResponse.fromJson(response);
   }
 }

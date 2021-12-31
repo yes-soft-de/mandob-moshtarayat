@@ -8,5 +8,4 @@ class OrdersRoutes {
   static const ORDERS_ONGOING = '/orders_ongoing';
   static const ORDER_TIME_LINE = '/order_timeline';
   static const ORDERS_ACCOUNTS = '/order_account';
-
 }

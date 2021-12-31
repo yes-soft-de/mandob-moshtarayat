@@ -2,9 +2,7 @@ class CaptainPaymentsRequest {
   int? captainId;
   num? amount;
 
-  CaptainPaymentsRequest({
-      this.captainId, 
-      this.amount});
+  CaptainPaymentsRequest({this.captainId, this.amount});
 
   CaptainPaymentsRequest.fromJson(dynamic json) {
     captainId = json['captainId'];
@@ -17,5 +15,4 @@ class CaptainPaymentsRequest {
     map['amount'] = amount;
     return map;
   }
-
 }

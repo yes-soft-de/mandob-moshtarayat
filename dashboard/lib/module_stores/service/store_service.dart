@@ -3,9 +3,11 @@ import 'package:mandob_moshtarayat_dashboad/abstracts/data_model/data_model.dart
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_stores/manager/stores_manager.dart';
+import 'package:mandob_moshtarayat_dashboad/module_stores/model/store_balance_model.dart';
 import 'package:mandob_moshtarayat_dashboad/module_stores/model/store_profile_model.dart';
 import 'package:mandob_moshtarayat_dashboad/module_stores/model/stores_model.dart';
 import 'package:mandob_moshtarayat_dashboad/module_stores/request/create_store_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_stores/response/store_balance_response/store_balance_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_stores/response/store_profile_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_stores/response/stores_response.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/helpers/status_code_helper.dart';
@@ -81,5 +83,18 @@ class StoresService {
           StatusCodeHelper.getStatusCodeMessages(actionResponse.statusCode));
     }
     return DataModel.empty();
+  }
+   Future<DataModel> getStoreBalance(int id) async {
+    StoreBalanceResponse? _storeResponse =
+        await _storeManager.getStoreAccountBalance(id);
+    if (_storeResponse == null) {
+      return DataModel.withError(S.current.networkError);
+    }
+    if (_storeResponse.statusCode != '200') {
+      return DataModel.withError(
+          StatusCodeHelper.getStatusCodeMessages(_storeResponse.statusCode));
+    }
+    if (_storeResponse.data == null) return DataModel.empty();
+    return StoreBalanceModel.withData(_storeResponse.data!);
   }
 }

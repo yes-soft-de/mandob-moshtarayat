@@ -24,7 +24,8 @@ class LevelTowCategoriesScreen extends StatefulWidget {
   LevelTowCategoriesScreen(this.stateManager, this._localizationService);
 
   @override
-  LevelTowCategoriesScreenState createState() => LevelTowCategoriesScreenState();
+  LevelTowCategoriesScreenState createState() =>
+      LevelTowCategoriesScreenState();
 }
 
 class LevelTowCategoriesScreenState extends State<LevelTowCategoriesScreen> {
@@ -37,15 +38,14 @@ class LevelTowCategoriesScreenState extends State<LevelTowCategoriesScreen> {
 
   @override
   void initState() {
-    languageSelected = widget._localizationService.getLanguage() ;
+    languageSelected = widget._localizationService.getLanguage();
 
     currentState = LoadingState(this);
     getStoreCategories();
     widget.stateManager.stateStream.listen((event) {
       currentState = event;
-      if (mounted){
-        setState(() {
-        });
+      if (mounted) {
+        setState(() {});
       }
       getIt<GlobalStateManager>().updateCaptainList();
     });
@@ -60,11 +60,18 @@ class LevelTowCategoriesScreenState extends State<LevelTowCategoriesScreen> {
 
   void getSubCategories(categories) {
     subCatId = null;
-    widget.stateManager.getCategoriesLevelOne(this,int.parse(mainCatId ?? '0'),categories);
+    widget.stateManager
+        .getCategoriesLevelOne(this, int.parse(mainCatId ?? '0'), categories);
   }
 
-  void getSubCategoriesLevelTow(categories,subCategories) {
-    widget.stateManager.getCategoriesLevelTow(this,FilterLanguageAndProductCategoryRequest(storeCategoryID: int.parse(subCatId ?? '0'),language: languageSelected) ,categories,subCategories);
+  void getSubCategoriesLevelTow(categories, subCategories) {
+    widget.stateManager.getCategoriesLevelTow(
+        this,
+        FilterLanguageAndProductCategoryRequest(
+            storeCategoryID: int.parse(subCatId ?? '0'),
+            language: languageSelected),
+        categories,
+        subCategories);
   }
 
   void addCategory(CategoryLevelTowRequest request) {
@@ -82,9 +89,9 @@ class LevelTowCategoriesScreenState extends State<LevelTowCategoriesScreen> {
   void deleteSubCategories(String id) {
     mainCatId = null;
     subCatId = null;
-    widget.stateManager.deleteSubCategories(this,id);
+    widget.stateManager.deleteSubCategories(this, id);
   }
-  
+
   void refresh() {
     if (mounted) {
       setState(() {});
@@ -96,15 +103,11 @@ class LevelTowCategoriesScreenState extends State<LevelTowCategoriesScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      appBar: CustomTwaslnaAppBar.appBar(
-        context,
-        title: S.of(context).categoriesLevel2,
-          icon: Icons.menu, onTap: () {
+      appBar: CustomTwaslnaAppBar.appBar(context,
+          title: S.of(context).categoriesLevel2, icon: Icons.menu, onTap: () {
         GlobalVariable.mainScreenScaffold.currentState?.openDrawer();
-      }
-      ),
+      }),
       body: currentState.getUI(context),
       floatingActionButton: Hider(
         active: canAddCategories,
@@ -124,21 +127,19 @@ class LevelTowCategoriesScreenState extends State<LevelTowCategoriesScreen> {
                       appBar: CustomTwaslnaAppBar.appBar(context,
                           title: S.current.addNewCategory),
                       backgroundColor:
-                      Theme.of(context).scaffoldBackgroundColor,
+                          Theme.of(context).scaffoldBackgroundColor,
                       body: AddSubCategoriesLevelTowWidget(
                         state: currentState is ProductCategoriesLoadedState
                             ? currentState as ProductCategoriesLoadedState
                             : null,
-                        languages: ['en','urdu'],
-                        addSubCategories: (id,subId,name, image,trans) {
+                        languages: ['en', 'urdu'],
+                        addSubCategories: (id, subId, name, image, trans) {
                           addCategory(CategoryLevelTowRequest(
-                            dataStoreCategory: DataStoreCategoryTwo(
-                                storeProductCategoryID: int.parse(subId),
-                                productCategoryName: name,
-                                productCategoryImage: image
-                            ),
-                        translate: trans
-                          ));
+                              dataStoreCategory: DataStoreCategoryTwo(
+                                  storeProductCategoryID: int.parse(subId),
+                                  productCategoryName: name,
+                                  productCategoryImage: image),
+                              translate: trans));
                         },
                       ),
                     ),

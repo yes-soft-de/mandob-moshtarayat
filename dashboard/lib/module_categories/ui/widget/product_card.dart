@@ -4,6 +4,7 @@ import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/progresive_image.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/customIcon/mandob_icons_icons.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+
 //class ProductCard extends StatelessWidget {
 //  final String productName;
 //  final String productImage;
@@ -96,7 +97,14 @@ class ProductComponent extends StatelessWidget {
   final double rating;
 
   ProductComponent(
-      {required this.title,required this.image,required this.discount,required this.rating,required this.description,required this.productId,required this.price,required this.commission});
+      {required this.title,
+      required this.image,
+      required this.discount,
+      required this.rating,
+      required this.description,
+      required this.productId,
+      required this.price,
+      required this.commission});
 
   @override
   Widget build(BuildContext context) {
@@ -111,143 +119,148 @@ class ProductComponent extends StatelessWidget {
           children: [
             Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(title,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                          textAlign: TextAlign.start,
-                          overflow: TextOverflow.ellipsis),
-                      SizedBox(
-                        height: 8,
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
                       ),
-                     commission=='0' ?Container(): Row(children: [
-                        Text(S.of(context).productCommission+': '),
-                        Text(commission)
-                      ],),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Container(
-                        constraints: BoxConstraints(maxWidth: 200),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      textAlign: TextAlign.start,
+                      overflow: TextOverflow.ellipsis),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  commission == '0'
+                      ? Container()
+                      : Row(
                           children: [
-                            Column(
-                              children: [
-                                Text(
-                                  S.current.rating,
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                  ),
-                                  textAlign: TextAlign.start,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                SizedBox(
-                                  height: 8,
-                                ),
-                                RatingBar.builder(
-                                  ignoreGestures: true,
-                                  initialRating: rating,
-                                  minRating: 0,
-                                  itemSize: 15,
-                                  direction: Axis.horizontal,
-                                  allowHalfRating: true,
-                                  itemCount: 5,
-                                  itemPadding:
+                            Text(S.of(context).productCommission + ': '),
+                            Text(commission)
+                          ],
+                        ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Container(
+                    constraints: BoxConstraints(maxWidth: 200),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          children: [
+                            Text(
+                              S.current.rating,
+                              style: TextStyle(
+                                fontSize: 13,
+                              ),
+                              textAlign: TextAlign.start,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            RatingBar.builder(
+                              ignoreGestures: true,
+                              initialRating: rating,
+                              minRating: 0,
+                              itemSize: 15,
+                              direction: Axis.horizontal,
+                              allowHalfRating: true,
+                              itemCount: 5,
+                              itemPadding:
                                   EdgeInsets.symmetric(horizontal: 0.0),
-                                  itemBuilder: (context, _) => Icon(
-                                    Icons.star,
-                                    color: Theme.of(context).primaryColor,
-                                  ),
-                                  onRatingUpdate: (rating) {},
-                                )
-                              ],
+                              itemBuilder: (context, _) => Icon(
+                                Icons.star,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                              onRatingUpdate: (rating) {},
+                            )
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              S.current.discount,
+                              style: TextStyle(
+                                fontSize: 13,
+                              ),
+                              textAlign: TextAlign.start,
+                              overflow: TextOverflow.ellipsis,
                             ),
-                            Column(
+                            SizedBox(
+                              height: 8,
+                            ),
+                            Row(
                               children: [
+                                Icon(
+                                  MandobIcons.discount,
+                                  size: 15,
+                                  color: discount == '0'
+                                      ? Colors.red
+                                      : Theme.of(context).primaryColor,
+                                ),
+                                SizedBox(
+                                  width: 4,
+                                ),
                                 Text(
-                                  S.current.discount,
+                                  '$discount',
                                   style: TextStyle(
-                                    fontSize: 13,
+                                    fontSize: 12,
                                   ),
                                   textAlign: TextAlign.start,
                                   overflow: TextOverflow.ellipsis,
-                                ),
-                                SizedBox(
-                                  height: 8,
-                                ),
-                                Row(
-                                  children: [
-                                    Icon(
-                                      MandobIcons.discount,
-                                      size: 15,
-                                      color:discount == '0' ?Colors.red : Theme.of(context).primaryColor,
-                                    ),
-                                    SizedBox(
-                                      width: 4,
-                                    ),
-                                    Text(
-                                      '$discount',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                      ),
-                                      textAlign: TextAlign.start,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ],
-                                ),
-
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Text(
-                                  S.current.price,
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                  ),
-                                  textAlign: TextAlign.start,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                SizedBox(
-                                  height: 8,
-                                ),
-                                Row(
-                                  children: [
-                                    Icon(
-                                      FontAwesomeIcons.shoppingBag,
-                                      size: 12,
-                                      color: Theme.of(context).primaryColor,
-                                    ),
-                                    SizedBox(
-                                      width: 4,
-                                    ),
-                                    Text(
-                                      '$price',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                      ),
-                                      textAlign: TextAlign.start,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ],
                                 ),
                               ],
                             ),
                           ],
                         ),
-                      ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                    ],
+                        Column(
+                          children: [
+                            Text(
+                              S.current.price,
+                              style: TextStyle(
+                                fontSize: 13,
+                              ),
+                              textAlign: TextAlign.start,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            Row(
+                              children: [
+                                Icon(
+                                  FontAwesomeIcons.shoppingBag,
+                                  size: 12,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                                SizedBox(
+                                  width: 4,
+                                ),
+                                Text(
+                                  '$price',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                  ),
+                                  textAlign: TextAlign.start,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                )),
+                  SizedBox(
+                    height: 8,
+                  ),
+                ],
+              ),
+            )),
             SizedBox(
               width: 16,
             ),
@@ -259,9 +272,7 @@ class ProductComponent extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(25),
                   child: CustomNetworkImage(
-                      height: 125,
-                      width: 125,
-                      imageSource:image),
+                      height: 125, width: 125, imageSource: image),
                 ),
               ),
             ),

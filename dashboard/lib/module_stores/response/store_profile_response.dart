@@ -9,12 +9,10 @@ class StoreProfileResponse {
   StoreProfileResponse({this.statusCode, this.msg, this.data});
 
   StoreProfileResponse.fromJson(dynamic json) {
-        statusCode = json['status_code'];
-      msg = json['msg'];
-      data = json['Data'] != null ? Data.fromJson(json['Data']) : null;
-    try {
-  
-    } catch (e) {
+    statusCode = json['status_code'];
+    msg = json['msg'];
+    data = json['Data'] != null ? Data.fromJson(json['Data']) : null;
+    try {} catch (e) {
       Logger().error('Store Profile', e.toString(), StackTrace.current);
       statusCode = '-1';
     }
@@ -46,33 +44,39 @@ class Data {
   dynamic? deliveryCost;
   bool? privateOrders;
   bool? hasProducts;
-  Rating? rating;
+//  Rating? rating;
   Date? openingTime;
   Date? closingTime;
-
-  Data(
-      {this.id,
-      this.storeOwnerName,
-      this.image,
-      this.branch,
-      this.free,
-      this.branches,
-      this.city,
-      this.phone,
-      this.imageURL,
-      this.baseURL,
-      this.bank,
-      this.deliveryCost,
-      this.privateOrders,
-      this.hasProducts,
-      this.rating,
-      this.openingTime,
-      this.closingTime});
+  String? bankName;
+  String? bankAccountNumber;
+  String? stcPay;
+  Data({
+    this.id,
+    this.storeOwnerName,
+    this.image,
+    this.branch,
+    this.free,
+    this.branches,
+    this.city,
+    this.phone,
+    this.imageURL,
+    this.baseURL,
+    this.bank,
+    this.deliveryCost,
+    this.privateOrders,
+    this.hasProducts,
+//      this.rating,
+    this.openingTime,
+    this.closingTime,
+    this.bankAccountNumber,
+    this.bankName,
+    this.stcPay,
+  });
 
   Data.fromJson(dynamic json) {
     id = json['id'];
     storeOwnerName = json['storeOwnerName'];
-    image =ImageUrl.fromJson(json['image']) ;
+    image = ImageUrl.fromJson(json['image']);
     branch = json['branch'];
     free = json['free'];
     if (json['branches'] != null) {
@@ -89,11 +93,14 @@ class Data {
     deliveryCost = json['deliveryCost'];
     privateOrders = json['privateOrders'];
     hasProducts = json['hasProducts'];
-    rating = json['rating'] != null ? Rating.fromJson(json['rating']) : null;
+//    rating = json['rating'] != null ? Rating.fromJson(json['rating']) : null;
     openingTime =
         json['openingTime'] != null ? Date.fromJson(json['openingTime']) : null;
     closingTime =
         json['closingTime'] != null ? Date.fromJson(json['closingTime']) : null;
+    bankName = json['bankName'];
+    bankAccountNumber = json['bankAccountNumber'];
+    stcPay = json['stcPay'];
   }
 
   Map<String, dynamic> toJson() {
@@ -114,9 +121,9 @@ class Data {
     map['deliveryCost'] = deliveryCost;
     map['privateOrders'] = privateOrders;
     map['hasProducts'] = hasProducts;
-    if (rating != null) {
-      map['rating'] = rating?.toJson();
-    }
+//    if (rating != null) {
+//      map['rating'] = rating?.toJson();
+//    }
     map['openingTime'] = openingTime;
     map['closingTime'] = closingTime;
     return map;
@@ -205,14 +212,12 @@ class Location {
     return map;
   }
 }
+
 class ImageUrl {
   String? image;
   String? imageURL;
   String? baseURL;
-  ImageUrl({
-    this.image,
-    this.imageURL,this.baseURL
-  });
+  ImageUrl({this.image, this.imageURL, this.baseURL});
 
   ImageUrl.fromJson(dynamic json) {
     image = json['image'];

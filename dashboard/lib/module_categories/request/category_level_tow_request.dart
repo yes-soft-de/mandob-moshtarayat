@@ -29,12 +29,14 @@ class DataStoreCategoryTwo {
     return map;
   }
 }
-class TranslateSubTwoCategory{
+
+class TranslateSubTwoCategory {
   String? productCategoryName;
   String? lang;
   int? productCategoryID;
 
-  TranslateSubTwoCategory({ this.productCategoryName, this.lang , this.productCategoryID});
+  TranslateSubTwoCategory(
+      {this.productCategoryName, this.lang, this.productCategoryID});
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
@@ -44,13 +46,12 @@ class TranslateSubTwoCategory{
     return map;
   }
 }
-class CategoryLevelTowRequest {
 
+class CategoryLevelTowRequest {
   DataStoreCategoryTwo? dataStoreCategory;
   List<TranslateSubTwoCategory>? translate;
 
-  CategoryLevelTowRequest({
-    this.dataStoreCategory, this.translate});
+  CategoryLevelTowRequest({this.dataStoreCategory, this.translate});
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
@@ -60,6 +61,4 @@ class CategoryLevelTowRequest {
     }
     return map;
   }
-
-
 }

@@ -13,7 +13,7 @@ import 'package:mandob_moshtarayat_dashboad/utils/effect/checked.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/helpers/custom_flushbar.dart';
 
 Widget formDialog(BuildContext context, String title, String textHint,
-    Function(String, String? , List<TranslateStoreCategory>?) add,
+    Function(String, String?, List<TranslateStoreCategory>?) add,
     {bool image = true,
     UpdateStoreCategoriesRequest? storeCategoriesRequest,
     UpdateProductCategoryRequest? request}) {
@@ -22,15 +22,16 @@ Widget formDialog(BuildContext context, String title, String textHint,
         CustomTwaslnaAppBar.appBar(context, title: S.current.addNewCategory),
     body: image
         ? InsertForm(
-            add: (name, image,tra) {
-              add(name, image,tra);
+            add: (name, image, tra) {
+              add(name, image, tra);
             },
             hintText: textHint,
-            storeCategoriesRequest: storeCategoriesRequest, languages: ['en','urdu'],
+            storeCategoriesRequest: storeCategoriesRequest,
+            languages: ['en', 'urdu'],
           )
         : insertFormWithoutImage(
             add: (name) {
-              add(name, '',[]);
+              add(name, '', []);
             },
             hintText: textHint,
             updateStoreCategoriesRequest: request,
@@ -39,13 +40,16 @@ Widget formDialog(BuildContext context, String title, String textHint,
 }
 
 class InsertForm extends StatefulWidget {
-  final Function(String, String?,List<TranslateStoreCategory>?) add;
+  final Function(String, String?, List<TranslateStoreCategory>?) add;
   final String hintText;
   final List<String> languages;
   final UpdateStoreCategoriesRequest? storeCategoriesRequest;
 
   InsertForm(
-      {required this.add, required this.hintText, this.storeCategoriesRequest,required this.languages});
+      {required this.add,
+      required this.hintText,
+      this.storeCategoriesRequest,
+      required this.languages});
 
   @override
   _InsertFormState createState() => _InsertFormState();
@@ -58,23 +62,21 @@ class _InsertFormState extends State<InsertForm> {
   String? imagePath;
   late bool isUpdate;
 
- late List<TranslateStoreCategory> translate;
- late List<CustomFormFieldWithTranslate> translateWidgets;
-
-
-
+  late List<TranslateStoreCategory> translate;
+  late List<CustomFormFieldWithTranslate> translateWidgets;
 
   @override
   void initState() {
     _nameArController = TextEditingController();
     translateWidgets = [];
-    translate=[];
+    translate = [];
     isUpdate = false;
     if (widget.storeCategoriesRequest != null) {
-      isUpdate= true;
-      lang = widget.storeCategoriesRequest?.dataStoreCategory?.lang??'';
+      isUpdate = true;
+      lang = widget.storeCategoriesRequest?.dataStoreCategory?.lang ?? '';
       _nameArController.text =
-          widget.storeCategoriesRequest?.dataStoreCategory?.storeCategoryName ?? '';
+          widget.storeCategoriesRequest?.dataStoreCategory?.storeCategoryName ??
+              '';
       imagePath = widget.storeCategoriesRequest?.dataStoreCategory?.image;
       if (imagePath == '') {
         imagePath = null;
@@ -107,25 +109,31 @@ class _InsertFormState extends State<InsertForm> {
                         controller: _nameArController,
                         hintText: widget.hintText,
                         last: true,
-                        initLanguage:isUpdate ?lang :  'ar',
-                        languages:isUpdate? [lang] :['ar'],
+                        initLanguage: isUpdate ? lang : 'ar',
+                        languages: isUpdate ? [lang] : ['ar'],
                       ),
                     ),
-                 isUpdate? Container():  InkWell(
-                        onTap: (){
-                          if(_nameArController.text.isEmpty){
-                            CustomFlushBarHelper.createError(
-                                title: S.current.warnning,
-                                message: S.current.pleaseCompleteTheForm)
-                                .show(context);
-                          }else if (translateWidgets.length != widget.languages.length){
-                            trans(true);
-                          }
-                        },
-                        child: Icon(Icons.add))
+                    isUpdate
+                        ? Container()
+                        : InkWell(
+                            onTap: () {
+                              if (_nameArController.text.isEmpty) {
+                                CustomFlushBarHelper.createError(
+                                        title: S.current.warnning,
+                                        message:
+                                            S.current.pleaseCompleteTheForm)
+                                    .show(context);
+                              } else if (translateWidgets.length !=
+                                  widget.languages.length) {
+                                trans(true);
+                              }
+                            },
+                            child: Icon(Icons.add))
                   ],
                 ),
-                Column(children: trans(false),),
+                Column(
+                  children: trans(false),
+                ),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Center(
@@ -140,7 +148,8 @@ class _InsertFormState extends State<InsertForm> {
                         .getImage(
                       source: ImageSource.gallery,
                       imageQuality: 70,
-                    ).then((value) {
+                    )
+                        .then((value) {
                       if (value != null) {
                         imagePath = value.path;
                         setState(() {});
@@ -195,9 +204,11 @@ class _InsertFormState extends State<InsertForm> {
           if (_key.currentState!.validate()) {
             if (imagePath?.contains('http') == true &&
                 widget.storeCategoriesRequest != null) {
-              imagePath = widget.storeCategoriesRequest?.dataStoreCategory?.baseImage ?? '';
+              imagePath =
+                  widget.storeCategoriesRequest?.dataStoreCategory?.baseImage ??
+                      '';
             }
-            widget.add(_nameArController.text.trim(), imagePath,translate);
+            widget.add(_nameArController.text.trim(), imagePath, translate);
           } else {
             CustomFlushBarHelper.createError(
                     title: S.current.warnning,
@@ -207,26 +218,26 @@ class _InsertFormState extends State<InsertForm> {
         });
   }
 
-  List<CustomFormFieldWithTranslate> trans(bool addNewField){
-    if(addNewField) {
-      TranslateStoreCategory  translateStoreCategory = TranslateStoreCategory(lang:widget.languages.first );
+  List<CustomFormFieldWithTranslate> trans(bool addNewField) {
+    if (addNewField) {
+      TranslateStoreCategory translateStoreCategory =
+          TranslateStoreCategory(lang: widget.languages.first);
       TextEditingController _nameController = TextEditingController();
       late String language = '';
 
-      translateWidgets.add(
-          CustomFormFieldWithTranslate(
-            initLanguage: widget.languages.first,
-            onChanged: (){
-              translateStoreCategory.storeCategoryName=_nameController.text;
-            },
+      translateWidgets.add(CustomFormFieldWithTranslate(
+        initLanguage: widget.languages.first,
+        onChanged: () {
+          translateStoreCategory.storeCategoryName = _nameController.text;
+        },
         languages: widget.languages,
-            controller: _nameController,
-            onSelected: (lan){
+        controller: _nameController,
+        onSelected: (lan) {
           language = lan;
-          translateStoreCategory.lang=language;
-      },));
-      setState(() {
-      });
+          translateStoreCategory.lang = language;
+        },
+      ));
+      setState(() {});
       translate.add(translateStoreCategory);
     }
     return translateWidgets;

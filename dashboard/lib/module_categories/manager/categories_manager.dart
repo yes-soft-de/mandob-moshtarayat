@@ -25,12 +25,15 @@ class CategoriesManager {
 
   Future<StoreCategoriesResponse?> getStoreCategories() =>
       _categoriesRepository.getStoreCategories();
-  Future<StoreCategoriesResponse?> getStoreCategoriesWithLang(FilterLanguageCategoryRequest request) =>
+  Future<StoreCategoriesResponse?> getStoreCategoriesWithLang(
+          FilterLanguageCategoryRequest request) =>
       _categoriesRepository.getStoreCategoriesWithLang(request);
-  Future<SubCategoriesResponse?> getSubCategories(FilterLanguageAndCategoryRequest request) =>
+  Future<SubCategoriesResponse?> getSubCategories(
+          FilterLanguageAndCategoryRequest request) =>
       _categoriesRepository.getSubcategoriesLevelOne(request);
 
-  Future<SubCategoriesResponse?> getSubcategoriesLevelTow(FilterLanguageAndProductCategoryRequest id) =>
+  Future<SubCategoriesResponse?> getSubcategoriesLevelTow(
+          FilterLanguageAndProductCategoryRequest id) =>
       _categoriesRepository.getSubcategoriesLevelTow(id);
 
   Future<ActionResponse?> createCategory(CreateStoreCategoryRequest request) =>
@@ -43,7 +46,7 @@ class CategoriesManager {
       _categoriesRepository.getProducts(id);
 
   Future<ActionResponse?> createProductsCategory(
-      CategoryLevelTowRequest request) =>
+          CategoryLevelTowRequest request) =>
       _categoriesRepository.createProductsCategory(request);
 
   Future<ActionResponse?> createStoreProduct(CreateProductRequest request) =>
@@ -56,12 +59,13 @@ class CategoriesManager {
   Future<ActionResponse?> updateStore(UpdateStoreRequest request) =>
       _categoriesRepository.updateStore(request);
   Future<ActionResponse?> updateProductCategory(
-      CategoryLevelTowRequest request) =>
+          CategoryLevelTowRequest request) =>
       _categoriesRepository.updateProductCategory(request);
 
   Future<ActionResponse?> updateProduct(UpdateProductRequest request) =>
       _categoriesRepository.updateProduct(request);
-  Future<ActionResponse?> updateProductCommission(UpdateProductCommissionRequest request) =>
+  Future<ActionResponse?> updateProductCommission(
+          UpdateProductCommissionRequest request) =>
       _categoriesRepository.updateProductCommission(request);
 
   Future<ActionResponse?> createSubCategories(SubCategoriesRequest request) =>
@@ -69,10 +73,10 @@ class CategoriesManager {
 
   Future<ActionResponse?> updateSubCategories(SubCategoriesRequest request) =>
       _categoriesRepository.updateSubCategories(request);
-      
+
   Future<ActionResponse?> deleteCategories(String id) =>
       _categoriesRepository.deleteCategories(id);
-      
-Future<ActionResponse?> deleteSubCategories(String id) =>
+
+  Future<ActionResponse?> deleteSubCategories(String id) =>
       _categoriesRepository.deleteSubCategories(id);
 }

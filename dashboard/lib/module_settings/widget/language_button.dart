@@ -6,7 +6,8 @@ class LanguageButton extends StatefulWidget {
   final String image;
   @override
   _LanguageButtonState createState() => _LanguageButtonState();
-  const LanguageButton({required this.textLang, required this.active,required this.image});
+  const LanguageButton(
+      {required this.textLang, required this.active, required this.image});
 }
 
 class _LanguageButtonState extends State<LanguageButton> {
@@ -30,7 +31,8 @@ class _LanguageButtonState extends State<LanguageButton> {
           ),
           Text(
             widget.textLang,
-            style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+            style: const TextStyle(
+                fontWeight: FontWeight.bold, color: Colors.black),
           ),
           SizedBox(
               width: 25,

@@ -8,7 +8,7 @@ import 'package:mandob_moshtarayat_dashboad/module_orders/response/order_details
 import 'package:mandob_moshtarayat_dashboad/module_orders/response/order_details_response/order_details_response.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/helpers/order_status_helper.dart';
 
-class OrderDetailsModel extends DataModel{
+class OrderDetailsModel extends DataModel {
   List<StoreOwnerInfo> carts = [];
   StoreOwnerInfo storeInfo = StoreOwnerInfo.Empty();
   OrderInfo order = OrderInfo.Empty();

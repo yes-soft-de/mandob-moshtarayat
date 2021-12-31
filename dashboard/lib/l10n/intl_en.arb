@@ -545,7 +545,11 @@
   "addCommission": "Add commission",
   "distributors":"Distributors",
   "inActiveDistributors":"Inactive Distributors",
-  "searchForDistributor":"Search For Distributor"
+  "searchForDistributor":"Search For Distributor",
+  "storeBalance":"Store Balance",
+  "paymentsForStore":"Payments for store",
+  "remainingAmountForStore":"Amount owed for store",
+  "sumPaymentsForStore":"Total payments for store"
   
 
 }

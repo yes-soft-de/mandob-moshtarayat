@@ -70,7 +70,7 @@ class AuthButtons extends StatelessWidget {
             ),
           ),
           Hider(
-            active:false,
+            active: false,
             child: Padding(
               padding: const EdgeInsets.only(
                   right: 16.0, left: 16, bottom: 8.0, top: 8.0),

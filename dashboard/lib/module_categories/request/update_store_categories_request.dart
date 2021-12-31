@@ -32,12 +32,10 @@
 //}
 
 class UpdateStoreCategoriesRequest {
-
   DataUpdateStoreCategory? dataStoreCategory;
   List<TranslateUpdateStoreCategory>? translate;
 
-  UpdateStoreCategoriesRequest({
-    this.dataStoreCategory, this.translate});
+  UpdateStoreCategoriesRequest({this.dataStoreCategory, this.translate});
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
@@ -47,16 +45,15 @@ class UpdateStoreCategoriesRequest {
     }
     return map;
   }
-
-
 }
 
-class TranslateUpdateStoreCategory{
+class TranslateUpdateStoreCategory {
   int? storeCategoryID;
   String? storeCategoryName;
   String? lang;
 
-  TranslateUpdateStoreCategory({this.storeCategoryID, this.storeCategoryName, this.lang});
+  TranslateUpdateStoreCategory(
+      {this.storeCategoryID, this.storeCategoryName, this.lang});
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
@@ -67,7 +64,7 @@ class TranslateUpdateStoreCategory{
   }
 }
 
-class DataUpdateStoreCategory{
+class DataUpdateStoreCategory {
   int? id;
   String? storeCategoryName;
   String? description;
@@ -75,17 +72,17 @@ class DataUpdateStoreCategory{
   String? image;
   String? baseImage;
 
-  DataUpdateStoreCategory({
-    this.id,
-    this.storeCategoryName,
-    this.description,
-    this.lang,
-    this.baseImage,
-    this.image});
+  DataUpdateStoreCategory(
+      {this.id,
+      this.storeCategoryName,
+      this.description,
+      this.lang,
+      this.baseImage,
+      this.image});
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
-    map['id'] =id;
+    map['id'] = id;
     map['storeCategoryName'] = storeCategoryName;
     map['description'] = description;
     map['image'] = image;

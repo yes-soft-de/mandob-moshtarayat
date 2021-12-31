@@ -505,6 +505,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Payment has been registered successfully"),
         "paymentToCaptain":
             MessageLookupByLibrary.simpleMessage("Payment To Captain"),
+        "paymentsForStore":
+            MessageLookupByLibrary.simpleMessage("Payments for store"),
         "paymentsFromCaptain":
             MessageLookupByLibrary.simpleMessage("Payments From Captain"),
         "paymentsManagement":
@@ -598,6 +600,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Register Success, Setup my profile"),
         "remainingAmountForCompany": MessageLookupByLibrary.simpleMessage(
             "Remaining Amount For Company"),
+        "remainingAmountForStore":
+            MessageLookupByLibrary.simpleMessage("Amount owed for store"),
         "renewNewPlan": MessageLookupByLibrary.simpleMessage(
             "Subscription with new package"),
         "renewOldPlan":
@@ -688,6 +692,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "store": MessageLookupByLibrary.simpleMessage("Store"),
         "storeAvailable":
             MessageLookupByLibrary.simpleMessage("Store Availability"),
+        "storeBalance": MessageLookupByLibrary.simpleMessage("Store Balance"),
         "storeCategories":
             MessageLookupByLibrary.simpleMessage("Stores Categories"),
         "storeCreatedSuccessfully":
@@ -722,6 +727,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Your subscription has been renewed"),
         "sum": MessageLookupByLibrary.simpleMessage("total"),
         "sumBalance": MessageLookupByLibrary.simpleMessage("Sum Balance"),
+        "sumPaymentsForStore":
+            MessageLookupByLibrary.simpleMessage("Total payments for store"),
         "sumPaymentsFromCaptain":
             MessageLookupByLibrary.simpleMessage("Total Payments From Captain"),
         "sumPaymentsFromCompany":

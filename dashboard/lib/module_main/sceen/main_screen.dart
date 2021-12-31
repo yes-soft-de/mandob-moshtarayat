@@ -28,6 +28,7 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
   void didChangeMetrics() {
     setState(() {});
   }
+
   int pop = 2;
   @override
   Widget build(BuildContext context) {
@@ -57,12 +58,12 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
     }
     return WillPopScope(
       onWillPop: () async {
-        pop = pop - 1 ;
+        pop = pop - 1;
         return pop <= 0;
       },
       child: GestureDetector(
-        onTap: (){
-          if (pop < 2){
+        onTap: () {
+          if (pop < 2) {
             pop = 2;
           }
         },

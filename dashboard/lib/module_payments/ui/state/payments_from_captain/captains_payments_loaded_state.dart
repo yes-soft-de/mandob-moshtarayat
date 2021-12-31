@@ -74,7 +74,7 @@ class PaymentsForCaptainLoadedState extends States {
             CustomFormField(
               controller: _amount,
               hintText: S.current.paymentAmount,
-              numbers:true,
+              numbers: true,
             ),
             Padding(
               padding: const EdgeInsets.only(
@@ -227,7 +227,8 @@ class PaymentsForCaptainLoadedState extends States {
           ],
         ),
       ),
-    ));
+    )
+    );
   }
 
   Widget getCaptainPaymentFrom() {

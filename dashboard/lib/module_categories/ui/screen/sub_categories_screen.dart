@@ -32,7 +32,7 @@ class SubCategoriesScreenState extends State<SubCategoriesScreen> {
   String? languageSelected;
   @override
   void initState() {
-    languageSelected = widget._localizationService.getLanguage() ;
+    languageSelected = widget._localizationService.getLanguage();
     currentState = LoadingState(this);
     widget._stateManager.stateStream.listen((event) {
       currentState = event;
@@ -49,8 +49,11 @@ class SubCategoriesScreenState extends State<SubCategoriesScreen> {
   }
 
   void getSubCategories(categories) {
-    widget._stateManager
-        .getCategoriesLevelOne(this, FilterLanguageAndCategoryRequest(storeCategoryID: int.parse(id ?? '0'),language: languageSelected), categories);
+    widget._stateManager.getCategoriesLevelOne(
+        this,
+        FilterLanguageAndCategoryRequest(
+            storeCategoryID: int.parse(id ?? '0'), language: languageSelected),
+        categories);
   }
 
   void addSubCategories(SubCategoriesRequest request) {
@@ -104,12 +107,17 @@ class SubCategoriesScreenState extends State<SubCategoriesScreen> {
                         state: currentState is SubCategoriesLoadedState
                             ? currentState as SubCategoriesLoadedState
                             : null,
-                        languages: ['en','urdu'],
-                        addSubCategories: (id, name, image,trans) {
-                          addSubCategories(SubCategoriesRequest(
-                            translate: trans,
-                            dataStoreCategory: DataStoreCategory(storeCategoryID:int.tryParse(id),productCategoryName: name,productCategoryImage: image ),
-                          ),);
+                        languages: ['en', 'urdu'],
+                        addSubCategories: (id, name, image, trans) {
+                          addSubCategories(
+                            SubCategoriesRequest(
+                              translate: trans,
+                              dataStoreCategory: DataStoreCategory(
+                                  storeCategoryID: int.tryParse(id),
+                                  productCategoryName: name,
+                                  productCategoryImage: image),
+                            ),
+                          );
                           Navigator.of(context).pop();
                         },
                       ),

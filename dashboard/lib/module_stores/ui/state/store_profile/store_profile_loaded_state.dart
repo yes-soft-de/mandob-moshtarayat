@@ -64,7 +64,7 @@ class StoreProfileLoadedState extends States {
                   color: Theme.of(context).disabledColor,
                 ),
               ),
-               ElevatedButton(
+              ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(25),
@@ -73,17 +73,19 @@ class StoreProfileLoadedState extends States {
                 ),
                 child: Text(
                   S.of(context).viewProduct,
-                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
                 ),
                 onPressed: () {
-                  Navigator.pushNamed(context, CategoriesRoutes.PRODUCT_STORE_CATEGORIES,arguments: profile?.id);
+                  Navigator.pushNamed(
+                      context, CategoriesRoutes.PRODUCT_STORE_CATEGORIES,
+                      arguments: profile?.id);
                 },
               ),
             ],
           ),
         ),
       ),
-
       CustomListTile(
         title: S.current.storeName,
         subTitle: profile?.storeOwnerName,
@@ -95,6 +97,18 @@ class StoreProfileLoadedState extends States {
       CustomListTile(
         title: S.current.storePhone,
         subTitle: profile?.phone,
+      ),
+      CustomListTile(
+        title: S.current.bankName,
+        subTitle: profile?.bankName,
+      ),
+      CustomListTile(
+        title: S.current.bankAccountNumber,
+        subTitle: profile?.bankNumber,
+      ),
+      CustomListTile(
+        title: S.current.stc,
+        subTitle: profile?.stcPay,
       ),
       CustomListTile(
         title: S.current.deliverPrice,

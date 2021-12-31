@@ -23,14 +23,15 @@ class InActiveDistributorsStateManager {
     _stateSubject.add(LoadingState(screenState));
     _distroService.getInActiveDistros().then((value) {
       if (value.hasError) {
-        _stateSubject.add(
-            InDistributedActiveLoadedState(screenState, null, error: value.error));
+        _stateSubject.add(InDistributedActiveLoadedState(screenState, null,
+            error: value.error));
       } else if (value.isEmpty) {
         _stateSubject.add(InDistributedActiveLoadedState(screenState, null,
             empty: value.isEmpty));
       } else {
         DistributorModel _model = value as DistributorModel;
-        _stateSubject.add(InDistributedActiveLoadedState(screenState, _model.data));
+        _stateSubject
+            .add(InDistributedActiveLoadedState(screenState, _model.data));
       }
     });
   }

@@ -4,10 +4,10 @@ class FinancialCompensationRequest {
   double? maxKilometerBonus;
   double? minKilometerBonus;
 
-  FinancialCompensationRequest({
-      this.id, 
-      this.kilometers, 
-      this.maxKilometerBonus, 
+  FinancialCompensationRequest(
+      {this.id,
+      this.kilometers,
+      this.maxKilometerBonus,
       this.minKilometerBonus});
 
   FinancialCompensationRequest.fromJson(dynamic json) {
@@ -27,5 +27,4 @@ class FinancialCompensationRequest {
     map['minKilometerBonus'] = minKilometerBonus;
     return map;
   }
-
 }

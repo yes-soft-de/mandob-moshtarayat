@@ -14,7 +14,6 @@ import 'package:mandob_moshtarayat_dashboad/utils/components/error_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/progresive_image.dart';
 
 class SubCategoriesLoadedState extends States {
-
   final SubCategoriesScreenState screenState;
   final String? error;
   final bool empty;
@@ -156,18 +155,32 @@ class SubCategoriesLoadedState extends States {
                             appBar: CustomTwaslnaAppBar.appBar(context,
                                 title: S.current.updateCategory),
                             backgroundColor:
-                            Theme.of(context).scaffoldBackgroundColor,
+                                Theme.of(context).scaffoldBackgroundColor,
                             body: AddSubCategoriesWidget(
                               catID: screenState.id,
                               state: this,
                               languages: [],
                               subCategoriesModel: element,
                               selectedLang: screenState.languageSelected,
-                              addSubCategories: (id , name , image,tras) {
+                              addSubCategories: (id, name, image, tras) {
                                 Navigator.of(context).pop();
-                                screenState.updateSubCategories(SubCategoriesRequest(
-                                 translate:screenState.languageSelected =='ar'? [] : [TranslateSubCategory(lang: screenState.languageSelected,productCategoryName: name,productCategoryID: element.id)],
-                                  dataStoreCategory: DataStoreCategory(storeCategoryID:int.tryParse(id),productCategoryImage: image,productCategoryName: name,id: element.id ),
+                                screenState
+                                    .updateSubCategories(SubCategoriesRequest(
+                                  translate: screenState.languageSelected ==
+                                          'ar'
+                                      ? []
+                                      : [
+                                          TranslateSubCategory(
+                                              lang:
+                                                  screenState.languageSelected,
+                                              productCategoryName: name,
+                                              productCategoryID: element.id)
+                                        ],
+                                  dataStoreCategory: DataStoreCategory(
+                                      storeCategoryID: int.tryParse(id),
+                                      productCategoryImage: image,
+                                      productCategoryName: name,
+                                      id: element.id),
                                 ));
                               },
                             ),
@@ -191,20 +204,23 @@ class SubCategoriesLoadedState extends States {
                   ),
                 ),
               ),
-              SizedBox(width: 8,), 
+              SizedBox(
+                width: 8,
+              ),
               InkWell(
                 onTap: () {
-                showDialog(
-              context: screenState.context,
-              builder: (context) {
-                return CustomAlertDialog(
-                    message: S.current.sureForDeleteCategories,
-                    onPressed: () {
+                  showDialog(
+                      context: screenState.context,
+                      builder: (context) {
+                        return CustomAlertDialog(
+                            message: S.current.sureForDeleteCategories,
+                            onPressed: () {
                               Navigator.of(context).pop();
 
-                      screenState.deleteSubCategories(element.id.toString());
-                    });
-              });
+                              screenState
+                                  .deleteSubCategories(element.id.toString());
+                            });
+                      });
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -222,7 +238,9 @@ class SubCategoriesLoadedState extends States {
                   ),
                 ),
               ),
-              SizedBox(width: 8,), 
+              SizedBox(
+                width: 8,
+              ),
             ],
           ),
         ),
@@ -237,7 +255,9 @@ class SubCategoriesLoadedState extends States {
                 underline: Container(),
                 icon: Padding(
                   padding: const EdgeInsets.all(4.0),
-                  child: Icon(Icons.arrow_drop_down_rounded,),
+                  child: Icon(
+                    Icons.arrow_drop_down_rounded,
+                  ),
                 ),
                 items: [
                   DropdownMenuItem(

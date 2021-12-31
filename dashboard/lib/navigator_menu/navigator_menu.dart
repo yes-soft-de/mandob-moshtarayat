@@ -119,8 +119,11 @@ class _NavigatorMenuState extends State<NavigatorMenu> {
               children: [
                 customListTile(getIt<DistributorsModule>().distro_screen,
                     S.current.distributors, FontAwesomeIcons.adversal, true),
-                customListTile(getIt<DistributorsModule>().inActiveDistributorsScreen,
-                    S.current.inActiveDistributors, FontAwesomeIcons.adversal, true),
+                customListTile(
+                    getIt<DistributorsModule>().inActiveDistributorsScreen,
+                    S.current.inActiveDistributors,
+                    FontAwesomeIcons.adversal,
+                    true),
               ],
               page: widget.currentPage),
           // Captains

@@ -2,8 +2,8 @@ class CreateProductsCategoriesRequest {
   String? productCategoryName;
   int? storeOwnerProfileId;
   String? productCategoryImage;
-  CreateProductsCategoriesRequest({
-      this.productCategoryName,this.storeOwnerProfileId});
+  CreateProductsCategoriesRequest(
+      {this.productCategoryName, this.storeOwnerProfileId});
 
   CreateProductsCategoriesRequest.fromJson(dynamic json) {
     productCategoryName = json['productCategoryName'];
@@ -16,5 +16,4 @@ class CreateProductsCategoriesRequest {
     map['productCategoryImage'] = '';
     return map;
   }
-
 }

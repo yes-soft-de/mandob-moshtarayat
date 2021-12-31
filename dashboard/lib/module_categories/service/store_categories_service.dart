@@ -43,9 +43,11 @@ class CategoriesService {
     if (_ordersResponse.data == null) return DataModel.empty();
     return StoreCategoriesModel.withData(_ordersResponse.data!);
   }
-  Future<DataModel> getStoreCategoriesWithLang(FilterLanguageCategoryRequest request) async {
+
+  Future<DataModel> getStoreCategoriesWithLang(
+      FilterLanguageCategoryRequest request) async {
     StoreCategoriesResponse? _ordersResponse =
-    await _categoriesManager.getStoreCategoriesWithLang(request);
+        await _categoriesManager.getStoreCategoriesWithLang(request);
     if (_ordersResponse == null) {
       return DataModel.withError(S.current.networkError);
     }
@@ -56,9 +58,11 @@ class CategoriesService {
     if (_ordersResponse.data == null) return DataModel.empty();
     return StoreCategoriesModel.withData(_ordersResponse.data!);
   }
-  Future<DataModel> getSubCategories(FilterLanguageAndCategoryRequest request) async {
+
+  Future<DataModel> getSubCategories(
+      FilterLanguageAndCategoryRequest request) async {
     SubCategoriesResponse? _ordersResponse =
-    await _categoriesManager.getSubCategories(request);
+        await _categoriesManager.getSubCategories(request);
     if (_ordersResponse == null) {
       return DataModel.withError(S.current.networkError);
     }
@@ -69,9 +73,11 @@ class CategoriesService {
     if (_ordersResponse.data == null) return DataModel.empty();
     return SubCategoriesModel.withData(_ordersResponse.data!);
   }
-  Future<DataModel> getSubcategoriesLevelTow(FilterLanguageAndProductCategoryRequest id) async {
+
+  Future<DataModel> getSubcategoriesLevelTow(
+      FilterLanguageAndProductCategoryRequest id) async {
     SubCategoriesResponse? _ordersResponse =
-    await _categoriesManager.getSubcategoriesLevelTow(id);
+        await _categoriesManager.getSubcategoriesLevelTow(id);
     if (_ordersResponse == null) {
       return DataModel.withError(S.current.networkError);
     }
@@ -213,7 +219,9 @@ class CategoriesService {
     }
     return DataModel.empty();
   }
-  Future<DataModel> updateProductCommission(UpdateProductCommissionRequest request) async {
+
+  Future<DataModel> updateProductCommission(
+      UpdateProductCommissionRequest request) async {
     ActionResponse? actionResponse =
         await _categoriesManager.updateProductCommission(request);
 
@@ -226,8 +234,10 @@ class CategoriesService {
     }
     return DataModel.empty();
   }
+
   Future<DataModel> createSubCategories(SubCategoriesRequest request) async {
-    ActionResponse? actionResponse = await _categoriesManager.createSubCategories(request);
+    ActionResponse? actionResponse =
+        await _categoriesManager.createSubCategories(request);
 
     if (actionResponse == null) {
       return DataModel.withError(S.current.networkError);
@@ -240,7 +250,8 @@ class CategoriesService {
   }
 
   Future<DataModel> updateSubCategories(SubCategoriesRequest request) async {
-    ActionResponse? actionResponse = await _categoriesManager.updateSubCategories(request);
+    ActionResponse? actionResponse =
+        await _categoriesManager.updateSubCategories(request);
 
     if (actionResponse == null) {
       return DataModel.withError(S.current.networkError);
@@ -253,7 +264,8 @@ class CategoriesService {
   }
 
   Future<DataModel> deleteCategories(String id) async {
-    ActionResponse? actionResponse = await _categoriesManager.deleteCategories(id);
+    ActionResponse? actionResponse =
+        await _categoriesManager.deleteCategories(id);
     if (actionResponse == null) {
       return DataModel.withError(S.current.networkError);
     }
@@ -263,9 +275,10 @@ class CategoriesService {
     }
     return DataModel.empty();
   }
-  
+
   Future<DataModel> deleteSubCategories(String id) async {
-    ActionResponse? actionResponse = await _categoriesManager.deleteSubCategories(id);
+    ActionResponse? actionResponse =
+        await _categoriesManager.deleteSubCategories(id);
     if (actionResponse == null) {
       return DataModel.withError(S.current.networkError);
     }

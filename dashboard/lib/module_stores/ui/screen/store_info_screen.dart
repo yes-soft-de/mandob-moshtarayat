@@ -5,6 +5,7 @@ import 'package:mandob_moshtarayat_dashboad/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_stores/model/stores_model.dart';
 import 'package:mandob_moshtarayat_dashboad/module_stores/state_manager/store_profile_state_manager.dart';
+import 'package:mandob_moshtarayat_dashboad/module_stores/stores_routes.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_app_bar.dart';
 
 @injectable
@@ -59,121 +60,27 @@ class StoreInfoScreenState extends State<StoreInfoScreen> {
       appBar: CustomTwaslnaAppBar.appBar(context,
           title: model?.storeOwnerName ?? S.current.storeName,
           actions: [
-            // Padding(
-            //   padding: const EdgeInsets.all(8.0),
-            //   child: InkWell(
-            //     customBorder: CircleBorder(),
-            //     onTap: () {
-            //       showModalBottomSheet(
-            //           backgroundColor: Colors.transparent.withOpacity(0.0),
-            //           shape: RoundedRectangleBorder(
-            //               borderRadius:
-            //                   BorderRadius.vertical(top: Radius.circular(10))),
-            //           context: context,
-            //           builder: (context) {
-            //             return Container(
-            //               width: double.maxFinite,
-            //               child: Align(
-            //                 alignment: Alignment.bottomCenter,
-            //                 child: Container(
-            //                   constraints: BoxConstraints(maxWidth: 600),
-            //                   decoration: BoxDecoration(
-            //                       borderRadius: BorderRadius.vertical(
-            //                           top: Radius.circular(10)),
-            //                       color: Theme.of(context)
-            //                           .scaffoldBackgroundColor),
-            //                   child: Padding(
-            //                     padding: const EdgeInsets.all(8.0),
-            //                     child: Column(
-            //                       mainAxisSize: MainAxisSize.min,
-            //                       children: <Widget>[
-            //                         Padding(
-            //                           padding: const EdgeInsets.all(8.0),
-            //                           child: Text(
-            //                             S.of(context).storeManagment,
-            //                             style: TextStyle(
-            //                                 fontSize: 16.5,
-            //                                 fontWeight: FontWeight.bold),
-            //                           ),
-            //                         ),
-            //                         Padding(
-            //                           padding: const EdgeInsets.only(
-            //                               left: 25, right: 25),
-            //                           child: Container(
-            //                             constraints:
-            //                                 BoxConstraints(maxWidth: 600),
-            //                             child: Divider(
-            //                               thickness: 2.5,
-            //                             ),
-            //                           ),
-            //                         ),
-            //                         Container(
-            //                           width: double.maxFinite,
-            //                           constraints:
-            //                               BoxConstraints(maxWidth: 600),
-            //                           height: 55,
-            //                           child: TextButton(
-            //                             onPressed: () {
-            //                               Navigator.pop(context);
-            //                               Navigator.of(context).pushNamed(
-            //                                   CategoriesRoutes
-            //                                       .PRODUCT_CATEGORIES,
-            //                                   arguments: model?.id);
-            //                             },
-            //                             child: Text(
-            //                                 S.of(context).addNewCategory,
-            //                                 style: TextStyle(
-            //                                     color: Theme.of(context)
-            //                                         .textTheme
-            //                                         .bodyText1
-            //                                         ?.color)),
-            //                           ),
-            //                         ),
-            //                         Container(
-            //                           width: double.maxFinite,
-            //                           height: 55,
-            //                           constraints:
-            //                               BoxConstraints(maxWidth: 600),
-            //                           child: TextButton(
-            //                             onPressed: () {
-            //                               Navigator.pop(context);
-            //                               Navigator.of(context).pushNamed(
-            //                                   CategoriesRoutes
-            //                                       .PRODUCT_STORE_CATEGORIES,
-            //                                   arguments: model?.id);
-            //                             },
-            //                             child: Text(
-            //                               S.of(context).addProducts,
-            //                               style: TextStyle(
-            //                                   color: Theme.of(context)
-            //                                       .textTheme
-            //                                       .bodyText1
-            //                                       ?.color),
-            //                             ),
-            //                           ),
-            //                         ),
-            //                       ],
-            //                     ),
-            //                   ),
-            //                 ),
-            //               ),
-            //             );
-            //           });
-            //     },
-            //     child: Container(
-            //       decoration: BoxDecoration(
-            //           color: Theme.of(context).primaryColor,
-            //           shape: BoxShape.circle),
-            //       child: Padding(
-            //         padding: const EdgeInsets.all(8.0),
-            //         child: Icon(
-            //           Icons.add_box_rounded,
-            //           color: Colors.white,
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            // ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: InkWell(
+                customBorder: CircleBorder(),
+                onTap: () {
+                  Navigator.of(context).pushNamed(StoresRoutes.STORE_BALANCE,arguments: model?.id ?? -1);
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      shape: BoxShape.circle),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      Icons.account_balance_rounded,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ]),
       body: currentState.getUI(context),
     );

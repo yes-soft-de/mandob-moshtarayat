@@ -27,12 +27,12 @@ class CaptainsPaymentsScreenState extends State<CaptainsPaymentsScreen> {
       currentState = event;
       refresh();
     });
-   // widget._stateManager.getCaptains(this);
+    // widget._stateManager.getCaptains(this);
     super.initState();
   }
 
   void getCaptains() {
-  //  widget._stateManager.getCaptains(this);
+    //  widget._stateManager.getCaptains(this);
   }
 
   void refresh() {

@@ -1,8 +1,9 @@
 class Statistics {
   Statistics({
-      this.clientOrdersCount, 
-      this.clientOrdersCancel, 
-      this.clientOrdersDelivered,});
+    this.clientOrdersCount,
+    this.clientOrdersCancel,
+    this.clientOrdersDelivered,
+  });
 
   Statistics.fromJson(dynamic json) {
     clientOrdersCount = json['clientOrdersCount'];
@@ -20,5 +21,4 @@ class Statistics {
     map['clientOrdersDelivered'] = clientOrdersDelivered;
     return map;
   }
-
 }

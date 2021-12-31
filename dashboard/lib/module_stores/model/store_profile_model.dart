@@ -10,6 +10,9 @@ class StoreProfileModel extends DataModel {
   String storeOwnerName = '';
   String categoryId = '';
   String phone = '';
+  String stcPay = '';
+  String bankName = '';
+  String bankNumber = '';
   num deliveryCost = 0;
   String image = '';
   bool privateOrders = false;
@@ -29,23 +32,28 @@ class StoreProfileModel extends DataModel {
       required this.hasProducts,
       required this.categoryId,
       this.closingTime,
-      this.openingTime});
+      this.openingTime,
+      required this.stcPay,
+      required this.bankName,
+      required this.bankNumber});
 
   StoreProfileModel.withData(Data data) : super.withData() {
     _models = StoreProfileModel(
-      id: data.id ?? -1,
-      categoryId: '-1',
-      storeOwnerName: data.storeOwnerName ?? S.current.store,
-      deliveryCost: data.deliveryCost ?? 0,
-      hasProducts: data.hasProducts ?? false,
-      privateOrders: data.privateOrders ?? false,
-      image: data.image?.imageURL ?? ImageAsset.PLACEHOLDER,
-      phone: data.phone ?? '',
-      openingTime: DateFormat.jm()
-          .format(DateHelper.convert(data.openingTime?.timestamp)),
-      closingTime: DateFormat.jm()
-          .format(DateHelper.convert(data.closingTime?.timestamp)),
-    );
+        id: data.id ?? -1,
+        categoryId: '-1',
+        storeOwnerName: data.storeOwnerName ?? S.current.store,
+        deliveryCost: data.deliveryCost ?? 0,
+        hasProducts: data.hasProducts ?? false,
+        privateOrders: data.privateOrders ?? false,
+        image: data.image?.imageURL ?? ImageAsset.PLACEHOLDER,
+        phone: data.phone ?? '',
+        openingTime: DateFormat.jm()
+            .format(DateHelper.convert(data.openingTime?.timestamp)),
+        closingTime: DateFormat.jm()
+            .format(DateHelper.convert(data.closingTime?.timestamp)),
+        stcPay: data.stcPay ?? '',
+        bankName: data.bankName ?? '',
+        bankNumber: data.bankAccountNumber ?? '');
   }
 
   StoreProfileModel get data {

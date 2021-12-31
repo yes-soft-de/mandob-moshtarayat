@@ -3,19 +3,17 @@ import 'package:mandob_moshtarayat_dashboad/module_distributor/response/distirbu
 
 class DistributorModel extends DataModel {
   late String distroID;
-  late String distroName ;
+  late String distroName;
   late String image;
   String? age = '';
 
   List<DistributorModel> _model = [];
 
   DistributorModel(
-      {
-      required this.distroID,
+      {required this.distroID,
       required this.image,
       required this.distroName,
-      required this.age
-      });
+      required this.age});
 
   DistributorModel.withData(List<Datum> data) : super.withData() {
     _model = [];

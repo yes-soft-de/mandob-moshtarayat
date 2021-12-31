@@ -28,7 +28,8 @@ class DistributorsModule extends YesModule {
   Map<String, WidgetBuilder> getRoutes() {
     return {
       DistributorRoutes.DISTROS: (context) => distro_screen,
-      DistributorRoutes.IN_ACTIVE_DISTRO: (context) => inActiveDistributorsScreen,
+      DistributorRoutes.IN_ACTIVE_DISTRO: (context) =>
+          inActiveDistributorsScreen,
       CaptainsRoutes.CAPTAIN_PROFILE: (context) => captainProfileScreen,
       CaptainsRoutes.CAPTAIN_BALANCE: (context) => captainBalanceScreen,
       CaptainsRoutes.CAPTAIN_UNFINISHED: (context) => captainsPaymentsScreen,

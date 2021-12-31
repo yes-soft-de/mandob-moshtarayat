@@ -3,5 +3,4 @@ class CategoriesRoutes {
   static const PRODUCT_CATEGORIES = '/product_category';
   static const PRODUCT_STORE_CATEGORIES = '/product_store_category';
   static const SUB_CATEGORIES = '/sub_categories';
-
 }

@@ -14,6 +14,9 @@ class StoresModel extends DataModel {
   String phone = '';
   num deliveryCost = 0;
   String image = '';
+  String stcPay = '';
+  String bankName = '';
+  String bankNumber = '';
   bool privateOrders = false;
   bool hasProducts = false;
   DateTime? closingTime;
@@ -36,27 +39,31 @@ class StoresModel extends DataModel {
       this.closingTime,
       required this.status,
       this.imageUrl,
-      this.commission
-      });
+      this.commission,
+      required this.stcPay,
+      required this.bankName,
+      required this.bankNumber});
 
   StoresModel.withData(List<Data> data) : super.withData() {
     _models = [];
     for (var element in data) {
       _models.add(StoresModel(
-        id: element.id ?? -1,
-        categoryId: element.categoryId?.toString() ?? '-1',
-        storeOwnerName: element.storeOwnerName ?? S.current.store,
-        deliveryCost: element.deliveryCost ?? 0,
-        hasProducts: element.hasProducts ?? false,
-        privateOrders: element.privateOrders ?? false,
-        image: element.image?.image ?? ImageAsset.PLACEHOLDER,
-        phone: element.phone ?? '',
-        openingTime: DateHelper.convert(element.openingTime?.timestamp),
-        closingTime: DateHelper.convert(element.closingTime?.timestamp),
-        status: element.status ?? '',
-        imageUrl: element.image?.imageURL ?? element.imageUrl,
-        commission: element.commission
-      ));
+          id: element.id ?? -1,
+          categoryId: element.categoryId?.toString() ?? '-1',
+          storeOwnerName: element.storeOwnerName ?? S.current.store,
+          deliveryCost: element.deliveryCost ?? 0,
+          hasProducts: element.hasProducts ?? false,
+          privateOrders: element.privateOrders ?? false,
+          image: element.image?.image ?? ImageAsset.PLACEHOLDER,
+          phone: element.phone ?? '',
+          openingTime: DateHelper.convert(element.openingTime?.timestamp),
+          closingTime: DateHelper.convert(element.closingTime?.timestamp),
+          status: element.status ?? '',
+          imageUrl: element.image?.imageURL ?? element.imageUrl,
+          commission: element.commission,
+          stcPay: element.stcPay ?? '',
+          bankName: element.bankName ?? '',
+          bankNumber: element.bankAccountNumber ?? ''));
     }
   }
 

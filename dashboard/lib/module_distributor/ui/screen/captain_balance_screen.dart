@@ -31,7 +31,7 @@ class CaptainBalanceScreenState extends State<CaptainBalanceScreen> {
   }
 
   void getCaptain() {
-   // widget._stateManager.getCaptainBalance(this, captainId);
+    // widget._stateManager.getCaptainBalance(this, captainId);
   }
 
   void refresh() {
@@ -64,7 +64,7 @@ class CaptainBalanceScreenState extends State<CaptainBalanceScreen> {
       var arg = ModalRoute.of(context)?.settings.arguments;
       if (arg != null && arg is int) {
         captainId = arg;
-      //  widget._stateManager.getCaptainBalance(this, captainId);
+        //  widget._stateManager.getCaptainBalance(this, captainId);
       }
     }
     return Scaffold(

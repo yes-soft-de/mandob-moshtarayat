@@ -27,12 +27,11 @@ class LocalizationService {
     }
     return lang;
   }
-  
-   bool choosed() {
+
+  bool choosed() {
     String? lang = _preferencesHelper.getLanguage();
     return lang != null;
   }
-
 
   void dispose() {
     _localizationSubject.close();

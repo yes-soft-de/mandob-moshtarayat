@@ -7,7 +7,10 @@ class StoresCategoryCard extends StatelessWidget {
   final Widget dialog;
   final VoidCallback onTap;
   StoresCategoryCard(
-      {required this.storeName,required this.onTap ,required this.image, required this.dialog});
+      {required this.storeName,
+      required this.onTap,
+      required this.image,
+      required this.dialog});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +54,9 @@ class StoresCategoryCard extends StatelessWidget {
                   ),
                 ),
               ),
-              Spacer(flex: 1,),
+              Spacer(
+                flex: 1,
+              ),
               InkWell(
                 customBorder: CircleBorder(),
                 onTap: () {
@@ -75,7 +80,9 @@ class StoresCategoryCard extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(width: 8,),
+              SizedBox(
+                width: 8,
+              ),
               InkWell(
                 customBorder: CircleBorder(),
                 onTap: onTap,
@@ -93,7 +100,9 @@ class StoresCategoryCard extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(width: 8,),
+              SizedBox(
+                width: 8,
+              ),
             ],
           ),
         ),

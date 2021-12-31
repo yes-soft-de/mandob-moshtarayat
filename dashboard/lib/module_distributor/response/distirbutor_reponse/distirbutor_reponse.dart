@@ -19,7 +19,7 @@ class DistributorResponse {
             .toList(),
       );
     } catch (e) {
-      Logger().error('Distirbutor Response',e.toString(),StackTrace.current);
+      Logger().error('Distirbutor Response', e.toString(), StackTrace.current);
       return DistributorResponse(
         statusCode: '-1',
         msg: json['msg'] as String?,

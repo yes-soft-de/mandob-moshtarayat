@@ -25,13 +25,12 @@ class ProductsCategoryStateManager {
 
   final LocalizationService _localizationService;
 
-
   final PublishSubject<States> _stateSubject = PublishSubject();
 
   Stream<States> get stateStream => _stateSubject.stream;
 
-  ProductsCategoryStateManager(
-      this._categoriesService, this._authService, this._uploadService, this._localizationService);
+  ProductsCategoryStateManager(this._categoriesService, this._authService,
+      this._uploadService, this._localizationService);
 
   void getProductCategory(LevelTowCategoriesScreenState screenState) {
     _stateSubject.add(LoadingState(screenState));
@@ -44,64 +43,85 @@ class ProductsCategoryStateManager {
             empty: value.isEmpty));
       } else {
         StoreCategoriesModel model = value as StoreCategoriesModel;
-        _stateSubject.add(ProductCategoriesLoadedState(screenState, null ,model.data));
+        _stateSubject
+            .add(ProductCategoriesLoadedState(screenState, null, model.data));
       }
     });
   }
 
-  void getCategoriesLevelOne(LevelTowCategoriesScreenState screenState,int id,List<StoreCategoriesModel> model) {
-
-    _categoriesService.getSubCategories(FilterLanguageAndCategoryRequest(storeCategoryID: id,language: _localizationService.getLanguage())).then((value) {
+  void getCategoriesLevelOne(LevelTowCategoriesScreenState screenState, int id,
+      List<StoreCategoriesModel> model) {
+    _categoriesService
+        .getSubCategories(FilterLanguageAndCategoryRequest(
+            storeCategoryID: id, language: _localizationService.getLanguage()))
+        .then((value) {
       if (value.hasError) {
-        CustomFlushBarHelper.createError(title: S.current.warnning, message: value.error ?? '').show(screenState.context);
+        CustomFlushBarHelper.createError(
+                title: S.current.warnning, message: value.error ?? '')
+            .show(screenState.context);
       } else if (value.isEmpty) {
-        _stateSubject.add(ProductCategoriesLoadedState(screenState, null, model));
+        _stateSubject
+            .add(ProductCategoriesLoadedState(screenState, null, model));
       } else {
         SubCategoriesModel cats = value as SubCategoriesModel;
-        _stateSubject.add(ProductCategoriesLoadedState(screenState, cats.data ,model));
+        _stateSubject
+            .add(ProductCategoriesLoadedState(screenState, cats.data, model));
       }
     });
   }
-  void getCategoriesLevelTow(LevelTowCategoriesScreenState screenState,FilterLanguageAndProductCategoryRequest id,List<StoreCategoriesModel> model,List<SubCategoriesModel> subCategories) {
+
+  void getCategoriesLevelTow(
+      LevelTowCategoriesScreenState screenState,
+      FilterLanguageAndProductCategoryRequest id,
+      List<StoreCategoriesModel> model,
+      List<SubCategoriesModel> subCategories) {
     _categoriesService.getSubcategoriesLevelTow(id).then((value) {
       if (value.hasError) {
-        CustomFlushBarHelper.createError(title: S.current.warnning, message: value.error ?? '').show(screenState.context);
+        CustomFlushBarHelper.createError(
+                title: S.current.warnning, message: value.error ?? '')
+            .show(screenState.context);
       } else if (value.isEmpty) {
-        _stateSubject.add(ProductCategoriesLoadedState(screenState, subCategories, model));
+        _stateSubject.add(
+            ProductCategoriesLoadedState(screenState, subCategories, model));
       } else {
         SubCategoriesModel cats = value as SubCategoriesModel;
-        _stateSubject.add(ProductCategoriesLoadedState(screenState, subCategories ,model,subCategoriesLevelTow: cats.data));
+        _stateSubject.add(ProductCategoriesLoadedState(
+            screenState, subCategories, model,
+            subCategoriesLevelTow: cats.data));
       }
     });
   }
-
 
   void createProductCategory(LevelTowCategoriesScreenState screenState,
       CategoryLevelTowRequest request) {
     _stateSubject.add(LoadingState(screenState));
-    _uploadService.uploadImage(request.dataStoreCategory?.productCategoryImage).then((value) {
+    _uploadService
+        .uploadImage(request.dataStoreCategory?.productCategoryImage)
+        .then((value) {
       request.dataStoreCategory?.productCategoryImage = value;
-        _categoriesService.createProductCategories(request).then((value) {
-          if (value.hasError) {
-            getProductCategory(screenState);
-            CustomFlushBarHelper.createError(
-                title: S.current.warnning, message: value.error ?? '')
-              ..show(screenState.context);
-          } else {
-            getProductCategory(screenState);
-            CustomFlushBarHelper.createSuccess(
-                title: S.current.warnning,
-                message: S.current.categoryCreatedSuccessfully)
-              ..show(screenState.context);
-          }
-        });
+      _categoriesService.createProductCategories(request).then((value) {
+        if (value.hasError) {
+          getProductCategory(screenState);
+          CustomFlushBarHelper.createError(
+              title: S.current.warnning, message: value.error ?? '')
+            ..show(screenState.context);
+        } else {
+          getProductCategory(screenState);
+          CustomFlushBarHelper.createSuccess(
+              title: S.current.warnning,
+              message: S.current.categoryCreatedSuccessfully)
+            ..show(screenState.context);
+        }
+      });
     });
   }
 
   void updateProductCategory(LevelTowCategoriesScreenState screenState,
       CategoryLevelTowRequest request) {
     _stateSubject.add(LoadingState(screenState));
-    if (request.dataStoreCategory?.productCategoryImage?.contains('/original-image/') == true) {
+    if (request.dataStoreCategory?.productCategoryImage
+            ?.contains('/original-image/') ==
+        true) {
       _categoriesService.updateProductCategory(request).then((value) {
         if (value.hasError) {
           getProductCategory(screenState);
@@ -116,10 +136,11 @@ class ProductsCategoryStateManager {
             ..show(screenState.context);
         }
       });
-    }
-    else
-    _uploadService.uploadImage(request.dataStoreCategory?.productCategoryImage).then((value) {
-      request.dataStoreCategory?.productCategoryImage = value;
+    } else
+      _uploadService
+          .uploadImage(request.dataStoreCategory?.productCategoryImage)
+          .then((value) {
+        request.dataStoreCategory?.productCategoryImage = value;
         _categoriesService.updateProductCategory(request).then((value) {
           if (value.hasError) {
             getProductCategory(screenState);
@@ -134,26 +155,24 @@ class ProductsCategoryStateManager {
               ..show(screenState.context);
           }
         });
-    });
+      });
   }
-    void deleteSubCategories(LevelTowCategoriesScreenState screenState, String id) {
+
+  void deleteSubCategories(
+      LevelTowCategoriesScreenState screenState, String id) {
     _stateSubject.add(LoadingState(screenState));
     _categoriesService.deleteSubCategories(id).then((value) {
       if (value.hasError) {
-            getProductCategory(screenState);
-            CustomFlushBarHelper.createError(
+        getProductCategory(screenState);
+        CustomFlushBarHelper.createError(
                 title: S.current.warnning, message: value.error ?? '')
-              .show(screenState.context);
-         
+            .show(screenState.context);
       } else {
-            getProductCategory(screenState);
-            CustomFlushBarHelper.createSuccess(
-                title: S.current.warnning,
-                message: S.current.deleteSuccess)
-              .show(screenState.context);
-          }
+        getProductCategory(screenState);
+        CustomFlushBarHelper.createSuccess(
+                title: S.current.warnning, message: S.current.deleteSuccess)
+            .show(screenState.context);
       }
-    );
+    });
   }
-
 }

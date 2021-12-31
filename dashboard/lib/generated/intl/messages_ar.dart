@@ -496,6 +496,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تم الدفع بنجاح"),
         "paymentToCaptain":
             MessageLookupByLibrary.simpleMessage("دفعة للكابتن"),
+        "paymentsForStore":
+            MessageLookupByLibrary.simpleMessage("دفعات للمتجر"),
         "paymentsFromCaptain":
             MessageLookupByLibrary.simpleMessage("الدفعات  السابقة من الكابتن"),
         "paymentsManagement":
@@ -586,6 +588,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "تم تأكيد الحساب، اتجه للاشتراك"),
         "remainingAmountForCompany":
             MessageLookupByLibrary.simpleMessage("المبلغ المتبقي للشركة"),
+        "remainingAmountForStore":
+            MessageLookupByLibrary.simpleMessage("المبلغ المتبقي للمتجر"),
         "renewNewPlan":
             MessageLookupByLibrary.simpleMessage("اشتراك بباقة جديدة"),
         "renewOldPlan":
@@ -676,6 +680,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "stcPayCode": MessageLookupByLibrary.simpleMessage("رقم حساب STC PAY"),
         "store": MessageLookupByLibrary.simpleMessage("المتجر"),
         "storeAvailable": MessageLookupByLibrary.simpleMessage("المتجر متوفر"),
+        "storeBalance": MessageLookupByLibrary.simpleMessage("حساب المتجر"),
         "storeCategories":
             MessageLookupByLibrary.simpleMessage("أصناف المتاجر"),
         "storeCreatedSuccessfully":
@@ -711,6 +716,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تم تجديد الباقة بنجاح"),
         "sum": MessageLookupByLibrary.simpleMessage("المجموع"),
         "sumBalance": MessageLookupByLibrary.simpleMessage("مجموع الدفعات"),
+        "sumPaymentsForStore":
+            MessageLookupByLibrary.simpleMessage("إجمالي الدفعات"),
         "sumPaymentsFromCaptain":
             MessageLookupByLibrary.simpleMessage("إجمالي الدفعات من الكابتن"),
         "sumPaymentsFromCompany":

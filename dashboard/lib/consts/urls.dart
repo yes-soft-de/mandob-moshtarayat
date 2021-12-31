@@ -117,4 +117,11 @@ class Urls {
   static const UPDATE_PRODUCT_COMMISSION =
       BASE_API + '/updateproductcommissionbyadmin';
   static const GET_DISTRO_API = BASE_API + '/mandobfilterbystatus/';
+
+    static const GET_ACCOUNT_BALANCE_STORE =
+      BASE_API + '/storefinancialaccountforadmin/';
+  static const GET_ACCOUNT_BALANCE_STORE_LAST_MONTH =
+      BASE_API + '/captainfinancialaccountinlastmonthforadmin/';
+  static const GET_ACCOUNT_BALANCE_STORE_SPECIFIC =
+      BASE_API + '/captainfinancialaccountinspecificdateforadmin/';
 }

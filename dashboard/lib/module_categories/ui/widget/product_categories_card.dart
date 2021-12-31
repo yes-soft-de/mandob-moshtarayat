@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+
 class ProductCategoriesCard extends StatelessWidget {
   final String categoryName;
   final Widget dialog;
 
-  ProductCategoriesCard({required this.categoryName,required this.dialog});
+  ProductCategoriesCard({required this.categoryName, required this.dialog});
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +30,8 @@ class ProductCategoriesCard extends StatelessWidget {
               ),
               Text(
                 categoryName,
-                style: TextStyle(
-                    color: Colors.white, fontWeight: FontWeight.bold),
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ),
               InkWell(
                 onTap: () {
@@ -45,9 +46,7 @@ class ProductCategoriesCard extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Theme.of(context)
-                          .backgroundColor
-                          .withOpacity(0.2),
+                      color: Theme.of(context).backgroundColor.withOpacity(0.2),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),

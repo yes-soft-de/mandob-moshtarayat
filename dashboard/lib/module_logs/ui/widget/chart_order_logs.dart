@@ -85,7 +85,7 @@ class PieChart2State extends State<PieChartSample2> {
                   ),
                 ),
                 Hider(
-                  active:widget.countPrivate > 0,
+                  active: widget.countPrivate > 0,
                   child: Indicator(
                     color: Colors.amber,
                     text: S.current.privateOrder,
@@ -93,7 +93,7 @@ class PieChart2State extends State<PieChartSample2> {
                   ),
                 ),
                 Hider(
-                  active:widget.countDeliver > 0,
+                  active: widget.countDeliver > 0,
                   child: Indicator(
                     color: Colors.grey[800]!,
                     text: S.current.deliverForMe,

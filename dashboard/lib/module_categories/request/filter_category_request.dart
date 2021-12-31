@@ -1,10 +1,7 @@
-class FilterLanguageCategoryRequest{
+class FilterLanguageCategoryRequest {
   String? language;
 
-  FilterLanguageCategoryRequest({
-    this.language
-
-  });
+  FilterLanguageCategoryRequest({this.language});
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
@@ -12,15 +9,12 @@ class FilterLanguageCategoryRequest{
     return map;
   }
 }
-class FilterLanguageAndCategoryRequest{
+
+class FilterLanguageAndCategoryRequest {
   String? language;
   int? storeCategoryID;
 
-  FilterLanguageAndCategoryRequest({
-    this.language,
-    this.storeCategoryID
-
-  });
+  FilterLanguageAndCategoryRequest({this.language, this.storeCategoryID});
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
@@ -29,15 +23,13 @@ class FilterLanguageAndCategoryRequest{
     return map;
   }
 }
-class FilterLanguageAndProductCategoryRequest{
+
+class FilterLanguageAndProductCategoryRequest {
   String? language;
   int? storeCategoryID;
 
-  FilterLanguageAndProductCategoryRequest({
-    this.language,
-    this.storeCategoryID
-
-  });
+  FilterLanguageAndProductCategoryRequest(
+      {this.language, this.storeCategoryID});
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};

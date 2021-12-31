@@ -15,20 +15,21 @@ class SubCategoriesModel extends DataModel {
     _models = [];
     for (var element in data) {
       _models.add(SubCategoriesModel(
-        id: element.id ?? -1,
-        categoryName: element.productCategoryName ?? S.current.storeCategories,
-        image: element.productCategoryImage?.image ?? '',
-        baseImage: element.productCategoryImage?.baseURL ,
-        imageUrl: element.productCategoryImage?.imageURL
-
-      ));
+          id: element.id ?? -1,
+          categoryName:
+              element.productCategoryName ?? S.current.storeCategories,
+          image: element.productCategoryImage?.image ?? '',
+          baseImage: element.productCategoryImage?.baseURL,
+          imageUrl: element.productCategoryImage?.imageURL));
     }
   }
 
   SubCategoriesModel(
       {required this.id,
-        required this.categoryName,
-        required this.image,this.imageUrl,this.baseImage});
+      required this.categoryName,
+      required this.image,
+      this.imageUrl,
+      this.baseImage});
 
   List<SubCategoriesModel> get data => _models;
 }

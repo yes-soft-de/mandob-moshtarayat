@@ -42,7 +42,9 @@ class StoreCategoriesStateManager {
       }
     });
   }
-  void getStoreCategoriesWithLang(StoreCategoriesScreenState screenState,FilterLanguageCategoryRequest request) {
+
+  void getStoreCategoriesWithLang(StoreCategoriesScreenState screenState,
+      FilterLanguageCategoryRequest request) {
     _stateSubject.add(StoreCategoriesLoadingState(screenState));
     _categoriesService.getStoreCategoriesWithLang(request).then((value) {
       if (value.hasError) {
@@ -57,6 +59,7 @@ class StoreCategoriesStateManager {
       }
     });
   }
+
   void createCategory(StoreCategoriesScreenState screenState,
       CreateStoreCategoryRequest request) {
     _stateSubject.add(StoreCategoriesLoadingState(screenState));
@@ -64,12 +67,18 @@ class StoreCategoriesStateManager {
       request.dataStoreCategory?.image = value;
       _categoriesService.createCategory(request).then((value) {
         if (value.hasError) {
-          getStoreCategoriesWithLang(screenState,FilterLanguageCategoryRequest(language: screenState.languageSelected));
+          getStoreCategoriesWithLang(
+              screenState,
+              FilterLanguageCategoryRequest(
+                  language: screenState.languageSelected));
           CustomFlushBarHelper.createError(
               title: S.current.warnning, message: value.error ?? '')
             ..show(screenState.context);
         } else {
-          getStoreCategoriesWithLang(screenState,FilterLanguageCategoryRequest(language: screenState.languageSelected));
+          getStoreCategoriesWithLang(
+              screenState,
+              FilterLanguageCategoryRequest(
+                  language: screenState.languageSelected));
           CustomFlushBarHelper.createSuccess(
               title: S.current.warnning,
               message: S.current.categoryCreatedSuccessfully)
@@ -81,17 +90,24 @@ class StoreCategoriesStateManager {
 
   void updateCategory(StoreCategoriesScreenState screenState,
       UpdateStoreCategoriesRequest request) {
-    if (request.dataStoreCategory?.image?.contains('/original-image/') == true ||
+    if (request.dataStoreCategory?.image?.contains('/original-image/') ==
+            true ||
         request.dataStoreCategory?.image == null) {
       _stateSubject.add(StoreCategoriesLoadingState(screenState));
       _categoriesService.updateStoreCategory(request).then((value) {
         if (value.hasError) {
-              getStoreCategoriesWithLang(screenState,FilterLanguageCategoryRequest(language: screenState.languageSelected));
+          getStoreCategoriesWithLang(
+              screenState,
+              FilterLanguageCategoryRequest(
+                  language: screenState.languageSelected));
           CustomFlushBarHelper.createError(
               title: S.current.warnning, message: value.error ?? '')
             ..show(screenState.context);
         } else {
-          getStoreCategoriesWithLang(screenState,FilterLanguageCategoryRequest(language: screenState.languageSelected));
+          getStoreCategoriesWithLang(
+              screenState,
+              FilterLanguageCategoryRequest(
+                  language: screenState.languageSelected));
           CustomFlushBarHelper.createSuccess(
               title: S.current.warnning, message: S.current.updateStoreCategory)
             ..show(screenState.context);
@@ -99,16 +115,24 @@ class StoreCategoriesStateManager {
       });
     } else {
       _stateSubject.add(StoreCategoriesLoadingState(screenState));
-      _uploadService.uploadImage(request.dataStoreCategory?.image).then((value) {
+      _uploadService
+          .uploadImage(request.dataStoreCategory?.image)
+          .then((value) {
         request.dataStoreCategory?.image = value;
         _categoriesService.updateStoreCategory(request).then((value) {
           if (value.hasError) {
-            getStoreCategoriesWithLang(screenState,FilterLanguageCategoryRequest(language: screenState.languageSelected));
+            getStoreCategoriesWithLang(
+                screenState,
+                FilterLanguageCategoryRequest(
+                    language: screenState.languageSelected));
             CustomFlushBarHelper.createError(
                 title: S.current.warnning, message: value.error ?? '')
               ..show(screenState.context);
           } else {
-            getStoreCategoriesWithLang(screenState,FilterLanguageCategoryRequest(language: screenState.languageSelected));
+            getStoreCategoriesWithLang(
+                screenState,
+                FilterLanguageCategoryRequest(
+                    language: screenState.languageSelected));
             CustomFlushBarHelper.createSuccess(
                 title: S.current.warnning,
                 message: S.current.updateStoreCategory)
@@ -123,19 +147,22 @@ class StoreCategoriesStateManager {
     _stateSubject.add(StoreCategoriesLoadingState(screenState));
     _categoriesService.deleteCategories(id).then((value) {
       if (value.hasError) {
-        getStoreCategoriesWithLang(screenState,FilterLanguageCategoryRequest(language: screenState.languageSelected));
-            CustomFlushBarHelper.createError(
+        getStoreCategoriesWithLang(
+            screenState,
+            FilterLanguageCategoryRequest(
+                language: screenState.languageSelected));
+        CustomFlushBarHelper.createError(
                 title: S.current.warnning, message: value.error ?? '')
-              .show(screenState.context);
-         
+            .show(screenState.context);
       } else {
-        getStoreCategoriesWithLang(screenState,FilterLanguageCategoryRequest(language: screenState.languageSelected));
-            CustomFlushBarHelper.createSuccess(
-                title: S.current.warnning,
-                message: S.current.deleteSuccess)
-              .show(screenState.context);
-          }
+        getStoreCategoriesWithLang(
+            screenState,
+            FilterLanguageCategoryRequest(
+                language: screenState.languageSelected));
+        CustomFlushBarHelper.createSuccess(
+                title: S.current.warnning, message: S.current.deleteSuccess)
+            .show(screenState.context);
       }
-    );
+    });
   }
 }

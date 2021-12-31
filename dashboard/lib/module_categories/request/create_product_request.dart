@@ -5,11 +5,11 @@ class CreateProductRequest {
   int? storeOwnerProfileID;
   int? storeProductCategoryID;
 
-  CreateProductRequest({
-      this.productName, 
-      this.productImage, 
-      this.productPrice, 
-      this.storeOwnerProfileID, 
+  CreateProductRequest(
+      {this.productName,
+      this.productImage,
+      this.productPrice,
+      this.storeOwnerProfileID,
       this.storeProductCategoryID});
 
   CreateProductRequest.fromJson(dynamic json) {
@@ -29,5 +29,4 @@ class CreateProductRequest {
     map['storeProductCategoryID'] = storeProductCategoryID;
     return map;
   }
-
 }
