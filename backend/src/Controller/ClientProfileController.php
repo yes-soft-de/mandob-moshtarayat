@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\ClientByUserIdGetRequest;
+use App\Request\ClientProfileNeedSupportUpdateRequest;
 use App\Request\ClientProfileUpdateRequest;
 use App\Request\ClientUpdateFavouriteCategoriesRequest;
 use App\Request\UserRegisterRequest;
@@ -277,6 +278,86 @@ class ClientProfileController extends BaseController
         $response = $this->clientProfileService->getClientByUserID($this->getUserId());
 
         return $this->response($response, self::FETCH);
+    }
+
+    /**
+     * client
+     * @Route("updateneedsupport", name="updateNeedSupport", methods={"PUT"})
+     * @IsGranted("ROLE_CLIENT")
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Client")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\RequestBody(
+     *      description="Update client profile need support field",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="boolean", property="needSupport")
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response="default",
+     *      description="Get client's profile by profileID, for admin",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="boolean", property="needSupport"),
+     *                  @OA\Property(type="string", property="clientName"),
+     *                  @OA\Property(type="string", property="status")
+     *          )
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Get client's profile by profileID, for admin",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code", example="9210"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="boolean", property="needSupport"),
+     *                  @OA\Property(type="string", property="clientName"),
+     *                  @OA\Property(type="string", property="status", example="noClientProfileWasFound")
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function updateClientProfileNeedSupport(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, ClientProfileNeedSupportUpdateRequest::class, (object)$data);
+
+        $request->setClientID($this->getUserId());
+
+        $violations = $this->validator->validate($request);
+
+        if (\count($violations) > 0) {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $response = $this->clientProfileService->updateClientProfileNeedSupport($request);
+
+        if ($response->status == 'noClientProfileWasFound')
+        {
+            return $this->response($response, self::CLIENT_PROFILE_NOT_EXIST);
+        }
+
+        return $this->response($response, self::UPDATE);
     }
 
     /**

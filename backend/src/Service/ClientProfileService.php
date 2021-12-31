@@ -8,12 +8,14 @@ use App\Entity\UserEntity;
 use App\Manager\ClientProfileManager;
 use App\Manager\UserManager;
 use App\Request\ClientByUserIdGetRequest;
+use App\Request\ClientProfileNeedSupportUpdateRequest;
 use App\Request\ClientUpdateFavouriteCategoriesRequest;
 use App\Request\UserRegisterRequest;
 use App\Request\ClientProfileUpdateRequest;
 use App\Request\VerificationCreateRequest;
 use App\Response\clientOrdersCountResponse;
 use App\Response\ClientProfileByUserIdGetResponse;
+use App\Response\ClientProfileNeedSupportUpdateResponse;
 use App\Response\ClientProfileResponse;
 use App\Response\ClientProfileWithFavouriteCategoriesResponse;
 use App\Response\ClientsProfileResponse;
@@ -206,5 +208,21 @@ class ClientProfileService
         $item = $this->userManager->updateClientFavouriteCategories($request);
 
         return $this->autoMapping->map(ClientProfileEntity ::class, ClientUpdateFavouriteCategoriesResponse::class, $item);
+    }
+
+    public function updateClientProfileNeedSupport(ClientProfileNeedSupportUpdateRequest $request)
+    {
+        $result = $this->clientProfileManager->updateClientProfileNeedSupport($request);
+
+        if ($result == 'noClientProfileWasFound')
+        {
+            $response['status'] = 'noClientProfileWasFound';
+
+            return $this->autoMapping->map('array', ClientProfileNeedSupportUpdateResponse::class, $response);
+        }
+        else
+        {
+            return $this->autoMapping->map(ClientProfileEntity ::class, ClientProfileNeedSupportUpdateResponse::class, $result);
+        }
     }
 }

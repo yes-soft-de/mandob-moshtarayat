@@ -82,7 +82,7 @@ class MainController extends BaseController
 
         $response = $this->mainService->updatePreferredLanguage($request);
 
-        return $this->response($response, self::CREATE);
+        return $this->response($response, self::UPDATE);
     }
 
 }
