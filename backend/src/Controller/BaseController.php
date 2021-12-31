@@ -44,6 +44,8 @@ class BaseController extends AbstractController
     const ALREADY_VERIFIED_STORE_OWNER = ["already verified store owner!", "9154"];
     const STORE_OWNER_IS_NOT_REGISTERED = ["store owner is not registered!", "9155"];
     const STORE_OWNER_IS_NOT_VERIFIED = ["store owner is not verified!", "9156"];
+    // client
+    const CLIENT_PROFILE_NOT_EXIST = ["client profile not exist!", "9210"];
 
     const NOTFOUND=["Not found", "404"];
 //    const TEST = [
