@@ -44,4 +44,9 @@ class ClientProfileManager
         }
     }
 
+    public function getClientProfileWhoNeedSupport()
+    {
+        return $this->clientProfileEntityRepository->getClientProfileWhoNeedSupport();
+    }
+
 }

@@ -225,4 +225,23 @@ class ClientProfileService
             return $this->autoMapping->map(ClientProfileEntity ::class, ClientProfileNeedSupportUpdateResponse::class, $result);
         }
     }
+
+    public function getClientProfileWhoNeedSupport()
+    {
+        $response = [];
+
+        $clientsProfiles = $this->clientProfileManager->getClientProfileWhoNeedSupport();
+
+        foreach ($clientsProfiles as $clientProfile)
+        {
+            if ($clientProfile['image'])
+            {
+                $clientProfile['image'] = $this->params.$clientProfile['image'];
+            }
+
+            $response[] = $this->autoMapping->map('array', ClientProfileByUserIdGetResponse::class, $clientProfile);
+        }
+
+        return $response;
+    }
 }

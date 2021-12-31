@@ -120,4 +120,16 @@ class ClientProfileEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function getClientProfileWhoNeedSupport()
+    {
+        return $this->createQueryBuilder('clientProfileEntity')
+            ->select('clientProfileEntity.id', 'clientProfileEntity.roomID', 'clientProfileEntity.clientName', 'clientProfileEntity.image')
+
+            ->andWhere('clientProfileEntity.needSupport = :needSupport')
+            ->setParameter('needSupport', 1)
+
+            ->getQuery()
+            ->getResult();
+    }
 }

@@ -506,4 +506,44 @@ class ClientProfileController extends BaseController
 
         return $this->response($response, self::UPDATE);
     }
+
+    /**
+     * admin: Get all clients who need support
+     * @Route("clientwhoneedsupport", name="getClientsWhoNeedSupport", methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Client")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Get client's profile info",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="clientName"),
+     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="string", property="roomID")
+     *              ),
+     *          )
+     *      )
+     * )
+     * @Security(name="Bearer")
+     */
+    public function getClientProfileWhoNeedSupport()
+    {
+        $response = $this->clientProfileService->getClientProfileWhoNeedSupport();
+
+        return $this->response($response, self::FETCH);
+    }
 }
