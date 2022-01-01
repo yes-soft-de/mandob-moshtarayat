@@ -93,6 +93,7 @@ class OrderInfo {
   OrderStatus state = OrderStatus.WAITING;
   String roomID = '';
   int ownerID = -1;
+  String captainID = '-1';
   String deliveryDate = '';
   double deliveryCost = 0;
   double orderCost = 0;
@@ -125,7 +126,9 @@ class OrderInfo {
       this.recipientPhoneNumber,
       required this.removable,
       this.invoiceImage,
-      this.invoiceAmount});
+      this.invoiceAmount,
+      required this.captainID
+      });
 
   OrderInfo.Empty() {
     empty = true;
@@ -192,10 +195,13 @@ OrderInfo toOrder(Order? order) {
         recipientPhoneNumber: order.recipientPhone,
         invoiceAmount: null,
         invoiceImage: null,
-        removable: !timeout);
+        removable: !timeout,
+        captainID: order.captainId ?? '-1'
+        );
   } else {
     return OrderInfo(
         id: -1,
+        captainID: '-1',
         state: OrderStatus.WAITING,
         roomID: 'roomID',
         ownerID: -1,

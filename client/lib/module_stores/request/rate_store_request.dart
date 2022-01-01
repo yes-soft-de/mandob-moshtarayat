@@ -28,11 +28,12 @@ class RateCaptainRequest {
   String? orderNumber;
   String? itemType;
   num? rating;
-
+  String? itemID;
   RateCaptainRequest({
     this.orderNumber,
     this.itemType,
     this.rating,
+    this.itemID
   });
 
   RateCaptainRequest.fromJson(dynamic json) {
@@ -46,6 +47,8 @@ class RateCaptainRequest {
     map['orderNumber'] = orderNumber;
     map['itemType'] = itemType;
     map['rating'] = rating;
+    map['itemID'] = itemID;
+
     return map;
   }
 }
