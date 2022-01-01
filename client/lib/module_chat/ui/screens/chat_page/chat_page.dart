@@ -158,11 +158,11 @@ class ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
     MediaQuery.of(context).removeViewInsets(removeBottom: true);
     if (currentState == ChatStateManager.STATUS_CODE_INIT) {
       chatRoomId = ModalRoute.of(context)?.settings.arguments as String;
-      widget._chatStateManager.getMessages(chatRoomId);
       if (chatRoomId.substring(0, 3) == '#S#') {
         sendSupport = true;
         chatRoomId = chatRoomId.substring(3);
       }
+      widget._chatStateManager.getMessages(chatRoomId);
     }
     if (currentState == ChatStateManager.STATUS_CODE_EMPTY_LIST) {
       return EmptyChatPage(widget._chatStateManager, widget._uploadService,
