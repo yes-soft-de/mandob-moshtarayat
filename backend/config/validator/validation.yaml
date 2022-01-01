@@ -425,11 +425,13 @@ App\Request\CustomProductNotFoundCreateRequest:
     productName:
       - NotBlank: ~
 
-App\Request\AddInfoPayByClientRequest:
+App\Request\ElectronicPaymentInfoCreateRequest:
   properties:
     orderNumber:
       - NotBlank: ~
-    state:
+    payStatus:
       - NotBlank: ~
     transactionID:
+      - NotBlank: ~
+    amount:
       - NotBlank: ~

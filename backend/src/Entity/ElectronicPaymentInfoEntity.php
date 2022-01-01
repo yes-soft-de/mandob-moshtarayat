@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ElectronicPaymentInfoEntityRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=ElectronicPaymentInfoEntityRepository::class)
@@ -43,11 +44,13 @@ class ElectronicPaymentInfoEntity
     private $payStatus;
 
     /**
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
     private $CreatedAt;
 
     /**
+     * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;

@@ -3,15 +3,17 @@
 namespace App\Manager;
 
 use App\AutoMapping;
+use App\Constant\OrderStateConstant;
+use App\Constant\PaymentStatusConstant;
 use App\Entity\OrderEntity;
 use App\Repository\OrderEntityRepository;
-use App\Request\AddInfoPayByClientRequest;
 use App\Request\OrderClientCreateRequest;
 use App\Request\OrderClientSendCreateRequest;
 use App\Request\OrderClientSpecialCreateRequest;
 use App\Request\OrderStateRequest;
 use App\Request\orderUpdateBillCalculatedByCaptainRequest;
 use App\Request\OrderUpdateByClientRequest;
+use App\Request\OrderUpdateByOrderNumberRequest;
 use App\Request\OrderUpdateStateByCaptainRequest;
 use App\Request\OrderUpdateInvoiceByCaptainRequest;
 use App\Request\OrderUpdateSpecialByClientRequest;
@@ -305,6 +307,25 @@ class OrderManager
         return $item;
     }
 
+    public function orderStateUpdateByPayInfo(OrderUpdateByOrderNumberRequest $request)
+    {
+        $orderID = $this->orderEntityRepository->orderStateUpdateByPayInfo($request->getOrderNumber());
+
+        if($orderID) {
+            $item = $this->orderEntityRepository->find($orderID['id']);
+
+            if ($item) {
+                if ($request->getState() == PaymentStatusConstant::$PAYMENT_STATE_PAID) {
+                    $request->setState(OrderStateConstant::$ORDER_STATE_PENDING);
+                }
+
+                $item = $this->autoMapping->mapToObject(OrderUpdateByOrderNumberRequest::class, OrderEntity::class, $request, $item);
+                $this->entityManager->flush();
+            }
+            return $item;
+        }
+    }
+
     public function orderSpecialUpdateByClient(OrderUpdateSpecialByClientRequest $request, $id)
     {
         $item = $this->orderEntityRepository->find($id);
@@ -504,19 +525,6 @@ class OrderManager
             $item = $this->autoMapping->mapToObject(OrderStateRequest::class, OrderEntity::class, $request, $item);
 
             $this->entityManager->flush();
-            return $item;
-        }
-    }
-
-    public function addInfoPay(AddInfoPayByClientRequest $request)
-    {
-        $item = $this->orderEntityRepository->find($request->getId());
-
-        if ($item) {
-            $item = $this->autoMapping->mapToObject(AddInfoPayByClientRequest::class, OrderEntity::class, $request, $item);
-
-            $this->entityManager->flush();
-
             return $item;
         }
     }

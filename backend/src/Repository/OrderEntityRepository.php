@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Constant\OrderStateConstant;
+use App\Constant\PaymentStatusConstant;
 use App\Constant\ResponseConstant;
 use App\Entity\OrderEntity;
 use App\Entity\CaptainProfileEntity;
@@ -80,6 +81,25 @@ class OrderEntityRepository extends ServiceEntityRepository
 
             ->getQuery()
             ->getResult();
+    }
+
+    public function orderStateUpdateByPayInfo($orderNumber)
+    {
+        return $this->createQueryBuilder('OrderEntity')
+            ->select('OrderEntity.id')
+
+            ->leftJoin(OrderDetailEntity::class, 'orderDetailEntity', Join::WITH, 'orderDetailEntity.orderID = OrderEntity.id')
+
+            ->andWhere('OrderEntity.payment = :payment ')
+            ->andWhere('orderDetailEntity.orderNumber = :orderNumber ')
+
+            ->setParameter('payment', PaymentStatusConstant::$PAYMENT_STATE_CARD)
+            ->setParameter('orderNumber', $orderNumber)
+
+            ->addGroupBy('OrderEntity.id')
+
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
     public function getPendingOrders()

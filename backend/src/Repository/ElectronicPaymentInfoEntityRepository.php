@@ -19,32 +19,4 @@ class ElectronicPaymentInfoEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, ElectronicPaymentInfoEntity::class);
     }
 
-    // /**
-    //  * @return ElectronicPaymentInfoEntity[] Returns an array of ElectronicPaymentInfoEntity objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('e.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?ElectronicPaymentInfoEntity
-    {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
