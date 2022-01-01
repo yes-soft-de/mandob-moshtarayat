@@ -480,6 +480,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "لا يوجد سيارات متوفرة لك الرجاء انتظار طلباتك الجارية من الانتهاء"),
         "outOforders": MessageLookupByLibrary.simpleMessage(
             "لقد استهلكت الحد الأقصى من الطلبات يمكنك تجديد الاشتراك من الإعدادات"),
+        "outerOrder": MessageLookupByLibrary.simpleMessage("طلبات خاصة"),
         "package": MessageLookupByLibrary.simpleMessage("باقة"),
         "password": MessageLookupByLibrary.simpleMessage("كلمة السر"),
         "passwordIsTooShort":

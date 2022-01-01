@@ -549,7 +549,9 @@
   "storeBalance":"Store Balance",
   "paymentsForStore":"Payments for store",
   "remainingAmountForStore":"Amount owed for store",
-  "sumPaymentsForStore":"Total payments for store"
+  "sumPaymentsForStore":"Total payments for store",
+  "outerOrder":"Private orders"
+  
   
 
 }
