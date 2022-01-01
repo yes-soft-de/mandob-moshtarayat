@@ -1,11 +1,11 @@
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat_dashboad/abstracts/data_model/data_model.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
-import 'package:mandob_moshtarayat_dashboad/module_captain/model/porfile_model.dart';
-import 'package:mandob_moshtarayat_dashboad/module_captain/response/captain_profile_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_clients/manager/clients_manager.dart';
 import 'package:mandob_moshtarayat_dashboad/module_clients/model/client_list_model.dart';
+import 'package:mandob_moshtarayat_dashboad/module_clients/model/client_need_support.dart';
 import 'package:mandob_moshtarayat_dashboad/module_clients/model/porfile_model.dart';
+import 'package:mandob_moshtarayat_dashboad/module_clients/response/client_need_support_response/client_need_support_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_clients/response/client_profile_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_clients/response/clients_list_profile.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/helpers/status_code_helper.dart';
@@ -56,5 +56,18 @@ class ClientsService {
     }
     if (_captainFilter.data == null) return DataModel.empty();
     return ClientsListModel.withData(_captainFilter.data!);
+  }
+  Future<DataModel> getClientNeedSupport() async {
+    ClientNeedSupportResponse? _clients =
+        await _clientsManager.getClientSupport();
+    if (_clients == null) {
+      return DataModel.withError(S.current.networkError);
+    }
+    if (_clients.statusCode != '200') {
+      return DataModel.withError(
+          StatusCodeHelper.getStatusCodeMessages(_clients.statusCode));
+    }
+    if (_clients.data == null) return DataModel.empty();
+    return ClientsNeedSupportModel.withData(_clients.data!);
   }
 }
