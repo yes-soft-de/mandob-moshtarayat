@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\AddInfoPayByClientRequest;
+use App\Request\ElectronicPaymentInfoCreateRequest;
 use App\Request\orderUpdateBillCalculatedByCaptainRequest;
 use App\Request\OrderUpdateStateForEachStoreByCaptainRequest;
 use App\Service\OrderService;
@@ -2196,8 +2197,8 @@ class OrderController extends BaseController
     }
 
     /**
-     * client: add payment info online.
-     * @Route("/addinfopay", name="addInfoPay", methods={"PUT"})
+     * client: add payment info online or update it.
+     * @Route("/addinfopay", name="addInfoPay", methods={"POST"})
      * @IsGranted("ROLE_CLIENT")
      * @param Request $request
      * @return JsonResponse
@@ -2215,11 +2216,31 @@ class OrderController extends BaseController
      *        description="add payment info online",
      *        @OA\JsonContent(
      *              @OA\Property(type="integer", property="orderNumber"),
-     *              @OA\Property(type="string", property="transactionID"),
-     *              @OA\Property(type="string", property="state", description="not paid or pending"),
+     *              @OA\Property(type="integer", property="transactionID"),
+     *              @OA\Property(type="string", property="payStatus", description="not paid or paid"),
      *              @OA\Property(type="string", property="token"),
+     *              @OA\Property(type="number", property="amount"),
      *         ),
      *      ),
+     *
+     * @OA\Response(
+     *      response=201,
+     *      description="Return object.",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="integer", property="id"),
+     *              @OA\Property(type="integer", property="orderNumber"),
+     *              @OA\Property(type="string", property="payStatus"),
+     *              @OA\Property(type="string", property="token"),
+     *              @OA\Property(type="integer", property="transactionID"),
+     *              @OA\Property(type="number", property="amount"),
+     *              )
+     *          )
+     *     )
+     *
+     * or
      *
      * @OA\Response(
      *      response=204,
@@ -2229,24 +2250,14 @@ class OrderController extends BaseController
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
      *              @OA\Property(type="integer", property="id"),
-     *              @OA\Property(type="string", property="state"),
+     *              @OA\Property(type="integer", property="orderNumber"),
+     *              @OA\Property(type="string", property="payStatus"),
      *              @OA\Property(type="string", property="token"),
-     *              @OA\Property(type="string", property="transactionID"),
+     *              @OA\Property(type="integer", property="transactionID"),
+     *              @OA\Property(type="number", property="amount"),
      *              )
      *          )
      *     )
-     *
-     * or
-     *
-     * @OA\Response(
-     *      response="default",
-     *      description="Return Not updated.",
-     *      @OA\JsonContent(
-     *          @OA\Property(type="string", property="status_code", description="9201"),
-     *          @OA\Property(type="string", property="msg", description="error Successfully."),
-     *          @OA\Property(type="string", property="Data", description="error"),
-     *      )
-     * )
      *
      * @Security(name="Bearer")
      */
@@ -2254,7 +2265,7 @@ class OrderController extends BaseController
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class, AddInfoPayByClientRequest::class, (object) $data);
+        $request = $this->autoMapping->map(stdClass::class, ElectronicPaymentInfoCreateRequest::class, (object) $data);
 
         $violations = $this->validator->validate($request);
         if (\count($violations) > 0) {
@@ -2264,10 +2275,15 @@ class OrderController extends BaseController
         }
 
         $response = $this->orderService->addInfoPay($request);
-        if($response == ResponseConstant::$ERROR){
+
+        if($response->methods == ResponseConstant::$ERROR){
             return $this->response($response, self::ERROR);
         }
 
-        return $this->response($response, self::UPDATE);
+        if($response->methods == "update"){
+            return $this->response($response, self::UPDATE);
+        }
+
+        return $this->response($response, self::CREATE);
     }
 }

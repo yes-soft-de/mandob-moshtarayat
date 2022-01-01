@@ -6,9 +6,10 @@ use App\AutoMapping;
 use App\Constant\LocalNotificationList;
 use App\Constant\LocalStoreNotificationList;
 use App\Constant\OrderStateConstant;
+use App\Entity\ElectronicPaymentInfoEntity;
 use App\Entity\OrderEntity;
 use App\Manager\OrderManager;
-use App\Request\AddInfoPayByClientRequest;
+use App\Request\ElectronicPaymentInfoCreateRequest;
 use App\Request\OrderClientCreateRequest;
 use App\Request\OrderClientSendCreateRequest;
 use App\Request\OrderClientSpecialCreateRequest;
@@ -51,6 +52,7 @@ use App\Response\OrderDetailResponse;
 use App\Constant\ResponseConstant;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use DateTime;
+use App\Service\ElectronicPaymentInfoService;
 
 class OrderService
 {
@@ -71,11 +73,12 @@ class OrderService
     private $orderLogService;
     private $userService;
     private $ordersInvoicesService;
+    private $electronicPaymentInfoService;
 
     public function __construct(AutoMapping $autoMapping, OrderManager $orderManager, StoreOwnerProfileService $storeOwnerProfileService, ParameterBagInterface $params,  RatingService $ratingService
                                 // , NotificationService $notificationService
                                , RoomIdHelperService $roomIdHelperService,  DateFactoryService $dateFactoryService, CaptainProfileService $captainProfileService, ProductService $productService, OrderDetailService $orderDetailService, DeliveryCompanyFinancialService $deliveryCompanyFinancialService,
-                               ClientProfileService $clientProfileService, NotificationLocalService $notificationLocalService, OrderLogService $orderLogService, UserService $userService, OrdersInvoicesService $ordersInvoicesService
+                               ClientProfileService $clientProfileService, NotificationLocalService $notificationLocalService, OrderLogService $orderLogService, UserService $userService, OrdersInvoicesService $ordersInvoicesService, ElectronicPaymentInfoService $electronicPaymentInfoService
                                 )
     {
         $this->autoMapping = $autoMapping;
@@ -95,6 +98,7 @@ class OrderService
         $this->orderLogService = $orderLogService;
         $this->userService = $userService;
         $this->ordersInvoicesService = $ordersInvoicesService;
+        $this->electronicPaymentInfoService = $electronicPaymentInfoService;
     }
 
     public function closestOrders($userId)
@@ -942,18 +946,33 @@ class OrderService
         return $response;
     }
 
-    public function addInfoPay(AddInfoPayByClientRequest $request)
+    public function addInfoPay(ElectronicPaymentInfoCreateRequest $request)
     {
-        $response = ResponseConstant::$ERROR;
+        $orderId = $this->orderDetailService->getOrderId($request->getOrderNumber());
 
-        $orderDetails = $this->orderDetailService->getOrderIdByOrderNumber($request->getOrderNumber());
-        if($orderDetails){
-            $request->setId($orderDetails[0]->orderID);
-
-            $item = $this->orderManager->addInfoPay($request);
-
-            $response = $this->autoMapping->map(OrderEntity::class, AddInfoPayByClientResponse::class, $item);
+        $item = $this->electronicPaymentInfoService->addInfoPay($request);
+        if(!$item){
+            return ResponseConstant::$ERROR;
         }
-        return $response;
+
+        if($orderId) {
+            $orderUpdate = $this->orderManager->orderStateUpdateByPayInfo($request->getOrderNumber(), $request->getPayStatus(), $orderId[0]['orderID']);
+            if (!$orderUpdate) {
+                return ResponseConstant::$ERROR;
+            }
+
+            $orderDetail =  $this->orderDetailService->orderUpdateStateByOrderState($orderUpdate->getState(),$request->getOrderNumber(),null);
+            if(!$orderDetail){
+                return ResponseConstant::$ERROR;
+            }
+        }
+//        if ($item){
+//           $orderUpdate = $this->orderManager->orderStateUpdateByPayInfo($request->getOrderNumber(), $request->getPayStatus(), $orderId[0]['orderID']);
+//            if($orderUpdate){
+//                $this->orderDetailService->orderUpdateStateByOrderState($orderUpdate->getState(),$request->getOrderNumber(),null);
+//            }
+//        }
+
+        return $this->autoMapping->map(ElectronicPaymentInfoEntity::class, AddInfoPayByClientResponse::class, $item);
     }
 }

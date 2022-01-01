@@ -10,5 +10,11 @@ class AddInfoPayByClientResponse
 
     public $transactionID;
 
-    public $state;
+    public $methods;
+
+    public $payStatus;
+
+    public $amount;
+
+    public $orderNumber;
 }
