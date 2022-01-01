@@ -147,7 +147,7 @@ class RegisterStatePhoneCodeSent extends RegisterState {
                           });
                           screen.refresh();
                           screen.resendCode(
-                              VerifyCodeRequest(userID: screen.userID));
+                              VerifyCodeRequest(userID: getIt<AuthService>().username));
                         }
                       : null,
                   child: Center(
