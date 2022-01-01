@@ -9,6 +9,7 @@ use App\Entity\StoreOwnerProfileEntity;
 use App\Entity\UserEntity;
 use App\Repository\StoreOwnerProfileEntityRepository;
 use App\Request\DeleteRequest;
+use App\Request\UserProfilePreferredLanguageUpdateRequest;
 use App\Request\UserRegisterRequest;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -247,6 +248,25 @@ class StoreOwnerProfileManager
             }
 
             return $userResult;
+        }
+    }
+
+    public function updateStoreOwnerProfilePreferredLanguage(UserProfilePreferredLanguageUpdateRequest $request)
+    {
+        $storeOwnerProfile = $this->storeOwnerProfileEntityRepository->getStoreOwnerProfileEntityByUserID($request->getUserID());
+
+        if (!$storeOwnerProfile)
+        {
+            return 'noStoreOwnerProfileWasFound';
+        }
+        else
+        {
+            $storeOwnerProfile = $this->autoMapping->mapToObject(UserProfilePreferredLanguageUpdateRequest::class, StoreOwnerProfileEntity::class,
+                $request, $storeOwnerProfile);
+
+            $this->entityManager->flush();
+
+            return $storeOwnerProfile;
         }
     }
 

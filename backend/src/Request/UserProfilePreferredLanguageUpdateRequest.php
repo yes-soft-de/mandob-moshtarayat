@@ -2,11 +2,13 @@
 
 namespace App\Request;
 
-class CaptainProfilePreferredLanguageUpdateRequest
+class UserProfilePreferredLanguageUpdateRequest
 {
     private $userID;
 
     private $preferredLanguage;
+
+    private $userType;  // captain, client, or owner (refers to store owner)
 
     /**
      * Get the value of userID
@@ -46,5 +48,10 @@ class CaptainProfilePreferredLanguageUpdateRequest
         $this->preferredLanguage = $preferredLanguage;
 
         return $this;
+    }
+
+    public function getUserType()
+    {
+        return $this->userType;
     }
 }

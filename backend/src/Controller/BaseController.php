@@ -37,6 +37,7 @@ class BaseController extends AbstractController
     const ERROR_USER_CREATED = ["error, not created user","9010"];
     // error captain
     const ERROR_CAPTAIN_INACTIVE = ["error captain inactive","9100"];
+    const CAPTAIN_PROFILE_NOT_EXIST = ["captain profile not exist!", "9101"];
     //error store
     const ERROR_STORE_INACTIVE = ["error store inactive","9151"];
     const INCORRECT_ENTERED_DATA = ["incorrect entered date!", "9152"];
@@ -44,6 +45,7 @@ class BaseController extends AbstractController
     const ALREADY_VERIFIED_STORE_OWNER = ["already verified store owner!", "9154"];
     const STORE_OWNER_IS_NOT_REGISTERED = ["store owner is not registered!", "9155"];
     const STORE_OWNER_IS_NOT_VERIFIED = ["store owner is not verified!", "9156"];
+    const STORE_OWNER_PROFILE_NOT_EXIST = ["store owner profile not exist!", "9157"];
     // client
     const CLIENT_PROFILE_NOT_EXIST = ["client profile not exist!", "9210"];
 

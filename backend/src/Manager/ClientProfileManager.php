@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\ClientProfileEntity;
 use App\Repository\ClientProfileEntityRepository;
 use App\Request\ClientProfileNeedSupportUpdateRequest;
+use App\Request\UserProfilePreferredLanguageUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ClientProfileManager
@@ -37,6 +38,25 @@ class ClientProfileManager
         else
         {
             $clientProfile = $this->autoMapping->mapToObject(ClientProfileNeedSupportUpdateRequest::class, ClientProfileEntity::class, $request, $clientProfile);
+
+            $this->entityManager->flush();
+
+            return $clientProfile;
+        }
+    }
+
+    public function updateClientProfilePreferredLanguage(UserProfilePreferredLanguageUpdateRequest $request)
+    {
+        $clientProfile = $this->clientProfileEntityRepository->getClientProfileEntityByClientID($request->getUserID());
+
+        if (!$clientProfile)
+        {
+            return 'noClientProfileWasFound';
+        }
+        else
+        {
+            $clientProfile = $this->autoMapping->mapToObject(UserProfilePreferredLanguageUpdateRequest::class, ClientProfileEntity::class,
+                $request, $clientProfile);
 
             $this->entityManager->flush();
 

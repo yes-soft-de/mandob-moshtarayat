@@ -11,6 +11,7 @@ use App\Manager\UserManager;
 use App\Request\StoreOwnerProfileCreateByAdminRequest;
 use App\Request\StoreOwnerProfileUpdateRequest;
 use App\Request\StoreOwnerUpdateByAdminRequest;
+use App\Request\UserProfilePreferredLanguageUpdateRequest;
 use App\Request\UserRegisterRequest;
 use App\Request\VerificationCreateRequest;
 use App\Response\CaptainIsActiveResponse;
@@ -19,6 +20,7 @@ use App\Response\StoreNameResponse;
 use App\Response\StoreOwnerLast15Response;
 use App\Response\StoreOwnerProfileCreateResponse;
 use App\Response\StoreOwnerProfileDeleteResponse;
+use App\Response\StoreOwnerProfilePreferredLanguageUpdateResponse;
 use App\Response\StoreOwnerProfileResponse;
 use App\Response\StoreOwnerByCategoryIdResponse;
 use App\Response\StoresFilterByNameResponse;
@@ -117,6 +119,22 @@ class StoreOwnerProfileService
         $item = $this->userManager->updateStoreOwnerByAdmin($request);
 
         return $this->autoMapping->map(StoreOwnerProfileEntity::class, StoreOwnerProfileResponse::class, $item);
+    }
+
+    public function updateStoreOwnerProfilePreferredLanguage(UserProfilePreferredLanguageUpdateRequest $request)
+    {
+        $captainProfile = $this->storeOwnerProfileManager->updateStoreOwnerProfilePreferredLanguage($request);
+
+        if ($captainProfile == 'noStoreOwnerProfileWasFound')
+        {
+            $response['status'] = 'noStoreOwnerProfileWasFound';
+
+            return $this->autoMapping->map('array', StoreOwnerProfilePreferredLanguageUpdateResponse::class, $response);
+        }
+        else
+        {
+            return $this->autoMapping->map(StoreOwnerProfileEntity::class, StoreOwnerProfilePreferredLanguageUpdateResponse::class, $captainProfile);
+        }
     }
 
     public function storeOwnerProfileStatusUpdateByAdmin(storeOwnerProfileStatusUpdateByAdminRequest $request)
