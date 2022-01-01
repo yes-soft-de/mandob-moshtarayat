@@ -120,32 +120,24 @@ class VerificationService
 
         if (!$verificationStatus['verificationStatus'])
         {
-            // provided user isn't registered!
-            $response['result'] = 'userIsNotRegistered';
+            // we can send new code
+            // Now, delete previous sent codes for the same user
+            $result = $this->verificationManager->deleteAllVerificationCodesForUser($request->getUserID());
+
+            if ($result == 'noMoreCodeAreExist')
+            {
+                // Finally, insert new code for the user
+                $newVerificationCodeRequest = $this->autoMapping->map(ReSendNewVerificationCodeRequest::class, VerificationCreateRequest::class, $request);
+
+                $this->createVerificationCode($newVerificationCodeRequest);
+
+                $response['result'] = 'newCodeWasSent';
+            }
         }
-        else
+        elseif ($verificationStatus['verificationStatus'] == UserVerificationStatusConstant::$VERIFIED_STATUS)
         {
-            if ($verificationStatus['verificationStatus'] != UserVerificationStatusConstant::$VERIFIED_STATUS)
-            {
-                // we can send new code
-                // Now, delete previous sent codes for the same user
-                $result = $this->verificationManager->deleteAllVerificationCodesForUser($request->getUserID());
-
-                if ($result == 'noMoreCodeAreExist')
-                {
-                    // Finally, insert new code for the user
-                    $newVerificationCodeRequest = $this->autoMapping->map(ReSendNewVerificationCodeRequest::class, VerificationCreateRequest::class, $request);
-
-                    $this->createVerificationCode($newVerificationCodeRequest);
-
-                    $response['result'] = 'newCodeWasSent';
-                }
-            }
-            elseif ($verificationStatus['verificationStatus'] == UserVerificationStatusConstant::$VERIFIED_STATUS)
-            {
-                // user is verified. we can't send new code
-                $response['result'] = 'userAlreadyVerified';
-            }
+            // user is verified. we can't send new code
+            $response['result'] = 'userAlreadyVerified';
         }
 
         return $this->autoMapping->map('array', NewVerificationCodeResponse::class, $response);
