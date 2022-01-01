@@ -213,6 +213,16 @@ class _NavigatorMenuState extends State<NavigatorMenu> {
                     true),
                 customListTile(getIt<ReportsModule>().productsReportScreen,
                     S.current.productsReport, FontAwesomeIcons.chartPie, true),
+                customListTile(getIt<ReportsModule>().customProductScreen,
+                    S.current.outerOrder, FontAwesomeIcons.info, true),
+              ],
+              page: widget.currentPage),
+          customExpansionTile(
+              title: S.current.directSupport,
+              icon: FontAwesomeIcons.headphonesAlt,
+              children: [
+                customListTile(getIt<ClientsModule>().clientsNeedsSupportScreen,
+                    S.current.clients, FontAwesomeIcons.headset, true),
               ],
               page: widget.currentPage),
           customListTile(getIt<SettingsModule>().settingsScreen,

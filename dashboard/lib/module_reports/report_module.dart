@@ -5,6 +5,7 @@ import 'package:mandob_moshtarayat_dashboad/module_captain/captains_routes.dart'
 import 'package:mandob_moshtarayat_dashboad/module_reports/reports_routes.dart';
 import 'package:mandob_moshtarayat_dashboad/module_reports/ui/screen/captains_reports_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/module_reports/ui/screen/clients_reports_screen.dart';
+import 'package:mandob_moshtarayat_dashboad/module_reports/ui/screen/custom_product_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/module_reports/ui/screen/products_reports_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/module_reports/ui/screen/stores_reports_screen.dart';
 
@@ -14,9 +15,10 @@ class ReportsModule extends YesModule {
   final StoresReportScreen storesReportScreen;
   final ProductsReportScreen productsReportScreen;
   final ClientsReportScreen clientsReportScreen;
+  final CustomProductScreen customProductScreen;
 
   ReportsModule(this.productsReportScreen, this.storesReportScreen,
-      this.captainsReportScreen, this.clientsReportScreen) {
+      this.captainsReportScreen, this.clientsReportScreen,this.customProductScreen) {
     YesModule.RoutesMap.addAll(getRoutes());
   }
   Map<String, WidgetBuilder> getRoutes() {
@@ -25,6 +27,7 @@ class ReportsModule extends YesModule {
       ReportsRoutes.REPORTS_STORE: (context) => storesReportScreen,
       ReportsRoutes.REPORTS_CLIENT: (context) => clientsReportScreen,
       ReportsRoutes.REPORTS_PRODUCT: (context) => productsReportScreen,
+      ReportsRoutes.REPORTS_CUSTOM_PRODUCTS: (context) => customProductScreen,
     };
   }
 }

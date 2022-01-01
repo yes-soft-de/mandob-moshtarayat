@@ -2,6 +2,7 @@ import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat_dashboad/consts/urls.dart';
 import 'package:mandob_moshtarayat_dashboad/module_auth/service/auth_service/auth_service.dart';
 import 'package:mandob_moshtarayat_dashboad/module_network/http_client/http_client.dart';
+import 'package:mandob_moshtarayat_dashboad/module_reports/response/custom_product_response/custom_product_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_reports/response/reports_captain_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_reports/response/reports_client_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_reports/response/reports_products_response.dart';
@@ -45,4 +46,13 @@ class ReportRepository {
     if (response == null) return null;
     return ReportsStoreResponse.fromJson(response);
   }
+
+  Future<CustomProductResponse?> getCustomProduct() async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.get(Urls.GET_CUSTOM_PRODUCTS_API,
+        headers: {'Authorization': 'Bearer ' + token.toString()});
+    if (response == null) return null;
+    return CustomProductResponse.fromJson(response);
+  }
+  
 }
