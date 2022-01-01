@@ -10,6 +10,7 @@ import 'package:mandob_moshtarayat/module_account/ui/widget/account_app_bar.dart
 import 'package:mandob_moshtarayat/module_account/ui/widget/account_tile.dart';
 import 'package:mandob_moshtarayat/module_account/ui/widget/account_unsigned_app_bar.dart';
 import 'package:mandob_moshtarayat/module_account/ui/widget/social_widget.dart';
+import 'package:mandob_moshtarayat/module_chat/chat_routes.dart';
 import 'package:mandob_moshtarayat/module_orders/orders_routes.dart';
 import 'package:mandob_moshtarayat/module_settings/setting_routes.dart';
 import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
@@ -63,6 +64,17 @@ class AccountLoadedState extends AccountState {
               icon: Icons.history,
               onTap: () {
                 Navigator.of(context).pushNamed(OrdersRoutes.ORDER_LOG);
+              },
+            ),
+          ),
+          Hider(
+            active: profileModel?.roomID != null,
+            child: AccountTile(
+              text: S.of(context).directSupport,
+              icon: Icons.headphones,
+              onTap: () {
+                Navigator.of(context)
+                    .pushNamed(ChatRoutes.chatRoute, arguments:'#S#${profileModel?.roomID}');
               },
             ),
           ),
