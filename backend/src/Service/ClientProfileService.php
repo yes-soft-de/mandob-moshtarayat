@@ -10,12 +10,14 @@ use App\Manager\UserManager;
 use App\Request\ClientByUserIdGetRequest;
 use App\Request\ClientProfileNeedSupportUpdateRequest;
 use App\Request\ClientUpdateFavouriteCategoriesRequest;
+use App\Request\UserProfilePreferredLanguageUpdateRequest;
 use App\Request\UserRegisterRequest;
 use App\Request\ClientProfileUpdateRequest;
 use App\Request\VerificationCreateRequest;
 use App\Response\clientOrdersCountResponse;
 use App\Response\ClientProfileByUserIdGetResponse;
 use App\Response\ClientProfileNeedSupportUpdateResponse;
+use App\Response\ClientProfilePreferredLanguageUpdateResponse;
 use App\Response\ClientProfileResponse;
 use App\Response\ClientProfileWithFavouriteCategoriesResponse;
 use App\Response\ClientsProfileResponse;
@@ -223,6 +225,22 @@ class ClientProfileService
         else
         {
             return $this->autoMapping->map(ClientProfileEntity ::class, ClientProfileNeedSupportUpdateResponse::class, $result);
+        }
+    }
+
+    public function updateClientProfilePreferredLanguage(UserProfilePreferredLanguageUpdateRequest $request)
+    {
+        $clientProfile = $this->clientProfileManager->updateClientProfilePreferredLanguage($request);
+
+        if ($clientProfile == 'noClientProfileWasFound')
+        {
+            $response['status'] = 'noClientProfileWasFound';
+
+            return $this->autoMapping->map('array', ClientProfilePreferredLanguageUpdateResponse::class, $response);
+        }
+        else
+        {
+            return $this->autoMapping->map(ClientProfileEntity::class, ClientProfilePreferredLanguageUpdateResponse::class, $clientProfile);
         }
     }
 

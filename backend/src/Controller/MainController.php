@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\PreferredLanguageUpdateRequest;
+use App\Request\UserProfilePreferredLanguageUpdateRequest;
 use App\Service\MainService;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -30,6 +31,7 @@ class MainController extends BaseController
     }
 
     /**
+     * update the preferred language of either client, captain, or store owner profile
      * @Route("preferredlanguage", name="updatePreferredLanguageOfUser", methods={"PUT"})
      * @param Request $request
      * @return JsonResponse
@@ -46,7 +48,8 @@ class MainController extends BaseController
      * @OA\RequestBody(
      *      description="Update user preferred language request",
      *      @OA\JsonContent(
-     *          @OA\Property(type="string", property="preferredLanguage")
+     *          @OA\Property(type="string", property="preferredLanguage"),
+     *          @OA\Property(type="string", property="userType", example="captain, client, or owner")
      *      )
      * )
      *
@@ -69,7 +72,7 @@ class MainController extends BaseController
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class, PreferredLanguageUpdateRequest::class, (object)$data);
+        $request = $this->autoMapping->map(stdClass::class, UserProfilePreferredLanguageUpdateRequest::class, (object)$data);
 
         $request->setUserID($this->getUserId());
 
@@ -81,6 +84,19 @@ class MainController extends BaseController
         }
 
         $response = $this->mainService->updatePreferredLanguage($request);
+
+        if ($response->status == 'noCaptainProfileWasFound')
+        {
+            return $this->response($response, self::CAPTAIN_PROFILE_NOT_EXIST);
+        }
+        elseif ($response->status == 'noClientProfileWasFound')
+        {
+            return $this->response($response, self::CLIENT_PROFILE_NOT_EXIST);
+        }
+        elseif ($response->status == 'noStoreOwnerProfileWasFound')
+        {
+            return $this->response($response, self::STORE_OWNER_PROFILE_NOT_EXIST);
+        }
 
         return $this->response($response, self::UPDATE);
     }

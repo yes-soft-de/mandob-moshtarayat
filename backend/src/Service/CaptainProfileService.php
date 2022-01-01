@@ -5,7 +5,7 @@ namespace App\Service;
 use App\AutoMapping;
 use App\Entity\CaptainProfileEntity;
 use App\Entity\UserEntity;
-use App\Request\CaptainProfilePreferredLanguageUpdateRequest;
+use App\Request\UserProfilePreferredLanguageUpdateRequest;
 use App\Request\CaptainVacationCreateRequest;
 use App\Request\CaptainProfileUpdateRequest;
 use App\Request\CaptainProfileUpdateLocationRequest;
@@ -119,7 +119,7 @@ class CaptainProfileService
 
     }
 
-    public function updateCaptainProfilePreferredLanguage(CaptainProfilePreferredLanguageUpdateRequest $request)
+    public function updateCaptainProfilePreferredLanguage(UserProfilePreferredLanguageUpdateRequest $request)
     {
         $captainProfile = $this->captainProfileManager->updateCaptainProfilePreferredLanguage($request);
 

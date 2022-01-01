@@ -4,7 +4,7 @@ namespace App\Manager;
 
 use App\AutoMapping;
 use App\Manager\OrderManager;
-use App\Request\CaptainProfilePreferredLanguageUpdateRequest;
+use App\Request\UserProfilePreferredLanguageUpdateRequest;
 use App\Request\CaptainProfileUpdateByAdminRequest;
 use App\Request\CaptainProfileUpdateLocationRequest;
 use App\Request\CaptainProfileUpdateRequest;
@@ -141,7 +141,7 @@ class CaptainProfileManager
         }
     }
 
-    public function updateCaptainProfilePreferredLanguage(CaptainProfilePreferredLanguageUpdateRequest $request)
+    public function updateCaptainProfilePreferredLanguage(UserProfilePreferredLanguageUpdateRequest $request)
     {
         $captainProfile = $this->captainProfileEntityRepository->getByCaptainIDForUpdate($request->getUserID());
 
@@ -151,7 +151,7 @@ class CaptainProfileManager
         }
         else
         {
-            $captainProfile = $this->autoMapping->mapToObject(CaptainProfilePreferredLanguageUpdateRequest::class, CaptainProfileEntity::class,
+            $captainProfile = $this->autoMapping->mapToObject(UserProfilePreferredLanguageUpdateRequest::class, CaptainProfileEntity::class,
                 $request, $captainProfile);
 
             $this->entityManager->flush();
