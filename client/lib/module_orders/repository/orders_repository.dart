@@ -90,7 +90,7 @@ class MyOrdersRepository {
     Future<ClientOrderResponse?> updatePaymentRecord(
       CreatePaymentRecordRequest request) async {
     var token = await _authService.getToken();
-    dynamic response = await _apiClient.put(Urls.UPDATE_PAYMENT_RECORD_API, request.toJson(),
+    dynamic response = await _apiClient.post(Urls.UPDATE_PAYMENT_RECORD_API, request.toJson(),
         headers: {'Authorization': 'Bearer ' + token.toString()});
     if (response == null) return null;
     return ClientOrderResponse.fromJson(response);

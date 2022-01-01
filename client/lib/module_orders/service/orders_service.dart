@@ -136,7 +136,7 @@ class OrdersService {
     if (_clientOrderResponse == null) {
       return MyOrderState.error(S.current.networkError);
     }
-    if (_clientOrderResponse.statusCode != '204') {
+    if (_clientOrderResponse.statusCode != '200') {
       return MyOrderState.error(
           StatusCodeHelper.getStatusCodeMessages(_clientOrderResponse.statusCode));
     }
