@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
 import 'package:lottie/lottie.dart';
+import 'package:mandob_moshtarayat/di/di_config.dart';
+import 'package:mandob_moshtarayat/module_account/account_routes.dart';
+import 'package:mandob_moshtarayat/module_chat/manager/chat/chat_manager.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:soundpool/soundpool.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
@@ -149,17 +152,21 @@ class ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
     }
   }
 
+  bool sendSupport = false;
   @override
   Widget build(BuildContext context) {
     MediaQuery.of(context).removeViewInsets(removeBottom: true);
     if (currentState == ChatStateManager.STATUS_CODE_INIT) {
       chatRoomId = ModalRoute.of(context)?.settings.arguments as String;
-      //chatRoomId = '63346434-8733-4b91-bda8-81e0579756c7';
       widget._chatStateManager.getMessages(chatRoomId);
+      if (chatRoomId.substring(0, 3) == '#S#') {
+        sendSupport = true;
+        chatRoomId = chatRoomId.substring(3);
+      }
     }
     if (currentState == ChatStateManager.STATUS_CODE_EMPTY_LIST) {
-      return EmptyChatPage(
-          widget._chatStateManager, widget._uploadService, widget._authService);
+      return EmptyChatPage(widget._chatStateManager, widget._uploadService,
+          widget._authService, sendSupport);
     } else if (currentState == ChatStateManager.STATUS_CODE_GOT_DATA &&
         chatsMessagesWidgets.isEmpty) {
       return LoadingChatPage(
