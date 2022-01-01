@@ -4,7 +4,7 @@ import 'package:mandob_moshtarayat_dashboad/abstracts/states/loading_state.dart'
 import 'package:mandob_moshtarayat_dashboad/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/global_nav_key.dart';
-import 'package:mandob_moshtarayat_dashboad/module_clients/state_manager/captain_list.dart';
+import 'package:mandob_moshtarayat_dashboad/module_clients/state_manager/client_list.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_app_bar.dart';
 
 @injectable
