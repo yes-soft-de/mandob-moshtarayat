@@ -307,23 +307,26 @@ class OrderManager
         return $item;
     }
 
-    public function orderStateUpdateByPayInfo(OrderUpdateByOrderNumberRequest $request)
+    public function orderStateUpdateByPayInfo($orderNumber, $state, $orderID)
     {
-        $orderID = $this->orderEntityRepository->orderStateUpdateByPayInfo($request->getOrderNumber());
+//        $orderID = $this->orderEntityRepository->orderStateUpdateByPayInfo($request->getOrderNumber());
 
-        if($orderID) {
-            $item = $this->orderEntityRepository->find($orderID['id']);
+        $item = $this->orderEntityRepository->find($orderID);
 
-            if ($item) {
-                if ($request->getState() == PaymentStatusConstant::$PAYMENT_STATE_PAID) {
-                    $request->setState(OrderStateConstant::$ORDER_STATE_PENDING);
-                }
+        if ($item) {
+            $request = new OrderUpdateByOrderNumberRequest();
+            $request->setOrderNumber($orderNumber);
+            $request->setState($state);
 
-                $item = $this->autoMapping->mapToObject(OrderUpdateByOrderNumberRequest::class, OrderEntity::class, $request, $item);
-                $this->entityManager->flush();
+            if ($request->getState() == PaymentStatusConstant::$PAYMENT_STATE_PAID) {
+                 $request->setState(OrderStateConstant::$ORDER_STATE_PENDING);
             }
+
+            $item = $this->autoMapping->mapToObject(OrderUpdateByOrderNumberRequest::class, OrderEntity::class, $request, $item);
+            $this->entityManager->flush();
+            }
+
             return $item;
-        }
     }
 
     public function orderSpecialUpdateByClient(OrderUpdateSpecialByClientRequest $request, $id)

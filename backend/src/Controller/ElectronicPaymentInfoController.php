@@ -31,90 +31,90 @@ class ElectronicPaymentInfoController extends BaseController
         $this->electronicPaymentInfoService = $electronicPaymentInfoService;
     }
 
-
-    /**
-     * client: add payment info online or update it.
-     * @Route("/addinfopay", name="addInfoPay", methods={"POST"})
-     * @IsGranted("ROLE_CLIENT")
-     * @param Request $request
-     * @return JsonResponse
-     * *
-     * @OA\Tag(name="Order")
-     *
-     * @OA\Parameter(
-     *      name="token",
-     *      in="header",
-     *      description="token to be passed as a header",
-     *      required=true
-     * )
-     *
-     * @OA\RequestBody (
-     *        description="add payment info online",
-     *        @OA\JsonContent(
-     *              @OA\Property(type="integer", property="orderNumber"),
-     *              @OA\Property(type="integer", property="transactionID"),
-     *              @OA\Property(type="string", property="payStatus", description="not paid or paid"),
-     *              @OA\Property(type="string", property="token"),
-     *              @OA\Property(type="number", property="amount"),
-     *         ),
-     *      ),
-     *
-     * @OA\Response(
-     *      response=201,
-     *      description="Return object.",
-     *      @OA\JsonContent(
-     *          @OA\Property(type="string", property="status_code"),
-     *          @OA\Property(type="string", property="msg"),
-     *          @OA\Property(type="object", property="Data",
-     *              @OA\Property(type="integer", property="id"),
-     *              @OA\Property(type="integer", property="orderNumber"),
-     *              @OA\Property(type="string", property="payStatus"),
-     *              @OA\Property(type="string", property="token"),
-     *              @OA\Property(type="integer", property="transactionID"),
-     *              @OA\Property(type="number", property="amount"),
-     *              )
-     *          )
-     *     )
-     *
-     * or
-     *
-     * @OA\Response(
-     *      response=204,
-     *      description="Return object.",
-     *      @OA\JsonContent(
-     *          @OA\Property(type="string", property="status_code"),
-     *          @OA\Property(type="string", property="msg"),
-     *          @OA\Property(type="object", property="Data",
-     *              @OA\Property(type="integer", property="id"),
-     *              @OA\Property(type="integer", property="orderNumber"),
-     *              @OA\Property(type="string", property="payStatus"),
-     *              @OA\Property(type="string", property="token"),
-     *              @OA\Property(type="integer", property="transactionID"),
-     *              @OA\Property(type="number", property="amount"),
-     *              )
-     *          )
-     *     )
-     *
-     * @Security(name="Bearer")
-     */
-    public function addInfoPay(Request $request): JsonResponse
-    {
-        $data = json_decode($request->getContent(), true);
-
-        $request = $this->autoMapping->map(stdClass::class, ElectronicPaymentInfoCreateRequest::class, (object) $data);
-
-        $violations = $this->validator->validate($request);
-        if (\count($violations) > 0) {
-            $violationsString = (string) $violations;
-
-            return new JsonResponse($violationsString, Response::HTTP_OK);
-        }
-
-        $response = $this->electronicPaymentInfoService->addInfoPay($request);
-        if($response->methods == "update"){
-            return $this->response($response, self::UPDATE);
-        }
-
-        return $this->response($response, self::CREATE);
-    }
+//
+//    /**
+//     * client: add payment info online or update it.
+//     * @Route("/addinfopay", name="addInfoPay", methods={"POST"})
+//     * @IsGranted("ROLE_CLIENT")
+//     * @param Request $request
+//     * @return JsonResponse
+//     * *
+//     * @OA\Tag(name="Order")
+//     *
+//     * @OA\Parameter(
+//     *      name="token",
+//     *      in="header",
+//     *      description="token to be passed as a header",
+//     *      required=true
+//     * )
+//     *
+//     * @OA\RequestBody (
+//     *        description="add payment info online",
+//     *        @OA\JsonContent(
+//     *              @OA\Property(type="integer", property="orderNumber"),
+//     *              @OA\Property(type="integer", property="transactionID"),
+//     *              @OA\Property(type="string", property="payStatus", description="not paid or paid"),
+//     *              @OA\Property(type="string", property="token"),
+//     *              @OA\Property(type="number", property="amount"),
+//     *         ),
+//     *      ),
+//     *
+//     * @OA\Response(
+//     *      response=201,
+//     *      description="Return object.",
+//     *      @OA\JsonContent(
+//     *          @OA\Property(type="string", property="status_code"),
+//     *          @OA\Property(type="string", property="msg"),
+//     *          @OA\Property(type="object", property="Data",
+//     *              @OA\Property(type="integer", property="id"),
+//     *              @OA\Property(type="integer", property="orderNumber"),
+//     *              @OA\Property(type="string", property="payStatus"),
+//     *              @OA\Property(type="string", property="token"),
+//     *              @OA\Property(type="integer", property="transactionID"),
+//     *              @OA\Property(type="number", property="amount"),
+//     *              )
+//     *          )
+//     *     )
+//     *
+//     * or
+//     *
+//     * @OA\Response(
+//     *      response=204,
+//     *      description="Return object.",
+//     *      @OA\JsonContent(
+//     *          @OA\Property(type="string", property="status_code"),
+//     *          @OA\Property(type="string", property="msg"),
+//     *          @OA\Property(type="object", property="Data",
+//     *              @OA\Property(type="integer", property="id"),
+//     *              @OA\Property(type="integer", property="orderNumber"),
+//     *              @OA\Property(type="string", property="payStatus"),
+//     *              @OA\Property(type="string", property="token"),
+//     *              @OA\Property(type="integer", property="transactionID"),
+//     *              @OA\Property(type="number", property="amount"),
+//     *              )
+//     *          )
+//     *     )
+//     *
+//     * @Security(name="Bearer")
+//     */
+//    public function addInfoPay(Request $request): JsonResponse
+//    {
+//        $data = json_decode($request->getContent(), true);
+//
+//        $request = $this->autoMapping->map(stdClass::class, ElectronicPaymentInfoCreateRequest::class, (object) $data);
+//
+//        $violations = $this->validator->validate($request);
+//        if (\count($violations) > 0) {
+//            $violationsString = (string) $violations;
+//
+//            return new JsonResponse($violationsString, Response::HTTP_OK);
+//        }
+//
+//        $response = $this->electronicPaymentInfoService->addInfoPay($request);
+//        if($response->methods == "update"){
+//            return $this->response($response, self::UPDATE);
+//        }
+//
+//        return $this->response($response, self::CREATE);
+//    }
 }

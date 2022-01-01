@@ -15,4 +15,6 @@ class AddInfoPayByClientResponse
     public $payStatus;
 
     public $amount;
+
+    public $orderNumber;
 }
