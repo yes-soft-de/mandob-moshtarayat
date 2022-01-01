@@ -159,10 +159,6 @@ class VerificationController extends BaseController
         {
             return $this->response($result, self::ALREADY_VERIFIED_STORE_OWNER);
         }
-        elseif ($result->result == 'userIsNotRegistered')
-        {
-            return $this->response($result, self::STORE_OWNER_IS_NOT_REGISTERED);
-        }
     }
 
     /**
