@@ -100,6 +100,7 @@ class _MainScreenState extends State<MainScreen> {
                             (context) => OuterOrderBottomSheet(
                                   callback: (name, extraInfo, image) {
                                     Navigator.of(context).pop();
+                                    fade = false;
                                     setState(() {});
                                     CustomFlushBarHelper.createSuccess(
                                             title: S.current.warnning,
