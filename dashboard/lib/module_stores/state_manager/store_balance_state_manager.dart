@@ -16,8 +16,7 @@ class StoreBalanceStateManager {
 
   StoreBalanceStateManager(this._storesService);
 
-  void getBalance(
-      StoreBalanceScreenState screenState, int storeID) {
+  void getBalance(StoreBalanceScreenState screenState, int storeID) {
     _stateSubject.add(LoadingState(screenState));
     _storesService.getStoreBalance(storeID).then((value) {
       if (value.hasError) {
@@ -27,13 +26,11 @@ class StoreBalanceStateManager {
           error: value.error,
         ));
       } else if (value.isEmpty) {
-        _stateSubject.add(StoreBalanceLoadedState(screenState, null,
-            empty: value.isEmpty));
-      } else {
-        
-        StoreBalanceModel _balance = value as StoreBalanceModel;
         _stateSubject.add(
-            StoreBalanceLoadedState(screenState, _balance.data));
+            StoreBalanceLoadedState(screenState, null, empty: value.isEmpty));
+      } else {
+        StoreBalanceModel _balance = value as StoreBalanceModel;
+        _stateSubject.add(StoreBalanceLoadedState(screenState, _balance.data));
       }
     });
   }

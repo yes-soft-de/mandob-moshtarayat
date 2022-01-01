@@ -227,8 +227,7 @@ class PaymentsForCaptainLoadedState extends States {
           ],
         ),
       ),
-    )
-    );
+    ));
   }
 
   Widget getCaptainPaymentFrom() {

@@ -14,20 +14,20 @@ class StoreBalanceModel extends DataModel {
     required this.paymentsToStore,
   });
   late StoreBalanceModel _model;
-  StoreBalanceModel.withData(Data data) : super.withData() { 
-      var payments = <PaymentModel>[];
-      data.paymentsToStore?.forEach((e) {
-        payments.add(PaymentModel(
-            amount: e.amount,
-            paymentDate: DateHelper.convert(e.date?.timestamp)));
-      });
-      _model = StoreBalanceModel(
-          amountOwedToStore: data.amountOwedToStore ?? 0,
-          paymentsToStore: payments,
-          sumPaymentsToStore: data.sumPaymentsToStore ?? 0,
-          total: data.total ?? 0);
+  StoreBalanceModel.withData(Data data) : super.withData() {
+    var payments = <PaymentModel>[];
+    data.paymentsToStore?.forEach((e) {
+      payments.add(PaymentModel(
+          amount: e.amount,
+          paymentDate: DateHelper.convert(e.date?.timestamp)));
+    });
+    _model = StoreBalanceModel(
+        amountOwedToStore: data.amountOwedToStore ?? 0,
+        paymentsToStore: payments,
+        sumPaymentsToStore: data.sumPaymentsToStore ?? 0,
+        total: data.total ?? 0);
   }
-  
+
   StoreBalanceModel get data => _model;
 }
 

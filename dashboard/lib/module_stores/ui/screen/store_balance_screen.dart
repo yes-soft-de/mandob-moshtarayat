@@ -13,8 +13,7 @@ class StoreBalanceScreen extends StatefulWidget {
   StoreBalanceScreen(this._stateManager);
 
   @override
-  StoreBalanceScreenState createState() =>
-      StoreBalanceScreenState();
+  StoreBalanceScreenState createState() => StoreBalanceScreenState();
 }
 
 class StoreBalanceScreenState extends State<StoreBalanceScreen> {
@@ -56,4 +55,3 @@ class StoreBalanceScreenState extends State<StoreBalanceScreen> {
     );
   }
 }
-
