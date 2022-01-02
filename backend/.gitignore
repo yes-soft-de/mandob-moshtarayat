@@ -93,3 +93,4 @@ config/jwt
 ###< liip/imagine-bundle ###
 migrations
 /public/bundles/
+/config/mandoob-456f3-firebase-adminsdk-6k6lp-6ddbf7dad6.json
