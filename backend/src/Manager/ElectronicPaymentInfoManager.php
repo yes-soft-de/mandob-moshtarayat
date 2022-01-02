@@ -55,4 +55,9 @@ class ElectronicPaymentInfoManager
 
         return $this->createInfoPay($request);
     }
+
+    public function getPayInfoByOrderNumber($orderNumber): ?ElectronicPaymentInfoEntity
+    {
+        return $this->electronicPaymentInfoEntityRepository->findOneBy(['orderNumber' => $orderNumber]);
+    }
 }

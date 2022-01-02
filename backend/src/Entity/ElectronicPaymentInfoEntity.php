@@ -47,7 +47,7 @@ class ElectronicPaymentInfoEntity
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
-    private $CreatedAt;
+    private $createdAt;
 
     /**
      * @Gedmo\Timestampable(on="update")
@@ -127,12 +127,12 @@ class ElectronicPaymentInfoEntity
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->CreatedAt;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $CreatedAt): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->CreatedAt = $CreatedAt;
+        $this->createdAt = $createdAt;
 
         return $this;
     }

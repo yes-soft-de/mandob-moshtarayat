@@ -55,7 +55,7 @@ class OrderEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('OrderEntity')
 
-            ->select('OrderEntity.id', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.deliveryDate', 'OrderEntity.updatedAt', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'OrderEntity.state', 'OrderEntity.roomID', 'OrderEntity.captainID', 'OrderEntity.createdAt', 'OrderEntity.detail','OrderEntity.deliveryCost', 'OrderEntity.orderCost', 'OrderEntity.orderType', 'OrderEntity.transactionID', 'OrderEntity.token')
+            ->select('OrderEntity.id', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.deliveryDate', 'OrderEntity.updatedAt', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'OrderEntity.state', 'OrderEntity.roomID', 'OrderEntity.captainID', 'OrderEntity.createdAt', 'OrderEntity.detail','OrderEntity.deliveryCost', 'OrderEntity.orderCost', 'OrderEntity.orderType')
 
             ->andWhere('OrderEntity.id = :orderId')
 
@@ -572,7 +572,7 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->andWhere("OrderEntity.isBillCalculated = :true")
 
             ->setParameter('true', 1)
-            ->setParameter('card', 'card')
+            ->setParameter('card', PaymentStatusConstant::$PAYMENT_STATE_CARD)
             ->setParameter('captainId', $captainId)
             ->setParameter('delivered', OrderStateConstant::$ORDER_STATE_DELIVERED)
 
@@ -592,7 +592,7 @@ class OrderEntityRepository extends ServiceEntityRepository
 
             ->setParameter('true', 1)
             ->setParameter('delivered', OrderStateConstant::$ORDER_STATE_DELIVERED)
-            ->setParameter('card', 'card')
+            ->setParameter('card', PaymentStatusConstant::$PAYMENT_STATE_CARD)
 
             ->getQuery()
             ->getSingleScalarResult();
@@ -704,7 +704,7 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->setParameter('delivered', OrderStateConstant::$ORDER_STATE_DELIVERED)
             ->setParameter('fromDate', $fromDate)
             ->setParameter('toDate', $toDate)
-            ->setParameter('card', "card")
+            ->setParameter('card', PaymentStatusConstant::$PAYMENT_STATE_CARD)
 
             ->getQuery()
             ->getSingleScalarResult();

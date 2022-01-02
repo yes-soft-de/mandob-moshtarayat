@@ -26,6 +26,7 @@ use App\Response\AddInfoPayByClientResponse;
 use App\Response\CountReportForStoreOwnerResponse;
 use App\Response\OrderCancelResponse;
 use App\Response\OrderDetailsByOrderNumberForStoreResponse;
+use App\Response\OrderInfoForCaptainResponse;
 use App\Response\OrderInfoResponse;
 use App\Response\OrderResponse;
 use App\Response\OrderClosestResponse;
@@ -504,15 +505,20 @@ class OrderService
         $response = [];
 
         $item['orderDetails'] = $this->orderDetailService->getOrderDetailsByOrderNumberForAdmin($orderNumber);
-
         $item['deliveryCost'] = $this->deliveryCompanyFinancialService->getDeliveryCostScalar();
         $item['invoices'] = $this->ordersInvoicesService->getInvoicesByOrderNumber($orderNumber);
-
         $item['rate'] = $this->ratingService->getAvgOrder($orderNumber);
+
         if($item['orderDetails']) {
+
             $item['order'] = $this->orderManager->orderStatusByOrderId($item['orderDetails'][0]->orderID);
+            if($item['order']['payment'] == "card"){
+                $item['payInfo'] = $this->electronicPaymentInfoService->getPayInfoByOrderNumber($orderNumber);
+            }
+
             $response = $this->autoMapping->map('array', OrderInfoResponse::class, $item);
         }
+
         return $response;
     }
 
@@ -528,7 +534,7 @@ class OrderService
         $item['rate'] = $this->ratingService->getAvgOrder($orderNumber);
         if($item['orderDetails']) {
             $item['order'] = $this->orderManager->orderStatusByOrderId($item['orderDetails'][0]->orderID);
-            $response = $this->autoMapping->map('array', OrderInfoResponse::class, $item);
+            $response = $this->autoMapping->map('array', OrderInfoForCaptainResponse::class, $item);
         }
         return $response;
     }
@@ -544,6 +550,10 @@ class OrderService
         $item['rate'] = $this->ratingService->getAvgOrder($orderNumber);
         if($item['orderDetails']) {
             $item['order'] = $this->orderManager->orderStatusByOrderId($item['orderDetails'][0]->orderID);
+            if($item['order']['payment'] == "card"){
+                $item['payInfo'] = $this->electronicPaymentInfoService->getPayInfoByOrderNumber($orderNumber);
+            }
+
             $response = $this->autoMapping->map('array', OrderInfoResponse::class, $item);
         }
         return $response;
@@ -588,7 +598,7 @@ class OrderService
 
         return $response;
     }
-
+//The feature has been discontinued within this project
     public function orderSpecialUpdateByClient(OrderUpdateSpecialByClientRequest $request, $userID)
     {
         $response = "Not updated!!";

@@ -115,16 +115,6 @@ class OrderEntity
      */
     private $isBillCalculated;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $token;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $transactionID;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -373,30 +363,6 @@ class OrderEntity
     public function setBillCalculated(?bool $isBillCalculated): self
     {
         $this->isBillCalculated = $isBillCalculated;
-
-        return $this;
-    }
-
-    public function getTransactionID(): ?string
-    {
-        return $this->transactionID;
-    }
-
-    public function setTransactionID(?string $transactionID): self
-    {
-        $this->transactionID = $transactionID;
-
-        return $this;
-    }
-
-    public function getToken(): ?string
-    {
-        return $this->token;
-    }
-
-    public function setToken(?string $token): self
-    {
-        $this->token = $token;
 
         return $this;
     }
