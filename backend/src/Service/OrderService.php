@@ -588,7 +588,7 @@ class OrderService
 
         return $response;
     }
-
+//The feature has been discontinued within this project
     public function orderSpecialUpdateByClient(OrderUpdateSpecialByClientRequest $request, $userID)
     {
         $response = "Not updated!!";
