@@ -1052,8 +1052,6 @@ class OrderController extends BaseController
      *                   @OA\Property(type="number", property="deliveryCost"),
      *                   @OA\Property(type="number", property="orderCost"),
      *                   @OA\Property(type="integer", property="orderType"),
-     *                   @OA\Property(type="integer", property="transactionID"),
-     *                   @OA\Property(type="integer", property="token"),
      *                           ),
      *                   @OA\Property(type="array", property="orderDetails",
      *                   @OA\Items(
@@ -1096,6 +1094,15 @@ class OrderController extends BaseController
      *               ),
      *          @OA\Property(type="number", property="deliveryCost"),
      *          @OA\Property(type="number", property="rate"),
+     *          @OA\Property(type="object", property="payInfo",
+     *              @OA\Property(type="integer", property="id"),
+     *              @OA\Property(type="integer", property="transactionID"),
+     *              @OA\Property(type="string", property="token"),
+     *              @OA\Property(type="number", property="amount"),
+     *              @OA\Property(type="string", property="payStatus"),
+     *              @OA\Property(type="object", property="createdAt"),
+     *              @OA\Property(type="object", property="updatedAt"),
+     *          )
      *      )
      *  )
      *)
@@ -1226,8 +1233,6 @@ class OrderController extends BaseController
      *                   @OA\Property(type="number", property="deliveryCost"),
      *                   @OA\Property(type="number", property="orderCost"),
      *                   @OA\Property(type="integer", property="orderType"),
-     *                   @OA\Property(type="integer", property="transactionID"),
-     *                   @OA\Property(type="integer", property="token"),
      *                           ),
      *                   @OA\Property(type="array", property="orderDetails",
      *                   @OA\Items(
@@ -1270,6 +1275,15 @@ class OrderController extends BaseController
      *               ),
      *          @OA\Property(type="number", property="deliveryCost"),
      *          @OA\Property(type="number", property="rate"),
+     *          @OA\Property(type="object", property="payInfo",
+     *              @OA\Property(type="integer", property="id"),
+     *              @OA\Property(type="integer", property="transactionID"),
+     *              @OA\Property(type="string", property="token"),
+     *              @OA\Property(type="number", property="amount"),
+     *              @OA\Property(type="string", property="payStatus"),
+     *              @OA\Property(type="object", property="createdAt"),
+     *              @OA\Property(type="object", property="updatedAt"),
+     *          )
      *      )
      *  )
      *)

@@ -12,6 +12,7 @@ use App\Request\OrderUpdateStateByOrderStateRequest;
 use App\Request\OrderUpdateStateForEachStoreByCaptainRequest;
 use App\Response\OrderCreateDetailResponse;
 use App\Response\OrderDetailForStoreResponse;
+use App\Response\OrderDetailProductsForAdminResponse;
 use App\Response\OrderDetailProductsResponse;
 use App\Response\OrderDetailResponse;
 use App\Response\OrderUpdateInvoiceByCaptainResponse;
@@ -158,10 +159,11 @@ class OrderDetailService
         foreach ($items as $item) {
 
             $item['productPrice'] = $this->priceForAdmin($item['productPrice'], $item['discount']);
+            $item['productPriceAndCommission'] =$this->priceForAdminWithCommission($item['isCommission'],  $item['productPrice'], $item['commission'], $item['storeCommission']);
 
             $item['productImage'] = $this->getImageParams($item['productImage'], $this->params . $item['productImage'], $this->params);
 
-            $response[] = $this->autoMapping->map('array', OrderDetailProductsResponse::class, $item);
+            $response[] = $this->autoMapping->map('array', OrderDetailProductsForAdminResponse::class, $item);
         }
 
         return $response;
@@ -174,7 +176,7 @@ class OrderDetailService
         $items = $this->orderDetailManager->getProductsByOrderNumberAndStoreID($orderNumber, $storeOwnerProfileID);
         foreach ($items as $item) {
 
-            $item['productPrice'] = $this->priceForAdmin($item['productPrice'], $item['discount']);
+            $item['productPrice'] = $this->priceForCaptain($item['productPrice'], $item['discount']);
 
             $item['productImage'] = $this->getImageParams($item['productImage'], $this->params . $item['productImage'], $this->params);
 
@@ -212,9 +214,23 @@ class OrderDetailService
         return ( $priceWithDiscount * $storeCommission  / 100) + $priceWithDiscount;
     }
 
+    public function priceForCaptain( $productPrice, $discount)
+    {
+        return $productPrice - ($productPrice * $discount / 100);
+    }
+
     public function priceForAdmin( $productPrice, $discount)
     {
         return $productPrice - ($productPrice * $discount / 100);
+    }
+
+    public function priceForAdminWithCommission($isCommission, $priceWithDiscount, $commission, $storeCommission)
+    {
+        if($isCommission == true){
+            return ( $priceWithDiscount * $commission  / 100) + $priceWithDiscount;
+        }
+
+        return ( $priceWithDiscount * $storeCommission  / 100) + $priceWithDiscount;
     }
 
     public function orderDetails($orderNumber): array
