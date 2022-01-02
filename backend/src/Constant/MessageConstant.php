@@ -8,6 +8,8 @@ abstract class MessageConstant
 
     static $MESSAGE_ORDER_UPDATE = "هناك تحديث في حالة الطلبات";
 
+    static $MESSAGE_STATUS_ORDER_UPDATE = "هناك تحديث في حالة الطلب";
+
     static $MESSAGE_NEW_CHAT = "لديك رسالة جديدة";
 
     static $MESSAGE_NEW_CHAT_FROM_ADMIN = "لديك رسالة جديدة من الإدارة";

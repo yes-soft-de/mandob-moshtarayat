@@ -34,7 +34,7 @@ class NotificationController extends BaseController
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class,NotificationTokenRequest::class,(object)$data);
-        $request->setUserID($this->getUser()->getUsername());
+        $request->setUserID($this->getUserId());
 
         $response = $this->notificationService->notificationTokenCreate($request);
 

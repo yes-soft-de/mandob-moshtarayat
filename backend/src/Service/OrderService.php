@@ -22,6 +22,7 @@ use App\Request\OrderUpdateByClientRequest;
 use App\Request\OrderUpdateSpecialByClientRequest;
 use App\Request\OrderUpdateSendByClientRequest;
 use App\Request\OrderUpdateStateForEachStoreByCaptainRequest;
+use App\Request\SendNotificationRequest;
 use App\Response\AddInfoPayByClientResponse;
 use App\Response\CountReportForStoreOwnerResponse;
 use App\Response\OrderCancelResponse;
@@ -77,7 +78,7 @@ class OrderService
     private $electronicPaymentInfoService;
 
     public function __construct(AutoMapping $autoMapping, OrderManager $orderManager, StoreOwnerProfileService $storeOwnerProfileService, ParameterBagInterface $params,  RatingService $ratingService
-                                // , NotificationService $notificationService
+                                 , NotificationService $notificationService
                                , RoomIdHelperService $roomIdHelperService,  DateFactoryService $dateFactoryService, CaptainProfileService $captainProfileService, ProductService $productService, OrderDetailService $orderDetailService, DeliveryCompanyFinancialService $deliveryCompanyFinancialService,
                                ClientProfileService $clientProfileService, NotificationLocalService $notificationLocalService, OrderLogService $orderLogService, UserService $userService, OrdersInvoicesService $ordersInvoicesService, ElectronicPaymentInfoService $electronicPaymentInfoService
                                 )
@@ -89,7 +90,7 @@ class OrderService
         $this->roomIdHelperService = $roomIdHelperService;
         $this->dateFactoryService = $dateFactoryService;
         $this->params = $params->get('upload_base_url') . '/';
-        // $this->notificationService = $notificationService;
+        $this->notificationService = $notificationService;
         $this->captainProfileService = $captainProfileService;
         $this->productService = $productService;
         $this->orderDetailService = $orderDetailService;
@@ -153,16 +154,9 @@ class OrderService
 
                     //create store notification local
                     $this->notificationLocalService->createStoreNotificationLocal($orderDetailUpdate['storeIds'], LocalStoreNotificationList::$STATE_TITLE, $request->getState(), $request->getOrderNumber(), true);
+                    //create firebase notification fro client
+                    $this->notificationService->notificationOrderUpdateForClient($item->getClientID(), $request->getOrderNumber());
                 }
-
-                //start-----> notification
-                //
-                // $notificationRequest = new SendNotificationRequest();
-                // $notificationRequest->setUserIdOne($item->getOwnerID());
-                // $notificationRequest->setOrderID($item->getId());
-                // $this->notificationService->notificationOrderUpdate($notificationRequest);
-                //notification <------end
-                //
             }
 
             $response = $this->autoMapping->map(OrderEntity::class, OrderUpdateStateResponse::class, $item);
@@ -199,6 +193,9 @@ class OrderService
 
                         //create store notification local
                         $this->notificationLocalService->createUpdateOrderStateStoreNotificationLocal($request->getState(),LocalNotificationList::$STATE_TITLE , $request->getStoreOwnerProfileID(), $request->getOrderNumber());
+
+                        //create firebase notification for client
+                        $this->notificationService->notificationOrderUpdateForClient($order->getClientID(), $request->getOrderNumber());
                     }
                     $response = $this->autoMapping->map(OrderUpdateStateForEachStoreResponse::class, OrderUpdateStateForEachStoreResponse::class, $orderDetails);
                 }
@@ -400,6 +397,9 @@ class OrderService
             //create client notification local
             $this->notificationLocalService->createNotificationLocal($request->getClientID(), LocalNotificationList::$NEW_ORDER_TITLE, LocalNotificationList::$CREATE_ORDER_SUCCESS, $orderNumber);
 
+            //create firebase notification
+            $this->notificationService->notificationToCaptain($orderNumber);
+
 //            $response = $this->autoMapping->map(OrderEntity::class, OrderCreateClientResponse::class, $item);
 //            $response->orderDetail = $orderDetail;
             $response = $this->getOrderDetailsForClient($orderNumber);
@@ -471,6 +471,8 @@ class OrderService
             //create store notification local
             $this->notificationLocalService->createNotificationLocal($request->getStoreOwnerProfileID(), LocalStoreNotificationList::$NEW_ORDER_TITLE, LocalStoreNotificationList::$CREATE_ORDER_SUCCESS, $orderNumber);
 
+            //create firebase notification
+            $this->notificationService->notificationToCaptain($orderNumber);
 //            $response = $this->autoMapping->map(OrderEntity::class, OrderClientSendCreateResponse::class, $item);
 //            $response->orderDetail['orderNumber'] = $orderDetail->orderNumber;
 //            $response->orderDetail['orderDetailId'] = $orderDetail->id;

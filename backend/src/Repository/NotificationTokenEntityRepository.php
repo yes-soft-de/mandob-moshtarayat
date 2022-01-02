@@ -52,4 +52,19 @@ class NotificationTokenEntityRepository extends ServiceEntityRepository
         ->getQuery()
         ->getResult();
     }
+
+    public function getTokens()
+    {
+        return $this->createQueryBuilder('NotificationTokenEntity')
+            ->select('NotificationTokenEntity.token')
+
+            ->leftJoin(CaptainProfileEntity::class, 'captainProfileEntity', Join::WITH, 'captainProfileEntity.captainID = NotificationTokenEntity.userID')
+
+            ->andWhere("captainProfileEntity.status = :status ")
+
+            ->setParameter('status', 'active')
+
+            ->getQuery()
+            ->getResult();
+    }
 }
