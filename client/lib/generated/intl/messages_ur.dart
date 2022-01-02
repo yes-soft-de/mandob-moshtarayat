@@ -131,6 +131,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "confirm": MessageLookupByLibrary.simpleMessage("تصدیق کریں۔"),
         "confirmCode":
             MessageLookupByLibrary.simpleMessage("کوڈ کی تصدیق کریں۔"),
+        "confirmNewPass":
+            MessageLookupByLibrary.simpleMessage("نئے پاس ورڈ کی تصدیق کریں"),
         "contactPhoneNumber":
             MessageLookupByLibrary.simpleMessage("رابطے کا فون نمبر"),
         "cost": MessageLookupByLibrary.simpleMessage(" لاگت"),
@@ -210,6 +212,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "firstName": MessageLookupByLibrary.simpleMessage("پہلا نام"),
         "firstSendMessage": MessageLookupByLibrary.simpleMessage(
             "پیغام بھیجنے والے پہلے فرد بنیں۔"),
+        "forgotPass": MessageLookupByLibrary.simpleMessage("پاسورڈ بھول گے؟"),
         "fromWhatsapp": MessageLookupByLibrary.simpleMessage("واٹس ایپ سے"),
         "gender": MessageLookupByLibrary.simpleMessage(" صنف"),
         "getDirection": MessageLookupByLibrary.simpleMessage("سمت حاصل کریں۔"),
@@ -244,6 +247,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "inactive": MessageLookupByLibrary.simpleMessage(
             " آپ کی رکنیت ابھی تک فعال نہیں ہوئی ہے براہ کرم انتظار کریں۔"),
         "info": MessageLookupByLibrary.simpleMessage("معلومات"),
+        "informSendCode": MessageLookupByLibrary.simpleMessage(
+            "ہم آپ کے نمبر پر ایک تصدیقی کوڈ بھیجیں گے۔"),
         "initData": MessageLookupByLibrary.simpleMessage("ڈیٹا شروع کریں۔"),
         "internalServerError":
             MessageLookupByLibrary.simpleMessage(" اندرونی سرور کی خرابی"),
@@ -299,6 +304,7 @@ class MessageLookup extends MessageLookupByLibrary {
             " آپ کے کنکشن میں مسئلہ ہے، براہ کرم دوبارہ کوشش کریں۔"),
         "newName": MessageLookupByLibrary.simpleMessage(" نیا نام"),
         "newOrder": MessageLookupByLibrary.simpleMessage("نیا حکم"),
+        "newPassword": MessageLookupByLibrary.simpleMessage("نیا پاس ورڈ"),
         "next": MessageLookupByLibrary.simpleMessage("اگلے"),
         "nextPaymentDate":
             MessageLookupByLibrary.simpleMessage(" اگلی ادائیگی کی تاریخ:"),
@@ -361,9 +367,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "outOforders": MessageLookupByLibrary.simpleMessage(
             " آپ اپنے آرڈرز کی حد تک پہنچ گئے ہیں آپ سیٹنگز سے اپنی سبسکرپشن کی تجدید کر سکتے ہیں۔"),
         "package": MessageLookupByLibrary.simpleMessage("پیکج"),
+        "partners": MessageLookupByLibrary.simpleMessage("ہمارے شراکت دار"),
         "password": MessageLookupByLibrary.simpleMessage("پاس ورڈ"),
         "passwordIsTooShort":
             MessageLookupByLibrary.simpleMessage("پاس ورڈ بہت چھوٹا ہے۔"),
+        "passwordNotMatch":
+            MessageLookupByLibrary.simpleMessage("پاس ورڈ میچ نہیں کرتا"),
+        "passwordUpdatedSuccess": MessageLookupByLibrary.simpleMessage(
+            "پاس ورڈ کامیابی کے ساتھ اپ ڈیٹ ہو گیا۔"),
         "pay": MessageLookupByLibrary.simpleMessage("دھکا"),
         "paySubscription":
             MessageLookupByLibrary.simpleMessage("سبسکرپشن ادا کریں۔"),
@@ -375,6 +386,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ادائیگی کا طریقہ"),
         "paymentMethodHint":
             MessageLookupByLibrary.simpleMessage(" منتخب کریں۔"),
+        "paymentsVia": MessageLookupByLibrary.simpleMessage("کے ذریعے ادائیگی"),
         "personalData": MessageLookupByLibrary.simpleMessage(" ذاتی مواد"),
         "phoneIsRequired":
             MessageLookupByLibrary.simpleMessage(" فون درکار ہے۔"),
@@ -568,6 +580,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unknown": MessageLookupByLibrary.simpleMessage("نامعلوم"),
         "unknownNumberOfCar":
             MessageLookupByLibrary.simpleMessage(" کاروں کی تعداد نامعلوم ہے۔"),
+        "update": MessageLookupByLibrary.simpleMessage("اپ ڈیٹ"),
         "updateBranch": MessageLookupByLibrary.simpleMessage(" اپڈیٹ برانچ"),
         "updateBranchFailure": MessageLookupByLibrary.simpleMessage(
             " برانچ اپ ڈیٹ کے لیے آپ کی درخواست میں معذرت، براہ کرم دوبارہ کوشش کریں۔"),

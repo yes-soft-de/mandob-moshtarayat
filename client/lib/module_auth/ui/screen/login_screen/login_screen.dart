@@ -5,6 +5,7 @@ import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_account/ui/screen/favourite_screen.dart';
 import 'package:mandob_moshtarayat/module_auth/authorization_routes.dart';
 import 'package:mandob_moshtarayat/module_auth/presistance/auth_prefs_helper.dart';
+import 'package:mandob_moshtarayat/module_auth/request/forget_password_request/reset_password_request.dart';
 import 'package:mandob_moshtarayat/module_auth/service/auth_service/auth_service.dart';
 import 'package:mandob_moshtarayat/module_auth/state_manager/login_state_manager/login_state_manager.dart';
 import 'package:mandob_moshtarayat/module_auth/ui/states/login_states/login_state.dart';
@@ -148,5 +149,14 @@ class LoginScreenState extends State<LoginScreen> {
     CustomFlushBarHelper.createError(
             title: S.current.warnning, message: S.current.confirmCode)
         .show(context);
+  }
+
+  void restPass(ResetPassRequest request) {
+    widget._stateManager.resetCodeRequest(request, this);
+  }
+
+  void moveToForgetPage() {
+    Navigator.of(context)
+        .pushNamed(AuthorizationRoutes.ForgotPass_SCREEN);
   }
 }

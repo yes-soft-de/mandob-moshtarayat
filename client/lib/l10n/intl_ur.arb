@@ -394,5 +394,15 @@
     "uploadImageIfyouHave": "تصویر اپ لوڈ کریں اگر آپ کے پاس ہے",
     "pressHere": "یہاں دبائیں",
     "send": "بھیجیں",
-    "yourRequestSent": "آپ کی درخواست بھیج دی گئی ہے۔"
+    "yourRequestSent": "آپ کی درخواست بھیج دی گئی ہے۔",
+    "forgotPass": "پاسورڈ بھول گے؟",
+    "partners": "ہمارے شراکت دار",
+    "paymentsVia": "کے ذریعے ادائیگی",
+    "newPassword": "نیا پاس ورڈ",
+    "confirmNewPass": "نئے پاس ورڈ کی تصدیق کریں",
+    "passwordUpdatedSuccess": "پاس ورڈ کامیابی کے ساتھ اپ ڈیٹ ہو گیا۔",
+    "informSendCode": "ہم آپ کے نمبر پر ایک تصدیقی کوڈ بھیجیں گے۔",
+    "passwordNotMatch": "پاس ورڈ میچ نہیں کرتا",
+    "update":"اپ ڈیٹ"
+    
 }

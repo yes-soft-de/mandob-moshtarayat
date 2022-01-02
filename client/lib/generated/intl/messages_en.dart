@@ -128,6 +128,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Completed Orders"),
         "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
         "confirmCode": MessageLookupByLibrary.simpleMessage("Confirm Code"),
+        "confirmNewPass":
+            MessageLookupByLibrary.simpleMessage("Confirm new password"),
         "contactPhoneNumber":
             MessageLookupByLibrary.simpleMessage("Contact Phone Number"),
         "cost": MessageLookupByLibrary.simpleMessage("cost"),
@@ -206,6 +208,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "firstName": MessageLookupByLibrary.simpleMessage("First name"),
         "firstSendMessage": MessageLookupByLibrary.simpleMessage(
             "Be the first one to send message"),
+        "forgotPass": MessageLookupByLibrary.simpleMessage("Forgot password?"),
         "fromWhatsapp": MessageLookupByLibrary.simpleMessage("From WhatsApp"),
         "gender": MessageLookupByLibrary.simpleMessage("Gender"),
         "getDirection": MessageLookupByLibrary.simpleMessage("Get Direction"),
@@ -238,6 +241,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "inactive": MessageLookupByLibrary.simpleMessage(
             "Your subscription not activate yet please wait"),
         "info": MessageLookupByLibrary.simpleMessage("Info"),
+        "informSendCode": MessageLookupByLibrary.simpleMessage(
+            "We will send a verification code to your number"),
         "initData": MessageLookupByLibrary.simpleMessage("Init Data"),
         "internalServerError":
             MessageLookupByLibrary.simpleMessage("Internal server error"),
@@ -291,6 +296,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "There is problem with your connection , please try again"),
         "newName": MessageLookupByLibrary.simpleMessage("New name"),
         "newOrder": MessageLookupByLibrary.simpleMessage("New Order"),
+        "newPassword": MessageLookupByLibrary.simpleMessage("New password"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "nextPaymentDate":
             MessageLookupByLibrary.simpleMessage("Next Payment Date:"),
@@ -352,9 +358,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "outOforders": MessageLookupByLibrary.simpleMessage(
             "You reach your limit of orders you can renew your subscription from settings"),
         "package": MessageLookupByLibrary.simpleMessage("Package"),
+        "partners": MessageLookupByLibrary.simpleMessage("Our partners"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "passwordIsTooShort":
             MessageLookupByLibrary.simpleMessage("Password is too short"),
+        "passwordNotMatch":
+            MessageLookupByLibrary.simpleMessage("Password not matching"),
+        "passwordUpdatedSuccess": MessageLookupByLibrary.simpleMessage(
+            "Password updated successfully"),
         "pay": MessageLookupByLibrary.simpleMessage("Pay"),
         "paySubscription":
             MessageLookupByLibrary.simpleMessage("Pay Subscription"),
@@ -364,6 +375,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Payment History"),
         "paymentMethod": MessageLookupByLibrary.simpleMessage("Payment Method"),
         "paymentMethodHint": MessageLookupByLibrary.simpleMessage("Choose"),
+        "paymentsVia": MessageLookupByLibrary.simpleMessage("Payments via"),
         "personalData": MessageLookupByLibrary.simpleMessage("Personal Data"),
         "phoneIsRequired":
             MessageLookupByLibrary.simpleMessage("Phone is required"),
@@ -548,6 +560,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unknown": MessageLookupByLibrary.simpleMessage("Unknown"),
         "unknownNumberOfCar":
             MessageLookupByLibrary.simpleMessage("The number of cars unknown"),
+        "update": MessageLookupByLibrary.simpleMessage("Update"),
         "updateBranch": MessageLookupByLibrary.simpleMessage("Update Branch"),
         "updateBranchFailure": MessageLookupByLibrary.simpleMessage(
             "Sorry your request for update branch faild please try again"),

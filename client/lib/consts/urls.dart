@@ -75,4 +75,8 @@ class Urls {
       BASE_API + '/updateclientfavouritecategories';
   static const GET_FAVORITE_CLIENT_API = BASE_API + '/userfavoritecategories';
   static const UPDATE_PAYMENT_RECORD_API = BASE_API + '/addinfopay';
+  static const RESET_PASSWORD = BASE_API + '/resetpasswordorder';
+  static const VERIFY_RESET_PASSWORD_CODE =
+      BASE_API + '/verifyresetpasswordcode';
+  static const UPDATE_PASSWORD = BASE_API + '/updatepassword';
 }
