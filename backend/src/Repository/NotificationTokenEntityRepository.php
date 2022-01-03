@@ -67,4 +67,17 @@ class NotificationTokenEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getStoreTokens($storeIDs)
+    {
+        return $this->createQueryBuilder('NotificationTokenEntity')
+            ->select('NotificationTokenEntity.token')
+
+            ->andWhere("NotificationTokenEntity.userID IN (:storeIDs)")
+
+            ->setParameter('storeIDs', $storeIDs)
+
+            ->getQuery()
+            ->getResult();
+    }
 }
