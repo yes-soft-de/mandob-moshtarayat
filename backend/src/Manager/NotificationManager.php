@@ -30,6 +30,11 @@ class NotificationManager
         return $this->notificationTokenEntityRepository->getTokens();
     }
 
+    public function getStoreTokens($storeIDs)
+    {
+        return $this->notificationTokenEntityRepository->getStoreTokens($storeIDs);
+    }
+
     public function notificationTokenCreate(NotificationTokenRequest $request)
     {
         $create = $this->autoMapping->map(NotificationTokenRequest::class, NotificationTokenEntity::class, $request);

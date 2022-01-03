@@ -41,19 +41,29 @@ class NotificationController extends BaseController
         return $this->response($response, self::CREATE);
     }
 
+
     /**
      * @Route("/notificationnewchat", name="notificationnewchat", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
      */
-    public function notificationNewChat(Request $request)
+    public function notificationNewChat(Request $request): JsonResponse
     {
+        $userType="";
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class,NotificationTokenRequest::class,(object)$data);
-        $request->setUserID($this->getUser()->getUsername());
-        
-        $response = $this->notificationService->notificationNewChat($request);
+
+        $request->setUserID($this->getUserId());
+
+        if ($this->isGranted('ROLE_OWNER')) {
+            $userType = "store";
+        }
+        if ($this->isGranted('ROLE_CAPTAIN')) {
+            $userType = "captain";
+        }
+
+        $response = $this->notificationService->notificationNewChat($request, $userType);
 
         return $this->response($response, self::CREATE);
     }

@@ -4,9 +4,9 @@
 namespace App\Service;
 
 use App\AutoMapping;
+use App\Constant\NotificationStoreConstant;
 use App\Entity\NotificationTokenEntity;
 use App\Manager\NotificationManager;
-use App\Request\SendNotificationRequest;
 use App\Service\RoomIdHelperService;
 use App\Service\SupportService;
 use App\Service\CaptainProfileService;
@@ -27,11 +27,12 @@ class NotificationService
     private $supportService;
     private $autoMapping;
     private $captainProfileService;
+    private $userService;
 
 //    const CAPTAIN_TOPIC = 'captains';
     const URL = '/order_details';
 
-    public function __construct(AutoMapping $autoMapping, Messaging $messaging, NotificationManager $notificationManager, RoomIdHelperService $roomIdHelperService, supportService $supportService, CaptainProfileService $captainProfileService)
+    public function __construct(AutoMapping $autoMapping, Messaging $messaging, NotificationManager $notificationManager, RoomIdHelperService $roomIdHelperService, supportService $supportService, CaptainProfileService $captainProfileService, UserService $userService)
     {
         $this->messaging = $messaging;
         $this->notificationManager = $notificationManager;
@@ -39,6 +40,7 @@ class NotificationService
         $this->roomIdHelperService = $roomIdHelperService;
         $this->supportService = $supportService;
         $this->captainProfileService = $captainProfileService;
+        $this->userService = $userService;
     }
 
     public function getTokens()
@@ -46,7 +48,7 @@ class NotificationService
         return $this->notificationManager->getTokens();
     }
 
-    public function notificationToCaptain($orderNumber)
+    public function notificationToCaptains($orderNumber)
     {
         $getTokens = $this->getTokens();
         foreach ($getTokens as $token) {
@@ -70,7 +72,7 @@ class NotificationService
         $this->messaging->sendMulticast($message, $tokens);
     }
 
-    public function notificationOrderUpdateForClient($clientID, $orderNumber)
+    public function notificationOrderUpdateForUser($userID, $orderNumber, $msg)
     {
         $payload = [
             'click_action' => 'FLUTTER_NOTIFICATION_CLICK',
@@ -78,43 +80,105 @@ class NotificationService
             'argument' => $orderNumber,
         ];
 
-        $msg = MessageConstant::$MESSAGE_STATUS_ORDER_UPDATE." ".$orderNumber;
-
         $devicesToken = [];
 
-        $firstUserToken = $this->getNotificationTokenByUserID($clientID);
+        $firstUserToken = $this->getNotificationTokenByUserID($userID);
 
         $devicesToken[] = $firstUserToken;
 
+        $msg = $msg." ".$orderNumber;
+
         $message = CloudMessage::new()
-            ->withNotification(Notification::create(DeliveryCompanyNameConstant::$Delivery_Company_Name,$msg ))
+            ->withNotification(Notification::create(DeliveryCompanyNameConstant::$Delivery_Company_Name, $msg))
             ->withDefaultSounds()
             ->withHighestPossiblePriority();
+
         $message = $message->withData($payload);
 
         $this->messaging->sendMulticast($message, $devicesToken);
     }
-//TODO
-    public function notificationOrderUpdateForStore( $storeIds)
+
+    public function getStoreTokens($storeIDs)
     {
-        $storeIDs = array_unique($storeIds);
+        return $this->notificationManager->getStoreTokens($storeIDs);
     }
 
-    public function notificationNewChat($request)
+    public function notificationOrderUpdateForStores($storeIds, $orderNumber, $msg)
     {
+        $storeIDs = array_unique($storeIds);
+
+        $getTokens = $this->getStoreTokens($storeIDs);
+        foreach ($getTokens as $token) {
+            $tokens[] = $token['token'];
+        }
+
+        $payload = [
+            'click_action' => 'FLUTTER_NOTIFICATION_CLICK',
+            'navigate_route' => self::URL,
+            'argument' => $orderNumber,
+        ];
+
+        $msg = $msg." ".$orderNumber;
+
+        $message = CloudMessage::new()
+            ->withNotification(
+                Notification::create(DeliveryCompanyNameConstant::$Delivery_Company_Name, $msg))
+            ->withDefaultSounds()
+            ->withHighestPossiblePriority();
+
+        $message = $message->withData($payload);
+
+        $this->messaging->sendMulticast($message, $tokens);
+    }
+//
+//    public function notificationNewChat($request)
+//    {
+//        $item = $this->roomIdHelperService->getByRoomID($request->getRoomID());
+//        if($item) {
+//            $devicesToken = [];
+//            $userTokenOne = $this->getNotificationTokenByUserID($item['captainID']);
+//            $devicesToken[] = $userTokenOne;
+//            $userTokenTwo = $this->getNotificationTokenByUserID($item['ownerID']);
+//            $devicesToken[] = $userTokenTwo;
+//
+//            $message = CloudMessage::new()
+//                ->withNotification(Notification::create(DeliveryCompanyNameConstant::$Delivery_Company_Name, MessageConstant::$MESSAGE_NEW_CHAT));
+//
+//            $this->messaging->sendMulticast($message, $devicesToken);
+//        }
+//    }
+
+    public function notificationNewChat($request, $userType ='null')
+    {
+        $storeProfileId = $this->userService->getStoreProfileId($request->getUserID());
+
+        $payload = [
+
+            'click_action' => 'FLUTTER_NOTIFICATION_CLICK',
+            'navigate_route' => '/chat',
+            'argument' => $request->getRoomID(),
+        ];
+
         $item = $this->roomIdHelperService->getByRoomID($request->getRoomID());
+
         if($item) {
             $devicesToken = [];
-            $userTokenOne = $this->getNotificationTokenByUserID($item['captainID']);
-            $devicesToken[] = $userTokenOne;
-            $userTokenTwo = $this->getNotificationTokenByUserID($item['ownerID']);
-            $devicesToken[] = $userTokenTwo;
+            if($userType == 'store') {
+                $userTokenOne = $this->getNotificationTokenByUserID($item['captainID']);
+                $devicesToken[] = $userTokenOne;
+            }
+
+            if($userType == 'captain') {
+                $userTokenTwo = $this->getNotificationTokenByUserID($item['ownerID']);
+                $devicesToken[] = $userTokenTwo;
+            }
 
             $message = CloudMessage::new()
-                ->withNotification(Notification::create(DeliveryCompanyNameConstant::$Delivery_Company_Name, MessageConstant::$MESSAGE_NEW_CHAT));
-
-            $this->messaging->sendMulticast($message, $devicesToken);   
-        }    
+                ->withNotification(Notification::create(DeliveryCompanyNameConstant::$Delivery_Company_Name, MessageConstant::$MESSAGE_NEW_CHAT))->withDefaultSounds()
+                ->withHighestPossiblePriority();
+            $message = $message->withData($payload);
+            $this->messaging->sendMulticast($message, $devicesToken);
+        }
     }
 
     public function updateNewMessageStatusInReport($request)

@@ -5,6 +5,9 @@ namespace App\Service;
 use App\AutoMapping;
 use App\Constant\LocalNotificationList;
 use App\Constant\LocalStoreNotificationList;
+use App\Constant\MessageConstant;
+use App\Constant\NotificationCaptainConstant;
+use App\Constant\NotificationStoreConstant;
 use App\Constant\OrderStateConstant;
 use App\Entity\ElectronicPaymentInfoEntity;
 use App\Entity\OrderEntity;
@@ -63,7 +66,7 @@ class OrderService
     private $storeOwnerProfileService;
     private $params;
     private $ratingService;
-    // private $notificationService;
+    private $notificationService;
     private $roomIdHelperService;
     private $dateFactoryService;
     private $captainProfileService;
@@ -155,7 +158,20 @@ class OrderService
                     //create store notification local
                     $this->notificationLocalService->createStoreNotificationLocal($orderDetailUpdate['storeIds'], LocalStoreNotificationList::$STATE_TITLE, $request->getState(), $request->getOrderNumber(), true);
                     //create firebase notification fro client
-                    $this->notificationService->notificationOrderUpdateForClient($item->getClientID(), $request->getOrderNumber());
+                    try {
+                        $this->notificationService->notificationOrderUpdateForUser($item->getClientID(), $request->getOrderNumber(), MessageConstant::$MESSAGE_STATUS_ORDER_UPDATE);
+                    }
+                    catch (\Exception $e){
+                        error_log($e);
+                    }
+
+                    //create firebase notification for store
+                    try{
+                        $this->notificationService->notificationOrderUpdateForStores($orderDetailUpdate['storeIds'], $request->getOrderNumber(),NotificationStoreConstant::$MESSAGE_STORE_ORDER_UPDATE);
+                    }
+                    catch (\Exception $e){
+                        error_log($e);
+                    }
                 }
             }
 
@@ -195,7 +211,20 @@ class OrderService
                         $this->notificationLocalService->createUpdateOrderStateStoreNotificationLocal($request->getState(),LocalNotificationList::$STATE_TITLE , $request->getStoreOwnerProfileID(), $request->getOrderNumber());
 
                         //create firebase notification for client
-                        $this->notificationService->notificationOrderUpdateForClient($order->getClientID(), $request->getOrderNumber());
+                        try{
+                            $this->notificationService->notificationOrderUpdateForUser($order->getClientID(), $request->getOrderNumber(), MessageConstant::$MESSAGE_STATUS_ORDER_UPDATE);
+                        }
+                        catch (\Exception $e){
+                            error_log($e);
+                        }
+
+                        //create firebase notification for store
+                        try{
+                            $this->notificationService->notificationOrderUpdateForUser($request->getStoreOwnerProfileID(), $request->getOrderNumber(), NotificationStoreConstant::$MESSAGE_STORE_ORDER_UPDATE);
+                        }
+                        catch (\Exception $e){
+                            error_log($e);
+                        }
                     }
                     $response = $this->autoMapping->map(OrderUpdateStateForEachStoreResponse::class, OrderUpdateStateForEachStoreResponse::class, $orderDetails);
                 }
@@ -398,10 +427,19 @@ class OrderService
             $this->notificationLocalService->createNotificationLocal($request->getClientID(), LocalNotificationList::$NEW_ORDER_TITLE, LocalNotificationList::$CREATE_ORDER_SUCCESS, $orderNumber);
 
             //create firebase notification
-            $this->notificationService->notificationToCaptain($orderNumber);
-
-//            $response = $this->autoMapping->map(OrderEntity::class, OrderCreateClientResponse::class, $item);
-//            $response->orderDetail = $orderDetail;
+            try{
+                 $this->notificationService->notificationToCaptains($orderNumber);
+            }
+                 catch (\Exception $e){
+                 error_log($e);
+            }
+            //create firebase notification store
+            try{
+                 $this->notificationService->notificationOrderUpdateForStores($storeIDs, $orderNumber, NotificationStoreConstant::$MESSAGE_STORE_NEW_ORDER);
+            }
+            catch (\Exception $e){
+                error_log($e);
+            }
             $response = $this->getOrderDetailsForClient($orderNumber);
         }
 
@@ -471,11 +509,30 @@ class OrderService
             //create store notification local
             $this->notificationLocalService->createNotificationLocal($request->getStoreOwnerProfileID(), LocalStoreNotificationList::$NEW_ORDER_TITLE, LocalStoreNotificationList::$CREATE_ORDER_SUCCESS, $orderNumber);
 
-            //create firebase notification
-            $this->notificationService->notificationToCaptain($orderNumber);
-//            $response = $this->autoMapping->map(OrderEntity::class, OrderClientSendCreateResponse::class, $item);
-//            $response->orderDetail['orderNumber'] = $orderDetail->orderNumber;
-//            $response->orderDetail['orderDetailId'] = $orderDetail->id;
+            //create firebase notification captain
+            try{
+                $this->notificationService->notificationToCaptains($orderNumber);
+            }
+            catch (\Exception $e){
+                error_log($e);
+            }
+
+            //create firebase notification store
+            try{
+                $this->notificationService->notificationOrderUpdateForUser($request->getStoreOwnerProfileID(), $orderNumber, NotificationStoreConstant::$MESSAGE_STORE_NEW_ORDER);
+            }
+            catch (\Exception $e){
+                error_log($e);
+            }
+
+            //create firebase notification client
+            try{
+                $this->notificationService->notificationOrderUpdateForUser($request->getClientID(), $orderNumber, LocalNotificationList::$CREATE_ORDER_SUCCESS);
+            }
+            catch (\Exception $e){
+                error_log($e);
+            }
+
             $response = $this->getOrderDetailsForClient($orderNumber);
         }
           
@@ -569,10 +626,16 @@ class OrderService
 
         if($orderId) {
             $order = $this->orderManager->orderStatusByOrderId($orderId[0]['orderID']);
-            if($order['state'] != OrderStateConstant::$ORDER_STATE_PENDING ) {
+            if($order['state'] != OrderStateConstant::$ORDER_STATE_PENDING and $order['state'] != OrderStateConstant::$ORDER_STATE_NOT_PAID ) {
                 //notification local
                 $this->notificationLocalService->createNotificationLocal($request->getClientID(), LocalNotificationList::$UPDATE_ORDER_TITLE, LocalNotificationList::$UPDATE_ORDER_ERROR_CAPTAIN_IN_STORE, $request->getOrderNumber());
-
+                //create firebase notification for client
+                try {
+                    $this->notificationService->notificationOrderUpdateForUser($request->getClientID(), $request->getOrderNumber(), MessageConstant::$UPDATE_ORDER_ERROR_CAPTAIN_IN_STORE);
+                }
+                catch (\Exception $e){
+                    error_log($e);
+                }
                 return ResponseConstant::$ORDER_NOT_UPDATE_STATE;
             }
 
@@ -594,6 +657,15 @@ class OrderService
                 }
                 //notification local
                 $this->notificationLocalService->createNotificationLocal($request->GetClientID(), LocalNotificationList::$UPDATE_ORDER_TITLE, LocalNotificationList::$UPDATE_ORDER_SUCCESS, $request->getOrderNumber());
+
+                //create firebase notification for client
+                try {
+                    $this->notificationService->notificationOrderUpdateForUser($request->getClientID(), $request->getOrderNumber(), LocalNotificationList::$UPDATE_ORDER_SUCCESS);
+                }
+                catch (\Exception $e){
+                    error_log($e);
+                }
+
                 $response = $this->autoMapping->map(OrderUpdateProductCountByClientResponse::class, OrderUpdateProductCountByClientResponse::class, $updateProductCount);
             }
         }
@@ -690,32 +762,83 @@ class OrderService
                 //notification local
                 $this->notificationLocalService->createNotificationLocal($userID, LocalNotificationList::$CANCEL_ORDER_TITLE, LocalNotificationList::$CANCEL_ORDER_ERROR_TIME, $orderNumber);
 
+                //create firebase notification for client
+                try {
+                    $this->notificationService->notificationOrderUpdateForUser($userID, $orderNumber, LocalNotificationList::$CANCEL_ORDER_ERROR_TIME);
+                }
+                catch (\Exception $e){
+                    error_log($e);
+                }
+
                 $response=ResponseConstant::$ORDER_NOT_REMOVE_TIME;
             }
 
-            elseif ($order['state'] != OrderStateConstant::$ORDER_STATE_PENDING) {
+            elseif ($order['state'] != OrderStateConstant::$ORDER_STATE_PENDING ) {
                 //notification local
                 $this->notificationLocalService->createNotificationLocal($userID, LocalNotificationList::$CANCEL_ORDER_TITLE, LocalNotificationList::$CANCEL_ORDER_ERROR_ACCEPTED, $orderNumber);
+
+                //create firebase notification for client
+                try {
+                    $this->notificationService->notificationOrderUpdateForUser($userID, $orderNumber, LocalNotificationList::$CANCEL_ORDER_ERROR_ACCEPTED);
+                }
+                catch (\Exception $e){
+                    error_log($e);
+                }
 
                 $response = ResponseConstant::$ORDER_NOT_REMOVE_CAPTAIN_RECEIVED;
             }            
 
+            elseif ($order['state'] != OrderStateConstant::$ORDER_STATE_PENDING and $order['state'] != OrderStateConstant::$ORDER_STATE_NOT_PAID ) {
+                //notification local
+                $this->notificationLocalService->createNotificationLocal($userID, LocalNotificationList::$CANCEL_ORDER_TITLE, LocalNotificationList::$CANCEL_ORDER_ERROR_ACCEPTED, $orderNumber);
+
+                //create firebase notification for client
+                try {
+                    $this->notificationService->notificationOrderUpdateForUser($userID, $orderNumber, LocalNotificationList::$CANCEL_ORDER_ERROR_ACCEPTED);
+                }
+                catch (\Exception $e){
+                    error_log($e);
+                }
+
+                $response = ResponseConstant::$ORDER_NOT_REMOVE_CAPTAIN_RECEIVED;
+            }
+
             else {
                 $item = $this->orderManager->orderCancel($orderDetails[0]['orderID']);
+
                 if($item) {
+
+                    $orderDetailUpdate = $this->orderDetailService->orderUpdateStateByOrderState(OrderStateConstant::$ORDER_STATE_CANCEL , $orderNumber, null);
+
                     //----> start create log
                     // if order type is product order or special order
                     if ($item->getOrderType() == 1 ||  $item->getOrderType() == 2) {
-                        $this->orderLogService->createOrderLog($orderNumber, $item->getState(), $userID, $orderDetails[0]['storeOwnerProfileID']);
+                        $this->orderLogService->createOrderLog($orderNumber, OrderStateConstant::$ORDER_STATE_CANCEL, $userID, $orderDetails[0]['storeOwnerProfileID']);
                     }
 
                     //----> if order type is send order
                     if ($item->getOrderType() == 3) {
-                        $this->orderLogService->createOrderLog($orderNumber, $item->getState(), $userID);
+                        $this->orderLogService->createOrderLog($orderNumber, OrderStateConstant::$ORDER_STATE_CANCEL, $userID);
                     }
 
                     //notification local
                     $this->notificationLocalService->createNotificationLocal($userID, LocalNotificationList::$CANCEL_ORDER_TITLE, LocalNotificationList::$CANCEL_ORDER_SUCCESS, $orderNumber);
+
+                    //create firebase notification for client
+                    try {
+                        $this->notificationService->notificationOrderUpdateForUser($userID, $orderNumber, LocalNotificationList::$CANCEL_ORDER_SUCCESS);
+                    }
+                    catch (\Exception $e){
+                        error_log($e);
+                    }
+
+                    //create firebase notification for store
+                    try {
+                        $this->notificationService->notificationOrderUpdateForStores($orderDetailUpdate['storeIds'], $orderNumber, NotificationStoreConstant::$MESSAGE_STORE_ORDER_CANCEL);
+                    }
+                    catch (\Exception $e){
+                        error_log($e);
+                    }
                 }
 
                 $response = $this->autoMapping->map(OrderEntity::class, OrderCancelResponse::class, $item);
