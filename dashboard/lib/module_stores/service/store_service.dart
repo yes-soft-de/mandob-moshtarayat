@@ -84,7 +84,8 @@ class StoresService {
     }
     return DataModel.empty();
   }
-   Future<DataModel> getStoreBalance(int id) async {
+
+  Future<DataModel> getStoreBalance(int id) async {
     StoreBalanceResponse? _storeResponse =
         await _storeManager.getStoreAccountBalance(id);
     if (_storeResponse == null) {

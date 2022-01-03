@@ -5509,6 +5509,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Private orders`
+  String get outerOrder {
+    return Intl.message(
+      'Private orders',
+      name: 'outerOrder',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

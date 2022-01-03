@@ -7,6 +7,7 @@ import 'package:mandob_moshtarayat_dashboad/module_captain/response/captain_unfi
 import 'package:mandob_moshtarayat_dashboad/module_captain/response/in_active_captain_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_reports/repository/reports_repository.dart';
+import 'package:mandob_moshtarayat_dashboad/module_reports/response/custom_product_response/custom_product_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_reports/response/reports_captain_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_reports/response/reports_client_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_reports/response/reports_products_response.dart';
@@ -26,4 +27,6 @@ class ReportsManager {
       _reportRepository.getProductsReport();
   Future<ReportsClientResponse?> getClientReport() =>
       _reportRepository.getClientsReport();
+  Future<CustomProductResponse?> getCustomProduct() =>
+      _reportRepository.getCustomProduct();
 }

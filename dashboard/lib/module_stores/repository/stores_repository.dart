@@ -70,8 +70,7 @@ class StoresRepository {
     return StoreBalanceResponse.fromJson(response);
   }
 
-  Future<StoreBalanceResponse?> getStoreAccountBalance(
-      int storeId) async {
+  Future<StoreBalanceResponse?> getStoreAccountBalance(int storeId) async {
     var token = await _authService.getToken();
     dynamic response = await _apiClient.get(
         Urls.GET_ACCOUNT_BALANCE_STORE + '$storeId',

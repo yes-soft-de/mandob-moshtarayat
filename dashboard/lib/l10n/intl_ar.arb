@@ -546,7 +546,8 @@
   "storeBalance":"حساب المتجر",
   "paymentsForStore":"دفعات للمتجر",
   "remainingAmountForStore":"المبلغ المتبقي للمتجر",
-  "sumPaymentsForStore":"إجمالي الدفعات"
+  "sumPaymentsForStore":"إجمالي الدفعات",
+  "outerOrder":"طلبات خاصة"
 
 
 }

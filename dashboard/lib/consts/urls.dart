@@ -118,10 +118,13 @@ class Urls {
       BASE_API + '/updateproductcommissionbyadmin';
   static const GET_DISTRO_API = BASE_API + '/mandobfilterbystatus/';
 
-    static const GET_ACCOUNT_BALANCE_STORE =
+  static const GET_ACCOUNT_BALANCE_STORE =
       BASE_API + '/storefinancialaccountforadmin/';
   static const GET_ACCOUNT_BALANCE_STORE_LAST_MONTH =
       BASE_API + '/captainfinancialaccountinlastmonthforadmin/';
   static const GET_ACCOUNT_BALANCE_STORE_SPECIFIC =
       BASE_API + '/captainfinancialaccountinspecificdateforadmin/';
+  static const GET_CUSTOM_PRODUCTS_API = BASE_API + '/customproductsnotfound';
+  static const GET_CLIENT_NEED_SUPPORT = BASE_API + '/clientwhoneedsupport';
+
 }

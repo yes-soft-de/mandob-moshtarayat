@@ -3,22 +3,23 @@ import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat_dashboad/abstracts/states/loading_state.dart';
 import 'package:mandob_moshtarayat_dashboad/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
-import 'package:mandob_moshtarayat_dashboad/module_stores/state_manager/store_balance_state_manager.dart';
+import 'package:mandob_moshtarayat_dashboad/global_nav_key.dart';
+import 'package:mandob_moshtarayat_dashboad/module_clients/state_manager/clients_need_support_state_manager.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_app_bar.dart';
 
 @injectable
-class StoreBalanceScreen extends StatefulWidget {
-  final StoreBalanceStateManager _stateManager;
+class ClientsNeedsSupportScreen extends StatefulWidget {
+  final ClientsNeedsSupportStateManager _stateManager;
 
-  StoreBalanceScreen(this._stateManager);
+  ClientsNeedsSupportScreen(this._stateManager);
 
   @override
-  StoreBalanceScreenState createState() => StoreBalanceScreenState();
+  ClientsNeedsSupportScreenState createState() => ClientsNeedsSupportScreenState();
 }
 
-class StoreBalanceScreenState extends State<StoreBalanceScreen> {
+class ClientsNeedsSupportScreenState extends State<ClientsNeedsSupportScreen> {
   late States currentState;
-  int storeID = -1;
+
   @override
   void initState() {
     currentState = LoadingState(this);
@@ -26,11 +27,12 @@ class StoreBalanceScreenState extends State<StoreBalanceScreen> {
       currentState = event;
       refresh();
     });
+    widget._stateManager.getClients(this);
     super.initState();
   }
 
-  void getPayments() {
-    widget._stateManager.getBalance(this, storeID);
+  void getClients() {
+    widget._stateManager.getClients(this);
   }
 
   void refresh() {
@@ -41,16 +43,11 @@ class StoreBalanceScreenState extends State<StoreBalanceScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (storeID == -1) {
-      var arg = ModalRoute.of(context)?.settings.arguments;
-      if (arg != null && arg is int) {
-        storeID = arg;
-        widget._stateManager.getBalance(this, storeID);
-      }
-    }
     return Scaffold(
       appBar: CustomTwaslnaAppBar.appBar(context,
-          title: S.of(context).storeBalance),
+          title: S.of(context).clients, icon: Icons.menu, onTap: () {
+        GlobalVariable.mainScreenScaffold.currentState?.openDrawer();
+      }),
       body: currentState.getUI(context),
     );
   }

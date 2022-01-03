@@ -15,8 +15,8 @@ class StoresModule extends YesModule {
   final StoreInfoScreen _storeInfoScreen;
   final StoresInActiveScreen storesInActiveScreen;
   final StoreBalanceScreen storeBalanceScreen;
-  StoresModule(
-      this.storesScreen, this._storeInfoScreen, this.storesInActiveScreen,this.storeBalanceScreen) {
+  StoresModule(this.storesScreen, this._storeInfoScreen,
+      this.storesInActiveScreen, this.storeBalanceScreen) {
     YesModule.RoutesMap.addAll(getRoutes());
   }
   Map<String, WidgetBuilder> getRoutes() {

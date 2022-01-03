@@ -6,8 +6,10 @@ import 'package:mandob_moshtarayat_dashboad/module_captain/response/in_active_ca
 import 'package:mandob_moshtarayat_dashboad/module_reports/manager/reports_manager.dart';
 import 'package:mandob_moshtarayat_dashboad/module_reports/model/captains_report_model.dart';
 import 'package:mandob_moshtarayat_dashboad/module_reports/model/clients_report_model.dart';
+import 'package:mandob_moshtarayat_dashboad/module_reports/model/custom_product_model.dart';
 import 'package:mandob_moshtarayat_dashboad/module_reports/model/product_report_model.dart';
 import 'package:mandob_moshtarayat_dashboad/module_reports/model/store_report_model.dart';
+import 'package:mandob_moshtarayat_dashboad/module_reports/response/custom_product_response/custom_product_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_reports/response/reports_captain_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_reports/response/reports_client_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_reports/response/reports_products_response.dart';
@@ -74,5 +76,19 @@ class ReportsService {
     }
     if (_reportProductsResponse.data == null) return DataModel.empty();
     return ProductsReportModel.withData(_reportProductsResponse.data!);
+  }
+
+  Future<DataModel> getCustomProduct() async {
+    CustomProductResponse? _reportProductsResponse =
+        await _reportManager.getCustomProduct();
+    if (_reportProductsResponse == null) {
+      return DataModel.withError(S.current.networkError);
+    }
+    if (_reportProductsResponse.statusCode != '200') {
+      return DataModel.withError(StatusCodeHelper.getStatusCodeMessages(
+          _reportProductsResponse.statusCode));
+    }
+    if (_reportProductsResponse.data == null) return DataModel.empty();
+    return CustomProductModel.withData(_reportProductsResponse.data!);
   }
 }

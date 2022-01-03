@@ -65,7 +65,8 @@ class StoreInfoScreenState extends State<StoreInfoScreen> {
               child: InkWell(
                 customBorder: CircleBorder(),
                 onTap: () {
-                  Navigator.of(context).pushNamed(StoresRoutes.STORE_BALANCE,arguments: model?.id ?? -1);
+                  Navigator.of(context).pushNamed(StoresRoutes.STORE_BALANCE,
+                      arguments: model?.id ?? -1);
                 },
                 child: Container(
                   decoration: BoxDecoration(
