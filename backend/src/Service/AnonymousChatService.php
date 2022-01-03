@@ -26,4 +26,9 @@ class AnonymousChatService
         return $this->autoMapping->map(AnonymousChatEntity::class, AnonymousChatCreateResponse::class, $item);
     }
 
+    public function getAnonymousUsersWhoNeedSupport()
+    {
+        return $this->anonymousChatManager->getAnonymousUsersWhoNeedSupport();
+    }
+
 }

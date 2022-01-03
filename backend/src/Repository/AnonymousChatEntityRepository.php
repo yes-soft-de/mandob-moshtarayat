@@ -19,4 +19,16 @@ class AnonymousChatEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, AnonymousChatEntity::class);
     }
 
+    public function getAnonymousUsersWhoNeedSupport()
+    {
+        return $this->createQueryBuilder('anonymousChatEntity')
+            ->select('anonymousChatEntity.id', 'anonymousChatEntity.roomID', 'anonymousChatEntity.name as clientName', 'anonymousChatEntity.createdAt')
+
+            ->andWhere('anonymousChatEntity.needSupport = :needSupport')
+            ->setParameter('needSupport', 1)
+
+            ->getQuery()
+            ->getResult();
+    }
+
 }

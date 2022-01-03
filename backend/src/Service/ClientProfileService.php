@@ -43,10 +43,12 @@ class ClientProfileService
     private $productService;
     private $ratingService;
     private $verificationService;
+    private $anonymousChatService;
     private $params;
 
     public function __construct(AutoMapping $autoMapping, UserManager $userManager,  RatingService $ratingService, ParameterBagInterface $params, RoomIdHelperService $roomIdHelperService,
-                                ProductService $productService, StoreOwnerProfileService $storeOwnerProfileService, VerificationService $verificationService, ClientProfileManager $clientProfileManager)
+                                ProductService $productService, StoreOwnerProfileService $storeOwnerProfileService, VerificationService $verificationService, ClientProfileManager $clientProfileManager,
+     AnonymousChatService $anonymousChatService)
     {
         $this->autoMapping = $autoMapping;
         $this->userManager = $userManager;
@@ -56,6 +58,7 @@ class ClientProfileService
         $this->productService = $productService;
         $this->storeOwnerProfileService = $storeOwnerProfileService;
         $this->verificationService = $verificationService;
+        $this->anonymousChatService = $anonymousChatService;
 
         $this->params = $params->get('upload_base_url') . '/';
     }
@@ -258,6 +261,18 @@ class ClientProfileService
             }
 
             $response[] = $this->autoMapping->map('array', ClientProfileByUserIdGetResponse::class, $clientProfile);
+        }
+
+        // Also, get anonymous users who need support
+        $anonymousChats = $this->anonymousChatService->getAnonymousUsersWhoNeedSupport();
+
+        foreach ($anonymousChats as $anonymousChat)
+        {
+            if (!$anonymousChat['clientName'])
+            {
+                $anonymousChat['clientName'] = (string)($anonymousChat['createdAt'])->format('Y-m-d H:i:s');
+            }
+            $response[] = $this->autoMapping->map('array', ClientProfileByUserIdGetResponse::class, $anonymousChat);
         }
 
         return $response;

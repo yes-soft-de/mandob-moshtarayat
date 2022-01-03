@@ -32,4 +32,9 @@ class AnonymousChatManager
         return $anonymousChat;
     }
 
+    public function getAnonymousUsersWhoNeedSupport()
+    {
+        return $this->anonymousChatEntityRepository->getAnonymousUsersWhoNeedSupport();
+    }
+
 }
