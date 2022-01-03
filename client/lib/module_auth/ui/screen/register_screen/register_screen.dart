@@ -32,8 +32,6 @@ class RegisterScreenState extends State<RegisterScreen> {
   late StreamSubscription _stateSubscription;
   int? returnToMainScreen;
   bool? returnToPreviousScreen;
-  late String userID;
-  late String pass;
   late bool flags = true;
   bool activeResend = false;
   @override
@@ -58,18 +56,6 @@ class RegisterScreenState extends State<RegisterScreen> {
   }
 
   dynamic args;
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    var args = ModalRoute.of(context)?.settings.arguments;
-    if (args != null && flags && args is Map) {
-      userID = args['userID'];
-      pass = args['pass'];
-      activeResend = true;
-      _currentState = RegisterStatePhoneCodeSent(this);
-      flags = false;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {

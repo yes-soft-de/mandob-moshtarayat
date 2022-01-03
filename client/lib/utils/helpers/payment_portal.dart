@@ -1,18 +1,13 @@
 import 'dart:async';
 import 'dart:io';
-
-import 'package:analyzer_plugin/protocol/protocol.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_sell_sdk_flutter/go_sell_sdk_flutter.dart';
 import 'package:go_sell_sdk_flutter/model/models.dart';
-import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/consts/country_code.dart';
 import 'package:mandob_moshtarayat/consts/payment_secret_keys.dart';
-
 import 'package:mandob_moshtarayat/di/di_config.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
-import 'package:mandob_moshtarayat/module_auth/service/auth_service/auth_service.dart';
 import 'package:mandob_moshtarayat/module_auth/ui/widget/login_widgets/custom_field.dart';
 import 'package:mandob_moshtarayat/module_localization/service/localization_service/localization_service.dart';
 import 'package:mandob_moshtarayat/module_orders/model/order_details_model.dart';
@@ -262,192 +257,205 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
   final GlobalKey<FormState> _details = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: CustomTwaslnaAppBar.appBar(context, title: 'Taps Payments'),
-        body: SafeArea(
-          child: Form(
-            key: _details,
-            child: Column(
-              children: <Widget>[
-                Expanded(
-                  child: SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(
-                        parent: AlwaysScrollableScrollPhysics()),
-                    child: Column(
-                      children: [
-                        ListTile(
-                          leading: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Theme.of(context).backgroundColor,
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.of(context).pop();
+        Navigator.of(context).pop();
+        return false;
+      },
+      child: Scaffold(
+          appBar: CustomTwaslnaAppBar.appBar(context, title: 'Taps Payments',
+              onTap: () {
+            Navigator.of(context).pop();
+            Navigator.of(context).pop();
+          }),
+          body: SafeArea(
+            child: Form(
+              key: _details,
+              child: Column(
+                children: <Widget>[
+                  Expanded(
+                    child: SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(
+                          parent: AlwaysScrollableScrollPhysics()),
+                      child: Column(
+                        children: [
+                          ListTile(
+                            leading: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Theme.of(context).backgroundColor,
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Icon(Icons.person),
+                              ),
                             ),
-                            child: const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Icon(Icons.person),
-                            ),
-                          ),
-                          title: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: CustomFormField(
-                                controller: firstNameController,
-                                hintText: S.current.firstName),
-                          ),
-                        ),
-                        ListTile(
-                          leading: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Theme.of(context).backgroundColor,
-                            ),
-                            child: const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Icon(Icons.person),
-                            ),
-                          ),
-                          title: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: CustomFormField(
-                              controller: middleNameController,
-                              hintText: S.of(context).middleName,
+                            title: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: CustomFormField(
+                                  controller: firstNameController,
+                                  hintText: S.current.firstName),
                             ),
                           ),
-                        ),
-                        ListTile(
-                          leading: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Theme.of(context).backgroundColor,
+                          ListTile(
+                            leading: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Theme.of(context).backgroundColor,
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Icon(Icons.person),
+                              ),
                             ),
-                            child: const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Icon(Icons.person),
-                            ),
-                          ),
-                          title: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: CustomFormField(
-                              controller: lastNameController,
-                              hintText: S.of(context).lastName,
-                            ),
-                          ),
-                        ),
-                        ListTile(
-                          leading: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Theme.of(context).backgroundColor,
-                            ),
-                            child: const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Icon(Icons.email),
+                            title: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: CustomFormField(
+                                controller: middleNameController,
+                                hintText: S.of(context).middleName,
+                              ),
                             ),
                           ),
-                          title: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: CustomFormField(
-                              validator: false,
-                              controller: emailController,
-                              hintText: S.of(context).email,
+                          ListTile(
+                            leading: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Theme.of(context).backgroundColor,
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Icon(Icons.person),
+                              ),
+                            ),
+                            title: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: CustomFormField(
+                                controller: lastNameController,
+                                hintText: S.of(context).lastName,
+                              ),
                             ),
                           ),
-                        ),
-                        ListTile(
-                          leading: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Theme.of(context).backgroundColor,
+                          ListTile(
+                            leading: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Theme.of(context).backgroundColor,
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Icon(Icons.email),
+                              ),
                             ),
-                            child: const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Icon(Icons.phone),
-                            ),
-                          ),
-                          title: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: CustomLoginFormField(
+                            title: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: CustomFormField(
                                 validator: false,
-                                last: true,
-                                phone: true,
-                                controller: phoneNumberController,
-                                hintText: S.of(context).phoneNumber,
-                                borderRadius: 25),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 60,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: SizedBox(
-                          height: 45,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              onPrimary: _buttonColor,
-                              shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadiusDirectional.all(
-                                      Radius.circular(30))),
+                                controller: emailController,
+                                hintText: S.of(context).email,
+                              ),
                             ),
-                            onPressed: () async {
-                              widget.model.carts.forEach((e) {
-                                e.items.forEach((element) {
-                                  payments.add(PaymentItem(
-                                      amountPerUnit: element.productPrice,
-                                      name: element.productName,
-                                      quantity:
-                                          Quantity(value: element.countProduct),
-                                      totalAmount: (element.productPrice *
-                                              element.countProduct)
-                                          .toInt()));
-                                });
-                              });
-                              if (_details.currentState?.validate() == true &&
-                                  (emailController.text.isNotEmpty ||
-                                      phoneNumberController.text.isNotEmpty)) {
-                                await setupSDKSession();
-                                await startSDK();
-                              } else {
-                                CustomFlushBarHelper.createError(
-                                        title: S.current.warnning,
-                                        message:
-                                            S.current.pleaseCompleteTheForm)
-                                    .show(context);
-                              }
-                            },
-                            child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SizedBox(
-                                    width: 25,
-                                    height: 25,
-                                    child: AwesomeLoader(
-                                      outerColor: Colors.white,
-                                      innerColor: Colors.white,
-                                      strokeWidth: 3.0,
-                                      controller: loaderController,
-                                    ),
-                                  ),
-                                  const Spacer(),
-                                  Text(S.current.pay,
-                                      style: const TextStyle(
-                                          color: Colors.white, fontSize: 16.0)),
-                                  const Spacer(),
-                                  const Icon(
-                                    Icons.lock_outline,
-                                    color: Colors.white,
-                                  ),
-                                ]),
-                          )),
+                          ),
+                          ListTile(
+                            leading: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Theme.of(context).backgroundColor,
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Icon(Icons.phone),
+                              ),
+                            ),
+                            title: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: CustomLoginFormField(
+                                  validator: false,
+                                  last: true,
+                                  phone: true,
+                                  controller: phoneNumberController,
+                                  hintText: S.of(context).phoneNumber,
+                                  borderRadius: 25),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                  SizedBox(
+                    height: 60,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: SizedBox(
+                            height: 45,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                onPrimary: _buttonColor,
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadiusDirectional.all(
+                                        Radius.circular(30))),
+                              ),
+                              onPressed: () async {
+                                widget.model.carts.forEach((e) {
+                                  e.items.forEach((element) {
+                                    payments.add(PaymentItem(
+                                        amountPerUnit: element.productPrice,
+                                        name: element.productName,
+                                        quantity: Quantity(
+                                            value: element.countProduct),
+                                        totalAmount: (element.productPrice *
+                                                element.countProduct)
+                                            .toInt()));
+                                  });
+                                });
+                                if (_details.currentState?.validate() == true &&
+                                    (emailController.text.isNotEmpty ||
+                                        phoneNumberController
+                                            .text.isNotEmpty)) {
+                                  await setupSDKSession();
+                                  await startSDK();
+                                } else {
+                                  CustomFlushBarHelper.createError(
+                                          title: S.current.warnning,
+                                          message:
+                                              S.current.pleaseCompleteTheForm)
+                                      .show(context);
+                                }
+                              },
+                              child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      width: 25,
+                                      height: 25,
+                                      child: AwesomeLoader(
+                                        outerColor: Colors.white,
+                                        innerColor: Colors.white,
+                                        strokeWidth: 3.0,
+                                        controller: loaderController,
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    Text(S.current.pay,
+                                        style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 16.0)),
+                                    const Spacer(),
+                                    const Icon(
+                                      Icons.lock_outline,
+                                      color: Colors.white,
+                                    ),
+                                  ]),
+                            )),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ));
+          )),
+    );
   }
 }

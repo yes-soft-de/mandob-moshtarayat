@@ -32,6 +32,7 @@ class OrderStatusLoadedState extends OrderStatusState {
             screenState.rateCaptain(RateCaptainRequest(
                 rating: rate,
                 itemType: 'captain',
+                itemID: orderDetails.order.captainID,
                 orderNumber: screenState.orderNumber));
           },
         ),

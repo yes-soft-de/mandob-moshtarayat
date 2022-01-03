@@ -50,10 +50,11 @@ class ClientOrderScreenState extends State<ClientOrderScreen> {
               callback: (success,token,transaction,message) {
                 widget._clientOrderStateManager
                     .updatePaymentInfo(CreatePaymentRecordRequest(
-                      state: success ? 'pending' : 'not paid',
+                      state: success ? 'paid' : 'not paid',
                       token:token,
                       transactionId:transaction,
                       orderNumber: model.order.id,
+                      amount: model.order.orderCost,
                     ), this);
                 Navigator.of(context).pop();
                 moveDecision(success, message);

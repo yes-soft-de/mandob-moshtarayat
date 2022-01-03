@@ -36,4 +36,12 @@ class ChatRepository {
     // //   headers: {'Authorization': 'Bearer ' + token!},
     // // );
   }
+  Future<void> needSupport() async {
+    var token = await _authService.getToken();
+    await _apiClient.put(
+      Urls.NEEDFORSUPPORT,
+      {"needSupport": true},
+      headers: {'Authorization': 'Bearer ' + token!},
+    );
+  }
 }

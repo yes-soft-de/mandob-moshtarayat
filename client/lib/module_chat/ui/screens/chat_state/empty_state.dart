@@ -2,8 +2,10 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:lottie/lottie.dart';
+import 'package:mandob_moshtarayat/di/di_config.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_auth/service/auth_service/auth_service.dart';
+import 'package:mandob_moshtarayat/module_chat/manager/chat/chat_manager.dart';
 import 'package:mandob_moshtarayat/module_chat/state_manager/chat_state_manager.dart';
 import 'package:mandob_moshtarayat/module_chat/ui/widget/chat_writer/chat_writer.dart';
 import 'package:mandob_moshtarayat/module_upload/service/image_upload/image_upload_service.dart';
@@ -14,15 +16,18 @@ class EmptyChatPage extends StatelessWidget {
   final ChatStateManager _chatStateManager;
   final ImageUploadService _uploadService;
   final AuthService _authService;
+  final bool sendSupport;
 
-  EmptyChatPage(this._chatStateManager, this._uploadService, this._authService);
+  EmptyChatPage(this._chatStateManager, this._uploadService, this._authService,
+      this.sendSupport);
 
   @override
   Widget build(BuildContext context) {
     String chatRoomId = '';
     chatRoomId = ModalRoute.of(context)?.settings.arguments.toString() ?? '';
-    //chatRoomId = '63346434-8733-4b91-bda8-81e0579756c7';
-
+      if (chatRoomId.substring(0, 3) == '#S#') {
+        chatRoomId = chatRoomId.substring(3);
+      }
     return GestureDetector(
       onTap: () {
         var focus = FocusScope.of(context);
@@ -72,6 +77,9 @@ class EmptyChatPage extends StatelessWidget {
                     onMessageSend: (msg) {
                       _chatStateManager.sendMessage(
                           chatRoomId, msg, _authService.username);
+                      if (sendSupport) {
+                        getIt<ChatManager>().needSupport();
+                      }
                     },
                     uploadService: _uploadService,
                   ),
