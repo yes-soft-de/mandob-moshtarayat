@@ -11,6 +11,7 @@ use App\Response\AllCaptainsVerificationUpdateResponse;
 use App\Response\AllClientsVerificationUpdateResponse;
 use App\Response\AllStoreOwnerVerificationUpdateResponse;
 use App\Response\StoreOwnerVerificationStatusUpdateResponse;
+use App\Response\UserFilterResponse;
 use App\Response\UsersGetResponse;
 
 
@@ -155,6 +156,20 @@ class UserService
         {
             return $this->autoMapping->map(UserEntity::class, UsersGetResponse::class, $result);
         }
+    }
+
+    public function filterUsers($request)
+    {
+        $response = [];
+
+        $users = $this->userManager->filterUsers($request);
+
+        foreach ($users as $user)
+        {
+            $response[] = $this->autoMapping->map('array', UserFilterResponse::class, $user);
+        }
+
+        return $response;
     }
 
     public function deleteUserById($id)
