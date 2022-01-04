@@ -48,6 +48,7 @@
   "currentOrders": "Current Orders",
   "nearbyOrders": "Nearby Orders",
   "chatWithStoreOwner": "Chat with Store Owner",
+  "chatWithCaptain": "Chat with Captain",
   "whatsappWithStoreOwner": "Store Owner",
   "whatsappWithClient": "Client",
   "getDirection": "Get Direction",

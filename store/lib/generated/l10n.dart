@@ -530,6 +530,16 @@ class S {
     );
   }
 
+  /// `Chat with Captain`
+  String get chatWithCaptain {
+    return Intl.message(
+      'Chat with Captain',
+      name: 'chatWithCaptain',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Store Owner`
   String get whatsappWithStoreOwner {
     return Intl.message(
