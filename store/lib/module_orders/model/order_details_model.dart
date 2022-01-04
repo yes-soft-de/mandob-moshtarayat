@@ -9,35 +9,52 @@ import 'package:mandob_moshtarayat/utils/helpers/order_status_helper.dart';
 class OrderDetailsModel extends DataModel {
   List<Item> carts = [];
   int orderType = -1;
-  num invoiceAmount =0;
-  String invoiceImage='';
+  num invoiceAmount = 0;
+  String invoiceImage = '';
   OrderStatusEnum state = OrderStatusEnum.WAITING;
-  String   note='';
-  String   orderDetails='';
-  String createdAt='';
+  String note = '';
+  String orderDetails = '';
+  String createdAt = '';
+  String roomID = '';
+  String deliveryDate = '';
 //  StoreOwnerInfo storeInfo = StoreOwnerInfo.Empty();
 //  OrderInfo order = OrderInfo.Empty();
 
   OrderDetailsModel? orderDetailsModel;
 
   OrderDetailsModel(
-      {required this.carts,required this.state ,required this.invoiceImage,required this.createdAt,required this.orderType,required this.invoiceAmount,required this.orderDetails ,required this.note});
+      {required this.carts,
+      required this.state,
+      required this.invoiceImage,
+      required this.createdAt,
+      required this.orderType,
+      required this.invoiceAmount,
+      required this.orderDetails,
+      required this.note,
+      required this.roomID,
+      required this.deliveryDate});
 
   OrderDetailsModel.Data(OrderDetailsResponse response) {
     orderDetailsModel = OrderDetailsModel(
-        carts: toCartList(response.data?.data![0].orderDetails ?? <OrderDetails>[]),
-      orderType: response.data!.data![0].orderType??-1,
-      createdAt: DateFormat.jm()
-          .format(DateHelper.convert(response.data!.data![0].createdAt?.timestamp)) +
+      carts:
+          toCartList(response.data?.data![0].orderDetails ?? <OrderDetails>[]),
+      orderType: response.data!.data![0].orderType ?? -1,
+      createdAt: DateFormat.jm().format(DateHelper.convert(
+              response.data!.data![0].createdAt?.timestamp)) +
           '   ' +
-          DateFormat.yMd()
-              .format(DateHelper.convert(response.data!.data![0].createdAt?.timestamp)),
-      note: response.data!.data![0].note??'',
-      orderDetails: response.data!.data![0].detail??'',
-      invoiceAmount: response.data!.data![0].invoiceAmount??0,
+          DateFormat.yMd().format(
+              DateHelper.convert(response.data!.data![0].createdAt?.timestamp)),
+      deliveryDate: DateFormat.jm().format(DateHelper.convert(
+              response.data!.data![0].deliveryDate?.timestamp)) +
+          '   ' +
+          DateFormat.yMd().format(
+              DateHelper.convert(response.data!.data![0].deliveryDate?.timestamp)),
+      note: response.data!.data![0].note ?? '',
+      orderDetails: response.data!.data![0].detail ?? '',
+      invoiceAmount: response.data!.data![0].invoiceAmount ?? 0,
       state: StatusHelper.getStatusEnum(response.data!.data![0].state),
-      invoiceImage: response.data!.data![0].invoiceImage!.image??''
-
+      invoiceImage: response.data!.data![0].invoiceImage!.image ?? '',
+      roomID: response.data!.data![0].roomID ?? '',
     );
 //        order: toOrder(response.data?.order),
 //        storeInfo: StoreOwnerInfo(
@@ -55,7 +72,17 @@ class OrderDetailsModel extends DataModel {
 
   OrderDetailsModel get data =>
       orderDetailsModel ??
-      OrderDetailsModel(carts: carts, invoiceAmount: invoiceAmount, invoiceImage: invoiceImage, orderType: orderType,state: state,note: note,createdAt: createdAt,orderDetails: orderDetails);
+      OrderDetailsModel(
+          deliveryDate: deliveryDate,
+          carts: carts,
+          invoiceAmount: invoiceAmount,
+          invoiceImage: invoiceImage,
+          orderType: orderType,
+          state: state,
+          note: note,
+          createdAt: createdAt,
+          orderDetails: orderDetails,
+          roomID: roomID);
 }
 
 class Item {

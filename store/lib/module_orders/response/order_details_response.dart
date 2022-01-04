@@ -14,17 +14,15 @@ class OrderDetailsResponse {
     statusCode = json['status_code'];
     msg = json['msg'];
     data = json['Data'] != null ? Orders.fromJson(json['Data']) : null;
-    try {
-
-    } catch (e) {
+    try {} catch (e) {
       Logger().error(
           'Order Details Response', '${e.toString()}', StackTrace.current);
       statusCode = '-1';
     }
   }
-
 }
-class Orders{
+
+class Orders {
   List<Data>? data;
 
   Orders(this.data);
@@ -41,7 +39,6 @@ class Orders{
           .error('My Orders Response', '${e.toString()}', StackTrace.current);
     }
   }
-
 }
 
 class Data {
@@ -49,12 +46,24 @@ class Data {
   int? orderType;
   num? invoiceAmount;
   ImageUrl? invoiceImage;
-  String?   state;
-  String?   detail;
-  String?   note;
+  String? state;
+  String? detail;
+  String? note;
   CreatedAt? createdAt;
+  CreatedAt? deliveryDate;
+  String? roomID;
 
-  Data({this.orderDetails ,this.invoiceAmount ,this.orderType ,this.createdAt,this.invoiceImage,this.state,this.note,this.detail});
+  Data(
+      {this.orderDetails,
+      this.invoiceAmount,
+      this.orderType,
+      this.createdAt,
+      this.invoiceImage,
+      this.state,
+      this.note,
+      this.detail,
+      this.roomID,
+      this.deliveryDate});
 
   Data.fromJson(dynamic json) {
     if (json['products'] != null) {
@@ -63,20 +72,17 @@ class Data {
         orderDetails?.add(OrderDetails.fromJson(v));
       });
     }
-    if (createdAt != null) {
-      json['createdAt'] = createdAt?.toJson();
-    }
+    createdAt = json['createdAt'] == null ? null :  CreatedAt.fromJson(json['createdAt']);
+    deliveryDate= json['deliveryDate'] == null ? null : CreatedAt.fromJson(json['deliveryDate']);
     state = json['state'];
     orderType = json['orderType'];
     invoiceAmount = json['invoiceAmount'];
     invoiceImage = ImageUrl.fromJson(json['invoiceImage']);
     detail = json['detail'];
     note = json['note'];
-    }
-
+    roomID = json['roomID'];
+  }
 }
-
-
 
 class CreatedAt {
   Timezone? timezone;
@@ -188,7 +194,6 @@ class Transitions {
   }
 }
 
-
 class OrderDetails {
   int? id;
   int? productID;
@@ -218,7 +223,9 @@ class OrderDetails {
     productID = json['productID'];
     orderID = json['orderID'];
     productName = json['productName'];
-    productImage = json['productImage'] != null ? ImageUrl.fromJson(json['productImage']) : null;
+    productImage = json['productImage'] != null
+        ? ImageUrl.fromJson(json['productImage'])
+        : null;
     productPrice = json['productPrice']?.toDouble();
     countProduct = json['countProduct'];
     storeOwnerProfileID = json['storeOwnerProfileID'];

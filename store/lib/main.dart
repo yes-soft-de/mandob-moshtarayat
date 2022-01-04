@@ -129,19 +129,19 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     activeTheme = widget._themeDataService.getActiveTheme();
     timeago.setDefaultLocale(lang);
     Moment.setLocaleGlobally(lang == 'en' ? LocaleEn() : LocaleAr());
-    //widget._fireNotificationService.init();
-    //widget._localNotificationService.init();
+    widget._fireNotificationService.init();
+    widget._localNotificationService.init();
     widget._localizationService.localizationStream.listen((event) {
       timeago.setDefaultLocale(event);
       Moment.setLocaleGlobally(event == 'en' ? LocaleEn() : LocaleAr());
       lang = event;
       setState(() {});
     });
-    // widget._fireNotificationService.onNotificationStream.listen((event) {
-    //   widget._localNotificationService.showNotification(event);
-    // });
-    // widget._localNotificationService.onLocalNotificationStream
-    //     .listen((event) {});
+    widget._fireNotificationService.onNotificationStream.listen((event) {
+      widget._localNotificationService.showNotification(event);
+    });
+    widget._localNotificationService.onLocalNotificationStream
+        .listen((event) {});
     widget._themeDataService.darkModeStream.listen((event) {
       activeTheme = event;
       setState(() {});

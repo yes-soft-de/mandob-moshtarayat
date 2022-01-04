@@ -1,6 +1,5 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:injectable/injectable.dart';
-import 'package:mandob_moshtarayat/module_notifications/model/notification_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:rxdart/rxdart.dart';
@@ -17,7 +16,7 @@ class LocalNotificationService {
 
   Future<void> init() async {
     AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('icon');
+        AndroidInitializationSettings('logo');
 
     final IOSInitializationSettings initializationSettingsIOS =
         IOSInitializationSettings(requestSoundPermission: true);

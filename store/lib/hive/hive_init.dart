@@ -16,6 +16,7 @@ class HiveSetUp {
     await Hive.openBox('Authorization');
     await Hive.openBox('Theme');
     await Hive.openBox('Localization');
+    await Hive.openBox('Notification');
     await Hive.openBox('Init');
     await Hive.openBox('Chat');
   }
