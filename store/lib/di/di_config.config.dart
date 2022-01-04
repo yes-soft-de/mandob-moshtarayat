@@ -158,8 +158,8 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       () => _i8.LocalizationService(get<_i7.LocalizationPreferencesHelper>()));
   gh.factory<_i9.Logger>(() => _i9.Logger());
   gh.factory<_i10.MainScreen>(() => _i10.MainScreen());
-  gh.factory<_i11.NotificationsPrefsHelper>(
-      () => _i11.NotificationsPrefsHelper());
+  gh.factory<_i11.NotificationsPrefHelper>(
+      () => _i11.NotificationsPrefHelper());
   gh.factory<_i12.PolicyPage>(() => _i12.PolicyPage());
   gh.factory<_i13.TermOfServicePage>(() => _i13.TermOfServicePage());
   gh.factory<_i14.ThemePreferencesHelper>(() => _i14.ThemePreferencesHelper());
@@ -239,7 +239,7 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.factory<_i51.ChatStateManager>(
       () => _i51.ChatStateManager(get<_i50.ChatService>()));
   gh.factory<_i52.FireNotificationService>(() => _i52.FireNotificationService(
-      get<_i11.NotificationsPrefsHelper>(), get<_i36.NotificationRepo>()));
+      get<_i11.NotificationsPrefHelper>(), get<_i36.NotificationRepo>()));
   gh.factory<_i53.ForgotPassScreen>(
       () => _i53.ForgotPassScreen(get<_i29.ForgotPassStateManager>()));
   gh.factory<_i54.HomeManager>(
