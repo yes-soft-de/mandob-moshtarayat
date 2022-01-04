@@ -4089,6 +4089,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Phone number invalid format , cause is more than 9`
+  String get phoneNumberLong {
+    return Intl.message(
+      'Phone number invalid format , cause is more than 9',
+      name: 'phoneNumberLong',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

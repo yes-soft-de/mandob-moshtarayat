@@ -404,6 +404,7 @@
   "passwordUpdatedSuccess": "تم تحديث كلمة المرور بنجاح",
   "informSendCode": "سنقوم بأرسال كود تحقق الى رقمك",
   "passwordNotMatch": "كلمة السر غير متطابقة",
-  "update":"تحديث"
+  "update":"تحديث",
+  "phoneNumberLong":"رقم الهاتف غير صالح بسبب تعديه ل٩ محارف"
 
 }

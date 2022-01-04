@@ -391,6 +391,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "phoneIsRequired":
             MessageLookupByLibrary.simpleMessage(" فون درکار ہے۔"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("فون نمبر"),
+        "phoneNumberLong": MessageLookupByLibrary.simpleMessage(
+            "فون نمبر غلط فارمیٹ، وجہ 9 سے زیادہ ہے۔"),
         "phoneNumbertooShort":
             MessageLookupByLibrary.simpleMessage(" فون نمبر بہت چھوٹا ہے۔"),
         "pickAJob":

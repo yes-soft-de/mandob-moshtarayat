@@ -380,6 +380,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "phoneIsRequired":
             MessageLookupByLibrary.simpleMessage("Phone is required"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),
+        "phoneNumberLong": MessageLookupByLibrary.simpleMessage(
+            "Phone number invalid format , cause is more than 9"),
         "phoneNumbertooShort":
             MessageLookupByLibrary.simpleMessage("Phone number is too short"),
         "pickAJob": MessageLookupByLibrary.simpleMessage("Pick a Job"),

@@ -403,6 +403,6 @@
     "passwordUpdatedSuccess": "پاس ورڈ کامیابی کے ساتھ اپ ڈیٹ ہو گیا۔",
     "informSendCode": "ہم آپ کے نمبر پر ایک تصدیقی کوڈ بھیجیں گے۔",
     "passwordNotMatch": "پاس ورڈ میچ نہیں کرتا",
-    "update":"اپ ڈیٹ"
-    
+    "update": "اپ ڈیٹ",
+    "phoneNumberLong": "فون نمبر غلط فارمیٹ، وجہ 9 سے زیادہ ہے۔"
 }
