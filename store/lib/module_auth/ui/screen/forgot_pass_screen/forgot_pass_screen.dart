@@ -9,6 +9,7 @@ import 'package:mandob_moshtarayat/module_auth/request/forgot_pass_request/verif
 import 'package:mandob_moshtarayat/module_auth/state_manager/forgot_pass_state_manager/forgot_state_manager.dart';
 import 'package:mandob_moshtarayat/module_auth/ui/states/forgot_pass_states/forgot_state.dart';
 import 'package:mandob_moshtarayat/module_auth/ui/states/forgot_pass_states/forgot_state_code_sent.dart';
+import 'package:mandob_moshtarayat/module_main/main_routes.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 
@@ -102,8 +103,8 @@ class ForgotPassScreenState extends State<ForgotPassScreen> {
     super.dispose();
   }
   void moveToLogin() {
-    Navigator.of(context).pushNamedAndRemoveUntil(AuthorizationRoutes.LOGIN_SCREEN, (route) => false);
-    CustomFlushBarHelper.createSuccess(
+       Navigator.of(context).pushNamedAndRemoveUntil(MainRoutes.MAIN_SCREEN, (route) => false);
+CustomFlushBarHelper.createSuccess(
         title: S.current.warnning, message: S.current.passwordUpdatedSuccess)
         .show(context);
   }

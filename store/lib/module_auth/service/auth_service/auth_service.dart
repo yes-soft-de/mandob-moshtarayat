@@ -55,21 +55,23 @@ class AuthService {
       throw AuthorizationException(StatusCodeHelper.getStatusCodeMessages(
           loginResult.statusCode ?? '0'));
     }
-    RegisterResponse? response = await _authManager.userTypeCheck('ROLE_OWNER', loginResult.token??'');
+    RegisterResponse? response =
+        await _authManager.userTypeCheck('ROLE_OWNER', loginResult.token ?? '');
 
     if (response?.statusCode != '201') {
       await logout();
-      _authSubject.addError(StatusCodeHelper.getStatusCodeMessages(
-          response?.statusCode ?? '0'));
-      throw AuthorizationException(StatusCodeHelper.getStatusCodeMessages(
-          response?.statusCode ?? '0'));
+      _authSubject.addError(
+          StatusCodeHelper.getStatusCodeMessages(response?.statusCode ?? '0'));
+      throw AuthorizationException(
+          StatusCodeHelper.getStatusCodeMessages(response?.statusCode ?? '0'));
     }
-    RegisterResponse? responseVerify = await _authManager.checkUserIfVerified(VerifyCodeRequest(userID: username));
+    RegisterResponse? responseVerify = await _authManager
+        .checkUserIfVerified(VerifyCodeRequest(userID: username));
     if (responseVerify?.statusCode != '200') {
       await logout();
       _authSubject.add(AuthStatus.CODE_SENT);
-      throw AuthorizationException(StatusCodeHelper.getStatusCodeMessages(
-          response?.statusCode ?? '0'));
+      throw AuthorizationException(
+          StatusCodeHelper.getStatusCodeMessages(response?.statusCode ?? '0'));
     }
     _prefsHelper.setUsername(username);
     _prefsHelper.setPassword(password);
@@ -94,6 +96,7 @@ class AuthService {
 //    _prefsHelper.setNeedInit(true);
 //    await loginApi(request.userID ?? '', request.password ?? '');
   }
+
   Future<void> verifyCodeApi(VerifyCodeRequest request) async {
     // Create the profile in our database
     RegisterResponse? registerResponse = await _authManager.verify(request);
@@ -134,7 +137,7 @@ class AuthService {
     String? username = await _prefsHelper.getUsername();
     String? password = await _prefsHelper.getPassword();
     LoginResponse? loginResponse = await _authManager.login(LoginRequest(
-      username: username??'',
+      username: username ?? '',
       password: password,
     ));
     if (loginResponse == null) {
@@ -150,7 +153,6 @@ class AuthService {
     await _prefsHelper.cleanAll();
   }
 
-
   Future<void> resendCode(VerifyCodeRequest request) async {
     // Create the profile in our database
     RegisterResponse? registerResponse = await _authManager.resendCode(request);
@@ -161,15 +163,15 @@ class AuthService {
       _authSubject.add(AuthStatus.UNVERIFIED);
       throw AuthorizationException(StatusCodeHelper.getStatusCodeMessages(
           registerResponse.statusCode ?? '0'));
-    }else{
+    } else {
       _authSubject.add(AuthStatus.CODE_RESENT);
     }
   }
 
-
   Future<void> resetPassRequest(ResetPassRequest request) async {
     // Create the profile in our database
-    RegisterResponse? registerResponse = await _authManager.resetPassRequest(request);
+    RegisterResponse? registerResponse =
+        await _authManager.resetPassRequest(request);
     if (registerResponse == null) {
       _authSubject.addError(S.current.networkError);
       throw AuthorizationException(S.current.networkError);
@@ -178,14 +180,17 @@ class AuthService {
           registerResponse.statusCode ?? '0'));
       throw AuthorizationException(StatusCodeHelper.getStatusCodeMessages(
           registerResponse.statusCode ?? '0'));
-    }else{
+    } else {
+      _prefsHelper.setUsername(request.userID);
       _authSubject.add(AuthStatus.NOT_LOGGED_IN);
     }
   }
 
-  Future<void> verifyResetPassCodeRequest(VerifyResetPassCodeRequest request) async {
+  Future<void> verifyResetPassCodeRequest(
+      VerifyResetPassCodeRequest request) async {
     // Create the profile in our database
-    RegisterResponse? registerResponse = await _authManager.verifyResetPassCodeRequest(request);
+    RegisterResponse? registerResponse =
+        await _authManager.verifyResetPassCodeRequest(request);
     if (registerResponse == null) {
       _authSubject.addError(S.current.networkError);
       throw AuthorizationException(S.current.networkError);
@@ -194,14 +199,15 @@ class AuthService {
           registerResponse.statusCode ?? '0'));
       throw AuthorizationException(StatusCodeHelper.getStatusCodeMessages(
           registerResponse.statusCode ?? '0'));
-    }else{
+    } else {
       _authSubject.add(AuthStatus.VERIFIED);
     }
   }
 
   Future<void> updatePassword(UpdatePassRequest request) async {
     // Create the profile in our database
-    RegisterResponse? registerResponse = await _authManager.updatePassRequest(request);
+    RegisterResponse? registerResponse =
+        await _authManager.updatePassRequest(request);
     if (registerResponse == null) {
       _authSubject.addError(S.current.networkError);
       throw AuthorizationException(S.current.networkError);
@@ -209,9 +215,8 @@ class AuthService {
       _authSubject.add(AuthStatus.UNVERIFIED);
       throw AuthorizationException(StatusCodeHelper.getStatusCodeMessages(
           registerResponse.statusCode ?? '0'));
-    }else{
-      _authSubject.add(AuthStatus.AUTHORIZED);
+    } else {
+      loginApi(username, request.newPassword);
     }
   }
-
 }
