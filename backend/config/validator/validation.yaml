@@ -435,3 +435,8 @@ App\Request\ElectronicPaymentInfoCreateRequest:
       - NotBlank: ~
     amount:
       - NotBlank: ~
+
+App\Request\CategoryLinkCreateRequest:
+  properties:
+    linkType:
+      - NotBlank: ~
