@@ -27,9 +27,7 @@ class CategoryLinkManager
 
         $this->entityManager->persist($categoryLink);
         $this->entityManager->flush();
-        $this->entityManager->clear();
 
         return $categoryLink;
     }
-
 }
