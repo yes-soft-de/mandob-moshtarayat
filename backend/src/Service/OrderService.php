@@ -157,7 +157,8 @@ class OrderService
 
                     //create store notification local
                     $this->notificationLocalService->createStoreNotificationLocal($orderDetailUpdate['storeIds'], LocalStoreNotificationList::$STATE_TITLE, $request->getState(), $request->getOrderNumber(), true);
-                    //create firebase notification fro client
+
+                    //create firebase notification for client
                     try {
                         $this->notificationService->notificationOrderUpdateForUser($item->getClientID(), $request->getOrderNumber(), MessageConstant::$MESSAGE_STATUS_ORDER_UPDATE);
                     }
@@ -167,7 +168,10 @@ class OrderService
 
                     //create firebase notification for store
                     try{
-                        $this->notificationService->notificationOrderUpdateForStores($orderDetailUpdate['storeIds'], $request->getOrderNumber(),NotificationStoreConstant::$MESSAGE_STORE_ORDER_UPDATE);
+                        foreach ($orderDetailUpdate['storeIds'] as $storeProfileId) {
+                            $storeIds[] = $this->storeOwnerProfileService->getStoreIdByProfileId($storeProfileId);
+                        }
+                        $this->notificationService->notificationOrderUpdateForStores($storeIds, $request->getOrderNumber(),NotificationStoreConstant::$MESSAGE_STORE_ORDER_UPDATE);
                     }
                     catch (\Exception $e){
                         error_log($e);
@@ -220,7 +224,9 @@ class OrderService
 
                         //create firebase notification for store
                         try{
-                            $this->notificationService->notificationOrderUpdateForUser($request->getStoreOwnerProfileID(), $request->getOrderNumber(), NotificationStoreConstant::$MESSAGE_STORE_ORDER_UPDATE);
+                            $storeId = $this->storeOwnerProfileService->getStoreIdByProfileId($request->getStoreOwnerProfileID());
+
+                            $this->notificationService->notificationOrderUpdateForUser($storeId, $request->getOrderNumber(), NotificationStoreConstant::$MESSAGE_STORE_ORDER_UPDATE);
                         }
                         catch (\Exception $e){
                             error_log($e);
@@ -435,7 +441,10 @@ class OrderService
             }
             //create firebase notification store
             try{
-                 $this->notificationService->notificationOrderUpdateForStores($storeIDs, $orderNumber, NotificationStoreConstant::$MESSAGE_STORE_NEW_ORDER);
+                foreach ($storeIDs  as $storeProfileId) {
+                    $storeIds[] = $this->storeOwnerProfileService->getStoreIdByProfileId($storeProfileId);
+                }
+                 $this->notificationService->notificationOrderUpdateForStores($storeIds, $orderNumber, NotificationStoreConstant::$MESSAGE_STORE_NEW_ORDER);
             }
             catch (\Exception $e){
                 error_log($e);
@@ -519,7 +528,9 @@ class OrderService
 
             //create firebase notification store
             try{
-                $this->notificationService->notificationOrderUpdateForUser($request->getStoreOwnerProfileID(), $orderNumber, NotificationStoreConstant::$MESSAGE_STORE_NEW_ORDER);
+                $storeId = $this->storeOwnerProfileService->getStoreIdByProfileId($request->getStoreOwnerProfileID());
+
+                $this->notificationService->notificationOrderUpdateForUser($storeId, $orderNumber, NotificationStoreConstant::$MESSAGE_STORE_NEW_ORDER);
             }
             catch (\Exception $e){
                 error_log($e);
@@ -834,7 +845,11 @@ class OrderService
 
                     //create firebase notification for store
                     try {
-                        $this->notificationService->notificationOrderUpdateForStores($orderDetailUpdate['storeIds'], $orderNumber, NotificationStoreConstant::$MESSAGE_STORE_ORDER_CANCEL);
+                        foreach ($orderDetailUpdate['storeIds'] as $storeProfileId) {
+                            $storeIds[] = $this->storeOwnerProfileService->getStoreIdByProfileId($storeProfileId);
+                        }
+
+                        $this->notificationService->notificationOrderUpdateForStores($storeIds, $orderNumber, NotificationStoreConstant::$MESSAGE_STORE_ORDER_CANCEL);
                     }
                     catch (\Exception $e){
                         error_log($e);
