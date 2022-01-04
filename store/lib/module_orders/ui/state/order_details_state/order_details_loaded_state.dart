@@ -11,7 +11,6 @@ import 'package:mandob_moshtarayat/module_orders/ui/widget/invoice.dart';
 import 'package:mandob_moshtarayat/module_orders/ui/widget/order_details/bill.dart';
 import 'package:mandob_moshtarayat/module_orders/ui/widget/order_details/order_chip.dart';
 import 'package:mandob_moshtarayat/utils/components/fixed_container.dart';
-import 'package:mandob_moshtarayat/utils/components/progresive_image.dart';
 import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
 import 'package:mandob_moshtarayat/utils/helpers/order_status_helper.dart';
 import 'package:mandob_moshtarayat/utils/helpers/translating.dart';
@@ -52,21 +51,12 @@ class OrderDetailsLoadedState extends OrderDetailsState {
 //              ),
 //            ),
 //          ),
-          Hider(
-            active: orderDetails.invoiceImage != null &&
-                orderDetails.invoiceAmount != null,
-            child: CustomInvoiceAlert(
-              image: orderDetails.invoiceImage.toString(),
-              cost: orderDetails.invoiceAmount.toString(),
-            ),
-          ),
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(25),
-                  color: StatusHelper.getOrderStatusColor(
-                      orderDetails.state)),
+                  color: StatusHelper.getOrderStatusColor(orderDetails.state)),
               child: ListTile(
                 title: Text(
                   S.of(context).orderStatus,
@@ -79,8 +69,7 @@ class OrderDetailsLoadedState extends OrderDetailsState {
                   StatusHelper.getOrderStatusMessages(orderDetails.state),
                   style: TextStyle(color: Colors.white),
                 ),
-                trailing: Text(
-                    orderDetails.createdAt,
+                trailing: Text(orderDetails.createdAt,
                     style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold)),
                 leading: Icon(
@@ -92,7 +81,7 @@ class OrderDetailsLoadedState extends OrderDetailsState {
             ),
           ),
           Hider(
-            active:true,
+            active: true,
 //                orderDetails.order.createdAt != orderDetails.order.deliveryDate,
             child: Column(
               children: [
@@ -119,69 +108,70 @@ class OrderDetailsLoadedState extends OrderDetailsState {
 //                        fontWeight: FontWeight.bold, color: Colors.white),
 //                  ),
 //                ),
-                ListTile(
-                  shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.vertical(bottom: Radius.circular(25))),
-                  leading: Container(
-                      height: double.maxFinite,
-                      width: 50,
-                      child: Icon(
-                        FontAwesomeIcons.delicious,
-                        color: Colors.white,
-                      )),
-                  tileColor: Theme.of(context).primaryColor,
-                  title: Text(
-                    S.current.orderTime,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.white),
-                  ),
-                  subtitle: Text(
-                    Trans.localString(orderDetails.createdAt, context),
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.white),
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: ListTile(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25)),
+                    leading: Container(
+                        height: double.maxFinite,
+                        width: 50,
+                        child: Icon(
+                          FontAwesomeIcons.delicious,
+                          color: Colors.white,
+                        )),
+                    tileColor: Theme.of(context).primaryColor,
+                    title: Text(
+                      S.current.orderTime,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.white),
+                    ),
+                    subtitle: Text(
+                      Trans.localString(orderDetails.createdAt, context),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.white),
+                    ),
                   ),
                 ),
               ],
             ),
           ),
-//          orderDetails.order.roomID.isNotEmpty &&
-//                  orderDetails.order.state != OrderStatusEnum.WAITING
-//              ? Padding(
-//                  padding: const EdgeInsets.all(12.0),
-//                  child: Container(
-//                    decoration: BoxDecoration(
-//                        borderRadius: BorderRadius.circular(25),
-//                        color: Theme.of(context).primaryColor),
-//                    child: ListTile(
-//                      onTap: () {
-//                        Navigator.of(context).pushNamed(ChatRoutes.chatRoute,
-//                            arguments: orderDetails.order.roomID);
-//                      },
-//                      title: Text(
-//                        S.of(context).chatWithClient,
-//                        style: TextStyle(
-//                            fontSize: 18,
-//                            fontWeight: FontWeight.bold,
-//                            color: Colors.white),
-//                      ),
-//                      subtitle: Text(
-//                        S.of(context).openChatRoom,
-//                        style: TextStyle(color: Colors.white),
-//                      ),
-//                      leading: Icon(
-//                        Icons.sms,
-//                        color: Colors.white,
-//                        size: 35,
-//                      ),
-//                      trailing: Icon(
-//                        Icons.arrow_forward,
-//                        color: Colors.white,
-//                      ),
-//                    ),
-//                  ),
-//                )
-//              : SizedBox(),
+          orderDetails.roomID.isNotEmpty
+              ? Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                        color: Theme.of(context).primaryColor),
+                    child: ListTile(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(ChatRoutes.chatRoute,
+                            arguments: orderDetails.roomID);
+                      },
+                      title: Text(
+                        S.of(context).chatWithCaptain,
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                      subtitle: Text(
+                        S.of(context).openChatRoom,
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      leading: Icon(
+                        Icons.sms,
+                        color: Colors.white,
+                        size: 35,
+                      ),
+                      trailing: Icon(
+                        Icons.arrow_forward,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                )
+              : SizedBox(),
           getOrderTypeWidget(orderDetails.orderType),
           SizedBox(
             height: 35,
@@ -222,13 +212,12 @@ class OrderDetailsLoadedState extends OrderDetailsState {
             child: BillCard(
               id: screenState.orderNumber!,
 //              deliveryCost: orderDetails.order.deliveryCost,
-              orderCost: orderDetails.invoiceAmount.toDouble(),
+              orderCost: getTotal(orderDetails.carts),
             ),
           )
         ],
       );
-    }
-    else if (orderType == 2) {
+    } else if (orderType == 2) {
       return Flex(
         direction: Axis.vertical,
         children: [
@@ -245,7 +234,7 @@ class OrderDetailsLoadedState extends OrderDetailsState {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
-                  orderDetails.orderDetails ,
+                  orderDetails.orderDetails,
                   textAlign: TextAlign.start,
                 ),
               ),
@@ -384,5 +373,13 @@ class OrderDetailsLoadedState extends OrderDetailsState {
       ));
     });
     return orderChips;
+  }
+
+  double getTotal(List<Item> items) {
+    var total = 0.0;
+    for (var element in items) {
+      total = total + (element.countProduct * element.productPrice);
+    }
+    return total;
   }
 }
