@@ -5,13 +5,15 @@ namespace App\Controller;
 use App\AutoMapping;
 use App\Request\NotificationTokenRequest;
 use App\Service\NotificationService;
+use Nelmio\ApiDocBundle\Annotation\Security;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\SerializerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-
+use OpenApi\Annotations as OA;
 use Symfony\Component\Routing\Annotation\Route;
+
 class NotificationController extends BaseController
 {
     private $autoMapping;
@@ -25,9 +27,41 @@ class NotificationController extends BaseController
     }
 
     /**
+     * create token.
      * @Route("/notificationtoken", name="notificationtoken", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Notification Firebase")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     *  @OA\RequestBody (
+     *        description="create token",
+     *        @OA\JsonContent(
+     *              @OA\Property(type="string", property="token"),
+     *               ),
+     *         ),
+     *
+     * @OA\Response(
+     *      response=201,
+     *      description="Returns object",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *               @OA\Property(type="object", property="token"),
+     *               @OA\Property(type="object", property="date"),
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
      */
     public function createNotificationToken(Request $request)
     {
@@ -43,27 +77,51 @@ class NotificationController extends BaseController
 
 
     /**
+     * notification new chat.
      * @Route("/notificationnewchat", name="notificationnewchat", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Notification Firebase")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     *  @OA\RequestBody (
+     *        description="notification new chat",
+     *        @OA\JsonContent(
+     *              @OA\Property(type="string", property="roomID"),
+     *              @OA\Property(type="object", property="userType", description="captain or store or client"),
+     *               ),
+     *         ),
+     *
+     * @OA\Response(
+     *      response=201,
+     *      description="Returns object",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items()
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
      */
     public function notificationNewChat(Request $request): JsonResponse
     {
-        $userType="";
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class,NotificationTokenRequest::class,(object)$data);
 
         $request->setUserID($this->getUserId());
 
-        if ($this->isGranted('ROLE_OWNER')) {
-            $userType = "store";
-        }
-        if ($this->isGranted('ROLE_CAPTAIN')) {
-            $userType = "captain";
-        }
-
-        $response = $this->notificationService->notificationNewChat($request, $userType);
+        $response = $this->notificationService->notificationNewChat($request);
 
         return $this->response($response, self::CREATE);
     }

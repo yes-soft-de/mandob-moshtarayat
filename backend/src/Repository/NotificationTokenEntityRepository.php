@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\ClientProfileEntity;
 use App\Entity\NotificationTokenEntity;
+use App\Entity\StoreOwnerProfileEntity;
 use App\Entity\SupportEntity;
 use App\Entity\CaptainProfileEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -41,7 +43,7 @@ class NotificationTokenEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('NotificationTokenEntity')
 
-        ->addSelect('captainProfileEntity.captainID')
+        ->select('captainProfileEntity.captainID')
 
         ->leftJoin(CaptainProfileEntity::class, 'captainProfileEntity', Join::WITH, 'captainProfileEntity.roomID = :roomID')
 
@@ -49,8 +51,47 @@ class NotificationTokenEntityRepository extends ServiceEntityRepository
 
         ->setParameter('roomID', $roomID)
 
+        ->groupBy('captainProfileEntity.captainID')
+
         ->getQuery()
-        ->getResult();
+
+        ->getOneOrNullResult();
+    }
+
+    public function getStoreRoomID($roomID)
+    {
+        return $this->createQueryBuilder('NotificationTokenEntity')
+
+        ->select('storeOwnerProfileEntity.storeOwnerID')
+
+        ->leftJoin(StoreOwnerProfileEntity::class, 'storeOwnerProfileEntity', Join::WITH, 'storeOwnerProfileEntity.roomID = :roomID')
+
+        ->andWhere("storeOwnerProfileEntity.roomID = :roomID ")
+
+        ->setParameter('roomID', $roomID)
+
+        ->groupBy('storeOwnerProfileEntity.storeOwnerID')
+
+        ->getQuery()
+        ->getOneOrNullResult();
+    }
+
+    public function getClientRoomID($roomID)
+    {
+        return $this->createQueryBuilder('NotificationTokenEntity')
+
+        ->select('clientProfileEntity.clientID')
+
+        ->leftJoin(ClientProfileEntity::class, 'clientProfileEntity', Join::WITH, 'clientProfileEntity.roomID = :roomID')
+
+        ->andWhere("clientProfileEntity.roomID = :roomID ")
+
+        ->setParameter('roomID', $roomID)
+
+        ->groupBy('clientProfileEntity.clientID')
+
+        ->getQuery()
+        ->getOneOrNullResult();
     }
 
     public function getTokens()

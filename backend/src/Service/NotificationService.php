@@ -143,55 +143,48 @@ class NotificationService
 
         $this->messaging->sendMulticast($message, $tokens);
     }
-//
-//    public function notificationNewChat($request)
-//    {
-//        $item = $this->roomIdHelperService->getByRoomID($request->getRoomID());
-//        if($item) {
-//            $devicesToken = [];
-//            $userTokenOne = $this->getNotificationTokenByUserID($item['captainID']);
-//            $devicesToken[] = $userTokenOne;
-//            $userTokenTwo = $this->getNotificationTokenByUserID($item['ownerID']);
-//            $devicesToken[] = $userTokenTwo;
-//
-//            $message = CloudMessage::new()
-//                ->withNotification(Notification::create(DeliveryCompanyNameConstant::$Delivery_Company_Name, MessageConstant::$MESSAGE_NEW_CHAT));
-//
-//            $this->messaging->sendMulticast($message, $devicesToken);
-//        }
-//    }
 
-    public function notificationNewChat($request, $userType ='null')
+    public function notificationNewChat(NotificationTokenRequest $request)
     {
-        $storeProfileId = $this->userService->getStoreProfileId($request->getUserID());
+        if($request->getUserType() == "captain"){
+            $item = $this->notificationManager->getCaptainRoomID($request->getRoomID());
+            $item = $item["captainID"];
+        }
+
+        if($request->getUserType() == "store"){
+            $item = $this->notificationManager->getStoreRoomID($request->getRoomID());
+
+            $item = $item["storeOwnerID"];
+        }
+
+        if($request->getUserType() == "client"){
+            $item = $this->notificationManager->getClientRoomID($request->getRoomID());
+            $item = $item["clientID"];
+        }
 
         $payload = [
-
             'click_action' => 'FLUTTER_NOTIFICATION_CLICK',
             'navigate_route' => '/chat',
             'argument' => $request->getRoomID(),
         ];
 
-        $item = $this->roomIdHelperService->getByRoomID($request->getRoomID());
-
         if($item) {
-            $devicesToken = [];
-            if($userType == 'store') {
-                $userTokenOne = $this->getNotificationTokenByUserID($item['captainID']);
-                $devicesToken[] = $userTokenOne;
-            }
 
-            if($userType == 'captain') {
-                $userTokenTwo = $this->getNotificationTokenByUserID($item['ownerID']);
-                $devicesToken[] = $userTokenTwo;
-            }
+            $devicesToken = [];
+
+            $userToken = $this->notificationManager->getNotificationTokenByUserID($item);
+
+            $devicesToken[] = $userToken;
 
             $message = CloudMessage::new()
                 ->withNotification(Notification::create(DeliveryCompanyNameConstant::$Delivery_Company_Name, MessageConstant::$MESSAGE_NEW_CHAT))->withDefaultSounds()
                 ->withHighestPossiblePriority();
+
             $message = $message->withData($payload);
             $this->messaging->sendMulticast($message, $devicesToken);
         }
+
+        return $devicesToken;
     }
 
     public function updateNewMessageStatusInReport($request)

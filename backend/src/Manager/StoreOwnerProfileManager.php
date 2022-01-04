@@ -327,7 +327,12 @@ class StoreOwnerProfileManager
 
     public function getStoreNameById($id)
     {
-        return $this->storeOwnerProfileEntityRepository->getStoreOwnerProfileByID($id);
+        return $this->storeOwnerProfileEntityRepository->getStoreNameById($id);
+    }
+
+    public function getStoreIdByProfileId($id)
+    {
+        return $this->storeOwnerProfileEntityRepository->getStoreIdByProfileId($id);
     }
 
     public function getStoreProfileId($userID)

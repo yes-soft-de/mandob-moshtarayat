@@ -167,6 +167,11 @@ class StoreOwnerProfileService
         return $this->autoMapping->map('array', StoreNameResponse::class, $item);
     }
 
+    public function getStoreIdByProfileId($id)
+    {
+       return $this->storeOwnerProfileManager->getStoreIdByProfileId($id);
+    }
+
     public function getStoreOwnerProfile($userID)
     {
         $response = null;

@@ -16,6 +16,8 @@ class NotificationTokenRequest
 
     private $roomID;
 
+    private $userType;
+
 
     public function getDate():?\DateTime
     {
@@ -92,4 +94,21 @@ class NotificationTokenRequest
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getUserType()
+    {
+        return $this->userType;
+    }
+
+    /**
+     * @param mixed $userType
+     */
+    public function setUserType($userType): void
+    {
+        $this->userType = $userType;
+    }
+
 }

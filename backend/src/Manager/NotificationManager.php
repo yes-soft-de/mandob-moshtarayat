@@ -85,4 +85,14 @@ class NotificationManager
     {
         return $this->notificationTokenEntityRepository->getCaptainRoomID($roomID);
     }
+
+    public function getStoreRoomID($roomID)
+    {
+        return $this->notificationTokenEntityRepository->getStoreRoomID($roomID);
+    }
+
+    public function getClientRoomID($roomID)
+    {
+        return $this->notificationTokenEntityRepository->getClientRoomID($roomID);
+    }
 }
