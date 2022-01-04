@@ -687,7 +687,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تم جلب المعلومات بنجاح"),
         "statusCodeUnauthorized": MessageLookupByLibrary.simpleMessage(
             "أنت غير مخول بالقيام بهذا الطلب"),
-        "stc": MessageLookupByLibrary.simpleMessage("س ت سي"),
+        "stc": MessageLookupByLibrary.simpleMessage("Stc"),
         "stcPayCode": MessageLookupByLibrary.simpleMessage("رقم حساب STC PAY"),
         "store": MessageLookupByLibrary.simpleMessage("المتجر"),
         "storeAvailable": MessageLookupByLibrary.simpleMessage("المتجر متوفر"),
