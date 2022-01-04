@@ -12,4 +12,6 @@ class ClientProfileByUserIdGetResponse
     
     public $image;
 
+    public $createdAt;
+
 }

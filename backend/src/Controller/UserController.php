@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\AutoMapping;
+use App\Request\FilterUserRequest;
 use App\Service\UserService;
+use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -12,6 +15,7 @@ use OpenApi\Annotations as OA;
 
 class UserController extends BaseController
 {
+    private $autoMapping;
     private $userService;
    
     public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, UserService $userService)
@@ -124,5 +128,21 @@ class UserController extends BaseController
         $response = $this->userService->deleteUserById($id);
 
         return $this->response($response, self::DELETE);
+    }
+
+    /**
+     * For testing issues
+     *
+     * @Route("filterusers", name="filterusers", methods={"POST"})
+     */
+    public function filterUsers(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, FilterUserRequest::class, (object)$data);
+
+        $response = $this->userService->filterUsers($request);
+
+        return $this->response($response, self::FETCH);
     }
 }

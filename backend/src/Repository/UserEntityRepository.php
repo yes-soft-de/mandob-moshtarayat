@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\StoreOwnerProfileEntity;
 use App\Entity\UserEntity;
+use App\Request\FilterUserRequest;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
@@ -124,5 +125,33 @@ class UserEntityRepository extends ServiceEntityRepository implements PasswordUp
 
             ->getQuery()
             ->getResult();
+    }
+
+    public function filterUsers(FilterUserRequest $request)
+    {
+        $query = $this->createQueryBuilder('userEntity')
+            ->select('userEntity.id', 'userEntity.userID', 'userEntity.verificationStatus', 'userEntity.roles');
+
+        if ($request->getUserID())
+        {
+            $query->andWhere('userEntity.userID = :userID');
+            $query->setParameter('userID', $request->getUserID());
+        }
+
+        if ($request->getVerificationStatus())
+        {
+            $query->andWhere('userEntity.verificationStatus = :verificationStatus');
+            $query->setParameter('verificationStatus', $request->getVerificationStatus());
+        }
+
+        if ($request->getRoles())
+        {
+            $roles = $request->getRoles()[0];
+
+            $query->andWhere('userEntity.roles LIKE :roles');
+            $query->setParameter('roles', '%'.$roles.'%');
+        }
+
+        return $query->getQuery()->getResult();
     }
 }

@@ -508,7 +508,7 @@ class ClientProfileController extends BaseController
     }
 
     /**
-     * admin: Get all clients who need support
+     * admin: Get all clients and anonymous users who need support
      * @Route("clientwhoneedsupport", name="getClientsWhoNeedSupport", methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse

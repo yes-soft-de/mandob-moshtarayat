@@ -635,6 +635,11 @@ class UserManager
         }
     }
 
+    public function filterUsers($request)
+    {
+        return $this->userRepository->filterUsers($request);
+    }
+
     public function deleteUser($userID)
     {
         $user= $this->userRepository->find($userID);
