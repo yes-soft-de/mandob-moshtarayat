@@ -31,7 +31,7 @@ class CategoryLinkController extends BaseController
     }
 
     /**
-     * admin:Create product.
+     * admin: create link/s between categories
      * @Route("categorieslink", name="createCategoryLink", methods={"POST"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
