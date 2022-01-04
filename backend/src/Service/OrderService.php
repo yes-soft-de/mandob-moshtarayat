@@ -157,7 +157,8 @@ class OrderService
 
                     //create store notification local
                     $this->notificationLocalService->createStoreNotificationLocal($orderDetailUpdate['storeIds'], LocalStoreNotificationList::$STATE_TITLE, $request->getState(), $request->getOrderNumber(), true);
-                    //create firebase notification fro client
+
+                    //create firebase notification for client
                     try {
                         $this->notificationService->notificationOrderUpdateForUser($item->getClientID(), $request->getOrderNumber(), MessageConstant::$MESSAGE_STATUS_ORDER_UPDATE);
                     }
