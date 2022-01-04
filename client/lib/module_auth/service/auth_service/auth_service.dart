@@ -242,7 +242,7 @@ class AuthService {
       throw AuthorizationException(StatusCodeHelper.getStatusCodeMessages(
           registerResponse.statusCode ?? '0'));
     } else {
-      _authSubject.add(AuthStatus.AUTHORIZED);
+      loginApi(username, request.newPassword);
     }
   }
 }

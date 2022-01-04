@@ -8,6 +8,7 @@ import 'package:mandob_moshtarayat/module_auth/request/forget_password_request/u
 import 'package:mandob_moshtarayat/module_auth/request/forget_password_request/verify_new_password_request.dart';
 import 'package:mandob_moshtarayat/module_auth/state_manager/forget_state_manager/forget_password_state_manager.dart';
 import 'package:mandob_moshtarayat/module_auth/ui/states/forget_password_state/forget_password_code_sent.dart';
+import 'package:mandob_moshtarayat/module_main/main_routes.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 
@@ -89,7 +90,7 @@ class ForgotPassScreenState extends State<ForgotPassScreen> {
     super.dispose();
   }
   void moveToLogin() {
-    Navigator.of(context).pushNamedAndRemoveUntil(AuthorizationRoutes.LOGIN_SCREEN, (route) => false);
+    Navigator.of(context).pushNamedAndRemoveUntil(MainRoutes.MAIN_SCREEN, (route) => false);
     CustomFlushBarHelper.createSuccess(
         title: S.current.warnning, message: S.current.passwordUpdatedSuccess)
         .show(context);
