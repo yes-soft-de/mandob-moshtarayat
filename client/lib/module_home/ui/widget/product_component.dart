@@ -107,7 +107,7 @@ class _ProductComponentState extends State<ProductComponent> {
                                   style: const TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.red)),
+                                      color: Colors.green)),
                               const TextSpan(text: ' '),
                               TextSpan(
                                   text: S.current.sar,
@@ -115,7 +115,7 @@ class _ProductComponentState extends State<ProductComponent> {
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
                                       color: widget.discount != '0'
-                                          ? Colors.red
+                                          ? Colors.green
                                           : null)),
                             ],
                           ),
