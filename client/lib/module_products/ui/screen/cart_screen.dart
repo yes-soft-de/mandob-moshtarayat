@@ -106,44 +106,50 @@ class _CartScreenState extends State<CartScreen> {
                       Container(
                         height: 8,
                       ),
-                      SizedBox(
-                        width: double.maxFinite,
-                        child: TextButton(
-                            style: TextButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
+                      Padding(
+                        padding: const EdgeInsets.only(right:16.0,left: 16),
+                        child: SizedBox(
+                          width: double.maxFinite,
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: Theme.of(context).backgroundColor,
+                                elevation: 0,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
                               ),
-                            ),
-                            onPressed: CartHiveHelper().getCart().isEmpty
-                                ? null
-                                : () {
-                                    List<Products> items = [];
+                              onPressed: CartHiveHelper().getCart().isEmpty
+                                  ? null
+                                  : () {
+                                      List<Products> items = [];
 
-                                    CartHiveHelper()
-                                        .getCart()
-                                        .forEach((element) {
-                                      items.add(Products(
-                                          productID: element.id,
-                                          countProduct: element.quantity,
-                                          storeId: element.storeID));
-                                    });
+                                      CartHiveHelper()
+                                          .getCart()
+                                          .forEach((element) {
+                                        items.add(Products(
+                                            productID: element.id,
+                                            countProduct: element.quantity,
+                                            storeId: element.storeID));
+                                      });
 
-                                    CheckoutModel checkoutModel = CheckoutModel(
-                                        cart: items,
-                                        orderCost: double.parse(getTotal()),
-                                        deliveryCost: 0);
-                                    Navigator.of(context).pushNamed(
-                                        OrdersRoutes.CLIENT_ORDER,
-                                        arguments: checkoutModel);
-                                  },
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                S.current.checkout,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            )),
+                                      CheckoutModel checkoutModel = CheckoutModel(
+                                          cart: items,
+                                          orderCost: double.parse(getTotal()),
+                                          deliveryCost: 0);
+                                      Navigator.of(context).pushNamed(
+                                          OrdersRoutes.CLIENT_ORDER,
+                                          arguments: checkoutModel);
+                                    },
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Text(
+                                  S.current.checkout,
+                                  style:  TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      ),
+                                ),
+                              )),
+                        ),
                       ),
                       Hider(
                         active: CartHiveHelper().getCart().isNotEmpty,
