@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\CategoryLinkEntity;
 use App\Entity\StoreCategoryEntity;
 use App\Entity\StoreCategoryTranslationEntity;
 use App\Entity\StoreOwnerProfileEntity;
@@ -28,6 +29,29 @@ class StoreCategoryEntityRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('storeCategory')
 
             ->select('storeCategory.id', 'storeCategory.storeCategoryName', 'storeCategory.description', 'storeCategory.image', 'storeCategory.language')
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    /*
+     * Return all store categories
+     */
+    public function getStoreCategoriesByProductStoreCategoryLevelOne($storeProductCategoryLevelOneID)
+    {
+        return $this->createQueryBuilder('storeCategory')
+
+            ->select('storeCategory.id', 'storeCategory.storeCategoryName', 'storeCategory.image', 'storeCategory.language', 'categoryLinkEntity.subCategoryLevelOneID')
+
+            ->leftJoin(
+                CategoryLinkEntity::class,
+                'categoryLinkEntity',
+                Join::WITH,
+                'categoryLinkEntity.mainCategoryID = storeCategory.id'
+            )
+
+            ->andWhere('categoryLinkEntity.subCategoryLevelOneID = :subCategoryLevelOneID')
+            ->setParameter('subCategoryLevelOneID', $storeProductCategoryLevelOneID)
 
             ->getQuery()
             ->getResult();

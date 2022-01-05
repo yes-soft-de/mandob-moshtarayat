@@ -6,10 +6,12 @@ use App\AutoMapping;
 use App\Entity\StoreCategoryEntity;
 use App\Manager\StoreCategoryManager;
 use App\Request\FilterStoreCategory;
+use App\Request\StoreCategoriesWithLinkedMarkRequest;
 use App\Request\StoreCategoryWithTranslationCreateRequest;
 use App\Response\ClientFavouriteStoreCategoriesAndStoresGetResponse;
 use App\Response\ClientFavouriteStoreCategoriesResponse;
 use App\Response\StoreCategoriesAndStoresResponse;
+use App\Response\StoreCategoriesWithLinkedMarkResponse;
 use App\Response\StoreCategoryCreateResponse;
 use App\Response\StoreCategoryByIdResponse;
 use App\Response\StoreCategoryGetResponse;
@@ -68,6 +70,47 @@ class StoreCategoryService
         }
 
        return $response;
+    }
+
+    public function getStoreCategoriesByProductStoreCategoryLevelOne(StoreCategoriesWithLinkedMarkRequest $request)
+    {
+        $response = [];
+
+        $storeCategoriesByProductCategoryLevelOne = $this->storeCategoryManager->getStoreCategoriesByProductStoreCategoryLevelOne($request->getStoreProductCategoryLevelOneID());
+
+        if($request->getLanguage() && $request->getLanguage() != $this->primaryLanguage)
+        {
+            $storeCategoriesTranslations = $this->storeCategoryManager->getStoreCategoriesTranslations();
+
+            $storeCategories = $this->replaceStoreCategoryTranslatedNameByPrimaryOne($storeCategoriesTranslations, $request->getLanguage());
+        }
+        else
+        {
+            $storeCategories = $this->storeCategoryManager->getStoreCategories();
+        }
+
+        /* Following block will just mark each store category that linked with the store product category level one by
+        setting 'linked' to true
+        */
+        foreach ($storeCategoriesByProductCategoryLevelOne as $mainStoreCategory){
+
+            foreach ($storeCategories as $key => $value){
+
+                if ($value['id'] === $mainStoreCategory['id']){
+
+                    $storeCategories[$key]['linked'] = true;
+                }
+            }
+        }
+        // end block
+
+        foreach ($storeCategories as $item) {
+            $item['image'] = $this->getImageParams($item['image'], $this->params . $item['image'], $this->params);
+
+            $response[] = $this->autoMapping->map('array', StoreCategoriesWithLinkedMarkResponse::class, $item);
+        }
+
+        return $response;
     }
 
     public function getStoreCategoriesByPreferredLanguage($userLocale)

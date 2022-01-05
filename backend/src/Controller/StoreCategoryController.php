@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\AutoMapping;
 use App\Request\DeleteRequest;
 use App\Request\FilterStoreCategory;
+use App\Request\StoreCategoriesWithLinkedMarkRequest;
 use App\Request\StoreCategoryUpdateRequest;
 use App\Request\StoreCategoryWithTranslationCreateRequest;
 use App\Request\StoreCategoryWithTranslationUpdateRequest;
@@ -218,6 +219,60 @@ class StoreCategoryController extends BaseController
   
           return $this->response($result, self::FETCH);
       }
+
+    /**
+     * Get store categories with mark (linked or not) with specific store product category level one
+     * @Route("allstorecategories", name="getStoreCategoriesByStoreProductCategoryLevelOne", methods={"POST"})
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Store Category")
+     *
+     * @OA\RequestBody(
+     *      description="Filter store categories according to language",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="language"),
+     *          @OA\Property(type="integer", property="storeProductCategoryLevelOneID")
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Get Store Categories",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="storeCategoryName"),
+     *                  @OA\Property(type="object", property="image",
+     *                      @OA\Property(type="string", property="imageURL"),
+     *                      @OA\Property(type="string", property="image"),
+     *                      @OA\Property(type="string", property="baseURL"),
+     *                  ),
+     *                  @OA\Property(type="boolean", property="linked"),
+     *          )
+     *      )
+     * )
+     */
+    public function getStoreCategoriesByProductStoreCategoryLevelOne(Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, StoreCategoriesWithLinkedMarkRequest::class, (object)$data);
+
+        $violations = $this->validator->validate($request);
+        if(\count($violations) > 0)
+        {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $result = $this->storeCategoryService->getStoreCategoriesByProductStoreCategoryLevelOne($request);
+
+        return $this->response($result, self::FETCH);
+    }
 
     /**
      * Get store categories by preferred language

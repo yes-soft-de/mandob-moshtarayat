@@ -440,3 +440,8 @@ App\Request\CategoryLinkCreateRequest:
   properties:
     linkType:
       - NotBlank: ~
+
+App\Request\StoreCategoriesWithLinkedMarkRequest:
+  properties:
+    storeProductCategoryLevelOneID:
+      - NotBlank: ~
