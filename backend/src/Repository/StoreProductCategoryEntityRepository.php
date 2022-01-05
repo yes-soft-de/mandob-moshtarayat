@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\CategoryLinkEntity;
 use App\Entity\ProductEntity;
 use App\Entity\StoreProductCategoryEntity;
 use App\Entity\StoreProductCategoryTranslationEntity;
@@ -61,7 +62,14 @@ class StoreProductCategoryEntityRepository extends ServiceEntityRepository
 
             ->select('storeProductCategory.id', 'storeProductCategory.productCategoryName', 'storeProductCategory.isLevel1', 'storeProductCategory.productCategoryImage')
 
-            ->andWhere('storeProductCategory.storeCategoryID = :storeCategoryID')
+            ->leftJoin(
+                CategoryLinkEntity::class,
+                'categoryLinkEntity',
+                Join::WITH,
+                'categoryLinkEntity.subCategoryLevelOneID = storeProductCategory.id'
+            )
+
+            ->andWhere('categoryLinkEntity.mainCategoryID = :storeCategoryID')
 //            ->andWhere('storeProductCategory.isLevel1 = :isLevel1')
 
             ->setParameter('storeCategoryID', $storeCategoryID)
@@ -77,10 +85,8 @@ class StoreProductCategoryEntityRepository extends ServiceEntityRepository
             ->select('storeProductCategory.id', 'storeProductCategory.productCategoryName as primaryStoreProductCategory', 'storeProductCategory.isLevel1', 'storeProductCategory.productCategoryImage',
              'storeProductCategoryTranslationEntity.productCategoryName', 'storeProductCategoryTranslationEntity.language')
 
-            ->andWhere('storeProductCategory.storeCategoryID = :storeCategoryID')
+//            ->andWhere('storeProductCategory.storeCategoryID = :storeCategoryID')
             ->andWhere('storeProductCategory.isLevel1 = :isLevel1')
-
-            ->setParameter('storeCategoryID', $storeCategoryID)
             ->setParameter('isLevel1', 1)
 
             ->leftJoin(
@@ -89,6 +95,16 @@ class StoreProductCategoryEntityRepository extends ServiceEntityRepository
                 Join::WITH,
                 'storeProductCategoryTranslationEntity.storeProductCategoryID = storeProductCategory.id'
             )
+
+            ->leftJoin(
+                CategoryLinkEntity::class,
+                'categoryLinkEntity',
+                Join::WITH,
+                'categoryLinkEntity.subCategoryLevelOneID = storeProductCategory.id'
+            )
+
+            ->andWhere('categoryLinkEntity.mainCategoryID = :storeCategoryID')
+            ->setParameter('storeCategoryID', $storeCategoryID)
 
             ->getQuery()
             ->getResult();
