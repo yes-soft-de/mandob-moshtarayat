@@ -149,8 +149,12 @@ class OrderService
             if($item){
                 $orderDetailUpdate = $this->orderDetailService->orderUpdateStateByOrderState($request->getState(), $request->getOrderNumber(), $request->getCaptainID());
                 if($orderDetailUpdate){
+                    $storeIds = [];
+                    foreach ($orderDetailUpdate['storeIds'] as $storeProfileId) {
+                        $storeIds[] = $this->storeOwnerProfileService->getStoreIdByProfileId($storeProfileId);
+                    }
                     //create log
-                    $this->orderLogService->createOrderLogWithMultiStore($orderDetailUpdate['storeIds'], $request->getOrderNumber(), $request->getState(), $item->getClientID());
+                    $this->orderLogService->createOrderLogWithMultiStore($storeIds, $request->getOrderNumber(), $request->getState(), $item->getClientID(), $request->getCaptainID());
 
                     //create Notification Local
                     $this->notificationLocalService->createUpdateOrderStateClientNotificationLocal($request->getState(), $item->getClientID(), $request->getOrderNumber());
@@ -168,9 +172,7 @@ class OrderService
 
                     //create firebase notification for store
                     try{
-                        foreach ($orderDetailUpdate['storeIds'] as $storeProfileId) {
-                            $storeIds[] = $this->storeOwnerProfileService->getStoreIdByProfileId($storeProfileId);
-                        }
+
                         $this->notificationService->notificationOrderUpdateForStores($storeIds, $request->getOrderNumber(),NotificationStoreConstant::$MESSAGE_STORE_ORDER_UPDATE);
                     }
                     catch (\Exception $e){
@@ -205,8 +207,10 @@ class OrderService
                     if($order) {
                        $storeOwnerProfile = $this->storeOwnerProfileService->getStoreOwnerProfileById($request->getStoreOwnerProfileID());
 
+                       $storeId = $this->storeOwnerProfileService->getStoreIdByProfileId($request->getStoreOwnerProfileID());
+
                         //create log
-                        $this->orderLogService->createOrderLog($request->getOrderNumber(), $request->getState(), $order->getClientID(), $request->getStoreOwnerProfileID());
+                        $this->orderLogService->createOrderLog($request->getOrderNumber(), $request->getState(), $order->getClientID(), $order->getCaptainID(), $storeId);
 
                         //create Notification Local
                         $this->notificationLocalService->createUpdateOrderStateClientNotificationLocal($request->getState(), $order->getClientID(), $request->getOrderNumber(), $storeOwnerProfile->storeOwnerName);
@@ -224,8 +228,6 @@ class OrderService
 
                         //create firebase notification for store
                         try{
-                            $storeId = $this->storeOwnerProfileService->getStoreIdByProfileId($request->getStoreOwnerProfileID());
-
                             $this->notificationService->notificationOrderUpdateForUser($storeId, $request->getOrderNumber(), NotificationStoreConstant::$MESSAGE_STORE_ORDER_UPDATE);
                         }
                         catch (\Exception $e){
@@ -398,6 +400,7 @@ class OrderService
     {  
         $response = ResponseConstant::$ORDER_NOT_CREATED;
         $storeIDs = [];
+        $storeIds = [];
         $orderNumber = 1;
 
         $lastOrderNumber = $this->orderDetailService->getLastOrderNumber();
@@ -423,8 +426,11 @@ class OrderService
 
                $storeIDs[] = $orderDetail->storeOwnerProfileID;
             }
+            foreach ($storeIDs  as $storeProfileId) {
+                $storeIds[] = $this->storeOwnerProfileService->getStoreIdByProfileId($storeProfileId);
+            }
             //create log
-            $this->orderLogService->createOrderLogWithMultiStore($storeIDs, $orderNumber, $item->getState(), $request->getClientID());
+            $this->orderLogService->createOrderLogWithMultiStore($storeIds, $orderNumber, $item->getState(), $request->getClientID(),0);
 
             //create store notification local
             $this->notificationLocalService->createStoreNotificationLocal($storeIDs, LocalStoreNotificationList::$NEW_ORDER_TITLE, LocalStoreNotificationList::$CREATE_ORDER_SUCCESS, $orderNumber);
@@ -441,9 +447,6 @@ class OrderService
             }
             //create firebase notification store
             try{
-                foreach ($storeIDs  as $storeProfileId) {
-                    $storeIds[] = $this->storeOwnerProfileService->getStoreIdByProfileId($storeProfileId);
-                }
                  $this->notificationService->notificationOrderUpdateForStores($storeIds, $orderNumber, NotificationStoreConstant::$MESSAGE_STORE_NEW_ORDER);
             }
             catch (\Exception $e){
@@ -476,7 +479,7 @@ class OrderService
             }
 
             //create log
-            $this->orderLogService->createOrderLog($orderNumber, $item->getState(), $request->getClientID());
+            $this->orderLogService->createOrderLog($orderNumber, $item->getState(), $request->getClientID(), 0);
 
             //create notification local
             $this->notificationLocalService->createNotificationLocal($request->getClientID(), LocalNotificationList::$NEW_ORDER_TITLE, LocalNotificationList::$CREATE_ORDER_SUCCESS, $orderNumber);
@@ -509,8 +512,10 @@ class OrderService
                return $response;
             }
 
+            $storeId = $this->storeOwnerProfileService->getStoreIdByProfileId($request->getStoreOwnerProfileID());
+
             //create log
-            $this->orderLogService->createOrderLog($orderNumber, $item->getState(), $request->getClientID(), $request->getStoreOwnerProfileID());
+            $this->orderLogService->createOrderLog($orderNumber, $item->getState(), $request->getClientID(), 0, $storeId);
 
             //create notification local
             $this->notificationLocalService->createNotificationLocal($request->getClientID(), LocalNotificationList::$NEW_ORDER_TITLE, LocalNotificationList::$CREATE_ORDER_SUCCESS, $orderNumber);
@@ -528,8 +533,6 @@ class OrderService
 
             //create firebase notification store
             try{
-                $storeId = $this->storeOwnerProfileService->getStoreIdByProfileId($request->getStoreOwnerProfileID());
-
                 $this->notificationService->notificationOrderUpdateForUser($storeId, $orderNumber, NotificationStoreConstant::$MESSAGE_STORE_NEW_ORDER);
             }
             catch (\Exception $e){
@@ -784,21 +787,6 @@ class OrderService
                 $response=ResponseConstant::$ORDER_NOT_REMOVE_TIME;
             }
 
-            elseif ($order['state'] != OrderStateConstant::$ORDER_STATE_PENDING ) {
-                //notification local
-                $this->notificationLocalService->createNotificationLocal($userID, LocalNotificationList::$CANCEL_ORDER_TITLE, LocalNotificationList::$CANCEL_ORDER_ERROR_ACCEPTED, $orderNumber);
-
-                //create firebase notification for client
-                try {
-                    $this->notificationService->notificationOrderUpdateForUser($userID, $orderNumber, LocalNotificationList::$CANCEL_ORDER_ERROR_ACCEPTED);
-                }
-                catch (\Exception $e){
-                    error_log($e);
-                }
-
-                $response = ResponseConstant::$ORDER_NOT_REMOVE_CAPTAIN_RECEIVED;
-            }            
-
             elseif ($order['state'] != OrderStateConstant::$ORDER_STATE_PENDING and $order['state'] != OrderStateConstant::$ORDER_STATE_NOT_PAID ) {
                 //notification local
                 $this->notificationLocalService->createNotificationLocal($userID, LocalNotificationList::$CANCEL_ORDER_TITLE, LocalNotificationList::$CANCEL_ORDER_ERROR_ACCEPTED, $orderNumber);
@@ -821,15 +809,13 @@ class OrderService
 
                     $orderDetailUpdate = $this->orderDetailService->orderUpdateStateByOrderState(OrderStateConstant::$ORDER_STATE_CANCEL , $orderNumber, null);
 
+                    foreach ($orderDetailUpdate['storeIds'] as $storeProfileId) {
+                        $storeIds[] = $this->storeOwnerProfileService->getStoreIdByProfileId($storeProfileId);
+                    }
                     //----> start create log
                     // if order type is product order or special order
                     if ($item->getOrderType() == 1 ||  $item->getOrderType() == 2) {
-                        $this->orderLogService->createOrderLog($orderNumber, OrderStateConstant::$ORDER_STATE_CANCEL, $userID, $orderDetails[0]['storeOwnerProfileID']);
-                    }
-
-                    //----> if order type is send order
-                    if ($item->getOrderType() == 3) {
-                        $this->orderLogService->createOrderLog($orderNumber, OrderStateConstant::$ORDER_STATE_CANCEL, $userID);
+                        $this->orderLogService->createOrderLogWithMultiStore($storeIds, $orderNumber, OrderStateConstant::$ORDER_STATE_CANCEL, $userID, 0);
                     }
 
                     //notification local
@@ -845,10 +831,6 @@ class OrderService
 
                     //create firebase notification for store
                     try {
-                        foreach ($orderDetailUpdate['storeIds'] as $storeProfileId) {
-                            $storeIds[] = $this->storeOwnerProfileService->getStoreIdByProfileId($storeProfileId);
-                        }
-
                         $this->notificationService->notificationOrderUpdateForStores($storeIds, $orderNumber, NotificationStoreConstant::$MESSAGE_STORE_ORDER_CANCEL);
                     }
                     catch (\Exception $e){

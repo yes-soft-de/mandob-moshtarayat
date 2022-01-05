@@ -2,13 +2,11 @@
 
 namespace App\Response;
 
-class OrderLogResponse
+class OrderLogOwnerResponse
 {
     public $id;
 
     public $orderNumber;
-
-    public $state;
 
     public $createdAt;
 

@@ -41,6 +41,7 @@ class OrderLogManager
         $result = $this->createOrderLog($item);
 
     }
+
     public function getOrderLogByOrderNumber($orderNumber)
     {
         return $this->orderLogEntityRepository->getOrderLogByOrderNumber($orderNumber);
@@ -49,16 +50,6 @@ class OrderLogManager
     public function getOrderLogsByOrderNumber($orderNumber)
     {
         return $this->orderLogEntityRepository->getOrderLogsByOrderNumber($orderNumber);
-    }
-
-    public function orderLogsByCaptainId($captainId)
-    {
-        return $this->orderLogEntityRepository->orderLogsByCaptainId($captainId);
-    }
-
-    public function orderLogsByStoreProfileId($storeProfileId)
-    {
-        return $this->orderLogEntityRepository->orderLogsByStoreProfileId($storeProfileId);
     }
 
     public function getFirstDate($orderNumber)
@@ -76,18 +67,18 @@ class OrderLogManager
         return $this->orderLogEntityRepository->getLastDate($orderNumber);
     }
 
-    public function getOrderNumberByOwnerId($ownerID)
+    public function getCaptainOrderLogs($captainID)
     {
-        return $this->orderLogEntityRepository->getOrderNumberByOwnerId($ownerID);
-    }
-
-    public function getOrderNumberByCaptainId($captainID)
-    {
-        return $this->orderLogEntityRepository->getOrderNumberByCaptainId($captainID);
+        return $this->orderLogEntityRepository->getCaptainOrderLogs($captainID);
     }
 
     public function getOrderNumberUserID($userID)
     {
         return $this->orderLogEntityRepository->getOrderNumberUserID($userID);
+    }
+
+    public function getOwnerOrderLogs($userID)
+    {
+        return $this->orderLogEntityRepository->getOwnerOrderLogs($userID);
     }
 }
