@@ -11,7 +11,7 @@ use App\Request\OrderClientCreateRequest;
 use App\Request\OrderClientSendCreateRequest;
 use App\Request\OrderClientSpecialCreateRequest;
 use App\Request\OrderStateRequest;
-use App\Request\orderUpdateBillCalculatedByCaptainRequest;
+use App\Request\OrderUpdateBillCalculatedByCaptainRequest;
 use App\Request\OrderUpdateByClientRequest;
 use App\Request\OrderUpdateByOrderNumberRequest;
 use App\Request\OrderUpdateStateByCaptainRequest;
@@ -415,12 +415,12 @@ class OrderManager
         }
     }
 
-    public function orderUpdateBillCalculatedByCaptain(orderUpdateBillCalculatedByCaptainRequest $request)
+    public function orderUpdateBillCalculatedByCaptain(OrderUpdateBillCalculatedByCaptainRequest $request)
     {
         $item = $this->orderEntityRepository->find($request->getId());
 
         if ($item) {
-            $item = $this->autoMapping->mapToObject(orderUpdateBillCalculatedByCaptainRequest::class, OrderEntity::class, $request, $item);
+            $item = $this->autoMapping->mapToObject(OrderUpdateBillCalculatedByCaptainRequest::class, OrderEntity::class, $request, $item);
 
 
             $this->entityManager->flush();

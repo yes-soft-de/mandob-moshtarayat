@@ -9,6 +9,7 @@ use App\Constant\MessageConstant;
 use App\Constant\NotificationCaptainConstant;
 use App\Constant\NotificationStoreConstant;
 use App\Constant\OrderStateConstant;
+use App\Constant\StoreStatusConstant;
 use App\Entity\ElectronicPaymentInfoEntity;
 use App\Entity\OrderEntity;
 use App\Manager\OrderManager;
@@ -17,7 +18,7 @@ use App\Request\OrderClientCreateRequest;
 use App\Request\OrderClientSendCreateRequest;
 use App\Request\OrderClientSpecialCreateRequest;
 use App\Request\OrderStateRequest;
-use App\Request\orderUpdateBillCalculatedByCaptainRequest;
+use App\Request\OrderUpdateBillCalculatedByCaptainRequest;
 use App\Request\OrderUpdateProductCountByClientRequest;
 use App\Request\OrderUpdateStateByCaptainRequest;
 use App\Request\OrderUpdateInvoiceByCaptainRequest;
@@ -894,7 +895,7 @@ class OrderService
         return $this->autoMapping->map(OrderUpdateInvoiceByCaptainResponse::class, OrderUpdateInvoiceByCaptainResponse::class, $orderInvoice);
     }
 
-    public function orderUpdateBillCalculatedByCaptain(orderUpdateBillCalculatedByCaptainRequest $request)
+    public function orderUpdateBillCalculatedByCaptain(OrderUpdateBillCalculatedByCaptainRequest $request)
     {
         $response = "Not updated!!";
 
@@ -978,11 +979,11 @@ class OrderService
         $item = $this->userService->getStoreProfileId($userID);
 
         $store = $this->storeOwnerProfileService->storeIsActive($userID);
-        if ($store->getStatus() == ResponseConstant::$INACTIVE) {
+        if ($store->getStatus() === StoreStatusConstant::$INACTIVE_STORE_STATUS) {
             $response = ResponseConstant::$STORE_INACTIVE;
         }
 
-        if ($store->getStatus() == 'active') {
+        elseif ($store->getStatus() === StoreStatusConstant::$ACTIVE_STORE_STATUS) {
             $orders = $this->orderDetailService->getStoreOrdersOngoingForStoreOwner($item['id']);
 
             foreach ($orders as $order) {
