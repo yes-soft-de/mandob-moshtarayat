@@ -20,7 +20,8 @@ class ChatManager {
   void sendNotification(String chatRoomID) {
     _chatRepository.sendNotification(chatRoomID);
   }
-    void needSupport() {
+
+  void needSupport() {
     _chatRepository.needSupport();
   }
 }

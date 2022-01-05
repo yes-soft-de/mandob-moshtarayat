@@ -44,7 +44,7 @@ class _FavoriteHomeAppBarState extends State<FavoriteHomeAppBar> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(right: 8.0, left: 8.0),
-                  child: GestureDetector(
+                  child: InkWell(
                       onTap: () {
                         if (getIt<AuthService>().isLoggedIn) {
                           showDialog(

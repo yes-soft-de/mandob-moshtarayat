@@ -25,9 +25,9 @@ class EmptyChatPage extends StatelessWidget {
   Widget build(BuildContext context) {
     String chatRoomId = '';
     chatRoomId = ModalRoute.of(context)?.settings.arguments.toString() ?? '';
-      if (chatRoomId.substring(0, 3) == '#S#') {
-        chatRoomId = chatRoomId.substring(3);
-      }
+    if (chatRoomId.substring(0, 3) == '#S#') {
+      chatRoomId = chatRoomId.substring(3);
+    }
     return GestureDetector(
       onTap: () {
         var focus = FocusScope.of(context);

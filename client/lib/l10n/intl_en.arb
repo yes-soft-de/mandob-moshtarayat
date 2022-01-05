@@ -394,7 +394,23 @@
   "uploadImageIfyouHave":"Upload image if you have",
   "pressHere":"Press here",
   "send":"Send",
-  "yourRequestSent":"Your Request have been sent"
+  "yourRequestSent":"Your Request have been sent",
+  "forgotPass": "Forgot password?",
+  "partners": "Our partners",
+
+  "paymentsVia": "Payments via",
+  "newPassword": "New password",
+
+  "confirmNewPass": "Confirm new password",
+  "passwordUpdatedSuccess": "Password updated successfully",
+  "informSendCode": "We will send a verification code to your number",
+  "passwordNotMatch": "Password not matching",
+  "update":"Update",
+  "phoneNumberLong":"Phone number invalid format , cause is more than 9",
+  "similarProducts":"Similar Products"
+
+
+
 
   
 

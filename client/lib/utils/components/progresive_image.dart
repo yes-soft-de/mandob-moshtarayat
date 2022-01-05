@@ -76,7 +76,8 @@ class CustomNetworkImage extends StatelessWidget {
       if (!image.contains('http')) {
         image = Urls.IMAGES_ROOT + image;
       }
-      return GestureDetector(
+      return InkWell(
+        splashColor: Colors.transparent,
         onTap: imagePreview
             ? () {
                 showDialog(

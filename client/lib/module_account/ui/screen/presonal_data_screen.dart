@@ -7,6 +7,7 @@ import 'package:mandob_moshtarayat/module_account/state_manager/presonal_data_st
 import 'package:mandob_moshtarayat/module_account/ui/state/personal_data/personal_data_loaded_state.dart';
 import 'package:mandob_moshtarayat/module_account/ui/state/personal_data/personal_data_state.dart';
 import 'package:mandob_moshtarayat/module_main/main_routes.dart';
+import 'package:mandob_moshtarayat/utils/components/fixed_container.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 
 @injectable
@@ -115,7 +116,8 @@ class PersonalDataScreenState extends State<PersonalDataScreen> {
           ),
           elevation: 0,
         ),
-        body: currentState?.getUI(context),
+        body: FixedContainer(
+            child: currentState?.getUI(context) ?? const SizedBox()),
       ),
     );
   }

@@ -5,6 +5,7 @@ import 'package:mandob_moshtarayat/abstracts/states/error_state.dart';
 import 'package:mandob_moshtarayat/abstracts/states/loading_state.dart';
 import 'package:mandob_moshtarayat/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat/module_products/model/products_details_model.dart';
+import 'package:mandob_moshtarayat/module_products/model/products_similar_model.dart';
 import 'package:mandob_moshtarayat/module_products/service/products_service.dart';
 import 'package:mandob_moshtarayat/module_products/ui/screen/products_details_screen.dart';
 import 'package:mandob_moshtarayat/module_products/ui/state/product_details/products_details_loaded_state.dart';
@@ -18,7 +19,9 @@ import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 class ProductDetailsStateManager {
   final ProductsService _productsService;
   final PublishSubject<States> _stateSubject = PublishSubject();
-
+  Stream<AsyncSnapshot<Object?>> get productsStream => _productSubject.stream;
+  final PublishSubject<AsyncSnapshot<Object?>> _productSubject =
+      PublishSubject();
   final CartHiveHelper cartHiveHelper = CartHiveHelper();
 
   Stream<States> get stateStream => _stateSubject.stream;
@@ -65,6 +68,22 @@ class ProductDetailsStateManager {
         CustomFlushBarHelper.createSuccess(
                 title: S.current.warnning, message: S.current.productRated)
             .show(screenState.context);
+      }
+    });
+  }
+
+  void getSimilarProduct(
+      ProductDetailsScreenState screenState, int categoriesId) {
+    _productSubject.add(const AsyncSnapshot.waiting());
+    _productsService.getProductsSimilar(categoriesId).then((value) {
+      if (value.hasError) {
+        _productSubject.add(const AsyncSnapshot.waiting());
+      } else if (value.isEmpty) {
+        _productSubject.add(const AsyncSnapshot.nothing());
+      } else {
+        ProductsSimilarModel model = value as ProductsSimilarModel;
+        _productSubject
+            .add(AsyncSnapshot.withData(ConnectionState.done, model.data));
       }
     });
   }

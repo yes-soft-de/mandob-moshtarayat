@@ -6,6 +6,7 @@ import 'package:lottie/lottie.dart';
 import 'package:mandob_moshtarayat/di/di_config.dart';
 import 'package:mandob_moshtarayat/module_account/account_routes.dart';
 import 'package:mandob_moshtarayat/module_chat/manager/chat/chat_manager.dart';
+import 'package:mandob_moshtarayat/utils/components/fixed_container.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:soundpool/soundpool.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
@@ -206,86 +207,90 @@ class ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                   widget._authService.username, chatScrollController.offset);
               Navigator.of(context).pop();
             }),
-            body: Stack(
-              children: [
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Expanded(
-                        child: Opacity(
-                      opacity: empty ? 0 : 1,
-                      child: Scrollbar(
-                        radius: Radius.circular(25),
-                        child: ListView(
-                            //inkWrap: true,
-                            physics: BouncingScrollPhysics(
-                                parent: AlwaysScrollableScrollPhysics()),
-                            controller: chatScrollController,
-                            children: chatsMessagesWidgets),
+            body: FixedContainer(
+              child: Stack(
+                children: [
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Expanded(
+                          child: Opacity(
+                        opacity: empty ? 0 : 1,
+                        child: Scrollbar(
+                          radius: const Radius.circular(25),
+                          child: ListView(
+                              //inkWrap: true,
+                              physics: const BouncingScrollPhysics(
+                                  parent: AlwaysScrollableScrollPhysics()),
+                              controller: chatScrollController,
+                              children: chatsMessagesWidgets),
+                        ),
+                      )),
+                      ChatWriterWidget(
+                        onTap: () {
+                          if (lastSeenIndex != null ||
+                              newMessagesWidgetExist()) {
+                            widget._chatHiveHelper
+                                .deleteChatCache(
+                                    chatRoomId + widget._authService.username)
+                                .whenComplete(() {
+                              lastSeenIndex = null;
+                              widget._chatStateManager.getMessages(chatRoomId);
+                            });
+                          }
+                        },
+                        onMessageSend: (msg) {
+                          widget._chatStateManager.sendMessage(
+                              chatRoomId, msg, widget._authService.username);
+                        },
+                        uploadService: widget._uploadService,
                       ),
-                    )),
-                    ChatWriterWidget(
-                      onTap: () {
-                        if (lastSeenIndex != null || newMessagesWidgetExist()) {
-                          widget._chatHiveHelper
-                              .deleteChatCache(
-                                  chatRoomId + widget._authService.username)
-                              .whenComplete(() {
-                            lastSeenIndex = null;
-                            widget._chatStateManager.getMessages(chatRoomId);
-                          });
-                        }
-                      },
-                      onMessageSend: (msg) {
-                        widget._chatStateManager.sendMessage(
-                            chatRoomId, msg, widget._authService.username);
-                      },
-                      uploadService: widget._uploadService,
-                    ),
-                  ],
-                ),
-                empty
-                    ? Center(
-                        child:
-                            Lottie.asset('assets/animations/empty_state.json'),
-                      )
-                    : SizedBox(),
-                down
-                    ? Positioned(
-                        bottom: 100,
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: ScalingWidget(
-                            child: Card(
-                              color: Theme.of(context).scaffoldBackgroundColor,
-                              elevation: 3,
-                              shape: CircleBorder(),
-                              child: InkWell(
-                                onTap: () {
-                                  down = false;
-                                  chatScrollController
-                                      .scrollToIndex(
-                                          chatsMessagesWidgets.length - 1)
-                                      .whenComplete(() {
+                    ],
+                  ),
+                  empty
+                      ? Center(
+                          child: Lottie.asset(
+                              'assets/animations/empty_state.json'),
+                        )
+                      : const SizedBox(),
+                  down
+                      ? Positioned(
+                          bottom: 100,
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: ScalingWidget(
+                              child: Card(
+                                color:
+                                    Theme.of(context).scaffoldBackgroundColor,
+                                elevation: 3,
+                                shape: const CircleBorder(),
+                                child: InkWell(
+                                  onTap: () {
+                                    down = false;
+                                    chatScrollController
+                                        .scrollToIndex(
+                                            chatsMessagesWidgets.length - 1)
+                                        .whenComplete(() {
+                                      setState(() {});
+                                    });
                                     setState(() {});
-                                  });
-                                  setState(() {});
-                                },
-                                customBorder: CircleBorder(),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Icon(
-                                    Icons.arrow_downward_rounded,
-                                    color: Colors.grey,
+                                  },
+                                  customBorder: const CircleBorder(),
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Icon(
+                                      Icons.arrow_downward_rounded,
+                                      color: Colors.grey,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      )
-                    : Container(),
-              ],
+                        )
+                      : Container(),
+                ],
+              ),
             )),
       ),
     );
@@ -333,7 +338,7 @@ class ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
   AutoScrollTag lastSeen(int index) {
     return AutoScrollTag(
       controller: chatScrollController,
-      key: ValueKey('last seen'),
+      key: const ValueKey('last seen'),
       index: index,
       child: Padding(
         padding: const EdgeInsets.only(top: 16.0, bottom: 16),
@@ -343,7 +348,7 @@ class ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
           child: Padding(
             padding: const EdgeInsets.all(8),
             child: Container(
-              constraints: BoxConstraints(maxWidth: 200),
+              constraints: const BoxConstraints(maxWidth: 200),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(25),
                 color: Theme.of(context).scaffoldBackgroundColor,
@@ -352,7 +357,7 @@ class ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
                   S.current.lastSeenMessage,
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
               ),

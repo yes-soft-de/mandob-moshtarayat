@@ -7,6 +7,7 @@ import 'package:mandob_moshtarayat/module_orders/ui/state/order_logs_state/order
 import 'package:mandob_moshtarayat/module_orders/ui/state/order_logs_state/order_logs_loading_state.dart';
 import 'package:mandob_moshtarayat/module_orders/ui/state/order_logs_state/order_logs_state.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
+import 'package:mandob_moshtarayat/utils/components/fixed_container.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 
 @injectable
@@ -64,7 +65,7 @@ class OrderLogsScreenState extends State<OrderLogsScreen> {
             title: S.current.orderLog,
             buttonBackground:
                 currentState is OrderLogsErrorState ? Colors.red : null),
-        body: currentState.getUI(context),
+        body: FixedContainer(child: currentState.getUI(context)),
       ),
     );
   }

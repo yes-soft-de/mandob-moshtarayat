@@ -3999,6 +3999,116 @@ class S {
       args: [],
     );
   }
+
+  /// `Forgot password?`
+  String get forgotPass {
+    return Intl.message(
+      'Forgot password?',
+      name: 'forgotPass',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Our partners`
+  String get partners {
+    return Intl.message(
+      'Our partners',
+      name: 'partners',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payments via`
+  String get paymentsVia {
+    return Intl.message(
+      'Payments via',
+      name: 'paymentsVia',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New password`
+  String get newPassword {
+    return Intl.message(
+      'New password',
+      name: 'newPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm new password`
+  String get confirmNewPass {
+    return Intl.message(
+      'Confirm new password',
+      name: 'confirmNewPass',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password updated successfully`
+  String get passwordUpdatedSuccess {
+    return Intl.message(
+      'Password updated successfully',
+      name: 'passwordUpdatedSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We will send a verification code to your number`
+  String get informSendCode {
+    return Intl.message(
+      'We will send a verification code to your number',
+      name: 'informSendCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password not matching`
+  String get passwordNotMatch {
+    return Intl.message(
+      'Password not matching',
+      name: 'passwordNotMatch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update`
+  String get update {
+    return Intl.message(
+      'Update',
+      name: 'update',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Phone number invalid format , cause is more than 9`
+  String get phoneNumberLong {
+    return Intl.message(
+      'Phone number invalid format , cause is more than 9',
+      name: 'phoneNumberLong',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Similar Products`
+  String get similarProducts {
+    return Intl.message(
+      'Similar Products',
+      name: 'similarProducts',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -143,15 +143,6 @@ class OrderDetailsLoadedState extends OrderDetailsState {
                                     fontSize: 25, fontWeight: FontWeight.bold),
                               ),
                             ),
-                            orderDetails.order.invoiceImage != null &&
-                                    orderDetails.order.invoiceAmount != null
-                                ? CustomInvoiceAlert(
-                                    image: orderDetails.order.invoiceImage
-                                        .toString(),
-                                    cost: orderDetails.order.invoiceAmount
-                                        .toString(),
-                                  )
-                                : const SizedBox(),
                             Padding(
                               padding: const EdgeInsets.all(12.0),
                               child: Container(
@@ -481,7 +472,7 @@ class OrderDetailsLoadedState extends OrderDetailsState {
         height: 16,
       ));
       orderChips.add(Hider(
-          active: element.invoiceAmount != null,
+          active: false,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: CustomInvoiceAlert(

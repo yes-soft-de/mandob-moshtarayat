@@ -1,11 +1,12 @@
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mandob_moshtarayat/consts/country_code.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_auth/authorization_routes.dart';
+import 'package:mandob_moshtarayat/module_auth/request/forget_password_request/reset_password_request.dart';
 import 'package:mandob_moshtarayat/module_auth/ui/screen/login_screen/login_screen.dart';
 import 'package:mandob_moshtarayat/module_auth/ui/states/login_states/login_state.dart';
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat/module_auth/ui/widget/login_widgets/custom_field.dart';
+import 'package:mandob_moshtarayat/module_orders/ui/widget/order_details/custom_alert_dialog.dart';
 import 'package:mandob_moshtarayat/utils/components/auth_buttons.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 import 'package:mandob_moshtarayat/utils/images/images.dart';
@@ -104,6 +105,38 @@ class LoginStateInit extends LoginState {
                   ),
                 ),
               ),
+              Container(
+                height: 16,
+              ),
+              InkWell(
+                  onTap: () {
+                    FocusScope.of(context).unfocus();
+                    if (usernameController.text.isNotEmpty) {
+                      showDialog(
+                          context: context,
+                          builder: (_) {
+                            return CustomAlertDialog(
+                                message: S.of(context).informSendCode,
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  screen.restPass(ResetPassRequest(
+                                      userID: usernameController.text));
+                                });
+                          });
+                    } else {
+                      CustomFlushBarHelper.createError(
+                              title: S.current.warnning,
+                              message: S.current.pleaseInputPhoneNumber)
+                          .show(context);
+                    }
+                  },
+                  child: Center(
+                      child: Text(
+                    S.of(context).forgotPass,
+                    style: TextStyle(
+                        color: Theme.of(context).disabledColor,
+                        fontWeight: FontWeight.bold),
+                  ))),
               Container(
                 height: 150,
               ),

@@ -8,6 +8,7 @@ import 'package:mandob_moshtarayat/module_stores/request/rate_store_request.dart
 import 'package:mandob_moshtarayat/module_stores/state_manager/store_products_state_manager.dart';
 import 'package:mandob_moshtarayat/module_stores/ui/state/store_products/store_products_loading_state.dart';
 import 'package:mandob_moshtarayat/module_stores/ui/state/store_products/store_products_state.dart';
+import 'package:mandob_moshtarayat/utils/components/fixed_container.dart';
 import 'package:mandob_moshtarayat/utils/models/store.dart';
 
 @injectable
@@ -88,7 +89,7 @@ class StoreProductsScreenState extends State<StoreProductsScreen> {
         value: const SystemUiOverlayStyle(
             statusBarIconBrightness: Brightness.light),
         child: Scaffold(
-          body: currentState.getUI(context),
+          body: FixedContainer(child: currentState.getUI(context)),
         ),
       ),
     );

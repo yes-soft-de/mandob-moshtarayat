@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/di/di_config.dart';
-import 'package:mandob_moshtarayat/module_account/account_routes.dart';
 import 'package:mandob_moshtarayat/module_account/hive/favorite_store_category.dart';
 import 'package:mandob_moshtarayat/module_account/ui/screen/favourite_screen.dart';
 import 'package:mandob_moshtarayat/module_auth/service/auth_service/auth_service.dart';
 import 'package:mandob_moshtarayat/module_home/state_manager/home_state_manager.dart';
 import 'package:mandob_moshtarayat/module_home/ui/state/home_loading_state.dart';
 import 'package:mandob_moshtarayat/module_home/ui/state/home_state.dart';
-import 'package:mandob_moshtarayat/module_stores/presistance/cart_hive_box_helper.dart';
+import 'package:mandob_moshtarayat/utils/components/fixed_container.dart';
 import 'package:mandob_moshtarayat/utils/global/global_state_manager.dart';
 
 @injectable
@@ -125,7 +123,8 @@ class HomeScreenState extends State<HomeScreen> {
         }
       },
       child: Scaffold(
-        body: currentState?.getUI(context),
+        body: FixedContainer(
+            child: currentState?.getUI(context) ?? const SizedBox()),
       ),
     );
   }

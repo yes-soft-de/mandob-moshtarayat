@@ -10,6 +10,7 @@ import 'package:mandob_moshtarayat/module_products/state_manager/products_state_
 import 'package:mandob_moshtarayat/module_products/ui/state/product_details/products_details_loaded_state.dart';
 import 'package:mandob_moshtarayat/module_stores/request/rate_store_request.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
+import 'package:mandob_moshtarayat/utils/components/fixed_container.dart';
 import 'package:mandob_moshtarayat/utils/components/rate_dialog.dart';
 import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
 
@@ -34,8 +35,8 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
     }
   }
 
-  void getStoreList(int id) {
-    // widget._storeListManager.getStoresCategoryList(id, this);
+  void getProducts(int id) {
+    widget._stateManager.getSimilarProduct(this,id);
   }
 
   @override
@@ -46,7 +47,15 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
       currentState = event;
       if (mounted) setState(() {});
     });
+    widget._stateManager.productsStream.listen((event) {
+      snapshot = event;
+      if (mounted) {
+        setState(() {});
+      }
+    });
   }
+
+  late AsyncSnapshot snapshot = const AsyncSnapshot.nothing();
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +136,7 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     ),
                   ]
                 : null),
-        body: currentState.getUI(context),
+        body: FixedContainer(child: currentState.getUI(context)),
       ),
     );
   }

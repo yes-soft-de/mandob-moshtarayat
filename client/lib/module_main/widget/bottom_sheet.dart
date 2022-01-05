@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_feild.dart';
+import 'package:mandob_moshtarayat/utils/components/fixed_container.dart';
 import 'package:mandob_moshtarayat/utils/effect/checked.dart';
 
 class OuterOrderBottomSheet extends StatefulWidget {
@@ -30,7 +31,10 @@ class _OuterOrderBottomSheetState extends State<OuterOrderBottomSheet> {
       physics:
           const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
       child: Container(
-        constraints: const BoxConstraints(minHeight: 400, maxHeight: 475),
+        constraints: const BoxConstraints(
+          minHeight: 400,
+          maxHeight: 475,
+        ),
         decoration: BoxDecoration(
             color: Theme.of(context).scaffoldBackgroundColor,
             borderRadius: BorderRadius.circular(25)),
@@ -81,12 +85,13 @@ class _OuterOrderBottomSheetState extends State<OuterOrderBottomSheet> {
                       const EdgeInsets.only(right: 16.0, left: 16, bottom: 8),
                   child: Text(
                     S.current.uploadImageIfyouHave,
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 16.0, left: 16),
-                  child: GestureDetector(
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(18),
                     onTap: () {
                       ImagePicker.platform
                           .pickImage(source: ImageSource.gallery)

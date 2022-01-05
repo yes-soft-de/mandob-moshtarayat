@@ -11,6 +11,7 @@ import 'package:mandob_moshtarayat/module_orders/ui/screen/my_orders_screen.dart
 import 'package:mandob_moshtarayat/module_report/request/custom_product_request.dart';
 import 'package:mandob_moshtarayat/module_report/service/report_service.dart';
 import 'package:mandob_moshtarayat/module_upload/service/image_upload/image_upload_service.dart';
+import 'package:mandob_moshtarayat/utils/components/fixed_container.dart';
 import 'package:mandob_moshtarayat/utils/customIcon/mandob_icons_icons.dart';
 import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
@@ -45,106 +46,111 @@ class _MainScreenState extends State<MainScreen> {
       },
       child: Scaffold(
         key: bottomSheet,
-        body: SafeArea(
-          bottom: true,
-          top: true,
-          child: Stack(
-            children: [
-              PageView(
-                physics: const NeverScrollableScrollPhysics(),
-                controller: homeController,
-                onPageChanged: (index) {
-                  selectedPage = index;
-                  setState(() {});
-                  homeController.animateToPage(index,
-                      duration: const Duration(milliseconds: 15),
-                      curve: Curves.linear);
-                },
-                children: [
-                  getIt<HomeScreen>(),
-                  getIt<MyOrdersScreen>(),
-                  getIt<CartScreen>(),
-                  getIt<AccountScreen>()
-                ],
-              ),
-              Hider(
-                  active: fade,
-                  child: GestureDetector(
-                    onTap: () {
-                      if (fade) {
-                        fade = false;
-                        Navigator.of(context).pop();
-                        setState(() {});
-                      }
-                    },
-                    child: Container(
-                      color: Colors.black38,
-                    ),
-                  )),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: SizedBox(
-                  height: 65,
-                  child: Scaffold(
-                    backgroundColor: Colors.transparent.withOpacity(0.0),
-                    floatingActionButton: FloatingActionButton(
-                      backgroundColor: Theme.of(context).primaryColor,
-                      child: const Icon(
-                        MandobIcons.logo,
-                        color: Colors.white,
-                        size: 30,
+        body: FixedContainer(
+          child: SafeArea(
+            bottom: true,
+            top: true,
+            child: Stack(
+              children: [
+                PageView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  controller: homeController,
+                  onPageChanged: (index) {
+                    selectedPage = index;
+                    setState(() {});
+                    homeController.animateToPage(index,
+                        duration: const Duration(milliseconds: 15),
+                        curve: Curves.linear);
+                  },
+                  children: [
+                    getIt<HomeScreen>(),
+                    getIt<MyOrdersScreen>(),
+                    getIt<CartScreen>(),
+                    getIt<AccountScreen>()
+                  ],
+                ),
+                Hider(
+                    active: fade,
+                    child: GestureDetector(
+                      onTap: () {
+                        if (fade) {
+                          fade = false;
+                          Navigator.of(context).pop();
+                          setState(() {});
+                        }
+                      },
+                      child: Container(
+                        color: Colors.black38,
                       ),
-                      onPressed: () {
-                        fade = true;
-                        bottomSheet.currentState?.showBottomSheet(
-                            (context) => OuterOrderBottomSheet(
-                                  callback: (name, extraInfo, image) {
-                                    Navigator.of(context).pop();
-                                    fade = false;
-                                    setState(() {});
-                                    CustomFlushBarHelper.createSuccess(
-                                            title: S.current.warnning,
-                                            message: S.current.yourRequestSent,
-                                            timeout: 1)
-                                        .show(context);
-                                    createCustomProduct(name, extraInfo, image);
-                                  },
-                                ),
-                            elevation: 5,
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.vertical(
-                                  top: Radius.circular(25)),
-                            ));
-                        setState(() {});
-                      },
-                    ),
-                    floatingActionButtonLocation:
-                        FloatingActionButtonLocation.centerDocked,
-                    bottomNavigationBar: AnimatedBottomNavigationBar(
-                      inactiveColor: Theme.of(context).disabledColor,
-                      activeColor: Theme.of(context).primaryColor,
-                      gapLocation: GapLocation.center,
-                      backgroundColor:
-                          Theme.of(context).scaffoldBackgroundColor,
-                      notchSmoothness: NotchSmoothness.defaultEdge,
-                      icons: const [
-                        Icons.home,
-                        Icons.list,
-                        Icons.shopping_cart_rounded,
-                        Icons.person_pin
-                      ],
-                      onTap: (int index) {
-                        selectedPage = index;
-                        homeController.animateToPage(index,
-                            duration: const Duration(milliseconds: 15),
-                            curve: Curves.linear);
-                      },
-                      activeIndex: selectedPage,
+                    )),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: SizedBox(
+                    height: 65,
+                    child: Scaffold(
+                      backgroundColor: Colors.transparent.withOpacity(0.0),
+                      floatingActionButton: FloatingActionButton(
+                        backgroundColor: Theme.of(context).primaryColor,
+                        child: const Icon(
+                          MandobIcons.logo,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                        onPressed: () {
+                          fade = true;
+                          bottomSheet.currentState?.showBottomSheet(
+                              (context) => OuterOrderBottomSheet(
+                                    callback: (name, extraInfo, image) {
+                                      Navigator.of(context).pop();
+                                      fade = false;
+                                      setState(() {});
+                                      CustomFlushBarHelper.createSuccess(
+                                              title: S.current.warnning,
+                                              message:
+                                                  S.current.yourRequestSent,
+                                              timeout: 1)
+                                          .show(context);
+                                      createCustomProduct(
+                                          name, extraInfo, image);
+                                    },
+                                  ),
+                              elevation: 5,
+                              constraints: const BoxConstraints(maxWidth: 600),
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(25)),
+                              ));
+                          setState(() {});
+                        },
+                      ),
+                      floatingActionButtonLocation:
+                          FloatingActionButtonLocation.centerDocked,
+                      bottomNavigationBar: AnimatedBottomNavigationBar(
+                        inactiveColor: Theme.of(context).disabledColor,
+                        activeColor: Theme.of(context).primaryColor,
+                        gapLocation: GapLocation.center,
+                        backgroundColor:
+                            Theme.of(context).scaffoldBackgroundColor,
+                        notchSmoothness: NotchSmoothness.defaultEdge,
+                        icons: const [
+                          Icons.home,
+                          Icons.list,
+                          Icons.shopping_cart_rounded,
+                          Icons.person_pin
+                        ],
+                        onTap: (int index) {
+                          selectedPage = index;
+                          homeController.animateToPage(index,
+                              duration: const Duration(milliseconds: 15),
+                              curve: Curves.linear);
+                        },
+                        activeIndex: selectedPage,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

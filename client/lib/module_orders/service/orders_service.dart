@@ -129,18 +129,18 @@ class OrdersService {
     }
     return MyOrderState.empty();
   }
-  
-  Future<MyOrderState> updatePaymentInfo(CreatePaymentRecordRequest request) async {
+
+  Future<MyOrderState> updatePaymentInfo(
+      CreatePaymentRecordRequest request) async {
     ClientOrderResponse? _clientOrderResponse =
         await _myOrdersManager.updatePaymentRecord(request);
     if (_clientOrderResponse == null) {
       return MyOrderState.error(S.current.networkError);
     }
     if (_clientOrderResponse.statusCode != '200') {
-      return MyOrderState.error(
-          StatusCodeHelper.getStatusCodeMessages(_clientOrderResponse.statusCode));
+      return MyOrderState.error(StatusCodeHelper.getStatusCodeMessages(
+          _clientOrderResponse.statusCode));
     }
     return MyOrderState.empty();
   }
-
 }

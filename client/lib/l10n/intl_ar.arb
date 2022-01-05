@@ -394,6 +394,18 @@
   "uploadImageIfyouHave":"ارفع صورة إذا عندك",
   "pressHere":"اضغط هنا",
   "send":"إرسال",
-  "yourRequestSent":"تم إرسال طلبك"
+  "yourRequestSent":"تم إرسال طلبك",
+  "forgotPass": "هل نسيت كلمة المرور؟",
+  "partners": "شركائنا",
+  "paymentsVia": "إيصال المدفوعات عبر",
+
+  "newPassword": "كلمة السر الجديدة",
+  "confirmNewPass": "تأكيد كلمة السر الجديدة",
+  "passwordUpdatedSuccess": "تم تحديث كلمة المرور بنجاح",
+  "informSendCode": "سنقوم بأرسال كود تحقق الى رقمك",
+  "passwordNotMatch": "كلمة السر غير متطابقة",
+  "update":"تحديث",
+  "phoneNumberLong":"رقم الهاتف غير صالح بسبب تعديه ل٩ محارف",
+  "similarProducts":"المنتجات المتشابهة"
 
 }

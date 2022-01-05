@@ -3,13 +3,13 @@ import 'package:mandob_moshtarayat/generated/l10n.dart';
 
 class CustomAlertDialog extends StatelessWidget {
   final VoidCallback? onPressed;
-
-  CustomAlertDialog({required this.onPressed});
+  final String? message;
+  const CustomAlertDialog({required this.onPressed, this.message});
 
   @override
   Widget build(BuildContext context) {
     return TweenAnimationBuilder(
-      duration: Duration(milliseconds: 750),
+      duration: const Duration(milliseconds: 750),
       tween: Tween<double>(begin: 0, end: 1),
       curve: Curves.bounceIn,
       builder: (context, double val, child) {
@@ -20,7 +20,7 @@ class CustomAlertDialog extends StatelessWidget {
       },
       child: AlertDialog(
         title: Text(S.current.warnning),
-        content: Container(child: Text(S.current.sureForDelete)),
+        content: Text(message ?? S.current.sureForDelete),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),

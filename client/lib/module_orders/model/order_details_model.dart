@@ -127,8 +127,7 @@ class OrderInfo {
       required this.removable,
       this.invoiceImage,
       this.invoiceAmount,
-      required this.captainID
-      });
+      required this.captainID});
 
   OrderInfo.Empty() {
     empty = true;
@@ -196,8 +195,7 @@ OrderInfo toOrder(Order? order) {
         invoiceAmount: null,
         invoiceImage: null,
         removable: !timeout,
-        captainID: order.captainId ?? '-1'
-        );
+        captainID: order.captainId ?? '-1');
   } else {
     return OrderInfo(
         id: -1,

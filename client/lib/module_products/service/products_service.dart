@@ -6,7 +6,9 @@ import 'package:mandob_moshtarayat/module_localization/service/localization_serv
 import 'package:mandob_moshtarayat/module_orders/model/deleted_order_status.dart';
 import 'package:mandob_moshtarayat/module_products/manager/products_manager.dart';
 import 'package:mandob_moshtarayat/module_products/model/products_details_model.dart';
+import 'package:mandob_moshtarayat/module_products/model/products_similar_model.dart';
 import 'package:mandob_moshtarayat/module_products/response/products_details_response.dart';
+import 'package:mandob_moshtarayat/module_products/response/products_similer_response/products_similer_response.dart';
 import 'package:mandob_moshtarayat/module_stores/request/rate_response.dart';
 import 'package:mandob_moshtarayat/module_stores/request/rate_store_request.dart';
 import 'package:mandob_moshtarayat/utils/helpers/status_code_helper.dart';
@@ -32,6 +34,22 @@ class ProductsService {
     storeProfileResponse.data?.productName =
         await translateService(storeProfileResponse.data?.productName ?? '');
     return ProductsDetailsModel.withData(storeProfileResponse.data!);
+  }
+    Future<DataModel> getProductsSimilar(int id) async {
+    ProductsSimilarResponse? storeProfileResponse =
+        await _productsManager.getProductsSimilar(id);
+    if (storeProfileResponse == null) {
+      return DataModel.withError(S.current.networkError);
+    }
+    if (storeProfileResponse.statusCode != '200') {
+      return DataModel.withError(StatusCodeHelper.getStatusCodeMessages(
+          storeProfileResponse.statusCode));
+    }
+    if (storeProfileResponse.data == null) return DataModel.empty();
+       for (var element in storeProfileResponse.data!) {
+      element.productName = await translateService(element.productName ?? '');
+       }
+    return ProductsSimilarModel.withData(storeProfileResponse.data!);
   }
 
   Future<MyOrderState> rateStore(RateStoreRequest request) async {

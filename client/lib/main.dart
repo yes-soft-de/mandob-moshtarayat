@@ -1,6 +1,6 @@
 // ignore_for_file: use_key_in_widget_constructors , unused_field
 import 'dart:async';
-import 'dart:io';
+import 'dart:io' as p;
 import 'package:device_info/device_info.dart';
 import 'package:injectable/injectable.dart';
 import 'package:lehttp_overrides/lehttp_overrides.dart';
@@ -44,11 +44,13 @@ void main() async {
   timeago.setLocaleMessages('ar', timeago.ArMessages());
   timeago.setLocaleMessages('en', timeago.EnMessages());
   timeago.setLocaleMessages('ur', timeago.EnMessages());
-  if (Platform.isAndroid) {
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-    if (androidInfo.version.sdkInt < 26) {
-      HttpOverrides.global = LEHttpOverrides();
+  if (!kIsWeb) {
+    if (p.Platform.isAndroid) {
+      DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      if (androidInfo.version.sdkInt < 26) {
+        p.HttpOverrides.global = LEHttpOverrides();
+      }
     }
   }
   await HiveSetUp.init();

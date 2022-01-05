@@ -9,6 +9,7 @@ import 'package:mandob_moshtarayat/module_account/request/favorite_categories.da
 import 'package:mandob_moshtarayat/module_account/state_manager/favorite_state_manager.dart';
 import 'package:mandob_moshtarayat/module_auth/service/auth_service/auth_service.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
+import 'package:mandob_moshtarayat/utils/components/fixed_container.dart';
 
 @injectable
 class FavouritScreen extends StatefulWidget {
@@ -64,7 +65,8 @@ class FavoritScreenState extends State<FavouritScreen> {
         child: Scaffold(
           appBar: CustomTwaslnaAppBar.appBar(context,
               title: S.current.favoriteCategories, canGoBack: canGoBack),
-          body: currentState?.getUI(context),
+          body: FixedContainer(
+              child: currentState?.getUI(context) ?? const SizedBox()),
         ),
       ),
     );
