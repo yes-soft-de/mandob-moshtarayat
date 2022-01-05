@@ -106,13 +106,16 @@ class _MainScreenState extends State<MainScreen> {
                                       setState(() {});
                                       CustomFlushBarHelper.createSuccess(
                                               title: S.current.warnning,
-                                              message: S.current.yourRequestSent,
+                                              message:
+                                                  S.current.yourRequestSent,
                                               timeout: 1)
                                           .show(context);
-                                      createCustomProduct(name, extraInfo, image);
+                                      createCustomProduct(
+                                          name, extraInfo, image);
                                     },
                                   ),
                               elevation: 5,
+                              constraints: const BoxConstraints(maxWidth: 600),
                               shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.vertical(
                                     top: Radius.circular(25)),
