@@ -61,7 +61,7 @@ dependencies:
   share: ^2.0.4
   # Network Agent
   dio: ^4.0.0
-  dio_firebase_performance: ^0.3.0
+  dio_firebase_performance: ^0.3.1-dev.3
   # Time Ago Generator
   timeago: ^3.0.2
   simple_moment: ^1.1.1
@@ -72,13 +72,14 @@ dependencies:
   # Stream And RX
   rxdart: ^0.27.3
   # Firebase
-  firebase_core: ^1.2.0
+  firebase_core: ^1.10.6
+  firebase_auth: ^3.1.0
   firebase_analytics: ^8.1.0
   firebase_remote_config: ^0.10.0
   cloud_firestore: ^3.1.0
-  firebase_performance: ^0.7.0+6
   firebase_messaging: ^11.2.4
   firebase_crashlytics: ^2.0.4
+  firebase_performance: ^0.7.0
   # Internationalization
   intl: ^0.17.0
   intl_utils: ^2.3.0
