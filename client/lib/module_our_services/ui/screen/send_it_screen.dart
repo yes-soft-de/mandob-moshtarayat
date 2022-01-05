@@ -124,8 +124,7 @@ class SendItScreenState extends State<SendItScreen> {
                 elevation: 0,
               )
             : null,
-        body: FixedContainer(
-            child: currentState.getUI(context)),
+        body: FixedContainer(child: currentState.getUI(context)),
       ),
     );
   }

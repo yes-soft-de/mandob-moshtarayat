@@ -47,7 +47,8 @@ class AccountScreenState extends State<AccountScreen> {
         }
       },
       child: Scaffold(
-        body: FixedContainer(child: currentState?.getUI(context) ?? const SizedBox()),
+        body: FixedContainer(
+            child: currentState?.getUI(context) ?? const SizedBox()),
       ),
     );
   }

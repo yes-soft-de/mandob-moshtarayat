@@ -30,12 +30,13 @@ class AuthManager {
   Future<RegisterResponse?> resendCode(VerifyCodeRequest registerRequest) =>
       _authRepository.resendCode(registerRequest);
 
-        Future<RegisterResponse?> resetPassRequest(ResetPassRequest request) =>
+  Future<RegisterResponse?> resetPassRequest(ResetPassRequest request) =>
       _authRepository.resetPassRequest(request);
 
   Future<RegisterResponse?> updatePassRequest(UpdatePassRequest request) =>
       _authRepository.updatePassRequest(request);
 
-  Future<RegisterResponse?> verifyResetPassCodeRequest(VerifyResetPassCodeRequest request) =>
+  Future<RegisterResponse?> verifyResetPassCodeRequest(
+          VerifyResetPassCodeRequest request) =>
       _authRepository.verifyResetPassCodeRequest(request);
 }

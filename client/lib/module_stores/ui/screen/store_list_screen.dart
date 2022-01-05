@@ -60,8 +60,7 @@ class StoreListScreenState extends State<StoreListScreen> {
       child: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle(statusBarIconBrightness: Brightness.light),
         child: Scaffold(
-          body: FixedContainer(
-              child: currentState.getUI(context)),
+          body: FixedContainer(child: currentState.getUI(context)),
         ),
       ),
     );

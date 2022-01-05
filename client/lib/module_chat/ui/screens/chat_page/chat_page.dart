@@ -228,7 +228,8 @@ class ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                       )),
                       ChatWriterWidget(
                         onTap: () {
-                          if (lastSeenIndex != null || newMessagesWidgetExist()) {
+                          if (lastSeenIndex != null ||
+                              newMessagesWidgetExist()) {
                             widget._chatHiveHelper
                                 .deleteChatCache(
                                     chatRoomId + widget._authService.username)
@@ -248,8 +249,8 @@ class ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                   ),
                   empty
                       ? Center(
-                          child:
-                              Lottie.asset('assets/animations/empty_state.json'),
+                          child: Lottie.asset(
+                              'assets/animations/empty_state.json'),
                         )
                       : const SizedBox(),
                   down
@@ -259,7 +260,8 @@ class ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                             padding: const EdgeInsets.all(16.0),
                             child: ScalingWidget(
                               child: Card(
-                                color: Theme.of(context).scaffoldBackgroundColor,
+                                color:
+                                    Theme.of(context).scaffoldBackgroundColor,
                                 elevation: 3,
                                 shape: const CircleBorder(),
                                 child: InkWell(

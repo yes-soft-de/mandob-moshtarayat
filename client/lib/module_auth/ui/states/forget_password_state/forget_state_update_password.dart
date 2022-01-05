@@ -11,8 +11,7 @@ import 'package:mandob_moshtarayat/utils/images/images.dart';
 
 class ForgotStateUpdatePassword extends States {
   ForgotPassScreenState screenState;
-  ForgotStateUpdatePassword(this.screenState)
-      : super(screenState);
+  ForgotStateUpdatePassword(this.screenState) : super(screenState);
 
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
@@ -27,8 +26,8 @@ class ForgotStateUpdatePassword extends States {
         Form(
           key: _verifyKey,
           child: ListView(
-            physics:
-                const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+            physics: const BouncingScrollPhysics(
+                parent: AlwaysScrollableScrollPhysics()),
             children: [
               Container(
                 height: 50,

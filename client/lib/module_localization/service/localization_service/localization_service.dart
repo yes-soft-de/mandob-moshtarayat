@@ -5,6 +5,7 @@ import 'package:mandob_moshtarayat/module_auth/service/auth_service/auth_service
 import 'package:rxdart/rxdart.dart';
 import 'package:mandob_moshtarayat/module_localization/presistance/localization_preferences_helper/localization_preferences_helper.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+
 @injectable
 @singleton
 class LocalizationService {

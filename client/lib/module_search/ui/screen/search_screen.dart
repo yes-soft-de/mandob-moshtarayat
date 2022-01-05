@@ -87,8 +87,7 @@ class SearchScreenState extends State<SearchScreen> {
           ),
           elevation: 0,
         ),
-        body: FixedContainer(
-            child: currentState.getUI(context)),
+        body: FixedContainer(child: currentState.getUI(context)),
       ),
     );
   }

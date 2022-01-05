@@ -20,7 +20,7 @@ class CustomAlertDialog extends StatelessWidget {
       },
       child: AlertDialog(
         title: Text(S.current.warnning),
-        content:Text(message ?? S.current.sureForDelete),
+        content: Text(message ?? S.current.sureForDelete),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),

@@ -24,10 +24,10 @@ class _ChooseLocalScreenState extends State<ChooseLocalScreen> {
     Locale myLocale = Localizations.localeOf(context);
     return Scaffold(
         body: FixedContainer(
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
           Padding(
             padding: const EdgeInsets.only(top: 16.0),
             child: Center(
@@ -42,8 +42,8 @@ class _ChooseLocalScreenState extends State<ChooseLocalScreen> {
             child: Padding(
               padding: const EdgeInsets.only(top: 25.0),
               child: Text(S.of(context).preferredLanguage,
-                  style:
-                      const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 18)),
             ),
           ),
           Center(
@@ -135,8 +135,8 @@ class _ChooseLocalScreenState extends State<ChooseLocalScreen> {
               ),
             ),
           ),
-              ],
-            ),
-        ));
+        ],
+      ),
+    ));
   }
 }

@@ -4,22 +4,20 @@ class CreatePaymentRecordRequest {
   String? state;
   String? token;
   double? amount;
-  CreatePaymentRecordRequest({
-    this.orderNumber,
-    this.transactionId,
-    this.state,
-    this.token,
-    this.amount
-  });
+  CreatePaymentRecordRequest(
+      {this.orderNumber,
+      this.transactionId,
+      this.state,
+      this.token,
+      this.amount});
 
   factory CreatePaymentRecordRequest.fromJson(Map<String, dynamic> json) {
     return CreatePaymentRecordRequest(
-      orderNumber: json['orderNumber'] as int?,
-      transactionId: json['transactionID'] as String?,
-      state: json['payStatus'] as String?,
-      token: json['token'] as String?,
-      amount: json['amount'] as double?
-    );
+        orderNumber: json['orderNumber'] as int?,
+        transactionId: json['transactionID'] as String?,
+        state: json['payStatus'] as String?,
+        token: json['token'] as String?,
+        amount: json['amount'] as double?);
   }
 
   Map<String, dynamic> toJson() => {
@@ -27,6 +25,6 @@ class CreatePaymentRecordRequest {
         'transactionID': transactionId,
         'payStatus': state,
         'token': token,
-        'amount': amount 
+        'amount': amount
       };
 }

@@ -125,7 +125,8 @@ class LoginStateInit extends LoginState {
                           });
                     } else {
                       CustomFlushBarHelper.createError(
-                              title: S.current.warnning, message: S.current.pleaseInputPhoneNumber)
+                              title: S.current.warnning,
+                              message: S.current.pleaseInputPhoneNumber)
                           .show(context);
                     }
                   },

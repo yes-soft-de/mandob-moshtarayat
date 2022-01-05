@@ -73,6 +73,7 @@ class AuthRepository {
 
     return RegisterResponse.fromJson(result);
   }
+
   Future<RegisterResponse?> resetPassRequest(ResetPassRequest request) async {
     dynamic result = await _apiClient.post(
       Urls.RESET_PASSWORD,
@@ -81,7 +82,8 @@ class AuthRepository {
     if (result == null) return null;
     return RegisterResponse.fromJson(result);
   }
-    Future<RegisterResponse?> updatePassRequest(UpdatePassRequest request) async {
+
+  Future<RegisterResponse?> updatePassRequest(UpdatePassRequest request) async {
     dynamic result = await _apiClient.put(
       Urls.UPDATE_PASSWORD,
       request.toJson(),
@@ -89,7 +91,9 @@ class AuthRepository {
     if (result == null) return null;
     return RegisterResponse.fromJson(result);
   }
-    Future<RegisterResponse?> verifyResetPassCodeRequest(VerifyResetPassCodeRequest request) async {
+
+  Future<RegisterResponse?> verifyResetPassCodeRequest(
+      VerifyResetPassCodeRequest request) async {
     dynamic result = await _apiClient.post(
       Urls.VERIFY_RESET_PASSWORD_CODE,
       request.toJson(),

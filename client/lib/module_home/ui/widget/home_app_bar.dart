@@ -65,7 +65,7 @@ class _CustomHomeAppBarState extends State<CustomHomeAppBar> {
                   width: 8,
                 ),
                 InkWell(
-                  customBorder: const CircleBorder(),
+                    customBorder: const CircleBorder(),
                     onTap: () {
                       Navigator.of(context)
                           .pushNamed(MyNotificationsRoutes.MY_NOTIFICATIONS);

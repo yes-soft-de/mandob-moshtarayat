@@ -18,7 +18,10 @@ class ProfileModel {
   ProfileModel.Error(this._error);
 
   ProfileModel(
-      {required this.name, required this.image, required this.location,this.roomID});
+      {required this.name,
+      required this.image,
+      required this.location,
+      this.roomID});
 
   bool get hasError => _error != null;
 

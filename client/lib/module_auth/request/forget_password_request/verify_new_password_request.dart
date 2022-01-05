@@ -5,7 +5,7 @@ class VerifyResetPassCodeRequest {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['code'] =  code;
+    data['code'] = code;
     return data;
   }
 }

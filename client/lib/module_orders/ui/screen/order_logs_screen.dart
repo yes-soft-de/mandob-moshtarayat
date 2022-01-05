@@ -65,8 +65,7 @@ class OrderLogsScreenState extends State<OrderLogsScreen> {
             title: S.current.orderLog,
             buttonBackground:
                 currentState is OrderLogsErrorState ? Colors.red : null),
-        body: FixedContainer(
-            child: currentState.getUI(context)),
+        body: FixedContainer(child: currentState.getUI(context)),
       ),
     );
   }

@@ -127,8 +127,7 @@ class OrderDetailsScreenState extends State<OrderDetailsScreen> {
         }
       },
       child: Scaffold(
-        body: FixedContainer(
-            child: currentState.getUI(context)),
+        body: FixedContainer(child: currentState.getUI(context)),
       ),
     );
   }

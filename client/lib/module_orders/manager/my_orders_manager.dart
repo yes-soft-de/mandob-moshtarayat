@@ -27,7 +27,8 @@ class MyOrdersManager {
       _myOrdersRepository.deleteClientOrder(id);
   Future<ClientOrderResponse?> updateClientOrder(ClientOrderRequest request) =>
       _myOrdersRepository.updateClientOrder(request);
-        Future<ClientOrderResponse?> updatePaymentRecord(CreatePaymentRecordRequest request) =>
+  Future<ClientOrderResponse?> updatePaymentRecord(
+          CreatePaymentRecordRequest request) =>
       _myOrdersRepository.updatePaymentRecord(request);
   Future<RateResponse?> rateCaptain(RateCaptainRequest request) =>
       _myOrdersRepository.createRateCaptain(request);

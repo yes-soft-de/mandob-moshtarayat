@@ -12,7 +12,8 @@ class AuthorizationModule extends YesModule {
   final RegisterScreen _registerScreen;
   final ForgotPassScreen _forgotPassScreen;
 
-  AuthorizationModule(this._loginScreen, this._registerScreen,this._forgotPassScreen) {
+  AuthorizationModule(
+      this._loginScreen, this._registerScreen, this._forgotPassScreen) {
     YesModule.RoutesMap.addAll(getRoutes());
   }
   Map<String, WidgetBuilder> getRoutes() {

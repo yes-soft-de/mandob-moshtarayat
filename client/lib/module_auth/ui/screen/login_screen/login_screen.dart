@@ -89,19 +89,19 @@ class LoginScreenState extends State<LoginScreen> {
                           MainRoutes.MAIN_SCREEN, (route) => false);
                     }
                   : null),
-                body: FixedContainer(
-          child: loadingSnapshot.connectionState != ConnectionState.waiting
-              ? _currentStates.getUI(context)
-              : Stack(
-                  children: [
-                    _currentStates.getUI(context),
-                    Container(
-                      width: double.maxFinite,
-                      color: Colors.transparent.withOpacity(0.0),
-                    ),
-                  ],
-                ),
-        ),
+          body: FixedContainer(
+            child: loadingSnapshot.connectionState != ConnectionState.waiting
+                ? _currentStates.getUI(context)
+                : Stack(
+                    children: [
+                      _currentStates.getUI(context),
+                      Container(
+                        width: double.maxFinite,
+                        color: Colors.transparent.withOpacity(0.0),
+                      ),
+                    ],
+                  ),
+          ),
         ),
       ),
     );
@@ -159,7 +159,6 @@ class LoginScreenState extends State<LoginScreen> {
   }
 
   void moveToForgetPage() {
-    Navigator.of(context)
-        .pushNamed(AuthorizationRoutes.ForgotPass_SCREEN);
+    Navigator.of(context).pushNamed(AuthorizationRoutes.ForgotPass_SCREEN);
   }
 }

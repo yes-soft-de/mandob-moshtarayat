@@ -124,8 +124,7 @@ class ClientOrderScreenState extends State<ClientOrderScreen> {
           }
         },
         child: Scaffold(
-          body: FixedContainer(
-              child: currentState.getUI(context)),
+          body: FixedContainer(child: currentState.getUI(context)),
         ));
   }
 

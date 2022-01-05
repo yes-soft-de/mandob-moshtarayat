@@ -130,7 +130,7 @@ class _CustomLoginFormFieldState extends State<CustomLoginFormField> {
         Hider(
           active: widget.phone,
           child: Padding(
-            padding: const EdgeInsets.only(left:12.0,right: 12,top: 8),
+            padding: const EdgeInsets.only(left: 12.0, right: 12, top: 8),
             child: Align(
               alignment: AlignmentDirectional.centerEnd,
               child: Text(
@@ -139,7 +139,6 @@ class _CustomLoginFormFieldState extends State<CustomLoginFormField> {
                     fontWeight: FontWeight.bold,
                     fontSize: 12,
                     color: Theme.of(context).disabledColor),
-                    
               ),
             ),
           ),

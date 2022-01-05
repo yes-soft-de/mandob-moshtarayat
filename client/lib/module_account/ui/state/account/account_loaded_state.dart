@@ -73,8 +73,8 @@ class AccountLoadedState extends AccountState {
               text: S.of(context).directSupport,
               icon: Icons.headphones,
               onTap: () {
-                Navigator.of(context)
-                    .pushNamed(ChatRoutes.chatRoute, arguments:'#S#${profileModel?.roomID}');
+                Navigator.of(context).pushNamed(ChatRoutes.chatRoute,
+                    arguments: '#S#${profileModel?.roomID}');
               },
             ),
           ),

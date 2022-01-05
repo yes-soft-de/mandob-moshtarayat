@@ -87,19 +87,19 @@ class RegisterScreenState extends State<RegisterScreen> {
                           MainRoutes.MAIN_SCREEN, (route) => false);
                     }
                   : null),
-                body: FixedContainer(
-          child: loadingSnapshot.connectionState != ConnectionState.waiting
-              ? _currentState.getUI(context)
-              : Stack(
-                  children: [
-                    _currentState.getUI(context),
-                    Container(
-                      width: double.maxFinite,
-                      color: Colors.transparent.withOpacity(0.0),
-                    ),
-                  ],
-                ),
-        ),
+          body: FixedContainer(
+            child: loadingSnapshot.connectionState != ConnectionState.waiting
+                ? _currentState.getUI(context)
+                : Stack(
+                    children: [
+                      _currentState.getUI(context),
+                      Container(
+                        width: double.maxFinite,
+                        color: Colors.transparent.withOpacity(0.0),
+                      ),
+                    ],
+                  ),
+          ),
         ),
       ),
     );

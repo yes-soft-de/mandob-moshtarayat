@@ -89,8 +89,7 @@ class StoreProductsScreenState extends State<StoreProductsScreen> {
         value: const SystemUiOverlayStyle(
             statusBarIconBrightness: Brightness.light),
         child: Scaffold(
-          body: FixedContainer(
-              child: currentState.getUI(context)),
+          body: FixedContainer(child: currentState.getUI(context)),
         ),
       ),
     );

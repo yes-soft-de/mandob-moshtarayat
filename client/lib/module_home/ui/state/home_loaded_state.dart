@@ -201,7 +201,7 @@ class HomeLoadedState extends HomeState {
     if (!screenState.snapshot.hasData) return widgets;
     screenState.snapshot.data.forEach((ProductsByCategoriesModel element) {
       widgets.add(InkWell(
-        splashColor: Colors.transparent,
+          splashColor: Colors.transparent,
           onTap: () {
             Navigator.of(screenState.context).pushNamed(
                 StoreRoutes.STORE_PRODUCTS,
