@@ -118,6 +118,11 @@ class StoreCategoryManager
        return $this->storeCategoryEntityRepository->getStoreCategories();
     }
 
+    public function getStoreCategoriesByProductStoreCategoryLevelOne($storeProductCategoryLevelOneID)
+    {
+        return $this->storeCategoryEntityRepository->getStoreCategoriesByProductStoreCategoryLevelOne($storeProductCategoryLevelOneID);
+    }
+
     public function getStoreCategoriesTranslations()
     {
         return $this->storeCategoryEntityRepository->getStoreCategoriesTranslations();
