@@ -196,4 +196,21 @@ class OrderLogService
 
        return  $response;
     }
+
+    public function getLogsByUserIdForAdmin($userID, $userType)
+    {
+        if($userType == "store"){
+           return $this->getOwnerOrderLogs($userID);
+        }
+
+        if($userType == "client"){
+            return $this->getClientOrderLogs($userID);
+        }
+
+        if($userType == "captain"){
+            return $this->getCaptainOrderLogs($userID);
+        }
+
+        return "not found";
+    }
 }
