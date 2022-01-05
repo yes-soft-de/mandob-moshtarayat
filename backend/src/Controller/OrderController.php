@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\AutoMapping;
 use App\Request\AddInfoPayByClientRequest;
 use App\Request\ElectronicPaymentInfoCreateRequest;
-use App\Request\orderUpdateBillCalculatedByCaptainRequest;
+use App\Request\OrderUpdateBillCalculatedByCaptainRequest;
 use App\Request\OrderUpdateStateForEachStoreByCaptainRequest;
 use App\Service\OrderService;
 use App\Request\OrderClientCreateRequest ;
@@ -1794,7 +1794,7 @@ class OrderController extends BaseController
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class, orderUpdateBillCalculatedByCaptainRequest::class, (object) $data);
+        $request = $this->autoMapping->map(stdClass::class, OrderUpdateBillCalculatedByCaptainRequest::class, (object) $data);
         $request->setCaptainID($this->getUserId());
 
         $response = $this->orderService->orderUpdateBillCalculatedByCaptain($request);
@@ -1953,6 +1953,7 @@ class OrderController extends BaseController
      *          @OA\Property(type="string", property="Data", description="store inactive"),
      *      )
      * )
+     *
      * @Security(name="Bearer")
      */
     public function getStoreOrdersOngoingForStoreOwner(): JsonResponse

@@ -2,7 +2,7 @@
 
 namespace App\Request;
 
-class orderUpdateBillCalculatedByCaptainRequest
+class OrderUpdateBillCalculatedByCaptainRequest
 {
     private $id;
 

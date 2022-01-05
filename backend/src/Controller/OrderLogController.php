@@ -18,25 +18,25 @@ class OrderLogController extends BaseController
     {
         parent::__construct($serializer);
         $this->orderLogService = $orderLogService;
-    } 
-    
+    }
+
     /**
-      * @Route("/orderlog/{orderNumber}", name="GetLogByOrderNumber", methods={"GET"})
-      * @param Request $request
-      * @return JsonResponse
-      */
+     * @Route("/orderlog/{orderNumber}", name="GetLogByOrderNumber", methods={"GET"})
+     * @param $orderNumber
+     * @return JsonResponse
+     */
       public function getOrderLogByOrderNumber($orderNumber)
       {
           $result = $this->orderLogService->getOrderLogByOrderNumber($orderNumber);
   
           return $this->response($result, self::FETCH);
       }
-      
+
     /**
      * Get order logs timeLine.
-      * @Route("/orderLogsTimeLine/{orderNumber}", name="getOrderLogsTimeLine", methods={"GET"})
-      * @param Request $request
-      * @return JsonResponse
+     * @Route("/orderlogstimeline/{orderNumber}", name="getOrderLogsTimeLine", methods={"GET"})
+     * @param $orderNumber
+     * @return JsonResponse
      * *
      * @OA\Tag(name="Logs")
      *
@@ -64,44 +64,40 @@ class OrderLogController extends BaseController
      *          )
      *      )
      * )
-     *
      */
-      public function getOrderLogsTimeLine($orderNumber)
+      public function getOrderLogsTimeLine($orderNumber): JsonResponse
       {
-          $result = $this->orderLogService->getOrderLogsTimeLine($orderNumber);
+          $result = $this->orderLogService->getOrderLogsTimeLineNew($orderNumber);
   
           return $this->response($result, self::FETCH);
       }
 
     /**
-      * @Route("/orderLogsByCaptainId/{captainId}", name="getOrderLogsByCaptainId", methods={"GET"})
-      * @param Request $request
-      * @return JsonResponse
-      */
-      public function orderLogsByCaptainId($captainId)
-      {
-          $result = $this->orderLogService->orderLogsByCaptainId($captainId);
-  
-          return $this->response($result, self::FETCH);
-      }
-    /**
-      * @Route("/orderLogsByStoreProfileId/{storeProfileId}", name="getOrderLogsByStoreProfileId", methods={"GET"})
-      * @param Request $request
-      * @return JsonResponse
-      */
-      public function orderLogsByStoreProfileId($storeProfileId)
-      {
-          $result = $this->orderLogService->orderLogsByStoreProfileId($storeProfileId);
-  
-          return $this->response($result, self::FETCH);
-      }
-
-     /**
-      * @Route("/orderLogs", name="GetLogsByUserId", methods={"GET"})
-      * @param Request $request
-      * @return JsonResponse
-      */
-    public function getOrderLogsByUserID()
+     * client - store - captain : Get Order Logs.
+     * @Route("/orderlogs", name="GetLogsByUserId", methods={"GET"})
+     * @return JsonResponse
+     * *
+     * @OA\Tag(name="Logs")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns Order Logs and completionTime and currentStage.",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                      @OA\Property(type="integer", property="id"),
+     *                      @OA\Property(type="integer", property="orderNumber"),
+     *                      @OA\Property(type="object", property="createdAt"),
+     *                      @OA\Property(type="string", property="completionTime"),
+     *                      @OA\Property(type="string", property="currentStage"),
+     *                  ),
+     *              )
+     *          )
+     *      )
+     */
+    public function getOrderLogsByUserID(): JsonResponse
     {    
         if( $this->isGranted('ROLE_CLIENT') ) {
             $result = $this->orderLogService->getClientOrderLogs($this->getUserId());
@@ -110,6 +106,42 @@ class OrderLogController extends BaseController
         if($this->isGranted('ROLE_CAPTAIN')) {
             $result = $this->orderLogService->getCaptainOrderLogs($this->getUserId());
         }
+
+        if($this->isGranted('ROLE_OWNER')) {
+            $result = $this->orderLogService->getOwnerOrderLogs($this->getUserId());
+        }
+
+        return $this->response($result, self::FETCH);
+    }
+
+     /**
+     * admin : Get Order Logs for specific user.
+     * @Route("/orderlogsadmin/{userID}/{userType}", name="GetLogsByUserIdForAdmin", methods={"GET"})
+     * @return JsonResponse
+     * *
+     * @OA\Tag(name="Logs")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns Order Logs and completionTime and currentStage.",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                      @OA\Property(type="integer", property="id"),
+     *                      @OA\Property(type="integer", property="orderNumber"),
+     *                      @OA\Property(type="object", property="createdAt"),
+     *                      @OA\Property(type="string", property="completionTime"),
+     *                      @OA\Property(type="string", property="currentStage"),
+     *                  ),
+     *              )
+     *          )
+     *      )
+     */
+    public function getLogsByUserIdForAdmin($userID,$userType): JsonResponse
+    {
+        $result = $this->orderLogService->getLogsByUserIdForAdmin($userID, $userType);
 
         return $this->response($result, self::FETCH);
     }
