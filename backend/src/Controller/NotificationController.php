@@ -95,7 +95,7 @@ class NotificationController extends BaseController
      *        description="notification new chat",
      *        @OA\JsonContent(
      *              @OA\Property(type="string", property="roomID"),
-     *              @OA\Property(type="object", property="userType", description="captain or store or client"),
+     *              @OA\Property(type="object", property="userType", description="captain or store or client or admin"),
      *               ),
      *         ),
      *

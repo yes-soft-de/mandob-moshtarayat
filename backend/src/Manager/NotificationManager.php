@@ -30,6 +30,11 @@ class NotificationManager
         return $this->notificationTokenEntityRepository->getTokens();
     }
 
+    public function getAdminsTokens()
+    {
+        return $this->notificationTokenEntityRepository->getAdminsTokens();
+    }
+
     public function getStoreTokens($storeIDs)
     {
         return $this->notificationTokenEntityRepository->getStoreTokens($storeIDs);

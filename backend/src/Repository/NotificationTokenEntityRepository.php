@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\ClientProfileEntity;
 use App\Entity\NotificationTokenEntity;
+use App\Entity\StaffProfileEntity;
 use App\Entity\StoreOwnerProfileEntity;
 use App\Entity\SupportEntity;
 use App\Entity\CaptainProfileEntity;
@@ -104,6 +105,19 @@ class NotificationTokenEntityRepository extends ServiceEntityRepository
             ->andWhere("captainProfileEntity.status = :status ")
 
             ->setParameter('status', 'active')
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getAdminsTokens()
+    {
+        return $this->createQueryBuilder('NotificationTokenEntity')
+            ->select('NotificationTokenEntity.token')
+
+            ->leftJoin(StaffProfileEntity::class, 'staffProfileEntity', Join::WITH, 'staffProfileEntity.adminID = NotificationTokenEntity.userID')
+
+            ->andWhere('staffProfileEntity.adminID = NotificationTokenEntity.userID')
 
             ->getQuery()
             ->getResult();

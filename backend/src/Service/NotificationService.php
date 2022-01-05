@@ -33,6 +33,7 @@ class NotificationService
 
 //    const CAPTAIN_TOPIC = 'captains';
     const URL = '/order_details';
+    const URLCHAT = '/chat';
 
     public function __construct(AutoMapping $autoMapping, Messaging $messaging, NotificationManager $notificationManager, RoomIdHelperService $roomIdHelperService, supportService $supportService, CaptainProfileService $captainProfileService, UserService $userService)
     {
@@ -48,6 +49,11 @@ class NotificationService
     public function getTokens()
     {
         return $this->notificationManager->getTokens();
+    }
+
+    public function getAdminsTokens()
+    {
+        return $this->notificationManager->getAdminsTokens();
     }
 
     public function notificationToCaptains($orderNumber)
@@ -151,20 +157,24 @@ class NotificationService
             $item = $item["captainID"];
         }
 
-        if($request->getUserType() == "store"){
+        elseif($request->getUserType() == "store"){
             $item = $this->notificationManager->getStoreRoomID($request->getRoomID());
 
             $item = $item["storeOwnerID"];
         }
 
-        if($request->getUserType() == "client"){
+        elseif($request->getUserType() == "client"){
             $item = $this->notificationManager->getClientRoomID($request->getRoomID());
             $item = $item["clientID"];
         }
 
+        elseif($request->getUserType() == "admin"){
+           return $this->notificationNewChatToAdmins();
+        }
+
         $payload = [
             'click_action' => 'FLUTTER_NOTIFICATION_CLICK',
-            'navigate_route' => '/chat',
+            'navigate_route' => self::URLCHAT,
             'argument' => $request->getRoomID(),
         ];
 
@@ -183,6 +193,33 @@ class NotificationService
             $message = $message->withData($payload);
             $this->messaging->sendMulticast($message, $devicesToken);
         }
+
+        return $devicesToken;
+    }
+
+    public function notificationNewChatToAdmins(){
+
+        $getTokens = $this->getAdminsTokens();
+
+        $devicesToken = [];
+
+        foreach ($getTokens as $token) {
+            $devicesToken[] = $token['token'];
+        }
+        $payload = [
+            'click_action' => 'FLUTTER_NOTIFICATION_CLICK',
+            'navigate_route' => self::URLCHAT,
+            'argument' => "",
+        ];
+
+
+        $message = CloudMessage::new()
+                ->withNotification(Notification::create(DeliveryCompanyNameConstant::$Delivery_Company_Name, MessageConstant::$MESSAGE_NEW_CHAT))->withDefaultSounds()
+                ->withHighestPossiblePriority();
+
+        $message = $message->withData($payload);
+
+        $this->messaging->sendMulticast($message, $devicesToken);
 
         return $devicesToken;
     }
