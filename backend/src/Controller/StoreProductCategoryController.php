@@ -57,7 +57,6 @@ class StoreProductCategoryController extends BaseController
      *              @OA\Property(type="string", property="productCategoryName"),
      *              @OA\Property(type="string", property="productCategoryImage"),
      *              @OA\Property(type="string", property="language"),
-     *              @OA\Property(type="integer", property="storeCategoryID"),
      *          ),
      *          @OA\Property(type="array", property="translate",
      *              @OA\Items(
