@@ -69,6 +69,7 @@ class Urls {
   static const GET_FAVORITE_CATEGORIES =
       BASE_API + '/favouritestorecategoriesandstores';
   static const GET_PRODUCT_DETAILS_API = BASE_API + '/product';
+  static const GET_PRODUCTS_SIMILAR_API = BASE_API + '/productssimilar/';
   static const UPDATE_FAVORITE_CLIENT_API =
       BASE_API + '/updateclientfavouritecategories';
   static const CREATE_FAVORITE_CLIENT_API =

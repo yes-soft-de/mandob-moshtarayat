@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class FixedContainer extends StatelessWidget {
   final Widget child;
-
   const FixedContainer({required this.child});
 
   @override

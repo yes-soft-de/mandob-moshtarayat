@@ -35,8 +35,8 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
     }
   }
 
-  void getStoreList(int id) {
-    // widget._storeListManager.getStoresCategoryList(id, this);
+  void getProducts(int id) {
+    widget._stateManager.getSimilarProduct(this,id);
   }
 
   @override
@@ -47,7 +47,15 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
       currentState = event;
       if (mounted) setState(() {});
     });
+    widget._stateManager.productsStream.listen((event) {
+      snapshot = event;
+      if (mounted) {
+        setState(() {});
+      }
+    });
   }
+
+  late AsyncSnapshot snapshot = const AsyncSnapshot.nothing();
 
   @override
   Widget build(BuildContext context) {
@@ -128,8 +136,7 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     ),
                   ]
                 : null),
-        body: FixedContainer(
-            child: currentState.getUI(context)),
+        body: FixedContainer(child: currentState.getUI(context)),
       ),
     );
   }

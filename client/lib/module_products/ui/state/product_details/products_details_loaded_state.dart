@@ -6,6 +6,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mandob_moshtarayat/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/hive/objects/cart_model/cart_model.dart';
+import 'package:mandob_moshtarayat/module_home/model/products_by_categories_model.dart';
+import 'package:mandob_moshtarayat/module_home/ui/widget/product_card.dart';
+import 'package:mandob_moshtarayat/module_home/ui/widget/product_component.dart';
 import 'package:mandob_moshtarayat/module_products/model/products_details_model.dart';
 import 'package:mandob_moshtarayat/module_products/ui/screen/products_details_screen.dart';
 import 'package:mandob_moshtarayat/module_products/ui/widget/quantity_control.dart';
@@ -13,6 +16,7 @@ import 'package:mandob_moshtarayat/module_stores/presistance/cart_hive_box_helpe
 import 'package:mandob_moshtarayat/module_stores/store_routes.dart';
 import 'package:mandob_moshtarayat/utils/components/progresive_image.dart';
 import 'package:mandob_moshtarayat/utils/customIcon/mandob_icons_icons.dart';
+import 'package:mandob_moshtarayat/utils/effect/checked.dart';
 import 'package:mandob_moshtarayat/utils/images/images.dart';
 
 class ProductDetailsLoadedState extends States {
@@ -20,6 +24,7 @@ class ProductDetailsLoadedState extends States {
   ProductsDetailsModel model;
   ProductDetailsLoadedState(this.screenState, this.model) : super(screenState) {
     quantity = getQuantity(model.id);
+    screenState.getProducts(model.storeProductCategoryID);
   }
   late int quantity;
   @override
@@ -310,6 +315,31 @@ class ProductDetailsLoadedState extends States {
                       ],
                     ),
                   ),
+                  ListTile(
+                    leading: Icon(
+                      FontAwesomeIcons.shoppingCart,
+                      color: Theme.of(context).disabledColor,
+                    ),
+                    title: Text(
+                      S.current.similarProducts,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Checked(
+                    checked: screenState.snapshot.hasData &&
+                        screenState.snapshot.connectionState !=
+                            ConnectionState.waiting,
+                    child: Image.asset(ImageAsset.LOGO, width: 75, height: 75),
+                    checkedWidget: SizedBox(
+                      height: 125,
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        physics: const BouncingScrollPhysics(
+                            parent: AlwaysScrollableScrollPhysics()),
+                        children: _getProductsByStore(),
+                      ),
+                    ),
+                  ),
                   const SizedBox(
                     height: 75,
                   ),
@@ -320,6 +350,22 @@ class ProductDetailsLoadedState extends States {
         ],
       ),
     );
+  }
+
+  List<Widget> _getProductsByStore() {
+    List<Widget> widgets = [];
+    if (!screenState.snapshot.hasData) return widgets;
+    screenState.snapshot.data.forEach((element) {
+      widgets.add(InkWell(
+          splashColor: Colors.transparent,
+          onTap: () {
+            Navigator.of(screenState.context).pushNamed(
+                StoreRoutes.STORE_PRODUCTS,
+                arguments: {'storeId': element.id.toString()});
+          },
+          child: HomeCard(title: element.productName, image: element.image)));
+    });
+    return widgets;
   }
 
   int getQuantity(int id) {

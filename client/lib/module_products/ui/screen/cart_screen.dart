@@ -109,7 +109,7 @@ class _CartScreenState extends State<CartScreen> {
                           height: 8,
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(right:16.0,left: 16),
+                          padding: const EdgeInsets.only(right: 16.0, left: 16),
                           child: SizedBox(
                             width: double.maxFinite,
                             child: ElevatedButton(
@@ -124,7 +124,7 @@ class _CartScreenState extends State<CartScreen> {
                                     ? null
                                     : () {
                                         List<Products> items = [];
-          
+
                                         CartHiveHelper()
                                             .getCart()
                                             .forEach((element) {
@@ -133,11 +133,13 @@ class _CartScreenState extends State<CartScreen> {
                                               countProduct: element.quantity,
                                               storeId: element.storeID));
                                         });
-          
-                                        CheckoutModel checkoutModel = CheckoutModel(
-                                            cart: items,
-                                            orderCost: double.parse(getTotal()),
-                                            deliveryCost: 0);
+
+                                        CheckoutModel checkoutModel =
+                                            CheckoutModel(
+                                                cart: items,
+                                                orderCost:
+                                                    double.parse(getTotal()),
+                                                deliveryCost: 0);
                                         Navigator.of(context).pushNamed(
                                             OrdersRoutes.CLIENT_ORDER,
                                             arguments: checkoutModel);
@@ -146,9 +148,9 @@ class _CartScreenState extends State<CartScreen> {
                                   padding: const EdgeInsets.all(16.0),
                                   child: Text(
                                     S.current.checkout,
-                                    style:  const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        ),
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 )),
                           ),

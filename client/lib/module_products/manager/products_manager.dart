@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/module_products/repository/products_repository.dart';
 import 'package:mandob_moshtarayat/module_products/response/products_details_response.dart';
+import 'package:mandob_moshtarayat/module_products/response/products_similer_response/products_similer_response.dart';
 import 'package:mandob_moshtarayat/module_stores/request/rate_response.dart';
 import 'package:mandob_moshtarayat/module_stores/request/rate_store_request.dart';
 
@@ -13,4 +14,6 @@ class ProductsManager {
 
   Future<RateResponse?> rateProducts(RateStoreRequest request) =>
       _productsRepository.createRateForProducts(request);
+  Future<ProductsSimilarResponse?> getProductsSimilar(int id) =>
+      _productsRepository.getProductsSimilar(id);
 }
