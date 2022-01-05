@@ -500,6 +500,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "showAll": MessageLookupByLibrary.simpleMessage("عرض الكل"),
         "showingCart": MessageLookupByLibrary.simpleMessage("مشاهدة السلة"),
         "signOut": MessageLookupByLibrary.simpleMessage("تسحيل الخروج"),
+        "similarProducts":
+            MessageLookupByLibrary.simpleMessage("المنتجات المتشابهة"),
         "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
         "smallLessThan20Employee":
             MessageLookupByLibrary.simpleMessage("1 - 20 موظف"),

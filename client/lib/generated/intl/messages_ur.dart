@@ -524,6 +524,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "showAll": MessageLookupByLibrary.simpleMessage(" سارے دکھاو"),
         "showingCart": MessageLookupByLibrary.simpleMessage(" ٹوکری"),
         "signOut": MessageLookupByLibrary.simpleMessage("باہر جائیں"),
+        "similarProducts":
+            MessageLookupByLibrary.simpleMessage("اسی طرح کی مصنوعات"),
         "skip": MessageLookupByLibrary.simpleMessage("چھوڑ دو"),
         "smallLessThan20Employee":
             MessageLookupByLibrary.simpleMessage("1 - 20 Employee"),

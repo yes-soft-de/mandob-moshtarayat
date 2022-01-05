@@ -404,5 +404,6 @@
     "informSendCode": "ہم آپ کے نمبر پر ایک تصدیقی کوڈ بھیجیں گے۔",
     "passwordNotMatch": "پاس ورڈ میچ نہیں کرتا",
     "update": "اپ ڈیٹ",
-    "phoneNumberLong": "فون نمبر غلط فارمیٹ، وجہ 9 سے زیادہ ہے۔"
+    "phoneNumberLong": "فون نمبر غلط فارمیٹ، وجہ 9 سے زیادہ ہے۔",
+    "similarProducts": "اسی طرح کی مصنوعات"
 }

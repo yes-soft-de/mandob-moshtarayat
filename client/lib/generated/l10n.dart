@@ -4099,6 +4099,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Similar Products`
+  String get similarProducts {
+    return Intl.message(
+      'Similar Products',
+      name: 'similarProducts',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -406,7 +406,9 @@
   "informSendCode": "We will send a verification code to your number",
   "passwordNotMatch": "Password not matching",
   "update":"Update",
-  "phoneNumberLong":"Phone number invalid format , cause is more than 9"
+  "phoneNumberLong":"Phone number invalid format , cause is more than 9",
+  "similarProducts":"Similar Products"
+
 
 
 

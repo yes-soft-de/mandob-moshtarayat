@@ -405,6 +405,7 @@
   "informSendCode": "سنقوم بأرسال كود تحقق الى رقمك",
   "passwordNotMatch": "كلمة السر غير متطابقة",
   "update":"تحديث",
-  "phoneNumberLong":"رقم الهاتف غير صالح بسبب تعديه ل٩ محارف"
+  "phoneNumberLong":"رقم الهاتف غير صالح بسبب تعديه ل٩ محارف",
+  "similarProducts":"المنتجات المتشابهة"
 
 }

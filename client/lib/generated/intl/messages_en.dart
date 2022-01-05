@@ -505,6 +505,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "showAll": MessageLookupByLibrary.simpleMessage("Show All"),
         "showingCart": MessageLookupByLibrary.simpleMessage("Cart"),
         "signOut": MessageLookupByLibrary.simpleMessage("Sign out"),
+        "similarProducts":
+            MessageLookupByLibrary.simpleMessage("Similar Products"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "smallLessThan20Employee":
             MessageLookupByLibrary.simpleMessage("1 - 20 Employee"),
