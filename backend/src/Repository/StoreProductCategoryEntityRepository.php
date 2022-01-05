@@ -116,12 +116,19 @@ class StoreProductCategoryEntityRepository extends ServiceEntityRepository
 
             ->select('storeProductCategory.id', 'storeProductCategory.productCategoryName', 'storeProductCategory.isLevel1', 'storeProductCategory.productCategoryImage')
 
-            ->andWhere('storeProductCategory.storeProductCategoryID = :storeProductCategoryID')
+//            ->andWhere('storeProductCategory.storeProductCategoryID = :storeProductCategoryID')
             //Add the next line to get only products that have a one subcategory .
-            ->orWhere('storeProductCategory.id = :storeProductCategoryID')
-//            ->andWhere('storeProductCategory.isLevel2 = :isLevel2')
+//            ->orWhere('storeProductCategory.id = :storeProductCategoryID')
+            ->andWhere('storeProductCategory.isLevel2 = :isLevel2')
+            ->setParameter('isLevel2', true)
 
-//            ->setParameter('isLevel2', true)
+            ->leftJoin(
+                CategoryLinkEntity::class,
+                'categoryLinkEntity',
+                Join::WITH,
+                'categoryLinkEntity.subCategoryLevelTwoID = storeProductCategory.id'
+            )
+            ->andWhere('categoryLinkEntity.subCategoryLevelOneID = :storeProductCategoryID')
             ->setParameter('storeProductCategoryID', $storeProductCategoryID)
 
             ->getQuery()
