@@ -42,4 +42,8 @@ class Urls {
   static const CHECK_USER_ROLE = BASE_API + '/checkUserType';
   static const UPDATE_STORE_ORDER_STATE =
       BASE_API + '/orderupdatestateforeachstore';
+        static const RESET_PASSWORD = BASE_API + '/resetpasswordorder';
+  static const VERIFY_RESET_PASSWORD_CODE =
+      BASE_API + '/verifyresetpasswordcode';
+  static const UPDATE_PASSWORD = BASE_API + '/updatepassword';
 }

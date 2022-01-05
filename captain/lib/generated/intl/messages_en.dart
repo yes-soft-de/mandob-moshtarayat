@@ -147,6 +147,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Completed Orders"),
         "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
         "confirmCode": MessageLookupByLibrary.simpleMessage("Confirm Code"),
+        "confirmNewPass":
+            MessageLookupByLibrary.simpleMessage("Confirm new password"),
         "confirmRenewSub": MessageLookupByLibrary.simpleMessage(
             "Are your sure about renewing your subscription"),
         "confirmUpdateOrderStatus": MessageLookupByLibrary.simpleMessage(
@@ -233,6 +235,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Finish Order"),
         "firstSendMessage": MessageLookupByLibrary.simpleMessage(
             "Be the first one to send message"),
+        "forgotPass": MessageLookupByLibrary.simpleMessage("Forgot password?"),
         "fromWhatsapp": MessageLookupByLibrary.simpleMessage("From WhatsApp"),
         "gender": MessageLookupByLibrary.simpleMessage("Gender"),
         "getDirection": MessageLookupByLibrary.simpleMessage("Get Direction"),
@@ -266,6 +269,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "inactive": MessageLookupByLibrary.simpleMessage(
             "Your subscription not activate yet please wait"),
         "info": MessageLookupByLibrary.simpleMessage("Info"),
+        "informSendCode": MessageLookupByLibrary.simpleMessage(
+            "We will send a verification code to your number"),
         "initData": MessageLookupByLibrary.simpleMessage("Init Data"),
         "internalServerError":
             MessageLookupByLibrary.simpleMessage("Internal server error"),
@@ -341,6 +346,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("You have new notification"),
         "newName": MessageLookupByLibrary.simpleMessage("New name"),
         "newOrder": MessageLookupByLibrary.simpleMessage("New Order"),
+        "newPassword": MessageLookupByLibrary.simpleMessage("New password"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "nextPaymentDate":
             MessageLookupByLibrary.simpleMessage("Next Payment Date:"),
@@ -419,6 +425,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "passwordIsTooShort":
             MessageLookupByLibrary.simpleMessage("Password is too short"),
+        "passwordNotMatch":
+            MessageLookupByLibrary.simpleMessage("Password not matching"),
+        "passwordUpdatedSuccess": MessageLookupByLibrary.simpleMessage(
+            "Password updated successfully"),
         "paySubscription":
             MessageLookupByLibrary.simpleMessage("Pay Subscription"),
         "paymentHistory":
@@ -429,6 +439,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "phoneIsRequired":
             MessageLookupByLibrary.simpleMessage("Phone is required"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),
+        "phoneNumberLong": MessageLookupByLibrary.simpleMessage(
+            "Phone number invalid format , cause is more than 9"),
         "phoneNumbertooShort":
             MessageLookupByLibrary.simpleMessage("Phone number is too short"),
         "pickAJob": MessageLookupByLibrary.simpleMessage("Pick a Job"),
@@ -622,6 +634,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unknown": MessageLookupByLibrary.simpleMessage("Unknown"),
         "unknownNumberOfCar":
             MessageLookupByLibrary.simpleMessage("The number of cars unknown"),
+        "update": MessageLookupByLibrary.simpleMessage("Update"),
         "updateBranch": MessageLookupByLibrary.simpleMessage("Update Branch"),
         "updateBranchFailure": MessageLookupByLibrary.simpleMessage(
             "Sorry your request for update branch faild please try again"),

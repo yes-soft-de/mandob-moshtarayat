@@ -432,7 +432,15 @@
   "codeNumber": "رمز التحقق",
   "codeTimeOut": "انتهت صلاحية رمز التحقق",
   "resendCodeSuccessfully":"تم إرسال الرمز بنجاح",
-  "notVerifiedNumber": "يجب عليك إدخال الرمز أولاً"
+  "notVerifiedNumber": "يجب عليك إدخال الرمز أولاً",
+  "newPassword": "كلمة السر الجديدة",
+  "confirmNewPass": "تأكيد كلمة السر الجديدة",
+  "passwordUpdatedSuccess": "تم تحديث كلمة المرور بنجاح",
+  "informSendCode": "سنقوم بأرسال كود تحقق الى رقمك",
+  "passwordNotMatch": "كلمة السر غير متطابقة",
+  "update":"تحديث",
+  "forgotPass": "هل نسيت كلمة المرور؟",
+  "phoneNumberLong":"رقم الهاتف غير صالح بسبب تعديه ل٩ محارف"
 
 
 }

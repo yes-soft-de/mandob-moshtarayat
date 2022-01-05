@@ -435,7 +435,20 @@
   "codeNumber": "Code number",
   "codeTimeOut": "Code has expired",
   "resendCodeSuccessfully": "The code has been successfully sent",
-  "notVerifiedNumber": "You must enter the code first"
+  "notVerifiedNumber": "You must enter the code first",
+  "confirmNewPass": "Confirm new password",
+  "passwordUpdatedSuccess": "Password updated successfully",
+  "informSendCode": "We will send a verification code to your number",
+  "passwordNotMatch": "Password not matching",
+  "update":"Update",
+  "forgotPass": "Forgot password?",
+  "newPassword": "New password",
+  "phoneNumberLong":"Phone number invalid format , cause is more than 9"
+
+
+
+
+
   
 
 

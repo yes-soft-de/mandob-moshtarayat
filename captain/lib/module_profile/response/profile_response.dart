@@ -43,7 +43,7 @@ class ProfileResponseModel {
   num? salary;
   String? status;
   List<CountOrdersDeliverd>? countOrdersDeliverd;
-  Rating? rating;
+  String? rating;
   dynamic state;
   num? bounce;
   dynamic totalBounce;
@@ -110,7 +110,7 @@ class ProfileResponseModel {
         countOrdersDeliverd?.add(CountOrdersDeliverd.fromJson(v));
       });
     }
-    rating = json['rating'] != null ? Rating.fromJson(json['rating']) : null;
+    rating = json['rating'];
     state = json['state'];
     bounce = json['bounce'];
     totalBounce = json['totalBounce'];
@@ -151,9 +151,9 @@ class ProfileResponseModel {
       map['countOrdersDeliverd'] =
           countOrdersDeliverd?.map((v) => v.toJson()).toList();
     }
-    if (rating != null) {
-      map['rating'] = rating?.toJson();
-    }
+    // if (rating != null) {
+    //   map['rating'] = rating?.toJson();
+    // }
     map['state'] = state;
     if (bounce != null) {
     }

@@ -9,9 +9,6 @@ import 'package:mandob_moshtarayat_captain/module_auth/ui/states/register_states
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat_captain/utils/helpers/custom_flushbar.dart';
 import 'package:mandob_moshtarayat_captain/utils/images/images.dart';
-import 'package:mandob_moshtarayat_captain/utils/text_style/text_style.dart';
-import 'package:mandob_moshtarayat_captain/generated/l10n.dart';
-import 'package:mandob_moshtarayat_captain/module_auth/request/register_request/verfy_code_request.dart';
 
 class RegisterStatePhoneCodeSent extends RegisterState {
   bool retryEnabled = false;
@@ -147,8 +144,7 @@ class RegisterStatePhoneCodeSent extends RegisterState {
                             screen.refresh();
                           });
                           screen.refresh();
-                          screen.resendCode(
-                              VerifyCodeRequest(userID:getIt<AuthService>().username));
+                          screen.resendCode(VerifyCodeRequest(userID:getIt<AuthService>().username));
                         }
                       : null,
                   child: Center(

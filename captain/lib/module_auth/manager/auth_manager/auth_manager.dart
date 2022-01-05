@@ -1,5 +1,8 @@
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat_captain/module_auth/repository/auth/auth_repository.dart';
+import 'package:mandob_moshtarayat_captain/module_auth/request/forget_password_request/reset_password_request.dart';
+import 'package:mandob_moshtarayat_captain/module_auth/request/forget_password_request/update_password_request.dart';
+import 'package:mandob_moshtarayat_captain/module_auth/request/forget_password_request/verify_new_password_request.dart';
 import 'package:mandob_moshtarayat_captain/module_auth/request/login_request/login_request.dart';
 import 'package:mandob_moshtarayat_captain/module_auth/request/register_request/register_request.dart';
 import 'package:mandob_moshtarayat_captain/module_auth/request/register_request/verfy_code_request.dart';
@@ -27,4 +30,13 @@ class AuthManager {
 
   Future<RegisterResponse?> userTypeCheck(String role, String token) =>
       _authRepository.checkUserType(role, token);
+  Future<RegisterResponse?> resetPassRequest(ResetPassRequest request) =>
+      _authRepository.resetPassRequest(request);
+
+  Future<RegisterResponse?> updatePassRequest(UpdatePassRequest request) =>
+      _authRepository.updatePassRequest(request);
+
+  Future<RegisterResponse?> verifyResetPassCodeRequest(
+          VerifyResetPassCodeRequest request) =>
+      _authRepository.verifyResetPassCodeRequest(request);
 }
