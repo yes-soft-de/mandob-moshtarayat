@@ -16,7 +16,8 @@ class SocialWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
+      customBorder: const CircleBorder(),
       onTap: onTap,
       child: SizedBox(
         height: 60,

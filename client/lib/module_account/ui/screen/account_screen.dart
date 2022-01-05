@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/module_account/state_manager/account_state_manager.dart';
 import 'package:mandob_moshtarayat/module_account/ui/state/account/account_loading_state.dart';
 import 'package:mandob_moshtarayat/module_account/ui/state/account/account_state.dart';
+import 'package:mandob_moshtarayat/utils/components/fixed_container.dart';
 
 @injectable
 class AccountScreen extends StatefulWidget {
@@ -46,7 +47,7 @@ class AccountScreenState extends State<AccountScreen> {
         }
       },
       child: Scaffold(
-        body: currentState?.getUI(context),
+        body: FixedContainer(child: currentState?.getUI(context) ?? const SizedBox()),
       ),
     );
   }

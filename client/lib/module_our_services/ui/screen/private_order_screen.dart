@@ -9,13 +9,14 @@ import 'package:mandob_moshtarayat/module_our_services/request/private_order_req
 import 'package:mandob_moshtarayat/module_our_services/state_manager/private_order_state_manager.dart';
 import 'package:mandob_moshtarayat/module_our_services/ui/state/private_order_states/private_order_Loaded_state.dart';
 import 'package:mandob_moshtarayat/module_our_services/ui/state/private_order_states/private_order_state.dart';
+import 'package:mandob_moshtarayat/utils/components/fixed_container.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 
 @injectable
 class PrivateOrderScreen extends StatefulWidget {
   final PrivateOrderStateManager _stateManager;
 
-  PrivateOrderScreen(this._stateManager);
+  const PrivateOrderScreen(this._stateManager);
 
   @override
   PrivateOrderScreenState createState() => PrivateOrderScreenState();
@@ -24,7 +25,7 @@ class PrivateOrderScreen extends StatefulWidget {
 class PrivateOrderScreenState extends State<PrivateOrderScreen> {
   late PrivateOrderState currentState;
   late PrivateOrderRequest request;
-  AsyncSnapshot myLocation = AsyncSnapshot.nothing();
+  AsyncSnapshot myLocation = const AsyncSnapshot.nothing();
   TextEditingController orderDetailsController = TextEditingController();
   TextEditingController noteController = TextEditingController();
 
@@ -61,12 +62,12 @@ class PrivateOrderScreenState extends State<PrivateOrderScreen> {
       CustomFlushBarHelper.createSuccess(
         title: S.of(context).warnning,
         message: S.of(context).successCreateOrder,
-      )..show(context);
+      ).show(context);
     } else {
       Navigator.of(context).pop();
       CustomFlushBarHelper.createError(
-          title: S.of(context).warnning, message: err)
-        ..show(context);
+              title: S.of(context).warnning, message: err)
+          .show(context);
     }
   }
 
@@ -89,7 +90,7 @@ class PrivateOrderScreenState extends State<PrivateOrderScreen> {
         }
       },
       child: Scaffold(
-        body: currentState.getUI(context),
+        body: FixedContainer(child: currentState.getUI(context)),
       ),
     );
   }

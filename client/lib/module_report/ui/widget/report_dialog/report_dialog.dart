@@ -8,7 +8,7 @@ class ReportDialogWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 360,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -17,7 +17,7 @@ class ReportDialogWidget extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: Text(
               S.of(context).createNewReport,
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
             ),
           ),
           Expanded(

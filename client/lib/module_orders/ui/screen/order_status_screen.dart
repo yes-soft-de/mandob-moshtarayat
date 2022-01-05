@@ -4,6 +4,7 @@ import 'package:mandob_moshtarayat/module_orders/state_manager/order_status_stat
 import 'package:mandob_moshtarayat/module_orders/ui/state/order_status/order_status_loading_state.dart';
 import 'package:mandob_moshtarayat/module_orders/ui/state/order_status/order_status_state.dart';
 import 'package:mandob_moshtarayat/module_stores/request/rate_store_request.dart';
+import 'package:mandob_moshtarayat/utils/components/fixed_container.dart';
 
 @injectable
 class OrderStatusScreen extends StatefulWidget {
@@ -62,7 +63,8 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
         }
       },
       child: Scaffold(
-        body: currentState.getUI(context),
+        body: FixedContainer(
+            child: currentState.getUI(context)),
       ),
     );
   }

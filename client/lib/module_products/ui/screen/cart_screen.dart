@@ -14,6 +14,7 @@ import 'package:mandob_moshtarayat/module_stores/store_routes.dart';
 import 'package:mandob_moshtarayat/module_stores/ui/state/store_products/store_products_loaded_state.dart';
 import 'package:mandob_moshtarayat/module_orders/ui/widget/order_details/bill.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
+import 'package:mandob_moshtarayat/utils/components/fixed_container.dart';
 import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
 import 'package:mandob_moshtarayat/utils/images/images.dart';
 import 'package:mandob_moshtarayat/module_orders/ui/widget/order_details/order_chip.dart';
@@ -57,118 +58,120 @@ class _CartScreenState extends State<CartScreen> {
                   }
                 })
               : null,
-          body: Stack(
-            children: [
-              ListView(
-                padding: const EdgeInsets.all(8),
-                physics: const BouncingScrollPhysics(
-                    parent: AlwaysScrollableScrollPhysics()),
-                children: [
-                  CartAppBar(),
-                  ListTile(
-                    leading: const Icon(Icons.info),
-                    title: Text(S.of(context).updateOrderNote),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 16.0, left: 16.0),
-                    child: Divider(
-                      color: Theme.of(context).backgroundColor,
-                      thickness: 2.5,
+          body: FixedContainer(
+            child: Stack(
+              children: [
+                ListView(
+                  padding: const EdgeInsets.all(8),
+                  physics: const BouncingScrollPhysics(
+                      parent: AlwaysScrollableScrollPhysics()),
+                  children: [
+                    CartAppBar(),
+                    ListTile(
+                      leading: const Icon(Icons.info),
+                      title: Text(S.of(context).updateOrderNote),
                     ),
-                  ),
-                  Flex(
-                    direction: Axis.vertical,
-                    children: [
-                      Hider(
-                        active: CartHiveHelper().getCart().isNotEmpty,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 16, right: 16),
-                          child: ListTile(
-                            leading: Icon(
-                              Icons.shopping_cart_rounded,
-                              color: Theme.of(context).disabledColor,
-                              size: 25,
-                            ),
-                            title: Text(
-                              S.of(context).orderList,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 18),
-                            ),
-                          ),
-                        ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 16.0, left: 16.0),
+                      child: Divider(
+                        color: Theme.of(context).backgroundColor,
+                        thickness: 2.5,
                       ),
-                      ListView(
-                        physics: const ScrollPhysics(),
-                        shrinkWrap: true,
-                        children: getOrdersList(
-                            CartHiveHelper().getProduct() ?? [], context),
-                      ),
-                      Container(
-                        height: 8,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right:16.0,left: 16),
-                        child: SizedBox(
-                          width: double.maxFinite,
-                          child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                primary: Theme.of(context).backgroundColor,
-                                elevation: 0,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
+                    ),
+                    Flex(
+                      direction: Axis.vertical,
+                      children: [
+                        Hider(
+                          active: CartHiveHelper().getCart().isNotEmpty,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 16, right: 16),
+                            child: ListTile(
+                              leading: Icon(
+                                Icons.shopping_cart_rounded,
+                                color: Theme.of(context).disabledColor,
+                                size: 25,
                               ),
-                              onPressed: CartHiveHelper().getCart().isEmpty
-                                  ? null
-                                  : () {
-                                      List<Products> items = [];
-
-                                      CartHiveHelper()
-                                          .getCart()
-                                          .forEach((element) {
-                                        items.add(Products(
-                                            productID: element.id,
-                                            countProduct: element.quantity,
-                                            storeId: element.storeID));
-                                      });
-
-                                      CheckoutModel checkoutModel = CheckoutModel(
-                                          cart: items,
-                                          orderCost: double.parse(getTotal()),
-                                          deliveryCost: 0);
-                                      Navigator.of(context).pushNamed(
-                                          OrdersRoutes.CLIENT_ORDER,
-                                          arguments: checkoutModel);
-                                    },
-                              child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Text(
-                                  S.current.checkout,
-                                  style:  TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      ),
-                                ),
-                              )),
-                        ),
-                      ),
-                      Hider(
-                        active: CartHiveHelper().getCart().isNotEmpty,
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: BillCardDetails(
-                            orderCost: total,
-                            items: CartHiveHelper().getCart(),
+                              title: Text(
+                                S.of(context).orderList,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 18),
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 75,
-                  ),
-                ],
-              ),
-            ],
+                        ListView(
+                          physics: const ScrollPhysics(),
+                          shrinkWrap: true,
+                          children: getOrdersList(
+                              CartHiveHelper().getProduct() ?? [], context),
+                        ),
+                        Container(
+                          height: 8,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right:16.0,left: 16),
+                          child: SizedBox(
+                            width: double.maxFinite,
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary: Theme.of(context).backgroundColor,
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                                onPressed: CartHiveHelper().getCart().isEmpty
+                                    ? null
+                                    : () {
+                                        List<Products> items = [];
+          
+                                        CartHiveHelper()
+                                            .getCart()
+                                            .forEach((element) {
+                                          items.add(Products(
+                                              productID: element.id,
+                                              countProduct: element.quantity,
+                                              storeId: element.storeID));
+                                        });
+          
+                                        CheckoutModel checkoutModel = CheckoutModel(
+                                            cart: items,
+                                            orderCost: double.parse(getTotal()),
+                                            deliveryCost: 0);
+                                        Navigator.of(context).pushNamed(
+                                            OrdersRoutes.CLIENT_ORDER,
+                                            arguments: checkoutModel);
+                                      },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Text(
+                                    S.current.checkout,
+                                    style:  const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        ),
+                                  ),
+                                )),
+                          ),
+                        ),
+                        Hider(
+                          active: CartHiveHelper().getCart().isNotEmpty,
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: BillCardDetails(
+                              orderCost: total,
+                              items: CartHiveHelper().getCart(),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 75,
+                    ),
+                  ],
+                ),
+              ],
+            ),
           )),
     );
   }

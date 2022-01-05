@@ -38,7 +38,7 @@ class _CustomHomeAppBarState extends State<CustomHomeAppBar> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(right: 8.0, left: 8.0),
-                  child: GestureDetector(
+                  child: InkWell(
                       onTap: () {
                         if (getIt<AuthService>().isLoggedIn) {
                           showDialog(
@@ -64,7 +64,8 @@ class _CustomHomeAppBarState extends State<CustomHomeAppBar> {
                 const SizedBox(
                   width: 8,
                 ),
-                GestureDetector(
+                InkWell(
+                  customBorder: const CircleBorder(),
                     onTap: () {
                       Navigator.of(context)
                           .pushNamed(MyNotificationsRoutes.MY_NOTIFICATIONS);

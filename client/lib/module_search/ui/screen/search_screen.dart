@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/module_search/state_manager/search_state_manager.dart';
 import 'package:mandob_moshtarayat/module_search/ui/state/store_list/search_empty_state.dart';
-import 'package:mandob_moshtarayat/module_search/ui/state/store_list/search_loading_state.dart';
 import 'package:mandob_moshtarayat/module_search/ui/state/store_list/search_state.dart';
-import 'package:mandob_moshtarayat/module_stores/state_manager/store_list_state_manager.dart';
-import 'package:mandob_moshtarayat/module_stores/ui/state/store_list/store_list_loading_state.dart';
-import 'package:mandob_moshtarayat/module_stores/ui/state/store_list/store_list_state.dart';
 import 'package:mandob_moshtarayat/utils/components/costom_search.dart';
-import 'package:mandob_moshtarayat/utils/models/store_category.dart';
+import 'package:mandob_moshtarayat/utils/components/fixed_container.dart';
 
 @injectable
 class SearchScreen extends StatefulWidget {
@@ -79,8 +74,8 @@ class SearchScreenState extends State<SearchScreen> {
                     color: Theme.of(context).primaryColor,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
                     child: Icon(
                       Icons.arrow_back,
                       color: Colors.white,
@@ -92,7 +87,8 @@ class SearchScreenState extends State<SearchScreen> {
           ),
           elevation: 0,
         ),
-        body: currentState.getUI(context),
+        body: FixedContainer(
+            child: currentState.getUI(context)),
       ),
     );
   }

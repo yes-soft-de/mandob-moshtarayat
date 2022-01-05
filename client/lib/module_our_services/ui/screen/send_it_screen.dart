@@ -8,13 +8,14 @@ import 'package:mandob_moshtarayat/module_our_services/request/send_it_request.d
 import 'package:mandob_moshtarayat/module_our_services/state_manager/services_state_manager.dart';
 import 'package:mandob_moshtarayat/module_our_services/ui/state/send_it_states/send_it_Loaded_state.dart';
 import 'package:mandob_moshtarayat/module_our_services/ui/state/send_it_states/send_it_state.dart';
+import 'package:mandob_moshtarayat/utils/components/fixed_container.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 
 @injectable
 class SendItScreen extends StatefulWidget {
   final ServicesStateManager _stateManager;
 
-  SendItScreen(this._stateManager);
+  const SendItScreen(this._stateManager);
 
   @override
   SendItScreenState createState() => SendItScreenState();
@@ -53,12 +54,12 @@ class SendItScreenState extends State<SendItScreen> {
       CustomFlushBarHelper.createSuccess(
         title: S.of(context).warnning,
         message: S.of(context).successCreateOrder,
-      )..show(context);
+      ).show(context);
     } else {
       Navigator.of(context).pop();
       CustomFlushBarHelper.createError(
-          title: S.of(context).warnning, message: err)
-        ..show(context);
+              title: S.of(context).warnning, message: err)
+          .show(context);
     }
   }
 
@@ -123,7 +124,8 @@ class SendItScreenState extends State<SendItScreen> {
                 elevation: 0,
               )
             : null,
-        body: currentState.getUI(context),
+        body: FixedContainer(
+            child: currentState.getUI(context)),
       ),
     );
   }

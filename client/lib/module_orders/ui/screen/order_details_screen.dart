@@ -11,13 +11,14 @@ import 'package:mandob_moshtarayat/module_orders/ui/state/order_details_state/or
 import 'package:mandob_moshtarayat/module_orders/ui/state/order_details_state/orders_details_loading_state.dart';
 import 'package:mandob_moshtarayat/module_orders/ui/widget/order_details/custom_alert_dialog.dart';
 import 'package:mandob_moshtarayat/module_stores/presistance/cart_hive_box_helper.dart';
+import 'package:mandob_moshtarayat/utils/components/fixed_container.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 
 @injectable
 class OrderDetailsScreen extends StatefulWidget {
   final OrderDetailsStateManager _stateManager;
 
-  OrderDetailsScreen(this._stateManager);
+  const OrderDetailsScreen(this._stateManager);
 
   @override
   OrderDetailsScreenState createState() => OrderDetailsScreenState();
@@ -126,7 +127,8 @@ class OrderDetailsScreenState extends State<OrderDetailsScreen> {
         }
       },
       child: Scaffold(
-        body: currentState.getUI(context),
+        body: FixedContainer(
+            child: currentState.getUI(context)),
       ),
     );
   }

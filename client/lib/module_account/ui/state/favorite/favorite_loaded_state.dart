@@ -33,7 +33,8 @@ class FavoriteLoadedState extends States {
   List<Widget> getFavorite() {
     List<Widget> widgets = [];
     categories.forEach((element) {
-      widgets.add(GestureDetector(
+      widgets.add(InkWell(
+        splashColor: Colors.transparent,
         onTap: () {
           getIt<FavoriteHiveHelper>().setFavoriteCategoryInfo(
               element.storeCategoryName, element.image);

@@ -12,6 +12,7 @@ import 'package:mandob_moshtarayat/module_orders/request/create_payment_record_r
 import 'package:mandob_moshtarayat/module_orders/state_manager/client_order_state_manager.dart';
 import 'package:mandob_moshtarayat/module_orders/ui/state/client_order/client_order_loaded_state.dart';
 import 'package:mandob_moshtarayat/module_orders/ui/state/client_order/client_order_state.dart';
+import 'package:mandob_moshtarayat/utils/components/fixed_container.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 import 'package:mandob_moshtarayat/utils/helpers/payment_portal.dart';
 
@@ -47,15 +48,16 @@ class ClientOrderScreenState extends State<ClientOrderScreen> {
           builder: (context) {
             return PaymentsPortal(
               model: model,
-              callback: (success,token,transaction,message) {
-                widget._clientOrderStateManager
-                    .updatePaymentInfo(CreatePaymentRecordRequest(
+              callback: (success, token, transaction, message) {
+                widget._clientOrderStateManager.updatePaymentInfo(
+                    CreatePaymentRecordRequest(
                       state: success ? 'paid' : 'not paid',
-                      token:token,
-                      transactionId:transaction,
+                      token: token,
+                      transactionId: transaction,
                       orderNumber: model.order.id,
                       amount: model.order.orderCost,
-                    ), this);
+                    ),
+                    this);
                 Navigator.of(context).pop();
                 moveDecision(success, message);
               },
@@ -122,7 +124,8 @@ class ClientOrderScreenState extends State<ClientOrderScreen> {
           }
         },
         child: Scaffold(
-          body: currentState.getUI(context),
+          body: FixedContainer(
+              child: currentState.getUI(context)),
         ));
   }
 

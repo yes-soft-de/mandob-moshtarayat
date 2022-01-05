@@ -10,6 +10,7 @@ import 'package:mandob_moshtarayat/module_auth/state_manager/forget_state_manage
 import 'package:mandob_moshtarayat/module_auth/ui/states/forget_password_state/forget_password_code_sent.dart';
 import 'package:mandob_moshtarayat/module_main/main_routes.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
+import 'package:mandob_moshtarayat/utils/components/fixed_container.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 
 @injectable
@@ -68,17 +69,18 @@ class ForgotPassScreenState extends State<ForgotPassScreen> {
         resizeToAvoidBottomInset: false,
         appBar: CustomTwaslnaAppBar.appBar(context,
             title: S.of(context).forgotPass, canGoBack: true),
-
-        body: loadingSnapshot.connectionState != ConnectionState.waiting
-            ? _currentStates.getUI(context)
-            : Stack(
-          children: [
-            _currentStates.getUI(context),
-            Container(
-              width: double.maxFinite,
-              color: Colors.transparent.withOpacity(0.0),
-            ),
-          ],
+        body: FixedContainer(
+          child: loadingSnapshot.connectionState != ConnectionState.waiting
+              ? _currentStates.getUI(context)
+              : Stack(
+                  children: [
+                    _currentStates.getUI(context),
+                    Container(
+                      width: double.maxFinite,
+                      color: Colors.transparent.withOpacity(0.0),
+                    ),
+                  ],
+                ),
         ),
       ),
     );
@@ -89,16 +91,21 @@ class ForgotPassScreenState extends State<ForgotPassScreen> {
     _stateSubscription.cancel();
     super.dispose();
   }
+
   void moveToLogin() {
-    Navigator.of(context).pushNamedAndRemoveUntil(MainRoutes.MAIN_SCREEN, (route) => false);
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil(MainRoutes.MAIN_SCREEN, (route) => false);
     CustomFlushBarHelper.createSuccess(
-        title: S.current.warnning, message: S.current.passwordUpdatedSuccess)
+            title: S.current.warnning,
+            message: S.current.passwordUpdatedSuccess)
         .show(context);
   }
-  void verifyCode(VerifyResetPassCodeRequest request){
+
+  void verifyCode(VerifyResetPassCodeRequest request) {
     widget._stateManager.verifyResetPassCodeRequest(request, this);
   }
-  void updatePassword(UpdatePassRequest request){
+
+  void updatePassword(UpdatePassRequest request) {
     widget._stateManager.updatePassword(request, this);
   }
 }
