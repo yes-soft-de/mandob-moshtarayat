@@ -7,6 +7,7 @@ use App\Constant\CategoryLinkTypeConstant;
 use App\Entity\CategoryLinkEntity;
 use App\Manager\CategoryLinkManager;
 use App\Request\MainAndSubLevelOneCategoriesLinkUpdateRequest;
+use App\Request\OneAndSubLevelTwoCategoriesLinkUpdateRequest;
 use App\Response\CategoryLinkCreateResponse;
 
 class CategoryLinkService
@@ -42,6 +43,21 @@ class CategoryLinkService
                 $response[] = $this->autoMapping->map(CategoryLinkEntity::class, CategoryLinkCreateResponse::class, $result);
             }
         }
+
+        return $response;
+    }
+
+    public function updateLinkBetweenCategoriesOneAndTwo(OneAndSubLevelTwoCategoriesLinkUpdateRequest $request)
+    {
+        $response = [];
+
+       // First delete all old links
+        $this->categoryLinkManager->deleteAllSubLevelOneAndSubLevelTwoCategoriesLinkBySubCategoryLevelTwoID($request->getSubCategoryLevelTwoID());
+
+       // Then insert the new link
+        $result = $this->categoryLinkManager->updateLinkBetweenCategoriesOneAndTwo($request);
+
+        $response[] = $this->autoMapping->map(CategoryLinkEntity::class, CategoryLinkCreateResponse::class, $result);
 
         return $response;
     }

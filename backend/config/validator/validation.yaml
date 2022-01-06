@@ -445,3 +445,10 @@ App\Request\StoreCategoriesWithLinkedMarkRequest:
   properties:
     storeProductCategoryLevelOneID:
       - NotBlank: ~
+
+App\Request\OneAndSubLevelTwoCategoriesLinkUpdateRequest:
+  properties:
+    subCategoryLevelOneID:
+      - NotBlank: ~
+    subCategoryLevelTwoID:
+      - NotBlank: ~
