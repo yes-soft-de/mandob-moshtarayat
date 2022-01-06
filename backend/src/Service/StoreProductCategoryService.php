@@ -571,7 +571,7 @@ class StoreProductCategoryService
 
         if ($request->getLanguage() && $request->getLanguage() != $this->primaryLanguage) {
 
-            $storeProductCategoriesTranslations = $this->storeProductCategoryManager->getSubCategoriesLevelOneTranslations();
+            $storeProductCategoriesTranslations = $this->storeProductCategoryManager->getAllStoreProductCategoriesLevelOneTranslations();
 
             $storeProductCategoriesLevelOne = $this->replaceStoreProductCategoryTranslatedNameByPrimaryOne($storeProductCategoriesTranslations, $request->getLanguage());
         }

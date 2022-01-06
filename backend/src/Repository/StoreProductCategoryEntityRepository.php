@@ -291,6 +291,9 @@ class StoreProductCategoryEntityRepository extends ServiceEntityRepository
 
             ->select('storeProductCategory.id', 'storeProductCategory.productCategoryName', 'storeProductCategory.productCategoryImage', 'storeProductCategory.language')
 
+            ->andWhere('storeProductCategory.isLevel1 = :value')
+            ->setParameter('value', 1)
+
             ->getQuery()
             ->getResult();
     }
@@ -322,4 +325,22 @@ class StoreProductCategoryEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getAllStoreProductCategoriesLevelOneTranslations()
+    {
+        return $this->createQueryBuilder('storeProductCategory')
+            ->select('storeProductCategory.id', 'storeProductCategory.productCategoryName as primaryStoreProductCategory', 'storeProductCategory.productCategoryImage', 'storeProductCategory.language', 'storeProductCategoryTranslationEntity.productCategoryName', 'storeProductCategoryTranslationEntity.language')
+
+            ->andWhere('storeProductCategory.isLevel1 = :value')
+            ->setParameter('value', 1)
+
+            ->leftJoin(
+                StoreProductCategoryTranslationEntity::class,
+                'storeProductCategoryTranslationEntity',
+                Join::WITH,
+                'storeProductCategoryTranslationEntity.storeProductCategoryID = storeProductCategory.id'
+            )
+
+            ->getQuery()
+            ->getResult();
+    }
 }
