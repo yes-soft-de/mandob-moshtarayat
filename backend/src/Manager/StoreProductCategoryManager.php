@@ -187,9 +187,9 @@ class StoreProductCategoryManager
         }
     }
 
-    public function getStoreProductCategoryLevelOne()
+    public function getStoreProductCategoryLevelOne($storeProductCategoryLevelTwoID)
     {
-        return $this->storeProductCategoryEntityRepository->getStoreProductCategoryLevelOne();
+        return $this->storeProductCategoryEntityRepository->getStoreProductCategoryLevelOne($storeProductCategoryLevelTwoID);
     }
 
     // Return all store categories level one directly without any condition
