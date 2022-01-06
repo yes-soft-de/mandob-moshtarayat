@@ -436,9 +436,9 @@ App\Request\ElectronicPaymentInfoCreateRequest:
     amount:
       - NotBlank: ~
 
-App\Request\CategoryLinkCreateRequest:
+App\Request\MainAndSubLevelOneCategoriesLinkUpdateRequest:
   properties:
-    linkType:
+    subCategoryLevelOneID:
       - NotBlank: ~
 
 App\Request\StoreCategoriesWithLinkedMarkRequest:

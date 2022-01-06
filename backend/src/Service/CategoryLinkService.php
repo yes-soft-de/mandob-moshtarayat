@@ -6,7 +6,7 @@ use App\AutoMapping;
 use App\Constant\CategoryLinkTypeConstant;
 use App\Entity\CategoryLinkEntity;
 use App\Manager\CategoryLinkManager;
-use App\Request\CategoryLinkCreateRequest;
+use App\Request\MainAndSubLevelOneCategoriesLinkUpdateRequest;
 use App\Response\CategoryLinkCreateResponse;
 
 class CategoryLinkService
@@ -20,36 +20,29 @@ class CategoryLinkService
         $this->categoryLinkManager = $categoryLinkManager;
     }
 
-    public function createCategoryLink(CategoryLinkCreateRequest $request)
+    public function updateMainAndSubLevelOneCategoriesLink(MainAndSubLevelOneCategoriesLinkUpdateRequest $request)
     {
         $response = [];
 
-        // First check the type of the link
-        if ($request->getLinkType() == CategoryLinkTypeConstant::$MAIN_WITH_LEVEL_ONE_LINK_TYPE)
-        {
-            $mainCategoriesIDsArray = $request->getMainCategoriesIDs();
+        $mainCategoriesIDsArray = $request->getMainCategoriesIDs();
 
-            if ($mainCategoriesIDsArray)
+        if ($mainCategoriesIDsArray)
+        {
+            // First delete all old links
+            $this->categoryLinkManager->deleteAllMainAndSubLevelOneCategoriesLinkBySubCategoryLevelOneID($request->getSubCategoryLevelOneID());
+
+            // Then insert the new ones
+            foreach ($mainCategoriesIDsArray as $mainCategoryID)
             {
-                foreach ($mainCategoriesIDsArray as $mainCategoryID)
-                {
-                    //create link for each main category id with sub category id
-                    $request->setMainCategoryID($mainCategoryID);
+                //create link for each main category id with sub category id
+                $request->setMainCategoryID($mainCategoryID);
 
-                    $result = $this->categoryLinkManager->createCategoryLink($request);
+                $result = $this->categoryLinkManager->createMainAndSubLevelOneCategoryLink($request);
 
-                    $response[] = $this->autoMapping->map(CategoryLinkEntity::class, CategoryLinkCreateResponse::class, $result);
-                }
+                $response[] = $this->autoMapping->map(CategoryLinkEntity::class, CategoryLinkCreateResponse::class, $result);
             }
-        }
-        elseif ($request->getLinkType() == CategoryLinkTypeConstant::$LEVEL_ONE_WITH_LEVEL_TWO_LINK_TYPE)
-        {
-            $result = $this->categoryLinkManager->createCategoryLink($request);
-
-            $response[] = $this->autoMapping->map(CategoryLinkEntity::class, CategoryLinkCreateResponse::class, $result);
         }
 
         return $response;
     }
-
 }

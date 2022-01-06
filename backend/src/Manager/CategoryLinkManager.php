@@ -3,9 +3,10 @@
 namespace App\Manager;
 
 use App\AutoMapping;
+use App\Constant\CategoryLinkTypeConstant;
 use App\Entity\CategoryLinkEntity;
 use App\Repository\CategoryLinkEntityRepository;
-use App\Request\CategoryLinkCreateRequest;
+use App\Request\MainAndSubLevelOneCategoriesLinkUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
 class CategoryLinkManager
@@ -21,13 +22,29 @@ class CategoryLinkManager
         $this->categoryLinkEntityRepository = $categoryLinkEntityRepository;
     }
 
-    public function createCategoryLink(CategoryLinkCreateRequest $request)
+    public function createMainAndSubLevelOneCategoryLink(MainAndSubLevelOneCategoriesLinkUpdateRequest $request)
     {
-        $categoryLink = $this->autoMapping->map(CategoryLinkCreateRequest::class, CategoryLinkEntity::class, $request);
+        $categoryLink = $this->autoMapping->map(MainAndSubLevelOneCategoriesLinkUpdateRequest::class, CategoryLinkEntity::class, $request);
+
+        $categoryLink->setLinkType(CategoryLinkTypeConstant::$MAIN_WITH_LEVEL_ONE_LINK_TYPE);
 
         $this->entityManager->persist($categoryLink);
         $this->entityManager->flush();
 
         return $categoryLink;
+    }
+
+    public function deleteAllMainAndSubLevelOneCategoriesLinkBySubCategoryLevelOneID($subCategoryLevelOneID)
+    {
+        $links = $this->categoryLinkEntityRepository->getAllMainAndSubLevelOneCategoryLinksBySubCategoryLevelOne($subCategoryLevelOneID);
+
+        if ($links){
+
+            foreach ($links as $link){
+
+                $this->entityManager->remove($link);
+                $this->entityManager->flush();
+            }
+        }
     }
 }
