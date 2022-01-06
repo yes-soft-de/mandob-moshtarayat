@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Constant\CategoryLinkTypeConstant;
 use App\Entity\CategoryLinkEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -17,6 +18,20 @@ class CategoryLinkEntityRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, CategoryLinkEntity::class);
+    }
+
+    public function getAllMainAndSubLevelOneCategoryLinksBySubCategoryLevelOne($subCategoryLevelOneID)
+    {
+        return $this->createQueryBuilder('categoryLinkEntity')
+
+            ->andWhere('categoryLinkEntity.linkType = :linkType')
+            ->setParameter('linkType', CategoryLinkTypeConstant::$MAIN_WITH_LEVEL_ONE_LINK_TYPE)
+
+            ->andWhere('categoryLinkEntity.subCategoryLevelOneID = :subCategoryLevelOneID')
+            ->setParameter('subCategoryLevelOneID', $subCategoryLevelOneID)
+
+            ->getQuery()
+            ->getResult();
     }
 
 }

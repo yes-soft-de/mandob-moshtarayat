@@ -2,9 +2,9 @@
 
 namespace App\Request;
 
-class CategoryLinkCreateRequest
+class MainAndSubLevelOneCategoriesLinkUpdateRequest
 {
-    private $linkType;
+//    private $linkType;
 
     /*
      * an array of main categories IDs
@@ -16,15 +16,13 @@ class CategoryLinkCreateRequest
 
     private $subCategoryLevelOneID;
 
-    private $subCategoryLevelTwoID;
-
-    /**
-     * @return mixed
-     */
-    public function getLinkType()
-    {
-        return $this->linkType;
-    }
+//    /**
+//     * @return mixed
+//     */
+//    public function getLinkType()
+//    {
+//        return $this->linkType;
+//    }
 
     /**
      * @return mixed
@@ -40,6 +38,14 @@ class CategoryLinkCreateRequest
     public function setMainCategoryID($mainCategoryID): void
     {
         $this->mainCategoryID = $mainCategoryID;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSubCategoryLevelOneID()
+    {
+        return $this->subCategoryLevelOneID;
     }
 
 }

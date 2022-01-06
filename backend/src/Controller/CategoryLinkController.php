@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\AutoMapping;
-use App\Request\CategoryLinkCreateRequest;
+use App\Request\MainAndSubLevelOneCategoriesLinkUpdateRequest;
 use App\Service\CategoryLinkService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use stdClass;
@@ -31,8 +31,8 @@ class CategoryLinkController extends BaseController
     }
 
     /**
-     * admin: create link/s between categories
-     * @Route("categorieslink", name="createCategoryLink", methods={"POST"})
+     * admin: update link/s between main and level one sub categories
+     * @Route("mainsublevelonecategorieslink", name="createCategoryLink", methods={"PUT"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
@@ -49,12 +49,10 @@ class CategoryLinkController extends BaseController
      * @OA\RequestBody(
      *      description="Create new categories link by admin",
      *      @OA\JsonContent(
-     *          @OA\Property(type="string", property="linkType"),
      *          @OA\Property(type="array", property="mainCategoriesIDs",
      *              @OA\Items()
      *          ),
-     *          @OA\Property(type="integer", property="subCategoryLevelOneID"),
-     *          @OA\Property(type="integer", property="subCategoryLevelTwoID")
+     *          @OA\Property(type="integer", property="subCategoryLevelOneID")
      *      )
      * )
      *
@@ -81,7 +79,7 @@ class CategoryLinkController extends BaseController
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class, CategoryLinkCreateRequest::class, (object)$data);
+        $request = $this->autoMapping->map(stdClass::class, MainAndSubLevelOneCategoriesLinkUpdateRequest::class, (object)$data);
 
         $violations = $this->validator->validate($request);
         if (\count($violations) > 0) {
@@ -90,7 +88,7 @@ class CategoryLinkController extends BaseController
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
 
-        $result = $this->categoryLinkService->createCategoryLink($request);
+        $result = $this->categoryLinkService->updateMainAndSubLevelOneCategoriesLink($request);
 
         return $this->response($result, self::CREATE);
     }
