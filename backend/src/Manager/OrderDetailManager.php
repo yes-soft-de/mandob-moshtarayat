@@ -71,6 +71,11 @@ class OrderDetailManager
        return $this->orderDetailEntityRepository->getOrderId($orderNumber);
     }
 
+    public function getStoreOrderInSpecificDate($fromDate, $toDate)
+    {
+       return $this->orderDetailEntityRepository->getStoreOrderInSpecificDate($fromDate, $toDate);
+    }
+
     public function getOrderDetailId($orderNumber)
     {
        return $this->orderDetailEntityRepository->getOrderId($orderNumber);
