@@ -2,7 +2,7 @@
 
 namespace App\Response;
 
-class StoreProductCategoryAllGetResponse
+class StoreProductCategoryLevelTwoAllGetResponse
 {
     public $id;
    

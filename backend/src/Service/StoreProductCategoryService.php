@@ -8,6 +8,7 @@ use App\Manager\StoreProductCategoryManager;
 use App\Request\FilterStoreProductCategoryLevelOne;
 use App\Request\FilterStoreProductCategoryLevelTwo;
 use App\Request\StoreProductCategoriesLevelOneAllGetRequest;
+use App\Request\StoreProductCategoriesLevelTwoAllGetRequest;
 use App\Request\StoreProductCategoryCreateRequest;
 use App\Request\StoreProductCategoryLevelOneUpdateRequest;
 use App\Request\StoreProductCategoryLevelTwoCreateRequest;
@@ -21,9 +22,10 @@ use App\Response\ProductsByProductCategoryIdAndStoreOwnerProfileIdForDashboardRe
 use App\Response\ProductsByProductCategoryIdAndStoreOwnerProfileIdResponse;
 use App\Response\ProductsByProductCategoryIdForStoreResponse;
 use App\Response\ProductsByProductCategoryIdResponse;
-use App\Response\StoreProductCategoryAllGetResponse;
+use App\Response\StoreProductCategoryLevelOneAllGetResponse;
 use App\Response\StoreProductCategoryByIdResponse;
 use App\Response\StoreProductCategoryLevelOneCreateResponse;
+use App\Response\StoreProductCategoryLevelTwoAllGetResponse;
 use App\Response\StoreProductCategoryLevelTwoCreateResponse;
 use App\Response\StoreProductCategoryTranslationGetResponse;
 use App\Response\StoreProductCategoryUpdateLevelOneResponse;
@@ -584,7 +586,32 @@ class StoreProductCategoryService
 
             $storeProductCategoryLevelOne['productCategoryImage'] = $this->getImageParams($storeProductCategoryLevelOne['productCategoryImage'], $this->params.$storeProductCategoryLevelOne['productCategoryImage'], $this->params);
 
-            $response[] = $this->autoMapping->map('array', StoreProductCategoryAllGetResponse::class, $storeProductCategoryLevelOne);
+            $response[] = $this->autoMapping->map('array', StoreProductCategoryLevelOneAllGetResponse::class, $storeProductCategoryLevelOne);
+        }
+
+        return $response;
+    }
+
+    public function getAllStoreProductCategoriesLevelTwo(StoreProductCategoriesLevelTwoAllGetRequest $request)
+    {
+        $response = [];
+
+        if ($request->getLanguage() && $request->getLanguage() != $this->primaryLanguage) {
+
+            $storeProductCategoriesTranslations = $this->storeProductCategoryManager->getAllStoreProductCategoriesLevelTwoTranslations();
+
+            $storeProductCategoriesLevelTwo = $this->replaceStoreProductCategoryTranslatedNameByPrimaryOne($storeProductCategoriesTranslations, $request->getLanguage());
+        }
+        else {
+
+            $storeProductCategoriesLevelTwo = $this->storeProductCategoryManager->getAllStoreProductCategoriesLevelTwo();
+        }
+
+        foreach ($storeProductCategoriesLevelTwo as $storeProductCategoryLevelTwo) {
+
+            $storeProductCategoryLevelTwo['productCategoryImage'] = $this->getImageParams($storeProductCategoryLevelTwo['productCategoryImage'], $this->params.$storeProductCategoryLevelTwo['productCategoryImage'], $this->params);
+
+            $response[] = $this->autoMapping->map('array', StoreProductCategoryLevelTwoAllGetResponse::class, $storeProductCategoryLevelTwo);
         }
 
         return $response;
