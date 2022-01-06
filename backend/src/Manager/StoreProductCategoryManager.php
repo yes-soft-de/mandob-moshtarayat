@@ -182,4 +182,9 @@ class StoreProductCategoryManager
         return $this->storeProductCategoryEntityRepository->getStoreProductCategoryLevelOne();
     }
 
+    // Return all store categories directly without any condition
+    public function getAllStoreProductCategoriesLevelOne()
+    {
+        return $this->storeProductCategoryEntityRepository->getAllStoreProductCategoriesLevelOne();
+    }
 }

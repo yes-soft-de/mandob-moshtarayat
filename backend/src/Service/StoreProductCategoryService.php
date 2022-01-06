@@ -7,6 +7,7 @@ use App\Entity\StoreProductCategoryEntity;
 use App\Manager\StoreProductCategoryManager;
 use App\Request\FilterStoreProductCategoryLevelOne;
 use App\Request\FilterStoreProductCategoryLevelTwo;
+use App\Request\StoreProductCategoriesLevelOneAllGetRequest;
 use App\Request\StoreProductCategoryCreateRequest;
 use App\Request\StoreProductCategoryLevelOneUpdateRequest;
 use App\Request\StoreProductCategoryLevelTwoCreateRequest;
@@ -20,6 +21,7 @@ use App\Response\ProductsByProductCategoryIdAndStoreOwnerProfileIdForDashboardRe
 use App\Response\ProductsByProductCategoryIdAndStoreOwnerProfileIdResponse;
 use App\Response\ProductsByProductCategoryIdForStoreResponse;
 use App\Response\ProductsByProductCategoryIdResponse;
+use App\Response\StoreProductCategoryAllGetResponse;
 use App\Response\StoreProductCategoryByIdResponse;
 use App\Response\StoreProductCategoryLevelOneCreateResponse;
 use App\Response\StoreProductCategoryLevelTwoCreateResponse;
@@ -561,6 +563,31 @@ class StoreProductCategoryService
         }
 
         return $storeCategories;
+    }
+
+    public function getAllStoreProductCategoriesLevelOne(StoreProductCategoriesLevelOneAllGetRequest $request)
+    {
+        $response = [];
+
+        if ($request->getLanguage() && $request->getLanguage() != $this->primaryLanguage) {
+
+            $storeProductCategoriesTranslations = $this->storeProductCategoryManager->getSubCategoriesLevelOneTranslations();
+
+            $storeProductCategoriesLevelOne = $this->replaceStoreProductCategoryTranslatedNameByPrimaryOne($storeProductCategoriesTranslations, $request->getLanguage());
+        }
+        else {
+
+            $storeProductCategoriesLevelOne = $this->storeProductCategoryManager->getAllStoreProductCategoriesLevelOne();
+        }
+
+        foreach ($storeProductCategoriesLevelOne as $storeProductCategoryLevelOne) {
+
+            $storeProductCategoryLevelOne['productCategoryImage'] = $this->getImageParams($storeProductCategoryLevelOne['productCategoryImage'], $this->params.$storeProductCategoryLevelOne['productCategoryImage'], $this->params);
+
+            $response[] = $this->autoMapping->map('array', StoreProductCategoryAllGetResponse::class, $storeProductCategoryLevelOne);
+        }
+
+        return $response;
     }
 
     public function checkIfItemExistsInSpecificLanguage($array, $itemID, $language)

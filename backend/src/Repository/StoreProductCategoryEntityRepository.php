@@ -284,6 +284,17 @@ class StoreProductCategoryEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    // Return all store categories directly without any condition
+    public function getAllStoreProductCategoriesLevelOne()
+    {
+        return $this->createQueryBuilder('storeProductCategory')
+
+            ->select('storeProductCategory.id', 'storeProductCategory.productCategoryName', 'storeProductCategory.productCategoryImage', 'storeProductCategory.language')
+
+            ->getQuery()
+            ->getResult();
+    }
+
     public function getSubCategoriesLevelOneTranslations()
     {
         return $this->createQueryBuilder('storeProductCategory')
