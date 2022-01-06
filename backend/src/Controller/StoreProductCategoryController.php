@@ -6,6 +6,8 @@ use App\AutoMapping;
 use App\Request\DeleteRequest;
 use App\Request\FilterStoreProductCategoryLevelOne;
 use App\Request\FilterStoreProductCategoryLevelTwo;
+use App\Request\StoreProductCategoriesLevelOneAllGetRequest;
+use App\Request\StoreProductCategoriesLevelTwoAllGetRequest;
 use App\Request\StoreProductCategoryWithTranslationCreateRequest;
 use App\Request\StoreProductCategoryWithTranslationUpdateRequest;
 use App\Request\SubCategoriesWithLinkedMarkRequest;
@@ -859,6 +861,118 @@ class StoreProductCategoryController extends BaseController
     public function getProductsByStoreCategroyLevelOneAndStoreOwnerProfileID(Request $request, $storeProductCategoryID, $storeOwnerProfileID)
     {
         $result = $this->storeProductCategoryService->getProductsByStoreCategroyLevelOneIdAndStoreOwnerProfileID($request->getPreferredLanguage(), $storeProductCategoryID, $storeOwnerProfileID);
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * Admin: Get all product categories of level one for dashboard
+     * @Route("allproductcategorieslevelone", name="getAllStoreProductCategoriesLevelOne", methods={"POST"})
+     * @IsGranted("ROLE_ADMIN")
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Store Product Category")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\RequestBody(
+     *      description="Get subCategories of level one by specific language",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="language")
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Get all Store Product Categories Level one",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *                  @OA\Items(
+     *                     @OA\Property(type="integer", property="id"),
+     *                     @OA\Property(type="string", property="productCategoryName"),
+     *                     @OA\Property(type="object", property="productCategoryImage",
+     *                          @OA\Property(type="object", property="image"),
+     *                          @OA\Property(type="string", property="imageURL"),
+     *                          @OA\Property(type="string", property="baseURL"),
+     *                  )
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function getAllStoreProductCategoriesLevelOne(Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, StoreProductCategoriesLevelOneAllGetRequest::class, (object)$data);
+
+        $result = $this->storeProductCategoryService->getAllStoreProductCategoriesLevelOne($request);
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * Admin: Get all product categories of level two for dashboard
+     * @Route("allproductcategoriesleveltwo", name="getAllStoreProductCategoriesLevelTwo", methods={"POST"})
+     * @IsGranted("ROLE_ADMIN")
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Store Product Category")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\RequestBody(
+     *      description="Get subCategories of level two by specific language",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="language")
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Get all Store Product Categories Level Two",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *                  @OA\Items(
+     *                     @OA\Property(type="integer", property="id"),
+     *                     @OA\Property(type="string", property="productCategoryName"),
+     *                     @OA\Property(type="object", property="productCategoryImage",
+     *                          @OA\Property(type="object", property="image"),
+     *                          @OA\Property(type="string", property="imageURL"),
+     *                          @OA\Property(type="string", property="baseURL"),
+     *                  )
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function getAllStoreProductCategoriesLevelTwo(Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, StoreProductCategoriesLevelTwoAllGetRequest::class, (object)$data);
+
+        $result = $this->storeProductCategoryService->getAllStoreProductCategoriesLevelTwo($request);
 
         return $this->response($result, self::FETCH);
     }
