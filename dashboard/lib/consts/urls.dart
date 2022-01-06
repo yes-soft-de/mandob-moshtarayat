@@ -39,6 +39,7 @@ class Urls {
   static const GET_STORES_LOGS = BASE_API + '/ordersandcountbystoreprofileid/';
   static const CHECK_USER_ROLE = BASE_API + '/checkUserType';
   static const STORE_CATEGORIES = BASE_API + '/storecategories';
+  static const STORE_CATEGORIES_LINKING_API = BASE_API + '/allstorecategories';
   static const CREATE_STORE_CATEGORIES = BASE_API + '/createstorecategory';
   static const GET_STORES_BY_CATEGORY =
       BASE_API + '/storeownerbycategoryidforadmin';
@@ -52,8 +53,14 @@ class Urls {
   static const GET_PRODUCTS_CATEGORY = BASE_API + '/storeProductsCategory/';
   static const GET_SUBCATEGORIES_LEVEL_ONE =
       BASE_API + '/storeproductscategorylevelonefroadmin';
+  static const GET_ALL_SUBCATEGORIES_LEVEL_ONE =
+      BASE_API + '/allproductcategorieslevelone';
+  static const GET_ALL_SUBCATEGORIES_LEVEL_ONE_LINKING_API =
+      BASE_API + '/allproductcategorieslevelone';
   static const GET_SUBCATEGORIES_LEVEL_TOW =
       BASE_API + '/storeproductscategoryleveltwoforadmin';
+  static const GET_ALL_SUBCATEGORIES_LEVEL_TOW =
+      BASE_API + '/allproductcategoriesleveltwo';
   static const GET_PRODUCTS = BASE_API + '/productsstorebyprofileid/';
   static const CREATE_PRODUCTS_CATEGORY = BASE_API + '/StoreProductCategory';
   static const CREATE_SUBCATEGORIES_LEVEL_TOW =
@@ -126,5 +133,5 @@ class Urls {
       BASE_API + '/captainfinancialaccountinspecificdateforadmin/';
   static const GET_CUSTOM_PRODUCTS_API = BASE_API + '/customproductsnotfound';
   static const GET_CLIENT_NEED_SUPPORT = BASE_API + '/clientwhoneedsupport';
-
+  static const UPDATE_MAIN_CATEGORIES_LINK = BASE_API + '/mainsublevelonecategorieslink';
 }

@@ -17,14 +17,15 @@ class ClientsNeedsSupportStateManager {
   void getClients(ClientsNeedsSupportScreenState screenState) {
     _clientsService.getClientNeedSupport().then((value) {
       if (value.hasError) {
-        _stateSubject
-            .add(ClientsNeedSupportLoadedState(screenState, null, error: value.error));
+        _stateSubject.add(ClientsNeedSupportLoadedState(screenState, null,
+            error: value.error));
       } else if (value.isEmpty) {
-        _stateSubject
-            .add(ClientsNeedSupportLoadedState(screenState, null, empty: value.isEmpty));
+        _stateSubject.add(ClientsNeedSupportLoadedState(screenState, null,
+            empty: value.isEmpty));
       } else {
         ClientsNeedSupportModel _model = value as ClientsNeedSupportModel;
-        _stateSubject.add(ClientsNeedSupportLoadedState(screenState, _model.data));
+        _stateSubject
+            .add(ClientsNeedSupportLoadedState(screenState, _model.data));
       }
     });
   }

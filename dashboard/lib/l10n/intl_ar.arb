@@ -547,7 +547,9 @@
   "paymentsForStore":"دفعات للمتجر",
   "remainingAmountForStore":"المبلغ المتبقي للمتجر",
   "sumPaymentsForStore":"إجمالي الدفعات",
-  "outerOrder":"طلبات خاصة"
+  "outerOrder":"طلبات خاصة",
+  "categoriesLink":"ربط التصنيفات",
+  "linkedSuccessfully":"تم الربط بنجاح"
 
 
 }

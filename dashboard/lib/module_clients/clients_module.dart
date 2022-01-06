@@ -11,14 +11,15 @@ class ClientsModule extends YesModule {
   final ClientProfileScreen _clientProfileScreen;
   final ClientsScreen clientsScreen;
   final ClientsNeedsSupportScreen clientsNeedsSupportScreen;
-  ClientsModule(this._clientProfileScreen, this.clientsScreen,this.clientsNeedsSupportScreen) {
+  ClientsModule(this._clientProfileScreen, this.clientsScreen,
+      this.clientsNeedsSupportScreen) {
     YesModule.RoutesMap.addAll(getRoutes());
   }
   Map<String, WidgetBuilder> getRoutes() {
     return {
       ClientsRoutes.CLIENTS_LIST: (context) => clientsScreen,
       ClientsRoutes.CLIENT_PROFILE: (context) => _clientProfileScreen,
-      ClientsRoutes.CLIENTS_SUPPORTS :(context) => clientsNeedsSupportScreen
+      ClientsRoutes.CLIENTS_SUPPORTS: (context) => clientsNeedsSupportScreen
     };
   }
 }

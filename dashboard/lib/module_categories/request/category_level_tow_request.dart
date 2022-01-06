@@ -21,7 +21,7 @@ class DataStoreCategoryTwo {
     map['productCategoryName'] = productCategoryName;
     map['productCategoryImage'] = productCategoryImage;
     if (storeProductCategoryID != null) {
-      map['storeProductCategoryID'] = storeProductCategoryID;
+      //   map['storeProductCategoryID'] = storeProductCategoryID;
     }
     if (id != null) {
       map['id'] = id;
@@ -41,7 +41,7 @@ class TranslateSubTwoCategory {
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
     map['productCategoryName'] = productCategoryName;
-    map['storeProductCategoryID'] = productCategoryID;
+    //  map['storeProductCategoryID'] = productCategoryID;
     map['language'] = lang;
     return map;
   }

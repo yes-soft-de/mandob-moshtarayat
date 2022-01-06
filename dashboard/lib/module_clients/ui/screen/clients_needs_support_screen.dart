@@ -14,7 +14,8 @@ class ClientsNeedsSupportScreen extends StatefulWidget {
   ClientsNeedsSupportScreen(this._stateManager);
 
   @override
-  ClientsNeedsSupportScreenState createState() => ClientsNeedsSupportScreenState();
+  ClientsNeedsSupportScreenState createState() =>
+      ClientsNeedsSupportScreenState();
 }
 
 class ClientsNeedsSupportScreenState extends State<ClientsNeedsSupportScreen> {

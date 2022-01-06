@@ -83,7 +83,7 @@ class DataStoreCategory {
     }
     map['productCategoryName'] = productCategoryName;
     map['productCategoryImage'] = productCategoryImage;
-    map['storeCategoryID'] = storeCategoryID;
+    //   map['storeCategoryID'] = storeCategoryID;
     return map;
   }
 }

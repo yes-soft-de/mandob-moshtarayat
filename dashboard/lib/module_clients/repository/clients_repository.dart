@@ -39,8 +39,9 @@ class ClientsRepository {
         headers: {'Authorization': 'Bearer ' + token.toString()});
     if (response == null) return null;
     return ClientsListProfileResponse.fromJson(response);
-  } 
-   Future<ClientNeedSupportResponse?> getClientSupport() async {
+  }
+
+  Future<ClientNeedSupportResponse?> getClientSupport() async {
     var token = await _authService.getToken();
     dynamic response = await _apiClient.get(Urls.GET_CLIENT_NEED_SUPPORT,
         headers: {'Authorization': 'Bearer ' + token.toString()});

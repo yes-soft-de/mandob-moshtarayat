@@ -133,6 +133,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "categories": MessageLookupByLibrary.simpleMessage("التصنيفات"),
         "categoriesLevel2":
             MessageLookupByLibrary.simpleMessage("تصنيفات فرعية ثانية"),
+        "categoriesLink": MessageLookupByLibrary.simpleMessage("ربط التصنيفات"),
         "category": MessageLookupByLibrary.simpleMessage("تصنيف"),
         "categoryCreatedSuccessfully":
             MessageLookupByLibrary.simpleMessage("تم إضافة الصنف بنجاح"),
@@ -354,6 +355,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "latestUpdates": MessageLookupByLibrary.simpleMessage("اخر التحديثات"),
         "launch": MessageLookupByLibrary.simpleMessage("شغل تطبيقنا"),
         "lebanon": MessageLookupByLibrary.simpleMessage("لبنان"),
+        "linkedSuccessfully":
+            MessageLookupByLibrary.simpleMessage("تم الربط بنجاح"),
         "loading": MessageLookupByLibrary.simpleMessage("جار التحميل"),
         "locationOfCustomer":
             MessageLookupByLibrary.simpleMessage("موقع العميل"),

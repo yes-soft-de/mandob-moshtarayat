@@ -39,7 +39,6 @@ class LevelTowCategoriesScreenState extends State<LevelTowCategoriesScreen> {
   @override
   void initState() {
     languageSelected = widget._localizationService.getLanguage();
-
     currentState = LoadingState(this);
     getStoreCategories();
     widget.stateManager.stateStream.listen((event) {
@@ -136,7 +135,7 @@ class LevelTowCategoriesScreenState extends State<LevelTowCategoriesScreen> {
                         addSubCategories: (id, subId, name, image, trans) {
                           addCategory(CategoryLevelTowRequest(
                               dataStoreCategory: DataStoreCategoryTwo(
-                                  storeProductCategoryID: int.parse(subId),
+                                  storeProductCategoryID: null,
                                   productCategoryName: name,
                                   productCategoryImage: image),
                               translate: trans));

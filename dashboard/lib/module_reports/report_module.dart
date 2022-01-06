@@ -17,8 +17,12 @@ class ReportsModule extends YesModule {
   final ClientsReportScreen clientsReportScreen;
   final CustomProductScreen customProductScreen;
 
-  ReportsModule(this.productsReportScreen, this.storesReportScreen,
-      this.captainsReportScreen, this.clientsReportScreen,this.customProductScreen) {
+  ReportsModule(
+      this.productsReportScreen,
+      this.storesReportScreen,
+      this.captainsReportScreen,
+      this.clientsReportScreen,
+      this.customProductScreen) {
     YesModule.RoutesMap.addAll(getRoutes());
   }
   Map<String, WidgetBuilder> getRoutes() {
