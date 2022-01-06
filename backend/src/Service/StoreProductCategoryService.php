@@ -15,6 +15,7 @@ use App\Request\StoreProductCategoryTranslationCreateRequest;
 use App\Request\StoreProductCategoryTranslationUpdateRequest;
 use App\Request\StoreProductCategoryWithTranslationCreateRequest;
 use App\Request\StoreProductCategoryWithTranslationUpdateRequest;
+use App\Request\SubCategoriesWithLinkedMarkRequest;
 use App\Response\ProductsByProductCategoryIdAndStoreOwnerProfileIdForDashboardResponse;
 use App\Response\ProductsByProductCategoryIdAndStoreOwnerProfileIdResponse;
 use App\Response\ProductsByProductCategoryIdForStoreResponse;
@@ -31,6 +32,7 @@ use App\Response\StoreProductsCategoryLevelTwoAndStoreProductsResponse;
 use App\Response\StoreProductsCategoryResponse;
 use App\Response\StoreProductsCategoryWithProductsResponse;
 use App\Response\SubCategoriesAndProductsByStoreCategoryIDResponse;
+use App\Response\SubCategoriesWithLinkedMarkResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use App\Manager\UserManager;
 
@@ -572,6 +574,36 @@ class StoreProductCategoryService
         }
 
         return false;
+    }
+
+    public function getStoreProductCategoryLevelOne(SubCategoriesWithLinkedMarkRequest $request)
+    {
+        $response = [];
+
+        if($request->getLanguage() && $request->getLanguage() != $this->primaryLanguage){
+            $storeProductCategoriesTranslations = $this->storeProductCategoryManager->getSubCategoriesLevelOneTranslations();
+
+            $storeCategoriesByProductCategoryLevelOne = $this->replaceStoreProductCategoryTranslatedNameByPrimaryOne($storeProductCategoriesTranslations, $request->getLanguage());
+        }
+        else{
+            $storeCategoriesByProductCategoryLevelOne = $this->storeProductCategoryManager->getStoreProductCategoryLevelOne();
+        }
+
+        foreach ($storeCategoriesByProductCategoryLevelOne as $subCategory){
+
+            $subCategory['linked'] = false;
+
+            $subCategory['productCategoryImage'] = $this->getImageParams($subCategory['productCategoryImage'], $this->params.$subCategory['productCategoryImage'], $this->params);
+
+            if($subCategory['subCategoryLevelTwoID'] === $request->getStoreProductCategoryLevelTwoID()){
+                //There is a relationship between the first and second subcategory
+                $subCategory['linked'] = true;
+            }
+
+            $response[] = $this->autoMapping->map('array', SubCategoriesWithLinkedMarkResponse::class, $subCategory);
+        }
+
+        return $response;
     }
 
 }

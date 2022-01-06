@@ -452,3 +452,8 @@ App\Request\OneAndSubLevelTwoCategoriesLinkUpdateRequest:
       - NotBlank: ~
     subCategoryLevelTwoID:
       - NotBlank: ~
+
+App\Request\SubCategoriesWithLinkedMarkRequest:
+  properties:
+    storeProductCategoryLevelTwoID:
+      - NotBlank: ~

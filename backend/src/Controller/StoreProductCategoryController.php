@@ -8,6 +8,7 @@ use App\Request\FilterStoreProductCategoryLevelOne;
 use App\Request\FilterStoreProductCategoryLevelTwo;
 use App\Request\StoreProductCategoryWithTranslationCreateRequest;
 use App\Request\StoreProductCategoryWithTranslationUpdateRequest;
+use App\Request\SubCategoriesWithLinkedMarkRequest;
 use App\Service\StoreProductCategoryService;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -922,4 +923,62 @@ class StoreProductCategoryController extends BaseController
 
         return $this->response($result, self::DELETE);
     }
+
+
+    /**
+     * Get subCategories of level one with mark (linked or not) with specific store product category level two
+     * @Route("allsubcategorieslevelone", name="getStoreProductCategoryLevelOne", methods={"POST"})
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Store Product Category")
+     *
+     * @OA\RequestBody(
+     *      description="Get subCategories of level one with mark (linked or not) with specific store product category level two",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="language"),
+     *          @OA\Property(type="integer", property="storeProductCategoryLevelTwoID")
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Get Store Categories",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *                  @OA\Items(
+     *                     @OA\Property(type="integer", property="id"),
+     *                     @OA\Property(type="string", property="productCategoryName"),
+     *                     @OA\Property(type="object", property="productCategoryImage",
+     *                          @OA\Property(type="object", property="image"),
+     *                          @OA\Property(type="string", property="imageURL"),
+     *                          @OA\Property(type="string", property="baseURL"),
+     *                  ),
+     *                  @OA\Property(type="boolean", property="linked"),
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function getStoreProductCategoryLevelOne(Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, SubCategoriesWithLinkedMarkRequest::class, (object)$data);
+
+        $violations = $this->validator->validate($request);
+        if(\count($violations) > 0)
+        {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $result = $this->storeProductCategoryService->getStoreProductCategoryLevelOne($request);
+
+        return $this->response($result, self::FETCH);
+    }
+
 }
