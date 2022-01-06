@@ -2131,6 +2131,7 @@ class OrderController extends BaseController
      *                         @OA\Property(type="integer", property="orderType"),
      *                         @OA\Property(type="integer", property="note"),
      *                         @OA\Property(type="number", property="invoiceAmount"),
+     *                         @OA\Property(type="string", property="state"),
      *                         @OA\Property(type="object", property="invoiceImage",
      *                                 @OA\Property(type="object", property="imageURL"),
      *                                 @OA\Property(type="object", property="image"),

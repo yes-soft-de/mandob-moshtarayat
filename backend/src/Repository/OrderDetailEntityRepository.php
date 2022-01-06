@@ -305,7 +305,7 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('OrderDetailEntity')
 
-            ->select( 'OrderDetailEntity.id as orderDetailID', 'OrderDetailEntity.storeOwnerProfileID', 'OrderDetailEntity.orderID')
+            ->select( 'OrderDetailEntity.id as orderDetailID', 'OrderDetailEntity.storeOwnerProfileID', 'OrderDetailEntity.orderID', 'OrderDetailEntity.state')
             ->addSelect('StoreOwnerProfileEntity.storeOwnerName', 'StoreOwnerProfileEntity.image', 'StoreOwnerProfileEntity.phone', 'StoreOwnerProfileEntity.storeCategoryId', 'StoreOwnerProfileEntity.roomID')
             ->addSelect('StoreOwnerBranchEntity.location')
             ->addSelect('OrdersInvoicesEntity.invoiceAmount', 'OrdersInvoicesEntity.invoiceImage')
@@ -335,7 +335,7 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
 
 
             ->select('OrderEntity.id', 'OrderEntity.deliveryDate', 'OrderEntity.createdAt', 'OrderEntity.source', 'OrderEntity.payment', 'OrderEntity.detail', 'OrderEntity.deliveryCost', 'OrderEntity.orderCost', 'OrderEntity.orderType', 'OrderEntity.destination', 'OrderEntity.note')
-            ->addSelect('orderDetailEntity.id as orderDetailId', 'orderDetailEntity.orderNumber')
+            ->addSelect('orderDetailEntity.id as orderDetailId', 'orderDetailEntity.orderNumber', 'orderDetailEntity.state')
 
             ->leftJoin(OrderEntity::class, 'OrderEntity', Join::WITH, 'orderDetailEntity.orderID = OrderEntity.id')
 
