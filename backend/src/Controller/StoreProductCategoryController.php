@@ -1038,7 +1038,6 @@ class StoreProductCategoryController extends BaseController
         return $this->response($result, self::DELETE);
     }
 
-
     /**
      * Get subCategories of level one with mark (linked or not) with specific store product category level two
      * @Route("allsubcategorieslevelone", name="getStoreProductCategoryLevelOne", methods={"POST"})

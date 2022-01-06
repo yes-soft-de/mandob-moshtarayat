@@ -634,25 +634,39 @@ class StoreProductCategoryService
     {
         $response = [];
 
-        if($request->getLanguage() && $request->getLanguage() != $this->primaryLanguage){
+        $storeCategoriesByProductCategoryLevelOne = $this->storeProductCategoryManager->getStoreProductCategoryLevelOne($request->getStoreProductCategoryLevelTwoID());
+
+        if ($request->getLanguage() && $request->getLanguage() != $this->primaryLanguage) {
+
             $storeProductCategoriesTranslations = $this->storeProductCategoryManager->getSubCategoriesLevelOneTranslations();
 
-            $storeCategoriesByProductCategoryLevelOne = $this->replaceStoreProductCategoryTranslatedNameByPrimaryOne($storeProductCategoriesTranslations, $request->getLanguage());
+            $storeCategoriesLevelOne = $this->replaceStoreProductCategoryTranslatedNameByPrimaryOne($storeProductCategoriesTranslations, $request->getLanguage());
         }
-        else{
-            $storeCategoriesByProductCategoryLevelOne = $this->storeProductCategoryManager->getStoreProductCategoryLevelOne();
+        else {
+
+            $storeCategoriesLevelOne = $this->storeProductCategoryManager->getAllStoreProductCategoriesLevelOne();
         }
 
-        foreach ($storeCategoriesByProductCategoryLevelOne as $subCategory){
+        /* Following block will just mark each store category that linked with the store product category level one by
+        setting 'linked' to true
+        */
+        foreach ($storeCategoriesByProductCategoryLevelOne as $productCategoryLevelOne){
 
-            $subCategory['linked'] = false;
+            foreach ($storeCategoriesLevelOne as $key => $value){
+
+                $subCategory['linked'] = false;
+
+                if ($value['id'] === $productCategoryLevelOne['id']){
+
+                    $storeCategoriesLevelOne[$key]['linked'] = true;
+                }
+            }
+        }
+        // end block
+
+        foreach ($storeCategoriesLevelOne as $subCategory){
 
             $subCategory['productCategoryImage'] = $this->getImageParams($subCategory['productCategoryImage'], $this->params.$subCategory['productCategoryImage'], $this->params);
-
-            if($subCategory['subCategoryLevelTwoID'] === $request->getStoreProductCategoryLevelTwoID()){
-                //There is a relationship between the first and second subcategory
-                $subCategory['linked'] = true;
-            }
 
             $response[] = $this->autoMapping->map('array', SubCategoriesWithLinkedMarkResponse::class, $subCategory);
         }
