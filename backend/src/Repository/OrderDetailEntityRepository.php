@@ -152,6 +152,25 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getStoreOrderInSpecificDate($fromDate, $toDate)
+    {
+        return $this->createQueryBuilder('OrderDetailEntity')
+            ->select('OrderDetailEntity.orderNumber','OrderDetailEntity.storeOwnerProfileID')
+            ->leftJoin(OrderEntity::class, 'OrderEntity', Join::WITH, 'OrderDetailEntity.orderID = OrderEntity.id')
+
+            ->where('OrderEntity.deliveryDate >= :fromDate')
+            ->andWhere('OrderEntity.deliveryDate < :toDate')
+
+            ->setParameter('fromDate', $fromDate)
+            ->setParameter('toDate', $toDate)
+
+            ->addGroupBy('OrderDetailEntity.storeOwnerProfileID')
+            ->addGroupBy('OrderDetailEntity.orderNumber')
+
+            ->getQuery()
+            ->getResult();
+    }
+
     public function getOrderDetailId($orderNumber)
     {
         return $this->createQueryBuilder('OrderDetailEntity')

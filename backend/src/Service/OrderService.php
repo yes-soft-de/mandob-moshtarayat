@@ -322,15 +322,26 @@ class OrderService
 
        $date = $this->dateFactoryService->returnLastMonthDate();
  
-       $items = $this->orderManager->getCountOrdersEveryStoreInLastMonth($date[0],$date[1]);
+       $items = $this->orderDetailService->getStoreOrderInSpecificDate($date[0],$date[1]);
 
-       foreach ($items as $item) {
-//           $item['image'] = $this->getImageParams($item['image'], $this->params . $item['image'], $this->params);
-
-           $response[] = $this->autoMapping->map('array', CountOrdersInLastMonthForStoreResponse::class, $item);
+       foreach ($items as $item){
+           $storeIds[] = $item['storeOwnerProfileID'];
        }
 
-       return $response;
+        //The number of duplicate values
+        $val = array_count_values($storeIds);
+
+        foreach($val as $key => $value) {
+            $store = $this->storeOwnerProfileService->getStoreNameById($key);
+
+            $i[] =  ['storeOwnerProfileID'=>$key,'storeOwnerName'=>$store->storeOwnerName, 'countOrdersInMonth'=>$value];
+        }
+
+        foreach ($i as $item){
+            $response[] = $this->autoMapping->map('array', CountOrdersInLastMonthForStoreResponse::class, $item);
+        }
+
+        return $response;
    }
 
     public function getCountOrdersEveryCaptainInLastMonth():?array

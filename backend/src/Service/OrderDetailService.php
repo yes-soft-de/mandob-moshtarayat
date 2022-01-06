@@ -261,6 +261,11 @@ class OrderDetailService
         return $this->orderDetailManager->getOrderId($orderNumber);
     }
 
+    public function getStoreOrderInSpecificDate($fromDate, $toDate)
+    {
+        return $this->orderDetailManager->getStoreOrderInSpecificDate($fromDate, $toDate);
+    }
+
     public function getOrderNumberByOrderId($orderID)
     {
         $response = [];
