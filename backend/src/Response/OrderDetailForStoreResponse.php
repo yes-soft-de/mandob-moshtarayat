@@ -18,5 +18,6 @@ class OrderDetailForStoreResponse
     public $note;
     public $roomID;
     public $products;
+    public $state;
 
 }

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\MainAndSubLevelOneCategoriesLinkUpdateRequest;
+use App\Request\OneAndSubLevelTwoCategoriesLinkUpdateRequest;
 use App\Service\CategoryLinkService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use stdClass;
@@ -89,6 +90,70 @@ class CategoryLinkController extends BaseController
         }
 
         $result = $this->categoryLinkService->updateMainAndSubLevelOneCategoriesLink($request);
+
+        return $this->response($result, self::CREATE);
+    }
+
+    /**
+     * admin: update link/s between level one and level two of sub categories
+     * @Route("levelonesubleveltwocategorieslink", name="createLinkBetweenCategoriesOneAndTwo", methods={"PUT"})
+     * @IsGranted("ROLE_ADMIN")
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Category Link")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\RequestBody(
+     *      description="Create Link between categories one and two by admin",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="array", property="mainCategoriesIDs",
+     *              @OA\Items()
+     *          ),
+     *          @OA\Property(type="integer", property="subCategoryLevelOneID"),
+     *          @OA\Property(type="integer", property="subCategoryLevelTwoID")
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=201,
+     *      description="Returns the link/s being created",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="string", property="linkType"),
+     *                  @OA\Property(type="integer", property="mainCategoryID"),
+     *                  @OA\Property(type="integer", property="subCategoryLevelOneID"),
+     *                  @OA\Property(type="integer", property="subCategoryLevelTwoID")
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function updateLinkBetweenCategoriesOneAndTwo(Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, OneAndSubLevelTwoCategoriesLinkUpdateRequest::class, (object)$data);
+
+        $violations = $this->validator->validate($request);
+        if (\count($violations) > 0) {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $result = $this->categoryLinkService->updateLinkBetweenCategoriesOneAndTwo($request);
 
         return $this->response($result, self::CREATE);
     }
