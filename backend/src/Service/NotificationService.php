@@ -4,12 +4,8 @@
 namespace App\Service;
 
 use App\AutoMapping;
-use App\Constant\NotificationStoreConstant;
 use App\Entity\NotificationTokenEntity;
 use App\Manager\NotificationManager;
-use App\Service\RoomIdHelperService;
-use App\Service\SupportService;
-use App\Service\CaptainProfileService;
 use App\Request\NotificationTokenRequest;
 use App\Response\NotificationTokenResponse;
 use Kreait\Firebase\Exception\FirebaseException;
@@ -25,30 +21,21 @@ class NotificationService
 {
     private $messaging;
     private $notificationManager;
-    private $roomIdHelperService;
-    private $supportService;
     private $autoMapping;
-    private $captainProfileService;
-    private $userService;
 
-//    const CAPTAIN_TOPIC = 'captains';
     const URL = '/order_details';
     const URLCHAT = '/chat';
 
-    public function __construct(AutoMapping $autoMapping, Messaging $messaging, NotificationManager $notificationManager, RoomIdHelperService $roomIdHelperService, supportService $supportService, CaptainProfileService $captainProfileService, UserService $userService)
+    public function __construct(AutoMapping $autoMapping, Messaging $messaging, NotificationManager $notificationManager)
     {
         $this->messaging = $messaging;
         $this->notificationManager = $notificationManager;
         $this->autoMapping = $autoMapping;
-        $this->roomIdHelperService = $roomIdHelperService;
-        $this->supportService = $supportService;
-        $this->captainProfileService = $captainProfileService;
-        $this->userService = $userService;
     }
 
-    public function getTokens()
+    public function getCaptainTokens()
     {
-        return $this->notificationManager->getTokens();
+        return $this->notificationManager->getCaptainTokens();
     }
 
     public function getAdminsTokens()
@@ -58,7 +45,7 @@ class NotificationService
 
     public function notificationToCaptains($orderNumber)
     {
-        $getTokens = $this->getTokens();
+        $getTokens = $this->getCaptainTokens();
 
         $tokens = [];
 
@@ -127,10 +114,10 @@ class NotificationService
         $tokens = [];
 
         $getTokens = $this->getStoreTokens($storeIDs);
+
         foreach ($getTokens as $token) {
             $tokens[] = $token['token'];
         }
-
         $payload = [
             'click_action' => 'FLUTTER_NOTIFICATION_CLICK',
             'navigate_route' => self::URL,
@@ -165,6 +152,7 @@ class NotificationService
 
         elseif($request->getUserType() == "client"){
             $item = $this->notificationManager->getClientRoomID($request->getRoomID());
+
             $item = $item["clientID"];
         }
 
@@ -224,71 +212,6 @@ class NotificationService
         return $devicesToken;
     }
 
-    public function updateNewMessageStatusInReport($request)
-    {  
-        $response=[];
-
-        //NewMessageStatus = true
-        $item = $this->supportService->update($request,true);
-        if($item) {
-            $response[] =  $this->autoMapping->map('array', NotificationTokenResponse::class, $item);
-        }
-        return $response;
-    }
-
-    public function updateNewMessageStatusInCaptain($request)
-    {
-        $response=[];
-
-        //NewMessageStatus = true
-        $item = $this->captainProfileService->updateCaptainNewMessageStatus($request,true);
-        if($item) {
-            $response[] =  $this->autoMapping->map('array', NotificationTokenResponse::class, $item);
-        }
-
-        return $response;
-    }
-
-    public function notificationToCaptainFromAdmin($request)
-    {
-        $response=[];
-
-        $item = $this->getCaptainRoomID($request->getRoomID());
-       
-        if($item) {
-            $devicesToken = [];
-            $userTokenOne = $this->getNotificationTokenByUserID($item[0]['captainID']);
-            $devicesToken[] = $userTokenOne;
-            $message = CloudMessage::new()
-                ->withNotification(Notification::create(DeliveryCompanyNameConstant::$Delivery_Company_Name, MessageConstant::$MESSAGE_NEW_CHAT_FROM_ADMIN));
-                
-            $this->messaging->sendMulticast($message, $devicesToken); 
-            $this->messaging->sendMulticast($message, $devicesToken);  
-            $response[]= $this->autoMapping->map('array',NotificationTokenResponse::class, $devicesToken);
-        }
-        return $response;       
-    }
-
-    public function notificationToReportFromAdmin($request)
-    {
-        $response=[];
-
-        $item = $this->getByReprotRoomID($request->getRoomID());
-       
-        if($item) {
-            $devicesToken = [];
-            $userTokenOne = $this->getNotificationTokenByUserID($item[0]['userId']);
-            $devicesToken[] = $userTokenOne;
-            $message = CloudMessage::new()
-                ->withNotification(Notification::create(DeliveryCompanyNameConstant::$Delivery_Company_Name, MessageConstant::$MESSAGE_NEW_CHAT_FROM_ADMIN));
-
-            $this->messaging->sendMulticast($message, $devicesToken);  
-            $response[]= $this->autoMapping->map('array',NotificationTokenResponse::class, $devicesToken);
-        } 
-
-        return $response;
-    }
-
     public function notificationTokenCreate(NotificationTokenRequest $request)
     {
         $userRegister = $this->notificationManager->notificationTokenCreate($request);
@@ -299,11 +222,6 @@ class NotificationService
     public function getNotificationTokenByUserID($userID)
     {
         return $this->notificationManager->getNotificationTokenByUserID($userID);
-    }
-
-    public function getByReprotRoomID($roomID)
-    {
-        return $this->notificationManager->getByReprotRoomID($roomID);
     }
 
     public function getCaptainRoomID($roomID)

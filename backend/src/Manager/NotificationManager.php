@@ -25,9 +25,9 @@ class NotificationManager
         $this->notificationTokenEntityRepository = $notificationTokenEntityRepository;
     }
 
-    public function getTokens()
+    public function getCaptainTokens()
     {
-        return $this->notificationTokenEntityRepository->getTokens();
+        return $this->notificationTokenEntityRepository->getCaptainTokens();
     }
 
     public function getAdminsTokens()
@@ -79,11 +79,6 @@ class NotificationManager
         $token = $this->notificationTokenEntityRepository->findBy(['userID' => $userID]);
 
         return $token[0]->getToken();
-    }
-
-    public function getByReprotRoomID($roomID)
-    {
-        return $this->notificationTokenEntityRepository->getByReprotRoomID($roomID);
     }
 
     public function getCaptainRoomID($roomID)

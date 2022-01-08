@@ -23,23 +23,7 @@ class NotificationTokenEntityRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, NotificationTokenEntity::class);
     }
-    
-    public function getByReprotRoomID($roomID)
-    {
-        return $this->createQueryBuilder('NotificationTokenEntity')
 
-        ->addSelect('reportEntity.userId')
-
-        ->leftJoin(SupportEntity::class, 'reportEntity', Join::WITH, 'reportEntity.roomID = :roomID')
-
-        ->andWhere("reportEntity.roomID = :roomID ")
-
-        ->setParameter('roomID', $roomID)
-
-        ->getQuery()
-        ->getResult();
-    }
-    
     public function getCaptainRoomID($roomID)
     {
         return $this->createQueryBuilder('NotificationTokenEntity')
@@ -95,7 +79,7 @@ class NotificationTokenEntityRepository extends ServiceEntityRepository
         ->getOneOrNullResult();
     }
 
-    public function getTokens()
+    public function getCaptainTokens()
     {
         return $this->createQueryBuilder('NotificationTokenEntity')
             ->select('NotificationTokenEntity.token')
