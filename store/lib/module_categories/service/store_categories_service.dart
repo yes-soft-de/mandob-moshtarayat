@@ -35,9 +35,9 @@ class CategoriesService {
   }
 
 
-  Future<DataModel> getCategoryLevelOne(int id) async {
+  Future<DataModel> getCategoryLevelOne() async {
 
-    ProductsCategoryResponse? _productCategories = await _categoriesManager.getCategoriesLevelOne(id);
+    ProductsCategoryResponse? _productCategories = await _categoriesManager.getCategoriesLevelOne();
     if (_productCategories == null) {
       return DataModel.withError(S.current.networkError);
     }

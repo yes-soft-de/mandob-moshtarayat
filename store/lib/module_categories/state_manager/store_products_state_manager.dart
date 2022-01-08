@@ -59,8 +59,7 @@ class StoreProductsStateManager {
               empty: value.isEmpty));
         } else {
           StoreProfileModel model = value as StoreProfileModel;
-          print(model.storeCategoryId);
-          _categoriesService.getCategoryLevelOne(model.data.storeCategoryId).then((value) {
+          _categoriesService.getCategoryLevelOne().then((value) {
             if (value.hasError) {
               _stateSubject.add(
                   ProductStoreState(screenState, null,null,null,error: value.error));
@@ -92,7 +91,7 @@ class StoreProductsStateManager {
        } else {
          StoreProfileModel model = value as StoreProfileModel;
          print(model.storeCategoryId);
-         _categoriesService.getCategoryLevelOne(model.data.storeCategoryId).then((value) {
+         _categoriesService.getCategoryLevelOne().then((value) {
            if (value.hasError) {
              _stateSubject.add(
                  ProductStoreState(screenState, null,null,null,error: value.error));

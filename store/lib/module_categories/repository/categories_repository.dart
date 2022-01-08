@@ -37,10 +37,10 @@ class CategoriesRepository {
     return ProductsCategoryResponse.fromJson(response);
   }
 
-  Future<ProductsCategoryResponse?> getCategoryLevelOne(int mainCat) async {
+  Future<ProductsCategoryResponse?> getCategoryLevelOne() async {
     var token = await _authService.getToken();
     var lang = _localizationService.getLanguage();
-    dynamic response = await _apiClient.get(Urls.CATEGORY_LEVEL_ONE + '$mainCat',
+    dynamic response = await _apiClient.get(Urls.CATEGORY_LEVEL_ONE,
         headers: {'Authorization': 'Bearer ' + token.toString(),'Accept-Language':lang});
     if (response == null) return null;
     return ProductsCategoryResponse.fromJson(response);
