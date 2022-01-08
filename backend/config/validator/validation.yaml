@@ -352,8 +352,6 @@ App\Request\StoreOwnerUpdateByAdminRequest:
       - NotBlank: ~
     status:
       - NotBlank: ~
-    storeCategoryId:
-      - NotBlank: ~
     privateOrders:
       - NotBlank: ~
     hasProducts:
