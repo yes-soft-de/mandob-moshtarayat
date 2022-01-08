@@ -147,7 +147,7 @@ class StoreOwnerProfileController extends BaseController
      * @IsGranted("ROLE_OWNER")
      * @param Request $request
      * @return JsonResponse
-     * *
+     *
      * @OA\Tag(name="Store Owner Profile")
      *
      * @OA\Parameter(
@@ -163,7 +163,6 @@ class StoreOwnerProfileController extends BaseController
      *          @OA\Property(type="string", property="storeOwnerName"),
      *          @OA\Property(type="string", property="image"),
      *          @OA\Property(type="string", property="phone"),
-     *          @OA\Property(type="integer", property="storeCategoryId"),
      *          @OA\Property(type="boolean", property="privateOrders"),
      *          @OA\Property(type="boolean", property="hasProducts"),
      *          @OA\Property(type="string", property="branchName"),
