@@ -328,19 +328,21 @@ class OrderService
        foreach ($storeOwnerProfileIDs as $storeOwnerProfileID){
            $storeIds[] = $storeOwnerProfileID['storeOwnerProfileID'];
        }
-
+       // replace the empty value with a string
+        $storeIdsWithoutNull = array_replace($storeIds,array_fill_keys(array_keys($storeIds, null),''));
         //The number of duplicate values
-        $val = array_count_values($storeIds);
+        $val = array_count_values($storeIdsWithoutNull);
 
         foreach($val as $key => $value) {
             $store = $this->storeOwnerProfileService->getStoreInfoById($key);
-
-            $items[] =  [
-                'storeOwnerProfileID' => $key,
-                'storeOwnerName' => $store['storeOwnerName'],
-                'countOrdersInMonth' => $value,
-                'image' => $store['image'],
-            ];
+            if($store) {
+                $items[] = [
+                    'storeOwnerProfileID' => $key,
+                    'storeOwnerName' => $store['storeOwnerName'],
+                    'countOrdersInMonth' => $value,
+                    'image' => $store['image'],
+                ];
+            }
         }
 
         foreach ($items as $item){
