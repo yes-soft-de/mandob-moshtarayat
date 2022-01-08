@@ -1,25 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat_dashboad/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
-import 'package:mandob_moshtarayat_dashboad/module_categories/model/subCategoriesModel.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories_linking/model/sub_categories_link_model.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories_linking/request/sub_link_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories_linking/ui/screen/sub_categories_linking_screen.dart';
+import 'package:mandob_moshtarayat_dashboad/utils/components/costom_search.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_list_view.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/empty_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/error_screen.dart';
-import 'package:mandob_moshtarayat_dashboad/utils/components/progresive_image.dart';
 
 class SubCategoriesLinkingLoadedState extends States {
   final SubCategoriesLinkingScreenState screenState;
   final String? error;
   final bool empty;
-  final List<SubCategoriesModel>? model;
+  List<SubCategoriesLinksModel>? model;
 
   SubCategoriesLinkingLoadedState(this.screenState, this.model,
       {this.empty = false, this.error})
       : super(screenState) {
-    if (error != null) {}
+    if (model != null) {
+      for (var element in model!) {
+        if (element.linked) {
+          oneSelected = true;
+          model?.remove(element);
+          model?.insert(0, element);
+          break;
+        }
+      }
+    }
   }
-
+  bool oneSelected = false;
+  String? search;
   @override
   Widget getUI(BuildContext context) {
     if (error != null) {
@@ -40,77 +51,97 @@ class SubCategoriesLinkingLoadedState extends States {
       width: double.maxFinite,
       child: Center(
         child: Container(
-            constraints: BoxConstraints(maxWidth: 600),
-            child: CustomListView.custom(children: getStores())),
+          constraints: BoxConstraints(maxWidth: 600),
+          child: Column(
+            children: [
+              Expanded(
+                child: CustomListView.custom(children: getCategories()),
+              ),
+              ElevatedButton(
+                  onPressed: id != null
+                      ? () async {
+                          screenState.updateCategory(SubLinkRequest(
+                              subCategoryLevelTwoId:
+                                  int.parse(screenState.subCategories),
+                              subCategoryLevelOneId: int.parse(id!)));
+                        }
+                      : null,
+                  child: Text(S.current.save)),
+            ],
+          ),
+        ),
       ),
     );
   }
 
-  List<Widget> getStores() {
+  String? id;
+  List<Widget> getCategories() {
+    var context = screenState.context;
     List<Widget> widgets = [];
     if (model == null) {
       return widgets;
     }
     if (model!.isEmpty) return widgets;
-    for (var element in model!) {
-      widgets.add(Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Theme.of(screenState.context).primaryColor,
-            borderRadius: BorderRadius.circular(25),
+    for (var element in model ?? <SubCategoriesLinksModel>[]) {
+      if (!element.categoryName.contains(search ?? '') && search != null) {
+        continue;
+      }
+      widgets.add(CheckboxListTile(
+          value: element.linked
+              ? true
+              : oneSelected
+                  ? null
+                  : false,
+          selected: element.linked,
+          autofocus: element.linked,
+          tristate: element.linked ? false : oneSelected,
+          title: Text(
+            element.categoryName,
+            style: TextStyle(
+              fontWeight: element.linked ? FontWeight.bold : null,
+              decoration: oneSelected && element.linked == false
+                  ? TextDecoration.lineThrough
+                  : null,
+            ),
           ),
-          child: Flex(
-            direction: Axis.horizontal,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(25),
-                  child: SizedBox(
-                    height: 75,
-                    width: 75,
-                    child: CustomNetworkImage(
-                      imageSource: element.image,
-                      width: 75,
-                      height: 75,
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: getTile(element.categoryName),
-                ),
-              ),
-              InkWell(
-                onTap: () {},
-                child: Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Theme.of(screenState.context)
-                        .backgroundColor
-                        .withOpacity(0.2),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(
-                      Icons.link,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: 8,
-              ),
-            ],
-          ),
-        ),
-      ));
+          onChanged: oneSelected && element.linked == false
+              ? null
+              : (value) {
+                  if (value == true) {
+                    id = element.id.toString();
+                    element.linked = true;
+                    oneSelected = true;
+                  } else {
+                    id = null;
+                    element.linked = false;
+                    oneSelected = false;
+                  }
+                  screenState.refresh();
+                }));
     }
-    widgets.add(SizedBox(height: 75));
+
+    if (model != null) {
+      widgets.insert(
+          0,
+          Padding(
+            padding: EdgeInsets.only(left: 18.0, right: 18.0, bottom: 16),
+            child: CustomDeliverySearch(
+              hintText: S.current.searchingForCategories,
+              onChanged: (s) {
+                if (s == '' || s.isEmpty) {
+                  search = null;
+                  screenState.refresh();
+                } else {
+                  search = s;
+                  screenState.refresh();
+                }
+              },
+            ),
+          ));
+    }
+    widgets.add(SizedBox(
+      height: 50,
+    ));
     return widgets;
   }
 

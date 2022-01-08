@@ -8,7 +8,6 @@ import 'package:mandob_moshtarayat_dashboad/module_categories_linking/request/ma
 import 'package:mandob_moshtarayat_dashboad/module_categories_linking/service/linking_service.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories_linking/ui/screen/store_categories_linking_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories_linking/ui/state/store_categories_linking/store_categories_loaded_linking_state.dart';
-import 'package:mandob_moshtarayat_dashboad/utils/components/progresive_image.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/helpers/custom_flushbar.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:mandob_moshtarayat_dashboad/module_auth/service/auth_service/auth_service.dart';
@@ -55,11 +54,11 @@ class StoreCategoriesLinkingStateManager {
                 message: value.error ?? S.current.errorHappened)
             .show(screenState.context);
       } else {
-       Navigator.of(screenState.context).pop();
+        Navigator.of(screenState.context).pop();
         CustomFlushBarHelper.createSuccess(
                 title: S.current.warnning,
-                message: value.error ?? S.current.linkedSuccessfully).show(screenState.context);
-           
+                message: value.error ?? S.current.linkedSuccessfully)
+            .show(screenState.context);
       }
     });
   }

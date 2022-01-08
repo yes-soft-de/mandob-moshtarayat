@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat_dashboad/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/model/subCategoriesModel.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories_linking/linking_routes.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories_linking/ui/screen/level_tow_categories_list_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_list_view.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/empty_screen.dart';
@@ -89,7 +90,11 @@ class CategoriesLevel2LoadedState extends States {
                 ),
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(screenState.context).pushNamed(
+                      LinkingRoutes.SUB_CATEGORIES_LINKING,
+                      arguments: element.id.toString());
+                },
                 child: Container(
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,

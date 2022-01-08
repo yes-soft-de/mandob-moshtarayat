@@ -56,7 +56,7 @@ class Urls {
   static const GET_ALL_SUBCATEGORIES_LEVEL_ONE =
       BASE_API + '/allproductcategorieslevelone';
   static const GET_ALL_SUBCATEGORIES_LEVEL_ONE_LINKING_API =
-      BASE_API + '/allproductcategorieslevelone';
+      BASE_API + '/allsubcategorieslevelone';
   static const GET_SUBCATEGORIES_LEVEL_TOW =
       BASE_API + '/storeproductscategoryleveltwoforadmin';
   static const GET_ALL_SUBCATEGORIES_LEVEL_TOW =
@@ -133,5 +133,8 @@ class Urls {
       BASE_API + '/captainfinancialaccountinspecificdateforadmin/';
   static const GET_CUSTOM_PRODUCTS_API = BASE_API + '/customproductsnotfound';
   static const GET_CLIENT_NEED_SUPPORT = BASE_API + '/clientwhoneedsupport';
-  static const UPDATE_MAIN_CATEGORIES_LINK = BASE_API + '/mainsublevelonecategorieslink';
+  static const UPDATE_MAIN_CATEGORIES_LINK =
+      BASE_API + '/mainsublevelonecategorieslink';
+  static const UPDATE_SUB_CATEGORIES_LINK =
+      BASE_API + '/levelonesubleveltwocategorieslink';
 }

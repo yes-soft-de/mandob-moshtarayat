@@ -1,8 +1,14 @@
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/model/subCategoriesModel.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories_linking/model/sub_categories_link_model.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories_linking/request/main_link_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories_linking/request/sub_link_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories_linking/service/linking_service.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories_linking/ui/screen/sub_categories_linking_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories_linking/ui/state/sub_categories_linking/sub_categories_linking_state.dart';
+import 'package:mandob_moshtarayat_dashboad/utils/helpers/custom_flushbar.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:mandob_moshtarayat_dashboad/abstracts/states/loading_state.dart';
 import 'package:mandob_moshtarayat_dashboad/abstracts/states/state.dart';
@@ -21,9 +27,10 @@ class SubCategoriesLinkingStateManager {
   SubCategoriesLinkingStateManager(
       this._categoriesService, this._authService, this._imageUploadService);
 
-  void getSubCategoriesLinking(SubCategoriesLinkingScreenState screenState) {
+  void getSubCategoriesLinking(
+      SubCategoriesLinkingScreenState screenState, String id) {
     _stateSubject.add(LoadingState(screenState));
-    _categoriesService.getSubCategoriesLinking().then((value) {
+    _categoriesService.getSubCategoriesLinking(id).then((value) {
       if (value.hasError) {
         _stateSubject.add(SubCategoriesLinkingLoadedState(screenState, null,
             error: value.error));
@@ -31,60 +38,30 @@ class SubCategoriesLinkingStateManager {
         _stateSubject.add(SubCategoriesLinkingLoadedState(screenState, null,
             empty: value.isEmpty));
       } else {
-        SubCategoriesModel model = value as SubCategoriesModel;
+        SubCategoriesLinksModel model = value as SubCategoriesLinksModel;
         _stateSubject
             .add(SubCategoriesLinkingLoadedState(screenState, model.data));
       }
     });
   }
 
-  // void updateProduct(
-  //     StoreProductScreenState screenState, UpdateProductRequest request) {
-  //   _stateSubject.add(LoadingState(screenState));
-  //   if (!request.productImage!.contains('/original-image/')) {
-  //     _imageUploadService.uploadImage(request.productImage ?? '').then((value) {
-  //       if (value == null) {
-  //         getProductCategory(screenState, request.storeOwnerProfileID ?? -1);
-  //         CustomFlushBarHelper.createError(
-  //             title: S.current.warnning,
-  //             message: S.current.errorUploadingImages)
-  //           ..show(screenState.context);
-  //       } else {
-  //         request.productImage = value;
-  //         _categoriesService.updateProduct(request).then((value) {
-  //           if (value.hasError) {
-  //             getProductCategory(
-  //                 screenState, request.storeOwnerProfileID ?? -1);
-  //             CustomFlushBarHelper.createError(
-  //                 title: S.current.warnning, message: value.error ?? '')
-  //               ..show(screenState.context);
-  //           } else {
-  //             getProductCategory(
-  //                 screenState, request.storeOwnerProfileID ?? -1);
-  //             CustomFlushBarHelper.createSuccess(
-  //                 title: S.current.warnning,
-  //                 message: S.current.categoryCreatedSuccessfully)
-  //               ..show(screenState.context);
-  //           }
-  //         });
-  //       }
-  //     });
-  //   } else {
-  //     _categoriesService.updateProduct(request).then((value) {
-  //       if (value.hasError) {
-  //         getProductCategory(screenState, request.storeOwnerProfileID ?? -1);
-  //         CustomFlushBarHelper.createError(
-  //             title: S.current.warnning, message: value.error ?? '')
-  //           ..show(screenState.context);
-  //       } else {
-  //         getProductCategory(screenState, request.storeOwnerProfileID ?? -1);
-  //         CustomFlushBarHelper.createSuccess(
-  //             title: S.current.warnning,
-  //             message: S.current.categoryCreatedSuccessfully)
-  //           ..show(screenState.context);
-  //       }
-  //     });
-  //   }
-  // }
-
+  void updateCategory(
+      SubCategoriesLinkingScreenState screenState, SubLinkRequest request) {
+    _stateSubject.add(LoadingState(screenState));
+    _categoriesService.updateSubLink(request).then((value) {
+      if (value.hasError) {
+        Navigator.of(screenState.context).pop();
+        CustomFlushBarHelper.createError(
+                title: S.current.warnning,
+                message: value.error ?? S.current.errorHappened)
+            .show(screenState.context);
+      } else {
+        Navigator.of(screenState.context).pop();
+        CustomFlushBarHelper.createSuccess(
+                title: S.current.warnning,
+                message: value.error ?? S.current.linkedSuccessfully)
+            .show(screenState.context);
+      }
+    });
+  }
 }
