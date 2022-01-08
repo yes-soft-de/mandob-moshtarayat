@@ -374,6 +374,48 @@ class StoreProductCategoryController extends BaseController
       }
 
     /**
+     * Get all store products categories of first level.
+     * @Route("allstoreproductscategoriesleveloneforstore", name="getAllStoreProductsCategoriesLevelOneForStore", methods={"GET"})
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Store Product Category")
+     *
+     * @OA\Parameter(
+     *      name="Accept-Language",
+     *      in="header",
+     *      description="language to be passed as a header",
+     *      required=false
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns array of all product categories level one",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="productCategoryName"),
+     *                  @OA\Property(type="object", property="productCategoryImage",
+     *                      @OA\Property(type="string", property="imageURL"),
+     *                      @OA\Property(type="string", property="image"),
+     *                      @OA\Property(type="string", property="baseURL"),
+     *                  ),
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     */
+    public function getAllStoreProductCategoriesLevelOneForStore(Request $request)
+    {
+        $result = $this->storeProductCategoryService->getAllStoreProductCategoriesLevelOneForStore($request->getPreferredLanguage());
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
      * admin: Get store products category of first level
      * @Route("/storeproductscategorylevelonefroadmin", name="getStoreProductsCategoryLevelOneByStoreCategoryIDForAdmin", methods={"POST"})
      * @return JsonResponse

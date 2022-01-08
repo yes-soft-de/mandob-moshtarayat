@@ -22,6 +22,7 @@ use App\Response\ProductsByProductCategoryIdAndStoreOwnerProfileIdForDashboardRe
 use App\Response\ProductsByProductCategoryIdAndStoreOwnerProfileIdResponse;
 use App\Response\ProductsByProductCategoryIdForStoreResponse;
 use App\Response\ProductsByProductCategoryIdResponse;
+use App\Response\StoreProductCategoryLevelOneAllGetForStoreResponse;
 use App\Response\StoreProductCategoryLevelOneAllGetResponse;
 use App\Response\StoreProductCategoryByIdResponse;
 use App\Response\StoreProductCategoryLevelOneCreateResponse;
@@ -242,6 +243,30 @@ class StoreProductCategoryService
             $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params.$item['productCategoryImage'], $this->params);
 
             $response[] = $this->autoMapping->map('array', StoreProductsCategoryResponse::class, $item);
+        }
+
+        return $response;
+    }
+
+    public function getAllStoreProductCategoriesLevelOneForStore($userLocale)
+    {
+        $response = [];
+
+        if($userLocale != null && $userLocale != $this->primaryLanguage)
+        {
+            $storeProductCategoriesTranslations = $this->storeProductCategoryManager->getAllStoreProductCategoriesLevelOneTranslations();
+
+            $items = $this->replaceStoreProductCategoryTranslatedNameByPrimaryOne($storeProductCategoriesTranslations, $userLocale);
+        }
+        else
+        {
+            $items = $this->storeProductCategoryManager->getAllStoreProductCategoriesLevelOne();
+        }
+
+        foreach($items as $item) {
+            $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params.$item['productCategoryImage'], $this->params);
+
+            $response[] = $this->autoMapping->map('array', StoreProductCategoryLevelOneAllGetForStoreResponse::class, $item);
         }
 
         return $response;
