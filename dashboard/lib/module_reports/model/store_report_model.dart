@@ -21,7 +21,7 @@ class StoresReportModel extends DataModel {
       _models.add(StoresReportModel(
           storeOwnerProfileID: element.storeOwnerProfileID ?? -1,
           countOrdersInMonth: element.countOrdersInMonth ?? 0,
-          image: element.image ?? '',
+          image: element.image?.image ?? '',
           storeOwnerName: element.storeOwnerName ?? ''));
     });
   }
