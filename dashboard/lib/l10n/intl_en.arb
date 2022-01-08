@@ -552,7 +552,9 @@
   "sumPaymentsForStore":"Total payments for store",
   "outerOrder":"Private orders",
   "categoriesLink":"Categories Linking",
-  "linkedSuccessfully":"Linked Successfully"
+  "linkedSuccessfully":"Linked Successfully",
+  "exitWarning":"Please press again to exit"
+
 
 
   

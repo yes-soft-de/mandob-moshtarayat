@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/global_nav_key.dart';
 import 'package:mandob_moshtarayat_dashboad/module_main/sceen/home_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/navigator_menu/navigator_menu.dart';
@@ -59,6 +61,19 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
     return WillPopScope(
       onWillPop: () async {
         pop = pop - 1;
+        if (selectedPage != widget._homeScreen) {
+          pop = 2;
+          selectedPage = widget._homeScreen;
+          setState(() {});
+        } else {
+          Fluttertoast.showToast(
+              msg: S.current.exitWarning,
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Theme.of(context).disabledColor,
+              fontSize: 16.0);
+        }
         return pop <= 0;
       },
       child: GestureDetector(

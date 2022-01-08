@@ -278,6 +278,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Error Uploading Images!!"),
         "exceededAllowedTime": MessageLookupByLibrary.simpleMessage(
             "Can not remove it, Exceeded time allowed"),
+        "exitWarning":
+            MessageLookupByLibrary.simpleMessage("Please press again to exit"),
         "expectedOrderBill":
             MessageLookupByLibrary.simpleMessage("Expected Order Bill"),
         "externalOrder": MessageLookupByLibrary.simpleMessage("External Order"),

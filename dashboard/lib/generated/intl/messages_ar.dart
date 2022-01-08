@@ -274,6 +274,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("حدث خطأ عند رفع الصور!!"),
         "exceededAllowedTime": MessageLookupByLibrary.simpleMessage(
             "لقد تجاوزت الوقت المسموح لإزالة الطلب"),
+        "exitWarning": MessageLookupByLibrary.simpleMessage(
+            "اضغط مرة اخرى للخروج من التطبيق"),
         "expectedOrderBill":
             MessageLookupByLibrary.simpleMessage("الفاتورة المتوقعة"),
         "externalOrder": MessageLookupByLibrary.simpleMessage("طلبية خارجية"),
@@ -680,7 +682,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تم جلب المعلومات بنجاح"),
         "statusCodeUnauthorized": MessageLookupByLibrary.simpleMessage(
             "أنت غير مخول بالقيام بهذا الطلب"),
-        "stc": MessageLookupByLibrary.simpleMessage("س ت سي"),
+        "stc": MessageLookupByLibrary.simpleMessage("Stc"),
         "stcPayCode": MessageLookupByLibrary.simpleMessage("رقم حساب STC PAY"),
         "store": MessageLookupByLibrary.simpleMessage("المتجر"),
         "storeAvailable": MessageLookupByLibrary.simpleMessage("المتجر متوفر"),
