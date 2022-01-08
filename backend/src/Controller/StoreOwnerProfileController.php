@@ -227,10 +227,61 @@ class StoreOwnerProfileController extends BaseController
     }
 
     /**
+     * admin: update store owner profile
      * @Route("/storeownerprofileupdatebyadmin", name="storeOwnerProfileUpdateByAdmin", methods={"PUT"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
+     * @OA\Tag(name="Store Owner Profile")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\RequestBody(
+     *      description="Update Store Owner Profile Info",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="integer", property="id"),
+     *          @OA\Property(type="string", property="storeOwnerName"),
+     *          @OA\Property(type="string", property="image"),
+     *          @OA\Property(type="string", property="is_best"),
+     *          @OA\Property(type="boolean", property="privateOrders"),
+     *          @OA\Property(type="boolean", property="hasProducts"),
+     *          @OA\Property(type="string", property="openingTime"),
+     *          @OA\Property(type="string", property="closingTime"),
+     *          @OA\Property(type="string", property="bankName"),
+     *          @OA\Property(type="string", property="bankAccountNumber"),
+     *          @OA\Property(type="string", property="stcPay"),
+     *          @OA\Property(type="string", property="status"),
+     *          @OA\Property(type="float", property="commission")
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=204,
+     *      description="Returns the store owner's profile",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="string", property="id"),
+     *              @OA\Property(type="string", property="storeOwnerName"),
+     *              @OA\Property(type="string", property="image"),
+     *              @OA\Property(type="string", property="imageURL"),
+     *              @OA\Property(type="string", property="baseURL"),
+     *              @OA\Property(type="string", property="city"),
+     *              @OA\Property(type="string", property="branch"),
+     *              @OA\Property(type="string", property="free"),
+     *              @OA\Property(type="string", property="status"),
+     *              @OA\Property(type="string", property="phone"),
+     *              @OA\Property(type="number", property="commission")
+     *      )
+     *   )
+     * )
+     * @Security(name="Bearer")
      */
     public function updateStoreOwnerByAdmin(Request $request): JsonResponse
     {
