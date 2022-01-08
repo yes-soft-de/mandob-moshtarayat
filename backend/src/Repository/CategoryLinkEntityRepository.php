@@ -34,7 +34,7 @@ class CategoryLinkEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function deleteAllSubLevelOneAndSubLevelTwoCategoriesLinkBySubCategoryLevelTwoID($subCategoryLevelTwoID)
+    public function getAllSubLevelOneAndSubLevelTwoCategoriesLinkBySubCategoryLevelTwoID($subCategoryLevelTwoID)
     {
         return $this->createQueryBuilder('categoryLinkEntity')
 

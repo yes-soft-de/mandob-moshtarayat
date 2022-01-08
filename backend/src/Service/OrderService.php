@@ -6,7 +6,6 @@ use App\AutoMapping;
 use App\Constant\LocalNotificationList;
 use App\Constant\LocalStoreNotificationList;
 use App\Constant\MessageConstant;
-use App\Constant\NotificationCaptainConstant;
 use App\Constant\NotificationStoreConstant;
 use App\Constant\OrderStateConstant;
 use App\Constant\StoreStatusConstant;
@@ -318,26 +317,35 @@ class OrderService
 
     public function getCountOrdersEveryStoreInLastMonth():?array
     {
-       $response=[];
+       $response = [];
+       $items = [];
+       $storeIds = [];
 
        $date = $this->dateFactoryService->returnLastMonthDate();
- 
-       $items = $this->orderDetailService->getStoreOrderInSpecificDate($date[0],$date[1]);
 
-       foreach ($items as $item){
-           $storeIds[] = $item['storeOwnerProfileID'];
+       $storeOwnerProfileIDs = $this->orderDetailService->getStoreOrderInSpecificDate($date[0],$date[1]);
+
+       foreach ($storeOwnerProfileIDs as $storeOwnerProfileID){
+           $storeIds[] = $storeOwnerProfileID['storeOwnerProfileID'];
        }
 
         //The number of duplicate values
         $val = array_count_values($storeIds);
 
         foreach($val as $key => $value) {
-            $store = $this->storeOwnerProfileService->getStoreNameById($key);
+            $store = $this->storeOwnerProfileService->getStoreInfoById($key);
 
-            $i[] =  ['storeOwnerProfileID'=>$key,'storeOwnerName'=>$store->storeOwnerName, 'countOrdersInMonth'=>$value];
+            $items[] =  [
+                'storeOwnerProfileID' => $key,
+                'storeOwnerName' => $store['storeOwnerName'],
+                'countOrdersInMonth' => $value,
+                'image' => $store['image'],
+            ];
         }
 
-        foreach ($i as $item){
+        foreach ($items as $item){
+            $item['image'] = $this->getImageParams($item['image'], $this->params . $item['image'], $this->params);
+
             $response[] = $this->autoMapping->map('array', CountOrdersInLastMonthForStoreResponse::class, $item);
         }
 
@@ -735,7 +743,7 @@ class OrderService
 
         return $response;
     }
-
+//The feature has been discontinued within this project
     public function orderSendUpdateByClient(OrderUpdateSendByClientRequest $request, $userID)
     {
         $response = "Not updated!!";
