@@ -359,15 +359,15 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
             ->leftJoin(OrderEntity::class, 'OrderEntity', Join::WITH, 'orderDetailEntity.orderID = OrderEntity.id')
 
             ->where('orderDetailEntity.storeOwnerProfileID = :storeOwnerProfileId ')
-            ->andWhere('orderDetailEntity.state = :ongoing ')
-            ->orWhere('orderDetailEntity.state = :onWay ')
-            ->orWhere('orderDetailEntity.state = :inStore ')
-            ->orWhere('orderDetailEntity.state = :picked ')
+            ->andWhere('orderDetailEntity.state != :cancel ')
+            ->andWhere('orderDetailEntity.state != :delivered ')
+            ->andWhere('orderDetailEntity.state != :notPaid ')
+            ->andWhere('orderDetailEntity.state != :pending ')
 
-            ->setParameter('ongoing', OrderStateConstant::$ORDER_STATE_ONGOING)
-            ->setParameter('inStore', OrderStateConstant::$ORDER_STATE_IN_STORE)
-            ->setParameter('onWay', OrderStateConstant::$ORDER_STATE_ON_WAY)
-            ->setParameter('picked', OrderStateConstant::$ORDER_STATE_PICKED)
+            ->setParameter('cancel', OrderStateConstant::$ORDER_STATE_CANCEL)
+            ->setParameter('delivered', OrderStateConstant::$ORDER_STATE_DELIVERED)
+            ->setParameter('notPaid', OrderStateConstant::$ORDER_STATE_NOT_PAID)
+            ->setParameter('pending', OrderStateConstant::$ORDER_STATE_PENDING)
             ->setParameter('storeOwnerProfileId', $storeOwnerProfileId)
 
             ->addGroupBy('OrderEntity.id')

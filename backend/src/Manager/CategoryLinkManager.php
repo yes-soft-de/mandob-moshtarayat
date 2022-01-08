@@ -63,7 +63,7 @@ class CategoryLinkManager
 
     public function deleteAllSubLevelOneAndSubLevelTwoCategoriesLinkBySubCategoryLevelTwoID($subCategoryLevelTwoID)
     {
-        $links = $this->categoryLinkEntityRepository->deleteAllSubLevelOneAndSubLevelTwoCategoriesLinkBySubCategoryLevelTwoID($subCategoryLevelTwoID);
+        $links = $this->categoryLinkEntityRepository->getAllSubLevelOneAndSubLevelTwoCategoriesLinkBySubCategoryLevelTwoID($subCategoryLevelTwoID);
 
         if ($links){
 

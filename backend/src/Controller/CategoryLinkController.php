@@ -113,9 +113,6 @@ class CategoryLinkController extends BaseController
      * @OA\RequestBody(
      *      description="Create Link between categories one and two by admin",
      *      @OA\JsonContent(
-     *          @OA\Property(type="array", property="mainCategoriesIDs",
-     *              @OA\Items()
-     *          ),
      *          @OA\Property(type="integer", property="subCategoryLevelOneID"),
      *          @OA\Property(type="integer", property="subCategoryLevelTwoID")
      *      )
