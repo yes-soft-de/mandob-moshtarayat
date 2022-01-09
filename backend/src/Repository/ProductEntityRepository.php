@@ -780,6 +780,7 @@ class ProductEntityRepository extends ServiceEntityRepository
            
             ->andWhere('product.productName LIKE :productName')
             ->andWhere('product.status= :status')
+            ->andWhere('storeOwnerProfile.status= :status')
 
             ->setParameter('productName', '%'.$name.'%')
             ->setParameter('status', self::STATUS_ACTIVE)
