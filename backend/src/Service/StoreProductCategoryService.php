@@ -124,14 +124,6 @@ class StoreProductCategoryService
          if($request->getTranslate())
          {
              $this->updateStoreProductCategoryLevelOneTranslation($request->getTranslate());
-
-             // pass the store product category name in primary language to the entity being updated
-             $storeProductCategoryEntity = $this->storeProductCategoryManager->getStoreProductCategoryEntityByID($storeProductCategoryUpdateRequest->getId());
-
-             if($storeProductCategoryEntity)
-             {
-                 $storeProductCategoryUpdateRequest->setProductCategoryName($storeProductCategoryEntity->getProductCategoryName());
-             }
          }
 
          $item = $this->storeProductCategoryManager->updateStoreProductCategoryLevelOne($storeProductCategoryUpdateRequest);
@@ -174,14 +166,6 @@ class StoreProductCategoryService
          if($request->getTranslate())
          {
              $this->updateStoreProductCategoryLevelTwoTranslation($request->getTranslate());
-
-             // pass the store product category name in primary language to the entity being updated
-             $storeProductCategoryEntity = $this->storeProductCategoryManager->getStoreProductCategoryEntityByID($storeProductCategoryUpdateRequest->getId());
-
-             if($storeProductCategoryEntity)
-             {
-                 $storeProductCategoryUpdateRequest->setProductCategoryName($storeProductCategoryEntity->getProductCategoryName());
-             }
          }
 
          $item = $this->storeProductCategoryManager->updateStoreProductCategoryLevelTwo($storeProductCategoryUpdateRequest);
