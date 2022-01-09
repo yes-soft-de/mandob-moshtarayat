@@ -12,11 +12,12 @@ import 'package:mandob_moshtarayat/module_categories/ui/widget/category_card.dar
 import 'package:mandob_moshtarayat/module_categories/ui/widget/product_component.dart';
 import 'package:mandob_moshtarayat/module_stores/ui/widget/catagories_card.dart';
 import 'package:mandob_moshtarayat/module_theme/service/theme_service/theme_service.dart';
+import 'package:mandob_moshtarayat/utils/components/custom_feild.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_list_view.dart';
 import 'package:mandob_moshtarayat/utils/components/empty_screen.dart';
 import 'package:mandob_moshtarayat/utils/components/error_screen.dart';
 import 'package:mandob_moshtarayat/utils/components/progresive_image.dart';
-
+import 'package:dropdown_search/dropdown_search.dart';
 
 class ProductCategoriesLoadedState extends ProductCategoriesState {
   final ProductCategoriesScreenState screenState;
@@ -30,15 +31,24 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
   final String? nameTwo;
   final int? idFirstCat;
 
-  ProductCategoriesLoadedState(this.screenState, this.categoriesOne,this.categoriesTwo,this.productsModel, this.storeProductCategoryID,
-      {this.nameOne, this.nameTwo,this.empty = false, this.error,this.idFirstCat,})
-      : super(screenState) {
+  ProductCategoriesLoadedState(
+    this.screenState,
+    this.categoriesOne,
+    this.categoriesTwo,
+    this.productsModel,
+    this.storeProductCategoryID, {
+    this.nameOne,
+    this.nameTwo,
+    this.empty = false,
+    this.error,
+    this.idFirstCat,
+  }) : super(screenState) {
     if (error != null) {
       screenState.canAddCategories = false;
       screenState.refresh();
     }
   }
-    String? catId = '-1';
+  //   String? catId = '-1';
   ProductsCategoryModel? idOne;
   ProductsCategoryModel? idTwo;
 
@@ -107,24 +117,43 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
                 border: Border.all(
                     color: Theme.of(context).primaryColor, width: 4)),
             child: Center(
-              child: DropdownButton(
-                value: idOne,
-                items: getChoicesCategoriesOne(),
-                onChanged: (v) {
-                  v as ProductsCategoryModel;
-                  idOne = v;
-                  screenState.getStoreCategoriesLevelTwo(categoriesOne, int.parse(idOne!.id.toString()),idOne!.categoryName);
-                },
-                hint: Text(
-                nameOne ??  S.current.chooseCategory,
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                underline: SizedBox(),
-                icon: Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: Icon(Icons.arrow_drop_down_rounded),
-                ),
-              ),
+              child: DropdownSearch<ProductsCategoryModel>(
+                  showSearchBox: true,
+                  enabled: categoriesOne.isNotEmpty,
+                  dropdownBuilder: (context, model) {
+                    return Text(
+                      model?.categoryName ?? S.current.chooseCategory,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    );
+                  },
+                  dropdownSearchDecoration: InputDecoration(
+                      hintStyle: TextStyle(fontWeight: FontWeight.bold),
+                      border: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      contentPadding: EdgeInsets.fromLTRB(16, 0, 16, 0)),
+                  searchFieldProps: TextFieldProps(
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(25)))),
+                  popupShape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25)),
+                  mode: Mode.MENU,
+                  items: categoriesOne,
+                  filterFn: (model, filter) {
+                    return model!.categoryName.contains(filter ?? '');
+                  },
+                  hint: S.current.chooseCategory,
+                  //         popupItemDisabled: (String s) => s.startsWith('I'),
+                  itemAsString: (model) =>
+                      model?.categoryName ?? S.current.unknown,
+                  onChanged: (v) {
+                    v as ProductsCategoryModel;
+                    idOne = v;
+                    screenState.getStoreCategoriesLevelTwo(categoriesOne,
+                        int.parse(idOne!.id.toString()), idOne!.categoryName);
+                  },
+                  selectedItem: idOne),
             ),
           ),
         ),
@@ -138,76 +167,121 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
                 border: Border.all(
                     color: Theme.of(context).primaryColor, width: 4)),
             child: Center(
-              child: DropdownButton(
-                value: idTwo,
-                items: getChoicesCategoriesTwo(),
-                onChanged: (v) {
-                  v as ProductsCategoryModel;
-                  idTwo = v;
-                   screenState.getStoreProductLevelTwo(categoriesOne, categoriesTwo, int.parse(idTwo!.id.toString()),nameOne??'',idTwo!.categoryName);
-                },
-                hint: Text(
-                nameTwo??  S.current.chooseCategory,
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                underline: SizedBox(),
-                icon: Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: Icon(Icons.arrow_drop_down_rounded),
-                ),
-              ),
+              child: DropdownSearch<ProductsCategoryModel>(
+                  enabled: categoriesTwo.isNotEmpty,
+                  showSearchBox: true,
+                  dropdownBuilder: (context, model) {
+                    if (model == null) {
+                      return Text(
+                        S.current.chooseCategory,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: categoriesTwo.isEmpty
+                                ? Theme.of(context).disabledColor
+                                : null),
+                      );
+                    }
+                    return Text(
+                      model.categoryName,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    );
+                  },
+                  dropdownSearchDecoration: InputDecoration(
+                      hintText: S.current.chooseCategory,
+                      hintStyle: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).disabledColor),
+                      border: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      contentPadding: EdgeInsets.fromLTRB(16, 0, 16, 0)),
+                  searchFieldProps: TextFieldProps(
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(25)))),
+                  popupShape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25)),
+                  mode: Mode.MENU,
+                  items: categoriesTwo,
+                  filterFn: (model, filter) {
+                    return model!.categoryName.contains(filter ?? '');
+                  },
+                  //         popupItemDisabled: (String s) => s.startsWith('I'),
+                  itemAsString: (model) =>
+                      model?.categoryName ?? S.current.unknown,
+                  onChanged: (v) {
+                    v as ProductsCategoryModel;
+                    idTwo = v;
+                    screenState.getStoreProductLevelTwo(
+                        categoriesOne,
+                        categoriesTwo,
+                        int.parse(idTwo!.id.toString()),
+                        nameOne ?? '',
+                        idTwo!.categoryName);
+                  },
+                  selectedItem: idTwo),
             ),
           ),
         ),
         Expanded(
-          child: CustomListView.custom(children:getProducts()),
+          child: CustomListView.custom(children: getProducts()),
         ),
         ElevatedButton(
-          onPressed: (){
-            if (nameOne != null){
-              print("storeProductCategoryID" +idTwo.toString());
-              showDialog(context: context, builder:(_){
-                return AddProductsForm(
-                  lang: screenState.language,
-                  state:this,
-                  languages: ['ar','en','ur'],
-                  addProduct: (name,image,price,discount,trans){
-                    Navigator.of(context).pop();
-                    screenState.createProduct(CreateProductRequest(
-                      dataStoreProduct: DataStoreProduct(
-                        productName: name,
-                        productImage: image,
-                        productPrice: price,
-                        discount: discount,
-                        storeProductCategoryID: storeProductCategoryID,
-                      ),translate: trans
-
-                    ),categoriesOne,categoriesTwo,nameOne: nameOne,nameTwo: nameTwo);
-                  },
-                );
-              });
-            }else{
-              Fluttertoast.showToast(msg: S.of(context).chooseCategory);
+          onPressed: () {
+            if (nameOne != null) {
+              showDialog(
+                  context: context,
+                  builder: (_) {
+                    return AddProductsForm(
+                      lang: screenState.language,
+                      state: this,
+                      languages: ['ar', 'en', 'ur'],
+                      addProduct: (name, image, price, discount, trans) {
+                        Navigator.of(context).pop();
+                        screenState.createProduct(
+                            CreateProductRequest(
+                                dataStoreProduct: DataStoreProduct(
+                                  productName: name,
+                                  productImage: image,
+                                  productPrice: price,
+                                  discount: discount,
+                                  storeProductCategoryID:
+                                      storeProductCategoryID,
+                                ),
+                                translate: trans),
+                            categoriesOne,
+                            categoriesTwo,
+                            nameOne: nameOne,
+                            nameTwo: nameTwo);
+                      },
+                    );
+                  });
+            } else {
+              Fluttertoast.showToast(msg: S.of(context).chooseCategory,
+              webBgColor: 'linear-gradient(to right, #f6b26b, #e69138)'
+              );
             }
           },
           child: Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Text(S.current.addProducts,style: TextStyle(
-                color: Colors.white
-            ),),
+            child: Text(
+              S.current.addProducts,
+              style: TextStyle(color: Colors.white),
+            ),
           ),
           style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(25),
               ),
-              elevation: 3
-          ),
+              elevation: 3),
         ),
-        SizedBox(height: 5,)
+        SizedBox(
+          height: 5,
+        )
       ],
     );
-
   }
+
   List<DropdownMenuItem<ProductsCategoryModel>> getChoicesCategoriesOne() {
     List<DropdownMenuItem<ProductsCategoryModel>> items = [];
     categoriesOne.forEach((element) {
@@ -218,6 +292,7 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
     });
     return items;
   }
+
   List<DropdownMenuItem<String>> getChoicesOne() {
     List<DropdownMenuItem<String>> items = [];
     categoriesOne.forEach((element) {
@@ -228,6 +303,7 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
     });
     return items;
   }
+
   List<DropdownMenuItem<String>> getChoicesTwo() {
     List<DropdownMenuItem<String>> items = [];
     categoriesTwo.forEach((element) {
@@ -238,6 +314,7 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
     });
     return items;
   }
+
   List<DropdownMenuItem<ProductsCategoryModel>> getChoicesCategoriesTwo() {
     List<DropdownMenuItem<ProductsCategoryModel>> items = [];
     categoriesTwo.forEach((element) {
@@ -260,96 +337,113 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
       if (idTwo != null && idTwo != element.storeProductCategoryID.toString()) {
         continue;
       }
-      widgets.add(
-          Row(
+      widgets.add(Row(
+        children: [
+          Expanded(
+              child: ProductComponent(
+            discount: element.discount.toString(),
+            description: '',
+            image: element.productImage.image ?? '',
+            rating: 0,
+            title: element.productName,
+            productId: element.id.toString(),
+            price: element.productPrice.toString(),
+          )),
+          Column(
             children: [
-              Expanded(child: ProductComponent(discount: element.discount.toString(),description: '',image: element.productImage.image??'',rating: 0,title: element.productName, productId: element.id.toString(),price: element.productPrice.toString(),)),
-              Column(
-                children: [
-                  InkWell(
-                    onTap: (){
-                      showDialog(context: screenState.context, builder:(context){
+              InkWell(
+                onTap: () {
+                  showDialog(
+                      context: screenState.context,
+                      builder: (context) {
                         return UpdateProductsForm(
-                          categoriesService: screenState.widget.categoriesService,
+                          categoriesService:
+                              screenState.widget.categoriesService,
                           request: UpdateProductRequest(
                             dataStoreProduct: DataStoreUpdateProduct(
-                              productName: element.productName,
-                              productImage: element.productImage.image??'',
-                              productPrice: element.productPrice.toDouble(),
-                              discount: element.discount,
-                              productQuantity: element.productQuantity,
-                              storeProductCategoryID: element.storeProductCategoryID,
-                              isLevelOne: element.levelOne,isLevelTwo: element.levelTwo
-                            ),
-
+                                productName: element.productName,
+                                productImage: element.productImage.image ?? '',
+                                productPrice: element.productPrice.toDouble(),
+                                discount: element.discount,
+                                productQuantity: element.productQuantity,
+                                storeProductCategoryID:
+                                    element.storeProductCategoryID,
+                                isLevelOne: element.levelOne,
+                                isLevelTwo: element.levelTwo),
                           ),
                           categoriesOne: getChoicesOne(),
                           categoriesTwo: getChoicesTwo(),
-                          addProduct: (name,price,image,discount,catID){
+                          addProduct: (name, price, image, discount, catID) {
                             Navigator.of(context).pop();
-                            screenState.updateProduct(UpdateProductRequest(
-                              dataStoreProduct: DataStoreUpdateProduct(
-                                  id: element.id,
-                                  productName: name,
-                                  productImage: image,
-                                  discount: double.parse(discount),
-                                  productPrice:double.parse(price),
-                                  storeProductCategoryID:int.parse(catID),
-                                  storeMainCategoryID: idFirstCat
-                              ),
-
-                            ),
-                                categoriesOne,categoriesTwo,nameTwo: nameTwo,nameOne: nameOne);
+                            screenState.updateProduct(
+                                UpdateProductRequest(
+                                  dataStoreProduct: DataStoreUpdateProduct(
+                                      id: element.id,
+                                      productName: name,
+                                      productImage: image,
+                                      discount: double.parse(discount),
+                                      productPrice: double.parse(price),
+                                      storeProductCategoryID: int.parse(catID),
+                                      storeMainCategoryID: idFirstCat),
+                                ),
+                                categoriesOne,
+                                categoriesTwo,
+                                nameTwo: nameTwo,
+                                nameOne: nameOne);
                           },
                         );
                       });
-                    },
+                },
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.only(end: 8),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: AppThemeDataService.AccentColor,
+                        shape: BoxShape.circle),
                     child: Padding(
-                      padding: const EdgeInsetsDirectional.only(end: 8),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: AppThemeDataService.AccentColor,
-                       shape: BoxShape.circle),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Icon(Icons.edit),
-                        ),
-                      ),
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(Icons.edit),
                     ),
                   ),
-                  SizedBox(height: 8,),
-                  InkWell(
-                    onTap: (){
-                      screenState.updateProductStatus(
-                          UpdateProductStatusRequest(
-                            status: 'inactive',
+                ),
+              ),
+              SizedBox(
+                height: 8,
+              ),
+              InkWell(
+                onTap: () {
+                  screenState.updateProductStatus(
+                      UpdateProductStatusRequest(
+                          status: 'inactive',
                           id: element.id,
-                          storeProductCategoryID:element.storeProductCategoryID,
-                          storeMainCategoryID: idFirstCat??-1
-                      ),categoriesOne,categoriesTwo,nameTwo: nameTwo,nameOne: nameOne);
-                    },
+                          storeProductCategoryID:
+                              element.storeProductCategoryID,
+                          storeMainCategoryID: idFirstCat ?? -1),
+                      categoriesOne,
+                      categoriesTwo,
+                      nameTwo: nameTwo,
+                      nameOne: nameOne);
+                },
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.only(end: 8),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: AppThemeDataService.AccentColor,
+                        shape: BoxShape.circle),
                     child: Padding(
-                      padding: const EdgeInsetsDirectional.only(end: 8),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: AppThemeDataService.AccentColor,
-                       shape: BoxShape.circle),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Icon(Icons.delete),
-                        ),
-                      ),
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(Icons.delete),
                     ),
                   ),
-                ],
-              )
+                ),
+              ),
             ],
           )
-      );
+        ],
+      ));
     }
     return widgets;
   }
-
 
   List<Widget> getCategory() {
     List<CategoryCard> widgets = [];
@@ -362,9 +456,12 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
 //      if (idTwo != null && idTwo != element.storeProductCategoryID.toString()) {
 //        continue;
 //      }
-      widgets.add(
-          CategoryCard(title: element.categoryName,id: element.id,selected: false,onTap: (id){},)
-      );
+      widgets.add(CategoryCard(
+        title: element.categoryName,
+        id: element.id,
+        selected: false,
+        onTap: (id) {},
+      ));
     }
     return widgets;
   }

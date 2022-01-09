@@ -46,9 +46,7 @@ class ProductsCategoryStateManager {
     empty: value.isEmpty));
     } else {
       StoreProfileModel model = value as StoreProfileModel;
-      print('cate id');
-      print(model.storeCategoryId);
-      _categoriesService.getCategoryLevelOne(model.data.storeCategoryId).then((value) {
+      _categoriesService.getCategoryLevelOne().then((value) {
         if (value.hasError) {
           _stateSubject.add(
               ProductCategoriesLoadedState(screenState, [],[],[], -1,error: value.error));

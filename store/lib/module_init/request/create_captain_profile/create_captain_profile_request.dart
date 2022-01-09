@@ -43,7 +43,7 @@ class CreateStoreRequest {
     map['phone'] = phone;
     map['branchName'] = 'default';
     map['image'] = image;
-    map['storeCategoryId'] = storeCategoryId;
+   // map['storeCategoryId'] = storeCategoryId;
     map['privateOrders'] = privateOrders;
     map['hasProducts'] = hasProducts;
     map['closingTime'] = closingTime;

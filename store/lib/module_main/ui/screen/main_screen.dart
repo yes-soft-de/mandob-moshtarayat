@@ -7,7 +7,6 @@ import 'package:mandob_moshtarayat/di/di_config.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_categories/categories_routes.dart';
 import 'package:mandob_moshtarayat/module_home/sceen/home_screen.dart';
-import 'package:mandob_moshtarayat/module_home/widget/drawer.dart';
 import 'package:mandob_moshtarayat/module_orders/ui/screen/OngoingOrdersScreen.dart';
 
 
@@ -32,7 +31,6 @@ class MainScreenState extends State<MainScreen> {
     //   flagPageIndex = false;
     // }
     return Scaffold(
-
       body:Container(
         decoration: BoxDecoration(
           color:  Theme.of(context).scaffoldBackgroundColor,

@@ -57,7 +57,7 @@ class InitAccountCaptainInitProfile extends InitAccountState {
 
   final GlobalKey<FormState> _initKey = GlobalKey<FormState>();
 
-  String? catId;
+ // String? catId;
   MapController mapController = MapController();
   LatLng? storeLocation;
   String? imagePath;
@@ -88,34 +88,6 @@ class InitAccountCaptainInitProfile extends InitAccountState {
               padding: EdgeInsets.only(right: 16, left: 16),
               children: [
                 Container(height: 50,),
-                Hider(
-                  active: true,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
-                        color: Theme.of(context).backgroundColor),
-                    child: Center(
-                      child: DropdownButton(
-                        value: catId,
-                        items: getStoresCategories(),
-                        onChanged: (v) {
-                          catId = v.toString();
-                          screenState.refresh();
-                        },
-                        hint: Text(
-                          S.current.chooseCategory,
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        underline: SizedBox(),
-                        icon: Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Icon(Icons.arrow_drop_down_rounded),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-
 //name
                 Padding(
                   padding: const EdgeInsets.only(
@@ -461,10 +433,9 @@ class InitAccountCaptainInitProfile extends InitAccountState {
                         if (_initKey.currentState!.validate() &&
                             imagePath != null &&
                         openingTime != null &&
-                        closingTime != null && catId != null) {
+                        closingTime != null) {
                           screen.submitProfile(
                               CreateStoreRequest(
-                                storeCategoryId: int.parse(catId ?? '0'),
                                 openingTime: DateTime(date.year, date.month,
                                     date.day, openingTime!.hour,
                                     openingTime!.minute)

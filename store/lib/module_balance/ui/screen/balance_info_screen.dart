@@ -6,6 +6,7 @@ import 'package:mandob_moshtarayat/module_balance/state_manager/balance_state_ma
 import 'package:mandob_moshtarayat/module_balance/ui/state/balance_loading_state.dart';
 import 'package:mandob_moshtarayat/module_balance/ui/state/balance_state.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
+import 'package:mandob_moshtarayat/utils/components/fixed_container.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 
 @injectable
@@ -49,7 +50,7 @@ class BalanceScreenState extends State<BalanceScreen> {
     return Scaffold(
       appBar:
       CustomMandopAppBar.appBar(context, title: S.current.balanceDetails),
-      body: currentState.getUI(context),
+      body: FixedContainer(child: currentState.getUI(context)),
     );
   }
 }

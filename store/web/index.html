@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <!--
     If you are serving your web app in a path other than the root, change the
@@ -29,10 +30,31 @@
   <title>mandob_moshtarayat</title>
   <link rel="manifest" href="manifest.json">
 </head>
+
 <body>
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-performance.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-messaging.js"></script>
+  <script src="main.dart.js" type="application/javascript"></script>
+  <script>
+    var firebaseConfig = {
+      apiKey: "AIzaSyCDsbjMU1SXPYKJ_LSUkggmtftZglcLlOU",
+      authDomain: "mandoob-456f3.firebaseapp.com",
+      projectId: "mandoob-456f3",
+      storageBucket: "mandoob-456f3.appspot.com",
+      messagingSenderId: "937614076619",
+      appId: "1:937614076619:web:de0ed3c957910d206a094e",
+      measurementId: "G-KJF9XSQZ86"
+    };
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
   <script>
     var serviceWorkerVersion = null;
     var scriptLoaded = false;
@@ -98,4 +120,5 @@
     }
   </script>
 </body>
+
 </html>
