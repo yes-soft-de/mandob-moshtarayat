@@ -44,8 +44,6 @@ class StoreProfileModel extends DataModel {
   StoreProfileModel.withData(Data data) : super.withData() {
     List<BranchesModel> branches =[];
     data.branches!.forEach((v) {
-      print('ss');
-      print(v.location!.lon??0);
       branches.add(BranchesModel(isActive: v.isActive??false,location: Location(lat: v.location?.lat,lon: v.location?.lon)));
     });
     _models = StoreProfileModel(
