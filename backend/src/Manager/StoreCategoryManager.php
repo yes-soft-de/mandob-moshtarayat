@@ -82,9 +82,6 @@ class StoreCategoryManager
         //Second, update the translation data
         if($request->getTranslate())
         {
-            // get the name in the primary language to set it in the entity being updated
-            $storeCategoryUpdateRequest->setStoreCategoryName($entity->getStoreCategoryName());
-
             $this->updateStoreCategoryTranslation($request->getTranslate());
         }
 
