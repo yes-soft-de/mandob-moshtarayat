@@ -24,12 +24,17 @@ class StoreCategoryService
     private $params;
     private $primaryLanguage;
     private $storeOwnerProfileService;
+    private $categoryLinkService;
+    private $productService;
 
-    public function __construct(AutoMapping $autoMapping, StoreCategoryManager $storeCategoryManager, ParameterBagInterface $params, StoreOwnerProfileService $storeOwnerProfileService)
+    public function __construct(AutoMapping $autoMapping, StoreCategoryManager $storeCategoryManager, ParameterBagInterface $params, StoreOwnerProfileService $storeOwnerProfileService,
+     CategoryLinkService $categoryLinkService, ProductService $productService)
     {
         $this->autoMapping = $autoMapping;
         $this->storeCategoryManager = $storeCategoryManager;
         $this->storeOwnerProfileService = $storeOwnerProfileService;
+        $this->categoryLinkService = $categoryLinkService;
+        $this->productService = $productService;
         $this->params = $params->get('upload_base_url') . '/';
         $this->primaryLanguage = $params->get('primary_language');
     }
@@ -240,15 +245,55 @@ class StoreCategoryService
     public function getCategoriesAndStores($categories): array
     {
         $response = [];
+        $productCategoriesLevelOneIDsArray = [];
+        $productCategoriesLevelTwoIDsArray = [];
+        $storesProfilesIDsArray = [];
 
-        foreach($categories as $category)
-        {
-            $category['stores'] = $this->storeOwnerProfileService->getStoreOwnerProfileByCategoryID($category['id']);
+        foreach($categories as $category) {
 
-            if($category['stores']){
-                foreach($category['stores'] as $key => $value){
+            // First, get the sub categories level one of the main category
+            $productCategoriesLevelOne = $this->categoryLinkService->getAllSubLevelOneCategoryIDsByMainCategoriesIDsArray($category['id']);
 
-                    $category['stores'][$key]['image'] = $this->getImageParams($value['image'], $this->params.$value['image'], $this->params);
+            if ($productCategoriesLevelOne) {
+
+                foreach ($productCategoriesLevelOne as $item) {
+
+                    $productCategoriesLevelOneIDsArray[] = $item['subCategoryLevelOneID'];
+                }
+
+                // Second, get the sub categories level two of the sub categories level one
+                $productCategoriesLevelTwo = $this->categoryLinkService->getAllSubLevelTwoCategoryIDsBySubLevelOneCategoriesIDsArray($productCategoriesLevelOneIDsArray);
+
+                if ($productCategoriesLevelTwo) {
+
+                    foreach ($productCategoriesLevelTwo as $item) {
+
+                        $productCategoriesLevelTwoIDsArray[] = $item[1];
+                    }
+
+                    // note: here we merged both sub categories IDs level one and two in order to get the stores IDs of both them
+                    $productCategoriesLevelTwoIDsArray = array_merge($productCategoriesLevelTwoIDsArray, $productCategoriesLevelOneIDsArray);
+
+                    // Third, get the stores owners profiles IDs of the Product Table by sub product categories
+                    $storesIDs = $this->productService->getStoreOwnersProfilesIDsByStoreProductCategoriesIDs($productCategoriesLevelTwoIDsArray);
+
+                    if ($storesIDs) {
+
+                        foreach ($storesIDs as $storeID) {
+
+                            $storesProfilesIDsArray[] = $storeID[1];
+                        }
+
+                        $category['stores'] = $this->storeOwnerProfileService->getStoreOwnerProfilesByIDsArray($storesProfilesIDsArray);
+
+                        if($category['stores']) {
+
+                            foreach($category['stores'] as $key => $value) {
+
+                                $category['stores'][$key]['image'] = $this->getImageParams($value['image'], $this->params.$value['image'], $this->params);
+                            }
+                        }
+                    }
                 }
             }
 
@@ -261,15 +306,55 @@ class StoreCategoryService
     public function getLast15StoresByCategoryID($categories): array
     {
         $response = [];
+        $productCategoriesLevelOneIDsArray = [];
+        $productCategoriesLevelTwoIDsArray = [];
+        $storesProfilesIDsArray = [];
 
-        foreach($categories as $category)
-        {
-            $category['stores'] = $this->storeOwnerProfileService->getLast15StoresByCategoryID($category['id']);
+        foreach($categories as $category) {
 
-            if($category['stores']){
-                foreach($category['stores'] as $key => $value){
+            // First, get the sub categories level one of the main category
+            $productCategoriesLevelOne = $this->categoryLinkService->getAllSubLevelOneCategoryIDsByMainCategoriesIDsArray($category['id']);
 
-                    $category['stores'][$key]['image'] = $this->getImageParams($value['image'], $this->params.$value['image'], $this->params);
+            if ($productCategoriesLevelOne) {
+
+                foreach ($productCategoriesLevelOne as $item) {
+
+                    $productCategoriesLevelOneIDsArray[] = $item['subCategoryLevelOneID'];
+                }
+
+                // Second, get the sub categories level two of the sub categories level one
+                $productCategoriesLevelTwo = $this->categoryLinkService->getAllSubLevelTwoCategoryIDsBySubLevelOneCategoriesIDsArray($productCategoriesLevelOneIDsArray);
+
+                if ($productCategoriesLevelTwo) {
+
+                    foreach ($productCategoriesLevelTwo as $item) {
+
+                        $productCategoriesLevelTwoIDsArray[] = $item[1];
+                    }
+
+                    // note: here we merged both sub categories IDs level one and two in order to get the stores IDs of both them
+                    $productCategoriesLevelTwoIDsArray = array_merge($productCategoriesLevelTwoIDsArray, $productCategoriesLevelOneIDsArray);
+
+                    // Third, get the stores owners profiles IDs of the Product Table by sub product categories
+                    $storesIDs = $this->productService->getStoreOwnersProfilesIDsByStoreProductCategoriesIDs($productCategoriesLevelTwoIDsArray);
+
+                    if ($storesIDs) {
+
+                        foreach ($storesIDs as $storeID) {
+
+                            $storesProfilesIDsArray[] = $storeID[1];
+                        }
+
+                        $category['stores'] = $this->storeOwnerProfileService->getLastFifteenStoreOwnerProfilesByIDsArray($storesProfilesIDsArray);
+
+                        if($category['stores']) {
+
+                            foreach($category['stores'] as $key => $value) {
+
+                                $category['stores'][$key]['image'] = $this->getImageParams($value['image'], $this->params.$value['image'], $this->params);
+                            }
+                        }
+                    }
                 }
             }
 
@@ -365,17 +450,4 @@ class StoreCategoryService
 
         return false;
     }
-
-//    public function checkIfValueExistForSpecificKeyInArray($array, $key, $value)
-//    {
-//        foreach ($array as $item)
-//        {
-//            if ($item[$key] == $value)
-//            {
-//                return true;
-//            }
-//        }
-//
-//        return false;
-//    }
 }

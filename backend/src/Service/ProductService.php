@@ -863,5 +863,8 @@ class ProductService
         return false;
     }
 
+    public function getStoreOwnersProfilesIDsByStoreProductCategoriesIDs($storeProductsCategoriesIDsArray)
+    {
+        return $this->productManager->getStoreOwnersProfilesIDsByStoreProductCategoriesIDs($storeProductsCategoriesIDsArray);
+    }
 }
-

@@ -47,6 +47,16 @@ class CategoryLinkManager
         return $categoryLink;
     }
 
+    public function getAllSubLevelOneCategoryIDsByMainCategoriesIDsArray($categoriesIDsArray)
+    {
+        return $this->categoryLinkEntityRepository->getAllSubLevelOneCategoryIDsByMainCategoriesIDsArray($categoriesIDsArray);
+    }
+
+    public function getAllSubLevelTwoCategoryIDsBySubLevelOneCategoriesIDsArray($subLevelOneCategoriesIDsArray)
+    {
+        return $this->categoryLinkEntityRepository->getAllSubLevelTwoCategoryIDsBySubLevelOneCategoriesIDsArray($subLevelOneCategoriesIDsArray);
+    }
+
     public function deleteAllMainAndSubLevelOneCategoriesLinkBySubCategoryLevelOneID($subCategoryLevelOneID)
     {
         $links = $this->categoryLinkEntityRepository->getAllMainAndSubLevelOneCategoryLinksBySubCategoryLevelOne($subCategoryLevelOneID);

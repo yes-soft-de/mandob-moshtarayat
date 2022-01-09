@@ -305,6 +305,16 @@ class StoreOwnerProfileManager
         return $this->storeOwnerProfileEntityRepository->getStoreOwnerProfileByCategoryID($storeCategoryID);
     }
 
+    public function getStoreOwnerProfilesByIDsArray($storesIDsArray)
+    {
+        return $this->storeOwnerProfileEntityRepository->getStoreOwnerProfilesByIDsArray($storesIDsArray);
+    }
+
+    public function getLastFifteenStoreOwnerProfilesByIDsArray($storesIDsArray)
+    {
+        return $this->storeOwnerProfileEntityRepository->getLastFifteenStoreOwnerProfilesByIDsArray($storesIDsArray);
+    }
+
     public function getLast15StoresByCategoryID($storeCategoryID)
     {
         return $this->storeOwnerProfileEntityRepository->getLast15StoresByCategoryID($storeCategoryID);
