@@ -110,8 +110,25 @@ class _MainScreenState extends State<MainScreen> {
                                                   S.current.yourRequestSent,
                                               timeout: 1)
                                           .show(context);
-                                      createCustomProduct(
-                                          name, extraInfo, image);
+                                      if (image != null) {
+                                        getIt<ImageUploadService>()
+                                            .uploadImage(image)
+                                            .then((value) {
+                                          if (value != null) {
+                                            createCustomProduct(
+                                                name, extraInfo, value);
+                                          } else {
+                                            CustomFlushBarHelper.createError(
+                                                    title: S.current.warnning,
+                                                    message: S.current
+                                                        .errorUploadingImages)
+                                                .show(context);
+                                          }
+                                        });
+                                      } else {
+                                        createCustomProduct(
+                                            name, extraInfo, image);
+                                      }
                                     },
                                   ),
                               elevation: 5,
