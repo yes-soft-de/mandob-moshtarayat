@@ -1144,4 +1144,20 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+
+    public function doesStoreOwnProduct($storeProfileID, $productID)
+    {
+        return $this->createQueryBuilder('product')
+
+            ->select('product.productName')
+
+            ->andWhere('product.storeOwnerProfileID =:storeOwnerProfileId')
+            ->andWhere('product.id =:productID')
+            ->setParameter('storeOwnerProfileId',$storeProfileID)
+            ->setParameter('productID',$productID)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
