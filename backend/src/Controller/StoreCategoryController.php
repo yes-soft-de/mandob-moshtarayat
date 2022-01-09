@@ -337,6 +337,7 @@ class StoreCategoryController extends BaseController
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
      *                  @OA\Property(type="string", property="storeCategoryName"),
      *                  @OA\Property(type="object", property="image"),
      *                  @OA\Property(type="string", property="language"),
