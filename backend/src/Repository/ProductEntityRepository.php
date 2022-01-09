@@ -780,6 +780,7 @@ class ProductEntityRepository extends ServiceEntityRepository
            
             ->andWhere('product.productName LIKE :productName')
             ->andWhere('product.status= :status')
+            ->andWhere('storeOwnerProfile.status= :status')
 
             ->setParameter('productName', '%'.$name.'%')
             ->setParameter('status', self::STATUS_ACTIVE)
@@ -1142,5 +1143,21 @@ class ProductEntityRepository extends ServiceEntityRepository
 
             ->getQuery()
             ->getResult();
+    }
+
+
+    public function doesStoreOwnProduct($storeProfileID, $productID)
+    {
+        return $this->createQueryBuilder('product')
+
+            ->select('product.productName')
+
+            ->andWhere('product.storeOwnerProfileID =:storeOwnerProfileId')
+            ->andWhere('product.id =:productID')
+            ->setParameter('storeOwnerProfileId',$storeProfileID)
+            ->setParameter('productID',$productID)
+
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 }

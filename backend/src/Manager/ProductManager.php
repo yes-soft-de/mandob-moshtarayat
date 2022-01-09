@@ -339,4 +339,9 @@ class ProductManager
         return $this->productEntityRepository->find($productID);
     }
 
+    public function doesStoreOwnProduct($storeProfileID, $productID)
+    {
+        return $this->productEntityRepository->doesStoreOwnProduct($storeProfileID, $productID);
+    }
+
 }

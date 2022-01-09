@@ -304,8 +304,8 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
 
             ->leftJoin(OrderEntity::class, 'OrderEntity', Join::WITH, 'orderDetailEntity.orderID = OrderEntity.id')
 
-            ->andWhere('OrderEntity.createdAt >= :fromDate')
-            ->andWhere('OrderEntity.createdAt < :toDate')
+            ->andWhere('OrderEntity.deliveryDate >= :fromDate')
+            ->andWhere('OrderEntity.deliveryDate < :toDate')
             ->andWhere('orderDetailEntity.storeOwnerProfileID = :storeOwnerProfileId ')
             ->andWhere('orderDetailEntity.state != :notPaid ')
 

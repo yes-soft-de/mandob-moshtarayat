@@ -893,7 +893,7 @@ class ProductController extends BaseController
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
 
-        $result = $this->productService->updateProductByStore($request);
+        $result = $this->productService->updateProductByStore($request, $this->getUserId());
 
         return $this->response($result, self::UPDATE);
     }

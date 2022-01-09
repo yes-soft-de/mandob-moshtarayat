@@ -350,8 +350,8 @@ class OrderEntityRepository extends ServiceEntityRepository
 
             ->andWhere('OrderEntity.state != :cancelled ')
             ->andWhere('OrderEntity.state != :notPaid ')
-            ->andWhere('OrderEntity.createdAt >= :fromDate')
-            ->andWhere('OrderEntity.createdAt < :toDate')
+            ->andWhere('OrderEntity.deliveryDate >= :fromDate')
+            ->andWhere('OrderEntity.deliveryDate < :toDate')
 
             ->setParameter('notPaid', OrderStateConstant::$ORDER_STATE_NOT_PAID)
             ->setParameter('cancelled', OrderStateConstant::$ORDER_STATE_CANCEL)

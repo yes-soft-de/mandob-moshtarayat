@@ -597,27 +597,31 @@ class ProductService
         return $item;
     }
 
-    public function updateProductByStore(ProductWithTranslationUpdateRequest $request)
+    public function updateProductByStore(ProductWithTranslationUpdateRequest $request, $userID)
     {
-        // First, update the content in the primary language
-        $productUpdateRequest = $this->autoMapping->map('array', ProductUpdateByStoreOwnerRequest::class, $request->getData());
+        $storeProfileID = $this->storeOwnerProfileService->getStoreOwnerProfile($userID);
 
-        //Second, update the translation data
-        if($request->getTranslate())
-        {
-            $this->updateProductTranslation($request->getTranslate());
+        $doesStoreOwnProduct = $this->productManager->doesStoreOwnProduct($storeProfileID->id, $request->getData()['id']);
+        if ($doesStoreOwnProduct) {
 
-            $productEntity = $this->productManager->getProductEntityByID($productUpdateRequest->getId());
+            // First, update the content in the primary language
+            $productUpdateRequest = $this->autoMapping->map('array', ProductUpdateByStoreOwnerRequest::class, $request->getData());
 
-            if($productEntity)
-            {
-                $productUpdateRequest->setProductName($productEntity->getProductName());
+            //Second, update the translation data
+            if ($request->getTranslate()) {
+                $this->updateProductTranslation($request->getTranslate());
+
+                $productEntity = $this->productManager->getProductEntityByID($productUpdateRequest->getId());
+
+                if ($productEntity) {
+                    $productUpdateRequest->setProductName($productEntity->getProductName());
+                }
             }
+
+            $product = $this->productManager->updateProductByStore($productUpdateRequest);
+
+            return $this->autoMapping->map(ProductEntity::class, ProductCreateResponse::class, $product);
         }
-
-        $product = $this->productManager->updateProductByStore($productUpdateRequest);
-
-        return $this->autoMapping->map(ProductEntity::class, ProductCreateResponse::class, $product);
     }
 
     public function updateProductTranslation($translationArrayRequest)
