@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat/module_init/init_routes.dart';
 import 'package:mandob_moshtarayat/module_main/main_routes.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
+import 'package:mandob_moshtarayat/utils/components/fixed_container.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 import 'package:mandob_moshtarayat/module_auth/request/register_request/verify_code_request.dart';
 
@@ -83,10 +84,10 @@ class LoginScreenState extends State<LoginScreen> {
             title: S.of(context).login, canGoBack: canBack),
 
         body: loadingSnapshot.connectionState != ConnectionState.waiting
-            ? _currentStates.getUI(context)
+            ? FixedContainer(child: _currentStates.getUI(context))
             : Stack(
                 children: [
-                  _currentStates.getUI(context),
+                  FixedContainer(child: _currentStates.getUI(context)),
                   Container(
                     width: double.maxFinite,
                     color: Colors.transparent.withOpacity(0.0),

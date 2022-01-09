@@ -16,6 +16,8 @@ import 'package:mandob_moshtarayat/module_stores/ui/state/stores_loading_state.d
 //import 'package:mandob_moshtarayat/module_home/ui/state/stores_state.dart';
 import 'package:mandob_moshtarayat/module_stores/ui/state/stores_state.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
+import 'package:mandob_moshtarayat/utils/components/fixed_container.dart';
+import 'package:mandob_moshtarayat/utils/global/screen_type.dart';
 
 @injectable
 class StoresScreen extends StatefulWidget {
@@ -42,7 +44,7 @@ class StoresScreenState extends State<StoresScreen> {
     }
   }
 
-  void getStoreAndCat()  {
+  void getStoreAndCat() {
     widget._homeStateManager.getStoreAndCat(this);
   }
 
@@ -58,7 +60,6 @@ class StoresScreenState extends State<StoresScreen> {
 //  void getMainCategoryProducts(catId)  {
 //    widget._homeStateManager.getMainCategoryProducts(this,catId);
 //  }
-
 
   @override
   void initState() {
@@ -81,7 +82,32 @@ class StoresScreenState extends State<StoresScreen> {
 
   @override
   Widget build(BuildContext context) {
-
+    if (ScreenType.isDesktop()) {
+      if (widget._authService.isLoggedIn) {
+        return Scaffold(
+          appBar: CustomMandopAppBar.appBar(context,
+              title: S.of(context).anotherStore,
+              icon: Icons.arrow_back, onTap: () {
+            Navigator.pop(context);
+          }),
+          body:
+              FixedContainer(child: currentState?.getUI(context) ?? SizedBox()),
+        );
+      }
+      return Scaffold(
+          appBar: CustomMandopAppBar.appBar(context,
+              title: S.of(context).home, icon: Icons.menu, onTap: () {
+            MainScreenState.advancedController.showDrawer();
+          }),
+          body: Row(
+            children: [
+              SizedBox(
+                  width: 400,
+                  child: MenuScreen(widget._authService.isLoggedIn)),
+              Expanded(child: currentState!.getUI(context)),
+            ],
+          ));
+    }
     return GestureDetector(
       onTap: () {
         var focus = FocusScope.of(context);
@@ -89,34 +115,35 @@ class StoresScreenState extends State<StoresScreen> {
           focus.unfocus();
         }
       },
-      child:
-      widget._authService.isLoggedIn ? Scaffold(
-        appBar: CustomMandopAppBar.appBar(context,
-            title: S.of(context).anotherStore, icon: Icons.arrow_back, onTap: () {
-              Navigator.pop(context);
-            }),
-        body: currentState?.getUI(context),
-      ):
-      Scaffold(
-        appBar: CustomMandopAppBar.appBar(context,
-            title: S.of(context).home, icon: Icons.menu, onTap: () {
-              MainScreenState.advancedController.showDrawer();
-            }),
-        body: AdvancedDrawer(
-        controller: MainScreenState.advancedController,
-        rtlOpening:Localizations.localeOf(context).languageCode != 'en' ,
-        child: Container(
-            decoration: BoxDecoration(
-              color:  Theme.of(context).scaffoldBackgroundColor,
+      child: widget._authService.isLoggedIn
+          ? Scaffold(
+              appBar: CustomMandopAppBar.appBar(context,
+                  title: S.of(context).anotherStore,
+                  icon: Icons.arrow_back, onTap: () {
+                Navigator.pop(context);
+              }),
+              body: FixedContainer(
+                  child: currentState?.getUI(context) ?? SizedBox()),
+            )
+          : Scaffold(
+              appBar: CustomMandopAppBar.appBar(context,
+                  title: S.of(context).home, icon: Icons.menu, onTap: () {
+                MainScreenState.advancedController.showDrawer();
+              }),
+              body: AdvancedDrawer(
+                controller: MainScreenState.advancedController,
+                rtlOpening:
+                    Localizations.localeOf(context).languageCode != 'en',
+                child: Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                    ),
+                    child: currentState?.getUI(context)),
+                childDecoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(18)),
+                drawer: MenuScreen(widget._authService.isLoggedIn),
+              ),
             ),
-            child: currentState?.getUI(context)),
-        childDecoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(18)
-        ),  drawer: MenuScreen(widget._authService.isLoggedIn),
-      ),
-      ),
     );
   }
 }
-
-

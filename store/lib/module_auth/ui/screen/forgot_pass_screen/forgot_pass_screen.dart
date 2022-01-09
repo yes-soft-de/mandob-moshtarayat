@@ -11,6 +11,7 @@ import 'package:mandob_moshtarayat/module_auth/ui/states/forgot_pass_states/forg
 import 'package:mandob_moshtarayat/module_auth/ui/states/forgot_pass_states/forgot_state_code_sent.dart';
 import 'package:mandob_moshtarayat/module_main/main_routes.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
+import 'package:mandob_moshtarayat/utils/components/fixed_container.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 
 @injectable
@@ -83,10 +84,10 @@ class ForgotPassScreenState extends State<ForgotPassScreen> {
             title: S.of(context).forgotPass, canGoBack: true),
 
         body: loadingSnapshot.connectionState != ConnectionState.waiting
-            ? _currentStates.getUI(context)
+            ? FixedContainer(child: _currentStates.getUI(context))
             : Stack(
           children: [
-            _currentStates.getUI(context),
+            FixedContainer(child: _currentStates.getUI(context)),
             Container(
               width: double.maxFinite,
               color: Colors.transparent.withOpacity(0.0),

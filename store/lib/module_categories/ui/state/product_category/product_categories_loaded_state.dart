@@ -229,7 +229,6 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
         ElevatedButton(
           onPressed: () {
             if (nameOne != null) {
-              print("storeProductCategoryID" + idTwo.toString());
               showDialog(
                   context: context,
                   builder: (_) {
@@ -258,7 +257,9 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
                     );
                   });
             } else {
-              Fluttertoast.showToast(msg: S.of(context).chooseCategory);
+              Fluttertoast.showToast(msg: S.of(context).chooseCategory,
+              webBgColor: 'linear-gradient(to right, #f6b26b, #e69138)'
+              );
             }
           },
           child: Padding(

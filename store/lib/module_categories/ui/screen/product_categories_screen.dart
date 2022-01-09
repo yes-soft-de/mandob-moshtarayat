@@ -12,6 +12,7 @@ import 'package:mandob_moshtarayat/module_categories/ui/state/product_category/p
 import 'package:mandob_moshtarayat/module_localization/service/localization_service/localization_service.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_alert_dialog.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
+import 'package:mandob_moshtarayat/utils/components/fixed_container.dart';
 
 
 @injectable
@@ -108,7 +109,7 @@ class ProductCategoriesScreenState extends State<ProductCategoriesScreen> {
     return Scaffold(
       appBar: CustomMandopAppBar.appBar(context,
           title: S.of(context).productCategories,),
-      body: currentState.getUI(context),
+      body: FixedContainer(child: currentState.getUI(context)),
 
     );
   }

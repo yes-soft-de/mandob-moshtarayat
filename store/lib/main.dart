@@ -1,5 +1,8 @@
 import 'dart:async';
+import 'dart:io' as p;
+import 'package:device_info/device_info.dart';
 import 'package:injectable/injectable.dart';
+import 'package:lehttp_overrides/lehttp_overrides.dart';
 import 'package:mandob_moshtarayat/module_orders/orders_module.dart';
 import 'package:simple_moment/simple_moment.dart';
 import 'package:mandob_moshtarayat/abstracts/module/yes_module.dart';
@@ -35,7 +38,6 @@ import 'module_splash/splash_routes.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:feature_discovery/feature_discovery.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-
 import 'module_stores/stores_module.dart';
 
 void main() async {
@@ -45,6 +47,15 @@ void main() async {
   timeago.setLocaleMessages('ur', timeago.ArMessages());
   await HiveSetUp.init();
   await Firebase.initializeApp();
+    if (!kIsWeb) {
+    if (p.Platform.isAndroid) {
+      DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      if (androidInfo.version.sdkInt < 26) {
+        p.HttpOverrides.global = LEHttpOverrides();
+      }
+    }
+  }
   if (kIsWeb) {
   } else {
     await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);

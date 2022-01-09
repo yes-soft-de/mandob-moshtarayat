@@ -11,6 +11,7 @@ import 'package:mandob_moshtarayat/module_auth/ui/states/register_states/registe
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat/module_init/init_routes.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
+import 'package:mandob_moshtarayat/utils/components/fixed_container.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 
 @injectable
@@ -86,10 +87,10 @@ class RegisterScreenState extends State<RegisterScreen> {
             title: S.of(context).register,canGoBack: false),
 
         body: loadingSnapshot.connectionState != ConnectionState.waiting
-            ? _currentState.getUI(context)
+            ? FixedContainer(child: _currentState.getUI(context))
             : Stack(
                 children: [
-                  _currentState.getUI(context),
+                  FixedContainer(child: _currentState.getUI(context)),
                   Container(
                     width: double.maxFinite,
                     color: Colors.transparent.withOpacity(0.0),
