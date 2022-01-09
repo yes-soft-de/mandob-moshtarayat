@@ -1,5 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/consts/urls.dart';
+import 'package:mandob_moshtarayat/di/di_config.dart';
+import 'package:mandob_moshtarayat/module_account/hive/favorite_store_category.dart';
 import 'package:mandob_moshtarayat/module_auth/service/auth_service/auth_service.dart';
 import 'package:mandob_moshtarayat/module_network/http_client/http_client.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -37,6 +39,17 @@ class ChatRepository {
     // // );
   }
   Future<void> needSupport() async {
+    if (_authService.isLoggedIn == false) {
+      await _apiClient.post(
+        Urls.NEEDFORSUPPORT_ANYNAMOUS,
+        {
+          'needSupport': true,
+          'name': '${_authService.username}',
+          'roomID': '${getIt<FavoriteHiveHelper>().getRoomID()}',
+        },
+      );
+      return;
+    }
     var token = await _authService.getToken();
     await _apiClient.put(
       Urls.NEEDFORSUPPORT,
