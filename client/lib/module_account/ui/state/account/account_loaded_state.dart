@@ -1,7 +1,9 @@
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mandob_moshtarayat/consts/social_type.dart';
+import 'package:mandob_moshtarayat/di/di_config.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_account/account_routes.dart';
+import 'package:mandob_moshtarayat/module_account/hive/favorite_store_category.dart';
 import 'package:mandob_moshtarayat/module_account/model/profile_model.dart';
 import 'package:mandob_moshtarayat/module_account/ui/screen/account_screen.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +17,7 @@ import 'package:mandob_moshtarayat/module_orders/orders_routes.dart';
 import 'package:mandob_moshtarayat/module_settings/setting_routes.dart';
 import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:uuid/uuid.dart';
 
 class AccountLoadedState extends AccountState {
   AccountScreenState screenState;
@@ -67,16 +70,22 @@ class AccountLoadedState extends AccountState {
               },
             ),
           ),
-          Hider(
-            active: profileModel?.roomID != null,
-            child: AccountTile(
-              text: S.of(context).directSupport,
-              icon: Icons.headphones,
-              onTap: () {
+          AccountTile(
+            text: S.of(context).directSupport,
+            icon: Icons.headphones,
+            onTap: () {
+              if (profileModel?.roomID == null) {
+                var uuid = Uuid();
+                if (getIt<FavoriteHiveHelper>().getRoomID() == null) {
+                  getIt<FavoriteHiveHelper>().setRoomID(uuid.v1());
+                }
+                Navigator.of(context).pushNamed(ChatRoutes.chatRoute,
+                    arguments: '#S#${getIt<FavoriteHiveHelper>().getRoomID()}');
+              } else {
                 Navigator.of(context).pushNamed(ChatRoutes.chatRoute,
                     arguments: '#S#${profileModel?.roomID}');
-              },
-            ),
+              }
+            },
           ),
           Padding(
             padding: const EdgeInsets.only(right: 25.0, left: 25),

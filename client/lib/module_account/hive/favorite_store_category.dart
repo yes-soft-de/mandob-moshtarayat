@@ -20,6 +20,14 @@ class FavoriteHiveHelper {
     box.put(favKeyName, name);
   }
 
+  void setRoomID(String roomID) {
+    box.put('supportRoomID', roomID);
+  }
+
+  String? getRoomID() {
+    return box.get('supportRoomID');
+  }
+
   String? getFavoriteCategory() {
     return box.get(favKey);
   }
