@@ -1145,7 +1145,6 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-
     public function doesStoreOwnProduct($storeProfileID, $productID)
     {
         return $this->createQueryBuilder('product')
@@ -1159,5 +1158,17 @@ class ProductEntityRepository extends ServiceEntityRepository
 
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    public function getStoreOwnersProfilesIDsByStoreProductCategoriesIDs($storeProductsCategoriesIDsArray)
+    {
+        return $this->createQueryBuilder('product')
+            ->select('DISTINCT(product.storeOwnerProfileID)')
+
+            ->andWhere('product.storeProductCategoryID IN (:storeProductsCategoriesIDsArray)')
+            ->setParameter('storeProductsCategoriesIDsArray', $storeProductsCategoriesIDsArray)
+
+            ->getQuery()
+            ->getResult();
     }
 }

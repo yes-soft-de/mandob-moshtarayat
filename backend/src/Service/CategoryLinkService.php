@@ -61,4 +61,14 @@ class CategoryLinkService
 
         return $response;
     }
+
+    public function getAllSubLevelOneCategoryIDsByMainCategoriesIDsArray($mainCategoriesIDsArray)
+    {
+        return $this->categoryLinkManager->getAllSubLevelOneCategoryIDsByMainCategoriesIDsArray($mainCategoriesIDsArray);
+    }
+
+    public function getAllSubLevelTwoCategoryIDsBySubLevelOneCategoriesIDsArray($subLevelOneCategoriesIDsArray)
+    {
+        return $this->categoryLinkManager->getAllSubLevelTwoCategoryIDsBySubLevelOneCategoriesIDsArray($subLevelOneCategoriesIDsArray);
+    }
 }

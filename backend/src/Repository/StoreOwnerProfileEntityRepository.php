@@ -113,6 +113,38 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getStoreOwnerProfilesByIDsArray($storesIDsArray)
+    {
+        return $this->createQueryBuilder('profile')
+            ->select('profile.id', 'profile.storeOwnerName', 'profile.image', 'profile.phone', 'profile.status')
+
+            ->andWhere('profile.id IN (:storesIDsArray)')
+            ->setParameter('storesIDsArray', $storesIDsArray)
+
+            ->andWhere('profile.status = :status')
+            ->setParameter('status', StoreStatusConstant::$ACTIVE_STORE_STATUS)
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getLastFifteenStoreOwnerProfilesByIDsArray($storesIDsArray)
+    {
+        return $this->createQueryBuilder('profile')
+            ->select('profile.id', 'profile.storeOwnerName', 'profile.image', 'profile.phone', 'profile.status')
+
+            ->andWhere('profile.id IN (:storesIDsArray)')
+            ->setParameter('storesIDsArray', $storesIDsArray)
+
+            ->andWhere('profile.status = :status')
+            ->setParameter('status', StoreStatusConstant::$ACTIVE_STORE_STATUS)
+
+            ->setMaxResults(15)
+
+            ->getQuery()
+            ->getResult();
+    }
+
     public function getLast15StoresByCategoryID($storeCategoryID)
     {
         return $this->createQueryBuilder('profile')

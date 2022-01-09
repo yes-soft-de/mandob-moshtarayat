@@ -344,4 +344,8 @@ class ProductManager
         return $this->productEntityRepository->doesStoreOwnProduct($storeProfileID, $productID);
     }
 
+    public function getStoreOwnersProfilesIDsByStoreProductCategoriesIDs($storeProductsCategoriesIDsArray)
+    {
+        return $this->productEntityRepository->getStoreOwnersProfilesIDsByStoreProductCategoriesIDs($storeProductsCategoriesIDsArray);
+    }
 }

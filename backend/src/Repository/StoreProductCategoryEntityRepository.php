@@ -60,13 +60,19 @@ class StoreProductCategoryEntityRepository extends ServiceEntityRepository
     public function getSubCategoriesByStoreCategoryID($storeCategoryID)
     {
         return $this->createQueryBuilder('storeProductCategory')
-
             ->select('storeProductCategory.id', 'storeProductCategory.productCategoryName', 'storeProductCategory.isLevel1', 'storeProductCategory.productCategoryImage')
 
-            ->andWhere('storeProductCategory.storeCategoryID = :storeCategoryID')
-//            ->andWhere('storeProductCategory.isLevel1 = :isLevel1')
+            ->leftJoin(
+                CategoryLinkEntity::class,
+                'categoryLinkEntity',
+                Join::WITH,
+                'categoryLinkEntity.subCategoryLevelOneID = storeProductCategory.id'
+            )
 
+            ->andWhere('categoryLinkEntity.mainCategoryID = :storeCategoryID')
             ->setParameter('storeCategoryID', $storeCategoryID)
+
+//            ->andWhere('storeProductCategory.isLevel1 = :isLevel1')
 //            ->setParameter('isLevel1', 1)
 
             ->getQuery()
@@ -79,10 +85,7 @@ class StoreProductCategoryEntityRepository extends ServiceEntityRepository
             ->select('storeProductCategory.id', 'storeProductCategory.productCategoryName as primaryStoreProductCategory', 'storeProductCategory.isLevel1', 'storeProductCategory.productCategoryImage',
              'storeProductCategoryTranslationEntity.productCategoryName', 'storeProductCategoryTranslationEntity.language')
 
-            ->andWhere('storeProductCategory.storeCategoryID = :storeCategoryID')
             ->andWhere('storeProductCategory.isLevel1 = :isLevel1')
-
-            ->setParameter('storeCategoryID', $storeCategoryID)
             ->setParameter('isLevel1', 1)
 
             ->leftJoin(
@@ -91,6 +94,16 @@ class StoreProductCategoryEntityRepository extends ServiceEntityRepository
                 Join::WITH,
                 'storeProductCategoryTranslationEntity.storeProductCategoryID = storeProductCategory.id'
             )
+
+            ->leftJoin(
+                CategoryLinkEntity::class,
+                'categoryLinkEntity',
+                Join::WITH,
+                'categoryLinkEntity.subCategoryLevelOneID = storeProductCategory.id'
+            )
+
+            ->andWhere('categoryLinkEntity.mainCategoryID = :storeCategoryID')
+            ->setParameter('storeCategoryID', $storeCategoryID)
 
             ->getQuery()
             ->getResult();
@@ -125,36 +138,49 @@ class StoreProductCategoryEntityRepository extends ServiceEntityRepository
 
             ->select('storeProductCategory.id', 'storeProductCategory.productCategoryName', 'storeProductCategory.isLevel1', 'storeProductCategory.productCategoryImage')
 
-            ->andWhere('storeProductCategory.storeProductCategoryID = :storeProductCategoryID')
-            //Add the next line to get only products that have a one subcategory .
-            ->orWhere('storeProductCategory.id = :storeProductCategoryID')
-//            ->andWhere('storeProductCategory.isLevel2 = :isLevel2')
+//            ->andWhere('storeProductCategory.storeProductCategoryID = :storeProductCategoryID')
+//            //Add the next line to get only products that have a one subcategory .
+//            ->orWhere('storeProductCategory.id = :storeProductCategoryID')
+//            ->setParameter('storeProductCategoryID', $storeProductCategoryID)
 
-//            ->setParameter('isLevel2', true)
+            ->andWhere('storeProductCategory.isLevel2 = :isLevel2')
+            ->setParameter('isLevel2', true)
+
+            ->leftJoin(
+                CategoryLinkEntity::class,
+                'categoryLinkEntity',
+                Join::WITH,
+                'categoryLinkEntity.subCategoryLevelTwoID = storeProductCategory.id'
+            )
+            ->andWhere('categoryLinkEntity.subCategoryLevelOneID = :storeProductCategoryID')
             ->setParameter('storeProductCategoryID', $storeProductCategoryID)
 
             ->getQuery()
-            ->getArrayResult()
-        ;
+            ->getArrayResult();
     }
 
     public function getOnlyStoreProductsCategoryLevelTwoByStoreProductCategoryLevelOneID($storeProductCategoryID)
     {
         return $this->createQueryBuilder('storeProductCategory')
-
             ->select('storeProductCategory.id', 'storeProductCategory.productCategoryName', 'storeProductCategory.isLevel1', 'storeProductCategory.productCategoryImage')
 
-            ->andWhere('storeProductCategory.storeProductCategoryID = :storeProductCategoryID')
-            //Add the next line to get only products that have a one subcategory .
-            ->orWhere('storeProductCategory.id = :storeProductCategoryID')
+//            ->andWhere('storeProductCategory.storeProductCategoryID = :storeProductCategoryID')
+//            //Add the next line to get only products that have a one subcategory .
+//            ->orWhere('storeProductCategory.id = :storeProductCategoryID')
             ->andWhere('storeProductCategory.isLevel2 = :isLevel2')
-
             ->setParameter('isLevel2', true)
-            ->setParameter('storeProductCategoryID', $storeProductCategoryID)
+
+            ->leftJoin(
+                CategoryLinkEntity::class,
+                'categoryLinkEntity',
+                Join::WITH,
+                'categoryLinkEntity.subCategoryLevelTwoID = storeProductCategory.id'
+            )
+            ->andWhere('categoryLinkEntity.subCategoryLevelOneID = :subCategoryLevelOneID')
+            ->setParameter('subCategoryLevelOneID', $storeProductCategoryID)
 
             ->getQuery()
-            ->getArrayResult()
-            ;
+            ->getArrayResult();
     }
 
     public function getStoreProductsCategoryLevelTwoByStoreProductCategoryIdForAdmin($storeProductCategoryID)
@@ -179,15 +205,11 @@ class StoreProductCategoryEntityRepository extends ServiceEntityRepository
     public function getStoreProductsCategoryLevelTwoTranslationsByStoreProductCategoryID($storeProductCategoryID)
     {
         return $this->createQueryBuilder('storeProductCategory')
-
             ->select('storeProductCategory.id', 'storeProductCategory.productCategoryName as primaryStoreProductCategory', 'storeProductCategory.isLevel1', 'storeProductCategory.productCategoryImage',
                 'storeProductCategoryTranslationEntity.productCategoryName', 'storeProductCategoryTranslationEntity.language')
 
-            ->where('storeProductCategory.storeProductCategoryID = :storeProductCategoryID')
             ->andWhere('storeProductCategory.isLevel2 = :isLevel2')
-
             ->setParameter('isLevel2', true)
-            ->setParameter('storeProductCategoryID', $storeProductCategoryID)
 
             ->leftJoin(
                 StoreProductCategoryTranslationEntity::class,
@@ -195,6 +217,15 @@ class StoreProductCategoryEntityRepository extends ServiceEntityRepository
                 Join::WITH,
                 'storeProductCategoryTranslationEntity.storeProductCategoryID = storeProductCategory.id'
             )
+
+            ->leftJoin(
+                CategoryLinkEntity::class,
+                'categoryLinkEntity',
+                Join::WITH,
+                'categoryLinkEntity.subCategoryLevelTwoID = storeProductCategory.id'
+            )
+            ->andWhere('categoryLinkEntity.subCategoryLevelOneID = :subCategoryLevelOneID')
+            ->setParameter('subCategoryLevelOneID', $storeProductCategoryID)
 
             ->getQuery()
             ->getArrayResult();

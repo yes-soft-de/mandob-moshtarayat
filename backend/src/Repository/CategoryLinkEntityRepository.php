@@ -48,4 +48,33 @@ class CategoryLinkEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getAllSubLevelOneCategoryIDsByMainCategoriesIDsArray($mainCategoryID)
+    {
+        return $this->createQueryBuilder('categoryLinkEntity')
+            ->select('categoryLinkEntity.subCategoryLevelOneID')
+
+            ->andWhere('categoryLinkEntity.linkType = :linkType')
+            ->setParameter('linkType', CategoryLinkTypeConstant::$MAIN_WITH_LEVEL_ONE_LINK_TYPE)
+
+            ->andWhere('categoryLinkEntity.mainCategoryID = :mainCategoryID')
+            ->setParameter('mainCategoryID', $mainCategoryID)
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getAllSubLevelTwoCategoryIDsBySubLevelOneCategoriesIDsArray($subLevelOneCategoriesIDsArray)
+    {
+        return $this->createQueryBuilder('categoryLinkEntity')
+            ->select('DISTINCT(categoryLinkEntity.subCategoryLevelTwoID)')
+
+            ->andWhere('categoryLinkEntity.linkType = :linkType')
+            ->setParameter('linkType', CategoryLinkTypeConstant::$LEVEL_ONE_WITH_LEVEL_TWO_LINK_TYPE)
+
+            ->andWhere('categoryLinkEntity.subCategoryLevelOneID IN (:subLevelOneCategoriesIDsArray)')
+            ->setParameter('subLevelOneCategoriesIDsArray', $subLevelOneCategoriesIDsArray)
+
+            ->getQuery()
+            ->getResult();
+    }
 }

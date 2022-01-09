@@ -221,6 +221,16 @@ class StoreOwnerProfileService
         return $this->storeOwnerProfileManager->getStoreOwnerProfileByCategoryID($storeCategoryID);
     }
 
+    public function getStoreOwnerProfilesByIDsArray($storesIDsArray)
+    {
+        return $this->storeOwnerProfileManager->getStoreOwnerProfilesByIDsArray($storesIDsArray);
+    }
+
+    public function getLastFifteenStoreOwnerProfilesByIDsArray($storesIDsArray)
+    {
+        return $this->storeOwnerProfileManager->getLastFifteenStoreOwnerProfilesByIDsArray($storesIDsArray);
+    }
+
     public function getLast15StoresByCategoryID($storeCategoryID)
     {
         return $this->storeOwnerProfileManager->getLast15StoresByCategoryID($storeCategoryID);
