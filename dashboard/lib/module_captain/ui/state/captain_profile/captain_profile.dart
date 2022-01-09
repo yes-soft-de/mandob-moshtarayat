@@ -160,8 +160,8 @@ class CaptainProfileLoadedState extends States {
                           captainID: screenState.captainId.toString(),
                           status: status));
                     },
-                    salary: model?.salary.toString(),
-                    bounce: model?.bounce.toString(),
+                    salary: model?.salary?.toString() ?? '0',
+                    bounce: model?.bounce?.toString() ?? '0',
                     status: model?.status,
                   ),
                 );

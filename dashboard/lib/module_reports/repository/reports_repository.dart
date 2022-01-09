@@ -54,5 +54,4 @@ class ReportRepository {
     if (response == null) return null;
     return CustomProductResponse.fromJson(response);
   }
-  
 }

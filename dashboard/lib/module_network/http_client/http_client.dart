@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:dio_firebase_performance/dio_firebase_performance.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mandob_moshtarayat_dashboad/di/di_config.dart';
+import 'package:mandob_moshtarayat_dashboad/module_localization/service/localization_service/localization_service.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/logger/logger.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
@@ -36,11 +38,9 @@ class ApiClient {
           _logger.info(tag, 'Adding Auth Header');
           client.options.headers['Authorization'] = headers['Authorization'];
         }
-        if (headers['Accept-Language'] != null) {
-          _logger.info(tag, 'LANG');
-          client.options.headers['Accept-Language'] =
-              headers['Accept-Language'];
-        }
+        _logger.info(tag, 'LANG');
+        client.options.headers['Accept-Language'] =
+            getIt<LocalizationService>().getLanguage();
       }
       //  client.options.headers['Access-Control-Allow-Origin'] = '*';
       var response = await client.get(

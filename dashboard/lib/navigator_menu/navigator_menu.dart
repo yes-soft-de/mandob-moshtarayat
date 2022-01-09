@@ -5,6 +5,7 @@ import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/global_nav_key.dart';
 import 'package:mandob_moshtarayat_dashboad/module_captain/captains_module.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/categories_module.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories_linking/linking_module.dart';
 import 'package:mandob_moshtarayat_dashboad/module_clients/clients_module.dart';
 import 'package:mandob_moshtarayat_dashboad/module_company/company_module.dart';
 import 'package:mandob_moshtarayat_dashboad/module_distributor/distros_module.dart';
@@ -95,6 +96,20 @@ class _NavigatorMenuState extends State<NavigatorMenu> {
                     getIt<CategoriesModule>().productCategoriesScreen,
                     S.current.categoriesLevel2,
                     FontAwesomeIcons.dotCircle,
+                    true),
+              ],
+              page: widget.currentPage),
+          // Categories Link
+          customExpansionTile(
+              title: S.current.categoriesLink,
+              icon: Icons.link,
+              children: [
+                customListTile(getIt<LinkingModule>().subCategoriesListScreen,
+                    S.current.subCategories, FontAwesomeIcons.circle, true),
+                customListTile(
+                    getIt<LinkingModule>().levelTowCategoriesListScreen,
+                    S.current.categoriesLevel2,
+                    FontAwesomeIcons.square,
                     true),
               ],
               page: widget.currentPage),

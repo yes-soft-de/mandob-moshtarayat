@@ -4,7 +4,6 @@ import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/model/StoreCategoriesModel.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_store_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_stores/model/stores_model.dart';
-import 'package:mandob_moshtarayat_dashboad/module_stores/request/create_store_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_stores/stores_routes.dart';
 import 'package:mandob_moshtarayat_dashboad/module_stores/ui/screen/stores_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/module_stores/ui/state/store_categories/stores_state.dart';

@@ -134,6 +134,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "categories": MessageLookupByLibrary.simpleMessage("Categories"),
         "categoriesLevel2":
             MessageLookupByLibrary.simpleMessage("Categories Level 2"),
+        "categoriesLink":
+            MessageLookupByLibrary.simpleMessage("Categories Linking"),
         "category": MessageLookupByLibrary.simpleMessage("category"),
         "categoryCreatedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "Category created successfully"),
@@ -276,6 +278,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Error Uploading Images!!"),
         "exceededAllowedTime": MessageLookupByLibrary.simpleMessage(
             "Can not remove it, Exceeded time allowed"),
+        "exitWarning":
+            MessageLookupByLibrary.simpleMessage("Please press again to exit"),
         "expectedOrderBill":
             MessageLookupByLibrary.simpleMessage("Expected Order Bill"),
         "externalOrder": MessageLookupByLibrary.simpleMessage("External Order"),
@@ -363,6 +367,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "latestUpdates": MessageLookupByLibrary.simpleMessage("Latest Updates"),
         "launch": MessageLookupByLibrary.simpleMessage("Launch our app"),
         "lebanon": MessageLookupByLibrary.simpleMessage("Lebanon"),
+        "linkedSuccessfully":
+            MessageLookupByLibrary.simpleMessage("Linked Successfully"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
         "locationOfCustomer":
             MessageLookupByLibrary.simpleMessage("Location of customer"),

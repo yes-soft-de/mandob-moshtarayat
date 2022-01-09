@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:io' as p;
 import 'package:device_info/device_info.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories_linking/linking_module.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/global/global_state_manager.dart';
 import 'package:simple_moment/simple_moment.dart';
 import 'package:mandob_moshtarayat_dashboad/abstracts/module/yes_module.dart';
@@ -100,25 +101,26 @@ class MyApp extends StatefulWidget {
   final PaymentsModule _paymentsModule;
   final FiltersModule _filtersModule;
   final LogsModule _logsModule;
+  final LinkingModule _linkingModule;
   MyApp(
-    this._themeDataService,
-    this._localizationService,
-    this._fireNotificationService,
-    this._localNotificationService,
-    this._splashModule,
-    this._authorizationModule,
-    this._chatModule,
-    this._settingsModule,
-    this._mainModule,
-    this._categoriesModule,
-    this._storesModule,
-    this._productsModule,
-    this._companyModule,
-    this._ordersModule,
-    this._paymentsModule,
-    this._filtersModule,
-    this._logsModule,
-  );
+      this._themeDataService,
+      this._localizationService,
+      this._fireNotificationService,
+      this._localNotificationService,
+      this._splashModule,
+      this._authorizationModule,
+      this._chatModule,
+      this._settingsModule,
+      this._mainModule,
+      this._categoriesModule,
+      this._storesModule,
+      this._productsModule,
+      this._companyModule,
+      this._ordersModule,
+      this._paymentsModule,
+      this._filtersModule,
+      this._logsModule,
+      this._linkingModule);
 
   @override
   State<StatefulWidget> createState() => _MyAppState();

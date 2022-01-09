@@ -67,7 +67,7 @@ class _AddSubCategoriesWidgetState
                       children: [
                         // categories
                         Hider(
-                          active: widget.state != null,
+                          active: false,
                           child: Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(25),
@@ -101,7 +101,7 @@ class _AddSubCategoriesWidgetState
                         ),
                         // subcategories
                         Hider(
-                          active: widget.state != null,
+                          active: false,
                           child: Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(25),
@@ -239,9 +239,7 @@ class _AddSubCategoriesWidgetState
             )),
         label: S.current.save,
         onTap: () {
-          if (_key.currentState!.validate() &&
-              catId != null &&
-              subCatId != null) {
+          if (_key.currentState!.validate()) {
             Navigator.of(context).pop();
             if (imagePath?.contains('http') == true &&
                 widget.subCategoriesModel != null) {

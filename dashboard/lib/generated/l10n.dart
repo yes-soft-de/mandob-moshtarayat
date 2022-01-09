@@ -5519,6 +5519,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Categories Linking`
+  String get categoriesLink {
+    return Intl.message(
+      'Categories Linking',
+      name: 'categoriesLink',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Linked Successfully`
+  String get linkedSuccessfully {
+    return Intl.message(
+      'Linked Successfully',
+      name: 'linkedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please press again to exit`
+  String get exitWarning {
+    return Intl.message(
+      'Please press again to exit',
+      name: 'exitWarning',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

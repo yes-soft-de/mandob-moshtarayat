@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:image_picker/image_picker.dart';
@@ -18,7 +17,7 @@ import 'package:mandob_moshtarayat_dashboad/utils/effect/hidder.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/helpers/custom_flushbar.dart';
 
 class AddStoreWidget extends StatefulWidget {
-  final Function(String, String, String, String, GeoJson, bool, bool, String,
+  final Function(String, String, String, GeoJson, bool, bool, String,
       String, String, String, String, String) addStore;
   final StoresLoadedState? state;
 
@@ -41,7 +40,6 @@ class _AddStoreWidgetState extends State<AddStoreWidget> {
   String? imagePath;
   bool privateOrder = false;
   bool products = false;
-  String? catId;
   MapController mapController = MapController();
   TimeOfDay? openingTime;
   TimeOfDay? closingTime;
@@ -62,35 +60,7 @@ class _AddStoreWidgetState extends State<AddStoreWidget> {
                   child: CustomListView.custom(
                       padding: EdgeInsets.only(right: 16, left: 16),
                       children: [
-                        // categories
-                        Hider(
-                          active: widget.state != null,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                color: Theme.of(context).backgroundColor),
-                            child: Center(
-                              child: DropdownButton(
-                                value: catId,
-                                items: widget.state!.getChoices(),
-                                onChanged: (v) {
-                                  catId = v.toString();
-                                  setState(() {});
-                                },
-                                hint: Text(
-                                  S.current.chooseCategory,
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                underline: SizedBox(),
-                                icon: Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: Icon(Icons.arrow_drop_down_rounded),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        // Store Name
+                       // Store Name
                         Padding(
                           padding: const EdgeInsets.only(
                               left: 12.0, bottom: 8, right: 12, top: 16.0),
@@ -399,7 +369,6 @@ class _AddStoreWidgetState extends State<AddStoreWidget> {
               openingTime != null &&
               closingTime != null) {
             widget.addStore(
-                catId.toString(),
                 _nameController.text.trim(),
                 _phoneController.text.trim(),
                 imagePath!,
@@ -496,35 +465,6 @@ class _UpdateStoreWidgetState extends State<UpdateStoreWidget> {
                 child: CustomListView.custom(
                     padding: EdgeInsets.only(right: 16, left: 16),
                     children: [
-                      // categories
-                      Hider(
-                        active: widget.categories != null &&
-                            widget.categories!.length > 0,
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25),
-                              color: Theme.of(context).backgroundColor),
-                          child: Center(
-                            child: DropdownButton(
-                              value: catId,
-                              items: widget.categories,
-                              onChanged: (v) {
-                                catId = v.toString();
-                                setState(() {});
-                              },
-                              hint: Text(
-                                S.current.chooseCategory,
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              underline: SizedBox(),
-                              icon: Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: Icon(Icons.arrow_drop_down_rounded),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
                       //store name
                       Padding(
                         padding: const EdgeInsets.only(

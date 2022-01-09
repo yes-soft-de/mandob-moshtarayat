@@ -16,6 +16,6 @@ class ClientsManager {
       _clientsRepository.getClientProfile(captainId);
   Future<ClientsListProfileResponse?> getClientsFilter(String searchKey) =>
       _clientsRepository.getClientFilters(searchKey);
-        Future<ClientNeedSupportResponse?> getClientSupport() =>
+  Future<ClientNeedSupportResponse?> getClientSupport() =>
       _clientsRepository.getClientSupport();
 }

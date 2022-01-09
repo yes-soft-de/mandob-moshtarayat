@@ -57,6 +57,7 @@ class ClientsService {
     if (_captainFilter.data == null) return DataModel.empty();
     return ClientsListModel.withData(_captainFilter.data!);
   }
+
   Future<DataModel> getClientNeedSupport() async {
     ClientNeedSupportResponse? _clients =
         await _clientsManager.getClientSupport();

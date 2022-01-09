@@ -550,7 +550,13 @@
   "paymentsForStore":"Payments for store",
   "remainingAmountForStore":"Amount owed for store",
   "sumPaymentsForStore":"Total payments for store",
-  "outerOrder":"Private orders"
+  "outerOrder":"Private orders",
+  "categoriesLink":"Categories Linking",
+  "linkedSuccessfully":"Linked Successfully",
+  "exitWarning":"Please press again to exit"
+
+
+
   
   
 

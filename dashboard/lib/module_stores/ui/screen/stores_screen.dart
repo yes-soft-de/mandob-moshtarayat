@@ -88,7 +88,7 @@ class StoresScreenState extends State<StoresScreen> {
                         state: currentState is StoresLoadedState
                             ? currentState as StoresLoadedState
                             : null,
-                        addStore: (id,
+                        addStore: (
                             name,
                             phone,
                             image,
@@ -106,7 +106,6 @@ class StoresScreenState extends State<StoresScreen> {
                               location: location,
                               storeOwnerName: name,
                               phone: phone,
-                              storeCategoryId: int.parse(id),
                               image: image,
                               hasProducts: products ? 1 : 0,
                               privateOrders: privateOrder ? 1 : 0,
