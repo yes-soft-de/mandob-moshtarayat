@@ -188,9 +188,9 @@ class StoreCategoryManager
        return $this->storeCategoryEntityRepository->getStoreCategoryByID($id);
     }
 
-    public function getStoreCategoryTranslationByID($storeCategoryID)
+    public function getStoreCategoryTranslationByStoreCategoryIdAndLanguage($storeCategoryID, $language)
     {
-        return $this->storeCategoryEntityRepository->getStoreCategoryTranslationByID($storeCategoryID);
+        return $this->storeCategoryEntityRepository->getStoreCategoryTranslationByStoreCategoryIdAndLanguage($storeCategoryID, $language);
     }
 
     public function isItRelatedToSubcategoriesOrStore($id):string

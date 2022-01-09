@@ -4,6 +4,8 @@ namespace App\Response;
 
 class StoreCategoryByIdResponse
 {
+    public $id;
+
     public $storeCategoryName;
 
     public $image;

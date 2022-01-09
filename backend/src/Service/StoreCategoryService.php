@@ -141,16 +141,10 @@ class StoreCategoryService
     {
         if ($userLocale != null && $userLocale != $this->primaryLanguage)
         {
-            $categoryTranslationResult = $this->storeCategoryManager->getStoreCategoryTranslationByID($id);
+            $categoryTranslationResult = $this->storeCategoryManager->getStoreCategoryTranslationByStoreCategoryIdAndLanguage($id, $userLocale);
 
-            if($categoryTranslationResult['language'] == $userLocale)
+            if($categoryTranslationResult)
             {
-                $item = $categoryTranslationResult;
-            }
-            elseif($categoryTranslationResult['language'] == null)
-            {
-                $categoryTranslationResult['storeCategoryName'] = $categoryTranslationResult['primaryStoreCategoryName'];
-
                 $item = $categoryTranslationResult;
             }
             else

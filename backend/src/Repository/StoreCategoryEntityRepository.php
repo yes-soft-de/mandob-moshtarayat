@@ -87,7 +87,7 @@ class StoreCategoryEntityRepository extends ServiceEntityRepository
 
     }
 
-    public function getStoreCategoryTranslationByID($storeCategoryID)
+    public function getStoreCategoryTranslationByStoreCategoryIdAndLanguage($storeCategoryID, $language)
     {
         return $this->createQueryBuilder('store_category_entity')
             ->select('store_category_entity.id', 'store_category_entity.storeCategoryName as primaryStoreCategoryName', 'store_category_entity.description', 'store_category_entity.image',
@@ -102,6 +102,9 @@ class StoreCategoryEntityRepository extends ServiceEntityRepository
                 Join::WITH,
                 'storeCategoryTranslationEntity.storeCategoryID = store_category_entity.id'
             )
+
+            ->andWhere('storeCategoryTranslationEntity.language = :language')
+            ->setParameter('language', $language)
 
             ->getQuery()
             ->getOneOrNullResult();
