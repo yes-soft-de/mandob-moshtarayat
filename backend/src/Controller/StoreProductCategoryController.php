@@ -374,6 +374,50 @@ class StoreProductCategoryController extends BaseController
       }
 
     /**
+     * Get specific store product category by id.
+     * @Route("storeproductcategory/{id}", name="getStoreProductCategoryByID", methods={"GET"})
+     * @param Request $request
+     * @param $id
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Store Product Category")
+     *
+     * @OA\Parameter(
+     *      name="Accept-Language",
+     *      in="header",
+     *      description="language to be passed as a header",
+     *      required=false
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Get Store Product Category by id",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="storeCategoryName"),
+     *                  @OA\Property(type="object", property="productCategoryImage"),
+     *                  @OA\Property(type="string", property="language"),
+     *                  @OA\Property(type="object", property="translate",
+     *                      @OA\Property(type="integer", property="id"),
+     *                      @OA\Property(type="integer", property="storeProductCategoryID"),
+     *                      @OA\Property(type="string", property="language"),
+     *                      @OA\Property(type="string", property="productCategoryName")
+     *                  )
+     *          )
+     *      )
+     * )
+     */
+    public function getStoreProductCategoryByID(Request $request, $id)
+    {
+        $result = $this->storeProductCategoryService->getStoreProductCategoryByID($request->getPreferredLanguage(), $id);
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
      * Get all store products categories of first level.
      * @Route("allstoreproductscategoriesleveloneforstore", name="getAllStoreProductsCategoriesLevelOneForStore", methods={"GET"})
      * @return JsonResponse

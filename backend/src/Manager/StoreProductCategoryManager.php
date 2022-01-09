@@ -16,12 +16,15 @@ class StoreProductCategoryManager
 {
     private $autoMapping;
     private $entityManager;
+    private $storeProductCategoryTranslationManager;
     private $storeProductCategoryEntityRepository;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, StoreProductCategoryEntityRepository $storeProductCategoryEntityRepository)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, StoreProductCategoryEntityRepository $storeProductCategoryEntityRepository,
+     StoreProductCategoryTranslationManager $storeProductCategoryTranslationManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
+        $this->storeProductCategoryTranslationManager = $storeProductCategoryTranslationManager;
         $this->storeProductCategoryEntityRepository = $storeProductCategoryEntityRepository;
     }
 
@@ -140,6 +143,21 @@ class StoreProductCategoryManager
     public function getCategoriesLevel1ById($id)
     {
        return $this->storeProductCategoryEntityRepository->getCategoriesLevel1ById($id);
+    }
+
+    public function getStoreProductCategoryByID($id)
+    {
+        return $this->storeProductCategoryEntityRepository->getStoreProductCategoryByID($id);
+    }
+
+    public function getStoreProductCategoryTranslationsByStoreProductCategoryID($storeProductCategoryID)
+    {
+        return $this->storeProductCategoryTranslationManager->getStoreProductCategoryTranslationsByStoreProductCategoryID($storeProductCategoryID);
+    }
+
+    public function getStoreProductCategoryTranslationByStoreProductCategoryIdAndLanguage($storeProductCategoryID, $language)
+    {
+        return $this->storeProductCategoryEntityRepository->getStoreProductCategoryTranslationByStoreProductCategoryIdAndLanguage($storeProductCategoryID, $language);
     }
 
     public function getStoreProductsCategoriesIdLevelOneByStoreOwnerProfileID($storeOwnerProfileID)

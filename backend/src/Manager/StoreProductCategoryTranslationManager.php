@@ -63,4 +63,8 @@ class StoreProductCategoryTranslationManager
         return $this->storeProductCategoryTranslationEntityRepository->getStoreProductCategoriesTranslationsByStoreProductCategoryIdAndLanguage($storeProductCategoryID, $language);
     }
 
+    public function getStoreProductCategoryTranslationsByStoreProductCategoryID($storeProductCategoryID)
+    {
+        return $this->storeProductCategoryTranslationEntityRepository->getStoreProductCategoryTranslationsByStoreProductCategoryID($storeProductCategoryID);
+    }
 }

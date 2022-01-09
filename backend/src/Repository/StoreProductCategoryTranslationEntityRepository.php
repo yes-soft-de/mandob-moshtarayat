@@ -83,4 +83,16 @@ class StoreProductCategoryTranslationEntityRepository extends ServiceEntityRepos
             ->getResult();
     }
 
+    public function getStoreProductCategoryTranslationsByStoreProductCategoryID($storeProductCategoryID)
+    {
+        return $this->createQueryBuilder('storeProductCategoryTranslationEntity')
+            ->select('storeProductCategoryTranslationEntity.id', 'storeProductCategoryTranslationEntity.storeProductCategoryID', 'storeProductCategoryTranslationEntity.productCategoryName',
+                'storeProductCategoryTranslationEntity.language')
+
+            ->andWhere('storeProductCategoryTranslationEntity.storeProductCategoryID = :storeProductCategoryID')
+            ->setParameter('storeProductCategoryID', $storeProductCategoryID)
+
+            ->getQuery()
+            ->getResult();
+    }
 }
