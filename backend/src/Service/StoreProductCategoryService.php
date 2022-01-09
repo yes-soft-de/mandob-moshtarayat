@@ -438,6 +438,36 @@ class StoreProductCategoryService
         return $response;
     }
 
+    public function getStoreProductCategoryByID($userLocale, $storeProductCategoryID)
+    {
+        if ($userLocale != null && $userLocale != $this->primaryLanguage)
+        {
+            $categoryTranslationResult = $this->storeProductCategoryManager->getStoreProductCategoryTranslationByStoreProductCategoryIdAndLanguage($storeProductCategoryID, $userLocale);
+
+            if($categoryTranslationResult)
+            {
+                $storeProductCategory = $categoryTranslationResult;
+            }
+            else
+            {
+                $storeProductCategory = $this->storeProductCategoryManager->getStoreProductCategoryByID($storeProductCategoryID);
+            }
+        }
+        else
+        {
+            $storeProductCategory = $this->storeProductCategoryManager->getStoreProductCategoryByID($storeProductCategoryID);
+        }
+
+        if ($storeProductCategory)
+        {
+            $storeProductCategory['productCategoryImage'] = $this->getImageParams($storeProductCategory['productCategoryImage'], $this->params . $storeProductCategory['productCategoryImage'], $this->params);
+        }
+
+        $storeProductCategory['translate'] = $this->storeProductCategoryManager->getStoreProductCategoryTranslationsByStoreProductCategoryID($storeProductCategoryID);
+
+        return $this->autoMapping->map('array', StoreProductCategoryByIdResponse::class, $storeProductCategory);
+    }
+
     public function getImageParams($imageURL, $image, $baseURL): array
     {
         if($imageURL)
