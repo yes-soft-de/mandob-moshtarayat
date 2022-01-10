@@ -3,13 +3,16 @@
 // Named Domain ===> 'https://mandoob.password-please.com'
 
 class Urls {
-  static const String DOMAIN = 'http://138.197.186.138';
+  static const String DOMAIN = 'https://api.al-mandob.com';
   static const String BASE_API = DOMAIN + '';
   static const String IMAGES_ROOT = DOMAIN + '/upload/';
   static const UPLOAD_API = BASE_API + '/uploadfile';
   static const SIGN_UP_API = BASE_API + '/captainregister';
   static const OWNER_PROFILE_API = BASE_API + '/userprofile';
   static const CREATE_TOKEN_API = BASE_API + '/login_check';
+  static const VERIFY_CODE_API = BASE_API + '/verifycode';
+  static const CHECK_USER_VERIFIED_API = BASE_API + '/checkverificationstatus';
+  static const RESEND_CODE_API = BASE_API + '/resendnewverificationcode';
   static const REPORT_API = BASE_API + '/report';
   static const NOTIFICATION_API = BASE_API + '/notificationtoken';
   static const COMPANYINFO_API = BASE_API + '/companyinfoforuser';
@@ -35,8 +38,12 @@ class Urls {
   static const CAPTAIN_BALANCE_ACCOUNT = BASE_API + '/captainfinancialaccount';
   static const CAPTAIN_BALANCE_LAST_MONTH =
       BASE_API + '/captainFinancialAccountInLastMonth';
-  static const GET_ORDER_LOGS = BASE_API + '/orderLogs';
+  static const GET_ORDER_LOGS = BASE_API + '/orderlogs';
   static const CHECK_USER_ROLE = BASE_API + '/checkUserType';
   static const UPDATE_STORE_ORDER_STATE =
       BASE_API + '/orderupdatestateforeachstore';
+        static const RESET_PASSWORD = BASE_API + '/resetpasswordorder';
+  static const VERIFY_RESET_PASSWORD_CODE =
+      BASE_API + '/verifyresetpasswordcode';
+  static const UPDATE_PASSWORD = BASE_API + '/updatepassword';
 }

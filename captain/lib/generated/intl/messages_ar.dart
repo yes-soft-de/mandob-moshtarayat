@@ -134,6 +134,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("عدد الموظفين العاملين"),
         "chooseYourState": MessageLookupByLibrary.simpleMessage("اختر حالتك"),
         "city": MessageLookupByLibrary.simpleMessage("المدينة"),
+        "codeNumber": MessageLookupByLibrary.simpleMessage("رمز التحقق"),
+        "codeTimeOut":
+            MessageLookupByLibrary.simpleMessage("انتهت صلاحية رمز التحقق"),
         "community":
             MessageLookupByLibrary.simpleMessage("مواقع التواصل الاجتماعي"),
         "completeTime": MessageLookupByLibrary.simpleMessage("مدة الإنجاز"),
@@ -141,6 +144,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(" طلبات منتهية "),
         "confirm": MessageLookupByLibrary.simpleMessage("تأكيد"),
         "confirmCode": MessageLookupByLibrary.simpleMessage("تأكيد الرقم"),
+        "confirmNewPass":
+            MessageLookupByLibrary.simpleMessage("تأكيد كلمة السر الجديدة"),
         "confirmRenewSub": MessageLookupByLibrary.simpleMessage(
             "هل أنت متأكد من عملية تجديد اشتراكك"),
         "confirmUpdateOrderStatus": MessageLookupByLibrary.simpleMessage(
@@ -223,6 +228,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "finishedOrdering": MessageLookupByLibrary.simpleMessage("إنهاء الطلب"),
         "firstSendMessage":
             MessageLookupByLibrary.simpleMessage("كن أول من يرسل رسالة"),
+        "forgotPass":
+            MessageLookupByLibrary.simpleMessage("هل نسيت كلمة المرور؟"),
         "fromWhatsapp": MessageLookupByLibrary.simpleMessage("من واتساب"),
         "gender": MessageLookupByLibrary.simpleMessage("الجنس"),
         "getDirection":
@@ -253,11 +260,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "inactive": MessageLookupByLibrary.simpleMessage(
             "اشتراكك غير مفعل بعد الرجاء انتظار التفعيل من قبل الإدارة"),
         "info": MessageLookupByLibrary.simpleMessage("حول الطلب"),
+        "informSendCode": MessageLookupByLibrary.simpleMessage(
+            "سنقوم بأرسال كود تحقق الى رقمك"),
         "initData": MessageLookupByLibrary.simpleMessage("تعيين البيانات"),
         "internalServerError":
             MessageLookupByLibrary.simpleMessage("هناك مشكلة ما في الخادم"),
+        "invalidCode": MessageLookupByLibrary.simpleMessage("رمز التحقق خطأ"),
         "invalidCredentials": MessageLookupByLibrary.simpleMessage(
             "هناك خطأ في كلمة السر أو اسم المستخدم"),
+        "invalidNumber": MessageLookupByLibrary.simpleMessage("الرقم غير صالح"),
         "isBilledForCompany":
             MessageLookupByLibrary.simpleMessage("الفاتورة على حساب الشركة"),
         "kiloBonus": MessageLookupByLibrary.simpleMessage("اجور التوصيل"),
@@ -326,6 +337,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("لديك إشعار جديد"),
         "newName": MessageLookupByLibrary.simpleMessage("اسم جديد"),
         "newOrder": MessageLookupByLibrary.simpleMessage("طلب جديد"),
+        "newPassword":
+            MessageLookupByLibrary.simpleMessage("كلمة السر الجديدة"),
         "next": MessageLookupByLibrary.simpleMessage("التالي"),
         "nextPaymentDate":
             MessageLookupByLibrary.simpleMessage("تاريخ الدفعة القادمة:"),
@@ -339,6 +352,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "لم تشترك بباقة بعد الرجاء الاشتراك من الإعدادات"),
         "notVerified":
             MessageLookupByLibrary.simpleMessage("لم يتم تفعيل الباقة بعد"),
+        "notVerifiedNumber":
+            MessageLookupByLibrary.simpleMessage("يجب عليك إدخال الرمز أولاً"),
         "note": MessageLookupByLibrary.simpleMessage("ملاحظة"),
         "noteOfOrder":
             MessageLookupByLibrary.simpleMessage("دون ملاحظاتك حول الطلب"),
@@ -402,6 +417,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "password": MessageLookupByLibrary.simpleMessage("كلمة السر"),
         "passwordIsTooShort":
             MessageLookupByLibrary.simpleMessage("كلمة السر قصيرة جدا"),
+        "passwordNotMatch":
+            MessageLookupByLibrary.simpleMessage("كلمة السر غير متطابقة"),
+        "passwordUpdatedSuccess":
+            MessageLookupByLibrary.simpleMessage("تم تحديث كلمة المرور بنجاح"),
         "paySubscription": MessageLookupByLibrary.simpleMessage("دفع الاشتراك"),
         "paymentHistory": MessageLookupByLibrary.simpleMessage("تاريخ الدفعات"),
         "paymentMethod": MessageLookupByLibrary.simpleMessage("طريقة الدفع"),
@@ -411,6 +430,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "phoneIsRequired":
             MessageLookupByLibrary.simpleMessage("الرجاء تزويدنا برقم الهاتف"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
+        "phoneNumberLong": MessageLookupByLibrary.simpleMessage(
+            "رقم الهاتف غير صالح بسبب تعديه ل٩ محارف"),
         "phoneNumbertooShort":
             MessageLookupByLibrary.simpleMessage("رقم الهاتف المدخل قصير"),
         "pickAJob": MessageLookupByLibrary.simpleMessage("اختار عملي"),
@@ -497,6 +518,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "requestMeeting":
             MessageLookupByLibrary.simpleMessage("اطلب موعدا للقاء"),
         "resendCode": MessageLookupByLibrary.simpleMessage("اعادة الارسال"),
+        "resendCodeSuccessfully":
+            MessageLookupByLibrary.simpleMessage("تم إرسال الرمز بنجاح"),
         "sOrder": MessageLookupByLibrary.simpleMessage("طلب"),
         "sar": MessageLookupByLibrary.simpleMessage("ر.س"),
         "saudiArabia": MessageLookupByLibrary.simpleMessage("السعودية"),
@@ -603,6 +626,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unknown": MessageLookupByLibrary.simpleMessage("غير معروف"),
         "unknownNumberOfCar":
             MessageLookupByLibrary.simpleMessage("عدد السيارات غير محدود"),
+        "update": MessageLookupByLibrary.simpleMessage("تحديث"),
         "updateBranch": MessageLookupByLibrary.simpleMessage("تعديل الفرع"),
         "updateBranchFailure": MessageLookupByLibrary.simpleMessage(
             "عذرا لم يتم تعديل الفرع بنجاح الرجاء إعادة المحاولة لاحقا"),

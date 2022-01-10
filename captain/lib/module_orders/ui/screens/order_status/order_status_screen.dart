@@ -126,7 +126,7 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
                       this);
                 }
               },
-              content: S.of(context).confirmUpdateOrderStatus);
+              message: S.of(context).confirmUpdateOrderStatus);
         });
   }
 
@@ -146,7 +146,7 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
                   widget.stateManager.updateStoreOrder(request, this);
                 }
               },
-              content: S.of(context).confirmUpdateOrderStatus);
+              message: S.of(context).confirmUpdateOrderStatus);
         });
   }
 

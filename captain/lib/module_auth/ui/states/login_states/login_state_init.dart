@@ -1,11 +1,14 @@
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mandob_moshtarayat_captain/consts/country_code.dart';
 import 'package:mandob_moshtarayat_captain/generated/l10n.dart';
 import 'package:mandob_moshtarayat_captain/module_auth/authorization_routes.dart';
+import 'package:mandob_moshtarayat_captain/module_auth/request/forget_password_request/reset_password_request.dart';
 import 'package:mandob_moshtarayat_captain/module_auth/ui/screen/login_screen/login_screen.dart';
 import 'package:mandob_moshtarayat_captain/module_auth/ui/states/login_states/login_state.dart';
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat_captain/module_auth/ui/widget/login_widgets/custom_field.dart';
 import 'package:mandob_moshtarayat_captain/utils/components/auth_buttons.dart';
+import 'package:mandob_moshtarayat_captain/utils/components/custom_alert_dialog.dart';
 import 'package:mandob_moshtarayat_captain/utils/helpers/custom_flushbar.dart';
 import 'package:mandob_moshtarayat_captain/utils/images/images.dart';
 
@@ -41,7 +44,7 @@ class LoginStateInit extends LoginState {
                 padding: const EdgeInsets.only(
                     bottom: 4.0, left: 32, right: 32, top: 8),
                 child: Text(
-                  S.of(context).username,
+                  S.of(context).phoneNumber,
                   style: tileStyle,
                 ),
               ),
@@ -52,7 +55,12 @@ class LoginStateInit extends LoginState {
                     contentPadding:
                         EdgeInsets.only(left: 0, right: 0, top: 15, bottom: 0),
                     controller: usernameController,
-                    hintText: S.of(context).registerHint,
+                    hintText: '5xxxxxxx',
+                    phone: true,
+                    sufIcon: Padding(
+                      padding: const EdgeInsets.only(top: 15.0),
+                      child: Text(CountryCode.COUNTRY_CODE_KSA),
+                    ),
                     preIcon: Icon(Icons.email),
                   ),
                 ),
@@ -78,6 +86,36 @@ class LoginStateInit extends LoginState {
                   ),
                 ),
               ),
+                   InkWell(
+                  onTap: () {
+                    FocusScope.of(context).unfocus();
+                    if (usernameController.text.isNotEmpty) {
+                      showDialog(
+                          context: context,
+                          builder: (_) {
+                            return CustomAlertDialog(
+                                message: S.of(context).informSendCode,
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  screen.restPass(ResetPassRequest(
+                                      userID: usernameController.text));
+                                });
+                          });
+                    } else {
+                      CustomFlushBarHelper.createError(
+                              title: S.current.warnning,
+                              message: S.current.pleaseInputPhoneNumber)
+                          .show(context);
+                    }
+                  },
+                  child: Center(
+                      child: Text(
+                    S.of(context).forgotPass,
+                    style: TextStyle(
+                        color: Theme.of(context).disabledColor,
+                        fontWeight: FontWeight.bold),
+                  ))),
+            
               Container(
                 height: 150,
               ),

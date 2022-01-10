@@ -4329,6 +4329,146 @@ class S {
       args: [],
     );
   }
+
+  /// `Invalid number`
+  String get invalidNumber {
+    return Intl.message(
+      'Invalid number',
+      name: 'invalidNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid Code`
+  String get invalidCode {
+    return Intl.message(
+      'Invalid Code',
+      name: 'invalidCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Code number`
+  String get codeNumber {
+    return Intl.message(
+      'Code number',
+      name: 'codeNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Code has expired`
+  String get codeTimeOut {
+    return Intl.message(
+      'Code has expired',
+      name: 'codeTimeOut',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The code has been successfully sent`
+  String get resendCodeSuccessfully {
+    return Intl.message(
+      'The code has been successfully sent',
+      name: 'resendCodeSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You must enter the code first`
+  String get notVerifiedNumber {
+    return Intl.message(
+      'You must enter the code first',
+      name: 'notVerifiedNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm new password`
+  String get confirmNewPass {
+    return Intl.message(
+      'Confirm new password',
+      name: 'confirmNewPass',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password updated successfully`
+  String get passwordUpdatedSuccess {
+    return Intl.message(
+      'Password updated successfully',
+      name: 'passwordUpdatedSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We will send a verification code to your number`
+  String get informSendCode {
+    return Intl.message(
+      'We will send a verification code to your number',
+      name: 'informSendCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password not matching`
+  String get passwordNotMatch {
+    return Intl.message(
+      'Password not matching',
+      name: 'passwordNotMatch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update`
+  String get update {
+    return Intl.message(
+      'Update',
+      name: 'update',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Forgot password?`
+  String get forgotPass {
+    return Intl.message(
+      'Forgot password?',
+      name: 'forgotPass',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New password`
+  String get newPassword {
+    return Intl.message(
+      'New password',
+      name: 'newPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Phone number invalid format , cause is more than 9`
+  String get phoneNumberLong {
+    return Intl.message(
+      'Phone number invalid format , cause is more than 9',
+      name: 'phoneNumberLong',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

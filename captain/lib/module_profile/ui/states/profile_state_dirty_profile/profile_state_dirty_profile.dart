@@ -34,7 +34,7 @@ class ProfileStateDirtyProfile extends ProfileState {
                         ProfileStateGotProfile(screenState, request);
                     screenState.refresh();
                   },
-                  content: S.current.areYouSureToDisposeThis,
+                  message: S.current.areYouSureToDisposeThis,
                 );
               });
         }
@@ -55,7 +55,7 @@ class ProfileStateDirtyProfile extends ProfileState {
                                   ProfileStateGotProfile(screenState, request);
                               screenState.refresh();
                             },
-                            content: S.current.areYouSureToDisposeThis,
+                            message: S.current.areYouSureToDisposeThis,
                           );
                         });
                   }

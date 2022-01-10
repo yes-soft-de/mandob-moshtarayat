@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:mandob_moshtarayat_captain/generated/l10n.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/orders_routes.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/ui/screens/captain_orders/captain_orders.dart';
@@ -92,16 +93,14 @@ class MenuScreen extends StatelessWidget {
               ),
               ListTile(
                 onTap: () {
-                  String url = 'https://yes_delivery-app.web.app/tos.html';
-                  launch(url);
+                  Navigator.of(context).pushNamed(SettingRoutes.TERMS);
                 },
                 leading: Icon(Icons.supervised_user_circle),
                 title: Text('${S.of(context).termsOfService}'),
               ),
               ListTile(
                 onTap: () {
-                  String url = 'https://yes_delivery-app.web.app/privacy.html';
-                  launch(url);
+                  Navigator.of(context).pushNamed(SettingRoutes.PRIVECY);
                 },
                 leading: Icon(Icons.privacy_tip),
                 title: Text('${S.of(context).privacyPolicy}'),
