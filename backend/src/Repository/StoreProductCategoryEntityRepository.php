@@ -278,7 +278,7 @@ class StoreProductCategoryEntityRepository extends ServiceEntityRepository
     public function getStoreProductsCategoriesIdLevelOneByStoreOwnerProfileID($storeOwnerProfileID)
     {
         return $this->createQueryBuilder('storeProductCategory')
-            ->select('storeProductCategory.storeProductCategoryID')
+            ->select('DISTINCT(storeProductCategory.id)')
 
             ->leftJoin(ProductEntity::class, 'ProductEntity', Join::WITH, 'ProductEntity.storeProductCategoryID = storeProductCategory.id')
 
@@ -286,11 +286,8 @@ class StoreProductCategoryEntityRepository extends ServiceEntityRepository
 
             ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
 
-            ->groupBy('storeProductCategory.storeProductCategoryID')
-
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
     }
 
     public function isItRelatedToProductsOrOtherCategory($id)
