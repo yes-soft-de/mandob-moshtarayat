@@ -41,6 +41,8 @@ class ApiClient {
         _logger.info(tag, 'LANG');
         client.options.headers['Accept-Language'] =
             getIt<LocalizationService>().getLanguage();
+        // client.options.headers['Access-Control-Allow-Origin'] =
+        //     '*';
       }
       //  client.options.headers['Access-Control-Allow-Origin'] = '*';
       var response = await client.get(
@@ -88,7 +90,7 @@ class ApiClient {
           client.options.headers['Authorization'] = headers['Authorization'];
         }
       }
-      //  client.options.headers['Access-Control-Allow-Origin'] = '*';
+      // client.options.headers['Access-Control-Allow-Origin'] = '*';
       if (!kIsWeb) {
         client.interceptors.add(performanceInterceptor);
       }
