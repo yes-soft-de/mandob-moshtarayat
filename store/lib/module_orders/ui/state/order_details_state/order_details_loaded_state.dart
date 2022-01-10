@@ -7,7 +7,6 @@ import 'package:mandob_moshtarayat/module_orders/model/order_details_model.dart'
 import 'package:mandob_moshtarayat/module_orders/ui/screen/order_details_screen.dart';
 import 'package:mandob_moshtarayat/module_orders/ui/state/order_details_state/order_details_state.dart';
 import 'package:flutter/material.dart';
-import 'package:mandob_moshtarayat/module_orders/ui/widget/invoice.dart';
 import 'package:mandob_moshtarayat/module_orders/ui/widget/order_details/bill.dart';
 import 'package:mandob_moshtarayat/module_orders/ui/widget/order_details/order_chip.dart';
 import 'package:mandob_moshtarayat/utils/components/fixed_container.dart';
@@ -145,6 +144,7 @@ class OrderDetailsLoadedState extends OrderDetailsState {
                         color: Theme.of(context).primaryColor),
                     child: ListTile(
                       onTap: () {
+                        print(orderDetails.roomID);
                         Navigator.of(context).pushNamed(ChatRoutes.chatRoute,
                             arguments: orderDetails.roomID);
                       },
