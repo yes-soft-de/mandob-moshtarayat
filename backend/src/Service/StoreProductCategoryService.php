@@ -409,7 +409,7 @@ class StoreProductCategoryService
         $categoriesIdsLevel1 = $this->storeProductCategoryManager->getStoreProductsCategoriesIdLevelOneByStoreOwnerProfileID($storeOwnerProfileId);
 
         foreach($categoriesIdsLevel1 as $id) {
-            $categoriesLevel1 = $this->storeProductCategoryManager->getCategoriesLevel1ById($id['storeProductCategoryID']);
+            $categoriesLevel1 = $this->storeProductCategoryManager->getCategoriesLevel1ById($id[1]);
 
             foreach($categoriesLevel1 as $item) {
                 $item['productCategoryImage'] = $this->getImageParams($item['productCategoryImage'], $this->params.$item['productCategoryImage'], $this->params);
