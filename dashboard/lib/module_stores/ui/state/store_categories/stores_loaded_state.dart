@@ -64,22 +64,25 @@ class StoresLoadedState extends StoresState {
                       //color: Theme.of(context).backgroundColor,
                       border: Border.all(
                           color: Theme.of(context).primaryColor, width: 4)),
-                  child: Center(
-                    child: DropdownButton(
-                      value: id,
-                      items: getChoices(),
-                      onChanged: (v) {
-                        id = v.toString();
-                        screenState.refresh();
-                      },
-                      hint: Text(
-                        S.current.chooseCategory,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      underline: SizedBox(),
-                      icon: Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Icon(Icons.arrow_drop_down_rounded),
+                  child: Padding(
+                    padding: const EdgeInsets.only(right:16.0,left: 16),
+                    child: FittedBox(
+                      child: DropdownButton(
+                        value: id,
+                        items: getChoices(),
+                        onChanged: (v) {
+                          id = v.toString();
+                          screenState.refresh();
+                        },
+                        hint: Text(
+                          S.current.chooseCategory,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        underline: SizedBox(),
+                        icon: Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Icon(Icons.arrow_drop_down_rounded),
+                        ),
                       ),
                     ),
                   ),
@@ -130,11 +133,7 @@ class StoresLoadedState extends StoresState {
                     image: element.image,
                     privateOrders: element.privateOrders,
                     hasProducts: element.hasProducts,
-                    categoryId: categories
-                            ?.firstWhere(
-                                (e) => e.id.toString() == element.categoryId)
-                            .categoryName ??
-                        S.current.categoryName,
+                    categoryId:'',
                     bankName: element.bankName,
                     bankNumber: element.bankNumber,
                     stcPay: element.stcPay,

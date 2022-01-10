@@ -122,11 +122,7 @@ class StoresInActiveLoadedState extends States {
                     image: element.image,
                     privateOrders: element.privateOrders,
                     hasProducts: element.hasProducts,
-                    categoryId: categories
-                            ?.firstWhere(
-                                (e) => e.id.toString() == element.categoryId)
-                            .categoryName ??
-                        S.current.categoryName,
+                    categoryId:'',
                     stcPay: element.stcPay,
                     bankNumber: element.bankNumber,
                     bankName: element.bankName,

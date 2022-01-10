@@ -91,10 +91,6 @@ class StoreProfileLoadedState extends States {
         subTitle: profile?.storeOwnerName,
       ),
       CustomListTile(
-        title: S.current.categoryName,
-        subTitle: screenState.model?.categoryId,
-      ),
-      CustomListTile(
         title: S.current.storePhone,
         subTitle: profile?.phone,
       ),
@@ -109,11 +105,6 @@ class StoreProfileLoadedState extends States {
       CustomListTile(
         title: S.current.stc,
         subTitle: profile?.stcPay,
-      ),
-      CustomListTile(
-        title: S.current.deliverPrice,
-        subTitle:
-            '${screenState.model?.deliveryCost.toString() ?? 0} ${S.current.sar}',
       ),
       CustomListTile(
         title: S.current.openingTime,
