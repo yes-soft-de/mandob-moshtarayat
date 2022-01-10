@@ -80,6 +80,9 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('profile')
 
             ->select('profile.id', 'profile.storeOwnerName', 'profile.image', 'profile.phone', 'profile.privateOrders', 'profile.hasProducts', 'profile.status', 'profile.openingTime', 'profile.closingTime')
+            ->addSelect('StoreOwnerBranchEntity.location')
+
+            ->leftJoin(StoreOwnerBranchEntity::class, 'StoreOwnerBranchEntity', Join::WITH, 'StoreOwnerBranchEntity.storeOwnerProfileID = profile.id ')
 
             ->leftJoin(CategoryLinkEntity::class, 'CategoryLinkEntity', Join::WITH, 'CategoryLinkEntity.mainCategoryID = :storeCategoryId ')
 
@@ -170,15 +173,19 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
 
             ->select('profile.id', 'profile.storeOwnerName', 'profile.image', 'profile.phone', 'profile.privateOrders', 'profile.hasProducts', 'profile.status')
             ->addSelect('StoreOwnerBranchEntity.location')
-            ->addSelect('DeliveryCompanyFinancialEntity.deliveryCost')
-
-            ->leftJoin(DeliveryCompanyFinancialEntity::class, 'DeliveryCompanyFinancialEntity', Join::WITH, 'profile.id = profile.id')
 
             ->leftJoin(StoreOwnerBranchEntity::class, 'StoreOwnerBranchEntity', Join::WITH, 'StoreOwnerBranchEntity.storeOwnerProfileID = profile.id ')
 
-            ->andWhere('profile.storeCategoryId = :storeCategoryId')
+            ->leftJoin(CategoryLinkEntity::class, 'CategoryLinkEntity', Join::WITH, 'CategoryLinkEntity.mainCategoryID = :storeCategoryId ')
+
+            ->leftJoin(ProductEntity::class, 'ProductEntity', Join::WITH, 'ProductEntity.storeOwnerProfileID = profile.id ')
+
+            ->where('profile.status = :status')
+            ->andWhere('CategoryLinkEntity.mainCategoryID = :storeCategoryId ')
+            ->andWhere('ProductEntity.storeOwnerProfileID = profile.id  ')
 
             ->setParameter('storeCategoryId', $storeCategoryId)
+            ->setParameter('status', self::STATUS_ACTIVE)
 
             ->groupBy('profile.id')
 
