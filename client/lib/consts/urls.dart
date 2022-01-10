@@ -3,9 +3,10 @@
 // Developing Domain ===> 'http://138.197.186.138';
 // Production Domain ===> 'http://206.189.61.207'
 // Named Domain ===> 'https://mandoob.password-please.com'
+// New Domain ===> 'https://api.al-mandob.com'
 
 class Urls {
-  static const String DOMAIN = 'http://138.197.186.138';
+  static const String DOMAIN = 'https://api.al-mandob.com';
   static const String BASE_API = DOMAIN + '';
   static const String IMAGES_ROOT = DOMAIN + '/upload/';
   static const UPLOAD_API = BASE_API + '/uploadfile';
@@ -37,7 +38,7 @@ class Urls {
   static const GET_STORE_PROFILE = BASE_API + '/storeownerprofilebyid/';
   static const GET_MY_ORDERS = BASE_API + '/ordersbyclientid';
   static const GET_MY_NOTIFICATION = BASE_API + '/notificationsLocal';
-  static const GET_ORDER_LOGS = BASE_API + '/orderLogs';
+  static const GET_ORDER_LOGS = BASE_API + '/orderlogs';
   static const GET_ORDER_DETAILS = BASE_API + '/orderdetailsforclient';
   static const POST_CLIENT_ORDER_API = BASE_API + '/clientorder';
   static const POST_CLIENT_SEND_IT_ORDER_API = BASE_API + '/clientsendorder';
