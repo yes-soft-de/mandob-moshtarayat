@@ -2,6 +2,8 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
+import 'package:mandob_moshtarayat/module_auth/authorization_routes.dart';
+import 'package:mandob_moshtarayat/module_auth/service/auth_service/auth_service.dart';
 import 'package:mandob_moshtarayat/module_main/widget/bottom_sheet.dart';
 import 'package:mandob_moshtarayat/module_products/ui/screen/cart_screen.dart';
 import 'package:mandob_moshtarayat/di/di_config.dart';
@@ -97,47 +99,52 @@ class _MainScreenState extends State<MainScreen> {
                           size: 30,
                         ),
                         onPressed: () {
-                          fade = true;
-                          bottomSheet.currentState?.showBottomSheet(
-                              (context) => OuterOrderBottomSheet(
-                                    callback: (name, extraInfo, image) {
-                                      Navigator.of(context).pop();
-                                      fade = false;
-                                      setState(() {});
-                                      CustomFlushBarHelper.createSuccess(
-                                              title: S.current.warnning,
-                                              message:
-                                                  S.current.yourRequestSent,
-                                              timeout: 1)
-                                          .show(context);
-                                      if (image != null) {
-                                        getIt<ImageUploadService>()
-                                            .uploadImage(image)
-                                            .then((value) {
-                                          if (value != null) {
-                                            createCustomProduct(
-                                                name, extraInfo, value);
-                                          } else {
-                                            CustomFlushBarHelper.createError(
-                                                    title: S.current.warnning,
-                                                    message: S.current
-                                                        .errorUploadingImages)
-                                                .show(context);
-                                          }
-                                        });
-                                      } else {
-                                        createCustomProduct(
-                                            name, extraInfo, image);
-                                      }
-                                    },
-                                  ),
-                              elevation: 5,
-                              constraints: const BoxConstraints(maxWidth: 600),
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.vertical(
-                                    top: Radius.circular(25)),
-                              ));
-                          setState(() {});
+                          if (getIt<AuthService>().isLoggedIn) {
+                            fade = true;
+                            bottomSheet.currentState?.showBottomSheet(
+                                (context) => OuterOrderBottomSheet(
+                                      callback: (name, extraInfo, image) {
+                                        Navigator.of(context).pop();
+                                        fade = false;
+                                        setState(() {});
+                                        CustomFlushBarHelper.createSuccess(
+                                                title: S.current.warnning,
+                                                message:
+                                                    S.current.yourRequestSent,
+                                                timeout: 1)
+                                            .show(context);
+                                        if (image != null) {
+                                          getIt<ImageUploadService>()
+                                              .uploadImage(image)
+                                              .then((value) {
+                                            if (value != null) {
+                                              createCustomProduct(
+                                                  name, extraInfo, value);
+                                            } else {
+                                              CustomFlushBarHelper.createError(
+                                                      title: S.current.warnning,
+                                                      message: S.current
+                                                          .errorUploadingImages)
+                                                  .show(context);
+                                            }
+                                          });
+                                        } else {
+                                          createCustomProduct(
+                                              name, extraInfo, image);
+                                        }
+                                      },
+                                    ),
+                                elevation: 5,
+                                constraints:
+                                    const BoxConstraints(maxWidth: 600),
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(25)),
+                                ));
+                            setState(() {});
+                          } else {
+                            Navigator.of(context).pushNamed(AuthorizationRoutes.LOGIN_SCREEN);
+                          }
                         },
                       ),
                       floatingActionButtonLocation:
@@ -175,47 +182,20 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   void createCustomProduct(name, extraInfo, image) {
-    if (image == null) {
-      getIt<ReportService>()
-          .createCustomProduct(CustomProductRequest(
-              productImage: image, detail: extraInfo, productName: name))
-          .then((value) {
-        if (value.hasError) {
-          CustomFlushBarHelper.createError(
-                  title: S.current.warnning, message: value.error ?? '')
-              .show(context);
-        } else {
-          CustomFlushBarHelper.createSuccess(
-                  title: S.current.warnning,
-                  message: S.current.successCreateOrder)
-              .show(context);
-        }
-      });
-    } else {
-      getIt<ImageUploadService>().uploadImage(image).then((value) {
-        if (value != null) {
-          getIt<ReportService>()
-              .createCustomProduct(CustomProductRequest(
-                  productImage: image, detail: extraInfo, productName: name))
-              .then((value) {
-            if (value.hasError) {
-              CustomFlushBarHelper.createError(
-                      title: S.current.warnning, message: value.error ?? '')
-                  .show(context);
-            } else {
-              CustomFlushBarHelper.createSuccess(
-                      title: S.current.warnning,
-                      message: S.current.successCreateOrder)
-                  .show(context);
-            }
-          });
-        } else {
-          CustomFlushBarHelper.createError(
-                  title: S.current.warnning,
-                  message: S.current.errorUploadingImages)
-              .show(context);
-        }
-      });
-    }
+    getIt<ReportService>()
+        .createCustomProduct(CustomProductRequest(
+            productImage: image, detail: extraInfo, productName: name))
+        .then((value) {
+      if (value.hasError) {
+        CustomFlushBarHelper.createError(
+                title: S.current.warnning, message: value.error ?? '')
+            .show(context);
+      } else {
+        CustomFlushBarHelper.createSuccess(
+                title: S.current.warnning,
+                message: S.current.successCreateOrder)
+            .show(context);
+      }
+    });
   }
 }

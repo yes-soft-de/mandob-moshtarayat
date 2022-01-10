@@ -49,11 +49,6 @@ class BillCard extends StatelessWidget {
                     child: CustomListTile(
                         title: S.of(context).orderPrice,
                         subtitle: '$orderCost ${S.of(context).sar}')),
-                Expanded(
-                    child: CustomListTile(
-                  title: S.of(context).deliverPrice,
-                  subtitle: '$deliveryCost ${S.of(context).sar}',
-                ))
               ],
             ),
           ),

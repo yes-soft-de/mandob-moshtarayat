@@ -48,7 +48,7 @@ class PersonalDataStateManager {
       if (value == null) {
         CustomFlushBarHelper.createError(
             title: S.current.warnning,
-            message: S.current.uploadingImagesPleaseWait)
+            message: S.current.errorUploadingImages)
           ..show(screenState.context);
         _stateSubject.add(PersonalDataLoadedState(screenState, profileModel));
       } else {
