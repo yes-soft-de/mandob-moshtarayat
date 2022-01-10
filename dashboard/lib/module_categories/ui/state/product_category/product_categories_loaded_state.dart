@@ -13,6 +13,8 @@ import 'package:mandob_moshtarayat_dashboad/utils/components/empty_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/error_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/progresive_image.dart';
 
+import '../../../categories_routes.dart';
+
 class ProductCategoriesLoadedState extends States {
   final LevelTowCategoriesScreenState screenState;
   final String? error;
@@ -118,7 +120,7 @@ class ProductCategoriesLoadedState extends States {
                 ),
               ),
               Expanded(
-                child: CustomListView.custom(children: getStores()),
+                child: CustomListView.custom(children: getStores(context)),
               )
             ],
           ),
@@ -149,7 +151,7 @@ class ProductCategoriesLoadedState extends States {
     return items;
   }
 
-  List<Widget> getStores() {
+  List<Widget> getStores(BuildContext context) {
     List<Widget> widgets = [];
     if (subCategoriesLevelTow == null) {
       return widgets;
@@ -189,48 +191,53 @@ class ProductCategoriesLoadedState extends States {
               ),
               InkWell(
                 onTap: () {
-                  showDialog(
-                      barrierDismissible: false,
-                      context: screenState.context,
-                      builder: (context) {
-                        return Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height,
-                          child: Scaffold(
-                            appBar: CustomTwaslnaAppBar.appBar(context,
-                                title: S.current.addNewCategory),
-                            backgroundColor:
-                                Theme.of(context).scaffoldBackgroundColor,
-                            body: AddSubCategoriesLevelTowWidget(
-                              state: this,
-                              catID: screenState.mainCatId,
-                              subCatID: screenState.subCatId,
-                              languages: [],
-                              subCategoriesModel: element,
-                              addSubCategories: (id, subId, name, image, trs) {
-                                screenState.updateCategoryLevel2(
-                                    CategoryLevelTowRequest(
-                                  translate: screenState.languageSelected ==
-                                          'ar'
-                                      ? []
-                                      : [
-                                          TranslateSubTwoCategory(
-                                              lang:
-                                                  screenState.languageSelected,
-                                              productCategoryName: name,
-                                              productCategoryID: element.id)
-                                        ],
-                                  dataStoreCategory: DataStoreCategoryTwo(
-                                      storeProductCategoryID: int.parse(subId),
-                                      productCategoryName: name,
-                                      productCategoryImage: image,
-                                      id: element.id),
-                                ));
-                              },
-                            ),
-                          ),
-                        );
-                      });
+                  Navigator.pushNamed(context, CategoriesRoutes.UPDATE_PRODUCT_CATEGORIES,arguments: element.id).then((value) {
+                    if(value != null && value is bool && value ){
+                      screenState.getSubCategoriesLevelTow(categories ,subCategories);
+                    }
+                  });
+//                  showDialog(
+//                      barrierDismissible: false,
+//                      context: screenState.context,
+//                      builder: (context) {
+//                        return Container(
+//                          width: MediaQuery.of(context).size.width,
+//                          height: MediaQuery.of(context).size.height,
+//                          child: Scaffold(
+//                            appBar: CustomTwaslnaAppBar.appBar(context,
+//                                title: S.current.addNewCategory),
+//                            backgroundColor:
+//                                Theme.of(context).scaffoldBackgroundColor,
+//                            body: AddSubCategoriesLevelTowWidget(
+//                              state: this,
+//                              catID: screenState.mainCatId,
+//                              subCatID: screenState.subCatId,
+//                              languages: [],
+//                              subCategoriesModel: element,
+//                              addSubCategories: (id, subId, name, image, trs) {
+//                                screenState.updateCategoryLevel2(
+//                                    CategoryLevelTowRequest(
+//                                  translate: screenState.languageSelected ==
+//                                          'ar'
+//                                      ? []
+//                                      : [
+//                                          TranslateSubTwoCategory(
+//                                              lang:
+//                                                  screenState.languageSelected,
+//                                              productCategoryName: name,
+//                                              productCategoryID: element.id)
+//                                        ],
+//                                  dataStoreCategory: DataStoreCategoryTwo(
+//                                      storeProductCategoryID: int.parse(subId),
+//                                      productCategoryName: name,
+//                                      productCategoryImage: image,
+//                                      id: element.id),
+//                                ));
+//                              },
+//                            ),
+//                          ),
+//                        );
+//                      });
                 },
                 child: Container(
                   decoration: BoxDecoration(

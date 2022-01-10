@@ -553,7 +553,8 @@
   "outerOrder":"Private orders",
   "categoriesLink":"Categories Linking",
   "linkedSuccessfully":"Linked Successfully",
-  "exitWarning":"Please press again to exit"
+  "exitWarning":"Please press again to exit",
+  "addNewTrans": "Add new translate"
 
 
 

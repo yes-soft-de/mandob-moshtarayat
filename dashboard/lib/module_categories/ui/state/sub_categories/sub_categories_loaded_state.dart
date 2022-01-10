@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat_dashboad/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/categories_routes.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/model/StoreCategoriesModel.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/model/subCategoriesModel.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/sub_categories_request.dart';
@@ -84,7 +85,7 @@ class SubCategoriesLoadedState extends States {
                 ),
               ),
               Expanded(
-                child: CustomListView.custom(children: getStores()),
+                child: CustomListView.custom(children: getStores(context)),
               )
             ],
           ),
@@ -104,7 +105,7 @@ class SubCategoriesLoadedState extends States {
     return items;
   }
 
-  List<Widget> getStores() {
+  List<Widget> getStores(BuildContext context) {
     List<Widget> widgets = [];
     if (model == null) {
       return widgets;
@@ -144,49 +145,54 @@ class SubCategoriesLoadedState extends States {
               ),
               InkWell(
                 onTap: () {
-                  showDialog(
-                      barrierDismissible: false,
-                      context: screenState.context,
-                      builder: (context) {
-                        return Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height,
-                          child: Scaffold(
-                            appBar: CustomTwaslnaAppBar.appBar(context,
-                                title: S.current.updateCategory),
-                            backgroundColor:
-                                Theme.of(context).scaffoldBackgroundColor,
-                            body: AddSubCategoriesWidget(
-                              catID: screenState.id,
-                              state: this,
-                              languages: [],
-                              subCategoriesModel: element,
-                              selectedLang: screenState.languageSelected,
-                              addSubCategories: (id, name, image, tras) {
-                                Navigator.of(context).pop();
-                                screenState
-                                    .updateSubCategories(SubCategoriesRequest(
-                                  translate: screenState.languageSelected ==
-                                          'ar'
-                                      ? []
-                                      : [
-                                          TranslateSubCategory(
-                                              lang:
-                                                  screenState.languageSelected,
-                                              productCategoryName: name,
-                                              productCategoryID: element.id)
-                                        ],
-                                  dataStoreCategory: DataStoreCategory(
-                                      storeCategoryID: int.tryParse(id),
-                                      productCategoryImage: image,
-                                      productCategoryName: name,
-                                      id: element.id),
-                                ));
-                              },
-                            ),
-                          ),
-                        );
-                      });
+                  Navigator.pushNamed(context, CategoriesRoutes.UPDATE_SUB_CATEGORIES,arguments: element.id).then((value) {
+                    if(value != null && value is bool && value ){
+                      screenState.getSubCategories(categories);
+                    }
+                  });
+//                  showDialog(
+//                      barrierDismissible: false,
+//                      context: screenState.context,
+//                      builder: (context) {
+//                        return Container(
+//                          width: MediaQuery.of(context).size.width,
+//                          height: MediaQuery.of(context).size.height,
+//                          child: Scaffold(
+//                            appBar: CustomTwaslnaAppBar.appBar(context,
+//                                title: S.current.updateCategory),
+//                            backgroundColor:
+//                                Theme.of(context).scaffoldBackgroundColor,
+//                            body: AddSubCategoriesWidget(
+//                              catID: screenState.id,
+//                              state: this,
+//                              languages: [],
+//                              subCategoriesModel: element,
+//                              selectedLang: screenState.languageSelected,
+//                              addSubCategories: (id, name, image, tras) {
+//                                Navigator.of(context).pop();
+//                                screenState
+//                                    .updateSubCategories(SubCategoriesRequest(
+//                                  translate: screenState.languageSelected ==
+//                                          'ar'
+//                                      ? []
+//                                      : [
+//                                          TranslateSubCategory(
+//                                              lang:
+//                                                  screenState.languageSelected,
+//                                              productCategoryName: name,
+//                                              productCategoryID: element.id)
+//                                        ],
+//                                  dataStoreCategory: DataStoreCategory(
+//                                      storeCategoryID: int.tryParse(id),
+//                                      productCategoryImage: image,
+//                                      productCategoryName: name,
+//                                      id: element.id),
+//                                ));
+//                              },
+//                            ),
+//                          ),
+//                        );
+//                      });
                 },
                 child: Container(
                   decoration: BoxDecoration(

@@ -39,6 +39,8 @@ class Urls {
   static const GET_STORES_LOGS = BASE_API + '/ordersandcountbystoreprofileid/';
   static const CHECK_USER_ROLE = BASE_API + '/checkUserType';
   static const STORE_CATEGORIES = BASE_API + '/storecategories';
+  static const GET_STORE_CATEGORY = BASE_API + '/storecategory/';
+  static const GET_PRODUCT_CATEGORY = BASE_API + '/storeproductcategory/';
   static const STORE_CATEGORIES_LINKING_API = BASE_API + '/allstorecategories';
   static const CREATE_STORE_CATEGORIES = BASE_API + '/createstorecategory';
   static const GET_STORES_BY_CATEGORY =
@@ -137,4 +139,10 @@ class Urls {
       BASE_API + '/mainsublevelonecategorieslink';
   static const UPDATE_SUB_CATEGORIES_LINK =
       BASE_API + '/levelonesubleveltwocategorieslink';
+
+  static const CREATE_NEW_TRANS_STORE_CATEGORY =
+      BASE_API + '/createstorecategorytranslation';
+  static const CREATE_NEW_TRANS_PRODUCT_CATEGORY =
+      BASE_API + '/createstoreproductcategorytranslation';
+
 }

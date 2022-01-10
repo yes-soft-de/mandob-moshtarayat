@@ -49,6 +49,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تمت إضافة الفرع بنجاح"),
         "addCommission": MessageLookupByLibrary.simpleMessage("إضافة عمولة"),
         "addNewCategory": MessageLookupByLibrary.simpleMessage("إضافة صنف"),
+        "addNewTrans":
+            MessageLookupByLibrary.simpleMessage("إضافة ترجمة جديدة"),
         "addProducts": MessageLookupByLibrary.simpleMessage("إضافة منتجات"),
         "addStore": MessageLookupByLibrary.simpleMessage("أضف متجر"),
         "address": MessageLookupByLibrary.simpleMessage("الموقع"),

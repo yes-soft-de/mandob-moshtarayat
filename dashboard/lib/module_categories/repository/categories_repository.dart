@@ -5,12 +5,16 @@ import 'package:mandob_moshtarayat_dashboad/module_categories/request/category_l
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_product_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_products_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_store_category_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_translation_product_category_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_translation_store_category_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/filter_category_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_store_categories_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/sub_categories_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_product_category_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_product_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_store_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/response/product_category_response.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/response/store_category_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/products_category_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/store_categories_response.dart';
@@ -37,6 +41,41 @@ class CategoriesRepository {
     });
     if (response == null) return null;
     return StoreCategoriesResponse.fromJson(response);
+  }
+  Future<CategoryResponse?> getStoreCategory(String id) async {
+    var token = await _authService.getToken();
+    var lang = _localizationService.getLanguage();
+    dynamic response = await _apiClient.get(Urls.GET_STORE_CATEGORY+ '$id', headers: {
+      'Authorization': 'Bearer ' + token.toString(),
+      'Accept-Language': 'ar'
+    });
+    if (response == null) return null;
+    return CategoryResponse.fromJson(response);
+  }
+  Future<ProductCategoryResponse?> getProductCategory(String id) async {
+    var token = await _authService.getToken();
+    var lang = _localizationService.getLanguage();
+    dynamic response = await _apiClient.get(Urls.GET_PRODUCT_CATEGORY+ '$id', headers: {
+      'Authorization': 'Bearer ' + token.toString(),
+      'Accept-Language': 'ar'
+    });
+    if (response == null) return null;
+    return ProductCategoryResponse.fromJson(response);
+  }
+  Future<ActionResponse?> createNewTransStoreCategory(CreateNewTransStoreCategoryRequest request) async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.post(
+        Urls.CREATE_NEW_TRANS_STORE_CATEGORY, request.toJson(),
+        headers: {'Authorization': 'Bearer ' + token.toString()});
+    if (response == null) return null;
+    return ActionResponse.fromJson(response);
+  }  Future<ActionResponse?> createNewTransProductCategory(CreateNewTransProductCategoryRequest request) async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.post(
+        Urls.CREATE_NEW_TRANS_PRODUCT_CATEGORY, request.toJson(),
+        headers: {'Authorization': 'Bearer ' + token.toString()});
+    if (response == null) return null;
+    return ActionResponse.fromJson(response);
   }
 
   Future<StoreCategoriesResponse?> getStoreCategoriesWithLang(

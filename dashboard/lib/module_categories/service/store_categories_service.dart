@@ -4,6 +4,8 @@ import 'package:mandob_moshtarayat_dashboad/abstracts/data_model/data_model.dart
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/manager/categories_manager.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/model/StoreCategoriesModel.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/model/product_category_model.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/model/store_category_model.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/model/products_categories_model.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/model/products_model.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/model/subCategoriesModel.dart';
@@ -11,12 +13,16 @@ import 'package:mandob_moshtarayat_dashboad/module_categories/request/category_l
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_product_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_products_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_store_category_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_translation_product_category_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_translation_store_category_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/filter_category_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_store_categories_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/sub_categories_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_product_category_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_product_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_store_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/response/product_category_response.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/response/store_category_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/products_category_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/store_categories_response.dart';
@@ -42,6 +48,35 @@ class CategoriesService {
     }
     if (_ordersResponse.data == null) return DataModel.empty();
     return StoreCategoriesModel.withData(_ordersResponse.data!);
+  }
+
+
+  Future<DataModel> getStoreCategory(String id) async {
+    CategoryResponse? _ordersResponse =
+        await _categoriesManager.getStoreCategory(id);
+    if (_ordersResponse == null) {
+      return DataModel.withError(S.current.networkError);
+    }
+    if (_ordersResponse.statusCode != '200') {
+      return DataModel.withError(
+          StatusCodeHelper.getStatusCodeMessages(_ordersResponse.statusCode));
+    }
+    if (_ordersResponse.data == null) return DataModel.empty();
+    return CategoryModel.withData(_ordersResponse.data!);
+  }
+
+  Future<DataModel> getProductCategory(String id) async {
+    ProductCategoryResponse? _ordersResponse =
+    await _categoriesManager.getProductCategory(id);
+    if (_ordersResponse == null) {
+      return DataModel.withError(S.current.networkError);
+    }
+    if (_ordersResponse.statusCode != '200') {
+      return DataModel.withError(
+          StatusCodeHelper.getStatusCodeMessages(_ordersResponse.statusCode));
+    }
+    if (_ordersResponse.data == null) return DataModel.empty();
+    return ProductCategoryModel.withData(_ordersResponse.data!);
   }
 
   Future<DataModel> getStoreCategoriesWithLang(
@@ -102,7 +137,30 @@ class CategoriesService {
     }
     return DataModel.empty();
   }
-
+  Future<DataModel> createNewTransStoreCategory(CreateNewTransStoreCategoryRequest request) async {
+    ActionResponse? actionResponse =
+    await _categoriesManager.createNewTransStoreCategory(request);
+    if (actionResponse == null) {
+      return DataModel.withError(S.current.networkError);
+    }
+    if (actionResponse.statusCode != '201') {
+      return DataModel.withError(
+          StatusCodeHelper.getStatusCodeMessages(actionResponse.statusCode));
+    }
+    return DataModel.empty();
+  }
+  Future<DataModel> createNewTransProductCategory(CreateNewTransProductCategoryRequest request) async {
+    ActionResponse? actionResponse =
+    await _categoriesManager.createNewTransProductCategory(request);
+    if (actionResponse == null) {
+      return DataModel.withError(S.current.networkError);
+    }
+    if (actionResponse.statusCode != '201') {
+      return DataModel.withError(
+          StatusCodeHelper.getStatusCodeMessages(actionResponse.statusCode));
+    }
+    return DataModel.empty();
+  }
   Future<DataModel> getProductsCategory(int id) async {
     ProductsCategoryResponse? _productCategories =
         await _categoriesManager.getProductCategories(id);

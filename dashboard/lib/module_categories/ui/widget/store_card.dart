@@ -6,11 +6,12 @@ class StoresCategoryCard extends StatelessWidget {
   final String image;
   final Widget dialog;
   final VoidCallback onTap;
+  final VoidCallback onEdit;
   StoresCategoryCard(
       {required this.storeName,
       required this.onTap,
       required this.image,
-      required this.dialog});
+      required this.dialog,required this.onEdit});
 
   @override
   Widget build(BuildContext context) {
@@ -59,13 +60,14 @@ class StoresCategoryCard extends StatelessWidget {
               ),
               InkWell(
                 customBorder: CircleBorder(),
-                onTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return dialog;
-                      });
-                },
+                onTap:onEdit,
+//                  () {
+////                  showDialog(
+////                      context: context,
+////                      builder: (context) {
+////                        return dialog;
+////                      });
+//                },
                 child: Container(
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
