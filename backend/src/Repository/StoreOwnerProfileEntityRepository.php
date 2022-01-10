@@ -7,7 +7,7 @@ use App\Entity\ProductEntity;
 use App\Entity\StoreOwnerProfileEntity;
 use App\Entity\StoreOwnerBranchEntity;
 use App\Entity\OrderEntity;
-use App\Entity\CaptainProfileEntity;
+use App\Entity\CategoryLinkEntity;
 use App\Entity\DeliveryCompanyFinancialEntity;
 use App\Entity\StoreCategoryEntity;
 use App\Entity\UserEntity;
@@ -80,15 +80,14 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('profile')
 
             ->select('profile.id', 'profile.storeOwnerName', 'profile.image', 'profile.phone', 'profile.privateOrders', 'profile.hasProducts', 'profile.status', 'profile.openingTime', 'profile.closingTime')
-            ->addSelect('StoreOwnerBranchEntity.location')
-            ->addSelect('DeliveryCompanyFinancialEntity.deliveryCost')
 
-            ->leftJoin(DeliveryCompanyFinancialEntity::class, 'DeliveryCompanyFinancialEntity', Join::WITH, 'profile.id = profile.id')
+            ->leftJoin(CategoryLinkEntity::class, 'CategoryLinkEntity', Join::WITH, 'CategoryLinkEntity.mainCategoryID = :storeCategoryId ')
 
-            ->leftJoin(StoreOwnerBranchEntity::class, 'StoreOwnerBranchEntity', Join::WITH, 'StoreOwnerBranchEntity.storeOwnerProfileID = profile.id ')
+            ->leftJoin(ProductEntity::class, 'ProductEntity', Join::WITH, 'ProductEntity.storeOwnerProfileID = profile.id ')
 
-            ->andWhere('profile.storeCategoryId = :storeCategoryId')
-            ->andWhere('profile.status = :status')
+            ->where('profile.status = :status')
+            ->andWhere('CategoryLinkEntity.mainCategoryID = :storeCategoryId ')
+            ->andWhere('ProductEntity.storeOwnerProfileID = profile.id  ')
 
             ->setParameter('storeCategoryId', $storeCategoryId)
             ->setParameter('status', self::STATUS_ACTIVE)
