@@ -5549,6 +5549,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Add new translate`
+  String get addNewTrans {
+    return Intl.message(
+      'Add new translate',
+      name: 'addNewTrans',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -5,12 +5,16 @@ import 'package:mandob_moshtarayat_dashboad/module_categories/request/category_l
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_product_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_products_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_store_category_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_translation_product_category_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_translation_store_category_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/filter_category_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_store_categories_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/sub_categories_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_product_category_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_product_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_store_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/response/product_category_response.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/response/store_category_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/products_category_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/store_categories_response.dart';
@@ -25,6 +29,10 @@ class CategoriesManager {
 
   Future<StoreCategoriesResponse?> getStoreCategories() =>
       _categoriesRepository.getStoreCategories();
+  Future<CategoryResponse?> getStoreCategory(String id) =>
+      _categoriesRepository.getStoreCategory(id);
+  Future<ProductCategoryResponse?> getProductCategory(String id) =>
+      _categoriesRepository.getProductCategory(id);
   Future<StoreCategoriesResponse?> getStoreCategoriesWithLang(
           FilterLanguageCategoryRequest request) =>
       _categoriesRepository.getStoreCategoriesWithLang(request);
@@ -38,6 +46,11 @@ class CategoriesManager {
 
   Future<ActionResponse?> createCategory(CreateStoreCategoryRequest request) =>
       _categoriesRepository.addCategory(request);
+
+  Future<ActionResponse?> createNewTransStoreCategory(CreateNewTransStoreCategoryRequest request) =>
+      _categoriesRepository.createNewTransStoreCategory(request);
+  Future<ActionResponse?> createNewTransProductCategory(CreateNewTransProductCategoryRequest request) =>
+      _categoriesRepository.createNewTransProductCategory(request);
 
   Future<ProductsCategoryResponse?> getProductCategories(int id) =>
       _categoriesRepository.getProductsCategory(id);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/categories_routes.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/model/StoreCategoriesModel.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_store_categories_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/screen/store_categories_screen.dart';
@@ -71,6 +72,13 @@ class StoreCategoriesLoadedState extends StoreCategoriesState {
       widgets.add(StoresCategoryCard(
         image: element.image,
         storeName: element.categoryName,
+        onEdit: (){
+          Navigator.pushNamed(context, CategoriesRoutes.UPDATE_STORE_CATEGORIES,arguments: element.id).then((value) {
+            if(value != null && value is bool && value ){
+              screenState.getStoreCategoriesWithLang(screenState.languageSelected??'ar');
+            }
+          });
+        },
         onTap: () {
           showDialog(
               context: context,

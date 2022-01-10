@@ -550,7 +550,7 @@
   "outerOrder":"طلبات خاصة",
   "categoriesLink":"ربط التصنيفات",
   "linkedSuccessfully":"تم الربط بنجاح",
-  "exitWarning":"اضغط مرة اخرى للخروج من التطبيق"
-
+  "exitWarning":"اضغط مرة اخرى للخروج من التطبيق",
+  "addNewTrans": "إضافة ترجمة جديدة"
 
 }

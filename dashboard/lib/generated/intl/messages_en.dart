@@ -49,6 +49,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Branch has been added successfully"),
         "addCommission": MessageLookupByLibrary.simpleMessage("Add commission"),
         "addNewCategory": MessageLookupByLibrary.simpleMessage("Add Category"),
+        "addNewTrans":
+            MessageLookupByLibrary.simpleMessage("Add new translate"),
         "addProducts": MessageLookupByLibrary.simpleMessage("Add Products"),
         "addStore": MessageLookupByLibrary.simpleMessage("Add Stores"),
         "address": MessageLookupByLibrary.simpleMessage("Address"),
