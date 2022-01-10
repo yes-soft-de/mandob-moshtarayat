@@ -154,7 +154,7 @@ class BaseController extends AbstractController
                 ]
                 , Response::HTTP_OK);
             $response->headers->set('Access-Control-Allow-Headers', 'X-Header-One,X-Header-Two');
-            $response->headers->set('Access-Control-Allow-Origin', '*');
+            $response->headers->set('Access-Control-Allow-Origin', 'https://al-mandob.com');
             $response->headers->set('Access-Control-Allow-Methods', 'PUT');
             return $response;
         }
