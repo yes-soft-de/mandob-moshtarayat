@@ -134,6 +134,7 @@ class OrderController extends BaseController
      *                  @OA\Property(type="number", property="orderCost"),
      *                  @OA\Property(type="integer", property="orderType"),
      *                  @OA\Property(type="string", property="note"),
+     *                  @OA\Property(type="string", property="state"),
      *                  ),
      *            )
      *       )
@@ -325,6 +326,7 @@ class OrderController extends BaseController
      *                  @OA\Property(type="number", property="orderCost"),
      *                  @OA\Property(type="integer", property="orderType"),
      *                  @OA\Property(type="string", property="note"),
+     *                  @OA\Property(type="string", property="state"),
      *                  ),
      *            )
      *       )
@@ -371,6 +373,7 @@ class OrderController extends BaseController
      *                  @OA\Property(type="number", property="orderCost"),
      *                  @OA\Property(type="integer", property="orderType"),
      *                  @OA\Property(type="string", property="note"),
+     *                  @OA\Property(type="string", property="state"),
      *                  ),
      *            )
      *       )
@@ -419,6 +422,7 @@ class OrderController extends BaseController
      *                  @OA\Property(type="number", property="orderCost"),
      *                  @OA\Property(type="integer", property="orderType"),
      *                  @OA\Property(type="string", property="note"),
+     *                  @OA\Property(type="string", property="state"),
      *                  ),
      *            )
      *       )
