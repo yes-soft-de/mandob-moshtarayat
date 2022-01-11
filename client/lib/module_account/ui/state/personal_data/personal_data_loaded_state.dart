@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'dart:html' as html;
 import 'package:image_picker/image_picker.dart';
 import 'package:mandob_moshtarayat/consts/urls.dart';
 import 'package:mandob_moshtarayat/di/di_config.dart';
@@ -13,6 +13,7 @@ import 'package:mandob_moshtarayat/module_account/ui/state/personal_data/persona
 import 'package:mandob_moshtarayat/module_account/ui/widget/update_button.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_feild.dart';
 import 'package:mandob_moshtarayat/utils/images/images.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class PersonalDataLoadedState extends PersonalDataState {
   PersonalDataScreenState screenState;
@@ -126,8 +127,11 @@ class PersonalDataLoadedState extends PersonalDataState {
                             },
                             fit: BoxFit.cover,
                             image: screenState.fileString != null
-                                ? Image.file(File(screenState.fileString!))
-                                    .image
+                                ? (kIsWeb
+                                    ? Image.network(Urls.IMAGES_ROOT + (profileModel?.image ?? ''))
+                                        .image
+                                    : Image.file(File(screenState.fileString!))
+                                        .image)
                                 : NetworkImage(image),
                             width: 150,
                             height: 150,

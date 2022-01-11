@@ -38,24 +38,25 @@ class PersonalDataStateManager {
   void uploadImage(String imagePath, PersonalDataScreenState screenState,
       ProfileModel profileModel) {
     CustomFlushBarHelper.createSuccess(
-        title: S.current.warnning,
-        message: S.current.uploadingImagesPleaseWait,
-        background: Theme.of(screenState.context).primaryColor,
-        timeout: 1,
-        top: true)
-      ..show(screenState.context);
+            title: S.current.warnning,
+            message: S.current.uploadingImagesPleaseWait,
+            background: Theme.of(screenState.context).primaryColor,
+            timeout: 1,
+            top: true)
+        .show(screenState.context);
     _uploadService.uploadImage(imagePath).then((value) {
       if (value == null) {
         CustomFlushBarHelper.createError(
-            title: S.current.warnning,
-            message: S.current.errorUploadingImages)
-          ..show(screenState.context);
+                title: S.current.warnning,
+                message: S.current.errorUploadingImages)
+            .show(screenState.context);
         _stateSubject.add(PersonalDataLoadedState(screenState, profileModel));
       } else {
         profileModel.image = value;
         CustomFlushBarHelper.createSuccess(
-            title: S.current.warnning, message: S.current.uploadImageSuccess)
-          ..show(screenState.context);
+                title: S.current.warnning,
+                message: S.current.uploadImageSuccess)
+            .show(screenState.context);
         _stateSubject.add(PersonalDataLoadedState(screenState, profileModel));
       }
     });
