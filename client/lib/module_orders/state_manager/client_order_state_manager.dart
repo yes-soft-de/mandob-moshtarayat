@@ -1,6 +1,8 @@
 import 'package:injectable/injectable.dart';
+import 'package:mandob_moshtarayat/di/di_config.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_orders/request/create_payment_record_request.dart';
+import 'package:mandob_moshtarayat/module_stores/presistance/cart_hive_box_helper.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:mandob_moshtarayat/module_auth/service/auth_service/auth_service.dart';
@@ -24,6 +26,7 @@ class ClientOrderStateManager {
       _stateSubject.add(ClientLoadingState(screenState));
       _OrdersService.postClientOrder(request).then((value) {
         if (value.hasError) {
+          getIt<CartHiveHelper>().deleteCart();
           screenState.moveDecision(false, value.error!);
         } else {
           screenState.needToPay(value.data);
