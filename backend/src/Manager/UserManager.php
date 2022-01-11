@@ -148,7 +148,7 @@ class UserManager
             $item->setClosingTime( $request->getClosingTime());
 
             $this->entityManager->flush();
-            $this->entityManager->clear();
+//            $this->entityManager->clear();
 
             return $item;
         }
