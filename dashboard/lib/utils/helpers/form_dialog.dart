@@ -8,6 +8,7 @@ import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_pro
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_feild.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_list_view.dart';
+import 'package:mandob_moshtarayat_dashboad/utils/components/fixed_container.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/stacked_form.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/effect/checked.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/helpers/custom_flushbar.dart';
@@ -88,114 +89,116 @@ class _InsertFormState extends State<InsertForm> {
   @override
   Widget build(BuildContext context) {
     return StackedForm(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Form(
-              key: _key,
-              child: CustomListView.custom(children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: 12.0, bottom: 8, right: 12, top: 8.0),
-                  child: Text(
-                    S.current.categoryName,
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.start,
+        child: FixedContainer(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Form(
+                key: _key,
+                child: CustomListView.custom(children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 12.0, bottom: 8, right: 12, top: 8.0),
+                    child: Text(
+                      S.current.categoryName,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.start,
+                    ),
                   ),
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: CustomFormFieldWithTranslate(
-                        controller: _nameArController,
-                        hintText: widget.hintText,
-                        last: true,
-                        initLanguage: isUpdate ? lang : 'ar',
-                        languages: isUpdate ? [lang] : ['ar'],
+                  Row(
+                    children: [
+                      Expanded(
+                        child: CustomFormFieldWithTranslate(
+                          controller: _nameArController,
+                          hintText: widget.hintText,
+                          last: true,
+                          initLanguage: isUpdate ? lang : 'ar',
+                          languages: isUpdate ? [lang] : ['ar'],
+                        ),
+                      ),
+                      isUpdate
+                          ? Container()
+                          : InkWell(
+                              onTap: () {
+                                if (_nameArController.text.isEmpty) {
+                                  CustomFlushBarHelper.createError(
+                                          title: S.current.warnning,
+                                          message:
+                                              S.current.pleaseCompleteTheForm)
+                                      .show(context);
+                                } else if (translateWidgets.length !=
+                                    widget.languages.length) {
+                                  trans(true);
+                                }
+                              },
+                              child: Icon(Icons.add))
+                    ],
+                  ),
+                  Column(
+                    children: trans(false),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Center(
+                        child: Text(
+                      S.current.categoryImage,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    )),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      ImagePicker.platform
+                          .getImage(
+                        source: ImageSource.gallery,
+                        imageQuality: 70,
+                      )
+                          .then((value) {
+                        if (value != null) {
+                          imagePath = value.path;
+                          setState(() {});
+                        }
+                      });
+                    },
+                    child: Checked(
+                      child: Icon(
+                        Icons.image,
+                        size: 125,
+                      ),
+                      checked: imagePath != null,
+                      checkedWidget: SizedBox(
+                          height: 250,
+                          child: ClipRRect(
+                              borderRadius: BorderRadius.circular(25),
+                              child: imagePath?.contains('http') == true
+                                  ? Image.network(
+                                      imagePath ?? '',
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Image.file(
+                                      File(imagePath ?? ''),
+                                      fit: BoxFit.scaleDown,
+                                    ))),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25),
+                          color: Theme.of(context).primaryColor.withOpacity(0.4)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Text(
+                          S.current.imageSpecification,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
-                    isUpdate
-                        ? Container()
-                        : InkWell(
-                            onTap: () {
-                              if (_nameArController.text.isEmpty) {
-                                CustomFlushBarHelper.createError(
-                                        title: S.current.warnning,
-                                        message:
-                                            S.current.pleaseCompleteTheForm)
-                                    .show(context);
-                              } else if (translateWidgets.length !=
-                                  widget.languages.length) {
-                                trans(true);
-                              }
-                            },
-                            child: Icon(Icons.add))
-                  ],
-                ),
-                Column(
-                  children: trans(false),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Center(
-                      child: Text(
-                    S.current.categoryImage,
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  )),
-                ),
-                InkWell(
-                  onTap: () {
-                    ImagePicker.platform
-                        .getImage(
-                      source: ImageSource.gallery,
-                      imageQuality: 70,
-                    )
-                        .then((value) {
-                      if (value != null) {
-                        imagePath = value.path;
-                        setState(() {});
-                      }
-                    });
-                  },
-                  child: Checked(
-                    child: Icon(
-                      Icons.image,
-                      size: 125,
-                    ),
-                    checked: imagePath != null,
-                    checkedWidget: SizedBox(
-                        height: 250,
-                        child: ClipRRect(
-                            borderRadius: BorderRadius.circular(25),
-                            child: imagePath?.contains('http') == true
-                                ? Image.network(
-                                    imagePath ?? '',
-                                    fit: BoxFit.cover,
-                                  )
-                                : Image.file(
-                                    File(imagePath ?? ''),
-                                    fit: BoxFit.scaleDown,
-                                  ))),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
-                        color: Theme.of(context).primaryColor.withOpacity(0.4)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text(
-                        S.current.imageSpecification,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ),
+                  SizedBox(
+                    height: 75,
                   ),
-                ),
-                SizedBox(
-                  height: 75,
-                ),
-              ])),
+                ])),
+          ),
         ),
         label: widget.storeCategoriesRequest != null
             ? S.current.update

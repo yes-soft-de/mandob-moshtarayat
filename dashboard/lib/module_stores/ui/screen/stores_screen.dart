@@ -66,63 +66,6 @@ class StoresScreenState extends State<StoresScreen> {
         GlobalVariable.mainScreenScaffold.currentState?.openDrawer();
       }),
       body: currentState.getUI(context),
-      floatingActionButton: Hider(
-        active: canAddCategories,
-        child: FloatedIconButton(
-          text: S.current.addStore,
-          icon: Icons.add_circle_rounded,
-          onPressed: () {
-            showDialog(
-                barrierDismissible: false,
-                context: context,
-                builder: (_) {
-                  return Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                    child: Scaffold(
-                      appBar: CustomTwaslnaAppBar.appBar(context,
-                          title: S.current.addStore),
-                      backgroundColor:
-                          Theme.of(context).scaffoldBackgroundColor,
-                      body: AddStoreWidget(
-                        state: currentState is StoresLoadedState
-                            ? currentState as StoresLoadedState
-                            : null,
-                        addStore: (
-                            name,
-                            phone,
-                            image,
-                            location,
-                            products,
-                            privateOrder,
-                            open,
-                            close,
-                            status,
-                            bankName,
-                            bankNumber,
-                            sty) {
-                          Navigator.of(context).pop();
-                          addStore(CreateStoreRequest(
-                              location: location,
-                              storeOwnerName: name,
-                              phone: phone,
-                              image: image,
-                              hasProducts: products ? 1 : 0,
-                              privateOrders: privateOrder ? 1 : 0,
-                              openingTime: open,
-                              closingTime: close,
-                              status: status,
-                              bankName: bankName,
-                              bankAccountNumber: bankNumber,
-                              stcPay: sty));
-                        },
-                      ),
-                    ),
-                  );
-                });
-          },
-        ),
-      ),
-    );
+  );
   }
 }

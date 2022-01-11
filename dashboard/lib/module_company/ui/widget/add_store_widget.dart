@@ -50,34 +50,7 @@ class _AddStoreWidgetState extends State<AddStoreWidget> {
           child: CustomListView.custom(
               padding: EdgeInsets.only(right: 16, left: 16),
               children: [
-                Hider(
-                  active: widget.state != null,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
-                        color: Theme.of(context).backgroundColor),
-                    child: Center(
-                      child: DropdownButton(
-                        value: catId,
-                        items: widget.state!.getChoices(),
-                        onChanged: (v) {
-                          catId = v.toString();
-                          setState(() {});
-                        },
-                        hint: Text(
-                          S.current.chooseCategory,
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        underline: SizedBox(),
-                        icon: Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Icon(Icons.arrow_drop_down_rounded),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
+               Padding(
                   padding: const EdgeInsets.only(
                       left: 12.0, bottom: 8, right: 12, top: 16.0),
                   child: Text(
