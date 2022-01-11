@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:html' as html;
 import 'package:image_picker/image_picker.dart';
 import 'package:mandob_moshtarayat/consts/urls.dart';
 import 'package:mandob_moshtarayat/di/di_config.dart';
