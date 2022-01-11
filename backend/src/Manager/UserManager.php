@@ -85,6 +85,8 @@ class UserManager
                 $clientProfile->setClientID($userRegister->getId());
                 $clientProfile->setClientName($request->getUserName());
                 $clientProfile->setRoomID($roomID);
+                $clientProfile->setPhone($request->getUserID());
+
                 $this->entityManager->persist($clientProfile);
                 $this->entityManager->flush();
                 $this->entityManager->clear();
@@ -101,6 +103,8 @@ class UserManager
                 $clientProfile->setClientID($user['id']);
                 $clientProfile->setClientName($request->getUserName());
                 $clientProfile->setRoomID($roomID);
+                $clientProfile->setPhone($request->getUserID());
+
                 $this->entityManager->persist($clientProfile);
                 $this->entityManager->flush();
                 $this->entityManager->clear();
@@ -148,7 +152,7 @@ class UserManager
             $item->setClosingTime( $request->getClosingTime());
 
             $this->entityManager->flush();
-            $this->entityManager->clear();
+//            $this->entityManager->clear();
 
             return $item;
         }

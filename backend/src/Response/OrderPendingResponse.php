@@ -12,4 +12,5 @@ class OrderPendingResponse
     public $orderCost;
     public $orderType;
     public $note;
+    public $state;
 }
