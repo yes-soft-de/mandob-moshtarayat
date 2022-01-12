@@ -597,7 +597,15 @@ class OrderService
         $response = [];
 
         $item['orderDetails'] = $this->orderDetailService->getOrderDetailsByOrderNumberForAdmin($orderNumber);
-        $item['deliveryCost'] = $this->deliveryCompanyFinancialService->getDeliveryCostScalar();
+//        $item['deliveryCost'] = $this->deliveryCompanyFinancialService->getDeliveryCostScalar();
+        $deliveryCost = $this->deliveryCompanyFinancialService->deliveryCost();
+        if(!$deliveryCost){
+            $item['deliveryCost'] = (string) 0;
+        }
+        else{
+            $item['deliveryCost'] = (string) $deliveryCost['deliveryCost'];
+        }
+
         $item['invoices'] = $this->ordersInvoicesService->getInvoicesByOrderNumber($orderNumber);
         $item['rate'] = $this->ratingService->getAvgOrder($orderNumber);
 
@@ -620,7 +628,14 @@ class OrderService
 
         $item['orderDetails'] = $this->orderDetailService->getOrderDetailsByOrderNumberForCaptain($orderNumber);
 
-        $item['deliveryCost'] = $this->deliveryCompanyFinancialService->getDeliveryCostScalar();
+//        $item['deliveryCost'] = $this->deliveryCompanyFinancialService->getDeliveryCostScalar();
+        $deliveryCost = $this->deliveryCompanyFinancialService->deliveryCost();
+        if(!$deliveryCost){
+            $item['deliveryCost'] = (string) 0;
+        }
+        else{
+            $item['deliveryCost'] = (string) $deliveryCost['deliveryCost'];
+        }
         $item['invoices'] = $this->ordersInvoicesService->getInvoicesByOrderNumber($orderNumber);
 
         $item['rate'] = $this->ratingService->getAvgOrder($orderNumber);
@@ -636,7 +651,15 @@ class OrderService
         $response = [];
 
         $item['orderDetails'] = $this->orderDetailService->orderDetailsForClient($orderNumber);
-        $item['deliveryCost'] = $this->deliveryCompanyFinancialService->getDeliveryCostScalar();
+//        $item['deliveryCost'] = $this->deliveryCompanyFinancialService->getDeliveryCostScalar();
+
+        $deliveryCost = $this->deliveryCompanyFinancialService->deliveryCost();
+        if(!$deliveryCost){
+            $item['deliveryCost'] = (string) 0;
+        }
+        else{
+            $item['deliveryCost'] = (string) $deliveryCost['deliveryCost'];
+        }
         $item['invoices'] = $this->ordersInvoicesService->getInvoicesByOrderNumber($orderNumber);
 
         $item['rate'] = $this->ratingService->getAvgOrder($orderNumber);
