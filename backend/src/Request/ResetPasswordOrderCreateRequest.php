@@ -8,6 +8,8 @@ class ResetPasswordOrderCreateRequest
 
     private $code;
 
+    private $role;
+
     public function getUserID()
     {
         return $this->userID;
@@ -18,4 +20,8 @@ class ResetPasswordOrderCreateRequest
         $this->code = $code;
     }
 
+    public function getRole()
+    {
+        return $this->role;
+    }
 }
