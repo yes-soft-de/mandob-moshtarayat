@@ -53,6 +53,21 @@ class UserEntityRepository extends ServiceEntityRepository implements PasswordUp
             ->getOneOrNullResult();
     }
 
+    public function getUserByUserIdAndRole($userID, $role)
+    {
+        return $this->createQueryBuilder('userEntity')
+            ->select('userEntity.id', 'userEntity.userID', 'userEntity.email')
+
+            ->andWhere('userEntity.userID = :userID')
+            ->setParameter('userID', $userID)
+
+            ->andWhere('userEntity.roles LIKE :roles')
+            ->setParameter('roles', '%"'.$role.'"%')
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     public function getStoreProfileId($userID)
     {
         return $this->createQueryBuilder('user')

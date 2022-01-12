@@ -36,7 +36,15 @@ class ResetPasswordOrderService
     public function createResetPasswordOrder(ResetPasswordOrderCreateRequest $request)
     {
         // First, check if user exist
-        $user = $this->userService->getUserByUserID($request->getUserID());
+        if ($request->getRole()) {
+
+            $user = $this->userService->getUserByUserIdAndRole($request->getUserID(), $request->getRole());
+
+        } else {
+
+            $user = $this->userService->getUserByUserID($request->getUserID());
+
+        }
 
         if ($user)
         {

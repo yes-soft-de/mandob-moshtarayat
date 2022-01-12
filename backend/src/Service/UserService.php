@@ -144,6 +144,16 @@ class UserService
         }
     }
 
+    public function getUserByUserIdAndRole($userID, $role)
+    {
+        $user = $this->userManager->getUserByUserIdAndRole($userID, $role);
+
+        if($user)
+        {
+            return $this->autoMapping->map('array', UsersGetResponse::class, $user);
+        }
+    }
+
     public function updateUserPassword(UserPasswordUpdateRequest $request)
     {
         $result = $this->userManager->updateUserPassword($request);

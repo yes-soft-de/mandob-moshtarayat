@@ -40,7 +40,8 @@ class ResetPasswordOrderController extends BaseController
      * @OA\RequestBody(
      *      description="Create new reset password order",
      *      @OA\JsonContent(
-     *          @OA\Property(type="string", property="userID")
+     *          @OA\Property(type="string", property="userID"),
+     *          @OA\Property(type="string", property="role", example="ROLE_CAPTAIN")
      *      )
      * )
      *

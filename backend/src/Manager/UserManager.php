@@ -119,6 +119,11 @@ class UserManager
         return $this->userRepository->getUserByUserID($userID);
     }
 
+    public function getUserByUserIdAndRole($userID, $role)
+    {
+        return $this->userRepository->getUserByUserIdAndRole($userID, $role);
+    }
+
     public function storeOwnerProfileUpdate(StoreOwnerProfileUpdateRequest $request)
     {
         $item = $this->storeOwnerProfileEntityRepository->getUserProfile($request->getUserID());
