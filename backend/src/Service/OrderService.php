@@ -1089,8 +1089,9 @@ class OrderService
         $storeOwnerProfileID = $this->userService->getStoreProfileId($userId);
 
         $orders = $this->orderDetailService->getStorePendingOrders($storeOwnerProfileID);
-
         foreach ($orders as $order) {
+            $order['invoiceAmount'] = $this->orderDetailService->getTotalProductsPriceByOrderNumberAndStoreIDForStore($order['orderNumber'], $storeOwnerProfileID);
+
             $response[] = $this->autoMapping->map('array', OrdersPendingForStoreResponse::class, $order);
         }
 
