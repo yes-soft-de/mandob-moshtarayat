@@ -169,10 +169,10 @@ class StoreProfileLoadedState extends States {
         title: S.current.storeName,
         subTitle: profile?.storeOwnerName,
       ),
-      CustomListTile(
-        title: S.current.categoryName,
-        subTitle: profile?.storeCategoryName,
-      ),
+//      CustomListTile(
+//        title: S.current.categoryName,
+//        subTitle: profile?.storeCategoryName,
+//      ),
       CustomListTile(
         title: S.current.storePhone,
         subTitle: profile?.phone,
