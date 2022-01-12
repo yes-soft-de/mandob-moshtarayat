@@ -20,9 +20,8 @@ class StoresLoadedState extends StoresState {
   final String? error;
   final bool empty;
   final List<StoresModel>? model;
-  final List<StoreCategoriesModel>? categories;
 
-  StoresLoadedState(this.screenState, this.model, this.categories,
+  StoresLoadedState(this.screenState, this.model,
       {this.empty = false, this.error})
       : super(screenState) {
     if (error != null) {

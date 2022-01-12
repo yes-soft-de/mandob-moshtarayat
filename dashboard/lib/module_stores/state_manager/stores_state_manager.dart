@@ -2,7 +2,6 @@ import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_auth/service/auth_service/auth_service.dart';
-import 'package:mandob_moshtarayat_dashboad/module_categories/model/StoreCategoriesModel.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_store_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/service/store_categories_service.dart';
 import 'package:mandob_moshtarayat_dashboad/module_stores/model/stores_model.dart';
@@ -31,31 +30,15 @@ class StoresStateManager {
 
   void getStores(StoresScreenState screenState) {
     _stateSubject.add(StoresLoadingState(screenState));
-    _categoriesService.getStoreCategories().then((categories) {
-      if (categories.hasError) {
-        _stateSubject.add(StoresLoadedState(screenState, null, null,
-            error: categories.error));
-      } else if (categories.isEmpty) {
-        _stateSubject.add(StoresLoadedState(screenState, null, null,
-            empty: categories.isEmpty));
+    _storesService.getStores().then((value) {
+      if (value.hasError) {
+        _stateSubject
+            .add(StoresLoadedState(screenState, null, error: value.error));
+      } else if (value.isEmpty) {
+        _stateSubject.add(StoresLoadedState(screenState, null,empty: true));
       } else {
-        _storesService.getStores().then((value) {
-          if (value.hasError) {
-            _stateSubject.add(
-                StoresLoadedState(screenState, null, null, error: value.error));
-          } else if (value.isEmpty) {
-            StoreCategoriesModel categoriesModel =
-                categories as StoreCategoriesModel;
-            _stateSubject
-                .add(StoresLoadedState(screenState, [], categoriesModel.data));
-          } else {
-            StoresModel model = value as StoresModel;
-            StoreCategoriesModel categoriesModel =
-                categories as StoreCategoriesModel;
-            _stateSubject.add(StoresLoadedState(
-                screenState, model.data, categoriesModel.data));
-          }
-        });
+        StoresModel model = value as StoresModel;
+        _stateSubject.add(StoresLoadedState(screenState, model.data));
       }
     });
   }
