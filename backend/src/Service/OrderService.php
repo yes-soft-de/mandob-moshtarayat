@@ -1028,6 +1028,8 @@ class OrderService
             $orders = $this->orderDetailService->getStoreOrdersOngoingForStoreOwner($item['id']);
 
             foreach ($orders as $order) {
+                $order['orderCost'] = (float)$this->orderDetailService->getTotalProductsPriceByOrderNumberAndStoreIDForStore($order['orderNumber'], $item['id']);
+
                 $response[] = $this->autoMapping->map('array', StoreOrdersOngoingResponse::class, $order);
             }
         }
@@ -1046,6 +1048,8 @@ class OrderService
         $orders = $this->orderDetailService->getStoreOrdersInSpecificDate($date[0], $date[1], $storeOwnerProfileID);
 
         foreach ($orders as $order) {
+            $order['invoiceAmount'] = (float)$this->orderDetailService->getTotalProductsPriceByOrderNumberAndStoreIDForStore($order['orderNumber'], $storeOwnerProfileID);
+
             $response[] = $this->autoMapping->map('array', OrdersPendingForStoreResponse::class, $order);
         }
 
@@ -1061,6 +1065,8 @@ class OrderService
         $orders = $this->orderDetailService->getStoreOrders($storeOwnerProfileID);
 
         foreach ($orders as $order) {
+            $order['invoiceAmount'] = (float)$this->orderDetailService->getTotalProductsPriceByOrderNumberAndStoreIDForStore($order['orderNumber'], $storeOwnerProfileID);
+
             $response[] = $this->autoMapping->map('array', OrdersPendingForStoreResponse::class, $order);
         }
 
@@ -1113,7 +1119,7 @@ class OrderService
 
         $orders = $this->orderDetailService->getStorePendingOrders($storeOwnerProfileID);
         foreach ($orders as $order) {
-            $order['invoiceAmount'] = $this->orderDetailService->getTotalProductsPriceByOrderNumberAndStoreIDForStore($order['orderNumber'], $storeOwnerProfileID);
+            $order['invoiceAmount'] = (float)$this->orderDetailService->getTotalProductsPriceByOrderNumberAndStoreIDForStore($order['orderNumber'], $storeOwnerProfileID);
 
             $response[] = $this->autoMapping->map('array', OrdersPendingForStoreResponse::class, $order);
         }
