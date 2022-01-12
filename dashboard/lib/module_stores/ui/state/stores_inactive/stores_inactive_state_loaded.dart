@@ -177,6 +177,9 @@ class StoresInActiveLoadedState extends States {
                                 request: UpdateStoreRequest(
                                     commission: element.commission,
                                     id: element.id.toString(),
+                                    bankName: element.bankName,
+                                    bankAccountNumber: element.bankNumber,
+                                    stcPay: element.stcPay,
                                     storeOwnerName: element.storeOwnerName,
                                     hasProducts: element.hasProducts ? 1 : 0,
                                     privateOrders:
