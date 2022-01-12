@@ -597,7 +597,15 @@ class OrderService
         $response = [];
 
         $item['orderDetails'] = $this->orderDetailService->getOrderDetailsByOrderNumberForAdmin($orderNumber);
-        $item['deliveryCost'] = $this->deliveryCompanyFinancialService->getDeliveryCostScalar();
+//        $item['deliveryCost'] = $this->deliveryCompanyFinancialService->getDeliveryCostScalar();
+        $deliveryCost = $this->deliveryCompanyFinancialService->deliveryCost();
+        if(!$deliveryCost){
+            $item['deliveryCost'] = (string) 0;
+        }
+        else{
+            $item['deliveryCost'] = (string) $deliveryCost['deliveryCost'];
+        }
+
         $item['invoices'] = $this->ordersInvoicesService->getInvoicesByOrderNumber($orderNumber);
         $item['rate'] = $this->ratingService->getAvgOrder($orderNumber);
 
@@ -620,7 +628,14 @@ class OrderService
 
         $item['orderDetails'] = $this->orderDetailService->getOrderDetailsByOrderNumberForCaptain($orderNumber);
 
-        $item['deliveryCost'] = $this->deliveryCompanyFinancialService->getDeliveryCostScalar();
+//        $item['deliveryCost'] = $this->deliveryCompanyFinancialService->getDeliveryCostScalar();
+        $deliveryCost = $this->deliveryCompanyFinancialService->deliveryCost();
+        if(!$deliveryCost){
+            $item['deliveryCost'] = (string) 0;
+        }
+        else{
+            $item['deliveryCost'] = (string) $deliveryCost['deliveryCost'];
+        }
         $item['invoices'] = $this->ordersInvoicesService->getInvoicesByOrderNumber($orderNumber);
 
         $item['rate'] = $this->ratingService->getAvgOrder($orderNumber);
@@ -636,7 +651,15 @@ class OrderService
         $response = [];
 
         $item['orderDetails'] = $this->orderDetailService->orderDetailsForClient($orderNumber);
-        $item['deliveryCost'] = $this->deliveryCompanyFinancialService->getDeliveryCostScalar();
+//        $item['deliveryCost'] = $this->deliveryCompanyFinancialService->getDeliveryCostScalar();
+
+        $deliveryCost = $this->deliveryCompanyFinancialService->deliveryCost();
+        if(!$deliveryCost){
+            $item['deliveryCost'] = (string) 0;
+        }
+        else{
+            $item['deliveryCost'] = (string) $deliveryCost['deliveryCost'];
+        }
         $item['invoices'] = $this->ordersInvoicesService->getInvoicesByOrderNumber($orderNumber);
 
         $item['rate'] = $this->ratingService->getAvgOrder($orderNumber);
@@ -1005,6 +1028,8 @@ class OrderService
             $orders = $this->orderDetailService->getStoreOrdersOngoingForStoreOwner($item['id']);
 
             foreach ($orders as $order) {
+                $order['orderCost'] = (float)$this->orderDetailService->getTotalProductsPriceByOrderNumberAndStoreIDForStore($order['orderNumber'], $item['id']);
+
                 $response[] = $this->autoMapping->map('array', StoreOrdersOngoingResponse::class, $order);
             }
         }
@@ -1023,6 +1048,8 @@ class OrderService
         $orders = $this->orderDetailService->getStoreOrdersInSpecificDate($date[0], $date[1], $storeOwnerProfileID);
 
         foreach ($orders as $order) {
+            $order['invoiceAmount'] = (float)$this->orderDetailService->getTotalProductsPriceByOrderNumberAndStoreIDForStore($order['orderNumber'], $storeOwnerProfileID);
+
             $response[] = $this->autoMapping->map('array', OrdersPendingForStoreResponse::class, $order);
         }
 
@@ -1038,6 +1065,8 @@ class OrderService
         $orders = $this->orderDetailService->getStoreOrders($storeOwnerProfileID);
 
         foreach ($orders as $order) {
+            $order['invoiceAmount'] = (float)$this->orderDetailService->getTotalProductsPriceByOrderNumberAndStoreIDForStore($order['orderNumber'], $storeOwnerProfileID);
+
             $response[] = $this->autoMapping->map('array', OrdersPendingForStoreResponse::class, $order);
         }
 
@@ -1089,8 +1118,9 @@ class OrderService
         $storeOwnerProfileID = $this->userService->getStoreProfileId($userId);
 
         $orders = $this->orderDetailService->getStorePendingOrders($storeOwnerProfileID);
-
         foreach ($orders as $order) {
+            $order['invoiceAmount'] = (float)$this->orderDetailService->getTotalProductsPriceByOrderNumberAndStoreIDForStore($order['orderNumber'], $storeOwnerProfileID);
+
             $response[] = $this->autoMapping->map('array', OrdersPendingForStoreResponse::class, $order);
         }
 
