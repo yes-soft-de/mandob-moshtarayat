@@ -66,25 +66,23 @@ class ProductCategoriesLoadedState extends States {
                       border: Border.all(
                           color: Theme.of(context).primaryColor, width: 4)),
                   child: Padding(
-                    padding: const EdgeInsets.only(right:16.0,left: 16),
-                    child: FittedBox(
-                      child: DropdownButton(
-                        value: screenState.mainCatId,
-                        items: getChoices(),
-                        onChanged: (v) {
-                          screenState.mainCatId = v.toString();
-                          screenState.getSubCategories(categories);
-                          screenState.refresh();
-                        },
-                        hint: Text(
-                          S.current.chooseCategory,
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        underline: SizedBox(),
-                        icon: Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Icon(Icons.arrow_drop_down_rounded),
-                        ),
+                    padding: const EdgeInsets.only(right: 16.0, left: 16),
+                    child: DropdownButton(
+                      value: screenState.mainCatId,
+                      items: getChoices(),
+                      onChanged: (v) {
+                        screenState.mainCatId = v.toString();
+                        screenState.getSubCategories(categories);
+                        screenState.refresh();
+                      },
+                      hint: Text(
+                        S.current.chooseCategory,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      underline: SizedBox(),
+                      icon: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Icon(Icons.arrow_drop_down_rounded),
                       ),
                     ),
                   ),
@@ -99,7 +97,8 @@ class ProductCategoriesLoadedState extends States {
                       //color: Theme.of(context).backgroundColor,
                       border: Border.all(
                           color: Theme.of(context).primaryColor, width: 4)),
-                  child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 16.0, left: 16),
                     child: DropdownButton(
                       value: screenState.subCatId,
                       items: getSubCategories(),
@@ -137,7 +136,12 @@ class ProductCategoriesLoadedState extends States {
     categories?.forEach((element) {
       items.add(DropdownMenuItem(
         value: element.id.toString(),
-        child: Text(element.categoryName),
+        child: SizedBox(
+            width: 250,
+            child: Text(
+              element.categoryName,
+              overflow: TextOverflow.ellipsis,
+            )),
       ));
     });
     return items;
@@ -148,7 +152,12 @@ class ProductCategoriesLoadedState extends States {
     subCategories?.forEach((element) {
       items.add(DropdownMenuItem(
         value: element.id.toString(),
-        child: Text(element.categoryName),
+        child: SizedBox(
+            width: 250,
+            child: Text(
+              element.categoryName,
+              overflow: TextOverflow.ellipsis,
+            )),
       ));
     });
     return items;
@@ -194,9 +203,13 @@ class ProductCategoriesLoadedState extends States {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, CategoriesRoutes.UPDATE_PRODUCT_CATEGORIES,arguments: element.id).then((value) {
-                    if(value != null && value is bool && value ){
-                      screenState.getSubCategoriesLevelTow(categories ,subCategories);
+                  Navigator.pushNamed(
+                          context, CategoriesRoutes.UPDATE_PRODUCT_CATEGORIES,
+                          arguments: element.id)
+                      .then((value) {
+                    if (value != null && value is bool && value) {
+                      screenState.getSubCategoriesLevelTow(
+                          categories, subCategories);
                     }
                   });
 //                  showDialog(

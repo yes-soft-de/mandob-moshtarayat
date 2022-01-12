@@ -4,7 +4,7 @@
 // Named Domain ===> 'https://api.al-mandob.com'
 
 class Urls {
-  static const String DOMAIN = 'https://api.al-mandob.com';
+  static const String DOMAIN = 'http://138.197.186.138';
   static const String BASE_API = DOMAIN + '';
   static const String IMAGES_ROOT = DOMAIN + '/upload/';
   static const UPLOAD_API = BASE_API + '/uploadfile';

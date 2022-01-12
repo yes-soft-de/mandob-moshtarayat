@@ -4,11 +4,8 @@ import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/categories_routes.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/model/StoreCategoriesModel.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/model/subCategoriesModel.dart';
-import 'package:mandob_moshtarayat_dashboad/module_categories/request/sub_categories_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/screen/sub_categories_screen.dart';
-import 'package:mandob_moshtarayat_dashboad/module_categories/ui/widget/sub_categories.dart';
 import 'package:mandob_moshtarayat_dashboad/module_orders/ui/widget/order_details/custom_alert_dialog.dart';
-import 'package:mandob_moshtarayat_dashboad/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_list_view.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/empty_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/error_screen.dart';
@@ -64,23 +61,21 @@ class SubCategoriesLoadedState extends States {
                           color: Theme.of(context).primaryColor, width: 4)),
                   child: Padding(
                     padding: const EdgeInsets.only(right:16.0,left: 16.0),
-                    child: FittedBox(
-                      child: DropdownButton(
-                        value: screenState.id,
-                        items: getChoices(),
-                        onChanged: (v) {
-                          screenState.id = v.toString();
-                          screenState.getSubCategories(categories);
-                          screenState.refresh();
-                        },
-                        hint: Text(
-                          S.current.chooseCategory,
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        underline: SizedBox(),
-                        icon: Icon(Icons.arrow_drop_down_rounded),
+                    child: DropdownButton(
+                      value: screenState.id,
+                      items: getChoices(),
+                      onChanged: (v) {
+                        screenState.id = v.toString();
+                        screenState.getSubCategories(categories);
+                        screenState.refresh();
+                      },
+                      hint: Text(
+                        S.current.chooseCategory,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                        overflow: TextOverflow.ellipsis,
                       ),
+                      underline: SizedBox(),
+                      icon: Icon(Icons.arrow_drop_down_rounded),
                     ),
                   ),
                 ),
@@ -100,7 +95,9 @@ class SubCategoriesLoadedState extends States {
     categories?.forEach((element) {
       items.add(DropdownMenuItem(
         value: element.id.toString(),
-        child: Text(element.categoryName,overflow: TextOverflow.ellipsis,),
+        child: SizedBox(
+          width: 250,
+          child: Text(element.categoryName,overflow: TextOverflow.ellipsis)),
       ));
     });
     return items;

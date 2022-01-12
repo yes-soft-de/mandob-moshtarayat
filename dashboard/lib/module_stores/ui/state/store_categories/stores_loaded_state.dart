@@ -8,6 +8,7 @@ import 'package:mandob_moshtarayat_dashboad/module_stores/stores_routes.dart';
 import 'package:mandob_moshtarayat_dashboad/module_stores/ui/screen/stores_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/module_stores/ui/state/store_categories/stores_state.dart';
 import 'package:mandob_moshtarayat_dashboad/module_stores/ui/widget/add_store_widget.dart';
+import 'package:mandob_moshtarayat_dashboad/utils/components/costom_search.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_list_view.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/empty_screen.dart';
@@ -52,63 +53,13 @@ class StoresLoadedState extends StoresState {
       width: double.maxFinite,
       child: Center(
         child: Container(
-          constraints: BoxConstraints(maxWidth: 600),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                  width: double.maxFinite,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25),
-                      //color: Theme.of(context).backgroundColor,
-                      border: Border.all(
-                          color: Theme.of(context).primaryColor, width: 4)),
-                  child: Padding(
-                    padding: const EdgeInsets.only(right:16.0,left: 16),
-                    child: FittedBox(
-                      child: DropdownButton(
-                        value: id,
-                        items: getChoices(),
-                        onChanged: (v) {
-                          id = v.toString();
-                          screenState.refresh();
-                        },
-                        hint: Text(
-                          S.current.chooseCategory,
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        underline: SizedBox(),
-                        icon: Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Icon(Icons.arrow_drop_down_rounded),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: CustomListView.custom(children: getStores()),
-              )
-            ],
-          ),
-        ),
+            constraints: BoxConstraints(maxWidth: 600),
+            child: CustomListView.custom(children: getStores())),
       ),
     );
   }
 
-  List<DropdownMenuItem<String>> getChoices() {
-    List<DropdownMenuItem<String>> items = [];
-    categories?.forEach((element) {
-      items.add(DropdownMenuItem(
-        value: element.id.toString(),
-        child: Text(element.categoryName),
-      ));
-    });
-    return items;
-  }
-
+  String? search;
   List<Widget> getStores() {
     List<Widget> widgets = [];
     if (model == null) {
@@ -116,7 +67,7 @@ class StoresLoadedState extends StoresState {
     }
     if (model!.isEmpty) return widgets;
     for (var element in model!) {
-      if (element.categoryId != id && id != null) {
+      if (element.storeOwnerName.contains(search ?? '') == false) {
         continue;
       }
       widgets.add(Padding(
@@ -133,7 +84,7 @@ class StoresLoadedState extends StoresState {
                     image: element.image,
                     privateOrders: element.privateOrders,
                     hasProducts: element.hasProducts,
-                    categoryId:'',
+                    categoryId: '',
                     bankName: element.bankName,
                     bankNumber: element.bankNumber,
                     stcPay: element.stcPay,
@@ -184,7 +135,7 @@ class StoresLoadedState extends StoresState {
                               backgroundColor:
                                   Theme.of(context).scaffoldBackgroundColor,
                               body: UpdateStoreWidget(
-                                categories: getChoices(),
+                                categories: [],
                                 request: UpdateStoreRequest(
                                     commission: element.commission,
                                     id: element.id.toString(),
@@ -262,7 +213,25 @@ class StoresLoadedState extends StoresState {
         ),
       ));
     }
-
+    if (model != null) {
+      widgets.insert(
+          0,
+          Padding(
+            padding: EdgeInsets.only(left: 18.0, right: 18.0, bottom: 16),
+            child: CustomDeliverySearch(
+              hintText: S.current.searchForStore,
+              onChanged: (s) {
+                if (s == '' || s.isEmpty) {
+                  search = null;
+                  screenState.refresh();
+                } else {
+                  search = s;
+                  screenState.refresh();
+                }
+              },
+            ),
+          ));
+    }
     widgets.add(SizedBox(height: 75));
     return widgets;
   }

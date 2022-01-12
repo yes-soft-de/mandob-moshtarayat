@@ -4,6 +4,7 @@ import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/model/subCategoriesModel.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories_linking/linking_routes.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories_linking/ui/screen/level_tow_categories_list_screen.dart';
+import 'package:mandob_moshtarayat_dashboad/utils/components/costom_search.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_list_view.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/empty_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/error_screen.dart';
@@ -51,6 +52,7 @@ class CategoriesLevel2LoadedState extends States {
     );
   }
 
+  String? search;
   List<Widget> getCategories() {
     List<Widget> widgets = [];
     if (subCategoriesLevelTow == null) {
@@ -58,6 +60,9 @@ class CategoriesLevel2LoadedState extends States {
     }
     if (subCategoriesLevelTow!.isEmpty) return widgets;
     for (var element in subCategoriesLevelTow!) {
+      if (!element.categoryName.contains(search ?? '') && search != null) {
+        continue;
+      }
       widgets.add(Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
@@ -118,6 +123,25 @@ class CategoriesLevel2LoadedState extends States {
           ),
         ),
       ));
+    }
+    if (subCategoriesLevelTow != null) {
+      widgets.insert(
+          0,
+          Padding(
+            padding: EdgeInsets.only(left: 18.0, right: 18.0, bottom: 16),
+            child: CustomDeliverySearch(
+              hintText: S.current.searchingForCategories,
+              onChanged: (s) {
+                if (s == '' || s.isEmpty) {
+                  search = null;
+                  screenState.refresh();
+                } else {
+                  search = s;
+                  screenState.refresh();
+                }
+              },
+            ),
+          ));
     }
     widgets.add(SizedBox(height: 75));
     return widgets;
