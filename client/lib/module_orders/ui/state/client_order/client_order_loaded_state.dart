@@ -13,6 +13,7 @@ import 'package:mandob_moshtarayat/module_stores/model/checkout_model.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_feild.dart';
 import 'package:mandob_moshtarayat/utils/components/make_order_button.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class ClientOrderLoadedState extends ClientOrderState {
   ClientOrderLoadedState(ClientOrderScreenState screenState)
@@ -146,16 +147,23 @@ class ClientOrderLoadedState extends ClientOrderState {
                                   child: Icon(Icons.arrow_drop_down_rounded),
                                 ),
                                 hint: Text(S.of(context).paymentMethodHint),
-                                items: [
-                                  DropdownMenuItem(
-                                    child: Text(S.of(context).card),
-                                    value: 'card',
-                                  ),
-                                  DropdownMenuItem(
-                                    child: Text(S.of(context).cash),
-                                    value: 'cash',
-                                  ),
-                                ],
+                                items: kIsWeb
+                                    ? [
+                                        DropdownMenuItem(
+                                          child: Text(S.of(context).cash),
+                                          value: 'cash',
+                                        ),
+                                      ]
+                                    : [
+                                        DropdownMenuItem(
+                                          child: Text(S.of(context).card),
+                                          value: 'card',
+                                        ),
+                                        DropdownMenuItem(
+                                          child: Text(S.of(context).cash),
+                                          value: 'cash',
+                                        ),
+                                      ],
                                 onChanged: (payment) {
                                   payments = payment.toString();
                                   screenState.refresh();

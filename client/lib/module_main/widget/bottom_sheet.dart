@@ -5,6 +5,8 @@ import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_feild.dart';
 import 'package:mandob_moshtarayat/utils/components/fixed_container.dart';
 import 'package:mandob_moshtarayat/utils/effect/checked.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:mandob_moshtarayat/utils/helpers/web_image_loader.dart';
 
 class OuterOrderBottomSheet extends StatefulWidget {
   final Function(String, String, String?) callback;
@@ -128,7 +130,7 @@ class _OuterOrderBottomSheetState extends State<OuterOrderBottomSheet> {
                           ),
                           checkedWidget: ClipRRect(
                               borderRadius: BorderRadius.circular(18),
-                              child: Image.file(
+                              child:kIsWeb ? WebImageLoader(filePath: imagePath ?? '') : Image.file(
                                 File(imagePath ?? ''),
                                 fit: BoxFit.cover,
                               ))),
