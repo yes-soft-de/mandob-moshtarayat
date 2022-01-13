@@ -171,7 +171,7 @@ class StoresLoadedState extends StoresState {
                                       status: status,
                                       id: element.id.toString(),
                                       storeOwnerName: name,
-                                      storeCategoryId: int.parse(id),
+                                      storeCategoryId: null,
                                       image: image,
                                       hasProducts: products ? 1 : 0,
                                       privateOrders: privateOrder ? 1 : 0,
