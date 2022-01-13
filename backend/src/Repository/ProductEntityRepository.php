@@ -641,6 +641,36 @@ class ProductEntityRepository extends ServiceEntityRepository
                 ->getResult();
     }
 
+    public function getProductsByStoreProductCategoryIDAndStoreOwnerProfileID($storeProductCategoryID, $storeOwnerProfileID)
+    {
+        return $this->createQueryBuilder('product')
+                ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount','product.description','product.status',
+         'product.productQuantity', 'product.commission', 'product.isCommission', 'storeProductCategoryEntity.isLevel1', 'storeProductCategoryEntity.isLevel2')
+                ->addSelect('storeOwnerProfile.id as storeOwnerProfileID', 'storeOwnerProfile.storeOwnerName as storeOwnerName', 'storeOwnerProfile.image', 'storeOwnerProfile.phone', 'storeOwnerProfile.commission as storeCommission')
+
+                ->leftJoin(StoreOwnerProfileEntity::class, 'storeOwnerProfile', Join::WITH, 'storeOwnerProfile.id = product.storeOwnerProfileID')
+
+                ->leftJoin(
+                    StoreProductCategoryEntity::class,
+                    'storeProductCategoryEntity',
+                    Join::WITH,
+                    'storeProductCategoryEntity.id = product.storeProductCategoryID'
+                )
+
+                ->andWhere('product.storeProductCategoryID = :storeProductCategoryID')
+                ->andWhere('product.status = :status')
+                ->andWhere('product.storeOwnerProfileID = :storeOwnerProfileID')
+                ->andWhere('storeOwnerProfile.status = :storeStatus')
+
+                ->setParameter('storeProductCategoryID', $storeProductCategoryID)
+                ->setParameter('status', ProductStatusConstant::$ACTIVE_PRODUCT_STATUS)
+                ->setParameter('storeStatus', StoreStatusConstant::$ACTIVE_STORE_STATUS)
+                ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
+
+                ->getQuery()
+                ->getResult();
+    }
+
     // for dashboard
     public function getProductsTranslationByStoreProductCategoryID($storeProductCategoryID)
     {

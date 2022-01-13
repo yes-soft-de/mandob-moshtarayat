@@ -682,7 +682,7 @@ class ProductService
         return $response;
     }
 
-    public function getProductsByStoreProductCategoryLevelTwo($userLocale, $storeProductCategoryIdLevelTwo): array
+    public function getProductsByStoreProductCategoryLevelTwo($userLocale, $storeProductCategoryIdLevelTwo, $storeOwnerProfileID): array
     {
         $response = [];
 
@@ -694,7 +694,7 @@ class ProductService
         }
         else
         {
-            $products = $this->productManager->getProductsByStoreProductCategoryID($storeProductCategoryIdLevelTwo);
+            $products = $this->productManager->getProductsByStoreProductCategoryIDAndStoreOwnerProfileID($storeProductCategoryIdLevelTwo, $storeOwnerProfileID);
         }
 
         foreach ($products as $item) {
