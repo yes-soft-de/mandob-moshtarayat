@@ -55,7 +55,7 @@ class PaymentsToCaptainScreenState extends State<PaymentsToCaptainScreen> {
       }
     }
     return Scaffold(
-      appBar: CustomTwaslnaAppBar.appBar(context,
+      appBar: CustomMandoobAppBar.appBar(context,
           title: S.of(context).paymentToCaptain),
       body: currentState.getUI(context),
     );

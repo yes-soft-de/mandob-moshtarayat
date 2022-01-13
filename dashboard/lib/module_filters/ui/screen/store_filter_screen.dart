@@ -61,7 +61,7 @@ class StoresFilterScreenState extends State<StoresFilterScreen> {
         }
       },
       child: Scaffold(
-        appBar: CustomTwaslnaAppBar.appBar(context,
+        appBar: CustomMandoobAppBar.appBar(context,
             title: S.of(context).storeLogs, icon: Icons.menu, onTap: () {
           GlobalVariable.mainScreenScaffold.currentState?.openDrawer();
         }),

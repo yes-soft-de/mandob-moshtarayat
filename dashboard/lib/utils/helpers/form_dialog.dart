@@ -21,7 +21,7 @@ Widget formDialog(BuildContext context, String title, String textHint,
     UpdateProductCategoryRequest? request}) {
   return Scaffold(
     appBar:
-        CustomTwaslnaAppBar.appBar(context, title: S.current.addNewCategory),
+        CustomMandoobAppBar.appBar(context, title: S.current.addNewCategory),
     body: image
         ? InsertForm(
             add: (name, image, tra) {

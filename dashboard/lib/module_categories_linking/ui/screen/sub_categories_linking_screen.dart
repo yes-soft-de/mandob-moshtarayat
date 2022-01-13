@@ -62,7 +62,7 @@ class SubCategoriesLinkingScreenState
     }
     return Scaffold(
       appBar:
-          CustomTwaslnaAppBar.appBar(context, title: S.current.subCategories),
+          CustomMandoobAppBar.appBar(context, title: S.current.subCategories),
       body: currentState.getUI(context),
     );
   }

@@ -168,7 +168,7 @@ class StoresInActiveLoadedState extends States {
                             width: MediaQuery.of(context).size.width,
                             height: MediaQuery.of(context).size.height,
                             child: Scaffold(
-                              appBar: CustomTwaslnaAppBar.appBar(context,
+                              appBar: CustomMandoobAppBar.appBar(context,
                                   title: S.current.updateStore),
                               backgroundColor:
                                   Theme.of(context).scaffoldBackgroundColor,

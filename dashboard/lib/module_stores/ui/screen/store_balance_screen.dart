@@ -49,7 +49,7 @@ class StoreBalanceScreenState extends State<StoreBalanceScreen> {
       }
     }
     return Scaffold(
-      appBar: CustomTwaslnaAppBar.appBar(context,
+      appBar: CustomMandoobAppBar.appBar(context,
           title: S.of(context).storeBalance),
       body: currentState.getUI(context),
     );

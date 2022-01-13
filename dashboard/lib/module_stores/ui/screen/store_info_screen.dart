@@ -57,7 +57,7 @@ class StoreInfoScreenState extends State<StoreInfoScreen> {
     }
 
     return Scaffold(
-      appBar: CustomTwaslnaAppBar.appBar(context,
+      appBar: CustomMandoobAppBar.appBar(context,
           title: model?.storeOwnerName ?? S.current.storeName,
           actions: [
             Padding(

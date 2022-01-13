@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/global/screen_type.dart';
 
-class CustomTwaslnaAppBar {
+class CustomMandoobAppBar {
   static PreferredSizeWidget appBar(BuildContext context,
       {required title,
       GestureTapCallback? onTap,

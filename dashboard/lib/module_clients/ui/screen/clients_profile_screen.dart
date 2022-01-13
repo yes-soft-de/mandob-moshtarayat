@@ -53,7 +53,7 @@ class ClientProfileScreenState extends State<ClientProfileScreen> {
       }
     }
     return Scaffold(
-      appBar: CustomTwaslnaAppBar.appBar(
+      appBar: CustomMandoobAppBar.appBar(
         context,
         title: S.current.profile,
       ),

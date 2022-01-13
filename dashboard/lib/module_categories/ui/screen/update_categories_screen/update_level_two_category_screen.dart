@@ -89,7 +89,7 @@ class UpdateLevelTwoCategoryScreenState extends State<UpdateLevelTwoCategoryScre
       }
     }
     return Scaffold(
-      appBar: CustomTwaslnaAppBar.appBar(context, title: S.current.updateCategory),
+      appBar: CustomMandoobAppBar.appBar(context, title: S.current.updateCategory),
       body: currentState.getUI(context),
     );
   }

@@ -80,7 +80,7 @@ class SubCategoriesScreenState extends State<SubCategoriesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomTwaslnaAppBar.appBar(context,
+      appBar: CustomMandoobAppBar.appBar(context,
           title: S.of(context).subCategories, icon: Icons.menu, onTap: () {
         GlobalVariable.mainScreenScaffold.currentState?.openDrawer();
       }),
@@ -99,7 +99,7 @@ class SubCategoriesScreenState extends State<SubCategoriesScreen> {
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
                     child: Scaffold(
-                      appBar: CustomTwaslnaAppBar.appBar(context,
+                      appBar: CustomMandoobAppBar.appBar(context,
                           title: S.current.addNewCategory),
                       backgroundColor:
                           Theme.of(context).scaffoldBackgroundColor,

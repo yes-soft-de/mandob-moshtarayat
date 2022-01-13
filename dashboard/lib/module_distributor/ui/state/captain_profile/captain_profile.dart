@@ -147,7 +147,7 @@ class CaptainProfileLoadedState extends States {
               context: context,
               builder: (_) {
                 return Scaffold(
-                  appBar: CustomTwaslnaAppBar.appBar(context,
+                  appBar: CustomMandoobAppBar.appBar(context,
                       title: S.current.updateProfile),
                   body: UpdateProfile(
                     updateProfile: (salary, bounce, status) {
