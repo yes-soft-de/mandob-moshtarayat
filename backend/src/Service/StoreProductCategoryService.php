@@ -582,7 +582,7 @@ class StoreProductCategoryService
 
     public function deleteStoreProductCategoryByID($request)
     {
-        $isRelated = $this->storeProductCategoryManager->isItRelatedToProductsOrOtherCategory($request->getID());
+        $isRelated = $this->storeProductCategoryManager->isItRelatedToProductsOrOtherCategory($request->getId());
         if($isRelated == "not related") {
             $result = $this->storeProductCategoryManager->deleteStoreProductCategoryByID($request);
 
@@ -590,6 +590,10 @@ class StoreProductCategoryService
                 return $result;
             }
             else {
+
+                // delete all store product category translation/s
+                $this->storeProductCategoryTranslationService->deleteAllStoreProductCategoryTranslationsByStoreProductCategoryID($request->getId());
+
                 return $this->autoMapping->map(StoreProductCategoryEntity::class, StoreProductCategoryByIdResponse::class, $result);
             }
         }
