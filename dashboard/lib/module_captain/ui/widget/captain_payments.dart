@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_payments/payments_routes.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/progresive_image.dart';
-
+import 'dart:math';
 class CaptainCardPayment extends StatelessWidget {
   final String captainId;
   final String image;
@@ -69,7 +69,7 @@ class CaptainCardPayment extends StatelessWidget {
                   padding: const EdgeInsets.only(
                       top: 8, bottom: 8, left: 16.0, right: 16),
                   child: Text(
-                    remainingAmountForCaptain.toString() + ' ' + S.current.sar,
+                    remainingAmountForCaptain.abs().toStringAsFixed(1) + ' ' + S.current.sar,
                     style: TextStyle(color: Colors.white),
                   ),
                 ),

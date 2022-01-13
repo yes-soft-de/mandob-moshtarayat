@@ -223,15 +223,15 @@ class PaymentsToCaptainLoadedState extends States {
                 children: [
                   CustomListTileCaptainsPayment(
                       title: S.of(context).salary,
-                      subTitle: accountBalance?.salary.toString() ?? '',
+                      subTitle: accountBalance?.salary.toStringAsFixed(1) ?? '',
                       iconData: Icons.money),
                   CustomListTileCaptainsPayment(
                       title: S.of(context).bounce,
-                      subTitle: accountBalance?.bounce.toString() ?? '',
+                      subTitle: accountBalance?.bounce.toStringAsFixed(1) ?? '',
                       iconData: Icons.wallet_giftcard_rounded),
                   CustomListTileCaptainsPayment(
                       title: S.of(context).captainMoney,
-                      subTitle: accountBalance?.total.toString() ?? '',
+                      subTitle: accountBalance?.total.toStringAsFixed(1) ?? '',
                       iconData: FontAwesomeIcons.coins),
                 ],
               ),
@@ -302,7 +302,7 @@ class PaymentsToCaptainLoadedState extends States {
                   : null,
               leading: Icon(Icons.credit_card_rounded),
               title: Text(S.current.paymentAmount),
-              subtitle: Text(element.amount.toString()),
+              subtitle: Text(element.amount.toStringAsFixed(1)),
               trailing: Text(
                   intl.DateFormat('yyyy/M/dd').format(element.paymentDate)),
             )),

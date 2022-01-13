@@ -108,7 +108,7 @@ class OrdersAccountLoadedState extends States {
                     padding: const EdgeInsets.only(
                         top: 8, bottom: 8, left: 16.0, right: 16),
                     child: Text(
-                      element.remainingAmountForCaptain.toString() +
+                      '${element.remainingAmountForCaptain?.abs().toStringAsFixed(1)}' +
                           ' ' +
                           S.current.sar,
                       style: TextStyle(color: Colors.white),
@@ -168,7 +168,7 @@ class OrdersAccountLoadedState extends States {
                   height: 16,
                 ),
                 Text(
-                  model?.totalPaymentsAmount.toString() ?? '0',
+                  model?.totalPaymentsAmount.toStringAsFixed(1) ?? '0',
                   style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
