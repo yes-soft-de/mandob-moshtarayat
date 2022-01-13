@@ -5,6 +5,7 @@ import 'dart:io' as p;
 import 'package:device_info/device_info.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories_linking/linking_module.dart';
+import 'package:mandob_moshtarayat_dashboad/utils/effect/scroll_behavior.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/global/global_state_manager.dart';
 import 'package:simple_moment/simple_moment.dart';
 import 'package:mandob_moshtarayat_dashboad/abstracts/module/yes_module.dart';
@@ -175,6 +176,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   ) {
     return FeatureDiscovery(
       child: MaterialApp(
+        scrollBehavior: MyCustomScrollBehavior(),
         debugShowCheckedModeBanner: false,
         navigatorObservers: <NavigatorObserver>[observer],
         navigatorKey: GlobalVariable.navState,
