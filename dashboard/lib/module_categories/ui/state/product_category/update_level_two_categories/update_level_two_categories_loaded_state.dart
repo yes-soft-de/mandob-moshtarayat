@@ -26,9 +26,10 @@ class LevelTwoCategoryLoaded extends States {
   LevelTwoCategoryLoaded(this.screenState, {this.empty = false, this.error})
       : super(screenState);
 
-  List<TranslateSubCategory> translateItems =[];
+  List<TranslateSubCategory> translateItems = [];
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   TextEditingController _newTransController = TextEditingController();
+  List<String> missingTranslate = ['urdu', 'en'];
 
   @override
   Widget getUI(BuildContext context) {
@@ -76,57 +77,71 @@ class LevelTwoCategoryLoaded extends States {
                     Column(
                       children: trans(screenState.model?.translate ?? []),
                     ),
-                    screenState.model!.translate!.length != 2 ?  Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          FloatedIconButton(text: S.of(context).addNewTrans,icon: Icons.add,onPressed: (){
-                            String lang ='en';
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    title :Text(S.of(context).addNewTrans),
-                                    content: CustomFormFieldWithTranslate(
-                                      controller: _newTransController,
-                                      onSelected: (langNew){
-                                        lang = langNew;
-                                      },
-                                      initLanguage: 'en',languages: ['en','ur'],),
-                                    actions: [
-                                      TextButton(onPressed: (){
-                                        Navigator.pop(context);
-                                        screenState.addNewTranslate(
-                                            CreateNewTransProductCategoryRequest(storeProductCategoryID: screenState.model!.id,
-                                                storeProductCategoryName: _newTransController.text,
-                                                language: lang));
-
-                                      }, child: Text(S.current.confirm)),
-                                      TextButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                          child: Text(S.current.cancel)),
-                                    ],
-
-                                  );
-                                });
-
-                          },)
-                        ],
-
-                      ),
-                    ):Container(),
+                    screenState.model!.translate!.length != 2
+                        ? Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                FloatedIconButton(
+                                  text: S.of(context).addNewTrans,
+                                  icon: Icons.add,
+                                  onPressed: () {
+                                    String lang = missingTranslate.first;
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            title:
+                                                Text(S.of(context).addNewTrans),
+                                            content:
+                                                CustomFormFieldWithTranslate(
+                                              controller: _newTransController,
+                                              onSelected: (langNew) {
+                                                lang = langNew;
+                                              },
+                                              initLanguage: missingTranslate.first,
+                                              languages: missingTranslate,
+                                            ),
+                                            actions: [
+                                              TextButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                    screenState.addNewTranslate(
+                                                        CreateNewTransProductCategoryRequest(
+                                                            storeProductCategoryID:
+                                                                screenState
+                                                                    .model!.id,
+                                                            storeProductCategoryName:
+                                                                _newTransController
+                                                                    .text,
+                                                            language: lang == 'ur' ? 'urdu' : lang));
+                                                  },
+                                                  child:
+                                                      Text(S.current.confirm)),
+                                              TextButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child:
+                                                      Text(S.current.cancel)),
+                                            ],
+                                          );
+                                        });
+                                  },
+                                )
+                              ],
+                            ),
+                          )
+                        : Container(),
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Center(
                           child: Text(
-                            S.current.categoryImage,
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          )),
+                        S.current.categoryImage,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )),
                     ),
-
                     InkWell(
                       onTap: () {
                         ImagePicker.platform
@@ -152,13 +167,13 @@ class LevelTwoCategoryLoaded extends States {
                             child: ClipRRect(
                                 borderRadius: BorderRadius.circular(25),
                                 child: screenState.imagePath
-                                    ?.contains('http') ==
-                                    true
+                                            ?.contains('http') ==
+                                        true
                                     ? Image.network(screenState.imagePath ?? '')
                                     : Image.file(
-                                  File(screenState.imagePath ?? ''),
-                                  fit: BoxFit.scaleDown,
-                                ))),
+                                        File(screenState.imagePath ?? ''),
+                                        fit: BoxFit.scaleDown,
+                                      ))),
                       ),
                     ),
                   ],
@@ -170,16 +185,14 @@ class LevelTwoCategoryLoaded extends States {
         label: S.current.update,
         onTap: () {
           if (_key.currentState!.validate()) {
-
             if (screenState.imagePath?.contains('http') == true) {
               screenState.imagePath = screenState.model?.imageUrl ?? '';
             }
             screenState.updateCategory(translateItems);
-
           } else {
             CustomFlushBarHelper.createError(
-                title: S.current.warnning,
-                message: S.current.pleaseCompleteTheForm)
+                    title: S.current.warnning,
+                    message: S.current.pleaseCompleteTheForm)
                 .show(context);
           }
         });
@@ -189,12 +202,15 @@ class LevelTwoCategoryLoaded extends States {
     List<Widget> translateWidgets = [];
 
     for (Translate item in translates) {
+      if (missingTranslate.contains(item.language)) {
+        missingTranslate.remove(item.language);
+      }
       TextEditingController _nameController = TextEditingController();
       TranslateSubCategory tras = TranslateSubCategory();
 
-      tras.productCategoryID = screenState.model?.id??-1;
-      tras.productCategoryName = item.productCategoryName??'';
-      tras.lang = item.language??'';
+      tras.productCategoryID = screenState.model?.id ?? -1;
+      tras.productCategoryName = item.productCategoryName ?? '';
+      tras.lang = item.language ?? '';
       _nameController.text = item.productCategoryName ?? '';
       translateWidgets.add(Padding(
         padding: const EdgeInsetsDirectional.only(top: 8),
@@ -202,7 +218,7 @@ class LevelTwoCategoryLoaded extends States {
           controller: _nameController,
           hintText: S.current.categoryName,
           sufIcon: Text(item.language ?? ''),
-          onChanged: (){
+          onChanged: () {
             tras.productCategoryName = _nameController.text;
           },
         ),

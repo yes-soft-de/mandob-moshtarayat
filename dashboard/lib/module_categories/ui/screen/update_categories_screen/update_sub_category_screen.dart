@@ -87,7 +87,7 @@ class UpdateSubCategoryScreenState extends State<UpdateSubCategoryScreen> {
       }
     }
     return Scaffold(
-      appBar: CustomTwaslnaAppBar.appBar(context, title: S.current.updateCategory),
+      appBar: CustomMandoobAppBar.appBar(context, title: S.current.updateCategory),
       body: currentState.getUI(context),
     );
   }

@@ -51,7 +51,7 @@ class CaptainLogsScreenState extends State<CaptainLogsScreen> {
       }
     }
     return Scaffold(
-      appBar: CustomTwaslnaAppBar.appBar(
+      appBar: CustomMandoobAppBar.appBar(
         context,
         title: S.current.captainLogs,
       ),

@@ -120,7 +120,7 @@ class CaptainProfileLoadedState extends States {
                       color: Theme.of(context).primaryColor),
                   child: Flex(
                     direction:
-                        ScreenType.isMobile() ? Axis.vertical : Axis.horizontal,
+                        ScreenType.isMobile(context) ? Axis.vertical : Axis.horizontal,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       ImageTile(
@@ -148,7 +148,7 @@ class CaptainProfileLoadedState extends States {
               context: context,
               builder: (_) {
                 return Scaffold(
-                  appBar: CustomTwaslnaAppBar.appBar(context,
+                  appBar: CustomMandoobAppBar.appBar(context,
                       title: S.current.updateProfile),
                   body: UpdateProfile(
                     updateProfile: (salary, bounce, status) {

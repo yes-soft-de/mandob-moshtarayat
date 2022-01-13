@@ -60,7 +60,7 @@ class OrderTimLineScreenState extends State<OrderTimLineScreen> {
         }
       },
       child: Scaffold(
-        appBar: CustomTwaslnaAppBar.appBar(context,
+        appBar: CustomMandoobAppBar.appBar(context,
             title: S.of(context).orderStatus),
         body: currentState.getUI(context),
       ),

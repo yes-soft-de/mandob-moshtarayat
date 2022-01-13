@@ -252,6 +252,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "distance": MessageLookupByLibrary.simpleMessage("Distance"),
         "distributors": MessageLookupByLibrary.simpleMessage("Distributors"),
         "driverLicence": MessageLookupByLibrary.simpleMessage("Driver Licence"),
+        "duplicateLang": MessageLookupByLibrary.simpleMessage(
+            "Duplicate Language Filed , please resolve it"),
         "earnCash": MessageLookupByLibrary.simpleMessage("Earn Cash"),
         "earnCashDescribtion": MessageLookupByLibrary.simpleMessage(
             "After you doing your job your effort will be rewarded by earning money"),

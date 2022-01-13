@@ -63,7 +63,7 @@ class StoreCategoriesLinkingScreenState
       widget._stateManager.getStoreCategories(this, args);
     }
     return Scaffold(
-      appBar: CustomTwaslnaAppBar.appBar(context,
+      appBar: CustomMandoobAppBar.appBar(context,
           title: S.of(context).storeCategories),
       body: currentState.getUI(context),
     );

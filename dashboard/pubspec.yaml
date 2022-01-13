@@ -117,6 +117,7 @@ dependencies:
   fl_chart: ^0.40.0
   flutter_rating_bar: ^4.0.0
   cross_file: ^0.3.2
+  image_network: ^2.3.0
 
 
 dev_dependencies:

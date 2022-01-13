@@ -551,6 +551,7 @@
   "categoriesLink":"ربط التصنيفات",
   "linkedSuccessfully":"تم الربط بنجاح",
   "exitWarning":"اضغط مرة اخرى للخروج من التطبيق",
-  "addNewTrans": "إضافة ترجمة جديدة"
+  "addNewTrans": "إضافة ترجمة جديدة",
+  "duplicateLang":"لديك لغات حقول بلغات مكررة"
 
 }

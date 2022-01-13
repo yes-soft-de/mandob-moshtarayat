@@ -88,7 +88,7 @@ class _AddStoreWidgetState extends State<AddStoreWidget> {
                       showDialog(
                           builder: (_) {
                             return Scaffold(
-                              appBar: CustomTwaslnaAppBar.appBar(context,
+                              appBar: CustomMandoobAppBar.appBar(context,
                                   title: S.current.storeLocation,
                                   actions: [
                                     TextButton(
@@ -275,7 +275,7 @@ class _UpdateStoreWidgetState extends State<UpdateStoreWidget> {
                         showDialog(
                             builder: (_) {
                               return Scaffold(
-                                appBar: CustomTwaslnaAppBar.appBar(context,
+                                appBar: CustomMandoobAppBar.appBar(context,
                                     title: S.current.storeLocation,
                                     actions: [
                                       TextButton(

@@ -95,7 +95,7 @@ class OrderDetailsScreenState extends State<OrderDetailsScreen> {
         }
       },
       child: Scaffold(
-        appBar: CustomTwaslnaAppBar.appBar(context,
+        appBar: CustomMandoobAppBar.appBar(context,
             title: S.of(context).orderDetails),
         body: currentState.getUI(context),
       ),

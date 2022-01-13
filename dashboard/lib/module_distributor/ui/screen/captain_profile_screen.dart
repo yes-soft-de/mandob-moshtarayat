@@ -59,7 +59,7 @@ class CaptainProfileScreenState extends State<CaptainProfileScreen> {
       }
     }
     return Scaffold(
-      appBar: CustomTwaslnaAppBar.appBar(context,
+      appBar: CustomMandoobAppBar.appBar(context,
           title: S.current.profile,
           actions: [
             Padding(

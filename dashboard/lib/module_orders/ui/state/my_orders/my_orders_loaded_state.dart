@@ -43,7 +43,7 @@ class MyOrdersLoadedState extends States {
     orders.forEach((element) {
       ordersCard.add(OrderCard(
         orderId: element.orderId,
-        orderCost: element.orderCost.toString(),
+        orderCost: element.orderCost.toStringAsFixed(1),
         orderStatus: element.orderStatus,
         orderDate: DateFormat.jm().format(element.dateTime) +
             '   ' +

@@ -22,7 +22,7 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomTwaslnaAppBar.appBar(context,
+      appBar: CustomMandoobAppBar.appBar(context,
           title: S.of(context).home, icon: Icons.menu, onTap: () {
         GlobalVariable.mainScreenScaffold.currentState?.openDrawer();
       }),

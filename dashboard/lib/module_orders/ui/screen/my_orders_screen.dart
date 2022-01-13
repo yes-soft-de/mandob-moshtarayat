@@ -66,7 +66,7 @@ class OrdersScreenState extends State<OrdersScreen> {
         }
       },
       child: Scaffold(
-        appBar: CustomTwaslnaAppBar.appBar(context,
+        appBar: CustomMandoobAppBar.appBar(context,
             title: S.of(context).orderPending, icon: Icons.menu, onTap: () {
           GlobalVariable.mainScreenScaffold.currentState?.openDrawer();
         }),

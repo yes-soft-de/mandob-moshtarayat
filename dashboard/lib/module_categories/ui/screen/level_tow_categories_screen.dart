@@ -103,7 +103,7 @@ class LevelTowCategoriesScreenState extends State<LevelTowCategoriesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomTwaslnaAppBar.appBar(context,
+      appBar: CustomMandoobAppBar.appBar(context,
           title: S.of(context).categoriesLevel2, icon: Icons.menu, onTap: () {
         GlobalVariable.mainScreenScaffold.currentState?.openDrawer();
       }),
@@ -123,7 +123,7 @@ class LevelTowCategoriesScreenState extends State<LevelTowCategoriesScreen> {
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
                     child: Scaffold(
-                      appBar: CustomTwaslnaAppBar.appBar(context,
+                      appBar: CustomMandoobAppBar.appBar(context,
                           title: S.current.addNewCategory),
                       backgroundColor:
                           Theme.of(context).scaffoldBackgroundColor,

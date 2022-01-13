@@ -44,7 +44,7 @@ class CaptainsScreenState extends State<CaptainsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomTwaslnaAppBar.appBar(context,
+      appBar: CustomMandoobAppBar.appBar(context,
           title: S.of(context).captains, icon: Icons.menu, onTap: () {
         GlobalVariable.mainScreenScaffold.currentState?.openDrawer();
       }),

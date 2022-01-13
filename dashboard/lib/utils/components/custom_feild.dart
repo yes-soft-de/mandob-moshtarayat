@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mandob_moshtarayat_dashboad/di/di_config.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
+import 'package:mandob_moshtarayat_dashboad/module_localization/service/localization_service/localization_service.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:mandob_moshtarayat_dashboad/utils/global/screen_type.dart';
 
 class CustomFormField extends StatefulWidget {
   final double height;
@@ -58,6 +62,10 @@ class _CustomFormFieldState extends State<CustomFormField> {
           controller: widget.controller,
           readOnly: widget.readOnly,
           maxLines: widget.maxLines ?? 1,
+          cursorHeight: getIt<LocalizationService>().getLanguage() == 'ar' &&
+                  kIsWeb
+              ? 16
+              : null,
           keyboardType: widget.numbers ? TextInputType.phone : null,
           onEditingComplete:
               widget.maxLines != null ? null : () => node.nextFocus(),
@@ -136,12 +144,14 @@ class CustomFormFieldWithTranslate extends StatefulWidget {
   final Function(String)? onSelected;
   final List<String> languages;
   final String initLanguage;
+  bool canReChoose;
   @override
   _CustomFormFieldWithTranslateState createState() =>
       _CustomFormFieldWithTranslateState();
 
   CustomFormFieldWithTranslate(
       {this.height = 50,
+       this.canReChoose = true,
       this.contentPadding = const EdgeInsets.fromLTRB(16, 8, 16, 8),
       this.hintText,
       this.preIcon,
@@ -179,7 +189,7 @@ class _CustomFormFieldWithTranslateState
           padding: const EdgeInsetsDirectional.only(start: 8.0, end: 8.0),
           child: Row(
             children: [
-              Flexible(
+              Expanded(
                 child: Padding(
                   padding:
                       !clean ? EdgeInsets.only(bottom: 8.0) : EdgeInsets.zero,
@@ -191,6 +201,11 @@ class _CustomFormFieldWithTranslateState
                     controller: widget.controller,
                     readOnly: widget.readOnly,
                     maxLines: widget.maxLines ?? 1,
+                    cursorHeight:
+                        getIt<LocalizationService>().getLanguage() == 'ar' &&
+                                kIsWeb
+                            ? 16
+                            : null,
                     keyboardType: widget.numbers ? TextInputType.phone : null,
                     textInputAction: widget.maxLines == null && widget.last
                         ? null
@@ -243,26 +258,30 @@ class _CustomFormFieldWithTranslateState
                   ),
                 ),
               ),
-              PopupMenuButton<String>(
-                initialValue: widget.initLanguage,
-                enabled: enabled,
-                onSelected: (c) {
-                  if (widget.onSelected != null) {
-                    widget.onSelected!(c);
-                  }
-                  setState(() {
-                    lan = c;
-                  });
-                },
-                child: Row(
-                  children: <Widget>[
-                    Text(lan),
-                    enabled ? Icon(Icons.arrow_drop_down) : Container(),
-                  ],
+              Visibility(
+                visible: widget.languages.length > 1,
+                replacement: Text(lan),
+                child: PopupMenuButton<String>(
+                  initialValue: widget.initLanguage,
+                  enabled: enabled,
+                  onSelected: (c) {
+                    if (widget.onSelected != null) {
+                      widget.onSelected!(c);
+                    }
+                    setState(() {
+                      lan = c;
+                    });
+                  },
+                  child: Row(
+                    children: <Widget>[
+                      Text(lan),
+                      enabled ? Icon(Icons.arrow_drop_down) : Container(),
+                    ],
+                  ),
+                  itemBuilder: (context) => widget.languages
+                      .map((c) => PopupMenuItem(value: c, child: Text(c)))
+                      .toList(),
                 ),
-                itemBuilder: (context) => widget.languages
-                    .map((c) => PopupMenuItem(value: c, child: Text(c)))
-                    .toList(),
               ),
             ],
           ),
@@ -274,7 +293,7 @@ class _CustomFormFieldWithTranslateState
   @override
   void initState() {
     super.initState();
-    lan = widget.languages.first;
+    lan = widget.initLanguage;
     enabled = widget.languages.length == 1 ? false : true;
   }
 }

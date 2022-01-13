@@ -68,7 +68,7 @@ class CaptainBalanceScreenState extends State<CaptainBalanceScreen> {
       }
     }
     return Scaffold(
-      appBar: CustomTwaslnaAppBar.appBar(
+      appBar: CustomMandoobAppBar.appBar(
         context,
         title: S.current.balanceDetails,
       ),

@@ -20,9 +20,8 @@ class StoresLoadedState extends StoresState {
   final String? error;
   final bool empty;
   final List<StoresModel>? model;
-  final List<StoreCategoriesModel>? categories;
 
-  StoresLoadedState(this.screenState, this.model, this.categories,
+  StoresLoadedState(this.screenState, this.model,
       {this.empty = false, this.error})
       : super(screenState) {
     if (error != null) {
@@ -130,7 +129,7 @@ class StoresLoadedState extends StoresState {
                             width: MediaQuery.of(context).size.width,
                             height: MediaQuery.of(context).size.height,
                             child: Scaffold(
-                              appBar: CustomTwaslnaAppBar.appBar(context,
+                              appBar: CustomMandoobAppBar.appBar(context,
                                   title: S.current.updateStore),
                               backgroundColor:
                                   Theme.of(context).scaffoldBackgroundColor,
@@ -172,7 +171,7 @@ class StoresLoadedState extends StoresState {
                                       status: status,
                                       id: element.id.toString(),
                                       storeOwnerName: name,
-                                      storeCategoryId: int.parse(id),
+                                      storeCategoryId: null,
                                       image: image,
                                       hasProducts: products ? 1 : 0,
                                       privateOrders: privateOrder ? 1 : 0,

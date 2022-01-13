@@ -201,7 +201,7 @@ class PaymentsForCaptainLoadedState extends States {
                   CustomListTileCaptainsPayment(
                       title: S.of(context).remainingAmountForCompany,
                       subTitle: accountBalance?.remainingAmountForCompany
-                              .toString() ??
+                              .toStringAsFixed(1) ??
                           '',
                       iconData: Icons.monetization_on_rounded),
                 ],
@@ -273,7 +273,7 @@ class PaymentsForCaptainLoadedState extends States {
                 : null,
             leading: Icon(Icons.credit_card_rounded),
             title: Text(S.current.paymentAmount),
-            subtitle: Text(element.amount.toString()),
+            subtitle: Text(element.amount.toStringAsFixed(1)),
             trailing:
                 Text(intl.DateFormat('yyyy/M/dd').format(element.paymentDate)),
           ),

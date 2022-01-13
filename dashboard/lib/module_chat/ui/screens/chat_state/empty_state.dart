@@ -32,7 +32,7 @@ class EmptyChatPage extends StatelessWidget {
       },
       child: Scaffold(
           appBar:
-              CustomTwaslnaAppBar.appBar(context, title: S.current.chatRoom),
+              CustomMandoobAppBar.appBar(context, title: S.current.chatRoom),
           body: Stack(
             children: [
               Column(

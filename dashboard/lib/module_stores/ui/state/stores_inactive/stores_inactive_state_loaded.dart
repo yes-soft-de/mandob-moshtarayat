@@ -168,7 +168,7 @@ class StoresInActiveLoadedState extends States {
                             width: MediaQuery.of(context).size.width,
                             height: MediaQuery.of(context).size.height,
                             child: Scaffold(
-                              appBar: CustomTwaslnaAppBar.appBar(context,
+                              appBar: CustomMandoobAppBar.appBar(context,
                                   title: S.current.updateStore),
                               backgroundColor:
                                   Theme.of(context).scaffoldBackgroundColor,
@@ -177,6 +177,9 @@ class StoresInActiveLoadedState extends States {
                                 request: UpdateStoreRequest(
                                     commission: element.commission,
                                     id: element.id.toString(),
+                                    bankName: element.bankName,
+                                    bankAccountNumber: element.bankNumber,
+                                    stcPay: element.stcPay,
                                     storeOwnerName: element.storeOwnerName,
                                     hasProducts: element.hasProducts ? 1 : 0,
                                     privateOrders:

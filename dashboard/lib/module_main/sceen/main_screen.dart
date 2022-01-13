@@ -34,7 +34,7 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
   int pop = 2;
   @override
   Widget build(BuildContext context) {
-    if (ScreenType.isDesktop()) {
+    if (ScreenType.isDesktop(context)) {
       return Scaffold(
         body: Row(
           children: [
@@ -85,7 +85,7 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
         child: Scaffold(
           key: GlobalVariable.mainScreenScaffold,
           drawer: NavigatorMenu(
-            width: ScreenType.isTablet()
+            width: ScreenType.isTablet(context)
                 ? MediaQuery.of(context).size.width * 0.4
                 : MediaQuery.of(context).size.width * 0.75,
             currentPage: selectedPage,

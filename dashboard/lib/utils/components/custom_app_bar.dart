@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/global/screen_type.dart';
 
-class CustomTwaslnaAppBar {
+class CustomMandoobAppBar {
   static PreferredSizeWidget appBar(BuildContext context,
       {required title,
       GestureTapCallback? onTap,
@@ -11,7 +10,7 @@ class CustomTwaslnaAppBar {
       IconData? icon,
       bool canGoBack = true,
       List<Widget>? actions}) {
-    if (icon == Icons.menu && ScreenType.isDesktop()) {
+    if (icon == Icons.menu && ScreenType.isDesktop(context)) {
       icon = null;
       onTap = null;
       canGoBack = false;
@@ -19,37 +18,7 @@ class CustomTwaslnaAppBar {
     return AppBar(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       centerTitle: true,
-      bottom: PreferredSize(
-        preferredSize: Size.fromHeight(16),
-        child: Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding:
-                  const EdgeInsets.only(right: 24.0, left: 24.0, bottom: 8.0),
-              child: Container(
-                height: 3,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  borderRadius: BorderRadius.circular(25),
-                ),
-                width: double.maxFinite,
-              ),
-            )),
-      ),
-      title: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(25),
-          color: Theme.of(context).primaryColor,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.only(
-              right: 16.0, left: 16.0, top: 10.0, bottom: 10.0),
-          child: Text(
-            title,
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
-      ),
+      title: Text(title),
       leading: canGoBack
           ? Padding(
               padding: const EdgeInsets.all(8.0),

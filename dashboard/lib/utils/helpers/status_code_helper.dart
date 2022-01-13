@@ -25,6 +25,8 @@ class StatusCodeHelper {
         return S.current.accountAlreadyExist;
       case '9201':
         return S.current.errorDeleteCategory;
+      case '9251':
+        return S.current.errorDeleteCategory;
       case '-1':
         return S.current.dataDecodeError;
       default:

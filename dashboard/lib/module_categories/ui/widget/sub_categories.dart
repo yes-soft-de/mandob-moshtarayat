@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -37,7 +38,7 @@ class _AddSubCategoriesWidgetState extends State<AddSubCategoriesWidget> {
   late TextEditingController _nameController;
   String? catId;
   String? imagePath;
-
+  List<String> chosenString = [];
   late String lang;
   late bool isUpdate;
 
@@ -199,13 +200,20 @@ class _AddSubCategoriesWidgetState extends State<AddSubCategoriesWidget> {
             )),
         label: S.current.save,
         onTap: () {
-          if (_key.currentState!.validate()) {
+          List<String> langs =
+              LinkedHashSet<String>.from(chosenString).toList();
+          if (_key.currentState!.validate() &&
+              langs.length == translateWidgets.length) {
             if (imagePath?.contains('http') == true &&
                 widget.subCategoriesModel != null) {
               imagePath = widget.subCategoriesModel?.imageUrl ?? '';
             }
             widget.addSubCategories(catId.toString(),
                 _nameController.text.trim(), imagePath, translate);
+          } else if (langs.length != translateWidgets.length) {
+            CustomFlushBarHelper.createError(
+                    title: S.current.warnning, message: S.current.duplicateLang)
+                .show(context);
           } else {
             CustomFlushBarHelper.createError(
                     title: S.current.warnning,
@@ -236,19 +244,26 @@ class _AddSubCategoriesWidgetState extends State<AddSubCategoriesWidget> {
 
   List<CustomFormFieldWithTranslate> trans(bool addNewField) {
     if (addNewField) {
+      var initLanguage = widget.languages.first;
+      if (chosenString.contains(initLanguage)) {
+        initLanguage = widget.languages[1];
+      }
       TranslateSubCategory translateStoreCategory =
-          TranslateSubCategory(lang: widget.languages.first);
+          TranslateSubCategory(lang: initLanguage);
+      chosenString.add(initLanguage);
       TextEditingController _nameController = TextEditingController();
       late String language = '';
 
       translateWidgets.add(CustomFormFieldWithTranslate(
-        initLanguage: widget.languages.first,
+        initLanguage: initLanguage,
         onChanged: () {
           translateStoreCategory.productCategoryName = _nameController.text;
         },
         languages: widget.languages,
         controller: _nameController,
         onSelected: (lan) {
+          chosenString.remove(translateStoreCategory.lang);
+          chosenString.add(lan);
           language = lan;
           translateStoreCategory.lang = language;
         },
