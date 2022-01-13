@@ -512,7 +512,7 @@ class StoreProductCategoryService
         {
             foreach ($storeProductCategoriesLevelTwo as $storeProductCategoryLevelTwo)
             {
-                $products = $this->productService->getProductsByStoreProductCategoryLevelTwo($userLocale, $storeProductCategoryLevelTwo['id']);
+                $products = $this->productService->getProductsByStoreProductCategoryLevelTwo($userLocale, $storeProductCategoryLevelTwo['id'], $storeOwnerProfileID);
 
                 foreach($products as $product)
                 {
