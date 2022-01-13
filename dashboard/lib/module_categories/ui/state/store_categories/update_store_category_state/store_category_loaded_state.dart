@@ -1,17 +1,12 @@
 import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mandob_moshtarayat_dashboad/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
-import 'package:mandob_moshtarayat_dashboad/module_categories/model/store_category_model.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/create_translation_store_category_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_store_categories_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/store_category_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/screen/update_categories_screen/update_store_category_screen.dart';
-import 'package:mandob_moshtarayat_dashboad/utils/components/custom_alert_dialog.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_feild.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_list_view.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/empty_screen.dart';
@@ -29,10 +24,10 @@ class StoreCategoryLoaded extends States {
   StoreCategoryLoaded(this.screenState, {this.empty = false, this.error})
       : super(screenState);
 
-  List<TranslateUpdateStoreCategory> translateItems =[];
+  List<TranslateUpdateStoreCategory> translateItems = [];
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   TextEditingController _newTransController = TextEditingController();
-
+  List<String> missingTranslate = ['ur', 'en'];
   @override
   Widget getUI(BuildContext context) {
     if (error != null) {
@@ -79,48 +74,63 @@ class StoreCategoryLoaded extends States {
                     Column(
                       children: trans(screenState.model?.translate ?? []),
                     ),
-                  screenState.model!.translate!.length != 2 ?  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                        FloatedIconButton(text: S.of(context).addNewTrans,icon: Icons.add,onPressed: (){
-                        String lang ='en';
-                          showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title :Text(S.of(context).addNewTrans),
-                            content: CustomFormFieldWithTranslate(
-                              controller: _newTransController,
-                              onSelected: (langNew){
-                                lang = langNew;
-                              },
-                              initLanguage: 'en',languages: ['en','ur'],),
-                            actions: [
-                              TextButton(onPressed: (){
-                                Navigator.pop(context);
-                                screenState.addNewTranslate(
-                                    CreateNewTransStoreCategoryRequest(storeCategoryID: screenState.model!.id,
-                                        storeCategoryName: _newTransController.text,
-                                        language: lang));
-
-                              }, child: Text(S.current.confirm)),
-                              TextButton(
+                    screenState.model!.translate!.length != 2
+                        ? Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                FloatedIconButton(
+                                  text: S.of(context).addNewTrans,
+                                  icon: Icons.add,
                                   onPressed: () {
-                                    Navigator.of(context).pop();
+                                    String lang = missingTranslate.first;
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            title:
+                                                Text(S.of(context).addNewTrans),
+                                            content: CustomFormFieldWithTranslate(
+                                                controller: _newTransController,
+                                                onSelected: (langNew) {
+                                            lang = langNew;
+                                                },
+                                                initLanguage:
+                                              missingTranslate.first,
+                                                languages: missingTranslate,
+                                              ),
+                                            actions: [
+                                              TextButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                    screenState.addNewTranslate(
+                                                        CreateNewTransStoreCategoryRequest(
+                                                            storeCategoryID:
+                                                                screenState
+                                                                    .model!.id,
+                                                            storeCategoryName:
+                                                                _newTransController
+                                                                    .text,
+                                                            language: lang));
+                                                  },
+                                                  child:
+                                                      Text(S.current.confirm)),
+                                              TextButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child:
+                                                      Text(S.current.cancel)),
+                                            ],
+                                          );
+                                        });
                                   },
-                                  child: Text(S.current.cancel)),
-                            ],
-
-                          );
-                        });
-
-                        },)
-                      ],
-
-                      ),
-                  ):Container(),
+                                )
+                              ],
+                            ),
+                          )
+                        : Container(),
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Center(
@@ -129,7 +139,6 @@ class StoreCategoryLoaded extends States {
                         style: TextStyle(fontWeight: FontWeight.bold),
                       )),
                     ),
-
                     InkWell(
                       onTap: () {
                         ImagePicker.platform
@@ -173,12 +182,10 @@ class StoreCategoryLoaded extends States {
         label: S.current.update,
         onTap: () {
           if (_key.currentState!.validate()) {
-
             if (screenState.imagePath?.contains('http') == true) {
               screenState.imagePath = screenState.model?.imageUrl ?? '';
             }
             screenState.updateCategory(translateItems);
-
           } else {
             CustomFlushBarHelper.createError(
                     title: S.current.warnning,
@@ -192,12 +199,14 @@ class StoreCategoryLoaded extends States {
     List<Widget> translateWidgets = [];
 
     for (Translate item in translates) {
+      if (missingTranslate.contains(item.language)) {
+        missingTranslate.remove(item.language);
+      }
       TextEditingController _nameController = TextEditingController();
       TranslateUpdateStoreCategory tras = TranslateUpdateStoreCategory();
-
-      tras.storeCategoryID = screenState.model?.id??-1;
-      tras.storeCategoryName = item.storeCategoryName??'';
-      tras.lang = item.language??'';
+      tras.storeCategoryID = screenState.model?.id ?? -1;
+      tras.storeCategoryName = item.storeCategoryName ?? '';
+      tras.lang = item.language ?? '';
       _nameController.text = item.storeCategoryName ?? '';
       translateWidgets.add(Padding(
         padding: const EdgeInsetsDirectional.only(top: 8),
@@ -205,7 +214,7 @@ class StoreCategoryLoaded extends States {
           controller: _nameController,
           hintText: S.current.categoryName,
           sufIcon: Text(item.language ?? ''),
-          onChanged: (){
+          onChanged: () {
             tras.storeCategoryName = _nameController.text;
           },
         ),
