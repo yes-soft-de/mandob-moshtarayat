@@ -262,13 +262,27 @@ class StoreProductCategoryService
 
        if($request->getLanguage() && $request->getLanguage() != $this->primaryLanguage)
        {
-           $storeProductCategoriesTranslations = $this->storeProductCategoryManager->getSubCategoriesTranslationsByStoreCategoryID($request->getStoreCategoryID());
+           if ($request->getStoreCategoryID()) {
 
-           $storeProductCategories = $this->replaceStoreProductCategoryTranslatedNameByPrimaryOne($storeProductCategoriesTranslations, $request->getLanguage());
+               $storeProductCategoriesTranslations = $this->storeProductCategoryManager->getSubCategoriesTranslationsByStoreCategoryID($request->getStoreCategoryID());
+
+               $storeProductCategories = $this->replaceStoreProductCategoryTranslatedNameByPrimaryOne($storeProductCategoriesTranslations, $request->getLanguage());
+           } else {
+
+               $storeProductCategoriesTranslations = $this->storeProductCategoryManager->getAllStoreProductCategoriesLevelOneTranslations();
+
+               $storeProductCategories = $this->replaceStoreProductCategoryTranslatedNameByPrimaryOne($storeProductCategoriesTranslations, $request->getLanguage());
+           }
        }
        else
        {
-           $storeProductCategories = $this->storeProductCategoryManager->getSubCategoriesByStoreCategoryID($request->getStoreCategoryID());
+           if ($request->getStoreCategoryID()) {
+
+               $storeProductCategories = $this->storeProductCategoryManager->getSubCategoriesByStoreCategoryID($request->getStoreCategoryID());
+           } else {
+
+               $storeProductCategories = $this->storeProductCategoryManager->getAllStoreProductCategoriesLevelOne();
+           }
        }
 
         foreach($storeProductCategories as $productCategory)
