@@ -26,15 +26,17 @@ class StoreCategoryService
     private $storeOwnerProfileService;
     private $categoryLinkService;
     private $productService;
+    private $storeCategoryTranslationService;
 
     public function __construct(AutoMapping $autoMapping, StoreCategoryManager $storeCategoryManager, ParameterBagInterface $params, StoreOwnerProfileService $storeOwnerProfileService,
-     CategoryLinkService $categoryLinkService, ProductService $productService)
+     CategoryLinkService $categoryLinkService, ProductService $productService, StoreCategoryTranslationService $storeCategoryTranslationService)
     {
         $this->autoMapping = $autoMapping;
         $this->storeCategoryManager = $storeCategoryManager;
         $this->storeOwnerProfileService = $storeOwnerProfileService;
         $this->categoryLinkService = $categoryLinkService;
         $this->productService = $productService;
+        $this->storeCategoryTranslationService = $storeCategoryTranslationService;
         $this->params = $params->get('upload_base_url') . '/';
         $this->primaryLanguage = $params->get('primary_language');
     }
@@ -398,6 +400,10 @@ class StoreCategoryService
             }
 
             else{
+
+                // delete category translation/s
+                $this->storeCategoryTranslationService->deleteAllStoreCategoryTranslationsByStoreCategoryID($request->getID());
+
                 return $this->autoMapping->map(StoreCategoryEntity::class, StoreCategoryByIdResponse::class, $result);
             }
         }
