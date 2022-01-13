@@ -120,7 +120,7 @@ class CaptainProfileLoadedState extends States {
                       color: Theme.of(context).primaryColor),
                   child: Flex(
                     direction:
-                        ScreenType.isMobile() ? Axis.vertical : Axis.horizontal,
+                        ScreenType.isMobile(context) ? Axis.vertical : Axis.horizontal,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       ImageTile(

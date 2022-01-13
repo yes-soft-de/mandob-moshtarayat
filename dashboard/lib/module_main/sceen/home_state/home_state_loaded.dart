@@ -87,7 +87,7 @@ class HomeLoadedState extends States {
 
   Widget widgetTile(String count, String title) {
     return Container(
-      width: !ScreenType.isDesktop()
+      width: !ScreenType.isDesktop(screenState.context)
           ? MediaQuery.of(screenState.context).size.width * 0.5
           : MediaQuery.of(screenState.context).size.width * 0.25,
       child: Flex(

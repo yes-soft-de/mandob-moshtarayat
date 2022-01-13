@@ -5559,6 +5559,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Duplicate Language Filed , please resolve it`
+  String get duplicateLang {
+    return Intl.message(
+      'Duplicate Language Filed , please resolve it',
+      name: 'duplicateLang',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

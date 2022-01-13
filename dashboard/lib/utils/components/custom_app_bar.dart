@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/global/screen_type.dart';
 
 class CustomTwaslnaAppBar {
@@ -11,7 +10,7 @@ class CustomTwaslnaAppBar {
       IconData? icon,
       bool canGoBack = true,
       List<Widget>? actions}) {
-    if (icon == Icons.menu && ScreenType.isDesktop()) {
+    if (icon == Icons.menu && ScreenType.isDesktop(context)) {
       icon = null;
       onTap = null;
       canGoBack = false;

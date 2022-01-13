@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -62,7 +63,7 @@ class _InsertFormState extends State<InsertForm> {
   late String lang;
   String? imagePath;
   late bool isUpdate;
-
+  List<String> chosenString = [];
   late List<TranslateStoreCategory> translate;
   late List<CustomFormFieldWithTranslate> translateWidgets;
 
@@ -184,7 +185,8 @@ class _InsertFormState extends State<InsertForm> {
                     child: Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(25),
-                          color: Theme.of(context).primaryColor.withOpacity(0.4)),
+                          color:
+                              Theme.of(context).primaryColor.withOpacity(0.4)),
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Text(
@@ -204,7 +206,10 @@ class _InsertFormState extends State<InsertForm> {
             ? S.current.update
             : S.current.save,
         onTap: () {
-          if (_key.currentState!.validate()) {
+          List<String> langs =
+              LinkedHashSet<String>.from(chosenString).toList();
+          if (_key.currentState!.validate() &&
+              langs.length == translateWidgets.length) {
             if (imagePath?.contains('http') == true &&
                 widget.storeCategoriesRequest != null) {
               imagePath =
@@ -212,6 +217,10 @@ class _InsertFormState extends State<InsertForm> {
                       '';
             }
             widget.add(_nameArController.text.trim(), imagePath, translate);
+          } else if (langs.length != translateWidgets.length) {
+            CustomFlushBarHelper.createError(
+                    title: S.current.warnning, message: S.current.duplicateLang)
+                .show(context);
           } else {
             CustomFlushBarHelper.createError(
                     title: S.current.warnning,
@@ -223,21 +232,29 @@ class _InsertFormState extends State<InsertForm> {
 
   List<CustomFormFieldWithTranslate> trans(bool addNewField) {
     if (addNewField) {
+      var initLanguage = widget.languages.first;
+      if (chosenString.contains(initLanguage)) {
+        initLanguage = widget.languages[1];
+      }
       TranslateStoreCategory translateStoreCategory =
-          TranslateStoreCategory(lang: widget.languages.first);
+          TranslateStoreCategory(lang: initLanguage);
+      chosenString.add(initLanguage);
       TextEditingController _nameController = TextEditingController();
       late String language = '';
 
       translateWidgets.add(CustomFormFieldWithTranslate(
-        initLanguage: widget.languages.first,
+        initLanguage: initLanguage,
         onChanged: () {
           translateStoreCategory.storeCategoryName = _nameController.text;
         },
         languages: widget.languages,
         controller: _nameController,
         onSelected: (lan) {
+            chosenString.remove(translateStoreCategory.lang);
+            chosenString.add(lan);
           language = lan;
           translateStoreCategory.lang = language;
+          setState(() {});
         },
       ));
       setState(() {});

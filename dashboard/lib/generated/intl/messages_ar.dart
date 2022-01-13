@@ -249,6 +249,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "distance": MessageLookupByLibrary.simpleMessage("يبعد عنك"),
         "distributors": MessageLookupByLibrary.simpleMessage("مناديب"),
         "driverLicence": MessageLookupByLibrary.simpleMessage("رخصة القيادة"),
+        "duplicateLang":
+            MessageLookupByLibrary.simpleMessage("لديك لغات حقول بلغات مكررة"),
         "earnCash": MessageLookupByLibrary.simpleMessage("اكسب المال"),
         "earnCashDescribtion": MessageLookupByLibrary.simpleMessage(
             "بعد اتمامك المهمة ستكافئ جهودك بالمال"),

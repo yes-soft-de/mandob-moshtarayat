@@ -554,7 +554,9 @@
   "categoriesLink":"Categories Linking",
   "linkedSuccessfully":"Linked Successfully",
   "exitWarning":"Please press again to exit",
-  "addNewTrans": "Add new translate"
+  "addNewTrans": "Add new translate",
+  "duplicateLang":"Duplicate Language Filed , please resolve it"
+
 
 
 

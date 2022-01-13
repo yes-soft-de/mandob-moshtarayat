@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat_dashboad/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
@@ -120,7 +119,7 @@ class CaptainProfileLoadedState extends States {
                       color: Theme.of(context).primaryColor),
                   child: Flex(
                     direction:
-                        ScreenType.isMobile() ? Axis.vertical : Axis.horizontal,
+                        ScreenType.isMobile(context) ? Axis.vertical : Axis.horizontal,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       ImageTile(
