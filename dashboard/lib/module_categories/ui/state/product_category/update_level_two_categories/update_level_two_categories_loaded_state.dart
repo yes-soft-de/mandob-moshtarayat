@@ -29,7 +29,7 @@ class LevelTwoCategoryLoaded extends States {
   List<TranslateSubCategory> translateItems = [];
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   TextEditingController _newTransController = TextEditingController();
-  List<String> missingTranslate = ['ur', 'en'];
+  List<String> missingTranslate = ['urdu', 'en'];
 
   @override
   Widget getUI(BuildContext context) {
@@ -115,7 +115,7 @@ class LevelTwoCategoryLoaded extends States {
                                                             storeProductCategoryName:
                                                                 _newTransController
                                                                     .text,
-                                                            language: lang));
+                                                            language: lang == 'ur' ? 'urdu' : lang));
                                                   },
                                                   child:
                                                       Text(S.current.confirm)),

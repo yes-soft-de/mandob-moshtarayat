@@ -27,7 +27,7 @@ class StoreCategoryLoaded extends States {
   List<TranslateUpdateStoreCategory> translateItems = [];
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   TextEditingController _newTransController = TextEditingController();
-  List<String> missingTranslate = ['ur', 'en'];
+  List<String> missingTranslate = ['urdu', 'en'];
   @override
   Widget getUI(BuildContext context) {
     if (error != null) {
@@ -94,7 +94,7 @@ class StoreCategoryLoaded extends States {
                                             content: CustomFormFieldWithTranslate(
                                                 controller: _newTransController,
                                                 onSelected: (langNew) {
-                                            lang = langNew;
+                                                  lang = langNew;
                                                 },
                                                 initLanguage:
                                               missingTranslate.first,
@@ -112,7 +112,7 @@ class StoreCategoryLoaded extends States {
                                                             storeCategoryName:
                                                                 _newTransController
                                                                     .text,
-                                                            language: lang));
+                                                            language: lang == 'ur' ? 'urdu' : lang));
                                                   },
                                                   child:
                                                       Text(S.current.confirm)),
