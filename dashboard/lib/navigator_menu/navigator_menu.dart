@@ -9,7 +9,6 @@ import 'package:mandob_moshtarayat_dashboad/module_categories_linking/linking_mo
 import 'package:mandob_moshtarayat_dashboad/module_clients/clients_module.dart';
 import 'package:mandob_moshtarayat_dashboad/module_company/company_module.dart';
 import 'package:mandob_moshtarayat_dashboad/module_distributor/distros_module.dart';
-import 'package:mandob_moshtarayat_dashboad/module_distributor/ui/screen/distors_list_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/module_filters/filters_module.dart';
 import 'package:mandob_moshtarayat_dashboad/module_main/main_module.dart';
 import 'package:mandob_moshtarayat_dashboad/module_orders/orders_module.dart';
@@ -255,31 +254,29 @@ class _NavigatorMenuState extends State<NavigatorMenu> {
       size = 20;
     }
 
-    return InkWell(
+    return Padding(
       key: ValueKey(page.runtimeType),
-      onTap: () {
-        widget.onTap(page);
-        GlobalVariable.mainScreenScaffold.currentState?.openEndDrawer();
-        setState(() {});
-      },
-      child: Padding(
-        padding: EdgeInsets.only(
-            left: subtitle ? 16.0 : 8.0, right: subtitle ? 16 : 8.0),
-        child: Container(
-          decoration: BoxDecoration(
-              color: selected ? Theme.of(context).primaryColor : null,
-              borderRadius: BorderRadius.circular(25)),
-          child: ListTile(
-            minLeadingWidth: subtitle ? 4 : null,
-            visualDensity: VisualDensity(vertical: -2),
-            leading:
-                Icon(icon, color: selected ? Colors.white : null, size: size),
-            title: Text(
-              title,
-              style: TextStyle(
-                  color: selected ? Colors.white : null,
-                  fontSize: subtitle ? 14 : null),
-            ),
+      padding: EdgeInsets.only(
+          left: subtitle ? 16.0 : 8.0, right: subtitle ? 16 : 8.0),
+      child: Container(
+        decoration: BoxDecoration(
+            color: selected ? Theme.of(context).primaryColor : null,
+            borderRadius: BorderRadius.circular(25)),
+        child: ListTile(
+          minLeadingWidth: subtitle ? 4 : null,
+          visualDensity: VisualDensity(vertical: -2),
+          onTap: () {
+            widget.onTap(page);
+            GlobalVariable.mainScreenScaffold.currentState?.openEndDrawer();
+            setState(() {});
+          },
+          leading:
+              Icon(icon, color: selected ? Colors.white : null, size: size),
+          title: Text(
+            title,
+            style: TextStyle(
+                color: selected ? Colors.white : null,
+                fontSize: subtitle ? 14 : null),
           ),
         ),
       ),
