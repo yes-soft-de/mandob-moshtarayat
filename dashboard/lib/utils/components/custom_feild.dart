@@ -189,7 +189,7 @@ class _CustomFormFieldWithTranslateState
           padding: const EdgeInsetsDirectional.only(start: 8.0, end: 8.0),
           child: Row(
             children: [
-              Flexible(
+              Expanded(
                 child: Padding(
                   padding:
                       !clean ? EdgeInsets.only(bottom: 8.0) : EdgeInsets.zero,
@@ -259,7 +259,7 @@ class _CustomFormFieldWithTranslateState
                 ),
               ),
               Visibility(
-                visible: widget.canReChoose,
+                visible: widget.languages.length > 1,
                 replacement: Text(lan),
                 child: PopupMenuButton<String>(
                   initialValue: widget.initLanguage,
