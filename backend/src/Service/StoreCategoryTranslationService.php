@@ -66,4 +66,23 @@ class StoreCategoryTranslationService
         return $item;
     }
 
+    public function deleteAllStoreCategoryTranslationsByStoreCategoryID($storeCategoryID)
+    {
+        $response = [];
+
+        $storeCategoryTranslationsEntities = $this->storeCategoryTranslationManager->deleteAllStoreCategoryTranslationsByStoreCategoryID($storeCategoryID);
+
+        if($storeCategoryTranslationsEntities == 'storeCategoryTranslationNotFound') {
+
+            return $storeCategoryTranslationsEntities;
+        } else {
+
+            foreach ($storeCategoryTranslationsEntities as $storeCategoryTranslationsEntity) {
+
+                $response[] = $this->autoMapping->map(StoreCategoryTranslationEntity::class, StoreCategoryTranslationGetResponse::class, $storeCategoryTranslationsEntity);
+            }
+
+            return $response;
+        }
+    }
 }

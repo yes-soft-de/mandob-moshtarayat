@@ -67,4 +67,23 @@ class StoreProductCategoryTranslationManager
     {
         return $this->storeProductCategoryTranslationEntityRepository->getStoreProductCategoryTranslationsByStoreProductCategoryID($storeProductCategoryID);
     }
+
+    public function deleteAllStoreProductCategoryTranslationsByStoreProductCategoryID($storeProductCategoryID)
+    {
+        $storeProductCategoryTranslationEntities = $this->storeProductCategoryTranslationEntityRepository->getAllStoreProductCategoryTranslationsEntitiesByStoreProductCategoryID($storeProductCategoryID);
+
+        if(!$storeProductCategoryTranslationEntities) {
+
+            return 'storeProductCategoryTranslationNotFound';
+        } else {
+
+            foreach ($storeProductCategoryTranslationEntities as $storeProductCategoryTranslationEntity) {
+
+                $this->entityManager->remove($storeProductCategoryTranslationEntity);
+                $this->entityManager->flush();
+            }
+
+            return $storeProductCategoryTranslationEntities;
+        }
+    }
 }

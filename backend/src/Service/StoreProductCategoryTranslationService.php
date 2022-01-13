@@ -103,4 +103,23 @@ class StoreProductCategoryTranslationService
         return $item;
     }
 
+    public function deleteAllStoreProductCategoryTranslationsByStoreProductCategoryID($storeProductCategoryID)
+    {
+        $response = [];
+
+        $storeProductCategoryTranslationsEntities = $this->storeProductCategoryTranslationManager->deleteAllStoreProductCategoryTranslationsByStoreProductCategoryID($storeProductCategoryID);
+
+        if($storeProductCategoryTranslationsEntities == 'storeProductCategoryTranslationNotFound') {
+
+            return $storeProductCategoryTranslationsEntities;
+        } else {
+
+            foreach ($storeProductCategoryTranslationsEntities as $storeCategoryTranslationsEntity) {
+
+                $response[] = $this->autoMapping->map(StoreProductCategoryTranslationEntity::class, StoreProductCategoryTranslationGetResponse::class, $storeCategoryTranslationsEntity);
+            }
+
+            return $response;
+        }
+    }
 }

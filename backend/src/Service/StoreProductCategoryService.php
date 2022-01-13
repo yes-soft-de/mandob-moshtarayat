@@ -262,13 +262,25 @@ class StoreProductCategoryService
 
        if($request->getLanguage() && $request->getLanguage() != $this->primaryLanguage)
        {
-           $storeProductCategoriesTranslations = $this->storeProductCategoryManager->getSubCategoriesTranslationsByStoreCategoryID($request->getStoreCategoryID());
+           if ($request->getStoreCategoryID()) {
+
+               $storeProductCategoriesTranslations = $this->storeProductCategoryManager->getSubCategoriesTranslationsByStoreCategoryID($request->getStoreCategoryID());
+           } else {
+
+               $storeProductCategoriesTranslations = $this->storeProductCategoryManager->getAllStoreProductCategoriesLevelOneTranslations();
+           }
 
            $storeProductCategories = $this->replaceStoreProductCategoryTranslatedNameByPrimaryOne($storeProductCategoriesTranslations, $request->getLanguage());
        }
        else
        {
-           $storeProductCategories = $this->storeProductCategoryManager->getSubCategoriesByStoreCategoryID($request->getStoreCategoryID());
+           if ($request->getStoreCategoryID()) {
+
+               $storeProductCategories = $this->storeProductCategoryManager->getSubCategoriesByStoreCategoryID($request->getStoreCategoryID());
+           } else {
+
+               $storeProductCategories = $this->storeProductCategoryManager->getAllStoreProductCategoriesLevelOne();
+           }
        }
 
         foreach($storeProductCategories as $productCategory)
@@ -333,13 +345,25 @@ class StoreProductCategoryService
 
         if($request->getLanguage() && $request->getLanguage() != $this->primaryLanguage)
         {
-            $storeProductCategoriesTranslations = $this->storeProductCategoryManager->getStoreProductsCategoryLevelTwoTranslationsByStoreProductCategoryID($request->getStoreProductCategoryID());
+            if ($request->getStoreProductCategoryID()) {
+
+                $storeProductCategoriesTranslations = $this->storeProductCategoryManager->getStoreProductsCategoryLevelTwoTranslationsByStoreProductCategoryID($request->getStoreProductCategoryID());
+            } else {
+
+                $storeProductCategoriesTranslations = $this->storeProductCategoryManager->getAllStoreProductCategoriesLevelTwoTranslations();
+            }
 
             $items = $this->replaceStoreProductCategoryTranslatedNameByPrimaryOne($storeProductCategoriesTranslations, $request->getLanguage());
         }
         else
         {
-            $items = $this->storeProductCategoryManager->getOnlyStoreProductsCategoryLevelTwoByStoreProductCategoryLevelOneID($request->getStoreProductCategoryID());
+            if ($request->getStoreProductCategoryID()) {
+
+                $items = $this->storeProductCategoryManager->getOnlyStoreProductsCategoryLevelTwoByStoreProductCategoryLevelOneID($request->getStoreProductCategoryID());
+            } else {
+
+                $items = $this->storeProductCategoryManager->getAllStoreProductCategoriesLevelTwo();
+            }
         }
 
         foreach ($items as $item) {
@@ -558,7 +582,7 @@ class StoreProductCategoryService
 
     public function deleteStoreProductCategoryByID($request)
     {
-        $isRelated = $this->storeProductCategoryManager->isItRelatedToProductsOrOtherCategory($request->getID());
+        $isRelated = $this->storeProductCategoryManager->isItRelatedToProductsOrOtherCategory($request->getId());
         if($isRelated == "not related") {
             $result = $this->storeProductCategoryManager->deleteStoreProductCategoryByID($request);
 
@@ -566,6 +590,10 @@ class StoreProductCategoryService
                 return $result;
             }
             else {
+
+                // delete all store product category translation/s
+                $this->storeProductCategoryTranslationService->deleteAllStoreProductCategoryTranslationsByStoreProductCategoryID($request->getId());
+
                 return $this->autoMapping->map(StoreProductCategoryEntity::class, StoreProductCategoryByIdResponse::class, $result);
             }
         }

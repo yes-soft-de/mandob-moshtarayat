@@ -63,4 +63,22 @@ class StoreCategoryTranslationManager
         return $this->storeCategoryTranslationEntityRepository->getAllStoreCategoryTranslationsByStoreCategoryID($storeCategoryID);
     }
 
+    public function deleteAllStoreCategoryTranslationsByStoreCategoryID($storeCategoryID)
+    {
+        $storeCategoryTranslationEntities = $this->storeCategoryTranslationEntityRepository->getAllStoreCategoryTranslationsEntitiesByStoreCategoryID($storeCategoryID);
+
+        if(!$storeCategoryTranslationEntities) {
+
+            return 'storeCategoryTranslationNotFound';
+        } else {
+
+            foreach ($storeCategoryTranslationEntities as $storeCategoryTranslationEntity) {
+
+                $this->entityManager->remove($storeCategoryTranslationEntity);
+                $this->entityManager->flush();
+            }
+
+            return $storeCategoryTranslationEntities;
+        }
+    }
 }

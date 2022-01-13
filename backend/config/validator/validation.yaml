@@ -382,16 +382,6 @@ App\Request\ActivateMandobAccountByAdminRequest:
     status:
       - NotBlank: ~
 
-App\Request\FilterStoreProductCategoryLevelOne:
-  properties:
-    storeCategoryID:
-      - NotBlank: ~
-
-App\Request\FilterStoreProductCategoryLevelTwo:
-  properties:
-    storeProductCategoryID:
-      - NotBlank: ~
-
 App\Request\ProductCommissionByAdminUpdateRequest:
   properties:
     id:
