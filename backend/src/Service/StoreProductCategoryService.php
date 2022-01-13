@@ -265,14 +265,12 @@ class StoreProductCategoryService
            if ($request->getStoreCategoryID()) {
 
                $storeProductCategoriesTranslations = $this->storeProductCategoryManager->getSubCategoriesTranslationsByStoreCategoryID($request->getStoreCategoryID());
-
-               $storeProductCategories = $this->replaceStoreProductCategoryTranslatedNameByPrimaryOne($storeProductCategoriesTranslations, $request->getLanguage());
            } else {
 
                $storeProductCategoriesTranslations = $this->storeProductCategoryManager->getAllStoreProductCategoriesLevelOneTranslations();
-
-               $storeProductCategories = $this->replaceStoreProductCategoryTranslatedNameByPrimaryOne($storeProductCategoriesTranslations, $request->getLanguage());
            }
+
+           $storeProductCategories = $this->replaceStoreProductCategoryTranslatedNameByPrimaryOne($storeProductCategoriesTranslations, $request->getLanguage());
        }
        else
        {
@@ -347,13 +345,25 @@ class StoreProductCategoryService
 
         if($request->getLanguage() && $request->getLanguage() != $this->primaryLanguage)
         {
-            $storeProductCategoriesTranslations = $this->storeProductCategoryManager->getStoreProductsCategoryLevelTwoTranslationsByStoreProductCategoryID($request->getStoreProductCategoryID());
+            if ($request->getStoreProductCategoryID()) {
+
+                $storeProductCategoriesTranslations = $this->storeProductCategoryManager->getStoreProductsCategoryLevelTwoTranslationsByStoreProductCategoryID($request->getStoreProductCategoryID());
+            } else {
+
+                $storeProductCategoriesTranslations = $this->storeProductCategoryManager->getAllStoreProductCategoriesLevelTwoTranslations();
+            }
 
             $items = $this->replaceStoreProductCategoryTranslatedNameByPrimaryOne($storeProductCategoriesTranslations, $request->getLanguage());
         }
         else
         {
-            $items = $this->storeProductCategoryManager->getOnlyStoreProductsCategoryLevelTwoByStoreProductCategoryLevelOneID($request->getStoreProductCategoryID());
+            if ($request->getStoreProductCategoryID()) {
+
+                $items = $this->storeProductCategoryManager->getOnlyStoreProductsCategoryLevelTwoByStoreProductCategoryLevelOneID($request->getStoreProductCategoryID());
+            } else {
+
+                $items = $this->storeProductCategoryManager->getAllStoreProductCategoriesLevelTwo();
+            }
         }
 
         foreach ($items as $item) {

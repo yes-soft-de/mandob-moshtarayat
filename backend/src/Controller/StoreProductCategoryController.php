@@ -582,7 +582,7 @@ class StoreProductCategoryController extends BaseController
      *      description="filtering options",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="language", description="optional"),
-     *          @OA\Property(type="integer", property="storeProductCategoryID", description="required")
+     *          @OA\Property(type="integer", property="storeProductCategoryID")
      *      )
      * )
      *
