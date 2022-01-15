@@ -518,5 +518,25 @@
   "specific": "محدد",
   "clients": "العملاء",
   "storeAvailable": "المتجر متوفر",
-  "storesInActive": "المتاجر الغير متاحة"
+  "storesInActive": "المتاجر الغير متاحة",
+
+  "yourImage": "الصورة الشخصية",
+  "selectLanguage": "اختر اللغة",
+
+  "forgotPass": "هل نسيت كلمة المرور؟",
+  "passwordUpdatedSuccess": "تم تحيث كلمة المرور بنجاح",
+
+  "newPassword": "كلمة السر الجديدة",
+  "confirmNewPass": "تأكيد كلمة السر الجديدة",
+  "informSendCode": "سنقوم بأرسال كود تحقق الى رقمك",
+  "passwordNotMatch": "كلمة السر غير متطابقة",
+  "phoneNumberLong":"رقم الهاتف غير صالح بسبب تعديه ل٩ محارف",
+
+  "invalidNumber": "الرقم غير صالح",
+  "invalidCode": "رمز التحقق خطأ",
+  "codeNumber": "رمز التحقق",
+  "codeTimeOut": "انتهت صلاحية رمز التحقق",
+  "resendCodeSuccessfully":"تم إرسال الرمز بنجاح",
+  "notVerifiedNumber": "يجب عليك إدخال الرمز أولاً"
+
 }

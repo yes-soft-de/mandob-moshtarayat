@@ -121,7 +121,6 @@ attr contentInsetRight
 attr contentInsetStart
 attr contentInsetStartWithNavigation
 attr controlBackground
-attr coordinatorLayoutStyle
 attr customNavigationLayout
 attr defaultQueryHint
 attr dialogCornerRadius
@@ -179,15 +178,8 @@ attr indeterminateProgressStyle
 attr initialActivityCount
 attr isLightTheme
 attr itemPadding
-attr keylines
 attr lastBaselineToBottomHeight
 attr layout
-attr layout_anchor
-attr layout_anchorGravity
-attr layout_behavior
-attr layout_dodgeInsetEdges
-attr layout_insetEdge
-attr layout_keyline
 attr lineHeight
 attr listChoiceBackgroundIndicator
 attr listChoiceIndicatorMultipleAnimated
@@ -255,7 +247,6 @@ attr spinnerStyle
 attr splitTrack
 attr srcCompat
 attr state_above_anchor
-attr statusBarBackground
 attr subMenuArrow
 attr submitBackground
 attr subtitle
@@ -666,6 +657,7 @@ drawable corner
 drawable googleg_disabled_color_18
 drawable googleg_standard_color_18
 drawable launch_background
+drawable logo
 drawable navigation_empty_icon
 drawable notification_action_background
 drawable notification_bg
@@ -745,7 +737,6 @@ id add
 id adjust_height
 id adjust_width
 id alertTitle
-id all
 id always
 id async
 id auto
@@ -759,14 +750,10 @@ id browser_actions_menu_items
 id browser_actions_menu_view
 id buttonPanel
 id cancel_action
-id center
-id center_horizontal
 id center_vertical
 id checkbox
 id checked
 id chronometer
-id clip_horizontal
-id clip_vertical
 id collapseActionView
 id content
 id contentPanel
@@ -782,9 +769,6 @@ id end
 id end_padder
 id expand_activities_button
 id expanded_menu
-id fill
-id fill_horizontal
-id fill_vertical
 id forever
 id group_divider
 id home
@@ -796,7 +780,6 @@ id ifRoom
 id image
 id info
 id italic
-id left
 id light
 id line1
 id line3
@@ -818,7 +801,6 @@ id parentPanel
 id progress_circular
 id progress_horizontal
 id radio
-id right
 id right_icon
 id right_side
 id screen
@@ -846,7 +828,6 @@ id src_atop
 id src_in
 id src_over
 id standard
-id start
 id status_bar_latest_event_content
 id submenuarrow
 id submit_area
@@ -992,7 +973,11 @@ string common_google_play_services_wear_update_text
 string common_open_on_phone
 string common_signin_button_text
 string common_signin_button_text_long
+string copy_toast_msg
 string default_web_client_id
+string fallback_menu_item_copy_link
+string fallback_menu_item_open_in_browser
+string fallback_menu_item_share_link
 string fcm_fallback_notification_channel_label
 string gcm_defaultSenderId
 string google_api_key
@@ -1359,7 +1344,6 @@ style Widget_AppCompat_Toolbar
 style Widget_AppCompat_Toolbar_Button_Navigation
 style Widget_Compat_NotificationActionContainer
 style Widget_Compat_NotificationActionText
-style Widget_Support_CoordinatorLayout
 styleable ActionBar background backgroundSplit backgroundStacked contentInsetEnd contentInsetEndWithActions contentInsetLeft contentInsetRight contentInsetStart contentInsetStartWithNavigation customNavigationLayout displayOptions divider elevation height hideOnContentScroll homeAsUpIndicator homeLayout icon indeterminateProgressStyle itemPadding logo navigationMode popupTheme progressBarPadding progressBarStyle subtitle subtitleTextStyle title titleTextStyle
 styleable ActionBarLayout android_layout_gravity
 styleable ActionMenuItemView android_minWidth
@@ -1379,8 +1363,6 @@ styleable ButtonBarLayout allowStacking
 styleable Capability queryPatterns shortcutMatchRequired
 styleable ColorStateListItem android_color android_alpha alpha
 styleable CompoundButton android_button buttonCompat buttonTint buttonTintMode
-styleable CoordinatorLayout keylines statusBarBackground
-styleable CoordinatorLayout_Layout android_layout_gravity layout_anchor layout_anchorGravity layout_behavior layout_dodgeInsetEdges layout_insetEdge layout_keyline
 styleable DrawerArrowToggle arrowHeadLength arrowShaftLength barLength color drawableSize gapBetweenBars spinBars thickness
 styleable FontFamily fontProviderAuthority fontProviderCerts fontProviderFetchStrategy fontProviderFetchTimeout fontProviderPackage fontProviderQuery fontProviderSystemFontFamily
 styleable FontFamilyFont android_font android_fontWeight android_fontStyle android_ttcIndex android_fontVariationSettings font fontStyle fontVariationSettings fontWeight ttcIndex
@@ -1409,3 +1391,4 @@ styleable ViewBackgroundHelper android_background backgroundTint backgroundTintM
 styleable ViewStubCompat android_id android_layout android_inflatedId
 xml flutter_image_picker_file_paths
 xml flutter_share_file_paths
+xml image_share_filepaths

@@ -3,6 +3,6 @@
 3    package="name.avioli.unilinks" >
 4
 5    <uses-sdk android:minSdkVersion="16" />
-5-->/Users/yazan99sh/development/flutter/.pub-cache/hosted/pub.dartlang.org/uni_links-0.5.1/android/src/main/AndroidManifest.xml
+5-->C:\flutter2\.pub-cache\hosted\pub.dartlang.org\uni_links-0.5.1\android\src\main\AndroidManifest.xml
 6
 7</manifest>

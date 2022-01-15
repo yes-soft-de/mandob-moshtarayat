@@ -10,7 +10,7 @@ import 'intl/messages_all.dart';
 
 // ignore_for_file: non_constant_identifier_names, lines_longer_than_80_chars
 // ignore_for_file: join_return_with_assignment, prefer_final_in_for_each
-// ignore_for_file: avoid_redundant_argument_values, avoid_escaping_inner_quotes
+// ignore_for_file: avoid_redundant_argument_values
 
 class S {
   S();
@@ -18,31 +18,28 @@ class S {
   static S? _current;
 
   static S get current {
-    assert(_current != null,
-        'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.');
+    assert(_current != null, 'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.');
     return _current!;
   }
 
-  static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
+  static const AppLocalizationDelegate delegate =
+    AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false)
-        ? locale.languageCode
-        : locale.toString();
-    final localeName = Intl.canonicalizedLocale(name);
+    final name = (locale.countryCode?.isEmpty ?? false) ? locale.languageCode : locale.toString();
+    final localeName = Intl.canonicalizedLocale(name); 
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
       final instance = S();
       S._current = instance;
-
+ 
       return instance;
     });
-  }
+  } 
 
   static S of(BuildContext context) {
     final instance = S.maybeOf(context);
-    assert(instance != null,
-        'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?');
+    assert(instance != null, 'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?');
     return instance!;
   }
 
@@ -5225,6 +5222,156 @@ class S {
     return Intl.message(
       'Stores In Active',
       name: 'storesInActive',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your image`
+  String get yourImage {
+    return Intl.message(
+      'Your image',
+      name: 'yourImage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select language`
+  String get selectLanguage {
+    return Intl.message(
+      'Select language',
+      name: 'selectLanguage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Forgot Password?`
+  String get forgotPass {
+    return Intl.message(
+      'Forgot Password?',
+      name: 'forgotPass',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password updated successfully`
+  String get passwordUpdatedSuccess {
+    return Intl.message(
+      'Password updated successfully',
+      name: 'passwordUpdatedSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `notVerifiedNumber`
+  String get notVerifiedNumber {
+    return Intl.message(
+      'notVerifiedNumber',
+      name: 'notVerifiedNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We will send a verification code to your number`
+  String get informSendCode {
+    return Intl.message(
+      'We will send a verification code to your number',
+      name: 'informSendCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password not matching`
+  String get passwordNotMatch {
+    return Intl.message(
+      'Password not matching',
+      name: 'passwordNotMatch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New password`
+  String get newPassword {
+    return Intl.message(
+      'New password',
+      name: 'newPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm new password`
+  String get confirmNewPass {
+    return Intl.message(
+      'Confirm new password',
+      name: 'confirmNewPass',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid number`
+  String get invalidNumber {
+    return Intl.message(
+      'Invalid number',
+      name: 'invalidNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid Code`
+  String get invalidCode {
+    return Intl.message(
+      'Invalid Code',
+      name: 'invalidCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Code number`
+  String get codeNumber {
+    return Intl.message(
+      'Code number',
+      name: 'codeNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Code has expired`
+  String get codeTimeOut {
+    return Intl.message(
+      'Code has expired',
+      name: 'codeTimeOut',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The code has been successfully sent`
+  String get resendCodeSuccessfully {
+    return Intl.message(
+      'The code has been successfully sent',
+      name: 'resendCodeSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Phone number invalid format , cause is more than 9`
+  String get phoneNumberLong {
+    return Intl.message(
+      'Phone number invalid format , cause is more than 9',
+      name: 'phoneNumberLong',
       desc: '',
       args: [],
     );

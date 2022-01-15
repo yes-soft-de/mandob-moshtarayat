@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
-import 'package:mandob_moshtarayat/module_auth/service/auth_service/auth_service.dart';
+import 'package:mandob_moshtarayat/module_auth/service/auth_service.dart';
 import 'package:mandob_moshtarayat/module_chat/state_manager/chat_state_manager.dart';
 import 'package:mandob_moshtarayat/module_chat/ui/widget/chat_writer/chat_writer.dart';
 import 'package:mandob_moshtarayat/module_upload/service/image_upload/image_upload_service.dart';
@@ -32,7 +32,7 @@ class EmptyChatPage extends StatelessWidget {
       },
       child: Scaffold(
           appBar:
-              CustomTwaslnaAppBar.appBar(context, title: S.current.chatRoom),
+          CustomMandobAppBar.appBar(context, title: S.current.chatRoom),
           body: Stack(
             children: [
               Column(

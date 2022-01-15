@@ -1,26 +1,26 @@
 [
     {
-        "merged": "/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/url_launcher/intermediates/res/merged/debug/layout/notification_action.xml",
-        "source": "/Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/fb509cf359bd1a4c966c1fdc96709860/core-1.1.0/res/layout/notification_action.xml"
+        "merged": "D:\\AndroidStudioProject\\mandob-moshtarayat-dist\\distributor\\build\\url_launcher\\intermediates\\res\\merged\\debug\\layout\\notification_action_tombstone.xml",
+        "source": "C:\\Users\\Bcc\\.gradle\\caches\\transforms-2\\files-2.1\\2d7199b28aedd286fdef216f1092bac6\\core-1.6.0\\res\\layout\\notification_action_tombstone.xml"
     },
     {
-        "merged": "/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/url_launcher/intermediates/res/merged/debug/layout/custom_dialog.xml",
-        "source": "/Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/fb509cf359bd1a4c966c1fdc96709860/core-1.1.0/res/layout/custom_dialog.xml"
+        "merged": "D:\\AndroidStudioProject\\mandob-moshtarayat-dist\\distributor\\build\\url_launcher\\intermediates\\res\\merged\\debug\\layout\\notification_template_part_chronometer.xml",
+        "source": "C:\\Users\\Bcc\\.gradle\\caches\\transforms-2\\files-2.1\\2d7199b28aedd286fdef216f1092bac6\\core-1.6.0\\res\\layout\\notification_template_part_chronometer.xml"
     },
     {
-        "merged": "/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/url_launcher/intermediates/res/merged/debug/layout/notification_template_part_chronometer.xml",
-        "source": "/Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/fb509cf359bd1a4c966c1fdc96709860/core-1.1.0/res/layout/notification_template_part_chronometer.xml"
+        "merged": "D:\\AndroidStudioProject\\mandob-moshtarayat-dist\\distributor\\build\\url_launcher\\intermediates\\res\\merged\\debug\\layout\\notification_template_part_time.xml",
+        "source": "C:\\Users\\Bcc\\.gradle\\caches\\transforms-2\\files-2.1\\2d7199b28aedd286fdef216f1092bac6\\core-1.6.0\\res\\layout\\notification_template_part_time.xml"
     },
     {
-        "merged": "/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/url_launcher/intermediates/res/merged/debug/layout/notification_template_icon_group.xml",
-        "source": "/Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/fb509cf359bd1a4c966c1fdc96709860/core-1.1.0/res/layout/notification_template_icon_group.xml"
+        "merged": "D:\\AndroidStudioProject\\mandob-moshtarayat-dist\\distributor\\build\\url_launcher\\intermediates\\res\\merged\\debug\\layout\\notification_template_icon_group.xml",
+        "source": "C:\\Users\\Bcc\\.gradle\\caches\\transforms-2\\files-2.1\\2d7199b28aedd286fdef216f1092bac6\\core-1.6.0\\res\\layout\\notification_template_icon_group.xml"
     },
     {
-        "merged": "/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/url_launcher/intermediates/res/merged/debug/layout/notification_action_tombstone.xml",
-        "source": "/Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/fb509cf359bd1a4c966c1fdc96709860/core-1.1.0/res/layout/notification_action_tombstone.xml"
+        "merged": "D:\\AndroidStudioProject\\mandob-moshtarayat-dist\\distributor\\build\\url_launcher\\intermediates\\res\\merged\\debug\\layout\\custom_dialog.xml",
+        "source": "C:\\Users\\Bcc\\.gradle\\caches\\transforms-2\\files-2.1\\2d7199b28aedd286fdef216f1092bac6\\core-1.6.0\\res\\layout\\custom_dialog.xml"
     },
     {
-        "merged": "/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/url_launcher/intermediates/res/merged/debug/layout/notification_template_part_time.xml",
-        "source": "/Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/fb509cf359bd1a4c966c1fdc96709860/core-1.1.0/res/layout/notification_template_part_time.xml"
+        "merged": "D:\\AndroidStudioProject\\mandob-moshtarayat-dist\\distributor\\build\\url_launcher\\intermediates\\res\\merged\\debug\\layout\\notification_action.xml",
+        "source": "C:\\Users\\Bcc\\.gradle\\caches\\transforms-2\\files-2.1\\2d7199b28aedd286fdef216f1092bac6\\core-1.6.0\\res\\layout\\notification_action.xml"
     }
 ]

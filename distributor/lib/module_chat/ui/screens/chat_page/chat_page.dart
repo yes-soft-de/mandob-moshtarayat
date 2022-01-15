@@ -6,7 +6,7 @@ import 'package:lottie/lottie.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:soundpool/soundpool.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
-import 'package:mandob_moshtarayat/module_auth/service/auth_service/auth_service.dart';
+import 'package:mandob_moshtarayat/module_auth/service/auth_service.dart';
 import 'package:mandob_moshtarayat/module_chat/model/chat/chat_model.dart';
 import 'package:mandob_moshtarayat/module_chat/presistance/chat_hive_helper.dart';
 import 'package:mandob_moshtarayat/module_chat/state_manager/chat_state_manager.dart';
@@ -185,7 +185,7 @@ class ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
           }
         },
         child: Scaffold(
-            appBar: CustomTwaslnaAppBar.appBar(context,
+            appBar: CustomMandobAppBar.appBar(context,
                 title: S.current.chatRoom, onTap: () {
               int remove = 0;
               if (newMessagesWidgetExist()) {

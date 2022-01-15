@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.yessoft.mandoob_distro">
    <application
-        android:label="mandob_distro"
-        android:icon="@mipmap/ic_launcher">
+        android:label="Mandob"
+       android:icon="@drawable/logo">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

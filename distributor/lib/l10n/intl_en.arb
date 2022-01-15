@@ -519,7 +519,25 @@
   "specific": "Specific",
   "clients": "Clients",
   "storeAvailable": "Store Availability",
-  "storesInActive": "Stores In Active"
+  "storesInActive": "Stores In Active",
 
 
+  "yourImage": "Your image",
+  "selectLanguage": "Select language",
+
+  "forgotPass": "Forgot Password?",
+  "passwordUpdatedSuccess": "Password updated successfully",
+  "notVerifiedNumber": "notVerifiedNumber",
+
+  "informSendCode": "We will send a verification code to your number",
+  "passwordNotMatch": "Password not matching",
+  "newPassword": "New password",
+
+  "confirmNewPass": "Confirm new password",
+  "invalidNumber": "Invalid number",
+  "invalidCode": "Invalid Code",
+  "codeNumber": "Code number",
+  "codeTimeOut": "Code has expired",
+  "resendCodeSuccessfully": "The code has been successfully sent",
+  "phoneNumberLong":"Phone number invalid format , cause is more than 9"
 }
