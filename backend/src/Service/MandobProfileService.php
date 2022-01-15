@@ -12,6 +12,7 @@ use App\Request\VerificationCreateRequest;
 use App\Response\ActivateMandobAccountByAdminResponse;
 use App\Response\MandobFilterByStatusResponse;
 use App\Response\MandobProfileCreateResponse;
+use App\Response\RepresentativeProfileGetResponse;
 use App\Response\UserRegisterResponse ;
 use App\Manager\MandobProfileManager;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -55,6 +56,15 @@ class MandobProfileService
         $createVerificationRequest = $this->autoMapping->map(UserRegisterRequest::class, VerificationCreateRequest::class, $userEntity);
 
         $this->verificationService->createVerificationCode($createVerificationRequest);
+    }
+
+    public function getProfileByMandobID($mandobID)
+    {
+        $mandobProfile = $this->mandobProfileManager->getProfileByMandobID($mandobID);
+
+        $mandobProfile['image'] = $this->getImageParams($mandobProfile['image'], $this->params . $mandobProfile['image'], $this->params);
+
+        return $this->autoMapping->map('array', RepresentativeProfileGetResponse::class, $mandobProfile);
     }
 
     public function updateMandobProfile(MandobProfileUpdateRequest $request)

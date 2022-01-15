@@ -82,6 +82,11 @@ class MandobProfileManager
         return 'user is found';
     }
 
+    public function getProfileByMandobID($mandobID)
+    {
+        return $this->mandobProfileEntityRepository->getProfileByMandobID($mandobID);
+    }
+
     public function updateMandobProfile(MandobProfileUpdateRequest $request)
     {
         $item = $this->mandobProfileEntityRepository->getMandobProfile($request->getUserID());
