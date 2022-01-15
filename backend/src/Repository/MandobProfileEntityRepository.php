@@ -62,4 +62,30 @@ class MandobProfileEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getProfileByMandobID($mandobID)
+    {
+        return $this->createQueryBuilder('profile')
+            ->select('profile.id', 'profile.mandobID', 'profile.mandobName', 'profile.image', 'profile.status', 'profile.phone', 'profile.bankName', 'profile.bankAccountNumber', 'profile.stcPay',
+                'profile.age', 'profile.roomID')
+
+            ->andWhere('profile.mandobID = :mandobID')
+            ->setParameter('mandobID', $mandobID)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function getProfileIdForAdmin($id)
+    {
+        return $this->createQueryBuilder('profile')
+            ->select('profile.id', 'profile.mandobID', 'profile.mandobName', 'profile.image', 'profile.status', 'profile.phone', 'profile.bankName', 'profile.bankAccountNumber', 'profile.stcPay',
+                'profile.age', 'profile.roomID')
+
+            ->andWhere('profile.id = :id')
+            ->setParameter('id', $id)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
