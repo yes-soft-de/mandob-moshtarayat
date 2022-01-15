@@ -8,7 +8,6 @@
 // ignore_for_file:prefer_single_quotes,comment_references, directives_ordering
 // ignore_for_file:annotate_overrides,prefer_generic_function_type_aliases
 // ignore_for_file:unused_import, file_names, avoid_escaping_inner_quotes
-// ignore_for_file:unnecessary_string_interpolations, unnecessary_string_escapes
 
 import 'package:intl/intl.dart';
 import 'package:intl/message_lookup_by_library.dart';
@@ -39,6 +38,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("یہ کھاتہ پہلے سے موجود ہے"),
         "accountCreated":
             MessageLookupByLibrary.simpleMessage("اکاؤنٹ بنایا گیا"),
+        "accountNotExist":
+            MessageLookupByLibrary.simpleMessage("اکاؤنٹ موجود نہیں ہے۔"),
         "accountNumber": MessageLookupByLibrary.simpleMessage("اکاؤنٹ نمبر"),
         "activeCars": MessageLookupByLibrary.simpleMessage("ایکٹو کاریں"),
         "activePlan": MessageLookupByLibrary.simpleMessage("ایکٹو پلان"),
