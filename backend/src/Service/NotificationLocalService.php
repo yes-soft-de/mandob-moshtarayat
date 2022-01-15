@@ -88,10 +88,10 @@ class NotificationLocalService
             $state =  LocalNotificationList::$STATE_PICKED." ".$storeName;
         }
         if ($state == OrderStateConstant::$ORDER_STATE_ONGOING){
-            $state =  LocalNotificationList::$STATE_ONGOING." ".$storeName;
+            $state =  LocalNotificationList::$STATE_ONGOING;
         }
         if ($state == OrderStateConstant::$ORDER_STATE_DELIVERED){
-            $state =  LocalNotificationList::$STATE_DELIVERED." ".$storeName;
+            $state =  LocalNotificationList::$STATE_DELIVERED;
         }
 
         $this->createNotificationLocal($userID,  LocalNotificationList::$STATE_TITLE, $state, $orderNumber);
@@ -128,6 +128,9 @@ class NotificationLocalService
         }
         if ($state == OrderStateConstant::$ORDER_STATE_DELIVERED){
             $state =  LocalStoreNotificationList::$STATE_DELIVERED;
+        }
+        if ($state == OrderStateConstant::$ORDER_STATE_CANCEL){
+            $state =  LocalStoreNotificationList::$CANCEL_ORDER_SUCCESS;
         }
 
         $this->createNotificationLocal($userID,  $title, $state, $orderNumber);

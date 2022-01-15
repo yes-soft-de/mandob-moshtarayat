@@ -159,15 +159,12 @@ class OrderDetailService
 
             $item['productPrice'] = $this->priceForStore($item['productPrice'], $item['discount']);
 
-            $productsPrices[] = $item['productPrice'];
+            $productsPrices[] = $item['productPrice'] * $item['countProduct'];
         }
 
-        $sum = 0;
-        foreach ($productsPrices as $productPrice) {
-            $sum +=  $productPrice;
-        }
-        return $sum;
-//        return array_sum($productsPrices);
+        $invoice = array_sum($productsPrices);
+
+        return  round($invoice, 1);
     }
 
     public function getProductsByOrderNumberAndStoreIDForClient($orderNumber, $storeOwnerProfileID): array

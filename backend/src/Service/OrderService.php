@@ -860,8 +860,11 @@ class OrderService
                         $this->orderLogService->createOrderLogWithMultiStore($storeIds, $orderNumber, OrderStateConstant::$ORDER_STATE_CANCEL, $userID, 0);
                     }
 
-                    //notification local
+                    //notification local for client
                     $this->notificationLocalService->createNotificationLocal($userID, LocalNotificationList::$CANCEL_ORDER_TITLE, LocalNotificationList::$CANCEL_ORDER_SUCCESS, $orderNumber);
+
+                    //notification local for store
+                    $this->notificationLocalService->createStoreNotificationLocal($orderDetailUpdate['storeIds'], LocalNotificationList::$CANCEL_ORDER_TITLE,  NotificationStoreConstant::$MESSAGE_STORE_ORDER_CANCEL, $orderNumber);
 
                     //create firebase notification for client
                     try {
