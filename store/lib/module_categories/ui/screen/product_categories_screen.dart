@@ -14,13 +14,13 @@ import 'package:mandob_moshtarayat/utils/components/custom_alert_dialog.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat/utils/components/fixed_container.dart';
 
-
 @injectable
 class ProductCategoriesScreen extends StatefulWidget {
   final ProductsCategoryStateManager _stateManager;
   final LocalizationService _localizationService;
   final CategoriesService categoriesService;
-  ProductCategoriesScreen(this._stateManager, this._localizationService, this.categoriesService);
+  ProductCategoriesScreen(
+      this._stateManager, this._localizationService, this.categoriesService);
 
   @override
   ProductCategoriesScreenState createState() => ProductCategoriesScreenState();
@@ -29,12 +29,12 @@ class ProductCategoriesScreen extends StatefulWidget {
 class ProductCategoriesScreenState extends State<ProductCategoriesScreen> {
   late ProductCategoriesState currentState;
   bool canAddCategories = true;
-  late String language ;
+  late String language;
 
   @override
   void initState() {
     language = widget._localizationService.getLanguage();
-    print("hihif"+language);
+    print("hihif" + language);
     currentState = ProductCategoriesLoadingState(this);
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
       widget._stateManager.getCategoryLevelOne(this);
@@ -46,55 +46,82 @@ class ProductCategoriesScreenState extends State<ProductCategoriesScreen> {
     super.initState();
   }
 
-  void getStoreCategoriesLevelTwo(List<ProductsCategoryModel> categoriesOne,int id,String levelOneName) {
-
-    widget._stateManager.getCategoryLevelTwo(this,categoriesOne,id,levelOneName);
-
+  void getStoreCategoriesLevelTwo(
+      List<ProductsCategoryModel> categoriesOne, int id, String levelOneName) {
+    widget._stateManager
+        .getCategoryLevelTwo(this, categoriesOne, id, levelOneName);
   }
+
   void getStoreCategoriesLevelOne() {
-
     widget._stateManager.getCategoryLevelOne(this);
-
-  }
-  void getStoreProductLevelTwo(List<ProductsCategoryModel> categoriesOne,List<ProductsCategoryModel> categoriesTwo,int categoryID,String levelOneName,String levelTwoName) {
-    widget._stateManager.getStoreProductLevelTwo(this,categoriesOne,categoriesTwo,categoryID,levelOneName,levelTwoName);
   }
 
-  void updateProduct(UpdateProductRequest request,List<ProductsCategoryModel> levelOne,List<ProductsCategoryModel> levelTwo,{String? nameOne ,String? nameTwo}) {
-    widget._stateManager.updateProduct(this,request,levelOne ,levelTwo,nameOne: nameOne,nameTwo: nameTwo);
+  void getStoreProductLevelTwo(
+      List<ProductsCategoryModel> categoriesOne,
+      List<ProductsCategoryModel> categoriesTwo,
+      int categoryID,
+      String levelOneName,
+      String levelTwoName) {
+    widget._stateManager.getStoreProductLevelTwo(this, categoriesOne,
+        categoriesTwo, categoryID, levelOneName, levelTwoName);
   }
 
+  void updateProduct(
+      UpdateProductRequest request,
+      List<ProductsCategoryModel> levelOne,
+      List<ProductsCategoryModel> levelTwo,
+      {String? nameOne,
+      String? nameTwo}) {
+    widget._stateManager.updateProduct(this, request, levelOne, levelTwo,
+        nameOne: nameOne, nameTwo: nameTwo);
+  }
 
-  void updateProductStatus(UpdateProductStatusRequest request,List<ProductsCategoryModel> levelOne,List<ProductsCategoryModel> levelTwo,{String? nameOne ,String? nameTwo}) {
+  void updateProductStatus(
+      UpdateProductStatusRequest request,
+      List<ProductsCategoryModel> levelOne,
+      List<ProductsCategoryModel> levelTwo,
+      {String? nameOne,
+      String? nameTwo}) {
     showDialog(
         context: context,
         builder: (_) {
-          return CustomAlertDialog(
-              onPressed: () {
-                widget._stateManager.updateProductStatus(this,request,levelOne ,levelTwo,nameOne: nameOne,nameTwo: nameTwo);
-                Navigator.pop(context);
-              });
+          return CustomAlertDialog(onPressed: () {
+            widget._stateManager.updateProductStatus(
+                this, request, levelOne, levelTwo,
+                nameOne: nameOne, nameTwo: nameTwo);
+            Navigator.pop(context);
+          });
         });
   }
-  void createProduct(CreateProductRequest request,List<ProductsCategoryModel> levelOne,List<ProductsCategoryModel> levelTwo , {String? nameOne ,String? nameTwo}) {
-    widget._stateManager.createProduct(this,request,levelOne,levelTwo,nameOne: nameOne,nameTwo: nameTwo);
+
+  void createProduct(
+      CreateProductRequest request,
+      List<ProductsCategoryModel> levelOne,
+      List<ProductsCategoryModel> levelTwo,
+      {String? nameOne,
+      String? nameTwo}) {
+    widget._stateManager.createProduct(this, request, levelOne, levelTwo,
+        nameOne: nameOne, nameTwo: nameTwo);
   }
-  Future<List<ProductsCategoryModel>?> getCategoriesUpdateLevelTwo(int id) async {
-    await  widget._stateManager.getLevelTwo(id).then((value) {
+
+  Future<List<ProductsCategoryModel>?> getCategoriesUpdateLevelTwo(
+      int id) async {
+    await widget._stateManager.getLevelTwo(id).then((value) {
       print(value);
       print(value?.length.toString());
       return value;
     });
-
   }
+
   void refresh() {
     if (mounted) {
       setState(() {});
     }
   }
- bool flagArgs = true;
-  int? storeId;
 
+  bool flagArgs = true;
+  int? storeId;
+  int? mainCatId;
   @override
   Widget build(BuildContext context) {
 //    var args = ModalRoute.of(context)?.settings.arguments;
@@ -107,10 +134,11 @@ class ProductCategoriesScreenState extends State<ProductCategoriesScreen> {
 //      }
 //    }
     return Scaffold(
-      appBar: CustomMandopAppBar.appBar(context,
-          title: S.of(context).productCategories,),
+      appBar: CustomMandopAppBar.appBar(
+        context,
+        title: S.of(context).productCategories,
+      ),
       body: FixedContainer(child: currentState.getUI(context)),
-
     );
   }
 }

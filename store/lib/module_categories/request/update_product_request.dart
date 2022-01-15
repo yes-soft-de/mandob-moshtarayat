@@ -10,18 +10,21 @@ class DataStoreUpdateProduct {
   int? storeMainCategoryID;
   bool? isLevelOne;
   bool? isLevelTwo;
-
-  DataStoreUpdateProduct({
-      this.id,
+  int? categoryName;
+  DataStoreUpdateProduct(
+      {this.id,
       this.productName,
       this.productImage,
       this.productPrice,
       this.discount,
       this.storeOwnerProfileID,
       this.storeProductCategoryID,
-    this.productQuantity,
-    this.storeMainCategoryID,this.isLevelTwo,this.isLevelOne
-  });
+      this.productQuantity,
+      this.storeMainCategoryID,
+      this.isLevelTwo,
+      this.isLevelOne,
+      this.categoryName
+      });
 
   DataStoreUpdateProduct.fromJson(dynamic json) {
     id = json['id'];
@@ -48,18 +51,13 @@ class DataStoreUpdateProduct {
     map['productQuantity'] = productQuantity;
     return map;
   }
-
 }
 
-
-
 class UpdateProductRequest {
-
   DataStoreUpdateProduct? dataStoreProduct;
   List<TranslateStoreUpdateProduct>? translate;
 
-  UpdateProductRequest({
-    this.dataStoreProduct, this.translate});
+  UpdateProductRequest({this.dataStoreProduct, this.translate});
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
@@ -69,14 +67,13 @@ class UpdateProductRequest {
     }
     return map;
   }
-
-
 }
-class TranslateStoreUpdateProduct{
+
+class TranslateStoreUpdateProduct {
   String? productName;
   String? lang;
 
-  TranslateStoreUpdateProduct({ this.productName, this.lang});
+  TranslateStoreUpdateProduct({this.productName, this.lang});
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
@@ -86,15 +83,17 @@ class TranslateStoreUpdateProduct{
   }
 }
 
-
-class UpdateProductStatusRequest{
+class UpdateProductStatusRequest {
   int id;
   String status;
   int storeProductCategoryID;
   int storeMainCategoryID;
 
-
-  UpdateProductStatusRequest({required this.id, required this.status,required this.storeProductCategoryID ,required this.storeMainCategoryID});
+  UpdateProductStatusRequest(
+      {required this.id,
+      required this.status,
+      required this.storeProductCategoryID,
+      required this.storeMainCategoryID});
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};

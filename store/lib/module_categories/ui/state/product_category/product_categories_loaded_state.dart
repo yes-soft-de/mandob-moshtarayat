@@ -75,38 +75,6 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-//        SizedBox(
-//          height: 70,
-//          child: ListView.builder(itemBuilder: (context , index){
-//            return CategoryCard(title: categoriesOne[index].categoryName,
-//
-//              selected: categoriesOne[index].categoryName == nameOne ? true :false,
-//
-//              id: categoriesOne[index].id,
-//              onTap: (id){
-//              print('hihih');
-//              idOne = categoriesOne[index];
-//              screenState.getStoreCategoriesLevelTwo(categoriesOne, int.parse(idOne!.id.toString()),idOne!.categoryName);
-//            },
-//            );
-//          },itemCount: categoriesOne.length,  shrinkWrap: true, scrollDirection: Axis.horizontal,),
-//        ),
-//        SizedBox(
-//          height: 70,
-//          child:
-//          ListView.builder(itemBuilder: (context , index){
-//            return CategoryCard(title: categoriesTwo[index].categoryName,
-//                selected: categoriesTwo[index].categoryName == nameTwo ? true :false,
-//              id: categoriesTwo[index].id, onTap: (id){
-//              idTwo = categoriesTwo[index];
-//             screenState.getStoreProductLevelTwo(categoriesOne, categoriesTwo, int.parse(idTwo!.id.toString()),nameOne??'',idTwo!.categoryName);
-//              },
-//            );
-//          },itemCount: categoriesTwo.length,  shrinkWrap: true, scrollDirection: Axis.horizontal,),
-//        ),
-//        Expanded(
-//          child: CustomListView.custom(children:getProducts()),
-//        ),
         Padding(
           padding: const EdgeInsets.all(10.0),
           child: Container(
@@ -150,6 +118,7 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
                   onChanged: (v) {
                     v as ProductsCategoryModel;
                     idOne = v;
+                    screenState.mainCatId = v.id;
                     screenState.getStoreCategoriesLevelTwo(categoriesOne,
                         int.parse(idOne!.id.toString()), idOne!.categoryName);
                   },
@@ -257,9 +226,9 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
                     );
                   });
             } else {
-              Fluttertoast.showToast(msg: S.of(context).chooseCategory,
-              webBgColor: 'linear-gradient(to right, #f6b26b, #e69138)'
-              );
+              Fluttertoast.showToast(
+                  msg: S.of(context).chooseCategory,
+                  webBgColor: 'linear-gradient(to right, #f6b26b, #e69138)');
             }
           },
           child: Padding(
@@ -368,6 +337,8 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
                                 productQuantity: element.productQuantity,
                                 storeProductCategoryID:
                                     element.storeProductCategoryID,
+                                storeMainCategoryID: screenState.mainCatId,
+                                categoryName: screenState.mainCatId,
                                 isLevelOne: element.levelOne,
                                 isLevelTwo: element.levelTwo),
                           ),
@@ -377,15 +348,14 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
                             Navigator.of(context).pop();
                             screenState.updateProduct(
                                 UpdateProductRequest(
-                                  dataStoreProduct: DataStoreUpdateProduct(
-                                      id: element.id,
-                                      productName: name,
-                                      productImage: image,
-                                      discount: double.parse(discount),
-                                      productPrice: double.parse(price),
-                                      storeProductCategoryID: int.parse(catID),
-                                      storeMainCategoryID: idFirstCat),
-                                ),
+                                    dataStoreProduct: DataStoreUpdateProduct(
+                                  id: element.id,
+                                  productName: name,
+                                  productImage: image,
+                                  discount: double.parse(discount),
+                                  productPrice: double.parse(price),
+                                  storeProductCategoryID: int.parse(catID),
+                                )),
                                 categoriesOne,
                                 categoriesTwo,
                                 nameTwo: nameTwo,
