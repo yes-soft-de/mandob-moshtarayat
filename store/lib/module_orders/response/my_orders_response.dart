@@ -11,7 +11,7 @@ class MyOrdersResponse {
     try {
       statusCode = json['status_code'];
       msg = json['msg'];
-      if (json['Data'] != null && statusCode =="200") {
+      if (json['Data'] != null && statusCode == "200") {
         data = [];
         json['Data'].forEach((v) {
           data?.add(Data.fromJson(v));
@@ -43,6 +43,7 @@ class Data {
   dynamic amount;
   double? deliveryCost;
   double? orderCost;
+  double? invoiceAmount;
 
   Data(
       {this.deliveryDate,
@@ -51,7 +52,9 @@ class Data {
       this.orderNumber,
       this.amount,
       this.orderCost,
-      this.deliveryCost});
+      this.deliveryCost,
+      this.invoiceAmount
+      });
 
   Data.fromJson(dynamic json) {
     deliveryDate = json['deliveryDate'] != null
@@ -64,6 +67,7 @@ class Data {
     orderNumber = json['orderNumber'];
     amount = json['amount'];
     orderCost = json['orderCost']?.toDouble();
+    invoiceAmount = json['invoiceAmount']?.toDouble();
     deliveryCost = json['deliveryCost']?.toDouble();
   }
 

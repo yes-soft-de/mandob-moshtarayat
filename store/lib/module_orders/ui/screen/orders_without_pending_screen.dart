@@ -64,8 +64,8 @@ class OrdersWithoutPendingScreenState
     lDate = endDate;
     widget._stateManager.getFilteredDateOrders(
         this,
-        DateFormat('yyyy-MM-dd', 'en').format(firstDate.toUtc()),
-        DateFormat('yyyy-MM-dd', 'en').format(endDate.toUtc()));
+        DateFormat('yyyy-MM-dd', 'en').format(firstDate),
+        DateFormat('yyyy-MM-dd', 'en').format(endDate));
   }
 
   @override
