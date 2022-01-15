@@ -154,6 +154,57 @@ class MandobProfileController extends BaseController
     }
 
     /**
+     * admin: get mandob profile by profile id.
+     * @Route("representativeprofile/{id}", name="getMandobProfileByIdForAdmin", methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
+     * @param $id
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Mandob Profile")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns mandob profile",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="integer", property="id"),
+     *              @OA\Property(type="string", property="mandobName"),
+     *              @OA\Property(type="object", property="image",
+     *                  @OA\Property(type="string", property="imageURL"),
+     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="string", property="baseURL")
+     *              ),
+     *              @OA\Property(type="integer", property="age"),
+     *              @OA\Property(type="string", property="bankName"),
+     *              @OA\Property(type="string", property="bankAccountNumber"),
+     *              @OA\Property(type="string", property="stcPay"),
+     *              @OA\Property(type="string", property="phone"),
+     *              @OA\Property(type="string", property="roomID"),
+     *              @OA\Property(type="object", property="location"),
+     *              @OA\Property(type="string", property="status"),
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function getProfileByIdForAdmin($id): JsonResponse
+    {
+        $response = $this->mandobProfileService->getProfileIdForAdmin($id);
+
+        return $this->response($response, self::FETCH);
+    }
+
+    /**
      * mandob: Update mandob profile.
      * @Route("/mandobprofile", name="mandobProfileUpdate", methods={"PUT"})
      * @IsGranted("ROLE_MANDOB")

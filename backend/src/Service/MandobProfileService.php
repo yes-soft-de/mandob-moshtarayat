@@ -12,6 +12,7 @@ use App\Request\VerificationCreateRequest;
 use App\Response\ActivateMandobAccountByAdminResponse;
 use App\Response\MandobFilterByStatusResponse;
 use App\Response\MandobProfileCreateResponse;
+use App\Response\RepresentativeProfileForAdminGetResponse;
 use App\Response\RepresentativeProfileGetResponse;
 use App\Response\UserRegisterResponse ;
 use App\Manager\MandobProfileManager;
@@ -65,6 +66,15 @@ class MandobProfileService
         $mandobProfile['image'] = $this->getImageParams($mandobProfile['image'], $this->params . $mandobProfile['image'], $this->params);
 
         return $this->autoMapping->map('array', RepresentativeProfileGetResponse::class, $mandobProfile);
+    }
+
+    public function getProfileIdForAdmin($id)
+    {
+        $mandobProfile = $this->mandobProfileManager->getProfileIdForAdmin($id);
+
+        $mandobProfile['image'] = $this->getImageParams($mandobProfile['image'], $this->params . $mandobProfile['image'], $this->params);
+
+        return $this->autoMapping->map('array', RepresentativeProfileForAdminGetResponse::class, $mandobProfile);
     }
 
     public function updateMandobProfile(MandobProfileUpdateRequest $request)
