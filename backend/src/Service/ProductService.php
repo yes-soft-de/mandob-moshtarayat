@@ -281,9 +281,12 @@ class ProductService
             $item['priceWithCommissionAfterDiscount'] = ( $item['priceWithDiscount'] * $commission  / 100) + $item['priceWithDiscount'];
             $item['commission'] = $commission;
         }
-        $item['priceWithCommission'] = ($productPrice * $storeCommission  / 100) + $productPrice;
-        $item['priceWithCommissionAfterDiscount'] = ( $item['priceWithDiscount'] * $storeCommission  / 100) + $item['priceWithDiscount'];
-        $item['commission'] = $storeCommission;
+
+        else {
+            $item['priceWithCommission'] = ($productPrice * $storeCommission / 100) + $productPrice;
+            $item['priceWithCommissionAfterDiscount'] = ($item['priceWithDiscount'] * $storeCommission / 100) + $item['priceWithDiscount'];
+            $item['commission'] = $storeCommission;
+        }
 
         $item['priceFinal'] = $item['priceWithCommissionAfterDiscount'];
 
