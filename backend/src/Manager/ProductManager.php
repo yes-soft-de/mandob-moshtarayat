@@ -268,6 +268,11 @@ class ProductManager
         return $this->storeProductCategoryManager->getSubCategoriesByStoreCategoryID($storeCategoryID);
     }
 
+    public function getProductCategoryLevelOneByProductCategoryLevelTwoID($storeProductCategoryLevelTwoID)
+    {
+        return $this->storeProductCategoryManager->getProductCategoryLevelOneByProductCategoryLevelTwoID($storeProductCategoryLevelTwoID);
+    }
+
     public function getStoreProductCategoryIdOfLevel1($storeCategoryID, $StoreProductCategoryId)
     {
         return $this->productEntityRepository->getStoreProductCategoryIdOfLevel1($storeCategoryID, $StoreProductCategoryId);

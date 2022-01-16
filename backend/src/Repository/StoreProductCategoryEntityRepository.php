@@ -79,6 +79,25 @@ class StoreProductCategoryEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getProductCategoryLevelOneByProductCategoryLevelTwoID($storeProductCategoryLevelTwoID)
+    {
+        return $this->createQueryBuilder('storeProductCategory')
+            ->select('storeProductCategory.id')
+
+            ->leftJoin(
+                CategoryLinkEntity::class,
+                'categoryLinkEntity',
+                Join::WITH,
+                'categoryLinkEntity.subCategoryLevelOneID = storeProductCategory.id'
+            )
+
+            ->andWhere('categoryLinkEntity.subCategoryLevelTwoID = :subCategoryLevelTwoID')
+            ->setParameter('subCategoryLevelTwoID', $storeProductCategoryLevelTwoID)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     public function getSubCategoriesTranslationsByStoreCategoryID($storeCategoryID)
     {
         return $this->createQueryBuilder('storeProductCategory')

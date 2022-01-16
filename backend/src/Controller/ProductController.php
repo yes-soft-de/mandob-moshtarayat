@@ -1011,10 +1011,12 @@ class ProductController extends BaseController
     }
 
     /**
-     * Get products similar of the first level subcategory.
+     * Get products similar of the second level subcategory.
      * @Route("/productssimilar/{storeProductCategoryID}", name="getSimilarProductsByStoreProductCategoryIdOfLevelTwo", methods={"GET"})
+     * @param Request $request
+     * @param $storeProductCategoryID
      * @return JsonResponse
-     * *
+     *
      * @OA\Tag(name="Product")
      *
      * @OA\Parameter(
@@ -1026,7 +1028,7 @@ class ProductController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Get products similar of the first level subcategory",
+     *      description="Get products similar of the second level subcategory",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -1055,7 +1057,6 @@ class ProductController extends BaseController
      *          )
      *      )
      *  )
-     *
      */
     public function getSimilarProductsByStoreProductCategoryIdOfLevelTwo(Request $request, $storeProductCategoryID): JsonResponse
     {

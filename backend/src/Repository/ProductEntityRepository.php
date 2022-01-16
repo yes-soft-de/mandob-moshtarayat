@@ -1001,7 +1001,7 @@ class ProductEntityRepository extends ServiceEntityRepository
 
             ->leftJoin(StoreProductCategoryEntity::class, 'StoreProductCategoryEntity', Join::WITH, 'StoreProductCategoryEntity.id = product.storeProductCategoryID')
 
-            ->andWhere('StoreProductCategoryEntity.storeProductCategoryID = :storeProductCategoryIdLevel1')
+            ->andWhere('product.storeProductCategoryID = :storeProductCategoryIdLevel1')
             ->andWhere('storeOwnerProfile.status = :statusStore')
             ->andWhere('product.status = :status')
 
@@ -1044,7 +1044,7 @@ class ProductEntityRepository extends ServiceEntityRepository
                 'productTranslationEntity.productID = product.id'
             )
 
-            ->andWhere('StoreProductCategoryEntity.storeProductCategoryID = :storeProductCategoryIdLevel1')
+            ->andWhere('product.storeProductCategoryID = :storeProductCategoryIdLevel1')
             ->andWhere('storeOwnerProfile.status = :statusStore')
             ->andWhere('product.status = :store')
 
