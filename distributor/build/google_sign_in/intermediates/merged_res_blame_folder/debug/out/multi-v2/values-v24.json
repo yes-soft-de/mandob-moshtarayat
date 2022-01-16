@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/google_sign_in/intermediates/res/merged/debug/values-v24/values-v24.xml",
+            "outputFile": "D:\\AndroidStudioProject\\mandob-moshtarayat-dist\\distributor\\build\\google_sign_in\\intermediates\\res\\merged\\debug\\values-v24\\values-v24.xml",
             "map": [
                 {
-                    "source": "/Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/4372a6411bc721bba6fed109f1539b54/media-1.0.0/res/values-v24/values-v24.xml",
+                    "source": "C:\\Users\\Bcc\\.gradle\\caches\\transforms-2\\files-2.1\\2f7a3cbfa1171056ee4cf4375e4d11f4\\media-1.0.0\\res\\values-v24\\values-v24.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",
@@ -16,10 +16,10 @@
             ]
         },
         {
-            "outputFile": "/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/google_sign_in/intermediates/incremental/mergeDebugResources/merged.dir/values-v24/values-v24.xml",
+            "outputFile": "D:\\AndroidStudioProject\\mandob-moshtarayat-dist\\distributor\\build\\google_sign_in\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v24\\values-v24.xml",
             "map": [
                 {
-                    "source": "/Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/4372a6411bc721bba6fed109f1539b54/media-1.0.0/res/values-v24/values-v24.xml",
+                    "source": "C:\\Users\\Bcc\\.gradle\\caches\\transforms-2\\files-2.1\\2f7a3cbfa1171056ee4cf4375e4d11f4\\media-1.0.0\\res\\values-v24\\values-v24.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",

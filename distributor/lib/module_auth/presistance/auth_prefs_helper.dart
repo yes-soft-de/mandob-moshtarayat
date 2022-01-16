@@ -23,12 +23,12 @@ class AuthPrefsHelper {
     return box.get('password');
   }
 
-  void setNeedInit(bool state) {
-    box.put('registerState', state);
+  void setUserCreated(bool created) {
+    box.put('created', created);
   }
 
-  bool needInit() {
-    return box.get('registerState') ?? false;
+  bool getUserCreated() {
+    return box.get('created') ?? false;
   }
 
   void clearUserCreated() {

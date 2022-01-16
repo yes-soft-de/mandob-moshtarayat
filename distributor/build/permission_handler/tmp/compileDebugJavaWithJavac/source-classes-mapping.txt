@@ -1,11 +1,11 @@
-com/baseflow/permissionhandler/ServiceManager.java
- com.baseflow.permissionhandler.ServiceManager
- com.baseflow.permissionhandler.ServiceManager$SuccessCallback
 com/baseflow/permissionhandler/PermissionManager.java
  com.baseflow.permissionhandler.PermissionManager
  com.baseflow.permissionhandler.PermissionManager$CheckPermissionsSuccessCallback
  com.baseflow.permissionhandler.PermissionManager$RequestPermissionsSuccessCallback
  com.baseflow.permissionhandler.PermissionManager$ShouldShowRequestPermissionRationaleSuccessCallback
+com/baseflow/permissionhandler/ServiceManager.java
+ com.baseflow.permissionhandler.ServiceManager
+ com.baseflow.permissionhandler.ServiceManager$SuccessCallback
 com/baseflow/permissionhandler/BuildConfig.java
  com.baseflow.permissionhandler.BuildConfig
 com/baseflow/permissionhandler/PermissionConstants.java

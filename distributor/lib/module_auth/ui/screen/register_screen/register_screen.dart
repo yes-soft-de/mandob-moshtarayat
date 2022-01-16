@@ -1,13 +1,19 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mandob_moshtarayat/di/di_config.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_auth/request/register_request/register_request.dart';
+import 'package:mandob_moshtarayat/module_auth/request/register_request/verfy_code_request.dart';
 import 'package:mandob_moshtarayat/module_auth/state_manager/register_state_manager/register_state_manager.dart';
 import 'package:mandob_moshtarayat/module_auth/ui/states/register_states/register_state.dart';
+import 'package:mandob_moshtarayat/module_auth/ui/states/register_states/register_state_code_sent.dart';
 import 'package:mandob_moshtarayat/module_auth/ui/states/register_states/register_state_init.dart';
 import 'package:flutter/material.dart';
+import 'package:mandob_moshtarayat/module_home/home_routes.dart';
+import 'package:mandob_moshtarayat/module_init/init_routes.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
+import 'package:mandob_moshtarayat/utils/components/fixed_container.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 
 @injectable
@@ -24,6 +30,10 @@ class RegisterScreenState extends State<RegisterScreen> {
   late RegisterState _currentState;
   late AsyncSnapshot loadingSnapshot;
   late StreamSubscription _stateSubscription;
+  int? returnToMainScreen;
+  bool? returnToPreviousScreen;
+  late bool flags = true;
+  bool activeResend = false;
   @override
   void initState() {
     super.initState();
@@ -46,29 +56,50 @@ class RegisterScreenState extends State<RegisterScreen> {
   }
 
   dynamic args;
+
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        var focus = FocusScope.of(context);
-        if (focus.canRequestFocus) {
-          focus.unfocus();
-        }
+    args = ModalRoute.of(context)?.settings.arguments;
+    if (args != null) {
+      if (args is bool) returnToPreviousScreen = args;
+      if (args is int) returnToMainScreen = args;
+    }
+    return WillPopScope(
+      onWillPop: () async {
+        await Navigator.of(context)
+            .pushNamedAndRemoveUntil(HomeRouts.HOME_SCREEN, (route) => false);
+        return returnToMainScreen == null;
       },
-      child: Scaffold(
-        appBar: CustomTwaslnaAppBar.appBar(context,
-            title: S.of(context).register, canGoBack: false),
-        body: loadingSnapshot.connectionState != ConnectionState.waiting
-            ? _currentState.getUI(context)
-            : Stack(
-                children: [
-                  _currentState.getUI(context),
-                  Container(
-                    width: double.maxFinite,
-                    color: Colors.transparent.withOpacity(0.0),
+      child: GestureDetector(
+        onTap: () {
+          var focus = FocusScope.of(context);
+          if (focus.canRequestFocus) {
+            focus.unfocus();
+          }
+        },
+        child: Scaffold(
+          appBar: CustomMandobAppBar.appBar(context,
+              title: S.of(context).register,
+              onTap: returnToMainScreen != null
+                  ? () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          HomeRouts.HOME_SCREEN, (route) => false);
+                    }
+                  : null),
+          body: FixedContainer(
+            child: loadingSnapshot.connectionState != ConnectionState.waiting
+                ? _currentState.getUI(context)
+                : Stack(
+                    children: [
+                      _currentState.getUI(context),
+                      Container(
+                        width: double.maxFinite,
+                        color: Colors.transparent.withOpacity(0.0),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+          ),
+        ),
       ),
     );
   }
@@ -81,9 +112,42 @@ class RegisterScreenState extends State<RegisterScreen> {
     widget._stateManager.registerClient(request, this);
   }
 
+  void verifyClient(VerifyCodeRequest request) {
+    widget._stateManager.verifyClient(request, this);
+  }
+
+  void resendCode(VerifyCodeRequest request) {
+    widget._stateManager.resendCode(request, this);
+  }
+
+  void resentCodeSucc() {
+    CustomFlushBarHelper.createSuccess(
+            title: S.current.warnning,
+            message: S.current.resendCodeSuccessfully)
+        .show(context);
+  }
+
+  void wrongCode() {
+    CustomFlushBarHelper.createError(
+            title: S.current.warnning, message: S.current.invalidCode)
+        .show(context);
+  }
+
+  void resendError() {
+    CustomFlushBarHelper.createError(
+            title: S.current.warnning, message: S.current.errorHappened)
+        .show(context);
+  }
+
+  void verifyFirst() {
+    CustomFlushBarHelper.createError(
+            title: S.current.warnning, message: S.current.notVerifiedNumber)
+        .show(context);
+  }
+
   void moveToNext() {
-    // Navigator.of(context)
-    //     .pushNamedAndRemoveUntil(MainRoutes.MAIN_SCREEN, (route) => false);
+     Navigator.of(context)
+         .pushNamedAndRemoveUntil(InitAccountRoutes.INIT_ACCOUNT_SCREEN, (route) => false);
 
     CustomFlushBarHelper.createSuccess(
             title: S.current.warnning, message: S.current.loginSuccess)

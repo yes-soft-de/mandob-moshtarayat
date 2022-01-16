@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/consts/urls.dart';
-import 'package:mandob_moshtarayat/module_auth/service/auth_service/auth_service.dart';
+import 'package:mandob_moshtarayat/module_auth/service/auth_service.dart';
 import 'package:mandob_moshtarayat/module_network/http_client/http_client.dart';
 
 @injectable

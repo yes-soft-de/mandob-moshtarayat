@@ -55,7 +55,8 @@ class LoginStateCodeSent extends LoginState {
               : Container(
                   decoration:
                       BoxDecoration(color: Theme.of(context).accentColor),
-                  child: GestureDetector(
+                  child: InkWell(
+                    splashColor: Colors.transparent,
                     onTap: () {
                       loading = true;
                       Future.delayed(Duration(seconds: 10), () {

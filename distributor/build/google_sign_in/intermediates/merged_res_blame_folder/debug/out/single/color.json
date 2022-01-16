@@ -1,14 +1,14 @@
 [
     {
-        "merged": "/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/google_sign_in/intermediates/res/merged/debug/color/common_google_signin_btn_tint.xml",
-        "source": "/Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/977552d999741a0531789361aff8c256/jetified-play-services-base-16.0.1/res/color/common_google_signin_btn_tint.xml"
+        "merged": "D:\\AndroidStudioProject\\mandob-moshtarayat-dist\\distributor\\build\\google_sign_in\\intermediates\\res\\merged\\debug\\color\\common_google_signin_btn_tint.xml",
+        "source": "C:\\Users\\Bcc\\.gradle\\caches\\transforms-2\\files-2.1\\7a84b453693e3963aece433f34005398\\jetified-play-services-base-16.0.1\\res\\color\\common_google_signin_btn_tint.xml"
     },
     {
-        "merged": "/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/google_sign_in/intermediates/res/merged/debug/color/common_google_signin_btn_text_dark.xml",
-        "source": "/Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/977552d999741a0531789361aff8c256/jetified-play-services-base-16.0.1/res/color/common_google_signin_btn_text_dark.xml"
+        "merged": "D:\\AndroidStudioProject\\mandob-moshtarayat-dist\\distributor\\build\\google_sign_in\\intermediates\\res\\merged\\debug\\color\\common_google_signin_btn_text_dark.xml",
+        "source": "C:\\Users\\Bcc\\.gradle\\caches\\transforms-2\\files-2.1\\7a84b453693e3963aece433f34005398\\jetified-play-services-base-16.0.1\\res\\color\\common_google_signin_btn_text_dark.xml"
     },
     {
-        "merged": "/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/google_sign_in/intermediates/res/merged/debug/color/common_google_signin_btn_text_light.xml",
-        "source": "/Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/977552d999741a0531789361aff8c256/jetified-play-services-base-16.0.1/res/color/common_google_signin_btn_text_light.xml"
+        "merged": "D:\\AndroidStudioProject\\mandob-moshtarayat-dist\\distributor\\build\\google_sign_in\\intermediates\\res\\merged\\debug\\color\\common_google_signin_btn_text_light.xml",
+        "source": "C:\\Users\\Bcc\\.gradle\\caches\\transforms-2\\files-2.1\\7a84b453693e3963aece433f34005398\\jetified-play-services-base-16.0.1\\res\\color\\common_google_signin_btn_text_light.xml"
     }
 ]

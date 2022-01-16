@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/image_picker/intermediates/incremental/mergeDebugResources/merged.dir/values-mk/values-mk.xml",
+            "outputFile": "D:\\AndroidStudioProject\\mandob-moshtarayat-dist\\distributor\\build\\image_picker\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-mk\\values-mk.xml",
             "map": [
                 {
-                    "source": "/Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/fb509cf359bd1a4c966c1fdc96709860/core-1.1.0/res/values-mk/values-mk.xml",
+                    "source": "C:\\Users\\Bcc\\.gradle\\caches\\transforms-2\\files-2.1\\2d7199b28aedd286fdef216f1092bac6\\core-1.6.0\\res\\values-mk\\values-mk.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -16,10 +16,10 @@
             ]
         },
         {
-            "outputFile": "/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/image_picker/intermediates/res/merged/debug/values-mk/values-mk.xml",
+            "outputFile": "D:\\AndroidStudioProject\\mandob-moshtarayat-dist\\distributor\\build\\image_picker\\intermediates\\res\\merged\\debug\\values-mk\\values-mk.xml",
             "map": [
                 {
-                    "source": "/Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/fb509cf359bd1a4c966c1fdc96709860/core-1.1.0/res/values-mk/values-mk.xml",
+                    "source": "C:\\Users\\Bcc\\.gradle\\caches\\transforms-2\\files-2.1\\2d7199b28aedd286fdef216f1092bac6\\core-1.6.0\\res\\values-mk\\values-mk.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

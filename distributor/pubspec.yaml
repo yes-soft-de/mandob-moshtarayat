@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 0.1.0+1
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -61,7 +61,7 @@ dependencies:
   share: ^2.0.4
   # Network Agent
   dio: ^4.0.0
-  dio_firebase_performance: ^0.3.0
+  dio_firebase_performance: ^0.3.1-dev.3
   # Analyzer
   analyzer_plugin: ^0.6.0
   # Time Ago Generator
@@ -74,17 +74,17 @@ dependencies:
   # Stream And RX
   rxdart: ^0.27.1
   # Firebase
-  firebase_core: ^1.2.0
-  firebase_auth: ^1.2.0
+  firebase_core: ^1.10.6
+  firebase_auth: ^3.1.0
   firebase_analytics: ^8.1.0
   firebase_remote_config: ^0.10.0
-  cloud_firestore: ^2.2.0
-  firebase_performance: ^0.7.0+6
-  firebase_messaging: ^10.0.0
+  cloud_firestore: ^3.1.6
+  firebase_performance: ^0.7.0
+  firebase_messaging: ^11.2.4
   firebase_crashlytics: ^2.0.4
   # Sign In
   google_sign_in: ^5.0.4
-  #sign_in_with_apple: ^3.0.0
+  sign_in_with_apple: ^3.0.0
   # Internationalization
   intl: ^0.17.0
   intl_utils: ^2.3.0
@@ -92,7 +92,7 @@ dependencies:
   uuid: ^3.0.4
   # Geo
   latlong2: ^0.8.0
-  location: ^4.2.0
+  location: ^4.1.1
   uni_links: ^0.5.1
   # Payment Gates
   flutter_credit_card: ^2.0.0
@@ -111,12 +111,19 @@ dependencies:
   flutter_advanced_drawer: ^1.2.3
   flutter_snake_navigationbar: ^0.5.0
   scroll_to_index: ^2.0.0
-  soundpool: ^2.1.0
-  permission_handler: ^8.1.4+2
+  #  soundpool: ^2.1.0
+  #  permission_handler: ^8.1.4+2
   device_info: ^2.0.2
   liquid_progress_indicator: ^0.4.0
   pinch_zoom: ^1.0.0
   fl_chart: ^0.40.0
+  titled_navigation_bar: ^5.0.0-nullsafety.0
+  is_first_run: ^1.0.0
+  flutter_rating_bar: ^4.0.0
+  cool_alert: ^1.1.0
+  getwidget: ^2.0.4
+  lehttp_overrides: ^1.0.2
+  firebase_performance_web: ^0.1.0+4
 
 dev_dependencies:
   # Test Libs
@@ -125,7 +132,7 @@ dev_dependencies:
   flutter_gherkin: ^2.0.0
   test: ^1.16.8
   # Build Runner And DI Generator
-  build_runner: ^2.1.4
+  build_runner: ^2.0.2
   injectable_generator: ^1.4.1
   # Flutter Launcher Icons Setup
   flutter_launcher_icons: ^0.9.0
@@ -133,6 +140,9 @@ dev_dependencies:
   flutter_native_splash: ^1.1.8+4
   # Feature Descovery
   feature_discovery: ^0.14.0
+  dropdown_search: ^2.0.1
+  soundpool: ^2.2.0
+
 flutter_icons:
   android: "launcher_icon"
   ios: true
@@ -186,3 +196,5 @@ flutter_native_splash:
   image: assets/images/logo.png
   color_dark: "#303030"
   image_dark: assets/images/logo.png
+flutter_intl:
+  enabled: true

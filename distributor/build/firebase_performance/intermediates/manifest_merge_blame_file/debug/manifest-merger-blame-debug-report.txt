@@ -3,23 +3,23 @@
 3    package="io.flutter.plugins.firebaseperformance" >
 4
 5    <uses-sdk android:minSdkVersion="16" />
-5-->/Users/yazan99sh/development/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_performance-0.7.1+1/android/src/main/AndroidManifest.xml
+5-->C:\flutter2\.pub-cache\hosted\pub.dartlang.org\firebase_performance-0.7.0+8\android\src\main\AndroidManifest.xml
 6
 7    <uses-permission android:name="android.permission.INTERNET" />
-7-->/Users/yazan99sh/development/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_performance-0.7.1+1/android/src/main/AndroidManifest.xml:4:3-65
-7-->/Users/yazan99sh/development/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_performance-0.7.1+1/android/src/main/AndroidManifest.xml:4:20-62
+7-->C:\flutter2\.pub-cache\hosted\pub.dartlang.org\firebase_performance-0.7.0+8\android\src\main\AndroidManifest.xml:4:3-65
+7-->C:\flutter2\.pub-cache\hosted\pub.dartlang.org\firebase_performance-0.7.0+8\android\src\main\AndroidManifest.xml:4:20-62
 8
 9    <application>
-9-->/Users/yazan99sh/development/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_performance-0.7.1+1/android/src/main/AndroidManifest.xml:5:3-10:17
+9-->C:\flutter2\.pub-cache\hosted\pub.dartlang.org\firebase_performance-0.7.0+8\android\src\main\AndroidManifest.xml:5:3-10:17
 10        <service android:name="com.google.firebase.components.ComponentDiscoveryService" >
-10-->/Users/yazan99sh/development/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_performance-0.7.1+1/android/src/main/AndroidManifest.xml:6:5-9:15
-10-->/Users/yazan99sh/development/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_performance-0.7.1+1/android/src/main/AndroidManifest.xml:6:14-85
+10-->C:\flutter2\.pub-cache\hosted\pub.dartlang.org\firebase_performance-0.7.0+8\android\src\main\AndroidManifest.xml:6:5-9:15
+10-->C:\flutter2\.pub-cache\hosted\pub.dartlang.org\firebase_performance-0.7.0+8\android\src\main\AndroidManifest.xml:6:14-85
 11            <meta-data
-11-->/Users/yazan99sh/development/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_performance-0.7.1+1/android/src/main/AndroidManifest.xml:7:7-8:86
+11-->C:\flutter2\.pub-cache\hosted\pub.dartlang.org\firebase_performance-0.7.0+8\android\src\main\AndroidManifest.xml:7:7-8:86
 12                android:name="com.google.firebase.components:io.flutter.plugins.firebaseperformance.FlutterFirebaseAppRegistrar"
-12-->/Users/yazan99sh/development/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_performance-0.7.1+1/android/src/main/AndroidManifest.xml:7:18-130
+12-->C:\flutter2\.pub-cache\hosted\pub.dartlang.org\firebase_performance-0.7.0+8\android\src\main\AndroidManifest.xml:7:18-130
 13                android:value="com.google.firebase.components.ComponentRegistrar" />
-13-->/Users/yazan99sh/development/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_performance-0.7.1+1/android/src/main/AndroidManifest.xml:8:18-83
+13-->C:\flutter2\.pub-cache\hosted\pub.dartlang.org\firebase_performance-0.7.0+8\android\src\main\AndroidManifest.xml:8:18-83
 14        </service>
 15    </application>
 16

@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/google_sign_in/intermediates/incremental/mergeDebugResources/merged.dir/values-watch-v20/values-watch-v20.xml",
+            "outputFile": "D:\\AndroidStudioProject\\mandob-moshtarayat-dist\\distributor\\build\\google_sign_in\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-watch-v20\\values-watch-v20.xml",
             "map": [
                 {
-                    "source": "/Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/42c3a6f36c01b948e784a3a565383138/jetified-play-services-auth-16.0.1/res/values-watch-v20/values.xml",
+                    "source": "C:\\Users\\Bcc\\.gradle\\caches\\transforms-2\\files-2.1\\f0a318ded80ed321e46c510a42ec3651\\jetified-play-services-auth-16.0.1\\res\\values-watch-v20\\values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11",
                         "startColumns": "0,0,0,0,0,0,0,0",
@@ -23,10 +23,10 @@
             ]
         },
         {
-            "outputFile": "/Users/yazan99sh/Desktop/Yazan-Desktop/Yes Soft Project/mandob-moshtarayat/mandoob-distro/mandob-moshtarayat/distributor/build/google_sign_in/intermediates/res/merged/debug/values-watch-v20/values-watch-v20.xml",
+            "outputFile": "D:\\AndroidStudioProject\\mandob-moshtarayat-dist\\distributor\\build\\google_sign_in\\intermediates\\res\\merged\\debug\\values-watch-v20\\values-watch-v20.xml",
             "map": [
                 {
-                    "source": "/Users/yazan99sh/.gradle/caches/transforms-2/files-2.1/42c3a6f36c01b948e784a3a565383138/jetified-play-services-auth-16.0.1/res/values-watch-v20/values.xml",
+                    "source": "C:\\Users\\Bcc\\.gradle\\caches\\transforms-2\\files-2.1\\f0a318ded80ed321e46c510a42ec3651\\jetified-play-services-auth-16.0.1\\res\\values-watch-v20\\values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11",
                         "startColumns": "0,0,0,0,0,0,0,0",

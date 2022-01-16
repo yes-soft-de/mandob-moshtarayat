@@ -22,6 +22,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'generated/l10n.dart';
+import 'module_about/about_module.dart';
+import 'module_home/home_module.dart';
+import 'module_init/init_account_module.dart';
 import 'module_notifications/service/local_notification_service/local_notification_service.dart';
 import 'module_splash/splash_routes.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -68,6 +71,9 @@ class MyApp extends StatefulWidget {
   final AuthorizationModule _authorizationModule;
   final SettingsModule _settingsModule;
   final ChatModule _chatModule;
+  final InitAccountModule _initAccountModule;
+  final HomeModule _homeModule;
+  final AboutModule _aboutModule;
 
   MyApp(
     this._themeDataService,
@@ -78,6 +84,9 @@ class MyApp extends StatefulWidget {
     this._authorizationModule,
     this._chatModule,
     this._settingsModule,
+      this._initAccountModule,
+      this._homeModule,
+      this._aboutModule
   );
 
   @override
