@@ -10,6 +10,7 @@ use App\Request\UserRegisterRequest;
 use App\Service\MandobProfileService;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -399,5 +400,20 @@ class MandobProfileController extends BaseController
         $response = $this->mandobProfileService->activateMandobAccountByAdmin($request);
 
         return $this->response($response, self::UPDATE);
+    }
+
+    /**
+     * @Route("getstoreappurlongoogleplaystore", name="getStoreAppURL", methods={"POST"})
+     *
+     * @OA\Tag(name="Mandob Profile")
+     *
+     * @OA\Response(
+     *     response=200,
+     *     description="redirect to the URL of the store app on Google Play Store"
+     * )
+     */
+    public function getStoreAppURL()
+    {
+        return new RedirectResponse("https://play.google.com/store/apps/details?id=de.yessoft.mandob_moshtarayat.store");
     }
 }
