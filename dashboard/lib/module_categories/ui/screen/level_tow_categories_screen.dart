@@ -52,7 +52,7 @@ class LevelTowCategoriesScreenState extends State<LevelTowCategoriesScreen> {
   }
 
   void getStoreCategories() {
-    mainCatId = null;
+    mainCatId = 'all';
     subCatId = null;
     widget.stateManager.getProductCategory(this);
   }

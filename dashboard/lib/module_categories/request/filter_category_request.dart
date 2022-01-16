@@ -36,7 +36,9 @@ class FilterLanguageAndProductCategoryRequest {
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
     map['language'] = language;
-    map['storeProductCategoryID'] = storeCategoryID;
+    if (storeCategoryID != null) {
+      map['storeProductCategoryID'] = storeCategoryID;
+    }
     return map;
   }
 }
