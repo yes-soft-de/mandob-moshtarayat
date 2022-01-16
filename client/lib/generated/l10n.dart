@@ -4109,6 +4109,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Account not exist`
+  String get accountNotExist {
+    return Intl.message(
+      'Account not exist',
+      name: 'accountNotExist',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
