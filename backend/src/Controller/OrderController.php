@@ -2001,7 +2001,7 @@ class OrderController extends BaseController
      *                  @OA\Property(type="string", property="detail"),
      *                  @OA\Property(type="integer", property="orderType"),
      *                  @OA\Property(type="string", property="note"),
-     *                  @OA\Property(type="integer", property="invoiceAmount"),
+     *                  @OA\Property(type="number", property="invoiceAmount"),
      *              )
      *          )
      *      )
