@@ -205,7 +205,7 @@ class HomeLoadedState extends HomeState {
           onTap: () {
             Navigator.of(screenState.context).pushNamed(
                 StoreRoutes.STORE_PRODUCTS,
-                arguments: {'storeId': element.id.toString()});
+                arguments: {'storeId': element.storeOwnerProfileID.toString()});
           },
           child: HomeCard(title: element.productName, image: element.image)));
     });
