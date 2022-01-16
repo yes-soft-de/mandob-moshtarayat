@@ -42,11 +42,11 @@ class VerificationService
 
         if($item)
         {
-            $result = $this->sendSMSMessage($request->getUserID(), $item->getCode());
+            //$result = $this->sendSMSMessage($request->getUserID(), $item->getCode());
 
             $response = $this->autoMapping->map(VerificationEntity::class, VerificationCreateResponse::class, $item);
 
-            $response->smsMessageStatus = $result;
+            //$response->smsMessageStatus = $result;
 
             return $response;
         }
