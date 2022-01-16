@@ -145,13 +145,13 @@ class LoginScreenState extends State<LoginScreen> {
       Navigator.pushNamedAndRemoveUntil(
           context, SplashRoutes.SPLASH_SCREEN, (route) => false);
       return;
+    } else {
+      Navigator.pushNamed(context, AuthorizationRoutes.REGISTER_SCREEN,
+          arguments: {'username': '$userID', 'password': '$password'});
+      CustomFlushBarHelper.createError(
+              title: S.current.warnning, message: S.current.notVerifiedNumber)
+          .show(context);
     }
-    Navigator.of(context).pushNamedAndRemoveUntil(
-        AuthorizationRoutes.REGISTER_SCREEN, (route) => false,
-        arguments: {"userID": userID, "pass": password});
-    CustomFlushBarHelper.createError(
-            title: S.current.warnning, message: S.current.confirmCode)
-        .show(context);
   }
 
   void restPass(ResetPassRequest request) {
