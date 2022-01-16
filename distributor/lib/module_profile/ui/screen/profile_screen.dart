@@ -4,9 +4,11 @@ import 'package:mandob_moshtarayat/abstracts/states/loading_state.dart';
 import 'package:mandob_moshtarayat/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_auth/authorization_routes.dart';
+import 'package:mandob_moshtarayat/module_init/request/create_captain_profile/create_captain_profile_request.dart';
 import 'package:mandob_moshtarayat/module_profile/model/profile_model.dart';
 import 'package:mandob_moshtarayat/module_profile/request/create_store_request.dart';
 import 'package:mandob_moshtarayat/module_profile/state_manager/profile_state_manager.dart';
+import 'package:mandob_moshtarayat/module_profile/ui/widget/add_store_widget.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 
@@ -51,8 +53,8 @@ class ProfileScreenState extends State<ProfileScreen> {
       setState(() {});
     }
   }
-  void updateStore(CreateStoreRequest request){
-//    widget.stateManager.updateStore(this,request);
+  void updateProfile(CreateMandobRequest request){
+    widget.stateManager.updateProfiel(this,request);
   }
   void goToLogin(){
     Navigator.of(context).pushReplacementNamed(AuthorizationRoutes.LOGIN_SCREEN,arguments:1);
@@ -65,73 +67,64 @@ class ProfileScreenState extends State<ProfileScreen> {
 
     return Scaffold(
       appBar: CustomMandobAppBar.appBar(
-          context, title: model?.storeOwnerName ?? S.current.storeName,
+          context, title:S.current.profile,
           actions: [
-//            Padding(
-//              padding: const EdgeInsets.all(8.0),
-//              child: InkWell(
-//                customBorder: CircleBorder(),
-//                onTap: () {
-//                  showDialog(
-//                      barrierDismissible: false,
-//                      context: context,
-//                      builder: (context) {
-//                        return Container(
-//                          width: MediaQuery.of(context).size.width,
-//                          height: MediaQuery.of(context).size.height,
-//                          child: Scaffold(
-//                            appBar: CustomMandopAppBar.appBar(context,
-//                                title: S.current.updateStore),
-//                            backgroundColor:
-//                            Theme.of(context).scaffoldBackgroundColor,
-//                            body: UpdateStoreWidget(
-//                              request: CreateStoreRequest(
-//                                  id: element.categoryId,
-//                                  storeOwnerName: element.storeOwnerName,
-//                                  hasProducts: element.hasProducts ? 1 : 0,
-//                                  privateOrders: element.privateOrders ? 1 : 0,
-//                                  image: element.image,
-//                                  openingTime:element.openingTime?.toIso8601String(),
-//                                  closingTime:element.closingTime?.toIso8601String(),
-//                                  status: element.status
-//                              ),
-//                              updateStore:
-//                                  (id,name,image,products, privateOrder,open,close,status) {
-//                                Navigator.of(context).pop();
-//                                screenState.updateStore(UpdateStoreRequest(
-//                                  status: status,
-//                                  id: element.id.toString(),
-//                                  storeOwnerName: name,
-//                                  storeCategoryId: int.parse(element.categoryId),
-//                                  image: image,
-//                                  hasProducts: products ? 1 : 0,
-//                                  privateOrders: privateOrder ? 1 : 0,
-//                                  openingTime: open,
-//                                  closingTime: close,
-//
-//                                ));
-//                              },
-//                            ),
-//                          ),
-//                        );
-//                      });
-//                },
-//                child: Container(
-//                  decoration: BoxDecoration(
-//                      color: Theme
-//                          .of(context)
-//                          .primaryColor,
-//                      shape: BoxShape.circle),
-//                  child: Padding(
-//                    padding: const EdgeInsets.all(8.0),
-//                    child: Icon(
-//                      Icons.edit,
-//                      color: Colors.white,
-//                    ),
-//                  ),
-//                ),
-//              ),
-//            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: InkWell(
+                customBorder: CircleBorder(),
+                onTap: () {
+                  showDialog(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (context) {
+                        return Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height,
+                          child: Scaffold(
+                            appBar: CustomMandobAppBar.appBar(context,
+                                title: S.current.update),
+                            backgroundColor:
+                            Theme.of(context).scaffoldBackgroundColor,
+                            body: UpdateProfileWidget(
+                              request:  model,
+                              updateMandob:
+                                  (name,image,status,bankName,acount,stc,age ) {
+                                Navigator.of(context).pop();
+                                updateProfile(CreateMandobRequest(
+                                    id: model?.id??-1,
+                                    image: image,
+                                    mandobName: name,
+                                    age: int.parse(age),
+                                    bankName: bankName,
+                                    stcPay: stc,
+                                    bankAccountNumber: acount,
+                                  phone: model?.phone??''
+
+                                ));
+                              },
+                            ),
+                          ),
+                        );
+                      });
+
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Theme
+                          .of(context)
+                          .primaryColor,
+                      shape: BoxShape.circle),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      Icons.edit,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ]
       ),
       body:currentState.getUI(context),

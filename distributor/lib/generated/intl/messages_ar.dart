@@ -549,6 +549,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "workTime" : MessageLookupByLibrary.simpleMessage("أوقات العمل"),
     "yes" : MessageLookupByLibrary.simpleMessage("نعم"),
     "youReached" : MessageLookupByLibrary.simpleMessage("لقد تجاوزت"),
+    "yourAccountActive" : MessageLookupByLibrary.simpleMessage("حسابك الشخصي مفعل"),
+    "yourAccountInActive" : MessageLookupByLibrary.simpleMessage("حسابك الشخصي غير مفعل"),
     "yourCartEmpty" : MessageLookupByLibrary.simpleMessage("قائمة طلباتك فارغة من فضلك اختر ما تريد طلبه"),
     "yourImage" : MessageLookupByLibrary.simpleMessage("الصورة الشخصية")
   };

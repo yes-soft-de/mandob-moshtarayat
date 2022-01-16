@@ -42,155 +42,27 @@ class  ProfileLoadedState extends States {
             screenState.getStore(screenState.model?.id ?? -1);
           });
     }
-
-//    clientAddress =LatLng(profile!.branches![0].location.lat!.toDouble(), profile!.branches![0].location.lon!.toDouble());
-//    clientAddress = LatLng(0, 0);
-//    print(clientAddress.latitude);
     return FixedContainer(
         child: CustomListView.custom(children: [
       Container(
         width: double.maxFinite,
         height: MediaQuery.of(context).size.height * 0.30,
         child: CustomNetworkImage(
-          imageSource: profile?.image.image ?? '',
+          imageSource: profile?.image ?? '',
           width: double.maxFinite,
           height: MediaQuery.of(context).size.height * 0.30,
         ),
       ),
-      Container(
-        width: double.maxFinite,
-        color: Theme.of(context).backgroundColor,
-        child: Padding(
-          padding:
-              const EdgeInsets.only(top: 16.0, bottom: 16, left: 8, right: 8),
-          child: Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Container(),
-                Text(
-                  S.current.storeInfo,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).disabledColor,
-                  ),
-                ),
-                            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: InkWell(
-                customBorder: CircleBorder(),
-                onTap: () {
-                  showDialog(
-                      barrierDismissible: false,
-                      context: context,
-                      builder: (context) {
-                        return Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height,
-                          child: Scaffold(
-                            appBar: CustomMandobAppBar.appBar(context,
-                                title: S.current.updateProfile),
-                            backgroundColor:
-                            Theme.of(context).scaffoldBackgroundColor,
-                            body: UpdateStoreWidget(
-                              request: CreateStoreRequest(
-                                  storeCategoryId: profile!.storeCategoryId,
-                                  storeOwnerName: profile!.storeOwnerName,
-                                  hasProducts: profile!.hasProducts ? 1 : 0,
-                                  privateOrders: profile!.privateOrders ? 1 : 0,
-                                  image: profile!.image.image,
-                                  phone: profile!.phone,
-                                  openingTime:profile!.openingTime!.toIso8601String()  ,
-                                  closingTime:profile!.closingTime!.toIso8601String(),
-                              ),
-                              updateStore:
-                                  (name,phone,image,products, privateOrder,open,close,status,bankName,AccountNumber,stc) {
-                                Navigator.of(context).pop();
-                                screenState.updateStore(CreateStoreRequest(
-                                  status: status,
-                                  storeOwnerName: name,
-                                  storeCategoryId: profile!.storeCategoryId,
-                                  image: image,
-                                  hasProducts: products ? 1 : 0,
-                                  privateOrders: privateOrder ? 1 : 0,
-                                  openingTime: open,
-                                  closingTime: close,
-                                  phone: phone,
-                                  location: GeoJson(lat: 2215,long: 5641),
-                                  bankName: bankName,bankAccountNumber: AccountNumber,stcPay: stc
-
-                                ));
-                              },
-                            ),
-                          ),
-                        );
-                      });
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Theme
-                          .of(context)
-                          .primaryColor,
-                      shape: BoxShape.circle),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(
-                      Icons.edit,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-              ],
-            ),
-          ),
-        ),
-      ),
-//          SizedBox(
-//            height: 200,
-//            child: FlutterMap(
-//              options: MapOptions(
-//                center: clientAddress,
-//                zoom: 17.0,
-//              ),
-//              layers: [
-//                TileLayerOptions(
-//                  urlTemplate: 'https://mt.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
-//                  subdomains: ['a', 'b', 'c'],
-//                ),
-//                MarkerLayerOptions(
-//                  markers:  _getMarkers(context),
-//                ),
-//              ],
-//            ),
-//          ),
       CustomListTile(
-        title: S.current.storeName,
-        subTitle: profile?.storeOwnerName,
+        title: S.current.name,
+        subTitle: profile?.mandobName,
       ),
-//      CustomListTile(
-//        title: S.current.categoryName,
-//        subTitle: profile?.storeCategoryName,
-//      ),
       CustomListTile(
-        title: S.current.storePhone,
+        title: S.current.phone,
         subTitle: profile?.phone,
-      ),
-      CustomListTile(
-        title: S.current.deliverPrice,
-        subTitle:
-            '${screenState.model?.deliveryCost.toString() ?? 0} ${S.current.sar}',
-      ),
-      CustomListTile(
-        title: S.current.openingTime,
-        subTitle: DateFormat.jm()
-            .format( profile?.openingTime ?? DateTime.now()),
-      ),
-      CustomListTile(
-        title: S.current.closingTime,
-        subTitle:DateFormat.jm()
-            .format( profile?.closingTime ?? DateTime.now()),
+      ),      CustomListTile(
+        title: S.current.age,
+        subTitle: profile?.age.toString(),
       ),
           CustomListTile(
             title: S.current.bankName,
@@ -202,19 +74,14 @@ class  ProfileLoadedState extends States {
             title: S.current.stc,
             subTitle: profile?.stcPay,
           ),
-      CustomListTile(title: S.current.products, serve: profile?.hasProducts),
-      CustomListTile(
-          title: S.current.privateOrder, serve: profile?.privateOrders),
 
       Container(
         width: double.maxFinite,
-        color: Theme.of(context).backgroundColor,
-        child: Padding(
+        color:profile?.status =='inactive'? Colors.red:Colors.green ,
           padding:
               const EdgeInsets.only(top: 16.0, bottom: 16, left: 8, right: 8),
-          child: Text(''),
+          child: Center(child: Text(profile?.status =='inactive' ? S.of(context).yourAccountInActive : S.of(context).yourAccountActive)),
         ),
-      ),
     ]));
   }
 
@@ -315,18 +182,4 @@ class  ProfileLoadedState extends States {
     );
   }
 
-  List<Marker> _getMarkers(BuildContext context) {
-    return [
-      Marker(
-        point: clientAddress,
-        builder: (ctx) => Container(
-          child: Icon(
-            Icons.location_pin,
-            color: Colors.red,
-            size: 35,
-          ),
-        ),
-      )
-    ];
-  }
 }

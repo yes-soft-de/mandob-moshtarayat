@@ -61,46 +61,33 @@ class LoginScreenState extends State<LoginScreen> {
   dynamic args;
   @override
   Widget build(BuildContext context) {
-    args = ModalRoute.of(context)?.settings.arguments;
-    if (args != null) {
-      if (args is bool) returnToPreviousScreen = args;
-      if (args is int) returnToMainScreen = args;
-    }
-    return WillPopScope(
-      onWillPop: () async {
-        await Navigator.of(context)
-            .pushNamedAndRemoveUntil(HomeRouts.HOME_SCREEN, (route) => false);
-        return returnToMainScreen == null;
+//    args = ModalRoute.of(context)?.settings.arguments;
+//    if (args != null) {
+//      if (args is bool) returnToPreviousScreen = args;
+//      if (args is int) returnToMainScreen = args;
+//    }
+    return GestureDetector(
+      onTap: () {
+        var focus = FocusScope.of(context);
+        if (focus.canRequestFocus) {
+          focus.unfocus();
+        }
       },
-      child: GestureDetector(
-        onTap: () {
-          var focus = FocusScope.of(context);
-          if (focus.canRequestFocus) {
-            focus.unfocus();
-          }
-        },
-        child: Scaffold(
-          appBar: CustomMandobAppBar.appBar(context,
-              title: S.of(context).login,
-              onTap: returnToMainScreen != null
-                  ? () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          HomeRouts.HOME_SCREEN, (route) => false);
-                    }
-                  : null),
-          body: FixedContainer(
-            child: loadingSnapshot.connectionState != ConnectionState.waiting
-                ? _currentStates.getUI(context)
-                : Stack(
-                    children: [
-                      _currentStates.getUI(context),
-                      Container(
-                        width: double.maxFinite,
-                        color: Colors.transparent.withOpacity(0.0),
-                      ),
-                    ],
-                  ),
-          ),
+      child: Scaffold(
+        appBar: CustomMandobAppBar.appBar(context,
+            title: S.of(context).login,icon: null,canGoBack: false),
+        body: FixedContainer(
+          child: loadingSnapshot.connectionState != ConnectionState.waiting
+              ? _currentStates.getUI(context)
+              : Stack(
+                  children: [
+                    _currentStates.getUI(context),
+                    Container(
+                      width: double.maxFinite,
+                      color: Colors.transparent.withOpacity(0.0),
+                    ),
+                  ],
+                ),
         ),
       ),
     );

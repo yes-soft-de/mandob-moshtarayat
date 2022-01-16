@@ -220,7 +220,8 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       get<_i54.SettingsModule>(),
       get<_i58.InitAccountModule>(),
       get<_i61.HomeModule>(),
-      get<_i60.AboutModule>()));
+      get<_i60.AboutModule>(),
+      get<_i59.ProfileModule>()));
   gh.singleton<_i63.GlobalStateManager>(_i63.GlobalStateManager());
   return get;
 }
