@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
 import 'package:mandob_moshtarayat_dashboad/abstracts/data_model/data_model.dart';
+import 'package:mandob_moshtarayat_dashboad/di/di_config.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/manager/categories_manager.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/model/StoreCategoriesModel.dart';
@@ -28,6 +29,7 @@ import 'package:mandob_moshtarayat_dashboad/module_categories/response/response.
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/store_categories_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/store_products_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/sub_categories_response.dart';
+import 'package:mandob_moshtarayat_dashboad/utils/global/global_state_manager.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/helpers/status_code_helper.dart';
 
 @injectable
@@ -50,7 +52,6 @@ class CategoriesService {
     return StoreCategoriesModel.withData(_ordersResponse.data!);
   }
 
-
   Future<DataModel> getStoreCategory(String id) async {
     CategoryResponse? _ordersResponse =
         await _categoriesManager.getStoreCategory(id);
@@ -67,7 +68,7 @@ class CategoriesService {
 
   Future<DataModel> getProductCategory(String id) async {
     ProductCategoryResponse? _ordersResponse =
-    await _categoriesManager.getProductCategory(id);
+        await _categoriesManager.getProductCategory(id);
     if (_ordersResponse == null) {
       return DataModel.withError(S.current.networkError);
     }
@@ -137,9 +138,11 @@ class CategoriesService {
     }
     return DataModel.empty();
   }
-  Future<DataModel> createNewTransStoreCategory(CreateNewTransStoreCategoryRequest request) async {
+
+  Future<DataModel> createNewTransStoreCategory(
+      CreateNewTransStoreCategoryRequest request) async {
     ActionResponse? actionResponse =
-    await _categoriesManager.createNewTransStoreCategory(request);
+        await _categoriesManager.createNewTransStoreCategory(request);
     if (actionResponse == null) {
       return DataModel.withError(S.current.networkError);
     }
@@ -149,9 +152,11 @@ class CategoriesService {
     }
     return DataModel.empty();
   }
-  Future<DataModel> createNewTransProductCategory(CreateNewTransProductCategoryRequest request) async {
+
+  Future<DataModel> createNewTransProductCategory(
+      CreateNewTransProductCategoryRequest request) async {
     ActionResponse? actionResponse =
-    await _categoriesManager.createNewTransProductCategory(request);
+        await _categoriesManager.createNewTransProductCategory(request);
     if (actionResponse == null) {
       return DataModel.withError(S.current.networkError);
     }
@@ -161,6 +166,7 @@ class CategoriesService {
     }
     return DataModel.empty();
   }
+
   Future<DataModel> getProductsCategory(int id) async {
     ProductsCategoryResponse? _productCategories =
         await _categoriesManager.getProductCategories(id);
@@ -246,6 +252,7 @@ class CategoriesService {
       return DataModel.withError(
           StatusCodeHelper.getStatusCodeMessages(actionResponse.statusCode));
     }
+    getIt<GlobalStateManager>().updateCaptainList();
     return DataModel.empty();
   }
 
