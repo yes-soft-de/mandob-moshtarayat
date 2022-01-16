@@ -562,5 +562,6 @@
   "confirmNewPass": "نئے پاس ورڈ کی تصدیق کریں",
   "passwordUpdatedSuccess": "پاس ورڈ کامیابی کے ساتھ اپ ڈیٹ ہو گیا۔",
   "informSendCode": "ہم آپ کے نمبر پر ایک تصدیقی کوڈ بھیجیں گے۔",
-  "passwordNotMatch": "پاس ورڈ میچ نہیں کرتا"
+  "passwordNotMatch": "پاس ورڈ میچ نہیں کرتا",
+  "accountNotExist":"اکاؤنٹ موجود نہیں ہے۔"
 }

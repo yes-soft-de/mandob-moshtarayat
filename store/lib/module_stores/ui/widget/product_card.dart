@@ -23,8 +23,8 @@ class HomeCard extends StatelessWidget {
             child: Stack(
               children: [
                 CustomNetworkImage(
-                  width: 200,
-                  height: 200,
+                  width: double.maxFinite,
+                  height:double.maxFinite,
                   imageSource: image,
                 ),
                 Align(

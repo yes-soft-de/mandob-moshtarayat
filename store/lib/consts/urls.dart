@@ -1,9 +1,9 @@
 // New Domain ===> 'https://api.al-mandob.com'
 class Urls {
  //static const String DOMAIN = 'https://api.al-mandob.com';
-
+ // http://138.197.186.138
 //  //newfl
- static const String DOMAIN = 'https://api.al-mandob.com';
+ static const String DOMAIN = 'http://138.197.186.138';
   static const String BASE_API = DOMAIN + '';
   static const String IMAGES_ROOT = DOMAIN + '/upload/';
   static const UPLOAD_API = BASE_API + '/uploadfile';
@@ -26,7 +26,7 @@ class Urls {
   static const GET_ONGOING_ORDERS = BASE_API + '/getstoreordersongoing';
   static const GET_SPECIFIC_DATE_ORDERS = BASE_API + '/getstoreordersinspecificdate/';
   static const GET_ORDER_DETAILS = BASE_API + '/orderdetailsforstore/';
-  static const GET_ORDER_TIMELINE = BASE_API + '/orderLogsTimeLine/';
+  static const GET_ORDER_TIMELINE = BASE_API + '/orderlogstimeline/';
   static const CATEGORY_LEVEL_ONE = BASE_API + '/allstoreproductscategoriesleveloneforstore';
   static const CATEGORY_LEVEL_TWO = BASE_API + '/storeproductscategoryleveltwo/';
   static const GET_STORE_PRODUCT_BY_Category = BASE_API + '/productsbystoreproductcategoryidforstore/';

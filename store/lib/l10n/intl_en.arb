@@ -562,5 +562,6 @@
   "confirmNewPass": "Confirm new password",
   "passwordUpdatedSuccess": "Password updated successfully",
   "informSendCode": "We will send a verification code to your number",
-  "passwordNotMatch": "Password not matching"
+  "passwordNotMatch": "Password not matching",
+  "accountNotExist":"Account not exist"
 }

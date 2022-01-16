@@ -163,7 +163,7 @@ class OrderWithoutPendingLoadedState extends States {
               arguments: element.orderId);
         },
         orderId: element.orderId,
-        orderCost: element.orderCost.toString(),
+        orderCost:firstDate == null ? element.orderCost.toStringAsFixed(1) : element.invoiceAmount.toStringAsFixed(1),
         orderStatus: element.orderStatus,
         orderDate: DateFormat.jm().format(element.dateTime) +
             '   ' +

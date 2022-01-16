@@ -10,13 +10,16 @@ class OrderModel extends DataModel {
   late OrderStatusEnum orderStatus;
   late DateTime dateTime;
   late double orderCost;
+  double invoiceAmount = 0;
   List<OrderModel> models = [];
   OrderModel(
       {required this.orderDate,
       required this.orderId,
       required this.orderStatus,
       required this.orderCost,
-      required this.dateTime});
+      required this.dateTime,
+      required this.invoiceAmount
+      });
 
   OrderModel.withData(MyOrdersResponse orders) {
     var data = orders.data;
@@ -34,7 +37,9 @@ class OrderModel extends DataModel {
           orderDate: date,
           orderId: element.orderNumber ?? '-1',
           orderStatus: StatusHelper.getStatusEnum(element.state),
-          orderCost: element.orderCost ?? 0));
+          orderCost: element.orderCost ?? 0,
+          invoiceAmount: element.invoiceAmount ?? 0
+          ));
     });
   }
 

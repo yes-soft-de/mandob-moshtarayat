@@ -8,6 +8,7 @@ import 'package:mandob_moshtarayat/module_stores/ui/widget/product_card.dart';
 import 'package:mandob_moshtarayat/module_stores/ui/widget/show_all.dart';
 import 'package:mandob_moshtarayat/utils/customIcon/custom_icons.dart';
 import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
+import 'package:mandob_moshtarayat/utils/global/screen_type.dart';
 import 'package:mandob_moshtarayat/utils/text_style/text_style.dart';
 
 class StoresLoadedState extends StoresState {
@@ -102,10 +103,10 @@ class StoresLoadedState extends StoresState {
             physics: ScrollPhysics(),
             shrinkWrap: true,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
+                crossAxisCount:ScreenType.isDesktop(context) ? 4 : 2,
                 mainAxisSpacing: 8.0,
-                childAspectRatio:
-                (MediaQuery.of(context).size.width / 2) / 135),
+                childAspectRatio:(MediaQuery.of(context).size.width / (ScreenType.isDesktop(context) ? 4 : 2))/(ScreenType.isDesktop() ? 225 : 135),
+                ),
             children: getCategories(categories),
           ),
         ),

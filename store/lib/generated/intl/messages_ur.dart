@@ -39,6 +39,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("یہ کھاتہ پہلے سے موجود ہے"),
         "accountCreated":
             MessageLookupByLibrary.simpleMessage("اکاؤنٹ بنایا گیا"),
+        "accountNotExist":
+            MessageLookupByLibrary.simpleMessage("اکاؤنٹ موجود نہیں ہے۔"),
         "accountNumber": MessageLookupByLibrary.simpleMessage("اکاؤنٹ نمبر"),
         "activeCars": MessageLookupByLibrary.simpleMessage("ایکٹو کاریں"),
         "activePlan": MessageLookupByLibrary.simpleMessage("ایکٹو پلان"),
