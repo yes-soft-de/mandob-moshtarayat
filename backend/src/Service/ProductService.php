@@ -723,17 +723,29 @@ class ProductService
     {
         $response = [];
 
-        $storeProductCategoryIdLevel1 = $this->productManager->getStoreProductCategoryIdLevel1ByIdOfLevelTwo($storeProductCategoryID);
+        $storeProductCategoryIdLevel1 = $this->productManager->getProductCategoryLevelOneByProductCategoryLevelTwoID($storeProductCategoryID);
 
         if($userLocale != null && $userLocale != $this->primaryLanguage)
         {
-            $productsTranslations = $this->productManager->getProductsTranslationByStoreProductCategoryIDLevelOne($storeProductCategoryIdLevel1);
+            if ($storeProductCategoryIdLevel1) {
 
-            $products = $this->replaceProductTranslatedNameByPrimaryOne($productsTranslations, $userLocale);
+                $productsTranslations = $this->productManager->getProductsTranslationByStoreProductCategoryIDLevelOne($storeProductCategoryIdLevel1['id']);
+
+                $products = $this->replaceProductTranslatedNameByPrimaryOne($productsTranslations, $userLocale);
+            } else {
+
+                $products = [];
+            }
         }
         else
         {
-            $products = $this->productManager->getProductsByStoreProductCategoryIDLevelOne($storeProductCategoryIdLevel1);
+            if ($storeProductCategoryIdLevel1) {
+
+                $products = $this->productManager->getProductsByStoreProductCategoryIDLevelOne($storeProductCategoryIdLevel1['id']);
+            } else {
+
+                $products = [];
+            }
         }
 
         foreach($products as $item)

@@ -95,6 +95,11 @@ class StoreProductCategoryManager
        return $this->storeProductCategoryEntityRepository->getSubCategoriesByStoreCategoryID($storeCategoryID);
     }
 
+    public function getProductCategoryLevelOneByProductCategoryLevelTwoID($storeProductCategoryLevelTwoID)
+    {
+        return $this->storeProductCategoryEntityRepository->getProductCategoryLevelOneByProductCategoryLevelTwoID($storeProductCategoryLevelTwoID);
+    }
+
     public function getSubCategoriesTranslationsByStoreCategoryID($storeCategoryID)
     {
         return $this->storeProductCategoryEntityRepository->getSubCategoriesTranslationsByStoreCategoryID($storeCategoryID);
