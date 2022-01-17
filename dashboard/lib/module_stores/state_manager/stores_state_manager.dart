@@ -35,7 +35,7 @@ class StoresStateManager {
         _stateSubject
             .add(StoresLoadedState(screenState, null, error: value.error));
       } else if (value.isEmpty) {
-        _stateSubject.add(StoresLoadedState(screenState, null,empty: true));
+        _stateSubject.add(StoresLoadedState(screenState, null, empty: true));
       } else {
         StoresModel model = value as StoresModel;
         _stateSubject.add(StoresLoadedState(screenState, model.data));
@@ -92,16 +92,15 @@ class StoresStateManager {
       });
     } else {
       _stateSubject.add(StoresLoadingState(screenState));
-      _uploadService.uploadImage(request.image!).then((value) {
-        if (value == null) {
+      _uploadService.uploadImage(request.image).then((value) {
+        if (value == null && request.image != null && request.image != '') {
           getStores(screenState);
           CustomFlushBarHelper.createError(
-              title: S.current.warnning,
-              message: S.current.errorUploadingImages)
-            ..show(screenState.context);
+                  title: S.current.warnning,
+                  message: S.current.errorUploadingImages)
+              .show(screenState.context);
         } else {
           request.image = value;
-
           _categoriesService.updateStore(request).then((value) {
             if (value.hasError) {
               getStores(screenState);

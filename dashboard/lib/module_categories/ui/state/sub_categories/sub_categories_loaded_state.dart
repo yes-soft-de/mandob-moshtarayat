@@ -60,14 +60,19 @@ class SubCategoriesLoadedState extends States {
                       border: Border.all(
                           color: Theme.of(context).primaryColor, width: 4)),
                   child: Padding(
-                    padding: const EdgeInsets.only(right:16.0,left: 16.0),
+                    padding: const EdgeInsets.only(right: 16.0, left: 16.0),
                     child: DropdownButton(
                       value: screenState.id,
                       items: getChoices(),
                       onChanged: (v) {
-                        screenState.id = v.toString();
-                        screenState.getSubCategories(categories);
-                        screenState.refresh();
+                        if (v != 'all') {
+                          screenState.id = v.toString();
+                          screenState.getSubCategories(categories);
+                          screenState.refresh();
+                        } else {
+                          screenState.getMainCategories();
+                          screenState.refresh();
+                        }
                       },
                       hint: Text(
                         S.current.chooseCategory,
@@ -92,12 +97,18 @@ class SubCategoriesLoadedState extends States {
 
   List<DropdownMenuItem<String>> getChoices() {
     List<DropdownMenuItem<String>> items = [];
+    items.add(DropdownMenuItem(
+      value: 'all',
+      child: SizedBox(
+          width: 250,
+          child: Text(S.current.showAll, overflow: TextOverflow.ellipsis)),
+    ));
     categories?.forEach((element) {
       items.add(DropdownMenuItem(
         value: element.id.toString(),
         child: SizedBox(
-          width: 250,
-          child: Text(element.categoryName,overflow: TextOverflow.ellipsis)),
+            width: 250,
+            child: Text(element.categoryName, overflow: TextOverflow.ellipsis)),
       ));
     });
     return items;

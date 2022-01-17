@@ -3,11 +3,8 @@ import 'package:mandob_moshtarayat_dashboad/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/model/StoreCategoriesModel.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/model/subCategoriesModel.dart';
-import 'package:mandob_moshtarayat_dashboad/module_categories/request/category_level_tow_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/screen/level_tow_categories_screen.dart';
-import 'package:mandob_moshtarayat_dashboad/module_categories/ui/widget/add_categories_level_tow.dart';
 import 'package:mandob_moshtarayat_dashboad/module_orders/ui/widget/order_details/custom_alert_dialog.dart';
-import 'package:mandob_moshtarayat_dashboad/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_list_view.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/empty_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/error_screen.dart';
@@ -71,9 +68,14 @@ class ProductCategoriesLoadedState extends States {
                       value: screenState.mainCatId,
                       items: getChoices(),
                       onChanged: (v) {
-                        screenState.mainCatId = v.toString();
-                        screenState.getSubCategories(categories);
-                        screenState.refresh();
+                        if (v != 'all') {
+                          screenState.mainCatId = v.toString();
+                          screenState.getSubCategories(categories);
+                          screenState.refresh();
+                        } else {
+                          screenState.getStoreCategories();
+                          screenState.refresh();
+                        }
                       },
                       hint: Text(
                         S.current.chooseCategory,
@@ -133,6 +135,12 @@ class ProductCategoriesLoadedState extends States {
 
   List<DropdownMenuItem<String>> getChoices() {
     List<DropdownMenuItem<String>> items = [];
+    items.add(DropdownMenuItem(
+      value: 'all',
+      child: SizedBox(
+          width: 250,
+          child: Text(S.current.showAll, overflow: TextOverflow.ellipsis)),
+    ));
     categories?.forEach((element) {
       items.add(DropdownMenuItem(
         value: element.id.toString(),

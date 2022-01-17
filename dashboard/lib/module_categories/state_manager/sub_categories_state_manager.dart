@@ -1,11 +1,13 @@
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat_dashboad/abstracts/states/loading_state.dart';
 import 'package:mandob_moshtarayat_dashboad/abstracts/states/state.dart';
+import 'package:mandob_moshtarayat_dashboad/di/di_config.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/model/subCategoriesModel.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/filter_category_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/sub_categories_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/screen/sub_categories_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/state/sub_categories/sub_categories_loaded_state.dart';
+import 'package:mandob_moshtarayat_dashboad/module_localization/service/localization_service/localization_service.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_auth/service/auth_service/auth_service.dart';
@@ -39,8 +41,12 @@ class SubCategoriesStateManager {
             empty: value.isEmpty));
       } else {
         StoreCategoriesModel model = value as StoreCategoriesModel;
-        _stateSubject
-            .add(SubCategoriesLoadedState(screenState, null, model.data));
+        getCategoriesLevelOne(
+            screenState,
+            FilterLanguageAndCategoryRequest(
+              language: getIt<LocalizationService>().getLanguage(),
+            ),
+            model.data);
       }
     });
   }

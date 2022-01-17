@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mandob_moshtarayat_dashboad/di/di_config.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/global_nav_key.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_store_request.dart';
@@ -12,6 +13,7 @@ import 'package:mandob_moshtarayat_dashboad/module_stores/ui/widget/add_store_wi
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/floated_button.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/effect/hidder.dart';
+import 'package:mandob_moshtarayat_dashboad/utils/global/global_state_manager.dart';
 
 @injectable
 class StoresScreen extends StatefulWidget {
@@ -35,6 +37,9 @@ class StoresScreenState extends State<StoresScreen> {
       if (mounted) {
         refresh();
       }
+    });
+    getIt<GlobalStateManager>().stateStream.listen((event) {
+      widget._stateManager.getStores(this);
     });
     widget._stateManager.getStores(this);
     super.initState();
@@ -66,6 +71,6 @@ class StoresScreenState extends State<StoresScreen> {
         GlobalVariable.mainScreenScaffold.currentState?.openDrawer();
       }),
       body: currentState.getUI(context),
-  );
+    );
   }
 }

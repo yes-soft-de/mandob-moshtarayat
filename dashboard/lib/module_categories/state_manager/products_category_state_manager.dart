@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat_dashboad/abstracts/states/loading_state.dart';
 import 'package:mandob_moshtarayat_dashboad/abstracts/states/state.dart';
+import 'package:mandob_moshtarayat_dashboad/di/di_config.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/model/StoreCategoriesModel.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/model/subCategoriesModel.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/category_level_tow_request.dart';
@@ -43,8 +44,9 @@ class ProductsCategoryStateManager {
             empty: value.isEmpty));
       } else {
         StoreCategoriesModel model = value as StoreCategoriesModel;
-        _stateSubject
-            .add(ProductCategoriesLoadedState(screenState, null, model.data));
+        getCategoriesLevelTow(screenState,FilterLanguageAndProductCategoryRequest(
+          language: getIt<LocalizationService>().getLanguage(),
+        ),model.data,[]);
       }
     });
   }

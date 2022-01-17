@@ -28,7 +28,7 @@ class SubCategoriesScreen extends StatefulWidget {
 class SubCategoriesScreenState extends State<SubCategoriesScreen> {
   late States currentState;
   bool canAddCategories = true;
-  String? id;
+  String? id = 'all';
   String? languageSelected;
   @override
   void initState() {
@@ -45,6 +45,7 @@ class SubCategoriesScreenState extends State<SubCategoriesScreen> {
   }
 
   void getMainCategories() {
+    id = 'all';
     widget._stateManager.getStoreCategories(this);
   }
 
