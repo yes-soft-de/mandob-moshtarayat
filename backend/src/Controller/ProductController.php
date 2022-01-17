@@ -420,6 +420,7 @@ class ProductController extends BaseController
      *                      @OA\Property(type="string", property="baseURL"),
      *                  ),
      *                  @OA\Property(type="number", property="commission"),
+     *                  @OA\Property(type="boolean", property="isCommission"),
      *              )
      *          )
      *      )

@@ -45,4 +45,6 @@ class ProductsByProductCategoryIdResponse
     public $isLevel1;
 
     public $isLevel2;
+
+    public $isCommission;
 }
