@@ -420,6 +420,7 @@ class ProductController extends BaseController
      *                      @OA\Property(type="string", property="baseURL"),
      *                  ),
      *                  @OA\Property(type="number", property="commission"),
+     *                  @OA\Property(type="boolean", property="isCommission"),
      *              )
      *          )
      *      )
@@ -899,7 +900,7 @@ class ProductController extends BaseController
     }
 
     /**
-     * Get products of subcategory of level one.
+     * Get products of subcategory of level one or two.
      * @Route("/productsbystorecategory/{storeCategoryID}", name="getProductsByStoreCategoryID", methods={"GET"})
      * @param Request $request
      * @param $storeCategoryID

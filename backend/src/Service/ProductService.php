@@ -377,6 +377,7 @@ class ProductService
         }
 
         foreach ($products as $item) {
+            $item['costDetails'] = $this->costDetails($item['isCommission'], $item['productPrice'], $item['commission'], $item['storeCommission'], $item['discount']);
             $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
             $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
             $item['soldCount'] = $this->getProductsSoldCount($item['id']);
@@ -666,7 +667,8 @@ class ProductService
 
         return $response;
     }
-
+    //TODO changing the function name to get products from subCategory one or two.
+//get products from subCategory one or two.
     public function getStoreProductCategoryLevel2($userLocale, $storeProductCategoryIdLevel1): array
     {
         $response = [];
