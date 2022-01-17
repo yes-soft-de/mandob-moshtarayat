@@ -377,6 +377,7 @@ class ProductService
         }
 
         foreach ($products as $item) {
+            $item['costDetails'] = $this->costDetails($item['isCommission'], $item['productPrice'], $item['commission'], $item['storeCommission'], $item['discount']);
             $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
             $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
             $item['soldCount'] = $this->getProductsSoldCount($item['id']);
