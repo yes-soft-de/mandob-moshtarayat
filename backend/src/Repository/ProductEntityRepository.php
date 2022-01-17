@@ -555,6 +555,10 @@ class ProductEntityRepository extends ServiceEntityRepository
 
             ->leftJoin(StoreOwnerProfileEntity::class, 'storeOwnerProfile', Join::WITH, 'storeOwnerProfile.id = product.storeOwnerProfileID')
 
+            ->andWhere('product.status = :status')
+
+            ->setParameter('status', ProductStatusConstant::$ACTIVE_PRODUCT_STATUS)
+
             ->setParameter('storeOwnerProfileId',$storeOwnerProfileId)
 
             ->getQuery()
