@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_home/model/favorite_categories_model.dart';
 import 'package:mandob_moshtarayat/module_home/model/top_wanted_products_model.dart';
@@ -38,12 +40,15 @@ class HomeModel {
   List<FavoriteStore> getFullStores() {
     List<FavoriteStore> stores = [];
     favorite.forEach((cats) {
-      cats.stores.forEach((element) {
+      for (var element in cats.stores) {
+        if (stores.any((e) => e.storeId == element.storeId)) {
+          continue;
+        }
         stores.add(FavoriteStore(
             storeName: element.storeName,
             storeId: element.storeId,
             image: element.image));
-      });
+      }
     });
     return stores;
   }

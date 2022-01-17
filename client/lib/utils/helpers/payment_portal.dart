@@ -60,13 +60,13 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
     GoSellSdkFlutter.configureApp(
         bundleId: Platform.isAndroid
             ? 'de.yessoft.mandob_moshtarayat_client'
-            : 'iOS-BUNDLE-ID',
+            : '',
         productionSecreteKey: Platform.isAndroid
             ? SecretPaymentsKeys.production
-            : 'pk_test_cLa0fBJPAM8v9p6gxu1UiTDn',
+            : '',
         sandBoxsecretKey: Platform.isAndroid
             ? SecretPaymentsKeys.sandBox
-            : 'sk_test_46BsGCc3d8aUHWZ1krFPulDE',
+            : '',
         lang: getIt<LocalizationService>().getLanguage());
   }
 

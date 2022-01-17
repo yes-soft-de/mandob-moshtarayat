@@ -407,7 +407,9 @@
   "passwordNotMatch": "Password not matching",
   "update":"Update",
   "phoneNumberLong":"Phone number invalid format , cause is more than 9",
-  "similarProducts":"Similar Products"
+  "similarProducts":"Similar Products",
+  "accountNotExist":"Account not exist"
+
 
 
 

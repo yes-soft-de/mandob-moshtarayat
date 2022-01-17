@@ -195,6 +195,7 @@ class AuthService {
   }
 
   Future<void> resetPassRequest(ResetPassRequest request) async {
+    request.role = 'ROLE_CLIENT';
     // Create the profile in our database
     RegisterResponse? registerResponse =
         await _authManager.resetPassRequest(request);

@@ -38,7 +38,9 @@ class StatusCodeHelper {
       case '9153':
         return S.current.codeTimeOut;
       case '9156':
-        return S.current.notVerifiedNumber;
+        return S.current.codeTimeOut;
+      case '9155':
+        return S.current.accountNotExist;
       case '-1':
         return S.current.dataDecodeError;
       default:

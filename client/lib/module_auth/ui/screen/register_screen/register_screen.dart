@@ -64,6 +64,9 @@ class RegisterScreenState extends State<RegisterScreen> {
     if (args != null) {
       if (args is bool) returnToPreviousScreen = args;
       if (args is int) returnToMainScreen = args;
+      if (args is Map) {
+        _currentState = RegisterStatePhoneCodeSent(this);
+      }
     }
     return WillPopScope(
       onWillPop: () async {

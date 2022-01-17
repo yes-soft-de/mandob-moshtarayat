@@ -2,6 +2,7 @@
 import 'dart:async';
 import 'dart:io' as p;
 import 'package:device_info/device_info.dart';
+import 'package:flutter/gestures.dart';
 import 'package:injectable/injectable.dart';
 import 'package:lehttp_overrides/lehttp_overrides.dart';
 import 'package:mandob_moshtarayat/module_account/account_module.dart';
@@ -163,6 +164,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   ) {
     return FeatureDiscovery(
       child: MaterialApp(
+        scrollBehavior:MyCustomScrollBehavior(),
         debugShowCheckedModeBanner: false,
         navigatorObservers: <NavigatorObserver>[observer],
         navigatorKey: GlobalVariable.navState,
@@ -188,4 +190,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return getConfiguratedApp(YesModule.RoutesMap);
   }
+}
+class MyCustomScrollBehavior extends MaterialScrollBehavior {
+  // Override behavior methods and getters like dragDevices
+  @override
+  Set<PointerDeviceKind> get dragDevices => { 
+    PointerDeviceKind.touch,
+    PointerDeviceKind.mouse,
+    // etc.
+  };
 }
