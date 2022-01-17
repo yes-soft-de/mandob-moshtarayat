@@ -537,6 +537,10 @@
   "codeNumber": "رمز التحقق",
   "codeTimeOut": "انتهت صلاحية رمز التحقق",
   "resendCodeSuccessfully":"تم إرسال الرمز بنجاح",
-  "notVerifiedNumber": "يجب عليك إدخال الرمز أولاً"
+  "notVerifiedNumber": "يجب عليك إدخال الرمز أولاً",
+
+  "yourAccountActive": "حسابك الشخصي مفعل",
+
+  "yourAccountInActive": "حسابك الشخصي غير مفعل"
 
 }

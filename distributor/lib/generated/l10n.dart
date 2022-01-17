@@ -5376,6 +5376,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Your Account Is Active`
+  String get yourAccountActive {
+    return Intl.message(
+      'Your Account Is Active',
+      name: 'yourAccountActive',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your Account Is InActive`
+  String get yourAccountInActive {
+    return Intl.message(
+      'Your Account Is InActive',
+      name: 'yourAccountInActive',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

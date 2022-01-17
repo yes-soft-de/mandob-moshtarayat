@@ -552,6 +552,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "workTime" : MessageLookupByLibrary.simpleMessage("Store Shift"),
     "yes" : MessageLookupByLibrary.simpleMessage("Yes"),
     "youReached" : MessageLookupByLibrary.simpleMessage("You have reached "),
+    "yourAccountActive" : MessageLookupByLibrary.simpleMessage("Your Account Is Active"),
+    "yourAccountInActive" : MessageLookupByLibrary.simpleMessage("Your Account Is InActive"),
     "yourCartEmpty" : MessageLookupByLibrary.simpleMessage("Your cart is empty please choose items to add"),
     "yourImage" : MessageLookupByLibrary.simpleMessage("Your image")
   };

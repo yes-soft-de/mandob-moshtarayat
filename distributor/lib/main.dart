@@ -26,6 +26,7 @@ import 'module_about/about_module.dart';
 import 'module_home/home_module.dart';
 import 'module_init/init_account_module.dart';
 import 'module_notifications/service/local_notification_service/local_notification_service.dart';
+import 'module_profile/profile_module.dart';
 import 'module_splash/splash_routes.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:feature_discovery/feature_discovery.dart';
@@ -74,6 +75,7 @@ class MyApp extends StatefulWidget {
   final InitAccountModule _initAccountModule;
   final HomeModule _homeModule;
   final AboutModule _aboutModule;
+  final ProfileModule _profileModule;
 
   MyApp(
     this._themeDataService,
@@ -86,7 +88,7 @@ class MyApp extends StatefulWidget {
     this._settingsModule,
       this._initAccountModule,
       this._homeModule,
-      this._aboutModule
+      this._aboutModule,this._profileModule
   );
 
   @override

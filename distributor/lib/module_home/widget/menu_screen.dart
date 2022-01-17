@@ -38,7 +38,7 @@ class MenuScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     child: CustomNetworkImage(
                       background: Theme.of(context).scaffoldBackgroundColor,
-                      imageSource: profileModel.image.image ??
+                      imageSource: profileModel.image ??
                           'https://www.pngitem.com/pimgs/m/421-4212617_person-placeholder-image-transparent-hd-png-download.png',
                       width: double.maxFinite,
                       height: double.maxFinite,
@@ -46,14 +46,14 @@ class MenuScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Text(profileModel.storeOwnerName ?? S.current.username),
+              Text(profileModel.mandobName),
               Container(
                 height: 32,
               ),
               ListTile(
                 onTap: () {
-//                  Navigator.of(context)
-//                      .pushNamed(ProfileRoutes.EDIT_ACTIVITY_SCREEN);
+                  Navigator.of(context)
+                      .pushNamed(ProfileRoutes.PROFILE);
                 },
                 leading: Icon(Icons.account_circle_rounded),
                 title: Text('${S.of(context).profile}'),

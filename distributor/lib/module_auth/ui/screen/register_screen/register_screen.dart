@@ -59,46 +59,29 @@ class RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    args = ModalRoute.of(context)?.settings.arguments;
-    if (args != null) {
-      if (args is bool) returnToPreviousScreen = args;
-      if (args is int) returnToMainScreen = args;
-    }
-    return WillPopScope(
-      onWillPop: () async {
-        await Navigator.of(context)
-            .pushNamedAndRemoveUntil(HomeRouts.HOME_SCREEN, (route) => false);
-        return returnToMainScreen == null;
+
+    return GestureDetector(
+      onTap: () {
+        var focus = FocusScope.of(context);
+        if (focus.canRequestFocus) {
+          focus.unfocus();
+        }
       },
-      child: GestureDetector(
-        onTap: () {
-          var focus = FocusScope.of(context);
-          if (focus.canRequestFocus) {
-            focus.unfocus();
-          }
-        },
-        child: Scaffold(
-          appBar: CustomMandobAppBar.appBar(context,
-              title: S.of(context).register,
-              onTap: returnToMainScreen != null
-                  ? () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          HomeRouts.HOME_SCREEN, (route) => false);
-                    }
-                  : null),
-          body: FixedContainer(
-            child: loadingSnapshot.connectionState != ConnectionState.waiting
-                ? _currentState.getUI(context)
-                : Stack(
-                    children: [
-                      _currentState.getUI(context),
-                      Container(
-                        width: double.maxFinite,
-                        color: Colors.transparent.withOpacity(0.0),
-                      ),
-                    ],
-                  ),
-          ),
+      child: Scaffold(
+        appBar: CustomMandobAppBar.appBar(context,
+            title: S.of(context).register,canGoBack: false),
+        body: FixedContainer(
+          child: loadingSnapshot.connectionState != ConnectionState.waiting
+              ? _currentState.getUI(context)
+              : Stack(
+                  children: [
+                    _currentState.getUI(context),
+                    Container(
+                      width: double.maxFinite,
+                      color: Colors.transparent.withOpacity(0.0),
+                    ),
+                  ],
+                ),
         ),
       ),
     );

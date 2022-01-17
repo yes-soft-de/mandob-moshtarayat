@@ -3,6 +3,7 @@ import 'package:mandob_moshtarayat/abstracts/states/loading_state.dart';
 import 'package:mandob_moshtarayat/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_auth/service/auth_service.dart';
+import 'package:mandob_moshtarayat/module_init/request/create_captain_profile/create_captain_profile_request.dart';
 import 'package:mandob_moshtarayat/module_profile/model/profile_model.dart';
 import 'package:mandob_moshtarayat/module_profile/request/create_store_request.dart';
 import 'package:mandob_moshtarayat/module_profile/service/profile_service.dart';
@@ -36,6 +37,7 @@ class ProfileStateManager {
             ProfileLoadedState(screenState, null, empty: true));
       } else {
        ProfileModel model = value as ProfileModel;
+       screenState.model = model.data;
         _stateSubject.add(ProfileLoadedState(screenState, model.data));
       }
     });
@@ -43,41 +45,41 @@ class ProfileStateManager {
       screenState.goToLogin();
     }
   }
-//  void updateStore(StoreInfoScreenState screenState,CreateStoreRequest request){
-//    if (request.image!.contains('/original-image/')) {
-//      _stateSubject.add(LoadingState(screenState));
-//      _storesService.updateStore(request).then((value){
-//        if (value.hasError){
-//          getStore(screenState);
-//          CustomFlushBarHelper.createError(title:S.current.warnning, message:value.error??'')..show(screenState.context);
-//        }
-//        else {
-//          getStore(screenState);
-//          CustomFlushBarHelper.createSuccess(title:S.current.warnning, message:S.current.storeUpdatedSuccessfully)..show(screenState.context);
-//        }
-//      });
-//    }
-//    else {
-//      _stateSubject.add(LoadingState(screenState));
-//      _uploadService.uploadImage(request.image!).then((value){
-//        if (value == null) {
-//          getStore(screenState);
-//          CustomFlushBarHelper.createError(title:S.current.warnning, message:S.current.errorUploadingImages)..show(screenState.context);
-//        }
-//        else {
-//          request.image = value;
-//          _storesService.updateStore(request).then((value){
-//            if (value.hasError){
-//              getStore(screenState);
-//              CustomFlushBarHelper.createError(title:S.current.warnning, message:value.error??'')..show(screenState.context);
-//            }
-//            else {
-//              getStore(screenState);
-//              CustomFlushBarHelper.createSuccess(title:S.current.warnning, message:S.current.storeUpdatedSuccessfully)..show(screenState.context);
-//            }
-//          });
-//        }
-//      });
-//    }
-//  }
+  void updateProfiel(ProfileScreenState screenState,CreateMandobRequest request){
+    if (request.image!.contains('/original-image/')) {
+      _stateSubject.add(LoadingState(screenState));
+      _profileService.updateProfile(request).then((value){
+        if (value.hasError){
+          getStore(screenState);
+          CustomFlushBarHelper.createError(title:S.current.warnning, message:value.error??'')..show(screenState.context);
+        }
+        else {
+          getStore(screenState);
+          CustomFlushBarHelper.createSuccess(title:S.current.warnning, message:S.current.storeUpdatedSuccessfully)..show(screenState.context);
+        }
+      });
+    }
+    else {
+      _stateSubject.add(LoadingState(screenState));
+      _uploadService.uploadImage(request.image!).then((value){
+        if (value == null) {
+          getStore(screenState);
+          CustomFlushBarHelper.createError(title:S.current.warnning, message:S.current.errorUploadingImages)..show(screenState.context);
+        }
+        else {
+          request.image = value;
+          _profileService.updateProfile(request).then((value){
+            if (value.hasError){
+              getStore(screenState);
+              CustomFlushBarHelper.createError(title:S.current.warnning, message:value.error??'')..show(screenState.context);
+            }
+            else {
+              getStore(screenState);
+              CustomFlushBarHelper.createSuccess(title:S.current.warnning, message:S.current.storeUpdatedSuccessfully)..show(screenState.context);
+            }
+          });
+        }
+      });
+    }
+  }
 }

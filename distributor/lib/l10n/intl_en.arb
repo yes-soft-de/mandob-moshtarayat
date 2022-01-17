@@ -539,5 +539,9 @@
   "codeNumber": "Code number",
   "codeTimeOut": "Code has expired",
   "resendCodeSuccessfully": "The code has been successfully sent",
-  "phoneNumberLong":"Phone number invalid format , cause is more than 9"
+  "phoneNumberLong":"Phone number invalid format , cause is more than 9",
+
+  "yourAccountActive": "Your Account Is Active",
+
+  "yourAccountInActive": "Your Account Is InActive"
 }

@@ -1,4 +1,5 @@
 class CreateMandobRequest {
+  int? id;
   String? mandobName;
   String? image;
   int? age;
@@ -8,6 +9,7 @@ class CreateMandobRequest {
   String? phone;
 
   CreateMandobRequest({
+    this.id,
     this.mandobName,
     this.image,
     this.age,
@@ -20,6 +22,7 @@ class CreateMandobRequest {
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
+    map['id']= id;
     map['mandobName'] = mandobName;
     map['phone'] = phone;
     map['image'] = image;
