@@ -145,5 +145,4 @@ class Urls {
       BASE_API + '/createstorecategorytranslation';
   static const CREATE_NEW_TRANS_PRODUCT_CATEGORY =
       BASE_API + '/createstoreproductcategorytranslation';
-
 }

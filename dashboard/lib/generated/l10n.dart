@@ -5569,6 +5569,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Price With Commission`
+  String get priceWithComission {
+    return Intl.message(
+      'Price With Commission',
+      name: 'priceWithComission',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

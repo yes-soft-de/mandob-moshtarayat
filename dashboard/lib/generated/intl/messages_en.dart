@@ -569,6 +569,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "preferredLanguage":
             MessageLookupByLibrary.simpleMessage("Preferred Language"),
         "price": MessageLookupByLibrary.simpleMessage("price"),
+        "priceWithComission":
+            MessageLookupByLibrary.simpleMessage("Price With Commission"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "privateOrder": MessageLookupByLibrary.simpleMessage("Private Order"),
         "product": MessageLookupByLibrary.simpleMessage("product"),
