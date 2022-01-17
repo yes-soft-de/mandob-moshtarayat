@@ -899,7 +899,7 @@ class ProductController extends BaseController
     }
 
     /**
-     * Get products of subcategory of level one.
+     * Get products of subcategory of level one or two.
      * @Route("/productsbystorecategory/{storeCategoryID}", name="getProductsByStoreCategoryID", methods={"GET"})
      * @param Request $request
      * @param $storeCategoryID

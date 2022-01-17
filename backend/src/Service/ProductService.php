@@ -666,7 +666,8 @@ class ProductService
 
         return $response;
     }
-
+    //TODO changing the function name to get products from subCategory one or two.
+//get products from subCategory one or two.
     public function getStoreProductCategoryLevel2($userLocale, $storeProductCategoryIdLevel1): array
     {
         $response = [];

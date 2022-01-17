@@ -150,7 +150,7 @@ class StoreProductCategoryEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
-
+//edit for get products from subCategory one or two.
     public function getStoreProductsCategoryLevelTwoByStoreProductCategoryID($storeProductCategoryID)
     {
         return $this->createQueryBuilder('storeProductCategory')
@@ -162,8 +162,8 @@ class StoreProductCategoryEntityRepository extends ServiceEntityRepository
 //            ->orWhere('storeProductCategory.id = :storeProductCategoryID')
 //            ->setParameter('storeProductCategoryID', $storeProductCategoryID)
 
-            ->andWhere('storeProductCategory.isLevel2 = :isLevel2')
-            ->setParameter('isLevel2', true)
+//            ->andWhere('storeProductCategory.isLevel2 = :isLevel2')
+//            ->setParameter('isLevel2', true)
 
             ->leftJoin(
                 CategoryLinkEntity::class,
@@ -171,7 +171,10 @@ class StoreProductCategoryEntityRepository extends ServiceEntityRepository
                 Join::WITH,
                 'categoryLinkEntity.subCategoryLevelTwoID = storeProductCategory.id'
             )
-            ->andWhere('categoryLinkEntity.subCategoryLevelOneID = :storeProductCategoryID')
+            ->Where('categoryLinkEntity.subCategoryLevelOneID = :storeProductCategoryID')
+            ->setParameter('storeProductCategoryID', $storeProductCategoryID)
+
+            ->orWhere('storeProductCategory.id = :storeProductCategoryID')
             ->setParameter('storeProductCategoryID', $storeProductCategoryID)
 
             ->getQuery()
