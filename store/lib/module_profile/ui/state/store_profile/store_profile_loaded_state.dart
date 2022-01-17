@@ -100,11 +100,15 @@ class StoreProfileLoadedState extends States {
                                   privateOrders: profile!.privateOrders ? 1 : 0,
                                   image: profile!.image.image,
                                   phone: profile!.phone,
+                                  bankName: profile?.bankName,
+                                  stcPay: profile?.stcPay,
+                                  bankAccountNumber: profile?.bankNumber,
                                   openingTime:profile!.openingTime!.toIso8601String()  ,
                                   closingTime:profile!.closingTime!.toIso8601String(),
+                                location: profile?.branches![0].location
                               ),
                               updateStore:
-                                  (name,phone,image,products, privateOrder,open,close,status,bankName,AccountNumber,stc) {
+                                  (name,phone,image,products, privateOrder,open,close,status,bankName,AccountNumber,stc,location) {
                                 Navigator.of(context).pop();
                                 screenState.updateStore(CreateStoreRequest(
                                   status: status,
@@ -116,7 +120,7 @@ class StoreProfileLoadedState extends States {
                                   openingTime: open,
                                   closingTime: close,
                                   phone: phone,
-                                  location: GeoJson(lat: 2215,long: 5641),
+                                  location: location,
                                   bankName: bankName,bankAccountNumber: AccountNumber,stcPay: stc
 
                                 ));
@@ -147,24 +151,37 @@ class StoreProfileLoadedState extends States {
           ),
         ),
       ),
-//          SizedBox(
-//            height: 200,
-//            child: FlutterMap(
-//              options: MapOptions(
-//                center: clientAddress,
-//                zoom: 17.0,
-//              ),
-//              layers: [
-//                TileLayerOptions(
-//                  urlTemplate: 'https://mt.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
-//                  subdomains: ['a', 'b', 'c'],
-//                ),
-//                MarkerLayerOptions(
-//                  markers:  _getMarkers(context),
-//                ),
-//              ],
-//            ),
-//          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SizedBox(
+              height: 200,
+              child: FlutterMap(
+
+                options: MapOptions(
+                  center: LatLng(profile?.branches![0].location.lat!.toDouble() ??0,profile?.branches![0].location.lon!.toDouble() ??0),
+                  zoom: 17.0,
+                ),
+                layers: [
+                  TileLayerOptions(
+                    urlTemplate: 'https://mt.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
+                    subdomains: ['a', 'b', 'c'],
+                  ),
+                  MarkerLayerOptions(
+                    markers:  [ Marker(
+                      point: LatLng(profile?.branches![0].location.lat!.toDouble() ??0,profile?.branches![0].location.lon!.toDouble() ??0),
+                      builder: (ctx) => Container(
+                        child: Icon(
+                          Icons.location_pin,
+                          color: Colors.red,
+                          size: 35,
+                        ),
+                      ),
+                    )],
+                  ),
+                ],
+              ),
+            ),
+          ),
       CustomListTile(
         title: S.current.storeName,
         subTitle: profile?.storeOwnerName,

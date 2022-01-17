@@ -5,6 +5,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
+import 'package:mandob_moshtarayat/module_profile/response/store_profile_response.dart';
 import 'package:mandob_moshtarayat/module_profile/request/create_store_request.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_feild.dart';
@@ -16,7 +17,7 @@ import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 
 class UpdateStoreWidget extends StatefulWidget {
-   final Function(String, String, String, bool, bool, String?, String?,String,String,String,String)
+   final Function(String, String, String, bool, bool, String?, String?,String,String,String,String,Location)
        updateStore;
    final CreateStoreRequest? request;
 
@@ -91,14 +92,17 @@ class UpdateStoreWidget extends StatefulWidget {
                    ),
 
                    Hider(
-                     active: false,
+                     active: true,
                      child: Padding(
                        padding: const EdgeInsets.only(bottom: 32, top: 32.0),
                        child: InkWell(
                          borderRadius: BorderRadius.circular(25),
                          onTap: () {
-                           storeLocation = null;
+//                           storeLocation = null;
                            mapController = MapController();
+                           setState(() {
+
+                           });
                            showDialog(
                                builder: (_) {
                                  return Scaffold(
@@ -117,6 +121,8 @@ class UpdateStoreWidget extends StatefulWidget {
                                        storeLocation = newPos;
                                        setState(() {});
                                      },
+                                     myPos: storeLocation,
+                                     defaultPoint: storeLocation,
                                    ),
                                  );
                                },
@@ -362,7 +368,7 @@ class UpdateStoreWidget extends StatefulWidget {
                    date.day, closingTime!.hour, closingTime!.minute)
                    .toUtc()
                    .toIso8601String(),
-               status,_bankName.text,_bankAccountNumber.text,_stcPay.text
+               status,_bankName.text,_bankAccountNumber.text,_stcPay.text,Location(lon: storeLocation?.longitude,lat: storeLocation?.latitude)
              );
            } else {
              CustomFlushBarHelper.createError(
@@ -396,6 +402,12 @@ class UpdateStoreWidget extends StatefulWidget {
        _bankAccountNumber.text = widget.request?.bankAccountNumber??'';
        _bankName.text = widget.request?.bankName??'';
        _stcPay.text = widget.request?.stcPay??'';
+       mapController = MapController();
+       storeLocation = null;
+//       storeLocation = LatLng(widget.request!.location!.lat!.toDouble() , widget.request!.location!.lon!.toDouble());
+       if(  !(widget.request!.location!.lat! > 90 ||  widget.request!.location!.lat!<-90)){
+                storeLocation = LatLng(widget.request!.location!.lat!.toDouble() , widget.request!.location!.lon!.toDouble());
+       }
      }
      super.initState();
    }
