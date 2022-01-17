@@ -1,3 +1,4 @@
+import 'package:mandob_moshtarayat_dashboad/module_categories/response/cost_details_response.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/logger/logger.dart';
 
 class StoreProductsResponse {
@@ -44,7 +45,8 @@ class Data {
   num? discount;
   int? storeProductCategoryID;
   num? commission;
-
+  bool? isCommission;
+  CostDetailsResponse? costDetails;
   Data(
       {this.id,
       this.storeOwnerProfileID,
@@ -53,7 +55,9 @@ class Data {
       this.productPrice,
       this.discount,
       this.storeProductCategoryID,
-      this.commission});
+      this.commission,
+      this.costDetails,
+      this.isCommission});
 
   Data.fromJson(dynamic json) {
     id = json['id'];
@@ -65,6 +69,10 @@ class Data {
     storeProductCategoryID = json['storeProductCategoryID'];
     commission = json['commission'];
     storeOwnerProfileID = json['storeOwnerProfileID'];
+    isCommission = json['isCommission'] ?? false;
+    costDetails = json['costDetails'] != null
+        ? CostDetailsResponse.fromJson(json['costDetails'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {

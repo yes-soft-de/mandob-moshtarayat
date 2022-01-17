@@ -14,24 +14,25 @@ import 'package:mandob_moshtarayat_dashboad/utils/components/custom_app_bar.dart
 
 @injectable
 class UpdateLevelTwoCategoryScreen extends StatefulWidget {
- final UpdateLevelTwoCategoriesStateManager _stateManager;
+  final UpdateLevelTwoCategoriesStateManager _stateManager;
 
+  UpdateLevelTwoCategoryScreen(this._stateManager);
 
- UpdateLevelTwoCategoryScreen(this._stateManager);
-
- @override
- UpdateLevelTwoCategoryScreenState createState() => UpdateLevelTwoCategoryScreenState();
+  @override
+  UpdateLevelTwoCategoryScreenState createState() =>
+      UpdateLevelTwoCategoryScreenState();
 }
 
-class UpdateLevelTwoCategoryScreenState extends State<UpdateLevelTwoCategoryScreen> {
+class UpdateLevelTwoCategoryScreenState
+    extends State<UpdateLevelTwoCategoryScreen> {
   late States currentState;
 //  bool canAddCategories = true;
   int? id = -1;
   ProductCategoryModel? model;
- late bool flags;
+  late bool flags;
   final GlobalKey<FormState> key = GlobalKey<FormState>();
- late TextEditingController nameController;
- late String? imagePath;
+  late TextEditingController nameController;
+  late String? imagePath;
   @override
   void initState() {
     flags = true;
@@ -47,17 +48,18 @@ class UpdateLevelTwoCategoryScreenState extends State<UpdateLevelTwoCategoryScre
   }
 
   void updateCategory(List<TranslateSubCategory> tras) {
-    widget._stateManager.updateCategory(this, SubCategoriesRequest(
-      dataStoreCategory: DataStoreCategory(
-        id: model?.id,
-        productCategoryName: nameController.text,
-        productCategoryImage: imagePath
-      ),
-      translate: tras
-    ));
+    widget._stateManager.updateCategory(
+        this,
+        SubCategoriesRequest(
+            dataStoreCategory: DataStoreCategory(
+                id: model?.id,
+                productCategoryName: nameController.text,
+                productCategoryImage: imagePath),
+            translate: tras));
   }
-  void addNewTranslate(CreateNewTransProductCategoryRequest request){
-    widget._stateManager.addNewTranslate(this,request);
+
+  void addNewTranslate(CreateNewTransProductCategoryRequest request) {
+    widget._stateManager.addNewTranslate(this, request);
   }
 
   void refresh() {
@@ -76,20 +78,21 @@ class UpdateLevelTwoCategoryScreenState extends State<UpdateLevelTwoCategoryScre
         widget._stateManager.getLevelTwoCategory(this, id.toString());
       }
     }
-    if(currentState is LevelTwoCategoryLoaded && flags && model != null){
+    if (currentState is LevelTwoCategoryLoaded && flags && model != null) {
       print('inIfState');
       flags = false;
       print(model!.categoryName);
       nameController = TextEditingController();
-      nameController..text = model?.categoryName??'';
-      print(model?.categoryName??'');
-      imagePath = model?.categoryImage??'';
+      nameController..text = model?.categoryName ?? '';
+      print(model?.categoryName ?? '');
+      imagePath = model?.categoryImage ?? '';
       if (imagePath == '') {
         imagePath = null;
       }
     }
     return Scaffold(
-      appBar: CustomMandoobAppBar.appBar(context, title: S.current.updateCategory),
+      appBar:
+          CustomMandoobAppBar.appBar(context, title: S.current.updateCategory),
       body: currentState.getUI(context),
     );
   }

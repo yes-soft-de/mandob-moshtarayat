@@ -2,11 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mandob_moshtarayat_dashboad/consts/urls.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/request/update_product_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/state/product_store/product_store_state.dart';
-
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_feild.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_list_view.dart';
@@ -284,9 +282,7 @@ class _UpdateProductsCommissionFormState
   @override
   void initState() {
     if (widget.request != null) {
-      if (widget.request?.commission != '0') {
-        agreed = true;
-      }
+      agreed = widget.request?.isCommission ?? false;
       _priceController.text = widget.request?.commission?.toString() ?? '0';
     }
     super.initState();

@@ -3,7 +3,10 @@ class CreateNewTransProductCategoryRequest {
   String? storeProductCategoryName;
   String? language;
 
-  CreateNewTransProductCategoryRequest({this.storeProductCategoryName , this.storeProductCategoryID , this.language});
+  CreateNewTransProductCategoryRequest(
+      {this.storeProductCategoryName,
+      this.storeProductCategoryID,
+      this.language});
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};

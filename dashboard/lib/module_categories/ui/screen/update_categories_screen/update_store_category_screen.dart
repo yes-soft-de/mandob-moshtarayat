@@ -13,13 +13,13 @@ import 'package:mandob_moshtarayat_dashboad/utils/components/custom_app_bar.dart
 
 @injectable
 class UpdateStoreCategoryScreen extends StatefulWidget {
- final UpdateStoreCategoriesStateManager _stateManager;
+  final UpdateStoreCategoriesStateManager _stateManager;
 
+  UpdateStoreCategoryScreen(this._stateManager);
 
- UpdateStoreCategoryScreen(this._stateManager);
-
- @override
- UpdateStoreCategoryScreenState createState() => UpdateStoreCategoryScreenState();
+  @override
+  UpdateStoreCategoryScreenState createState() =>
+      UpdateStoreCategoryScreenState();
 }
 
 class UpdateStoreCategoryScreenState extends State<UpdateStoreCategoryScreen> {
@@ -27,10 +27,10 @@ class UpdateStoreCategoryScreenState extends State<UpdateStoreCategoryScreen> {
 //  bool canAddCategories = true;
   int? id = -1;
   CategoryModel? model;
- late bool flags;
+  late bool flags;
   final GlobalKey<FormState> key = GlobalKey<FormState>();
- late TextEditingController nameController;
- late String? imagePath;
+  late TextEditingController nameController;
+  late String? imagePath;
   @override
   void initState() {
     flags = true;
@@ -46,18 +46,19 @@ class UpdateStoreCategoryScreenState extends State<UpdateStoreCategoryScreen> {
   }
 
   void updateCategory(List<TranslateUpdateStoreCategory> tras) {
-    widget._stateManager.updateCategory(this, UpdateStoreCategoriesRequest(
-      dataStoreCategory: DataUpdateStoreCategory(
-        id: model?.id,
-        lang: 'ar',
-        storeCategoryName: nameController.text,
-        image: imagePath
-      ),
-      translate: tras
-    ));
+    widget._stateManager.updateCategory(
+        this,
+        UpdateStoreCategoriesRequest(
+            dataStoreCategory: DataUpdateStoreCategory(
+                id: model?.id,
+                lang: 'ar',
+                storeCategoryName: nameController.text,
+                image: imagePath),
+            translate: tras));
   }
-  void addNewTranslate(CreateNewTransStoreCategoryRequest request){
-    widget._stateManager.addNewTranslate(this,request);
+
+  void addNewTranslate(CreateNewTransStoreCategoryRequest request) {
+    widget._stateManager.addNewTranslate(this, request);
   }
 
   void refresh() {
@@ -76,20 +77,21 @@ class UpdateStoreCategoryScreenState extends State<UpdateStoreCategoryScreen> {
         widget._stateManager.getStoreCategory(this, id.toString());
       }
     }
-    if(currentState is StoreCategoryLoaded && flags && model != null){
+    if (currentState is StoreCategoryLoaded && flags && model != null) {
       print('inIfState');
       flags = false;
       print(model!.categoryName);
       nameController = TextEditingController();
-      nameController..text = model?.categoryName??'';
-      print(model?.categoryName??'');
-      imagePath = model?.categoryImage??'';
+      nameController..text = model?.categoryName ?? '';
+      print(model?.categoryName ?? '');
+      imagePath = model?.categoryImage ?? '';
       if (imagePath == '') {
         imagePath = null;
       }
     }
     return Scaffold(
-      appBar: CustomMandoobAppBar.appBar(context, title: S.current.updateCategory),
+      appBar:
+          CustomMandoobAppBar.appBar(context, title: S.current.updateCategory),
       body: currentState.getUI(context),
     );
   }

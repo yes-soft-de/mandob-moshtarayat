@@ -44,9 +44,13 @@ class ProductsCategoryStateManager {
             empty: value.isEmpty));
       } else {
         StoreCategoriesModel model = value as StoreCategoriesModel;
-        getCategoriesLevelTow(screenState,FilterLanguageAndProductCategoryRequest(
-          language: getIt<LocalizationService>().getLanguage(),
-        ),model.data,[]);
+        getCategoriesLevelTow(
+            screenState,
+            FilterLanguageAndProductCategoryRequest(
+              language: getIt<LocalizationService>().getLanguage(),
+            ),
+            model.data,
+            []);
       }
     });
   }

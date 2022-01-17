@@ -1,110 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/response/cost_details_response.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/progresive_image.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/customIcon/mandob_icons_icons.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:mandob_moshtarayat_dashboad/utils/effect/hidder.dart';
 
-//class ProductCard extends StatelessWidget {
-//  final String productName;
-//  final String productImage;
-//  final Widget dialog;
-//
-//  ProductCard(
-//      {required this.productName,
-//      required this.productImage,
-//      required this.dialog});
-//
-//  @override
-//  Widget build(BuildContext context) {
-//    return Padding(
-//      padding: const EdgeInsets.all(8.0),
-//      child: InkWell(
-//        borderRadius: BorderRadius.circular(25),
-//        onTap: () {
-//          //   Navigator.of(screenState.context).pushNamed(StoresRoutes.STORES,arguments: element.id.toString());
-//        },
-//        child: Container(
-//          decoration: BoxDecoration(
-//            color: Theme.of(context).primaryColor,
-//            borderRadius: BorderRadius.circular(25),
-//          ),
-//          child: Flex(
-//            direction: Axis.horizontal,
-//            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//            children: [
-//              Padding(
-//                padding: const EdgeInsets.all(8.0),
-//                child: ClipRRect(
-//                  borderRadius: BorderRadius.circular(25),
-//                  child: SizedBox(
-//                    height: 75,
-//                    width: 75,
-//                    child: CustomNetworkImage(
-//                      imageSource: productImage,
-//                      width: 75,
-//                      height: 75,
-//                    ),
-//                  ),
-//                ),
-//              ),
-//              Text(
-//                productName,
-//                style:
-//                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-//              ),
-//              InkWell(
-//                customBorder: CircleBorder(),
-//                onTap: () {
-//                  showDialog(
-//                      context: context,
-//                      builder: (context) {
-//                        return dialog;
-//                      });
-//                },
-//                child: Padding(
-//                  padding: const EdgeInsets.all(16.0),
-//                  child: Container(
-//                    decoration: BoxDecoration(
-//                      shape: BoxShape.circle,
-//                      color: Theme.of(context).backgroundColor.withOpacity(0.2),
-//                    ),
-//                    child: Padding(
-//                      padding: const EdgeInsets.all(8.0),
-//                      child: Icon(
-//                        Icons.edit,
-//                        color: Colors.white,
-//                      ),
-//                    ),
-//                  ),
-//                ),
-//              ),
-//            ],
-//          ),
-//        ),
-//      ),
-//    );
-//  }
-//}
 class ProductComponent extends StatelessWidget {
   final String productId;
   final String title;
-  final String description;
   final String image;
   final String price;
   final String discount;
   final String commission;
-  final double rating;
-
+  final bool isCommission;
+  final CostDetailsResponse costDetailsResponse;
   ProductComponent(
       {required this.title,
       required this.image,
       required this.discount,
-      required this.rating,
-      required this.description,
       required this.productId,
       required this.price,
-      required this.commission});
+      required this.commission,
+      required this.isCommission,
+      required this.costDetailsResponse});
 
   @override
   Widget build(BuildContext context) {
@@ -133,52 +53,54 @@ class ProductComponent extends StatelessWidget {
                   SizedBox(
                     height: 8,
                   ),
-                  commission == '0'
-                      ? Container()
-                      : Row(
-                          children: [
-                            Text(S.of(context).productCommission + ': '),
-                            Text(commission)
-                          ],
+                  Hider(
+                    active: isCommission,
+                    child: Row(
+                      children: [
+                        Text(
+                          S.current.commission + '  ',
+                          style: TextStyle(
+                              fontSize: 13, fontWeight: FontWeight.bold),
                         ),
+                        Text(
+                          commission,
+                          style: TextStyle(
+                              fontSize: 13, fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Hider(
+                    active: costDetailsResponse.priceWithCommission != null,
+                    child: Row(
+                      children: [
+                        Text(
+                          S.current.priceWithComission + '  ',
+                          style: TextStyle(
+                              fontSize: 13, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          costDetailsResponse.priceWithCommission!
+                              .toStringAsFixed(1),
+                          style: TextStyle(
+                              fontSize: 13, fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    ),
+                  ),
                   SizedBox(
                     height: 8,
                   ),
                   Container(
                     constraints: BoxConstraints(maxWidth: 200),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Column(
-                          children: [
-                            Text(
-                              S.current.rating,
-                              style: TextStyle(
-                                fontSize: 13,
-                              ),
-                              textAlign: TextAlign.start,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            SizedBox(
-                              height: 8,
-                            ),
-                            RatingBar.builder(
-                              ignoreGestures: true,
-                              initialRating: rating,
-                              minRating: 0,
-                              itemSize: 15,
-                              direction: Axis.horizontal,
-                              allowHalfRating: true,
-                              itemCount: 5,
-                              itemPadding:
-                                  EdgeInsets.symmetric(horizontal: 0.0),
-                              itemBuilder: (context, _) => Icon(
-                                Icons.star,
-                                color: Theme.of(context).primaryColor,
-                              ),
-                              onRatingUpdate: (rating) {},
-                            )
-                          ],
+                          children: [],
                         ),
                         Column(
                           children: [
@@ -186,6 +108,7 @@ class ProductComponent extends StatelessWidget {
                               S.current.discount,
                               style: TextStyle(
                                 fontSize: 13,
+                                fontWeight: FontWeight.bold
                               ),
                               textAlign: TextAlign.start,
                               overflow: TextOverflow.ellipsis,
@@ -208,7 +131,8 @@ class ProductComponent extends StatelessWidget {
                                 Text(
                                   '$discount',
                                   style: TextStyle(
-                                    fontSize: 12,
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.bold
                                   ),
                                   textAlign: TextAlign.start,
                                   overflow: TextOverflow.ellipsis,
@@ -217,12 +141,17 @@ class ProductComponent extends StatelessWidget {
                             ),
                           ],
                         ),
+                        Padding(
+                          padding: const EdgeInsets.only(right:8.0,left: 8.0,bottom: 18),
+                          child: Text('|' ,style: TextStyle(fontWeight: FontWeight.bold),),
+                        ),
                         Column(
                           children: [
                             Text(
                               S.current.price,
                               style: TextStyle(
                                 fontSize: 13,
+                                fontWeight: FontWeight.bold
                               ),
                               textAlign: TextAlign.start,
                               overflow: TextOverflow.ellipsis,
@@ -243,7 +172,8 @@ class ProductComponent extends StatelessWidget {
                                 Text(
                                   '$price',
                                   style: TextStyle(
-                                    fontSize: 12,
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.bold
                                   ),
                                   textAlign: TextAlign.start,
                                   overflow: TextOverflow.ellipsis,

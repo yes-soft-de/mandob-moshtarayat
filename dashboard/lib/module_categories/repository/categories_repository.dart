@@ -42,34 +42,43 @@ class CategoriesRepository {
     if (response == null) return null;
     return StoreCategoriesResponse.fromJson(response);
   }
+
   Future<CategoryResponse?> getStoreCategory(String id) async {
     var token = await _authService.getToken();
     var lang = _localizationService.getLanguage();
-    dynamic response = await _apiClient.get(Urls.GET_STORE_CATEGORY+ '$id', headers: {
-      'Authorization': 'Bearer ' + token.toString(),
-      'Accept-Language': 'ar'
-    });
+    dynamic response = await _apiClient.get(Urls.GET_STORE_CATEGORY + '$id',
+        headers: {
+          'Authorization': 'Bearer ' + token.toString(),
+          'Accept-Language': 'ar'
+        });
     if (response == null) return null;
     return CategoryResponse.fromJson(response);
   }
+
   Future<ProductCategoryResponse?> getProductCategory(String id) async {
     var token = await _authService.getToken();
     var lang = _localizationService.getLanguage();
-    dynamic response = await _apiClient.get(Urls.GET_PRODUCT_CATEGORY+ '$id', headers: {
-      'Authorization': 'Bearer ' + token.toString(),
-      'Accept-Language': 'ar'
-    });
+    dynamic response = await _apiClient.get(Urls.GET_PRODUCT_CATEGORY + '$id',
+        headers: {
+          'Authorization': 'Bearer ' + token.toString(),
+          'Accept-Language': 'ar'
+        });
     if (response == null) return null;
     return ProductCategoryResponse.fromJson(response);
   }
-  Future<ActionResponse?> createNewTransStoreCategory(CreateNewTransStoreCategoryRequest request) async {
+
+  Future<ActionResponse?> createNewTransStoreCategory(
+      CreateNewTransStoreCategoryRequest request) async {
     var token = await _authService.getToken();
     dynamic response = await _apiClient.post(
         Urls.CREATE_NEW_TRANS_STORE_CATEGORY, request.toJson(),
         headers: {'Authorization': 'Bearer ' + token.toString()});
     if (response == null) return null;
     return ActionResponse.fromJson(response);
-  }  Future<ActionResponse?> createNewTransProductCategory(CreateNewTransProductCategoryRequest request) async {
+  }
+
+  Future<ActionResponse?> createNewTransProductCategory(
+      CreateNewTransProductCategoryRequest request) async {
     var token = await _authService.getToken();
     dynamic response = await _apiClient.post(
         Urls.CREATE_NEW_TRANS_PRODUCT_CATEGORY, request.toJson(),

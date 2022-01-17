@@ -91,15 +91,16 @@ class StoreCategoryLoaded extends States {
                                           return AlertDialog(
                                             title:
                                                 Text(S.of(context).addNewTrans),
-                                            content: CustomFormFieldWithTranslate(
-                                                controller: _newTransController,
-                                                onSelected: (langNew) {
-                                                  lang = langNew;
-                                                },
-                                                initLanguage:
-                                              missingTranslate.first,
-                                                languages: missingTranslate,
-                                              ),
+                                            content:
+                                                CustomFormFieldWithTranslate(
+                                              controller: _newTransController,
+                                              onSelected: (langNew) {
+                                                lang = langNew;
+                                              },
+                                              initLanguage:
+                                                  missingTranslate.first,
+                                              languages: missingTranslate,
+                                            ),
                                             actions: [
                                               TextButton(
                                                   onPressed: () {
@@ -112,7 +113,10 @@ class StoreCategoryLoaded extends States {
                                                             storeCategoryName:
                                                                 _newTransController
                                                                     .text,
-                                                            language: lang == 'ur' ? 'urdu' : lang));
+                                                            language:
+                                                                lang == 'ur'
+                                                                    ? 'urdu'
+                                                                    : lang));
                                                   },
                                                   child:
                                                       Text(S.current.confirm)),

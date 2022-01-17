@@ -34,7 +34,8 @@ class UpdateLevelTwoCategoriesStateManager {
   UpdateLevelTwoCategoriesStateManager(
       this._categoriesService, this._authService, this._uploadService);
 
-  void getLevelTwoCategory(UpdateLevelTwoCategoryScreenState screenState, String id) {
+  void getLevelTwoCategory(
+      UpdateLevelTwoCategoryScreenState screenState, String id) {
     _stateSubject.add(LoadingState(screenState));
     _categoriesService.getProductCategory(id).then((value) {
       if (value.hasError) {
@@ -53,8 +54,9 @@ class UpdateLevelTwoCategoriesStateManager {
 
   void updateCategory(UpdateLevelTwoCategoryScreenState screenState,
       SubCategoriesRequest request) {
-    if (request.dataStoreCategory?.productCategoryImage?.contains('/original-image/') ==
-        true ||
+    if (request.dataStoreCategory?.productCategoryImage
+                ?.contains('/original-image/') ==
+            true ||
         request.dataStoreCategory?.productCategoryImage == null) {
       _stateSubject.add(LoadingState(screenState));
       _categoriesService.updateSubCategories(request).then((value) {
@@ -62,7 +64,7 @@ class UpdateLevelTwoCategoriesStateManager {
           _stateSubject
               .add(LevelTwoCategoryLoaded(screenState, error: value.error));
         } else {
-           Navigator.of(screenState.context).pop(true);
+          Navigator.of(screenState.context).pop(true);
           CustomFlushBarHelper.createSuccess(
               title: S.current.warnning, message: S.current.updateStoreCategory)
             ..show(screenState.context);
@@ -89,22 +91,23 @@ class UpdateLevelTwoCategoriesStateManager {
       });
     }
   }
+
 //
 //
   void addNewTranslate(UpdateLevelTwoCategoryScreenState screenState,
       CreateNewTransProductCategoryRequest request) {
-      _stateSubject.add(LoadingState(screenState));
-        _categoriesService.createNewTransProductCategory(request).then((value) {
-          if (value.hasError) {
-            _stateSubject
-                .add(LevelTwoCategoryLoaded(screenState, error: value.error));
-          } else {
-            getLevelTwoCategory(screenState, request.storeProductCategoryID.toString());
-            CustomFlushBarHelper.createSuccess(
-                title: S.current.warnning,
-                message: S.current.updateStoreCategory)
-              ..show(screenState.context);
-          }
-        });
-    }
+    _stateSubject.add(LoadingState(screenState));
+    _categoriesService.createNewTransProductCategory(request).then((value) {
+      if (value.hasError) {
+        _stateSubject
+            .add(LevelTwoCategoryLoaded(screenState, error: value.error));
+      } else {
+        getLevelTwoCategory(
+            screenState, request.storeProductCategoryID.toString());
+        CustomFlushBarHelper.createSuccess(
+            title: S.current.warnning, message: S.current.updateStoreCategory)
+          ..show(screenState.context);
+      }
+    });
+  }
 }

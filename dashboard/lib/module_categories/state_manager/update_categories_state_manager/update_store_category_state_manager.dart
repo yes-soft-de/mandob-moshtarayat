@@ -31,8 +31,7 @@ class UpdateStoreCategoriesStateManager {
     _stateSubject.add(LoadingState(screenState));
     _categoriesService.getStoreCategory(id).then((value) {
       if (value.hasError) {
-        _stateSubject
-            .add(StoreCategoryLoaded(screenState, error: value.error));
+        _stateSubject.add(StoreCategoryLoaded(screenState, error: value.error));
       } else if (value.isEmpty) {
         _stateSubject
             .add(StoreCategoryLoaded(screenState, empty: value.isEmpty));
@@ -47,7 +46,7 @@ class UpdateStoreCategoriesStateManager {
   void updateCategory(UpdateStoreCategoryScreenState screenState,
       UpdateStoreCategoriesRequest request) {
     if (request.dataStoreCategory?.image?.contains('/original-image/') ==
-        true ||
+            true ||
         request.dataStoreCategory?.image == null) {
       _stateSubject.add(LoadingState(screenState));
       _categoriesService.updateStoreCategory(request).then((value) {
@@ -55,7 +54,7 @@ class UpdateStoreCategoriesStateManager {
           _stateSubject
               .add(StoreCategoryLoaded(screenState, error: value.error));
         } else {
-           Navigator.of(screenState.context).pop(true);
+          Navigator.of(screenState.context).pop(true);
           CustomFlushBarHelper.createSuccess(
               title: S.current.warnning, message: S.current.updateStoreCategory)
             ..show(screenState.context);
@@ -83,21 +82,18 @@ class UpdateStoreCategoriesStateManager {
     }
   }
 
-
   void addNewTranslate(UpdateStoreCategoryScreenState screenState,
       CreateNewTransStoreCategoryRequest request) {
-      _stateSubject.add(LoadingState(screenState));
-        _categoriesService.createNewTransStoreCategory(request).then((value) {
-          if (value.hasError) {
-            _stateSubject
-                .add(StoreCategoryLoaded(screenState, error: value.error));
-          } else {
-            getStoreCategory(screenState, request.storeCategoryID.toString());
-            CustomFlushBarHelper.createSuccess(
-                title: S.current.warnning,
-                message: S.current.updateStoreCategory)
-              ..show(screenState.context);
-          }
-        });
-    }
+    _stateSubject.add(LoadingState(screenState));
+    _categoriesService.createNewTransStoreCategory(request).then((value) {
+      if (value.hasError) {
+        _stateSubject.add(StoreCategoryLoaded(screenState, error: value.error));
+      } else {
+        getStoreCategory(screenState, request.storeCategoryID.toString());
+        CustomFlushBarHelper.createSuccess(
+            title: S.current.warnning, message: S.current.updateStoreCategory)
+          ..show(screenState.context);
+      }
+    });
+  }
 }
