@@ -50,7 +50,7 @@ class _AddStoreWidgetState extends State<AddStoreWidget> {
           child: CustomListView.custom(
               padding: EdgeInsets.only(right: 16, left: 16),
               children: [
-               Padding(
+                Padding(
                   padding: const EdgeInsets.only(
                       left: 12.0, bottom: 8, right: 12, top: 16.0),
                   child: Text(

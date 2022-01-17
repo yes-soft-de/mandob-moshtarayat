@@ -20,8 +20,7 @@ class ScreenType {
   }
 
   static bool isMobile(BuildContext context) {
-    var screenSize =
-        MediaQuery.of(context).size;
+    var screenSize = MediaQuery.of(context).size;
     if (screenSize.width < 600) {
       return true;
     } else {
@@ -30,8 +29,7 @@ class ScreenType {
   }
 
   static bool isDesktop(BuildContext context) {
-    var screenSize =
-        MediaQuery.of(context).size;
+    var screenSize = MediaQuery.of(context).size;
     if (screenSize.width >= 1200) {
       return true;
     } else {
@@ -40,8 +38,7 @@ class ScreenType {
   }
 
   static bool isTablet(BuildContext context) {
-    var screenSize =
-        MediaQuery.of(context).size;
+    var screenSize = MediaQuery.of(context).size;
     if (screenSize.width > 600 && screenSize.width < 1200) {
       return true;
     } else {

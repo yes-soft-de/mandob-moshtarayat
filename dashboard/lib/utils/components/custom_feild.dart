@@ -62,10 +62,10 @@ class _CustomFormFieldState extends State<CustomFormField> {
           controller: widget.controller,
           readOnly: widget.readOnly,
           maxLines: widget.maxLines ?? 1,
-          cursorHeight: getIt<LocalizationService>().getLanguage() == 'ar' &&
-                  kIsWeb
-              ? 16
-              : null,
+          cursorHeight:
+              getIt<LocalizationService>().getLanguage() == 'ar' && kIsWeb
+                  ? 16
+                  : null,
           keyboardType: widget.numbers ? TextInputType.phone : null,
           onEditingComplete:
               widget.maxLines != null ? null : () => node.nextFocus(),
@@ -151,7 +151,7 @@ class CustomFormFieldWithTranslate extends StatefulWidget {
 
   CustomFormFieldWithTranslate(
       {this.height = 50,
-       this.canReChoose = true,
+      this.canReChoose = true,
       this.contentPadding = const EdgeInsets.fromLTRB(16, 8, 16, 8),
       this.hintText,
       this.preIcon,

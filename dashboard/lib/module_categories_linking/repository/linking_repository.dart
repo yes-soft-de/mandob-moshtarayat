@@ -53,7 +53,8 @@ class LinkingRepository {
     return SubCategoriesResponse.fromJson(response);
   }
 
-  Future<SubCategoriesLinkingResponse?> getSubCategoriesLinking(String id) async {
+  Future<SubCategoriesLinkingResponse?> getSubCategoriesLinking(
+      String id) async {
     var token = await _authService.getToken();
     dynamic response = await _apiClient
         .post(Urls.GET_ALL_SUBCATEGORIES_LEVEL_ONE_LINKING_API, {
