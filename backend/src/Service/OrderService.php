@@ -1066,7 +1066,7 @@ class OrderService
         $storeOwnerProfileID = $this->userService->getStoreProfileId($userID);
 
         $orders = $this->orderDetailService->getStoreOrders($storeOwnerProfileID);
-
+dd($orders);
         foreach ($orders as $order) {
             $order['invoiceAmount'] = (float)$this->orderDetailService->getTotalProductsPriceByOrderNumberAndStoreIDForStore($order['orderNumber'], $storeOwnerProfileID);
 
