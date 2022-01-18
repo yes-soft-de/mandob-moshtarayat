@@ -394,12 +394,15 @@ class StoreOwnerProfileService
 
     public function storeFinancialAccountForAdmin($storeOwnerProfileId)
     {
-//        $item['amountOwedToStore'] = (float)$this->storeOwnerProfileManager->getSumInvoicesForStore($storeOwnerProfileId);
         $invoicesIDs = $this->storeOwnerProfileManager->getInvoicesIDs($storeOwnerProfileId);
+
         $item['amountOwedToStore'] = (float)$this->ordersInvoicesService->sumInvoiceAmountWithoutOrderTypeSendIt($invoicesIDs);
 
         $item['sumPaymentsToStore'] = (float)$this->deliveryCompanyPaymentsToStoreService->deliveryCompanySumPaymentsToStore($storeOwnerProfileId);
-        $item['total'] = $item['sumPaymentsToStore'] - $item['amountOwedToStore'];
+
+        $total = $item['sumPaymentsToStore'] - $item['amountOwedToStore'];
+
+        $item['total'] = round($total, 1);
         $item['paymentsToStore'] = $this->deliveryCompanyPaymentsToStoreService->deliveryCompanyPaymentsToStore($storeOwnerProfileId);
 
         return $this->autoMapping->map('array',StoreFinancialAccountForStoreResponse::class, $item);
