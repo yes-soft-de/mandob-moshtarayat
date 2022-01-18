@@ -1049,7 +1049,7 @@ class OrderService
         $storeOwnerProfileID = $this->userService->getStoreProfileId($userID);
 
         $orders = $this->orderDetailService->getStoreOrdersInSpecificDate($date[0], $date[1], $storeOwnerProfileID['id']);
-
+dd($orders);
         foreach ($orders as $order) {
             $order['invoiceAmount'] = (float)$this->orderDetailService->getTotalProductsPriceByOrderNumberAndStoreIDForStore($order['orderNumber'], $storeOwnerProfileID['id']);
 
@@ -1066,7 +1066,7 @@ class OrderService
         $storeOwnerProfileID = $this->userService->getStoreProfileId($userID);
 
         $orders = $this->orderDetailService->getStoreOrders($storeOwnerProfileID);
-dd($orders);
+
         foreach ($orders as $order) {
             $order['invoiceAmount'] = (float)$this->orderDetailService->getTotalProductsPriceByOrderNumberAndStoreIDForStore($order['orderNumber'], $storeOwnerProfileID);
 
