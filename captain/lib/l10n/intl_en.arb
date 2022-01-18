@@ -443,7 +443,8 @@
   "update":"Update",
   "forgotPass": "Forgot password?",
   "newPassword": "New password",
-  "phoneNumberLong":"Phone number invalid format , cause is more than 9"
+  "phoneNumberLong":"Phone number invalid format , cause is more than 9",
+  "accountNotExist":"Account not exist"
 
 
 

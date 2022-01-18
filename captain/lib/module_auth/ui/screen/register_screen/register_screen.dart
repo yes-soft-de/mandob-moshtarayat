@@ -6,6 +6,7 @@ import 'package:mandob_moshtarayat_captain/module_auth/request/register_request/
 import 'package:mandob_moshtarayat_captain/module_auth/request/register_request/verfy_code_request.dart';
 import 'package:mandob_moshtarayat_captain/module_auth/state_manager/register_state_manager/register_state_manager.dart';
 import 'package:mandob_moshtarayat_captain/module_auth/ui/states/register_states/register_state.dart';
+import 'package:mandob_moshtarayat_captain/module_auth/ui/states/register_states/register_state_code_sent.dart';
 import 'package:mandob_moshtarayat_captain/module_auth/ui/states/register_states/register_state_init.dart';
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat_captain/module_init/init_routes.dart';
@@ -50,6 +51,12 @@ class RegisterScreenState extends State<RegisterScreen> {
   dynamic args;
   @override
   Widget build(BuildContext context) {
+    args = ModalRoute.of(context)?.settings.arguments;
+    if (args != null) {
+      if (args is Map) {
+        _currentState = RegisterStatePhoneCodeSent(this);
+      }
+    }
     return GestureDetector(
       onTap: () {
         var focus = FocusScope.of(context);
@@ -98,7 +105,8 @@ class RegisterScreenState extends State<RegisterScreen> {
             timeout: 2)
         .show(context);
   }
-    void verifyClient(VerifyCodeRequest request) {
+
+  void verifyClient(VerifyCodeRequest request) {
     widget._stateManager.verifyClient(request, this);
   }
 

@@ -440,7 +440,8 @@
   "passwordNotMatch": "كلمة السر غير متطابقة",
   "update":"تحديث",
   "forgotPass": "هل نسيت كلمة المرور؟",
-  "phoneNumberLong":"رقم الهاتف غير صالح بسبب تعديه ل٩ محارف"
+  "phoneNumberLong":"رقم الهاتف غير صالح بسبب تعديه ل٩ محارف",
+  "accountNotExist":"الحساب غير موجود"
 
 
 }
