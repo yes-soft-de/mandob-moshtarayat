@@ -403,7 +403,7 @@ class MandobProfileController extends BaseController
     }
 
     /**
-     * @Route("getstoreappurlongoogleplaystore", name="getStoreAppURL", methods={"POST"})
+     * @Route("getstoreappurlongoogleplaystore", name="getStoreAppURL", methods={"GET"})
      *
      * @OA\Tag(name="Mandob Profile")
      *
