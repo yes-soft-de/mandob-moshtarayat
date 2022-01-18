@@ -2,6 +2,7 @@ import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_stores/repository/stores_repository.dart';
 import 'package:mandob_moshtarayat_dashboad/module_stores/request/create_store_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_stores/request/store_payment_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_stores/response/store_balance_response/store_balance_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_stores/response/store_profile_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_stores/response/stores_response.dart';
@@ -23,4 +24,6 @@ class StoreManager {
       _storesRepository.addStore(request);
   Future<StoreBalanceResponse?> getStoreAccountBalance(int id) =>
       _storesRepository.getStoreAccountBalance(id);
+  Future<ActionResponse?> createStorePayment(StorePaymentRequest request) =>
+      _storesRepository.createStorePayments(request);
 }
