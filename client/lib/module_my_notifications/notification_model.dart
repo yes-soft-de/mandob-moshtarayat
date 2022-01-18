@@ -25,7 +25,10 @@ class NotificationModel {
   NotificationModel.Data(MyNotificationResponse orders) {
     var data = orders.data;
     data?.forEach((element) {
-      String notificationDate = DateFormat.jm().format(
+      String notificationDate =DateFormat.jm().format(
+          DateTime.fromMillisecondsSinceEpoch((element.createdAt?.timestamp ??
+                  DateTime.now().millisecondsSinceEpoch) *
+              1000)) + ' 📅 ' +DateFormat.Md().format(
           DateTime.fromMillisecondsSinceEpoch((element.createdAt?.timestamp ??
                   DateTime.now().millisecondsSinceEpoch) *
               1000));
