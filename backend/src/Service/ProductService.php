@@ -693,7 +693,7 @@ class ProductService
 
         if($userLocale != null && $userLocale != $this->primaryLanguage)
         {
-            $productsTranslation = $this->productManager->getProductsTranslationByStoreProductCategoryID($storeProductCategoryIdLevelTwo);
+            $productsTranslation = $this->productManager->getProductsTranslationsByStoreProductCategoryIDForStore($storeProductCategoryIdLevelTwo, $storeOwnerProfileID);
 
             $products = $this->replaceProductTranslatedNameByPrimaryOne($productsTranslation, $userLocale);
         }
