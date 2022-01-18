@@ -350,7 +350,9 @@ class _UpdateProductsFormState extends State<UpdateProductsForm> {
           widget.request?.dataStoreProduct?.productPrice?.toString() ?? '0';
       _discountController.text =
           widget.request?.dataStoreProduct?.discount?.toString() ?? '0';
-      maincatId = widget.request?.dataStoreProduct?.categoryName?.toString();
+      maincatId = widget.request?.dataStoreProduct?.isLevelOne ?? false
+          ? widget.request?.dataStoreProduct?.storeProductCategoryID?.toString()
+          : null;
       subcatId = widget.request?.dataStoreProduct?.isLevelTwo ?? false
           ? widget.request?.dataStoreProduct?.storeProductCategoryID?.toString()
           : null;
@@ -439,6 +441,7 @@ class _UpdateProductsFormState extends State<UpdateProductsForm> {
                             onChanged: (v) {
                               maincatId = v.toString();
                               isUpdatedToMain = true;
+                              changeLocalCategory();
                               getCategoryLevelTwo(int.parse(maincatId ?? '0'));
                               setState(() {});
                             },
@@ -593,7 +596,14 @@ class _UpdateProductsFormState extends State<UpdateProductsForm> {
           }),
     );
   }
-
+changeLocalCategory(){
+    subcatId = '';
+    categoriesTwoLocal.clear();
+  categoriesTwoLocal.add(DropdownMenuItem(
+    value: '',
+    child: Text(''),
+  ));
+}
   getCategoryLevelTwo(maincatId) async {
     widget.categoriesService!.getCategoryLevelTwo(maincatId).then((value) {
       if (value.hasError) {
@@ -624,6 +634,8 @@ class _UpdateProductsFormState extends State<UpdateProductsForm> {
     });
     print("cat level two in side category");
     print(categoriesTwoLocal.length.toString());
+    setState(() {
+    });
     return categoriesTwoLocal;
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
+import 'package:mandob_moshtarayat/module_profile/response/store_profile_response.dart';
 import 'package:mandob_moshtarayat/module_profile/request/create_store_request.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_feild.dart';
@@ -16,7 +17,7 @@ import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 
 class UpdateStoreWidget extends StatefulWidget {
-   final Function(String, String, String, bool, bool, String?, String?,String,String,String,String)
+   final Function(String, String, String, bool, bool, String?, String?,String,String,String,String,Location)
        updateStore;
    final CreateStoreRequest? request;
 
@@ -45,6 +46,7 @@ class UpdateStoreWidget extends StatefulWidget {
    String status = 'active';
    var date = DateTime.now();
    final ImagePicker _imagePicker = ImagePicker();
+   int val = 1;
    @override
    Widget build(BuildContext context) {
      return StackedForm(
@@ -91,14 +93,17 @@ class UpdateStoreWidget extends StatefulWidget {
                    ),
 
                    Hider(
-                     active: false,
+                     active: true,
                      child: Padding(
                        padding: const EdgeInsets.only(bottom: 32, top: 32.0),
                        child: InkWell(
                          borderRadius: BorderRadius.circular(25),
                          onTap: () {
-                           storeLocation = null;
+//                           storeLocation = null;
                            mapController = MapController();
+                           setState(() {
+
+                           });
                            showDialog(
                                builder: (_) {
                                  return Scaffold(
@@ -117,6 +122,8 @@ class UpdateStoreWidget extends StatefulWidget {
                                        storeLocation = newPos;
                                        setState(() {});
                                      },
+                                     myPos: storeLocation,
+                                     defaultPoint: storeLocation,
                                    ),
                                  );
                                },
@@ -191,33 +198,86 @@ class UpdateStoreWidget extends StatefulWidget {
                      controller: _bankName,
                      hintText: S.current.bankName,
                    ),
-
-                   Padding(
-                     padding: const EdgeInsets.only(
-                         left: 12.0, bottom: 8, right: 12, top: 16.0),
-                     child: Text(
-                       S.current.bankAccountNumber,
-                       style: TextStyle(fontWeight: FontWeight.bold),
-                       textAlign: TextAlign.start,
+                   Row(
+                     children: [
+                       Flexible(
+                         flex: 1,
+                         child: ListTile(
+                           title: Text(S.of(context).bankAccountNumber,
+                               style: TextStyle(fontSize: 12)),
+                           leading: Radio(
+                             value: 1,
+                             groupValue: val,
+                             onChanged: (value) {
+                               val = value as int;
+                               setState(() {});
+                             },
+                             activeColor: Theme.of(context).accentColor,
+                           ),
+                         ),
+                       ),
+                       Flexible(
+                         flex: 1,
+                         child: ListTile(
+                           title: Text(
+                             S.of(context).stcPayCode,
+                             style: TextStyle(fontSize: 12),
+                           ),
+                           leading: Radio(
+                               value: 2,
+                               groupValue: val,
+                               onChanged: (value) {
+                                 val = value as int;
+                                 setState(() {});
+                               },
+                               activeColor: Theme.of(context).accentColor),
+                         ),
+                       ),
+                     ],
+                   ),
+                   Visibility(
+                     visible: val == 1,
+                     child: Column(
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                       children: [
+                         Padding(
+                           padding: const EdgeInsets.only(
+                               left: 12.0, bottom: 8, right: 12, top: 16.0),
+                           child: Text(
+                             S.current.bankAccountNumber,
+                             style: TextStyle(fontWeight: FontWeight.bold),
+                             textAlign: TextAlign.start,
+                           ),
+                         ),
+                         CustomFormField(
+                           controller: _bankAccountNumber,
+                           hintText: S.current.bankAccountNumber,
+                           validator: val == 1 ? true : false,
+                         ),
+                       ],
                      ),
                    ),
-                   CustomFormField(
-                     controller: _bankAccountNumber,
-                     hintText: S.current.bankAccountNumber,
-                   ),
-
-                   Padding(
-                     padding: const EdgeInsets.only(
-                         left: 12.0, bottom: 8, right: 12, top: 16.0),
-                     child: Text(
-                       S.current.stc,
-                       style: TextStyle(fontWeight: FontWeight.bold),
-                       textAlign: TextAlign.start,
+                   Visibility(
+                     visible: val == 2,
+                     child: Column(
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                       children: [
+                         Padding(
+                           padding: const EdgeInsets.only(
+                               left: 12.0, bottom: 8, right: 12, top: 16.0),
+                           child: Text(
+                             S.current.stc,
+                             style: TextStyle(fontWeight: FontWeight.bold),
+                             textAlign: TextAlign.start,
+                           ),
+                         ),
+                         CustomFormField(
+                           controller: _stcPay,
+                           hintText: S.current.stc,
+                           validator: val == 2 ? true : false,
+                         ),
+                       ],
                      ),
-                   ),
-                   CustomFormField(
-                     controller: _stcPay,
-                     hintText: S.current.stc,
                    ),
                    // Store Shift
                    Padding(
@@ -362,7 +422,7 @@ class UpdateStoreWidget extends StatefulWidget {
                    date.day, closingTime!.hour, closingTime!.minute)
                    .toUtc()
                    .toIso8601String(),
-               status,_bankName.text,_bankAccountNumber.text,_stcPay.text
+               status,_bankName.text,_bankAccountNumber.text,_stcPay.text,Location(lon: storeLocation?.longitude,lat: storeLocation?.latitude)
              );
            } else {
              CustomFlushBarHelper.createError(
@@ -396,6 +456,13 @@ class UpdateStoreWidget extends StatefulWidget {
        _bankAccountNumber.text = widget.request?.bankAccountNumber??'';
        _bankName.text = widget.request?.bankName??'';
        _stcPay.text = widget.request?.stcPay??'';
+       val = _bankAccountNumber.text != '' ? 1 : 2;
+       mapController = MapController();
+       storeLocation = null;
+//       storeLocation = LatLng(widget.request!.location!.lat!.toDouble() , widget.request!.location!.lon!.toDouble());
+       if(  !(widget.request!.location!.lat! > 90 ||  widget.request!.location!.lat!<-90)){
+                storeLocation = LatLng(widget.request!.location!.lat!.toDouble() , widget.request!.location!.lon!.toDouble());
+       }
      }
      super.initState();
    }

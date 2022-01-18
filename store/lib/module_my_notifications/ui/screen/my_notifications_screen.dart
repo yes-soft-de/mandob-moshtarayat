@@ -5,6 +5,7 @@ import 'package:mandob_moshtarayat/module_auth/authorization_routes.dart';
 import 'package:mandob_moshtarayat/module_my_notifications/state_manager/my_notifications_state_manager.dart';
 import 'package:mandob_moshtarayat/module_my_notifications/ui/state/my_notifications/my_notifications_loading_state.dart';
 import 'package:mandob_moshtarayat/module_my_notifications/ui/state/my_notifications/my_notifications_state.dart';
+import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 
 @injectable
@@ -62,6 +63,9 @@ class MyNotificationsScreenState extends State<MyNotificationsScreen> {
         }
       },
       child: Scaffold(
+        appBar: CustomMandopAppBar.appBar(context,
+          title: S.current.notifications,
+        ),
         body: currentState.getUI(context),
       ),
     );

@@ -163,7 +163,7 @@ class ProductStoreState extends States {
                                   storeProductCategoryID:int.parse(catID),
                               ),
 
-                            ), categoriesOne??[]);
+                            ), categoriesOne??[],);
                           },
                         );
                       });

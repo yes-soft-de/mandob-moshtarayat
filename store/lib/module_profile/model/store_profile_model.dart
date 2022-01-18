@@ -84,6 +84,9 @@ class BranchesModel extends DataModel{
   BranchesModel({required this.location, required this.isActive});
 
   BranchesModel.withData(Branches data) : super.withData() {
+    if(  (data.location!.lat! > 90 || data.location!.lat!<-90)){
+      data.location = Location(lat: 0,lon: 0);
+    }
     _models = BranchesModel(
       location: data.location??Location(lat: 0,lon: 0),
       isActive: data.isActive??false
