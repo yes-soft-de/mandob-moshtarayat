@@ -298,7 +298,6 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('orderDetailEntity')
 
-
             ->select('OrderEntity.id', 'OrderEntity.deliveryDate', 'OrderEntity.createdAt', 'OrderEntity.source', 'OrderEntity.payment', 'OrderEntity.detail', 'OrderEntity.deliveryCost', 'OrderEntity.orderCost', 'OrderEntity.orderType', 'OrderEntity.destination', 'OrderEntity.note')
             ->addSelect('orderDetailEntity.id as orderDetailId', 'orderDetailEntity.orderNumber')
 

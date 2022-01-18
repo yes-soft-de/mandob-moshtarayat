@@ -1048,10 +1048,10 @@ class OrderService
 
         $storeOwnerProfileID = $this->userService->getStoreProfileId($userID);
 
-        $orders = $this->orderDetailService->getStoreOrdersInSpecificDate($date[0], $date[1], $storeOwnerProfileID);
+        $orders = $this->orderDetailService->getStoreOrdersInSpecificDate($date[0], $date[1], $storeOwnerProfileID['id']);
 
         foreach ($orders as $order) {
-            $order['invoiceAmount'] = (float)$this->orderDetailService->getTotalProductsPriceByOrderNumberAndStoreIDForStore($order['orderNumber'], $storeOwnerProfileID);
+            $order['invoiceAmount'] = (float)$this->orderDetailService->getTotalProductsPriceByOrderNumberAndStoreIDForStore($order['orderNumber'], $storeOwnerProfileID['id']);
 
             $response[] = $this->autoMapping->map('array', OrdersPendingForStoreResponse::class, $order);
         }

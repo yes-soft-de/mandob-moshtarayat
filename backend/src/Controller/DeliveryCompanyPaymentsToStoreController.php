@@ -50,8 +50,8 @@ class DeliveryCompanyPaymentsToStoreController extends BaseController
      *      description="Create payments to store",
      *      @OA\JsonContent(
      *          @OA\Property(type="integer", property="storeOwnerProfileID"),
-     *          @OA\Property(type="integer", property="amount"),
-     *          @OA\Property(type="integer", property="note"),
+     *          @OA\Property(type="number", property="amount"),
+     *          @OA\Property(type="string", property="note"),
      *      )
      * )
      *
@@ -64,7 +64,7 @@ class DeliveryCompanyPaymentsToStoreController extends BaseController
      *          @OA\Property(type="object", property="Data",
      *                  @OA\Property(type="integer", property="id"),
      *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
-     *                  @OA\Property(type="integer", property="amount"),
+     *                  @OA\Property(type="number", property="amount"),
      *                  @OA\Property(type="object", property="date"),
      *                  @OA\Property(type="string", property="note")
      *          )

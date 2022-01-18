@@ -982,7 +982,7 @@ class StoreOwnerProfileController extends BaseController
      *                  @OA\items(
      *                   @OA\Property(type="integer", property="id"),
      *                   @OA\Property(type="integer", property="storeOwnerProfileID"),
-     *                   @OA\Property(type="integer", property="amount"),
+     *                   @OA\Property(type="number", property="amount"),
      *                   @OA\Property(type="object", property="date"),
      *                   @OA\Property(type="string", property="note")
      *              )
