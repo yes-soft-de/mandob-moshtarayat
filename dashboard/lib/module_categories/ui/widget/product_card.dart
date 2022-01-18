@@ -107,9 +107,7 @@ class ProductComponent extends StatelessWidget {
                             Text(
                               S.current.discount,
                               style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.bold
-                              ),
+                                  fontSize: 13, fontWeight: FontWeight.bold),
                               textAlign: TextAlign.start,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -131,9 +129,8 @@ class ProductComponent extends StatelessWidget {
                                 Text(
                                   '$discount',
                                   style: TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.bold
-                                  ),
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.bold),
                                   textAlign: TextAlign.start,
                                   overflow: TextOverflow.ellipsis,
                                 ),
@@ -142,17 +139,19 @@ class ProductComponent extends StatelessWidget {
                           ],
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(right:8.0,left: 8.0,bottom: 18),
-                          child: Text('|' ,style: TextStyle(fontWeight: FontWeight.bold),),
+                          padding: const EdgeInsets.only(
+                              right: 8.0, left: 8.0, bottom: 18),
+                          child: Text(
+                            '|',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
                         ),
                         Column(
                           children: [
                             Text(
                               S.current.price,
                               style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.bold
-                              ),
+                                  fontSize: 13, fontWeight: FontWeight.bold),
                               textAlign: TextAlign.start,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -172,9 +171,8 @@ class ProductComponent extends StatelessWidget {
                                 Text(
                                   '$price',
                                   style: TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.bold
-                                  ),
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.bold),
                                   textAlign: TextAlign.start,
                                   overflow: TextOverflow.ellipsis,
                                 ),

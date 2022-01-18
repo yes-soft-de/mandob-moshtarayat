@@ -170,7 +170,7 @@ class ProductStoreState extends States {
                               id: element.id,
                               storeOwnerProfileID: element.storeOwnerProfileID,
                               commission: element.commission.toString(),
-                              isCommission:element.isCommission),
+                              isCommission: element.isCommission),
                         ),
                       ),
                     );
