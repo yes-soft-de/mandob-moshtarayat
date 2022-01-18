@@ -14,49 +14,44 @@ class MyNotificationsEmptyState extends MyNotificationsState {
 
   @override
   Widget getUI(BuildContext context) {
-    return Scaffold(
-      appBar: CustomMandopAppBar.appBar(context,
-          title: S.current.notifications,
+    return SingleChildScrollView(
+      physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+      child: Flex(
+        direction: Axis.vertical,
+        children: [
+          Container(
+            height: 75,
           ),
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-        child: Flex(
-          direction: Axis.vertical,
-          children: [
-            Container(
-              height: 75,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Center(
-                child: Text(
-                  empty,
-                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
-                ),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Center(
+              child: Text(
+                empty,
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
               ),
             ),
-            SvgPicture.asset(
-              SvgAsset.EMPTY_SVG,
-              height: MediaQuery.of(context).size.height * 0.5,
-            ),
-            Center(
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        elevation: 0),
-                    onPressed: () async {
-                      await screenState.getNotifications();
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        S.of(context).refresh,
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ))),
-          ],
-        ),
+          ),
+          SvgPicture.asset(
+            SvgAsset.EMPTY_SVG,
+            height: MediaQuery.of(context).size.height * 0.5,
+          ),
+          Center(
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      elevation: 0),
+                  onPressed: () async {
+                    await screenState.getNotifications();
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      S.of(context).refresh,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ))),
+        ],
       ),
     );
   }
