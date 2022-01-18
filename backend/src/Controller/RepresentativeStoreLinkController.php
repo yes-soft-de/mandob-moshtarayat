@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\AutoMapping;
 use App\Request\RepresentativeStoreLinkCreateRequest;
 use App\Service\RepresentativeStoreLinkService;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,6 +33,7 @@ class RepresentativeStoreLinkController extends BaseController
     /**
      * Create link between representative and store.
      * @Route("representativestorelink", name="createRepresentativeStoreLink", methods={"POST"})
+     * @IsGranted("ROLE_MANDOB")
      * @param Request $request
      * @return JsonResponse
      *
@@ -62,7 +64,9 @@ class RepresentativeStoreLinkController extends BaseController
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class, RepresentativeStoreLinkCreateRequest::class, (object)$data);
-        $request->setStoreOwnerIP("AC:37:43:CB:D6:6C");
+
+        $request->setStoreOwnerIP($_SERVER['REMOTE_ADDR']);
+
         $violations = $this->validator->validate($request);
         if (\count($violations) > 0) {
             $violationsString = (string)$violations;
