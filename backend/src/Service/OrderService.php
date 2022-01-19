@@ -1042,7 +1042,7 @@ class OrderService
 
     public function getStoreOrdersInSpecificDate($fromDate, $toDate, $userID):?array
     {
-        $response=[];
+        $response = [];
 
         $date = $this->dateFactoryService->returnSpecificDate($fromDate, $toDate);
 
@@ -1050,11 +1050,13 @@ class OrderService
 
         $orders = $this->orderDetailService->getStoreOrdersInSpecificDate($date[0], $date[1], $storeOwnerProfileID['id']);
 
+
         foreach ($orders as $order) {
             $order['invoiceAmount'] = $this->orderDetailService->getTotalProductsPriceByOrderNumberAndStoreIDForStore($order['orderNumber'], $storeOwnerProfileID['id']);
-
+dd("3");
             $response[] = $this->autoMapping->map('array', OrdersPendingForStoreResponse::class, $order);
         }
+        dd("3");
 
         return $response;
     }
