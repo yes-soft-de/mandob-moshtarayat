@@ -4,6 +4,7 @@ import 'package:mandob_moshtarayat_dashboad/module_auth/service/auth_service/aut
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_network/http_client/http_client.dart';
 import 'package:mandob_moshtarayat_dashboad/module_payments/request/captain_payments_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_payments/response/payment_list_response/payment_list_response.dart';
 
 @injectable
 class PaymentsRepository {
@@ -30,5 +31,13 @@ class PaymentsRepository {
         headers: {'Authorization': 'Bearer ' + token.toString()});
     if (response == null) return null;
     return ActionResponse.fromJson(response);
+  }
+    Future<PaymentListResponse?> paymentsList() async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.get(
+        Urls.PAYMENTS_LIST,
+        headers: {'Authorization': 'Bearer ' + token.toString()});
+    if (response == null) return null;
+    return PaymentListResponse.fromJson(response);
   }
 }

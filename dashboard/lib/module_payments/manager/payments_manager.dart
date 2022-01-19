@@ -2,6 +2,7 @@ import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_payments/repository/payments_repository.dart';
 import 'package:mandob_moshtarayat_dashboad/module_payments/request/captain_payments_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_payments/response/payment_list_response/payment_list_response.dart';
 
 @injectable
 class PaymentsManager {
@@ -13,4 +14,6 @@ class PaymentsManager {
       _paymentsRepository.paymentFromCaptain(request);
   Future<ActionResponse?> paymentToCaptain(CaptainPaymentsRequest request) =>
       _paymentsRepository.paymentToCaptain(request);
+  Future<PaymentListResponse?> getPaymentList() =>
+      _paymentsRepository.paymentsList();
 }
