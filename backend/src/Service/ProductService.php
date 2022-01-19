@@ -493,7 +493,7 @@ class ProductService
             $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
             $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
             $item['soldCount'] = $this->getProductsSoldCount($item['id']);
-//            $item['productPrice'] = $this->willProductCommissionBeCharged($item['isCommission'], $item['productPrice'], $item['commission'], $item['storeCommission']);
+            $item['categoryLink'] = $this->productManager->getCategoryLinkByStoreProductCategoryID($storeProductCategoryID);
 
             $response[] = $this->autoMapping->map('array', ProductsByProductCategoryIdResponse::class, $item);
         }

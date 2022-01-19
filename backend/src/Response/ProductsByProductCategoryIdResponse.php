@@ -47,4 +47,6 @@ class ProductsByProductCategoryIdResponse
     public $isLevel2;
 
     public $isCommission;
+
+    public $categoryLink;
 }

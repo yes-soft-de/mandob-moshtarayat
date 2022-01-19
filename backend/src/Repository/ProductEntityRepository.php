@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Constant\ProductStatusConstant;
 use App\Constant\StoreStatusConstant;
+use App\Entity\CategoryLinkEntity;
 use App\Entity\ProductEntity;
 use App\Entity\ProductTranslationEntity;
 use App\Entity\StoreOwnerProfileEntity;
@@ -735,6 +736,32 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->setParameter('storeProductCategoryID', $storeProductCategoryID)
             ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
             ->setParameter('status', self::STATUS_ACTIVE)
+
+            ->getQuery()
+            ->getResult();
+    }
+
+
+    public function getCategoryLinkByStoreProductCategoryID($storeProductCategoryID)
+    {
+        return $this->createQueryBuilder('product')
+
+            ->select('categoryLinkEntity.subCategoryLevelOneID', 'categoryLinkEntity.subCategoryLevelTwoID')
+
+            ->leftJoin(
+                CategoryLinkEntity::class,
+                'categoryLinkEntity',
+                Join::WITH,
+                'categoryLinkEntity.subCategoryLevelOneID = :storeProductCategoryID 
+                or categoryLinkEntity.subCategoryLevelTwoID = :storeProductCategoryID'
+            )
+
+            ->andWhere('categoryLinkEntity.linkType = :linkType')
+
+            ->setParameter('linkType', 'levelOne-levelTwo')
+            ->setParameter('storeProductCategoryID', $storeProductCategoryID)
+
+            ->groupBy('categoryLinkEntity.id')
 
             ->getQuery()
             ->getResult();
