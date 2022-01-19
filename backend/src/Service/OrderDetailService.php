@@ -163,9 +163,9 @@ class OrderDetailService
             $productsPrices[] = $item['productPrice'] * $item['countProduct'];
         }
 
-        $invoice = array_sum($productsPrices);
+        return array_sum($productsPrices);
 
-        return  round($invoice, 1);
+//        return  round($invoice, 1);
     }
 
     public function getProductsByOrderNumberAndStoreIDForClient($orderNumber, $storeOwnerProfileID): array

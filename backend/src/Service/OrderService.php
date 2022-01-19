@@ -1053,10 +1053,10 @@ class OrderService
 
         foreach ($orders as $order) {
             $order['invoiceAmount'] = $this->orderDetailService->getTotalProductsPriceByOrderNumberAndStoreIDForStore($order['orderNumber'], $storeOwnerProfileID['id']);
-var_dump( $order['invoiceAmount']);
+
             $response[] = $this->autoMapping->map('array', OrdersPendingForStoreResponse::class, $order);
         }
-        dd($response);
+//        dd($response);
 
         return $response;
     }
