@@ -163,17 +163,16 @@ class OrderDetailService
             $productsPrices[] = $item['productPrice'] * $item['countProduct'];
         }
 
-        return array_sum($productsPrices);
+        $invoice = array_sum($productsPrices);
 
-//        return  round($invoice, 1);
+        return  round($invoice, 1);
     }
 
-    //TODO FRO TEST
-    public function forTest($orderNumber, $storeOwnerProfileID)
+    public function getTotalProductsPriceByOrderNumberAndStoreIDForStoreOrders($orderNumber, $storeOwnerProfileID)
     {
         $productsPrices = [];
 
-        $items = $this->orderDetailManager->forTest($orderNumber, $storeOwnerProfileID);
+        $items = $this->orderDetailManager->getTotalProductsPriceByOrderNumberAndStoreIDForStoreOrders($orderNumber, $storeOwnerProfileID);
 
         foreach ($items as $item) {
 

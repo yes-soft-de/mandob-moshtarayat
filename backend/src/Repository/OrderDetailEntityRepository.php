@@ -80,7 +80,7 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function forTest($orderNumber, $storeOwnerProfileID)
+    public function getTotalProductsPriceByOrderNumberAndStoreIDForStoreOrders($orderNumber, $storeOwnerProfileID)
     {
         return $this->createQueryBuilder('OrderDetailEntity')
 
