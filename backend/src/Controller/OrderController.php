@@ -2012,7 +2012,7 @@ class OrderController extends BaseController
     public function getStoreOrdersInSpecificDate($fromDate, $toDate): JsonResponse
     {
         $result = $this->orderService->getStoreOrdersInSpecificDate($fromDate, $toDate, $this->getUserId());
-
+dd($result);
         return $this->response($result, self::FETCH);
     }
 
