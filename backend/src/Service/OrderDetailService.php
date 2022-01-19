@@ -155,16 +155,16 @@ class OrderDetailService
         $productsPrices = [];
 
         $items = $this->orderDetailManager->getProductsByOrderNumberAndStoreID($orderNumber, $storeOwnerProfileID);
-        var_dump($items);
+
         foreach ($items as $item) {
 
             $item['productPrice'] = $this->priceForStore($item['productPrice'], $item['discount']);
 
             $productsPrices[] = $item['productPrice'] * $item['countProduct'];
         }
-dd(2);
+        var_dump($productsPrices);
         $invoice = array_sum($productsPrices);
-
+        dd(1,$invoice);
         return  round($invoice, 1);
     }
 
