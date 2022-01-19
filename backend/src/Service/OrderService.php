@@ -1056,8 +1056,6 @@ class OrderService
 
             $response[] = $this->autoMapping->map('array', OrdersPendingForStoreResponse::class, $order);
         }
-//        dd($response);
-
         return $response;
     }
 
