@@ -553,6 +553,8 @@
   "exitWarning":"اضغط مرة اخرى للخروج من التطبيق",
   "addNewTrans": "إضافة ترجمة جديدة",
   "duplicateLang":"لديك لغات حقول بلغات مكررة",
-  "priceWithComission":"السعر مع العمولة"
+  "priceWithComission":"السعر مع العمولة",
+  "paymentsList":"قائمة المدفوعات",
+  "payStatus":"حالة الدفع"
 
 }

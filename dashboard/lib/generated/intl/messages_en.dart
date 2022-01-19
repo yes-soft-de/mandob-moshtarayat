@@ -503,6 +503,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "passwordIsTooShort":
             MessageLookupByLibrary.simpleMessage("Password is too short"),
         "pay": MessageLookupByLibrary.simpleMessage("Pay"),
+        "payStatus": MessageLookupByLibrary.simpleMessage("Payment Status"),
         "paySubscription":
             MessageLookupByLibrary.simpleMessage("Pay Subscription"),
         "paymentAmount": MessageLookupByLibrary.simpleMessage("Payment amount"),
@@ -520,6 +521,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Payments for store"),
         "paymentsFromCaptain":
             MessageLookupByLibrary.simpleMessage("Payments From Captain"),
+        "paymentsList": MessageLookupByLibrary.simpleMessage("Payments List"),
         "paymentsManagement":
             MessageLookupByLibrary.simpleMessage("Make Payments"),
         "paymentsToCaptain":
