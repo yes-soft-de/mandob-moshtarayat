@@ -162,9 +162,9 @@ class OrderDetailService
 
             $productsPrices[] = $item['productPrice'] * $item['countProduct'];
         }
-        var_dump($productsPrices);
+
         $invoice = array_sum($productsPrices);
-        dd(1,$invoice);
+
         return  round($invoice, 1);
     }
 
