@@ -116,7 +116,7 @@ class StoreOwnerProfileService
 
     public function checkIfStoreOwnerDeviceIsLinkedWithRepresentative($storeOwnerUserID)
     {
-        $representativeStoreLinkResult = $this->representativeStoreLinkService->getRepresentativeStoreLinkByStoreOwnerIP(str_replace(":", "", $_SERVER['REMOTE_ADDR']));
+        $representativeStoreLinkResult = $this->representativeStoreLinkService->getRepresentativeStoreLinkByStoreOwnerIP(str_replace(array(":", "."), "", $_SERVER['REMOTE_ADDR']));
 
         if ($representativeStoreLinkResult) {
 
