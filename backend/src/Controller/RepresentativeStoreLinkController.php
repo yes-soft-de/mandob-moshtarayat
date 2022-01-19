@@ -9,6 +9,7 @@ use App\Service\RepresentativeStoreLinkService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -77,5 +78,26 @@ class RepresentativeStoreLinkController extends BaseController
         $response = $this->representativeStoreLinkService->createRepresentativeStoreLink($request);
 
         return $this->response($response, self::CREATE);
+    }
+
+    /**
+     * @Route("getstoreappurlongoogleplaystore/{representativeUserID}", name="getStoreAppURL", methods={"GET"})
+     *
+     * @OA\Tag(name="Representative Store Link")
+     *
+     * @OA\Response(
+     *     response="default",
+     *     description="redirect to the URL of the store app on Google Play Store"
+     * )
+     */
+    public function getStoreAppURL($representativeUserID)
+    {
+        $request['representativeUserID'] = $representativeUserID;
+
+        $createRequest = $this->autoMapping->map('array', RepresentativeStoreLinkCreateRequest::class, $request);
+
+        $this->representativeStoreLinkService->createRepresentativeStoreLink($createRequest);
+
+        return new RedirectResponse("https://play.google.com/store/apps/details?id=de.yessoft.mandob_moshtarayat.store");
     }
 }
