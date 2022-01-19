@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\ElectronicPaymentInfoEntity;
 use App\Request\ElectronicPaymentInfoCreateRequest;
 use App\Manager\ElectronicPaymentInfoManager;
+use App\Response\GetPayInfoResponse;
 use App\Response\PayInfoResponse;
 
 class ElectronicPaymentInfoService
@@ -37,5 +38,18 @@ class ElectronicPaymentInfoService
         $item = $this->electronicPaymentInfoManager->getPayInfoByOrderNumber($orderNumber);
 
         return $this->autoMapping->map(ElectronicPaymentInfoEntity ::class, PayInfoResponse::class, $item);
+    }
+
+    public function getElectronicPaymentInfo()
+    {
+        $response = [];
+
+        $items = $this->electronicPaymentInfoManager->getElectronicPaymentInfo();
+
+        foreach ($items as $item){
+            $response[] = $this->autoMapping->map("array", GetPayInfoResponse::class, $item);
+        }
+
+        return $response;
     }
 }
