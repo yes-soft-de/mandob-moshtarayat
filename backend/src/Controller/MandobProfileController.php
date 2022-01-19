@@ -401,19 +401,4 @@ class MandobProfileController extends BaseController
 
         return $this->response($response, self::UPDATE);
     }
-
-    /**
-     * @Route("getstoreappurlongoogleplaystore", name="getStoreAppURL", methods={"GET"})
-     *
-     * @OA\Tag(name="Mandob Profile")
-     *
-     * @OA\Response(
-     *     response=200,
-     *     description="redirect to the URL of the store app on Google Play Store"
-     * )
-     */
-    public function getStoreAppURL()
-    {
-        return new RedirectResponse("https://play.google.com/store/apps/details?id=de.yessoft.mandob_moshtarayat.store");
-    }
 }

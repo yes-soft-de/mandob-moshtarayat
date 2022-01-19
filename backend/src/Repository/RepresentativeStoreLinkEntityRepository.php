@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Constant\RepresentativeStoreLinkTypeConstant;
 use App\Entity\RepresentativeStoreLinkEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -19,4 +20,19 @@ class RepresentativeStoreLinkEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, RepresentativeStoreLinkEntity::class);
     }
 
+    public function getRepresentativeStoreLinkByStoreOwnerIP($storeOwnerIP): ?array
+    {
+        return $this->createQueryBuilder('representativeStoreLinkEntity')
+            ->select('representativeStoreLinkEntity.id', 'representativeStoreLinkEntity.linkStatus', 'representativeStoreLinkEntity.representativeUserID', 'representativeStoreLinkEntity.storeOwnerUserID',
+             'representativeStoreLinkEntity.storeOwnerIP')
+
+            ->andWhere('representativeStoreLinkEntity.storeOwnerIP = :storeOwnerIP')
+            ->setParameter('storeOwnerIP', $storeOwnerIP)
+
+            ->andWhere('representativeStoreLinkEntity.linkStatus = :status')
+            ->setParameter('status', RepresentativeStoreLinkTypeConstant::$REPRESENTATIVE_STORE_NOT_LINKED)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
