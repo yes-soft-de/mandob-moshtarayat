@@ -80,6 +80,25 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function forTest($orderNumber, $storeOwnerProfileID)
+    {
+        return $this->createQueryBuilder('OrderDetailEntity')
+
+            ->select('OrderDetailEntity.id', 'OrderDetailEntity.countProduct', 'OrderDetailEntity.orderNumber')
+            ->addSelect('ProductEntity.id as productID', 'ProductEntity.productPrice', 'ProductEntity.discount')
+
+            ->leftJoin(ProductEntity::class, 'ProductEntity', Join::WITH, 'ProductEntity.id = OrderDetailEntity.productID')
+
+            ->andWhere('OrderDetailEntity.orderNumber = :orderNumber')
+            ->andWhere('OrderDetailEntity.storeOwnerProfileID = :storeOwnerProfileID')
+
+            ->setParameter('orderNumber', $orderNumber)
+            ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
+
+            ->getQuery()
+            ->getResult();
+    }
+
     public function getStoreOwnerProfileByOrderNumber($orderNumber)
     {
         return $this->createQueryBuilder('OrderDetailEntity')
