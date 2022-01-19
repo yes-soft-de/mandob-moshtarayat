@@ -14,6 +14,8 @@ class ElectronicPaymentInfoCreateRequest
 
     private $amount;
 
+    private $clientID;
+
     /**
      * @return mixed
      */
@@ -45,4 +47,21 @@ class ElectronicPaymentInfoCreateRequest
     {
         $this->payStatus = $payStatus;
     }
+
+    /**
+     * @param mixed $clientID
+     */
+    public function setClientID($clientID): void
+    {
+        $this->clientID = $clientID;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getClientID()
+    {
+        return $this->clientID;
+    }
+
 }

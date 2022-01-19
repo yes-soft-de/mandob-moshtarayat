@@ -60,4 +60,9 @@ class ElectronicPaymentInfoManager
     {
         return $this->electronicPaymentInfoEntityRepository->findOneBy(['orderNumber' => $orderNumber]);
     }
+
+    public function getElectronicPaymentInfo()
+    {
+        return $this->electronicPaymentInfoEntityRepository->getElectronicPaymentInfo();
+    }
 }
