@@ -28,6 +28,7 @@ class RepresentativeStoreLinkManager
         $representativeStoreLinkEntity = $this->autoMapping->map(RepresentativeStoreLinkCreateRequest::class, RepresentativeStoreLinkEntity::class, $request);
 
         $representativeStoreLinkEntity->setLinkStatus(RepresentativeStoreLinkTypeConstant::$REPRESENTATIVE_STORE_NOT_LINKED);
+        $representativeStoreLinkEntity->setStoreOwnerIP(str_replace(array(":", "."), "", $_SERVER['REMOTE_ADDR']));
 
         $this->entityManager->persist($representativeStoreLinkEntity);
         $this->entityManager->flush();
