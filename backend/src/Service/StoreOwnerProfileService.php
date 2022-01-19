@@ -3,8 +3,10 @@
 namespace App\Service;
 
 use App\AutoMapping;
+use App\Constant\RepresentativeStoreLinkTypeConstant;
 use App\Entity\UserEntity;
 use App\Manager\StoreOwnerProfileManager;
+use App\Request\RepresentativeStoreLinkUpdateRequest;
 use App\Request\storeOwnerProfileStatusUpdateByAdminRequest;
 use App\Entity\StoreOwnerProfileEntity;
 use App\Manager\UserManager;
@@ -15,6 +17,7 @@ use App\Request\UserProfilePreferredLanguageUpdateRequest;
 use App\Request\UserRegisterRequest;
 use App\Request\VerificationCreateRequest;
 use App\Response\CaptainIsActiveResponse;
+use App\Response\RepresentativeStoreLinkGetByStoreIPResponse;
 use App\Response\StoreFinancialAccountForStoreResponse;
 use App\Response\StoreNameResponse;
 use App\Response\StoreOwnerLast15Response;
@@ -25,7 +28,6 @@ use App\Response\StoreOwnerProfileResponse;
 use App\Response\StoreOwnerByCategoryIdResponse;
 use App\Response\StoresFilterByNameResponse;
 use App\Response\UserRegisterResponse;
-use App\Service\OrdersInvoicesService;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class StoreOwnerProfileService
@@ -40,10 +42,11 @@ class StoreOwnerProfileService
     private $deliveryCompanyPaymentsToStoreService;
     private $verificationService;
     private $ordersInvoicesService;
+    private $representativeStoreLinkService;
 
     public function __construct(AutoMapping $autoMapping, UserManager $userManager, RatingService $ratingService, StoreOwnerBranchService $storeOwnerBranchService,
                                 ParameterBagInterface $params, RoomIdHelperService $roomIdHelperService, StoreOwnerProfileManager $storeOwnerProfileManager, DeliveryCompanyPaymentsToStoreService $deliveryCompanyPaymentsToStoreService,
-     VerificationService $verificationService, OrdersInvoicesService $ordersInvoicesService)
+     VerificationService $verificationService, OrdersInvoicesService $ordersInvoicesService, RepresentativeStoreLinkService $representativeStoreLinkService)
     {
         $this->autoMapping = $autoMapping;
         $this->userManager = $userManager;
@@ -53,6 +56,7 @@ class StoreOwnerProfileService
         $this->roomIdHelperService = $roomIdHelperService;
         $this->deliveryCompanyPaymentsToStoreService = $deliveryCompanyPaymentsToStoreService;
         $this->verificationService = $verificationService;
+        $this->representativeStoreLinkService = $representativeStoreLinkService;
         $this->params = $params->get('upload_base_url') . '/';
         $this->ordersInvoicesService = $ordersInvoicesService;
 
@@ -67,6 +71,9 @@ class StoreOwnerProfileService
         if($userRegister instanceof UserEntity)
         {
             $this->createVerificationCodeForStoreOwner($request);
+
+            // Check if the IP of the store owner device is linked with representative
+            $this->checkIfStoreOwnerDeviceIsLinkedWithRepresentative($userRegister->getUserID());
 
             return $this->autoMapping->map(UserEntity::class, UserRegisterResponse::class, $userRegister);
         }
@@ -105,6 +112,23 @@ class StoreOwnerProfileService
         $createVerificationRequest = $this->autoMapping->map(UserRegisterRequest::class, VerificationCreateRequest::class, $userEntity);
 
         $this->verificationService->createVerificationCode($createVerificationRequest);
+    }
+
+    public function checkIfStoreOwnerDeviceIsLinkedWithRepresentative($storeOwnerUserID)
+    {
+        $representativeStoreLinkResult = $this->representativeStoreLinkService->getRepresentativeStoreLinkByStoreOwnerIP(str_replace(":", "", $_SERVER['REMOTE_ADDR']));
+
+        if ($representativeStoreLinkResult) {
+
+            // there is a representative which bing this store owner
+            // so update the founded status to 'linked'
+            $updateRepresentativeStoreLinkRequest = $this->autoMapping->map(RepresentativeStoreLinkGetByStoreIPResponse::class, RepresentativeStoreLinkUpdateRequest::class, $representativeStoreLinkResult);
+
+            $updateRepresentativeStoreLinkRequest->setLinkStatus(RepresentativeStoreLinkTypeConstant::$REPRESENTATIVE_STORE_LINKED);
+            $updateRepresentativeStoreLinkRequest->setStoreOwnerUserID($storeOwnerUserID);
+
+            $this->representativeStoreLinkService->updateRepresentativeStoreLink($updateRepresentativeStoreLinkRequest);
+        }
     }
 
     public function storeOwnerProfileUpdate(StoreOwnerProfileUpdateRequest $request)
