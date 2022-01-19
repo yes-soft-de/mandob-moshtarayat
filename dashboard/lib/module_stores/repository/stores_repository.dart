@@ -89,7 +89,9 @@ class StoresRepository {
     if (response == null) return null;
     return StoreBalanceResponse.fromJson(response);
   }
-  Future<ActionResponse?> createStorePayments(StorePaymentRequest request) async {
+
+  Future<ActionResponse?> createStorePayments(
+      StorePaymentRequest request) async {
     var token = await _authService.getToken();
     dynamic response = await _apiClient.post(
         Urls.CREATE_PAYMENTS_FOR_STORE, request.toJson(),

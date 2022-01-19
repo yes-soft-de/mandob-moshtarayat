@@ -11,7 +11,7 @@ class StorePaymentsService {
   final StoreManager _storeManager;
   StorePaymentsService(this._storeManager);
 
- Future<DataModel> paymentToStore(StorePaymentRequest request) async {
+  Future<DataModel> paymentToStore(StorePaymentRequest request) async {
     ActionResponse? actionResponse =
         await _storeManager.createStorePayment(request);
 

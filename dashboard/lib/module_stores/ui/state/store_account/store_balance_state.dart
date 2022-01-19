@@ -201,7 +201,7 @@ class StoreBalanceLoadedState extends States {
                 : null,
             leading: Icon(Icons.credit_card_rounded),
             title: Text(S.current.paymentAmount),
-            subtitle: Text(element.amount.toString()), 
+            subtitle: Text(element.amount.toString()),
             trailing:
                 Text(intl.DateFormat('yyyy/M/dd').format(element.paymentDate)),
           ),
