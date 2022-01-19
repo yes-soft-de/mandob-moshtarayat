@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Constant\CategoryLinkConstant;
+use App\Constant\CategoryLinkTypeConstant;
 use App\Constant\ProductStatusConstant;
 use App\Constant\StoreStatusConstant;
 use App\Entity\CategoryLinkEntity;
@@ -759,7 +759,7 @@ class ProductEntityRepository extends ServiceEntityRepository
 
             ->andWhere('categoryLinkEntity.linkType = :linkType')
 
-            ->setParameter('linkType', CategoryLinkConstant::$LEVEL_ONE_LEVEL_TWO)
+            ->setParameter('linkType', CategoryLinkTypeConstant::$LEVEL_ONE_WITH_LEVEL_TWO_LINK_TYPE)
             ->setParameter('storeProductCategoryID', $storeProductCategoryID)
 
             ->groupBy('categoryLinkEntity.id')
