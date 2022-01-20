@@ -42,11 +42,11 @@ class VerificationService
 
         if($item)
         {
-            //$result = $this->sendSMSMessage($request->getUserID(), $item->getCode());
+            $result = $this->sendSMSMessage($request->getUserID(), $item->getCode());
 
             $response = $this->autoMapping->map(VerificationEntity::class, VerificationCreateResponse::class, $item);
 
-            //$response->smsMessageStatus = $result;
+            $response->smsMessageStatus = $result;
 
             return $response;
         }
@@ -60,7 +60,7 @@ class VerificationService
         $this->malathSMSService->setUserName($this->params->get('malath_username'));
         $this->malathSMSService->setPassword($this->params->get('malath_password'));
 
-        $result = $this->malathSMSService->sendSMS($phone, "MANDOB-AD", $messageText);
+        $result = $this->malathSMSService->sendSMS($phone, "MANDOBQUICK", $messageText);
 
         if($result)
         {

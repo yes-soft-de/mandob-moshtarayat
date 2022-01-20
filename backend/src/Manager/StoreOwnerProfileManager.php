@@ -394,6 +394,11 @@ class StoreOwnerProfileManager
         return $this->storeOwnerProfileEntityRepository->getStoreOwnersByRepresentativeID($representativeUserID);
     }
 
+    public function getStoreOwnersByRepresentativeIdForAdmin($representativeUserID): ?array
+    {
+        return $this->storeOwnerProfileEntityRepository->getStoreOwnersByRepresentativeIdForAdmin($representativeUserID);
+    }
+
     public function deleteStoreOwnerProfile(DeleteRequest $request)
     {
 

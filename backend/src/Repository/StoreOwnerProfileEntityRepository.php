@@ -306,6 +306,49 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getStoreOwnersByRepresentativeIdForAdmin($representativeUserID): ?array
+    {
+        return $this->createQueryBuilder('profile')
+            ->select('profile.id', 'profile.storeOwnerName', 'profile.phone', 'profile.image', 'profile.storeOwnerID', 'profile.commission', 'profile.free')
+
+            ->leftJoin(
+                UserEntity::class,
+                'userEntityOne',
+                Join::WITH,
+                'userEntityOne.id = profile.storeOwnerID'
+            )
+
+            ->leftJoin(
+                RepresentativeStoreLinkEntity::class,
+                'representativeStoreLinkEntity',
+                Join::WITH,
+                'representativeStoreLinkEntity.storeOwnerUserID = userEntityOne.userID'
+            )
+
+            ->andWhere('representativeStoreLinkEntity.linkStatus = :status')
+            ->setParameter('status', RepresentativeStoreLinkTypeConstant::$REPRESENTATIVE_STORE_LINKED)
+
+            ->leftJoin(
+                UserEntity::class,
+                'userEntityTwo',
+                Join::WITH,
+                'userEntityTwo.userID = representativeStoreLinkEntity.representativeUserID'
+            )
+
+            ->leftJoin(
+                MandobProfileEntity::class,
+                'mandobProfileEntity',
+                Join::WITH,
+                'mandobProfileEntity.mandobID = userEntityTwo.id'
+            )
+        
+            ->andWhere('userEntityTwo.id = :representativeID')
+            ->setParameter('representativeID', $representativeUserID)
+
+            ->getQuery()
+            ->getResult();
+    }
+
     public function getUserProfile($storeOwnerID)
     {
         return $this->createQueryBuilder('profile')
