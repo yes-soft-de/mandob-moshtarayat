@@ -60,6 +60,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("My Actual Balance"),
         "andIAm": MessageLookupByLibrary.simpleMessage("And I am"),
         "apply": MessageLookupByLibrary.simpleMessage("APPLY"),
+        "areYouSureToDeleteThisPayment": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to delete this payment"),
         "areYouSureToDisposeThis": MessageLookupByLibrary.simpleMessage(
             "Are you sure about dispose your changes"),
         "badFormat": MessageLookupByLibrary.simpleMessage(
