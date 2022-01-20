@@ -22,6 +22,7 @@ use App\Response\StoreFinancialAccountForStoreResponse;
 use App\Response\StoreNameResponse;
 use App\Response\StoreOwnerLast15Response;
 use App\Response\StoreOwnerProfileByRepresentativeUserIdGetResponse;
+use App\Response\StoreOwnerProfileByRepresentativeUserIdForAdminGetResponse;
 use App\Response\StoreOwnerProfileCreateResponse;
 use App\Response\StoreOwnerProfileDeleteResponse;
 use App\Response\StoreOwnerProfilePreferredLanguageUpdateResponse;
@@ -446,6 +447,25 @@ class StoreOwnerProfileService
                 $storeOwnerProfile['image'] = $this->getImageParams($storeOwnerProfile['image'], $this->params.$storeOwnerProfile['image'], $this->params);
 
                 $response[] = $this->autoMapping->map('array', StoreOwnerProfileByRepresentativeUserIdGetResponse::class, $storeOwnerProfile);
+            }
+        }
+
+        return $response;
+    }
+
+    public function getStoreOwnersByRepresentativeIdForAdmin($representativeUserID): ?array
+    {
+        $response = [];
+
+        $storeOwnersProfiles = $this->storeOwnerProfileManager->getStoreOwnersByRepresentativeIdForAdmin($representativeUserID);
+        
+        if ($storeOwnersProfiles) {
+
+            foreach ($storeOwnersProfiles as $storeOwnerProfile) {
+
+                $storeOwnerProfile['image'] = $this->getImageParams($storeOwnerProfile['image'], $this->params.$storeOwnerProfile['image'], $this->params);
+
+                $response[] = $this->autoMapping->map('array', StoreOwnerProfileByRepresentativeUserIdForAdminGetResponse::class, $storeOwnerProfile);
             }
         }
 
