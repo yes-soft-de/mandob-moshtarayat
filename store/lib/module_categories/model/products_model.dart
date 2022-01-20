@@ -13,12 +13,13 @@ class ProductsModel extends DataModel{
   num discount = 0;
   num productQuantity = 0;
   int storeProductCategoryID = -1;
+  CategoryLink? categoryLink;
 
   List <ProductsModel> _model = [];
 
   ProductsModel({required this.id,required this.productName,required this.productImage,required this.productPrice,
     required  this.discount,
-    required this.storeProductCategoryID ,required this.productQuantity ,required this.levelOne ,required this.levelTwo});
+    required this.storeProductCategoryID ,required this.productQuantity ,required this.levelOne ,required this.levelTwo,this.categoryLink});
 
   ProductsModel.withData(List <Data> data) : super.withData() {
     _model = [];
@@ -33,6 +34,7 @@ class ProductsModel extends DataModel{
         storeProductCategoryID: element.storeProductCategoryID ?? -1,
         levelOne: element.isLevelOne ??false,
         levelTwo: element.isLevelTwo ??false,
+        categoryLink: element.categoryLink
       ));
     }
   }

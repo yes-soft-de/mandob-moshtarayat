@@ -5,6 +5,7 @@ import 'package:mandob_moshtarayat/module_categories/model/products_categories_m
 import 'package:mandob_moshtarayat/module_categories/model/products_model.dart';
 import 'package:mandob_moshtarayat/module_categories/request/create_product_request.dart';
 import 'package:mandob_moshtarayat/module_categories/request/update_product_request.dart';
+import 'package:mandob_moshtarayat/module_categories/response/store_products_response.dart';
 import 'package:mandob_moshtarayat/module_categories/ui/screen/product_categories_screen.dart';
 import 'package:mandob_moshtarayat/module_categories/ui/state/product_category/product_categories_state.dart';
 import 'package:mandob_moshtarayat/module_categories/ui/widget/add_product_form.dart';
@@ -344,6 +345,7 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
                           ),
                           categoriesOne: getChoicesOne(),
                           categoriesTwo: getChoicesTwo(),
+                          categoryLink: element.categoryLink ??CategoryLink(),
                           addProduct: (name, price, image, discount, catID) {
                             Navigator.of(context).pop();
                             screenState.updateProduct(
@@ -355,6 +357,8 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
                                   discount: double.parse(discount),
                                   productPrice: double.parse(price),
                                   storeProductCategoryID: int.parse(catID),
+                                      isLevelOne: element.levelOne,
+                                      isLevelTwo: element.levelTwo
                                 )),
                                 categoriesOne,
                                 categoriesTwo,

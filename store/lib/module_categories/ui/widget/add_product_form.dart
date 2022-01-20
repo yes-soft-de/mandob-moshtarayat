@@ -7,6 +7,7 @@ import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_categories/model/products_categories_model.dart';
 import 'package:mandob_moshtarayat/module_categories/request/create_product_request.dart';
 import 'package:mandob_moshtarayat/module_categories/request/update_product_request.dart';
+import 'package:mandob_moshtarayat/module_categories/response/store_products_response.dart';
 import 'package:mandob_moshtarayat/module_categories/service/store_categories_service.dart';
 import 'package:mandob_moshtarayat/module_categories/ui/state/product_category/product_categories_loaded_state.dart';
 import 'package:mandob_moshtarayat/module_categories/ui/state/product_category/product_categories_state.dart';
@@ -309,16 +310,18 @@ class _AddProductsFormState extends State<AddProductsForm> {
 
 class UpdateProductsForm extends StatefulWidget {
   final Function(String, String, String, String, String) addProduct;
-  final UpdateProductRequest? request;
+  final UpdateProductRequest  request;
+  final CategoryLink categoryLink;
   final List<DropdownMenuItem<String>>? categoriesOne;
   final List<DropdownMenuItem<String>>? categoriesTwo;
   final CategoriesService? categoriesService;
 
   UpdateProductsForm({
     required this.addProduct,
-    this.request,
+   required this.request,
     this.categoriesOne,
     this.categoriesTwo,
+   required this.categoryLink,
     required this.categoriesService,
   });
   @override
@@ -344,18 +347,24 @@ class _UpdateProductsFormState extends State<UpdateProductsForm> {
     if (widget.request != null) {
       categoriesTwoLocal = widget.categoriesTwo ?? [];
       _nameController.text =
-          widget.request?.dataStoreProduct?.productName ?? '';
-      imagePath = widget.request?.dataStoreProduct?.productImage;
+          widget.request.dataStoreProduct.productName ?? '';
+      imagePath = widget.request.dataStoreProduct.productImage;
       _priceController.text =
-          widget.request?.dataStoreProduct?.productPrice?.toString() ?? '0';
+          widget.request.dataStoreProduct.productPrice?.toString() ?? '0';
       _discountController.text =
-          widget.request?.dataStoreProduct?.discount?.toString() ?? '0';
-      maincatId = widget.request?.dataStoreProduct?.isLevelOne ?? false
-          ? widget.request?.dataStoreProduct?.storeProductCategoryID?.toString()
+          widget.request.dataStoreProduct.discount?.toString() ?? '0';
+      maincatId = widget.request.dataStoreProduct.isLevelOne ?? false
+          ? widget.request.dataStoreProduct.storeProductCategoryID?.toString()
           : null;
-      subcatId = widget.request?.dataStoreProduct?.isLevelTwo ?? false
-          ? widget.request?.dataStoreProduct?.storeProductCategoryID?.toString()
-          : null;
+      if(widget.request.dataStoreProduct.isLevelTwo){
+        subcatId = widget.request.dataStoreProduct.isLevelTwo
+            ? widget.request.dataStoreProduct.storeProductCategoryID?.toString()
+            : null;
+        print('haven');
+        print(widget.categoryLink.subCategoryLevelOneID.toString());
+        maincatId =  widget.categoryLink.subCategoryLevelOneID.toString();
+      }
+
 
 //      _quantityController.text =  widget.request?.dataStoreProduct?.productQuantity?.toString() ?? '0';
     }

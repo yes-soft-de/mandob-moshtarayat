@@ -8,8 +8,8 @@ class DataStoreUpdateProduct {
   int? storeOwnerProfileID;
   int? storeProductCategoryID;
   int? storeMainCategoryID;
-  bool? isLevelOne;
-  bool? isLevelTwo;
+  bool  isLevelOne = false;
+  bool  isLevelTwo=false;
   int? categoryName;
   DataStoreUpdateProduct(
       {this.id,
@@ -21,8 +21,8 @@ class DataStoreUpdateProduct {
       this.storeProductCategoryID,
       this.productQuantity,
       this.storeMainCategoryID,
-      this.isLevelTwo,
-      this.isLevelOne,
+      required this.isLevelTwo ,
+     required  this.isLevelOne ,
       this.categoryName
       });
 
@@ -35,8 +35,8 @@ class DataStoreUpdateProduct {
     productQuantity = json['productQuantity'];
     storeOwnerProfileID = json['storeOwnerProfileID'];
     storeProductCategoryID = json['storeProductCategoryID'];
-    isLevelOne = json['isLevel1'];
-    isLevelTwo = json['isLevel2'];
+    isLevelOne = json['isLevel1']??false;
+    isLevelTwo = json['isLevel2']??false;
   }
 
   Map<String, dynamic> toJson() {
@@ -54,14 +54,14 @@ class DataStoreUpdateProduct {
 }
 
 class UpdateProductRequest {
-  DataStoreUpdateProduct? dataStoreProduct;
+  DataStoreUpdateProduct  dataStoreProduct;
   List<TranslateStoreUpdateProduct>? translate;
 
-  UpdateProductRequest({this.dataStoreProduct, this.translate});
+  UpdateProductRequest({required this.dataStoreProduct, this.translate});
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
-    map['data'] = dataStoreProduct?.toJson();
+    map['data'] = dataStoreProduct.toJson();
     if (translate != null) {
       map['translate'] = translate?.map((v) => v.toJson()).toList();
     }
