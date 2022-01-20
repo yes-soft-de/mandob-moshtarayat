@@ -1132,6 +1132,8 @@ class OrderService
 
     public function addInfoPay(ElectronicPaymentInfoCreateRequest $request)
     {
+        $storeIds = [];
+
         $orderId = $this->orderDetailService->getOrderId($request->getOrderNumber());
 
         $item = $this->electronicPaymentInfoService->addInfoPay($request);
@@ -1152,15 +1154,14 @@ class OrderService
             }
 
             if($request->getPayStatus() == "paid") {
-                $storeIds = [];
                 foreach ($orderDetail['storeIds'] as $storeProfileId) {
-                    $storeIDs[] = $this->storeOwnerProfileService->getStoreIdByProfileId($storeProfileId);
+                    $storeIds[] = $this->storeOwnerProfileService->getStoreIdByProfileId($storeProfileId);
                 }
                 //create log
-                $this->orderLogService->createOrderLogWithMultiStore($storeIDs, $request->getOrderNumber(), OrderStateConstant::$ORDER_STATE_PENDING, $request->getClientID(),0);
+                $this->orderLogService->createOrderLogWithMultiStore($storeIds, $request->getOrderNumber(), OrderStateConstant::$ORDER_STATE_PENDING, $request->getClientID(),0);
 
                 //create store notification local
-                $this->notificationLocalService->createStoreNotificationLocal($storeIDs, LocalStoreNotificationList::$NEW_ORDER_TITLE, LocalStoreNotificationList::$CREATE_ORDER_SUCCESS, $request->getOrderNumber());
+                $this->notificationLocalService->createStoreNotificationLocal($storeIds, LocalStoreNotificationList::$NEW_ORDER_TITLE, LocalStoreNotificationList::$CREATE_ORDER_SUCCESS, $request->getOrderNumber());
 
                 //create client notification local
                 $this->notificationLocalService->createNotificationLocal($request->getClientID(), LocalNotificationList::$NEW_ORDER_TITLE, LocalNotificationList::$CREATE_ORDER_SUCCESS, $request->getOrderNumber());
@@ -1182,13 +1183,12 @@ class OrderService
             }
 
             else {
-                $storeIds = [];
                 foreach ($orderDetail['storeIds'] as $storeProfileId) {
-                    $storeIDs[] = $this->storeOwnerProfileService->getStoreIdByProfileId($storeProfileId);
+                    $storeIds[] = $this->storeOwnerProfileService->getStoreIdByProfileId($storeProfileId);
                 }
 
                 //create log
-                $this->orderLogService->createOrderLogWithMultiStore($storeIDs, $request->getOrderNumber(), OrderStateConstant::$ORDER_STATE_NOT_PAID, $request->getClientID(),0);
+                $this->orderLogService->createOrderLogWithMultiStore($storeIds, $request->getOrderNumber(), OrderStateConstant::$ORDER_STATE_NOT_PAID, $request->getClientID(),0);
 
                 //create client notification local
                 $this->notificationLocalService->createNotificationLocal($request->getClientID(), LocalNotificationList::$NEW_ORDER_TITLE, LocalNotificationList::$ORDER_NOT_CREATE , $request->getOrderNumber());
