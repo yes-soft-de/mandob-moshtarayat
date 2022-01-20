@@ -5,7 +5,7 @@ import 'package:mandob_moshtarayat_dashboad/utils/helpers/date_converter.dart';
 
 class PaymentsModel extends DataModel {
   late int id;
-  late int transactionId;
+  late String transactionId;
   late String token;
   late num amount;
   late String payStatus;
@@ -31,7 +31,7 @@ class PaymentsModel extends DataModel {
     data.forEach((element) {
       _model.add(PaymentsModel(
         id: element.id ?? -1,
-        transactionId: element.transactionId ?? -1,
+        transactionId: element.transactionId ?? S.current.unknown,
         token: element.token ?? '',
         amount: element.amount ?? 0,
         payStatus: element.payStatus ?? '',
