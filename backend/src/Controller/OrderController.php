@@ -2308,4 +2308,190 @@ class OrderController extends BaseController
 
         return $this->response($response, self::CREATE);
     }
+
+    /**
+     * admin: Get count orders every store in specific date.
+     * @Route("/countorderseverystoreinspecificdate/{fromDate}/{toDate}", name="getCountOrdersEveryStoreInSpecificDate",methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
+     * @param $fromDate
+     * @param $toDate
+     * @return JsonResponse
+     * *
+     * @OA\Tag(name="Order")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Get count orders every store in specific date.",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *                  @OA\Property(type="integer", property="countOrdersInMonth"),
+     *                  @OA\Property(type="string", property="storeOwnerName"),
+     *                  @OA\Property(type="object", property="image",
+     *                       @OA\Property(type="string", property="imageURL"),
+     *                       @OA\Property(type="string", property="image"),
+     *                       @OA\Property(type="string", property="baseURL"),
+     *
+     *                       ),
+     *            )
+     *       )
+     *  )
+     *)
+     *
+     * @Security(name="Bearer")
+     */
+    public function getCountOrdersEveryStoreInSpecificDate($fromDate, $toDate)
+    {
+        $result = $this->orderService->getCountOrdersEveryStoreInSpecificDate($fromDate, $toDate);
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * admin: Get count orders every captain in specific date.
+     * @Route("/countorderseverycaptaininspecificdate/{fromDate}/{toDate}", name="getCountOrdersEveryCaptainInSpecificDate",methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
+     * @return JsonResponse
+     * *
+     * @OA\Tag(name="Order")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Get count orders every captain in specific date",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="string", property="captainID"),
+     *                  @OA\Property(type="integer", property="countOrdersInMonth"),
+     *                  @OA\Property(type="string", property="captainName"),
+     *                  @OA\Property(type="object", property="image",
+     *                       @OA\Property(type="string", property="imageURL"),
+     *                       @OA\Property(type="string", property="image"),
+     *                       @OA\Property(type="string", property="baseURL"),
+     *
+     *                       ),
+     *            )
+     *       )
+     *  )
+     *)
+     *
+     * @Security(name="Bearer")
+     */
+    public function getCountOrdersEveryCaptainInSpecificDate($fromDate, $toDate): JsonResponse
+    {
+        $result = $this->orderService->getCountOrdersEveryCaptainInSpecificDate($fromDate, $toDate);
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * admin: Get count orders every client in specific date.
+     * @Route("/countorderseveryclientinspecificdate/{fromDate}/{toDate}", name="getCountOrdersEveryClientInSpecificDate",methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
+     * @return JsonResponse
+     * *
+     * @OA\Tag(name="Order")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Get count orders every client in specific date",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="string", property="clientID"),
+     *                  @OA\Property(type="integer", property="countOrdersInMonth"),
+     *                  @OA\Property(type="string", property="clientName"),
+     *                  @OA\Property(type="object", property="image",
+     *                       @OA\Property(type="string", property="imageURL"),
+     *                       @OA\Property(type="string", property="image"),
+     *                       @OA\Property(type="string", property="baseURL"),
+     *
+     *                       ),
+     *                 )
+     *           )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function getCountOrdersEveryClientInSpecificDate($fromDate, $toDate): JsonResponse
+    {
+        $result = $this->orderService->getCountOrdersEveryClientInSpecificDate($fromDate, $toDate);
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * admin: Get count orders every product in specific date.
+     * @Route("/countorderseveryproductinspecificdate/{fromDate}/{toDate}", name="getCountOrdersEveryProductInSpecificDate",methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
+     * @return JsonResponse
+     * *
+     * @OA\Tag(name="Order")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Get count orders every product in last month.",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="productID"),
+     *                  @OA\Property(type="string", property="productName"),
+     *                  @OA\Property(type="string", property="clientName"),
+     *                  @OA\Property(type="object", property="productImage",
+     *                       @OA\Property(type="string", property="imageURL"),
+     *                       @OA\Property(type="string", property="image"),
+     *                       @OA\Property(type="string", property="baseURL"),
+     *
+     *                       ),
+     *                 )
+     *           )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function getCountOrdersEveryProductInSpecificDate($fromDate, $toDate): JsonResponse
+    {
+        $result = $this->orderService->getCountOrdersEveryProductInSpecificDate($fromDate, $toDate);
+
+        return $this->response($result, self::FETCH);
+    }
 }

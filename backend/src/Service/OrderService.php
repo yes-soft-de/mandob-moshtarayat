@@ -1198,4 +1198,95 @@ class OrderService
 
         return $this->autoMapping->map(ElectronicPaymentInfoEntity::class, AddInfoPayByClientResponse::class, $item);
     }
+
+    public function getCountOrdersEveryStoreInSpecificDate($fromDate, $toDate):?array
+    {
+        $response = [];
+        $items = [];
+        $storeIds = [];
+
+        $date = $this->dateFactoryService->returnSpecificDate($fromDate, $toDate);
+
+        $storeOwnerProfileIDs = $this->orderDetailService->getStoreOrderInSpecificDate($date[0],$date[1]);
+
+        foreach ($storeOwnerProfileIDs as $storeOwnerProfileID){
+            $storeIds[] = $storeOwnerProfileID['storeOwnerProfileID'];
+        }
+        // replace the empty value with a string
+        $storeIdsWithoutNull = array_replace($storeIds,array_fill_keys(array_keys($storeIds, null),''));
+        //The number of duplicate values
+        $val = array_count_values($storeIdsWithoutNull);
+
+        foreach($val as $key => $value) {
+            $store = $this->storeOwnerProfileService->getStoreInfoById($key);
+            if($store) {
+                $items[] = [
+                    'storeOwnerProfileID' => $key,
+                    'storeOwnerName' => $store['storeOwnerName'],
+                    'countOrdersInMonth' => $value,
+                    'image' => $store['image'],
+                ];
+            }
+        }
+
+        foreach ($items as $item){
+            $item['image'] = $this->getImageParams($item['image'], $this->params . $item['image'], $this->params);
+
+            $response[] = $this->autoMapping->map('array', CountOrdersInLastMonthForStoreResponse::class, $item);
+        }
+
+        return $response;
+    }
+
+    public function getCountOrdersEveryCaptainInSpecificDate($fromDate, $toDate):?array
+    {
+        $response=[];
+
+        $date = $this->dateFactoryService->returnSpecificDate($fromDate, $toDate);
+
+        $items = $this->orderManager->getCountOrdersEveryCaptainInLastMonth($date[0],$date[1]);
+
+        foreach ($items as $item) {
+            $item['image'] = $this->getImageParams($item['image'], $this->params . $item['image'], $this->params);
+
+            $response[] = $this->autoMapping->map('array', CountOrdersInLastMonthForCaptainResponse::class, $item);
+        }
+
+        return $response;
+    }
+
+    public function getCountOrdersEveryClientInSpecificDate($fromDate, $toDate):?array
+    {
+        $response=[];
+
+        $date = $this->dateFactoryService->returnSpecificDate($fromDate, $toDate);
+
+        $items = $this->orderManager->getCountOrdersEveryClientInLastMonth($date[0],$date[1]);
+
+        foreach ($items as $item) {
+            $item['image'] = $this->getImageParams($item['image'], $this->params . $item['image'], $this->params);
+
+            $response[] = $this->autoMapping->map('array', CountOrdersInLastMonthForClientResponse::class, $item);
+        }
+
+        return $response;
+    }
+
+    public function getCountOrdersEveryProductInSpecificDate($fromDate, $toDate):?array
+    {
+        $response=[];
+
+        $date = $this->dateFactoryService->returnSpecificDate($fromDate, $toDate);
+
+        $items = $this->orderDetailService->getCountOrdersEveryProductInLastMonth($date[0],$date[1]);
+
+        foreach ($items as $item) {
+            $item['productImage'] = $this->getImageParams($item['productImage'], $this->params . $item['productImage'], $this->params);
+
+            $response[] = $this->autoMapping->map('array', CountOrdersInLastMonthForProoductResponse::class, $item);
+        }
+
+        return $response;
+    }
+
 }
