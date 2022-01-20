@@ -60,7 +60,7 @@ class VerificationService
         $this->malathSMSService->setUserName($this->params->get('malath_username'));
         $this->malathSMSService->setPassword($this->params->get('malath_password'));
 
-        $result = $this->malathSMSService->sendSMS($phone, "MANDOB-AD", $messageText);
+        $result = $this->malathSMSService->sendSMS($phone, "MANDOBQUICK", $messageText);
 
         if($result)
         {
