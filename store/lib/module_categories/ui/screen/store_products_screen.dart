@@ -8,6 +8,7 @@ import 'package:mandob_moshtarayat/module_categories/model/products_categories_m
 import 'package:mandob_moshtarayat/module_categories/request/update_product_request.dart';
 import 'package:mandob_moshtarayat/module_categories/service/store_categories_service.dart';
 import 'package:mandob_moshtarayat/module_categories/state_manager/store_products_state_manager.dart';
+import 'package:mandob_moshtarayat/utils/components/custom_alert_dialog.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 
@@ -61,21 +62,21 @@ class StoreProductScreenState
    void updateProduct(UpdateProductRequest request,List<ProductsCategoryModel> levelOne) {
      widget._stateManager.updateProduct(request,this,levelOne);
    }
-   void updateProductStatus(UpdateProductStatusRequest request,List<ProductsCategoryModel> levelOne) {
-     widget._stateManager.updateProductStatus(request,this,levelOne);
-   }
-
-//   void updateProductStatus(UpdateProductStatusRequest request,List<ProductsCategoryModel> levelOne,List<ProductsCategoryModel> levelTwo,{String? nameOne ,String? nameTwo}) {
-//     showDialog(
-//         context: context,
-//         builder: (_) {
-//           return CustomAlertDialog(
-//               onPressed: () {
-//                 widget._stateManager.updateProductStatus(this,request,levelOne ,levelTwo,nameOne: nameOne,nameTwo: nameTwo);
-//                 Navigator.pop(context);
-//               });
-//         });
+//   void updateProductStatus(UpdateProductStatusRequest request,List<ProductsCategoryModel> levelOne) {
+//     widget._stateManager.updateProductStatus(request,this,levelOne);
 //   }
+
+   void updateProductStatus(UpdateProductStatusRequest request,List<ProductsCategoryModel> levelOne) {
+     showDialog(
+         context: context,
+         builder: (_) {
+           return CustomAlertDialog(
+               onPressed: () {
+                 widget._stateManager.updateProductStatus(request,this,levelOne);
+                 Navigator.pop(context);
+               });
+         });
+   }
   void refresh() {
     if (mounted) {
       setState(() {});
