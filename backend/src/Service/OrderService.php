@@ -445,32 +445,36 @@ class OrderService
 
                $storeIDs[] = $orderDetail->storeOwnerProfileID;
             }
+
             foreach ($storeIDs  as $storeProfileId) {
                 $storeIds[] = $this->storeOwnerProfileService->getStoreIdByProfileId($storeProfileId);
             }
             //create log
             $this->orderLogService->createOrderLogWithMultiStore($storeIds, $orderNumber, $item->getState(), $request->getClientID(),0);
 
-            //create store notification local
-            $this->notificationLocalService->createStoreNotificationLocal($storeIDs, LocalStoreNotificationList::$NEW_ORDER_TITLE, LocalStoreNotificationList::$CREATE_ORDER_SUCCESS, $orderNumber);
+            if($item->getState() == "pending") {
+                //create store notification local
+                $this->notificationLocalService->createStoreNotificationLocal($storeIDs, LocalStoreNotificationList::$NEW_ORDER_TITLE, LocalStoreNotificationList::$CREATE_ORDER_SUCCESS, $orderNumber);
 
-            //create client notification local
-            $this->notificationLocalService->createNotificationLocal($request->getClientID(), LocalNotificationList::$NEW_ORDER_TITLE, LocalNotificationList::$CREATE_ORDER_SUCCESS, $orderNumber);
+                //create client notification local
+                $this->notificationLocalService->createNotificationLocal($request->getClientID(), LocalNotificationList::$NEW_ORDER_TITLE, LocalNotificationList::$CREATE_ORDER_SUCCESS, $orderNumber);
 
-            //create firebase notification
-            try{
-                 $this->notificationService->notificationToCaptains($orderNumber);
+                //create firebase notification
+                try{
+                    $this->notificationService->notificationToCaptains($orderNumber);
+                }
+                catch (\Exception $e){
+                    error_log($e);
+                }
+                //create firebase notification store
+                try{
+                    $this->notificationService->notificationOrderUpdateForStores($storeIds, $orderNumber, NotificationStoreConstant::$MESSAGE_STORE_NEW_ORDER);
+                }
+                catch (\Exception $e){
+                    error_log($e);
+                }
             }
-                 catch (\Exception $e){
-                 error_log($e);
-            }
-            //create firebase notification store
-            try{
-                 $this->notificationService->notificationOrderUpdateForStores($storeIds, $orderNumber, NotificationStoreConstant::$MESSAGE_STORE_NEW_ORDER);
-            }
-            catch (\Exception $e){
-                error_log($e);
-            }
+
             $response = $this->getOrderDetailsForClient($orderNumber);
         }
 
@@ -535,35 +539,33 @@ class OrderService
 
             //create log
             $this->orderLogService->createOrderLog($orderNumber, $item->getState(), $request->getClientID(), 0, $storeId);
+            if($item->getState() == "pending") {
+                //create notification local
+                $this->notificationLocalService->createNotificationLocal($request->getClientID(), LocalNotificationList::$NEW_ORDER_TITLE, LocalNotificationList::$CREATE_ORDER_SUCCESS, $orderNumber);
 
-            //create notification local
-            $this->notificationLocalService->createNotificationLocal($request->getClientID(), LocalNotificationList::$NEW_ORDER_TITLE, LocalNotificationList::$CREATE_ORDER_SUCCESS, $orderNumber);
+                //create store notification local
+                $this->notificationLocalService->createNotificationLocal($request->getStoreOwnerProfileID(), LocalStoreNotificationList::$NEW_ORDER_TITLE, LocalStoreNotificationList::$CREATE_ORDER_SUCCESS, $orderNumber);
 
-            //create store notification local
-            $this->notificationLocalService->createNotificationLocal($request->getStoreOwnerProfileID(), LocalStoreNotificationList::$NEW_ORDER_TITLE, LocalStoreNotificationList::$CREATE_ORDER_SUCCESS, $orderNumber);
+                //create firebase notification captain
+                try {
+                    $this->notificationService->notificationToCaptains($orderNumber);
+                } catch (\Exception $e) {
+                    error_log($e);
+                }
 
-            //create firebase notification captain
-            try{
-                $this->notificationService->notificationToCaptains($orderNumber);
-            }
-            catch (\Exception $e){
-                error_log($e);
-            }
+                //create firebase notification store
+                try {
+                    $this->notificationService->notificationOrderUpdateForUser($storeId, $orderNumber, NotificationStoreConstant::$MESSAGE_STORE_NEW_ORDER);
+                } catch (\Exception $e) {
+                    error_log($e);
+                }
 
-            //create firebase notification store
-            try{
-                $this->notificationService->notificationOrderUpdateForUser($storeId, $orderNumber, NotificationStoreConstant::$MESSAGE_STORE_NEW_ORDER);
-            }
-            catch (\Exception $e){
-                error_log($e);
-            }
-
-            //create firebase notification client
-            try{
-                $this->notificationService->notificationOrderUpdateForUser($request->getClientID(), $orderNumber, LocalNotificationList::$CREATE_ORDER_SUCCESS);
-            }
-            catch (\Exception $e){
-                error_log($e);
+                //create firebase notification client
+                try {
+                    $this->notificationService->notificationOrderUpdateForUser($request->getClientID(), $orderNumber, LocalNotificationList::$CREATE_ORDER_SUCCESS);
+                } catch (\Exception $e) {
+                    error_log($e);
+                }
             }
 
             $response = $this->getOrderDetailsForClient($orderNumber);
@@ -628,7 +630,6 @@ class OrderService
 
         $item['orderDetails'] = $this->orderDetailService->getOrderDetailsByOrderNumberForCaptain($orderNumber);
 
-//        $item['deliveryCost'] = $this->deliveryCompanyFinancialService->getDeliveryCostScalar();
         $deliveryCost = $this->deliveryCompanyFinancialService->deliveryCost();
         if(!$deliveryCost){
             $item['deliveryCost'] = (string) 0;
@@ -651,7 +652,6 @@ class OrderService
         $response = [];
 
         $item['orderDetails'] = $this->orderDetailService->orderDetailsForClient($orderNumber);
-//        $item['deliveryCost'] = $this->deliveryCompanyFinancialService->getDeliveryCostScalar();
 
         $deliveryCost = $this->deliveryCompanyFinancialService->deliveryCost();
         if(!$deliveryCost){
@@ -1146,17 +1146,147 @@ class OrderService
             }
 
             $orderDetail =  $this->orderDetailService->orderUpdateStateByOrderState($orderUpdate->getState(),$request->getOrderNumber(),null);
+
             if(!$orderDetail){
                 return ResponseConstant::$ERROR;
             }
+
+            if($request->getPayStatus() == "paid") {
+                $storeIds = [];
+                foreach ($orderDetail['storeIds'] as $storeProfileId) {
+                    $storeIDs[] = $this->storeOwnerProfileService->getStoreIdByProfileId($storeProfileId);
+                }
+                //create log
+                $this->orderLogService->createOrderLogWithMultiStore($storeIDs, $request->getOrderNumber(), OrderStateConstant::$ORDER_STATE_PENDING, $request->getClientID(),0);
+
+                //create store notification local
+                $this->notificationLocalService->createStoreNotificationLocal($storeIDs, LocalStoreNotificationList::$NEW_ORDER_TITLE, LocalStoreNotificationList::$CREATE_ORDER_SUCCESS, $request->getOrderNumber());
+
+                //create client notification local
+                $this->notificationLocalService->createNotificationLocal($request->getClientID(), LocalNotificationList::$NEW_ORDER_TITLE, LocalNotificationList::$CREATE_ORDER_SUCCESS, $request->getOrderNumber());
+
+                //create firebase notification
+                try{
+                    $this->notificationService->notificationToCaptains($request->getOrderNumber());
+                }
+                catch (\Exception $e){
+                    error_log($e);
+                }
+                //create firebase notification store
+                try{
+                    $this->notificationService->notificationOrderUpdateForStores($storeIds, $request->getOrderNumber(), NotificationStoreConstant::$MESSAGE_STORE_NEW_ORDER);
+                }
+                catch (\Exception $e){
+                    error_log($e);
+                }
+            }
+
+            else {
+                $storeIds = [];
+                foreach ($orderDetail['storeIds'] as $storeProfileId) {
+                    $storeIDs[] = $this->storeOwnerProfileService->getStoreIdByProfileId($storeProfileId);
+                }
+
+                //create log
+                $this->orderLogService->createOrderLogWithMultiStore($storeIDs, $request->getOrderNumber(), OrderStateConstant::$ORDER_STATE_NOT_PAID, $request->getClientID(),0);
+
+                //create client notification local
+                $this->notificationLocalService->createNotificationLocal($request->getClientID(), LocalNotificationList::$NEW_ORDER_TITLE, LocalNotificationList::$ORDER_NOT_CREATE , $request->getOrderNumber());
+
+            }
         }
-//        if ($item){
-//           $orderUpdate = $this->orderManager->orderStateUpdateByPayInfo($request->getOrderNumber(), $request->getPayStatus(), $orderId[0]['orderID']);
-//            if($orderUpdate){
-//                $this->orderDetailService->orderUpdateStateByOrderState($orderUpdate->getState(),$request->getOrderNumber(),null);
-//            }
-//        }
 
         return $this->autoMapping->map(ElectronicPaymentInfoEntity::class, AddInfoPayByClientResponse::class, $item);
     }
+
+    public function getCountOrdersEveryStoreInSpecificDate($fromDate, $toDate):?array
+    {
+        $response = [];
+        $items = [];
+        $storeIds = [];
+
+        $date = $this->dateFactoryService->returnSpecificDate($fromDate, $toDate);
+
+        $storeOwnerProfileIDs = $this->orderDetailService->getStoreOrderInSpecificDate($date[0],$date[1]);
+
+        foreach ($storeOwnerProfileIDs as $storeOwnerProfileID){
+            $storeIds[] = $storeOwnerProfileID['storeOwnerProfileID'];
+        }
+        // replace the empty value with a string
+        $storeIdsWithoutNull = array_replace($storeIds,array_fill_keys(array_keys($storeIds, null),''));
+        //The number of duplicate values
+        $val = array_count_values($storeIdsWithoutNull);
+
+        foreach($val as $key => $value) {
+            $store = $this->storeOwnerProfileService->getStoreInfoById($key);
+            if($store) {
+                $items[] = [
+                    'storeOwnerProfileID' => $key,
+                    'storeOwnerName' => $store['storeOwnerName'],
+                    'countOrdersInMonth' => $value,
+                    'image' => $store['image'],
+                ];
+            }
+        }
+
+        foreach ($items as $item){
+            $item['image'] = $this->getImageParams($item['image'], $this->params . $item['image'], $this->params);
+
+            $response[] = $this->autoMapping->map('array', CountOrdersInLastMonthForStoreResponse::class, $item);
+        }
+
+        return $response;
+    }
+
+    public function getCountOrdersEveryCaptainInSpecificDate($fromDate, $toDate):?array
+    {
+        $response=[];
+
+        $date = $this->dateFactoryService->returnSpecificDate($fromDate, $toDate);
+
+        $items = $this->orderManager->getCountOrdersEveryCaptainInLastMonth($date[0],$date[1]);
+
+        foreach ($items as $item) {
+            $item['image'] = $this->getImageParams($item['image'], $this->params . $item['image'], $this->params);
+
+            $response[] = $this->autoMapping->map('array', CountOrdersInLastMonthForCaptainResponse::class, $item);
+        }
+
+        return $response;
+    }
+
+    public function getCountOrdersEveryClientInSpecificDate($fromDate, $toDate):?array
+    {
+        $response=[];
+
+        $date = $this->dateFactoryService->returnSpecificDate($fromDate, $toDate);
+
+        $items = $this->orderManager->getCountOrdersEveryClientInLastMonth($date[0],$date[1]);
+
+        foreach ($items as $item) {
+            $item['image'] = $this->getImageParams($item['image'], $this->params . $item['image'], $this->params);
+
+            $response[] = $this->autoMapping->map('array', CountOrdersInLastMonthForClientResponse::class, $item);
+        }
+
+        return $response;
+    }
+
+    public function getCountOrdersEveryProductInSpecificDate($fromDate, $toDate):?array
+    {
+        $response=[];
+
+        $date = $this->dateFactoryService->returnSpecificDate($fromDate, $toDate);
+
+        $items = $this->orderDetailService->getCountOrdersEveryProductInLastMonth($date[0],$date[1]);
+
+        foreach ($items as $item) {
+            $item['productImage'] = $this->getImageParams($item['productImage'], $this->params . $item['productImage'], $this->params);
+
+            $response[] = $this->autoMapping->map('array', CountOrdersInLastMonthForProoductResponse::class, $item);
+        }
+
+        return $response;
+    }
+
 }

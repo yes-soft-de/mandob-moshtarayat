@@ -24,7 +24,7 @@ class ElectronicPaymentInfoEntity
     private $orderNumber;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $transactionID;
 
@@ -77,12 +77,12 @@ class ElectronicPaymentInfoEntity
         return $this;
     }
 
-    public function getTransactionID(): ?int
+    public function getTransactionID(): ?string
     {
         return $this->transactionID;
     }
 
-    public function setTransactionID(?int $transactionID): self
+    public function setTransactionID(?string $transactionID): self
     {
         $this->transactionID = $transactionID;
 

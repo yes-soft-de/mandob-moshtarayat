@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\AutoMapping;
+use App\Constant\ItemStatusConstant;
 use App\Request\DeliveryCompanyPaymentsToStoreCreateRequest;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -131,4 +132,57 @@ class DeliveryCompanyPaymentsToStoreController extends BaseController
   
           return $this->response($result, self::FETCH);
       }
+
+    /**
+     * admin: delete Payment To Store.
+     * @Route("paymenttostore/{id}", name="deletePaymentToStore", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
+     *
+     * @OA\Tag(name="Delivery Company Payments To Store")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=401,
+     *      description="Delete Payment To Captain.",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="integer", property="id"),
+     *              @OA\Property(type="string", property="storeOwnerProfileID"),
+     *              @OA\Property(type="object", property="date"),
+     *              @OA\Property(type="number", property="amount"),
+     *              @OA\Property(type="string", property="note"),
+     *          )
+     *      )
+     * )
+     *
+     * or
+     *
+     * @OA\Response(
+     *      response=404,
+     *      description="Returns Not found Successfully.",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="string", property="Data"),
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function deletePaymentToStore($id)
+    {
+        $response = $this->deliveryCompanyPaymentsToStoreService->deletePaymentToStore($id);
+        if ($response == ItemStatusConstant::$ITEM_NOT_FOUND){
+            return $this->response($response, self::NOTFOUND);
+        }
+        return $this->response($response, self::DELETE);
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\AutoMapping;
+use App\Constant\ItemStatusConstant;
 use App\Request\DeliveryCompanyPaymentsFromCaptainCreateRequest;
 use App\Service\DeliveryCompanyPaymentsFromCaptainService;
 use stdClass;
@@ -123,6 +124,7 @@ class DeliveryCompanyPaymentsFromCaptainController extends BaseController
       *         )
       *      )
       * )
+      *
       * @Security(name="Bearer")
       */
       public function deliveryCompanyPaymentsFromCaptain()
@@ -131,4 +133,57 @@ class DeliveryCompanyPaymentsFromCaptainController extends BaseController
   
           return $this->response($result, self::FETCH);
       }
+
+    /**
+     * admin: delete Payment From Captain.
+     * @Route("paymentfromcaptain/{id}", name="deletePaymentFromCaptain", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
+     *
+     * @OA\Tag(name="Delivery Company Payment From Captain")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=401,
+     *      description="Delete Payment To Captain.",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="integer", property="id"),
+     *              @OA\Property(type="string", property="captainId"),
+     *              @OA\Property(type="object", property="date"),
+     *              @OA\Property(type="number", property="amount"),
+     *              @OA\Property(type="string", property="note"),
+     *          )
+     *      )
+     * )
+     *
+     * or
+     *
+     * @OA\Response(
+     *      response=404,
+     *      description="Returns Not found Successfully.",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="string", property="Data"),
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function deletePaymentFromCaptain($id)
+    {
+        $response = $this->deliveryCompanyPaymentsFromCaptainService->deletePaymentFromCaptain($id);
+        if ($response == ItemStatusConstant::$ITEM_NOT_FOUND){
+            return $this->response($response, self::NOTFOUND);
+        }
+        return $this->response($response, self::DELETE);
+    }
 }

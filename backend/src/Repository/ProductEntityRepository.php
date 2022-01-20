@@ -765,7 +765,7 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->groupBy('categoryLinkEntity.id')
 
             ->getQuery()
-            ->getResult();
+            ->getOneOrNullResult();
     }
 
     public function getProductsTranslationsByStoreProductCategoryIDForStore($storeProductCategoryID, $storeOwnerProfileID)
