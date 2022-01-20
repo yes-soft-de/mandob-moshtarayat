@@ -21,6 +21,7 @@ use App\Response\RepresentativeStoreLinkGetByStoreIPResponse;
 use App\Response\StoreFinancialAccountForStoreResponse;
 use App\Response\StoreNameResponse;
 use App\Response\StoreOwnerLast15Response;
+use App\Response\StoreOwnerProfileByRepresentativeUserIdGetResponse;
 use App\Response\StoreOwnerProfileCreateResponse;
 use App\Response\StoreOwnerProfileDeleteResponse;
 use App\Response\StoreOwnerProfilePreferredLanguageUpdateResponse;
@@ -430,6 +431,25 @@ class StoreOwnerProfileService
         $item['paymentsToStore'] = $this->deliveryCompanyPaymentsToStoreService->deliveryCompanyPaymentsToStore($storeOwnerProfileId);
 
         return $this->autoMapping->map('array',StoreFinancialAccountForStoreResponse::class, $item);
+    }
+
+    public function getStoreOwnersByRepresentativeID($representativeUserID): ?array
+    {
+        $response = [];
+
+        $storeOwnersProfiles = $this->storeOwnerProfileManager->getStoreOwnersByRepresentativeID($representativeUserID);
+        
+        if ($storeOwnersProfiles) {
+
+            foreach ($storeOwnersProfiles as $storeOwnerProfile) {
+
+                $storeOwnerProfile['image'] = $this->getImageParams($storeOwnerProfile['image'], $this->params.$storeOwnerProfile['image'], $this->params);
+
+                $response[] = $this->autoMapping->map('array', StoreOwnerProfileByRepresentativeUserIdGetResponse::class, $storeOwnerProfile);
+            }
+        }
+
+        return $response;
     }
 
     public function getLast15Stores(): array

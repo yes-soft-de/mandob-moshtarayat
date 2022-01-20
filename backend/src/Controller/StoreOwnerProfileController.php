@@ -998,6 +998,57 @@ class StoreOwnerProfileController extends BaseController
 
         return $this->response($response, self::FETCH);
     }
+
+    /**
+     * representative: get all linked stores profiles
+     * @Route("linkedstoresprofiles", name="getLinkedStoresProfilesBySignedInRepresentative", methods={"GET"})
+     * @IsGranted("ROLE_MANDOB")
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Store Owner Profile")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns all stores profiles which linked with signed-in representative",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="storeOwnerName"),
+     *                  @OA\Property(type="object", property="image",
+     *                      @OA\Property(type="string", property="imageURL"),
+     *                      @OA\Property(type="string", property="image"),
+     *                      @OA\Property(type="string", property="baseURL"),
+     *                  ),
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="string", property="phone"),
+     *                  @OA\Property(type="string", property="free"),
+     *                  @OA\Property(type="boolean", property="is_best"),
+     *                  @OA\Property(type="string", property="commission"),
+     *              )
+     *          )
+     *      )
+     *   )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function getStoreOwnersByRepresentativeID(): JsonResponse
+    {
+        $response = $this->storeOwnerProfileService->getStoreOwnersByRepresentativeID($this->getUserId());
+
+        return $this->response($response, self::FETCH);
+    }
+
     /**
      * admin: Delete store owner profile.
      * @Route("storeownerprofile/{id}", name="deleteStoreOwnerProfile", methods={"DELETE"})
