@@ -1281,7 +1281,7 @@ class OrderController extends BaseController
      *          @OA\Property(type="number", property="rate"),
      *          @OA\Property(type="object", property="payInfo",
      *              @OA\Property(type="integer", property="id"),
-     *              @OA\Property(type="integer", property="transactionID"),
+     *              @OA\Property(type="string", property="transactionID"),
      *              @OA\Property(type="string", property="token"),
      *              @OA\Property(type="number", property="amount"),
      *              @OA\Property(type="string", property="payStatus"),
@@ -2236,7 +2236,7 @@ class OrderController extends BaseController
      *        description="add payment info online",
      *        @OA\JsonContent(
      *              @OA\Property(type="integer", property="orderNumber"),
-     *              @OA\Property(type="integer", property="transactionID"),
+     *              @OA\Property(type="string", property="transactionID"),
      *              @OA\Property(type="string", property="payStatus", description="not paid or paid"),
      *              @OA\Property(type="string", property="token"),
      *              @OA\Property(type="number", property="amount"),
@@ -2254,7 +2254,7 @@ class OrderController extends BaseController
      *              @OA\Property(type="integer", property="orderNumber"),
      *              @OA\Property(type="string", property="payStatus"),
      *              @OA\Property(type="string", property="token"),
-     *              @OA\Property(type="integer", property="transactionID"),
+     *              @OA\Property(type="string", property="transactionID"),
      *              @OA\Property(type="number", property="amount"),
      *              )
      *          )
@@ -2273,7 +2273,7 @@ class OrderController extends BaseController
      *              @OA\Property(type="integer", property="orderNumber"),
      *              @OA\Property(type="string", property="payStatus"),
      *              @OA\Property(type="string", property="token"),
-     *              @OA\Property(type="integer", property="transactionID"),
+     *              @OA\Property(type="string", property="transactionID"),
      *              @OA\Property(type="number", property="amount"),
      *              )
      *          )
