@@ -13,6 +13,7 @@ class BalanceModel extends DataModel {
     List<PaymentModel> paymentsToCaptain = [];
     data.paymentsFromCaptain?.forEach((element) {
       paymentsFromCaptain.add(PaymentModel(
+          id: element.id ?? -1,
           note: element.note,
           paymentDate: DateTime.fromMillisecondsSinceEpoch(
               (element.date?.timestamp ?? 0) * 1000),
@@ -20,6 +21,7 @@ class BalanceModel extends DataModel {
     });
     data.paymentsToCaptain?.forEach((element) {
       paymentsToCaptain.add(PaymentModel(
+          id: element.id ?? -1,
           note: element.note,
           paymentDate: DateTime.fromMillisecondsSinceEpoch(
               (element.date?.timestamp ?? 0) * 1000),
@@ -49,10 +51,11 @@ class BalanceModel extends DataModel {
 }
 
 class PaymentModel {
+  int id;
   DateTime paymentDate;
   var amount;
   String? note;
-  PaymentModel({required this.paymentDate, required this.amount, this.note});
+  PaymentModel({required this.id,required this.paymentDate, required this.amount, this.note});
 }
 
 class AccountBalance extends BalanceModel {

@@ -6,6 +6,7 @@ import 'package:mandob_moshtarayat_dashboad/module_captain/model/porfile_model.d
 import 'package:mandob_moshtarayat_dashboad/module_payments/request/captain_payments_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_payments/ui/screen/paymen_from_captain_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/module_payments/ui/widget/custom_list_tile.dart';
+import 'package:mandob_moshtarayat_dashboad/utils/components/custom_alert_dialog.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_feild.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/empty_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/error_screen.dart';
@@ -254,6 +255,8 @@ class PaymentsForCaptainLoadedState extends States {
             color: Theme.of(screenState.context).backgroundColor,
           ),
           child: ListTile(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
             onTap: element.note != null
                 ? () {
                     showDialog(
@@ -274,8 +277,35 @@ class PaymentsForCaptainLoadedState extends States {
             leading: Icon(Icons.credit_card_rounded),
             title: Text(S.current.paymentAmount),
             subtitle: Text(element.amount.toStringAsFixed(1)),
-            trailing:
-                Text(intl.DateFormat('yyyy/M/dd').format(element.paymentDate)),
+            trailing: SizedBox(
+              width: 150,
+              child: Row(
+                children: [
+                  Text(
+                      intl.DateFormat('yyyy/M/dd').format(element.paymentDate)),
+                  SizedBox(
+                    width: 16,
+                  ),
+                  IconButton(
+                      splashRadius: 15,
+                      onPressed: () {
+                        showDialog(
+                            context: screenState.context,
+                            builder: (context) {
+                              return CustomAlertDialog(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                    screenState
+                                        .deletePay(element.id.toString());
+                                  },
+                                  content:
+                                      S.current.areYouSureToDeleteThisPayment);
+                            });
+                      },
+                      icon: Icon(Icons.delete)),
+                ],
+              ),
+            ),
           ),
         ),
       ));

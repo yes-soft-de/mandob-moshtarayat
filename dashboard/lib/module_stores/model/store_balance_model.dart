@@ -18,6 +18,7 @@ class StoreBalanceModel extends DataModel {
     var payments = <PaymentModel>[];
     data.paymentsToStore?.forEach((e) {
       payments.add(PaymentModel(
+          id: e.id ?? -1,
           amount: e.amount,
           note: e.note,
           paymentDate: DateHelper.convert(e.date?.timestamp)));
@@ -33,8 +34,13 @@ class StoreBalanceModel extends DataModel {
 }
 
 class PaymentModel {
+  int id;
   DateTime paymentDate;
   var amount;
   String? note;
-  PaymentModel({required this.paymentDate, required this.amount, this.note});
+  PaymentModel(
+      {required this.id,
+      required this.paymentDate,
+      required this.amount,
+      this.note});
 }

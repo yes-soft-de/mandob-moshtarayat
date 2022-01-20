@@ -99,4 +99,13 @@ class StoresRepository {
     if (response == null) return null;
     return ActionResponse.fromJson(response);
   }
+   Future<ActionResponse?> deleteStorePayments(
+      String id) async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.delete(
+        Urls.DELETE_PAYMENTS_FOR_STORE + '/$id',
+        headers: {'Authorization': 'Bearer ' + token.toString()});
+    if (response == null) return null;
+    return ActionResponse.fromJson(response);
+  }
 }

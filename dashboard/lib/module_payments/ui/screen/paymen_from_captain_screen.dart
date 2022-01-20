@@ -37,6 +37,10 @@ class PaymentsFromCaptainScreenState extends State<PaymentsFromCaptainScreen> {
     widget._stateManager.getCaptainPaymentsDetails(this, captainId);
   }
 
+  void deletePay(String id) {
+    widget._stateManager.deletePayment(this, id);
+  }
+
   void pay(CaptainPaymentsRequest request) {
     widget._stateManager.makePayments(this, request);
   }

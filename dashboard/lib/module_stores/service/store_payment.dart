@@ -24,4 +24,17 @@ class StorePaymentsService {
     }
     return DataModel.empty();
   }
+    Future<DataModel> deletePaymentToStore(String id) async {
+    ActionResponse? actionResponse =
+        await _storeManager.deleteStorePayment(id);
+
+    if (actionResponse == null) {
+      return DataModel.withError(S.current.networkError);
+    }
+    if (actionResponse.statusCode != '401') {
+      return DataModel.withError(
+          StatusCodeHelper.getStatusCodeMessages(actionResponse.statusCode));
+    }
+    return DataModel.empty();
+  }
 }

@@ -68,4 +68,21 @@ class PaymentsToCaptainStateManager {
       }
     });
   }
+
+  void deletePayment(PaymentsToCaptainScreenState screenState, String id) {
+    _stateSubject.add(LoadingState(screenState));
+    _paymentsService.deletePaymentToCaptain(id).then((value) {
+      if (value.hasError) {
+        CustomFlushBarHelper.createError(
+                title: S.current.warnning, message: value.error.toString())
+            .show(screenState.context);
+        getCaptainPaymentsDetails(screenState, screenState.captainId);
+      } else {
+        getCaptainPaymentsDetails(screenState, screenState.captainId);
+        CustomFlushBarHelper.createSuccess(
+                title: S.current.warnning, message: S.current.deleteSuccess)
+            .show(screenState.context);
+      }
+    });
+  }
 }

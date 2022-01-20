@@ -58,4 +58,22 @@ class StoreBalanceStateManager {
       }
     });
   }
+
+  void deletePayment(StoreBalanceScreenState screenState, String id) {
+    _stateSubject.add(LoadingState(screenState));
+    _storePaymentsService.deletePaymentToStore(id).then((value) {
+      if (value.hasError) {
+        CustomFlushBarHelper.createError(
+                title: S.current.warnning,
+                message: value.error ?? S.current.errorHappened)
+            .show(screenState.context);
+      } else {
+        getBalance(screenState, screenState.storeID);
+        CustomFlushBarHelper.createSuccess(
+                title: S.current.warnning,
+                message: value.error ?? S.current.deleteSuccess)
+            .show(screenState.context);
+      }
+    });
+  }
 }

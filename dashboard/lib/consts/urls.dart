@@ -53,6 +53,8 @@ class Urls {
   static const CREATE_STORES = BASE_API + '/storeownercreatbyadmin';
   static const CREATE_PAYMENTS_FOR_STORE =
       BASE_API + '/deliverycompanypaymentstostore';
+  static const DELETE_PAYMENTS_FOR_STORE =
+      BASE_API + '/paymenttostore';
   static const CREATE_SUB_CATEGORIES =
       BASE_API + '/storeproductcategorylevelone';
   static const GET_PRODUCTS_CATEGORY = BASE_API + '/storeProductsCategory/';
@@ -79,8 +81,10 @@ class Urls {
   static const ACTIVATE_CAPTAIN = BASE_API + '/captainprofileupdatebyadmin';
   static const PAYMENTS_FROM_CAPTAIN =
       BASE_API + '/deliveryCompanyPaymentsFromCaptain';
+  static const DELETE_PAYMENTS_FROM_CAPTAIN = BASE_API + '/paymentfromcaptain';
   static const PAYMENTS_TO_CAPTAIN =
       BASE_API + '/deliveryCompanyPaymentsToCaptain';
+  static const DELETE_PAYMENTS_TO_CAPTAIN = BASE_API + '/paymenttocaptain';
   static const PAYMENTS_LIST = BASE_API + '/electronicpaymentinfo';
   static const GET_CAPTAIN_PROFILE = BASE_API + '/captainProfile/';
   static const GET_CLIENT_PROFILE = BASE_API + '/clientprofilebyid/';

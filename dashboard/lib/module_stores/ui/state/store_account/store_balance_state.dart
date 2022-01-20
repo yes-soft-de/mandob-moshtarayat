@@ -5,6 +5,7 @@ import 'package:mandob_moshtarayat_dashboad/module_stores/model/store_balance_mo
 import 'package:mandob_moshtarayat_dashboad/module_stores/request/store_payment_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_stores/ui/screen/store_balance_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:mandob_moshtarayat_dashboad/utils/components/custom_alert_dialog.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_feild.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_list_view.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/empty_screen.dart';
@@ -182,6 +183,8 @@ class StoreBalanceLoadedState extends States {
             color: Theme.of(screenState.context).backgroundColor,
           ),
           child: ListTile(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
             onTap: element.note != null
                 ? () {
                     showDialog(
@@ -202,8 +205,35 @@ class StoreBalanceLoadedState extends States {
             leading: Icon(Icons.credit_card_rounded),
             title: Text(S.current.paymentAmount),
             subtitle: Text(element.amount.toString()),
-            trailing:
-                Text(intl.DateFormat('yyyy/M/dd').format(element.paymentDate)),
+            trailing: SizedBox(
+              width: 150,
+              child: Row(
+                children: [
+                  Text(
+                      intl.DateFormat('yyyy/M/dd').format(element.paymentDate)),
+                  SizedBox(
+                    width: 16,
+                  ),
+                  IconButton(
+                      splashRadius: 15,
+                      onPressed: () {
+                        showDialog(
+                            context: screenState.context,
+                            builder: (context) {
+                              return CustomAlertDialog(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                    screenState
+                                        .deletePay(element.id.toString());
+                                  },
+                                  content:
+                                      S.current.areYouSureToDeleteThisPayment);
+                            });
+                      },
+                      icon: Icon(Icons.delete)),
+                ],
+              ),
+            ),
           ),
         ),
       ));

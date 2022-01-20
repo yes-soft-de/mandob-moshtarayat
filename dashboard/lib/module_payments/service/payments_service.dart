@@ -42,6 +42,34 @@ class PaymentsService {
     return DataModel.empty();
   }
 
+  Future<DataModel> deletePaymentToCaptain(String id) async {
+    ActionResponse? actionResponse =
+        await _paymentsManager.deletePaymentToCaptain(id);
+
+    if (actionResponse == null) {
+      return DataModel.withError(S.current.networkError);
+    }
+    if (actionResponse.statusCode != '401') {
+      return DataModel.withError(
+          StatusCodeHelper.getStatusCodeMessages(actionResponse.statusCode));
+    }
+    return DataModel.empty();
+  }
+
+  Future<DataModel> deletePaymentFromCaptain(String id) async {
+    ActionResponse? actionResponse =
+        await _paymentsManager.deletePaymentFromCaptain(id);
+
+    if (actionResponse == null) {
+      return DataModel.withError(S.current.networkError);
+    }
+    if (actionResponse.statusCode != '401') {
+      return DataModel.withError(
+          StatusCodeHelper.getStatusCodeMessages(actionResponse.statusCode));
+    }
+    return DataModel.empty();
+  }
+
   Future<DataModel> getPayments() async {
     PaymentListResponse? actionResponse =
         await _paymentsManager.getPaymentList();
