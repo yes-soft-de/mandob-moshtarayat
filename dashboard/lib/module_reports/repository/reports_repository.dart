@@ -47,6 +47,44 @@ class ReportRepository {
     return ReportsStoreResponse.fromJson(response);
   }
 
+  Future<ReportsCaptainResponse?> getCaptainsReportSpecific(String firstDate,String lastDate) async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.get(Urls.GET_CAPTAINS_REPORT_SPECIFIC + '/$firstDate' + '/$lastDate', 
+        headers: {'Authorization': 'Bearer ' + token.toString()});
+    if (response == null) return null;
+    return ReportsCaptainResponse.fromJson(response);
+  }
+
+  Future<ReportsStoreResponse?> getSpecificStoresReport(
+      String firstDate, String lastDate) async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.get(
+        Urls.GET_STORES_REPORT_SPECIFIC + '/$firstDate' + '/$lastDate',
+        headers: {'Authorization': 'Bearer ' + token.toString()});
+    if (response == null) return null;
+    return ReportsStoreResponse.fromJson(response);
+  }
+
+  Future<ReportsClientResponse?> getClientsReportSpecific(
+      String firstDate, String lastDate) async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.get(
+        Urls.GET_CLIENTS_REPORT_SPECIFIC + '/$firstDate' + '/$lastDate',
+        headers: {'Authorization': 'Bearer ' + token.toString()});
+    if (response == null) return null;
+    return ReportsClientResponse.fromJson(response);
+  }
+
+  Future<ReportsProductsResponse?> getProductsReportSpecific(
+      String firstDate, String lastDate) async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.get(
+        Urls.GET_PRODUCTS_REPORT_SPECIFIC + '/$firstDate' + '/$lastDate',
+        headers: {'Authorization': 'Bearer ' + token.toString()});
+    if (response == null) return null;
+    return ReportsProductsResponse.fromJson(response);
+  }
+
   Future<CustomProductResponse?> getCustomProduct() async {
     var token = await _authService.getToken();
     dynamic response = await _apiClient.get(Urls.GET_CUSTOM_PRODUCTS_API,

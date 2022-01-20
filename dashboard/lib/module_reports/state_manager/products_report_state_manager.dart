@@ -33,4 +33,21 @@ class ProductsReportStateManager {
       }
     });
   }
+
+  void getReportsSpecific(ProductsReportScreenState screenState,
+      String firstDate, String lastDate) {
+    _stateSubject.add(LoadingState(screenState));
+    _reportsService.getProductsReportSpecific(firstDate, lastDate).then((value) {
+      if (value.hasError) {
+        _stateSubject.add(
+            ProductsReportLoadedState(screenState, null, error: value.error));
+      } else if (value.isEmpty) {
+        _stateSubject.add(
+            ProductsReportLoadedState(screenState, null, empty: value.isEmpty));
+      } else {
+        ProductsReportModel _model = value as ProductsReportModel;
+        _stateSubject.add(ProductsReportLoadedState(screenState, _model.data));
+      }
+    });
+  }
 }

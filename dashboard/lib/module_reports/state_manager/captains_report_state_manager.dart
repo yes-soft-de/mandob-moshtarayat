@@ -31,4 +31,19 @@ class CaptainsReportStateManager {
       }
     });
   }
+    void getReportsSpecific(CaptainsReportScreenState screenState,String firstDate, lastDate) {
+    _stateSubject.add(LoadingState(screenState));
+    _reportsService.getCaptainsReportSpecific(firstDate,lastDate).then((value) {
+      if (value.hasError) {
+        _stateSubject.add(
+            CaptainsReportLoadedState(screenState, null, error: value.error));
+      } else if (value.isEmpty) {
+        _stateSubject.add(
+            CaptainsReportLoadedState(screenState, null, empty: value.isEmpty));
+      } else {
+        CaptainsReportModel _model = value as CaptainsReportModel;
+        _stateSubject.add(CaptainsReportLoadedState(screenState, _model.data));
+      }
+    });
+  }
 }
