@@ -3,6 +3,7 @@
 namespace App\Manager;
 
 use App\AutoMapping;
+use App\Constant\ItemStatusConstant;
 use App\Entity\DeliveryCompanyPaymentsToStoreEntity;
 use App\Repository\DeliveryCompanyPaymentsToStoreEntityRepository;
 use App\Request\DeliveryCompanyPaymentsToStoreCreateRequest;
@@ -51,4 +52,19 @@ class DeliveryCompanyPaymentsToStoreManager
     {
         return $this->deliveryCompanyPaymentsToStoreEntityRepository->deliveryCompanyPaymentsToStoreInSpecificDate($storeOwnerProfileID, $fromDate, $toDate);
     }
+
+    public function deletePaymentToStore($id)
+    {
+        $result = $this->deliveryCompanyPaymentsToStoreEntityRepository->find($id);
+
+        if($result) {
+            $this->entityManager->remove($result);
+            $this->entityManager->flush();
+
+            return $result;
+        }
+
+        return ItemStatusConstant::$ITEM_NOT_FOUND;
+    }
+
 }

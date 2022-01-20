@@ -45,4 +45,9 @@ class DeliveryCompanyPaymentsToCaptainService
     {
        return $this->deliveryCompanyPaymentsToCaptainManager->deliveryCompanyPaymentsToCaptainInSpecificDate($captainId, $ToDate, $toDate);
     }
+
+    public function deletePaymentToCaptain($id)
+    {
+        return $this->deliveryCompanyPaymentsToCaptainManager->deletePaymentToCaptain($id);
+    }
 }

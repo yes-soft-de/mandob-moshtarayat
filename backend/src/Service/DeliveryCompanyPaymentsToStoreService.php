@@ -56,4 +56,8 @@ class DeliveryCompanyPaymentsToStoreService
        return $this->deliveryCompanyPaymentsToStoreManager->deliveryCompanyPaymentsToStoreInSpecificDate($storeOwnerProfileID, $fromDate, $toDate);
     }
 
+    public function deletePaymentToStore($id)
+    {
+        return $this->deliveryCompanyPaymentsToStoreManager->deletePaymentToStore($id);
+    }
 }
