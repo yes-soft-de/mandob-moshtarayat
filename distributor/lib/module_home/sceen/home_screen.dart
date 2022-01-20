@@ -8,8 +8,8 @@ import 'package:mandob_moshtarayat/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_auth/authorization_routes.dart';
 import 'package:mandob_moshtarayat/module_home/state_manager/home_state_manager.dart';
-import 'package:mandob_moshtarayat/module_home/widget/drawer.dart';
 import 'package:mandob_moshtarayat/module_home/widget/menu_screen.dart';
+import 'package:mandob_moshtarayat/module_my_code/my_code_routes.dart';
 import 'package:mandob_moshtarayat/module_profile/model/profile_model.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat/utils/images/images.dart';
@@ -101,7 +101,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
-  States? currentState;
+ late States currentState;
   ProfileModel? _currentProfile;
 //  StreamSubscription? _stateSubscription;
   StreamSubscription? _profileSubscription;
@@ -186,9 +186,30 @@ class HomeScreenState extends State<HomeScreen> {
             decoration: BoxDecoration(
               color: Theme.of(context).scaffoldBackgroundColor,
             ),
-            child: currentState?.getUI(context)),
+          child: Stack(
+            children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                child: Center(
+                    child: Opacity(
+                        opacity: 0.1,
+                        child: Image.asset(
+                          ImageAsset.DELIVERY_CAR,
+                          fit: BoxFit.cover,
+                          alignment: Alignment.center,
+                          height: 2000,
+                        ))),
+              ),
+              currentState.getUI(context),
+            ],
+          ),
+        ),
         drawer: MenuScreen(this, _currentProfile ?? ProfileModel.empty()),
       ),
+      floatingActionButton: FloatingActionButton(onPressed: (){
+        Navigator.pushNamed(context, MyCodeRoutes.MyCode_SCREEN  , arguments: _currentProfile);
+      },child: Icon(Icons.qr_code,size: 30,),elevation: 5.0,),
     );
   }
 

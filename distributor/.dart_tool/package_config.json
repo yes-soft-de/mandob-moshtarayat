@@ -926,6 +926,18 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "qr",
+      "rootUri": "file:///C:/flutter2/.pub-cache/hosted/pub.dartlang.org/qr-2.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "qr_flutter",
+      "rootUri": "file:///C:/flutter2/.pub-cache/hosted/pub.dartlang.org/qr_flutter-4.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "quiver",
       "rootUri": "file:///C:/flutter2/.pub-cache/hosted/pub.dartlang.org/quiver-3.0.1+1",
       "packageUri": "lib/",
@@ -1340,7 +1352,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2022-01-16T19:52:27.735515Z",
+  "generated": "2022-01-20T01:10:26.256218Z",
   "generator": "pub",
   "generatorVersion": "2.15.1"
 }

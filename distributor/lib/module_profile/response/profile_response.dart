@@ -39,6 +39,7 @@ class Data {
   ImageUrl? imageURL;
 
   String? roomID;
+  String? mandobID;
   num? age;
 
 
@@ -47,7 +48,7 @@ class Data {
     this.mandobName,
       this.status,
     this.bankAccountNumber,this.bankName,this.stcPay,
-
+this.mandobID,
 
       this.phone,
       this.imageURL,
@@ -67,6 +68,7 @@ class Data {
     age = json['age'];
     roomID = json['roomID'];
     status = json['status'];
+    mandobID = json['mandobID'] ?? '512345678';
   }
 }
 

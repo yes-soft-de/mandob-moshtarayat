@@ -57,15 +57,16 @@ class HomeLoadedState extends States {
             ),
             widgetTile(model?.countCompletedOrders.toString() ?? '',S.current.countCompletedOrders),
         widgetTile(model?.countOngoingOrders.toString() ?? '',S.current.countOngoingOrders),
-//          Padding(
-//            padding: const EdgeInsets.only(right:32,left: 32),
-//            child: Divider(
-//              thickness: 2.5,
-//              color: Theme.of(context).primaryColor.withOpacity(0.3),
-//            ),
-//          ),
-////          widgetTile(model?.countClients.toString() ?? '',S.current.countClients),
-//          widgetTile(model?.countProducts.toString() ?? '',S.current.countProducts),
+          Padding(
+            padding: const EdgeInsets.only(right:32,left: 32),
+            child: Divider(
+              thickness: 2.5,
+              color: Theme.of(context).primaryColor.withOpacity(0.3),
+            ),
+          ),
+//          widgetTile(model?.countOngoingOrders.toString()?? '',S.current.countClients),
+//          widgetTile(model?.countOngoingOrders.toString() ?? '',S.current.countProducts),
+//          widgetTile(model?.countOngoingOrders.toString() ?? '',S.current.countProducts),
           ]),
     );
   }

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:injectable/injectable.dart';
+import 'package:mandob_moshtarayat/module_stores/store_module.dart';
 import 'package:simple_moment/simple_moment.dart';
 import 'package:mandob_moshtarayat/abstracts/module/yes_module.dart';
 import 'package:mandob_moshtarayat/di/di_config.dart';
@@ -25,7 +26,9 @@ import 'generated/l10n.dart';
 import 'module_about/about_module.dart';
 import 'module_home/home_module.dart';
 import 'module_init/init_account_module.dart';
+import 'module_my_code/my_code_module.dart';
 import 'module_notifications/service/local_notification_service/local_notification_service.dart';
+import 'module_privacy/privacy_module.dart';
 import 'module_profile/profile_module.dart';
 import 'module_splash/splash_routes.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -76,6 +79,9 @@ class MyApp extends StatefulWidget {
   final HomeModule _homeModule;
   final AboutModule _aboutModule;
   final ProfileModule _profileModule;
+  final MyCodeModule _codeModule;
+  final StoreModule _storeModule;
+  final PrivacyModule _privacyModule;
 
   MyApp(
     this._themeDataService,
@@ -88,7 +94,7 @@ class MyApp extends StatefulWidget {
     this._settingsModule,
       this._initAccountModule,
       this._homeModule,
-      this._aboutModule,this._profileModule
+      this._aboutModule,this._profileModule,this._codeModule,this._storeModule,this._privacyModule
   );
 
   @override
