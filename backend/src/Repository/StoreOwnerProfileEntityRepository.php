@@ -2,13 +2,16 @@
 
 namespace App\Repository;
 
+use App\Constant\RepresentativeStoreLinkTypeConstant;
 use App\Constant\StoreStatusConstant;
 use App\Entity\ProductEntity;
+use App\Entity\RepresentativeStoreLinkEntity;
 use App\Entity\StoreOwnerProfileEntity;
 use App\Entity\StoreOwnerBranchEntity;
 use App\Entity\OrderEntity;
 use App\Entity\CategoryLinkEntity;
 use App\Entity\DeliveryCompanyFinancialEntity;
+use App\Entity\MandobProfileEntity;
 use App\Entity\StoreCategoryEntity;
 use App\Entity\UserEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -255,6 +258,49 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
             ->setParameter('status', self::STATUS_INACTIVE)
 
             ->groupBy('profile.id')
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getStoreOwnersByRepresentativeID($representativeUserID): ?array
+    {
+        return $this->createQueryBuilder('profile')
+            ->select('profile.id', 'profile.storeOwnerName', 'profile.phone', 'profile.image', 'profile.storeOwnerID', 'profile.commission', 'profile.free')
+
+            ->leftJoin(
+                UserEntity::class,
+                'userEntityOne',
+                Join::WITH,
+                'userEntityOne.id = profile.storeOwnerID'
+            )
+
+            ->leftJoin(
+                RepresentativeStoreLinkEntity::class,
+                'representativeStoreLinkEntity',
+                Join::WITH,
+                'representativeStoreLinkEntity.storeOwnerUserID = userEntityOne.userID'
+            )
+
+            ->andWhere('representativeStoreLinkEntity.linkStatus = :status')
+            ->setParameter('status', RepresentativeStoreLinkTypeConstant::$REPRESENTATIVE_STORE_LINKED)
+
+            ->leftJoin(
+                UserEntity::class,
+                'userEntityTwo',
+                Join::WITH,
+                'userEntityTwo.userID = representativeStoreLinkEntity.representativeUserID'
+            )
+
+            ->leftJoin(
+                MandobProfileEntity::class,
+                'mandobProfileEntity',
+                Join::WITH,
+                'mandobProfileEntity.mandobID = userEntityTwo.id'
+            )
+        
+            ->andWhere('userEntityTwo.id = :representativeID')
+            ->setParameter('representativeID', $representativeUserID)
 
             ->getQuery()
             ->getResult();
