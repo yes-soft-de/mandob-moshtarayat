@@ -2294,6 +2294,8 @@ class OrderController extends BaseController
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
 
+        $request->setClientID($this->getUserId());
+
         $response = $this->orderService->addInfoPay($request);
 
         if($response->methods == ResponseConstant::$ERROR){

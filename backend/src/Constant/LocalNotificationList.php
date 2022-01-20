@@ -34,4 +34,6 @@ abstract class LocalNotificationList
 
     static $CANCEL_ORDER_ERROR_ACCEPTED = "لا يمكن حذف الطلب, الكابتن استلم الطلب.";
 
+    static $ORDER_NOT_CREATE = "لم تنجح عمليةالدفع";
+
 }
