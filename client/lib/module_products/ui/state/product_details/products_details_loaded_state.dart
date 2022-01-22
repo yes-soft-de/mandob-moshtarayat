@@ -290,15 +290,13 @@ class ProductDetailsLoadedState extends States {
                     padding:
                         const EdgeInsets.only(left: 16, right: 16, bottom: 16),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           S.current.totalPrice,
                           style: const TextStyle(fontSize: 16),
                         ),
-                        Text(
-                          S.current.withTaxes + ' 15% ',
-                          style: const TextStyle(fontSize: 16,color: Colors.red),
+                        Spacer(
+                          flex: 1,
                         ),
                         Container(
                           height: 40,
@@ -316,6 +314,10 @@ class ProductDetailsLoadedState extends States {
                         ),
                       ],
                     ),
+                  ),
+                  Text(
+                    S.current.withTaxes + ' 15% ',
+                    style: const TextStyle(fontSize: 16, color: Colors.red),
                   ),
                   ListTile(
                     leading: Icon(
