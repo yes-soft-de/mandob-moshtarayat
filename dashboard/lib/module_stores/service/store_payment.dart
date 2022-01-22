@@ -24,9 +24,9 @@ class StorePaymentsService {
     }
     return DataModel.empty();
   }
-    Future<DataModel> deletePaymentToStore(String id) async {
-    ActionResponse? actionResponse =
-        await _storeManager.deleteStorePayment(id);
+
+  Future<DataModel> deletePaymentToStore(String id) async {
+    ActionResponse? actionResponse = await _storeManager.deleteStorePayment(id);
 
     if (actionResponse == null) {
       return DataModel.withError(S.current.networkError);

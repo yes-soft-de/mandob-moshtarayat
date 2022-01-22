@@ -26,6 +26,6 @@ class StoreManager {
       _storesRepository.getStoreAccountBalance(id);
   Future<ActionResponse?> createStorePayment(StorePaymentRequest request) =>
       _storesRepository.createStorePayments(request);
-       Future<ActionResponse?> deleteStorePayment(String id) =>
+  Future<ActionResponse?> deleteStorePayment(String id) =>
       _storesRepository.deleteStorePayments(id);
 }

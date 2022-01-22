@@ -3,7 +3,7 @@ import 'date.dart';
 class PaymentsToStore {
   int? id;
   int? storeOwnerProfileId;
-  int? amount;
+  num? amount;
   Date? date;
   String? note;
 
@@ -19,7 +19,7 @@ class PaymentsToStore {
     return PaymentsToStore(
       id: json['id'] as int?,
       storeOwnerProfileId: json['storeOwnerProfileID'] as int?,
-      amount: json['amount'] as int?,
+      amount: json['amount'] as num?,
       date: json['date'] == null
           ? null
           : Date.fromJson(json['date'] as Map<String, dynamic>),
