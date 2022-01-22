@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\AutoMapping;
 use App\Request\DeliveryCompanyFinancialRequest;
 use App\Request\DeliveryCompanyFinancialUpdateRequest;
+use App\Request\RepresentativeCommissionUpdateRequest;
 use App\Service\DeliveryCompanyFinancialService;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -13,6 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use OpenApi\Annotations as OA;
 
 
 class DeliveryCompanyFinancialController extends BaseController
@@ -73,6 +75,55 @@ class DeliveryCompanyFinancialController extends BaseController
         }
 
         $result = $this->deliveryCompanyFinancialService->updateDeliveryCompanyFinancial($request);
+
+        return $this->response($result, self::UPDATE);
+    }
+
+    /**
+    * @Route("representativecommission", name="updateDeliveryCompanyRepresentativeCommission", methods={"PUT"})
+    * @param Request $request
+    * @return JsonResponse
+    * 
+    * @OA\Tag(name="Delivery Company Financial")
+    *
+    * @OA\RequestBody(
+    *      description="update representative commission",
+    *      @OA\JsonContent(
+    *          @OA\Property(type="integer", property="id"),
+    *          @OA\Property(type="number", property="representativeCommission")
+    *      )
+    * )
+    *
+    * @OA\Response(
+    *      response=204,
+    *      description="Returns the delivery cost and the representative commission",
+    *      @OA\JsonContent(
+    *          @OA\Property(type="string", property="status_code"),
+    *          @OA\Property(type="string", property="msg"),
+    *          @OA\Property(type="object", property="Data",
+    *                  @OA\Property(type="integer", property="id"),
+    *                  @OA\Property(type="number", property="deliveryCost"),
+    *                  @OA\Property(type="number", property="representativeCommission")
+    *          )
+    *      )
+    * )
+    *
+    */
+    public function updateRepresentativeCommission(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(\stdClass::class, RepresentativeCommissionUpdateRequest::class, (object) $data);
+
+        $violations = $this->validator->validate($request);
+
+        if (\count($violations) > 0) {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $result = $this->deliveryCompanyFinancialService->updateDeliveryCompanyRepresentativeCommission($request);
 
         return $this->response($result, self::UPDATE);
     }

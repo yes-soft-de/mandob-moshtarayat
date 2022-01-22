@@ -443,3 +443,8 @@ App\Request\SubCategoriesWithLinkedMarkRequest:
   properties:
     storeProductCategoryLevelTwoID:
       - NotBlank: ~
+
+App\Request\RepresentativeCommissionUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
