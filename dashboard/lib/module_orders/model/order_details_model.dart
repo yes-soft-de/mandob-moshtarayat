@@ -3,6 +3,7 @@ import 'package:mandob_moshtarayat_dashboad/abstracts/data_model/data_model.dart
 import 'package:mandob_moshtarayat_dashboad/consts/order_status.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_orders/response/order_details_response/destination.dart';
+import 'package:mandob_moshtarayat_dashboad/module_orders/response/order_details_response/invoice.dart';
 import 'package:mandob_moshtarayat_dashboad/module_orders/response/order_details_response/order.dart';
 import 'package:mandob_moshtarayat_dashboad/module_orders/response/order_details_response/order_detail.dart';
 import 'package:mandob_moshtarayat_dashboad/module_orders/response/order_details_response/order_details_response.dart';
@@ -10,13 +11,15 @@ import 'package:mandob_moshtarayat_dashboad/utils/helpers/order_status_helper.da
 
 class OrderDetailsModel extends DataModel {
   List<StoreOwnerInfo> carts = [];
+  List<Invoice> invoices = [];
   StoreOwnerInfo storeInfo = StoreOwnerInfo.Empty();
   OrderInfo order = OrderInfo.Empty();
   String? error;
   bool empty = false;
   OrderDetailsModel? orderDetailsModel;
 
-  OrderDetailsModel({required this.carts, required this.order});
+  OrderDetailsModel(
+      {required this.carts, required this.order, required this.invoices});
 
   OrderDetailsModel.Error(this.error);
 
@@ -32,13 +35,14 @@ class OrderDetailsModel extends DataModel {
     orderDetailsModel = OrderDetailsModel(
       carts: toCartList(response.data?.orderDetails ?? <OrderDetail>[]),
       order: toOrder(response.data?.order),
+      invoices: response.data?.invoices ?? [],
     );
   }
 
   bool get hasData => orderDetailsModel != null;
 
   OrderDetailsModel get data =>
-      orderDetailsModel ?? OrderDetailsModel(carts: carts, order: order);
+      orderDetailsModel ?? OrderDetailsModel(carts: carts, order: order,invoices: invoices);
 }
 
 class Item {

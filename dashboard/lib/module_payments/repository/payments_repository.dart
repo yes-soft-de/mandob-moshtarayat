@@ -32,10 +32,28 @@ class PaymentsRepository {
     if (response == null) return null;
     return ActionResponse.fromJson(response);
   }
-    Future<PaymentListResponse?> paymentsList() async {
+
+  Future<ActionResponse?> deletePaymentToCaptain(String id) async {
     var token = await _authService.getToken();
-    dynamic response = await _apiClient.get(
-        Urls.PAYMENTS_LIST,
+    dynamic response = await _apiClient.delete(
+        Urls.DELETE_PAYMENTS_TO_CAPTAIN + '/$id',
+        headers: {'Authorization': 'Bearer ' + token.toString()});
+    if (response == null) return null;
+    return ActionResponse.fromJson(response);
+  }
+
+  Future<ActionResponse?> deletePaymentFromCaptain(String id) async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.delete(
+        Urls.DELETE_PAYMENTS_FROM_CAPTAIN + '/$id',
+        headers: {'Authorization': 'Bearer ' + token.toString()});
+    if (response == null) return null;
+    return ActionResponse.fromJson(response);
+  }
+
+  Future<PaymentListResponse?> paymentsList() async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.get(Urls.PAYMENTS_LIST,
         headers: {'Authorization': 'Bearer ' + token.toString()});
     if (response == null) return null;
     return PaymentListResponse.fromJson(response);

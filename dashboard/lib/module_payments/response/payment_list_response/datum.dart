@@ -2,7 +2,7 @@ import 'package:mandob_moshtarayat_dashboad/module_logs/response/captain_logs_re
 
 class Datum {
   int? id;
-  int? transactionId;
+  String? transactionId;
   String? token;
   num? amount;
   String? payStatus;
@@ -25,7 +25,7 @@ class Datum {
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json['id'] as int?,
-        transactionId: json['transactionID'] as int?,
+        transactionId: json['transactionID'] as String?,
         token: json['token'] as String?,
         amount: json['amount'] as num?,
         payStatus: json['payStatus'] as String?,

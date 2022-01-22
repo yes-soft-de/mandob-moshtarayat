@@ -14,7 +14,8 @@ class Urls {
   static const REPORT_API = BASE_API + '/report';
   static const NOTIFICATION_API = BASE_API + '/notificationtoken';
   static const COMPANYINFO_API = BASE_API + '/companyinfoforuser';
-  static const NOTIFICATIONNEWCHAT_API = BASE_API + '/notificationnewchat';
+  static const NOTIFICATIONNEWCHAT_API =
+      BASE_API + '/notificationnewchatbyuserid';
   static const NOTIFICATIONTOADMIN_API = BASE_API + '/notificationtoadmin';
   static const CREATE_CAPTAIN_PROFILE = BASE_API + '/captainprofile';
   static const CAPTAIN_ACTIVE_STATUS_API = BASE_API + '/captainisactive';
@@ -53,6 +54,7 @@ class Urls {
   static const CREATE_STORES = BASE_API + '/storeownercreatbyadmin';
   static const CREATE_PAYMENTS_FOR_STORE =
       BASE_API + '/deliverycompanypaymentstostore';
+  static const DELETE_PAYMENTS_FOR_STORE = BASE_API + '/paymenttostore';
   static const CREATE_SUB_CATEGORIES =
       BASE_API + '/storeproductcategorylevelone';
   static const GET_PRODUCTS_CATEGORY = BASE_API + '/storeProductsCategory/';
@@ -79,10 +81,11 @@ class Urls {
   static const ACTIVATE_CAPTAIN = BASE_API + '/captainprofileupdatebyadmin';
   static const PAYMENTS_FROM_CAPTAIN =
       BASE_API + '/deliveryCompanyPaymentsFromCaptain';
+  static const DELETE_PAYMENTS_FROM_CAPTAIN = BASE_API + '/paymentfromcaptain';
   static const PAYMENTS_TO_CAPTAIN =
       BASE_API + '/deliveryCompanyPaymentsToCaptain';
-  static const PAYMENTS_LIST =
-      BASE_API + '/electronicpaymentinfo';
+  static const DELETE_PAYMENTS_TO_CAPTAIN = BASE_API + '/paymenttocaptain';
+  static const PAYMENTS_LIST = BASE_API + '/electronicpaymentinfo';
   static const GET_CAPTAIN_PROFILE = BASE_API + '/captainProfile/';
   static const GET_CLIENT_PROFILE = BASE_API + '/clientprofilebyid/';
   static const UPDATE_STORE_CATEGORY = BASE_API + '/updatestorecategory';
@@ -120,12 +123,20 @@ class Urls {
   static const GET_ORDER_TIMELINE = BASE_API + '/orderlogstimeline/';
   static const GET_CAPTAINS_REPORT =
       BASE_API + '/countorderseverycaptaininlastmonth';
+  static const GET_CAPTAINS_REPORT_SPECIFIC =
+      BASE_API + '/countorderseverycaptaininspecificdate';
   static const GET_STORES_REPORT =
       BASE_API + '/countOrdersEveryStoreInLastMonth';
+  static const GET_STORES_REPORT_SPECIFIC =
+      BASE_API + '/countorderseverystoreinspecificdate';
   static const GET_CLIENTS_REPORT =
       BASE_API + '/countorderseveryclientinlastmonth';
+  static const GET_CLIENTS_REPORT_SPECIFIC =
+      BASE_API + '/countorderseveryclientinspecificdate';
   static const GET_PRODUCTS_REPORT =
       BASE_API + '/countorderseveryproductinlastmonth';
+  static const GET_PRODUCTS_REPORT_SPECIFIC =
+      BASE_API + '/countorderseveryproductinspecificdate';
   static const DELETE_SUB_CATEGORIES = BASE_API + '/storeproductcategory/';
   static const DELETE_CATEGORIES = BASE_API + '/storecategory/';
   static const UPDATE_PRODUCT_COMMISSION =

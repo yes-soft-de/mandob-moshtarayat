@@ -23,7 +23,7 @@ class PaymentsListStateManager {
       } else if (value.isEmpty) {
         _stateSubject.add(PaymentsLoadedState(screenState, null, empty: true));
       } else {
-         PaymentsModel paymentsModel = value as PaymentsModel;
+        PaymentsModel paymentsModel = value as PaymentsModel;
         _stateSubject.add(PaymentsLoadedState(screenState, paymentsModel.data));
       }
     });

@@ -34,6 +34,10 @@ class StoreBalanceScreenState extends State<StoreBalanceScreen> {
     widget._stateManager.payForStore(this, request);
   }
 
+  void deletePay(String id) {
+    widget._stateManager.deletePayment(this, id);
+  }
+
   void getPayments() {
     widget._stateManager.getBalance(this, storeID);
   }

@@ -31,4 +31,21 @@ class ClientsReportStateManager {
       }
     });
   }
+
+  void getReportsSpecific(
+      ClientsReportScreenState screenState, String firstDate, lastDate) {
+    _stateSubject.add(LoadingState(screenState));
+    _reportsService.getClientsReportSpecific(firstDate, lastDate).then((value) {
+      if (value.hasError) {
+        _stateSubject.add(
+            ClientsReportLoadedState(screenState, null, error: value.error));
+      } else if (value.isEmpty) {
+        _stateSubject.add(
+            ClientsReportLoadedState(screenState, null, empty: value.isEmpty));
+      } else {
+        ClientsReportModel _model = value as ClientsReportModel;
+        _stateSubject.add(ClientsReportLoadedState(screenState, _model.data));
+      }
+    });
+  }
 }

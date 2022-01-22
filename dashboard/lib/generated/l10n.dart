@@ -5599,6 +5599,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Are you sure you want to delete this payment`
+  String get areYouSureToDeleteThisPayment {
+    return Intl.message(
+      'Are you sure you want to delete this payment',
+      name: 'areYouSureToDeleteThisPayment',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

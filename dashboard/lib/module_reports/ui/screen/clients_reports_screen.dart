@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:intl/intl.dart';
 import 'package:mandob_moshtarayat_dashboad/abstracts/states/loading_state.dart';
 import 'package:mandob_moshtarayat_dashboad/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat_dashboad/di/di_config.dart';
@@ -38,6 +39,17 @@ class ClientsReportScreenState extends State<ClientsReportScreen> {
 
   void getCaptains() {
     widget._stateManager.getReports(this);
+  }
+
+  DateTime? fDate;
+  DateTime? lDate;
+  void getOrderFilteredDate(DateTime firstDate, DateTime endDate) {
+    fDate = firstDate;
+    lDate = endDate;
+    widget._stateManager.getReportsSpecific(
+        this,
+        DateFormat('yyyy-MM-dd', 'en').format(firstDate),
+        DateFormat('yyyy-MM-dd', 'en').format(endDate));
   }
 
   void refresh() {

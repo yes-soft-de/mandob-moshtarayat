@@ -59,6 +59,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "amountYouOwn": MessageLookupByLibrary.simpleMessage("مستحقات الشركة"),
         "andIAm": MessageLookupByLibrary.simpleMessage("من أنا"),
         "apply": MessageLookupByLibrary.simpleMessage("حفظ"),
+        "areYouSureToDeleteThisPayment": MessageLookupByLibrary.simpleMessage(
+            "هل انت متأكد بإنك تريد حذف هذه الدفعة"),
         "areYouSureToDisposeThis": MessageLookupByLibrary.simpleMessage(
             "هل أنت متأكد من إنك تريد تجاهل هذه التغييرات في بياناتك الشخصية"),
         "badFormat": MessageLookupByLibrary.simpleMessage(

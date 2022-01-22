@@ -59,22 +59,22 @@ class PaymentsLoadedState extends States {
                   style: cStyle,
                 )),
                 DataColumn(
-                  numeric: true,
+                    numeric: true,
                     label: Text(
-                  'ID',
-                  style: cStyle,
-                )),
+                      'ID',
+                      style: cStyle,
+                    )),
                 DataColumn(
                     label: Text(
                   'TransID',
                   style: cStyle,
                 )),
                 DataColumn(
-                  numeric: true,
+                    numeric: true,
                     label: Text(
-                  S.current.orderNumber,
-                  style: cStyle,
-                )),
+                      S.current.orderNumber,
+                      style: cStyle,
+                    )),
                 DataColumn(
                     numeric: true,
                     label: Text(
@@ -86,7 +86,7 @@ class PaymentsLoadedState extends States {
                   S.current.orderDate,
                   style: cStyle,
                 )),
-                  DataColumn(
+                DataColumn(
                     label: Text(
                   S.current.payStatus,
                   style: cStyle,
@@ -142,9 +142,10 @@ class PaymentsLoadedState extends States {
               padding: const EdgeInsets.all(8.0),
               child: Container(
                 decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color:element.payStatus == 'not paid'? Colors.red : Colors.green
-                ),
+                    shape: BoxShape.circle,
+                    color: element.payStatus == 'not paid'
+                        ? Colors.red
+                        : Colors.green),
               ),
             )),
           ]));

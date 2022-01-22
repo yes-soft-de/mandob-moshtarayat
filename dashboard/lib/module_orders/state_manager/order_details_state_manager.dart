@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:injectable/injectable.dart';
+import 'package:mandob_moshtarayat_dashboad/utils/helpers/firestore_helper.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_orders/model/order_details_model.dart';
@@ -19,9 +20,10 @@ class OrderDetailsStateManager {
 
   Stream<OrderDetailsState> get stateStream => _stateSubject.stream;
 
-  OrderDetailsStateManager(this._ordersService);
+  OrderDetailsStateManager(this._ordersService, this._fireStoreHelper);
 
   StreamSubscription? newActionSubscription;
+  final FireStoreHelper _fireStoreHelper;
 
   void getOrderDetails(int id, OrderDetailsScreenState screenState) {
     _stateSubject.add(OrderDetailsLoadingState(screenState));
@@ -35,7 +37,26 @@ class OrderDetailsStateManager {
       } else {
         OrderDetailsModel model = value as OrderDetailsModel;
         _stateSubject.add(OrderDetailsLoadedState(screenState, model.data));
+        initListening(screenState, id);
       }
+    });
+  }
+
+  void initListening(OrderDetailsScreenState screenState, int id) {
+    newActionSubscription =
+        _fireStoreHelper.onInsertChangeWatcher()?.listen((event) {
+      _ordersService.getOrdersDetails(id).then((value) {
+        if (value.hasError) {
+          _stateSubject.add(OrderDetailsErrorState(
+              screenState, value.error ?? S.current.errorHappened, id));
+        } else if (value.isEmpty) {
+          _stateSubject.add(
+              OrderDetailsEmptyState(screenState, S.current.homeDataEmpty, id));
+        } else {
+          OrderDetailsModel model = value as OrderDetailsModel;
+          _stateSubject.add(OrderDetailsLoadedState(screenState, model.data));
+        }
+      });
     });
   }
 }
