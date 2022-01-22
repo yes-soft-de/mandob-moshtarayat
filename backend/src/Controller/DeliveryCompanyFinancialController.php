@@ -36,7 +36,40 @@ class DeliveryCompanyFinancialController extends BaseController
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
-     */
+    * 
+    * @OA\Tag(name="Delivery Company Financial")
+    *
+    * @OA\Parameter(
+    *      name="token",
+    *      in="header",
+    *      description="token to be passed as a header",
+    *      required=true
+    * )
+    *
+    *
+    * @OA\RequestBody(
+    *      description="create delivery cost and representative commission",
+    *      @OA\JsonContent(
+    *          @OA\Property(type="number", property="deliveryCost"),
+    *          @OA\Property(type="number", property="representativeCommission")
+    *      )
+    * )
+    *
+    * @OA\Response(
+    *      response=204,
+    *      description="Returns the delivery cost and the representative commission",
+    *      @OA\JsonContent(
+    *          @OA\Property(type="string", property="status_code"),
+    *          @OA\Property(type="string", property="msg"),
+    *          @OA\Property(type="object", property="Data",
+    *                  @OA\Property(type="integer", property="id"),
+    *                  @OA\Property(type="number", property="deliveryCost"),
+    *                  @OA\Property(type="number", property="representativeCommission")
+    *          )
+    *      )
+    * )
+    *
+    */
     public function createDeliveryCompanyFinancial(Request $request)
     {
         $data = json_decode($request->getContent(), true);
