@@ -48,6 +48,7 @@ class Data {
   int? storeProductCategoryID;
   bool? isLevelOne;
   bool? isLevelTwo;
+  CategoryLink? categoryLink;
 
   Data({
       this.id, 
@@ -57,7 +58,7 @@ class Data {
       this.discount,
     this.productQuantity,
     this.isLevelOne,this.isLevelTwo,
-      this.storeProductCategoryID});
+      this.storeProductCategoryID ,this.categoryLink});
 
   Data.fromJson(dynamic json) {
     id = json['id'];
@@ -68,6 +69,7 @@ class Data {
     storeProductCategoryID = json['storeProductCategoryID'];
     isLevelOne = json['isLevel1'];
     isLevelTwo = json['isLevel2'];
+    categoryLink = json['categoryLink'] != null ? CategoryLink.fromJson(json['categoryLink']) : CategoryLink();
   }
 
   Map<String, dynamic> toJson() {
@@ -96,5 +98,19 @@ class ImageUrl {
     image = json['image']?? '';
     imageURL = json['imageURL'];
     baseURL = json['baseURL'];
+  }
+}
+class CategoryLink {
+  int? subCategoryLevelOneID;
+  int? subCategoryLevelTwoID;
+
+  CategoryLink({
+    this.subCategoryLevelTwoID,
+    this.subCategoryLevelOneID
+  });
+
+  CategoryLink.fromJson(dynamic json) {
+    subCategoryLevelTwoID = json['subCategoryLevelTwoID']?? '';
+    subCategoryLevelOneID = json['subCategoryLevelOneID'];
   }
 }

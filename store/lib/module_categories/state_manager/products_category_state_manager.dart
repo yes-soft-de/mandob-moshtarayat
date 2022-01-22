@@ -35,8 +35,7 @@ class ProductsCategoryStateManager {
   void getCategoryLevelOne(ProductCategoriesScreenState screenState) {
     _stateSubject.add(ProductCategoriesLoadingState(screenState));
     if (_authService.isLoggedIn) {
-      print('tfff');
-      _storesService.getStoreProfile().then((value) {
+      _categoriesService.getCategoryLevelOne().then((value) {
         if (value.hasError) {
           _stateSubject.add(ProductCategoriesLoadedState(
               screenState, [], [], [], -1,
@@ -46,22 +45,9 @@ class ProductsCategoryStateManager {
               screenState, [], [], [], -1,
               empty: value.isEmpty));
         } else {
-          StoreProfileModel model = value as StoreProfileModel;
-          _categoriesService.getCategoryLevelOne().then((value) {
-            if (value.hasError) {
-              _stateSubject.add(ProductCategoriesLoadedState(
-                  screenState, [], [], [], -1,
-                  error: value.error));
-            } else if (value.isEmpty) {
-              _stateSubject.add(ProductCategoriesLoadedState(
-                  screenState, [], [], [], -1,
-                  empty: value.isEmpty));
-            } else {
-              ProductsCategoryModel model = value as ProductsCategoryModel;
-              _stateSubject.add(ProductCategoriesLoadedState(
-                  screenState, model.data, [], [], -1));
-            }
-          });
+          ProductsCategoryModel model = value as ProductsCategoryModel;
+          _stateSubject.add(ProductCategoriesLoadedState(
+              screenState, model.data, [], [], -1));
         }
       });
     } else {

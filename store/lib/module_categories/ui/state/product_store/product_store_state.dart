@@ -4,6 +4,7 @@ import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_categories/model/products_categories_model.dart';
 import 'package:mandob_moshtarayat/module_categories/model/products_model.dart';
 import 'package:mandob_moshtarayat/module_categories/request/update_product_request.dart';
+import 'package:mandob_moshtarayat/module_categories/response/store_products_response.dart';
 import 'package:mandob_moshtarayat/module_categories/ui/screen/store_products_screen.dart';
 import 'package:mandob_moshtarayat/module_categories/ui/widget/add_product_form.dart';
 import 'package:mandob_moshtarayat/module_categories/ui/widget/category_card.dart';
@@ -138,6 +139,7 @@ class ProductStoreState extends States {
                           categoriesService: screenState.widget.categoriesService,
                           categoriesOne: getChoicesOne(),
                           categoriesTwo: getChoicesTwo(),
+                          categoryLink: element.categoryLink??CategoryLink(),
                           request: UpdateProductRequest(
                             dataStoreProduct: DataStoreUpdateProduct(
                                 productName: element.productName,
@@ -161,6 +163,8 @@ class ProductStoreState extends States {
                                   discount: double.parse(discount),
                                   productPrice:double.parse(price),
                                   storeProductCategoryID:int.parse(catID),
+                                  isLevelTwo: element.levelTwo,
+                                  isLevelOne: element.levelOne
                               ),
 
                             ), categoriesOne??[],);
