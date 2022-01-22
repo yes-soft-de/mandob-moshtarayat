@@ -6,6 +6,7 @@ namespace App\Service;
 use App\AutoMapping;
 use App\Entity\NotificationTokenEntity;
 use App\Manager\NotificationManager;
+use App\Request\NotificationTokenByUserIDRequest;
 use App\Request\NotificationTokenRequest;
 use App\Response\NotificationTokenResponse;
 use Kreait\Firebase\Exception\FirebaseException;
@@ -227,5 +228,29 @@ class NotificationService
     public function getCaptainRoomID($roomID)
     {
         return $this->notificationManager->getCaptainRoomID($roomID);
+    }
+
+    public function notificationNewChatByUserID(NotificationTokenByUserIDRequest $request)
+    {
+        $payload = [
+            'click_action' => 'FLUTTER_NOTIFICATION_CLICK',
+            'navigate_route' => self::URLCHAT,
+            'argument' => null,
+        ];
+
+        $devicesToken = [];
+
+        $userToken = $this->notificationManager->getNotificationTokenByUserID($request->getOtherUserID());
+
+        $devicesToken[] = $userToken;
+
+        $message = CloudMessage::new()
+        ->withNotification(Notification::create(DeliveryCompanyNameConstant::$Delivery_Company_Name, MessageConstant::$MESSAGE_NEW_CHAT))->withDefaultSounds()
+        ->withHighestPossiblePriority();
+
+        $message = $message->withData($payload);
+        $this->messaging->sendMulticast($message, $devicesToken);
+
+        return $devicesToken;
     }
 }
