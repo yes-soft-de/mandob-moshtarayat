@@ -195,20 +195,24 @@ class NotificationService
         foreach ($getTokens as $token) {
             $devicesToken[] = $token['token'];
         }
+
         $payload = [
             'click_action' => 'FLUTTER_NOTIFICATION_CLICK',
             'navigate_route' => self::URLCHAT,
             'argument' => "",
         ];
 
-
         $message = CloudMessage::new()
                 ->withNotification(Notification::create(DeliveryCompanyNameConstant::$Delivery_Company_Name, MessageConstant::$MESSAGE_NEW_CHAT))->withDefaultSounds()
                 ->withHighestPossiblePriority();
 
         $message = $message->withData($payload);
-
-        $this->messaging->sendMulticast($message, $devicesToken);
+        try{
+            $this->messaging->sendMulticast($message, $devicesToken);
+        }
+        catch (\Exception $e){
+            error_log($e);
+        }
 
         return $devicesToken;
     }
@@ -253,6 +257,7 @@ class NotificationService
         ->withHighestPossiblePriority();
 
         $message = $message->withData($payload);
+
         $this->messaging->sendMulticast($message, $devicesToken);
 
         return $devicesToken;
