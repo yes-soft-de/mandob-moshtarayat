@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_auth/service/auth_service/auth_service.dart';
+import 'package:mandob_moshtarayat_dashboad/module_chat/model/chat_argument.dart';
 import 'package:mandob_moshtarayat_dashboad/module_chat/state_manager/chat_state_manager.dart';
 import 'package:mandob_moshtarayat_dashboad/module_chat/ui/widget/chat_writer/chat_writer.dart';
 import 'package:mandob_moshtarayat_dashboad/module_upload/service/image_upload/image_upload_service.dart';
@@ -16,13 +17,12 @@ class LoadingChatPage extends StatelessWidget {
 
   LoadingChatPage(
       this._chatStateManager, this._uploadService, this._authService);
-
+  late ChatArgument args;
   @override
   Widget build(BuildContext context) {
     String chatRoomId = '';
-    chatRoomId = ModalRoute.of(context)?.settings.arguments.toString() ?? '';
-    //chatRoomId = '63346434-8733-4b91-bda8-81e0579756c7';
-
+    args = ModalRoute.of(context)?.settings.arguments as ChatArgument;
+    chatRoomId = args.roomID;
     return GestureDetector(
       onTap: () {
         var focus = FocusScope.of(context);
@@ -40,7 +40,7 @@ class LoadingChatPage extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     child: ListView(
-                      physics: BouncingScrollPhysics(
+                      physics: const BouncingScrollPhysics(
                           parent: AlwaysScrollableScrollPhysics()),
                       children: [
                         Opacity(
@@ -48,7 +48,7 @@ class LoadingChatPage extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: Flushbar(
-                              padding: EdgeInsets.all(16.0),
+                              padding: const EdgeInsets.all(16.0),
                               borderRadius: BorderRadius.circular(10),
                               title: '',
                               message: '',
@@ -66,8 +66,8 @@ class LoadingChatPage extends StatelessWidget {
                   ChatWriterWidget(
                     onTap: () {},
                     onMessageSend: (msg) {
-                      _chatStateManager.sendMessage(
-                          chatRoomId, msg, _authService.username);
+                      // _chatStateManager.sendMessage(
+                      //     chatRoomId, msg, _authService.username);
                     },
                     uploadService: _uploadService,
                   ),
