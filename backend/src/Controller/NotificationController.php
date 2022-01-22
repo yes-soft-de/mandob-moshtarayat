@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\AutoMapping;
+use App\Request\NotificationTokenByUserIDRequest;
 use App\Request\NotificationTokenRequest;
 use App\Service\NotificationService;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -122,6 +123,45 @@ class NotificationController extends BaseController
         $request->setUserID($this->getUserId());
 
         $response = $this->notificationService->notificationNewChat($request);
+
+        return $this->response($response, self::CREATE);
+    }
+
+    /**
+     * notification new chat by other UserID.
+     * @Route("/notificationnewchatbyuserid", name="notificationnewchatByOtherUserID", methods={"POST"})
+     * @param Request $request
+     * @return JsonResponse
+     * *
+     * @OA\Tag(name="Notification Firebase")
+     *
+     *
+     *  @OA\RequestBody (
+     *        description="notification new chat by other userID",
+     *        @OA\JsonContent(
+     *              @OA\Property(type="integer", property="userID"),
+     *               ),
+     *         ),
+     *
+     * @OA\Response(
+     *      response=201,
+     *      description="Returns object",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items()
+     *          )
+     *      )
+     * )
+     */
+    public function notificationNewChatByUserID(Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class,NotificationTokenByUserIDRequest::class,(object)$data);
+
+        $response = $this->notificationService->notificationNewChatByUserID($request);
 
         return $this->response($response, self::CREATE);
     }
