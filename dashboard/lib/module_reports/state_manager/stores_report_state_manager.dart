@@ -33,10 +33,11 @@ class StoresReportStateManager {
       }
     });
   }
-  
-  void getReportsSpecific(StoresReportScreenState screenState,String firstDate,String lastDate) {
+
+  void getReportsSpecific(
+      StoresReportScreenState screenState, String firstDate, String lastDate) {
     _stateSubject.add(LoadingState(screenState));
-    _reportsService.getStoresReportSpecific(firstDate,lastDate).then((value) {
+    _reportsService.getStoresReportSpecific(firstDate, lastDate).then((value) {
       if (value.hasError) {
         _stateSubject.add(
             StoresReportLoadedState(screenState, null, error: value.error));

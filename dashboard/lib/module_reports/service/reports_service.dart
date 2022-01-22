@@ -89,10 +89,12 @@ class ReportsService {
     if (_reportProductsResponse.data == null) return DataModel.empty();
     return CustomProductModel.withData(_reportProductsResponse.data!);
   }
+
   ////////////////////////////////////////////////////////////////////////
-    Future<DataModel> getCaptainsReportSpecific(String firstDate,String lastDate) async {
+  Future<DataModel> getCaptainsReportSpecific(
+      String firstDate, String lastDate) async {
     ReportsCaptainResponse? _reportCaptainResponse =
-        await _reportManager.getCaptainsReportSpecific(firstDate,lastDate);
+        await _reportManager.getCaptainsReportSpecific(firstDate, lastDate);
     if (_reportCaptainResponse == null) {
       return DataModel.withError(S.current.networkError);
     }
@@ -104,7 +106,8 @@ class ReportsService {
     return CaptainsReportModel.withData(_reportCaptainResponse.data!);
   }
 
-  Future<DataModel> getClientsReportSpecific(String firstDate,String lastDate) async {
+  Future<DataModel> getClientsReportSpecific(
+      String firstDate, String lastDate) async {
     ReportsClientResponse? _reportClientResponse =
         await _reportManager.getClientReportSpecific(firstDate, lastDate);
     if (_reportClientResponse == null) {
@@ -118,7 +121,8 @@ class ReportsService {
     return ClientsReportModel.withData(_reportClientResponse.data!);
   }
 
-  Future<DataModel> getStoresReportSpecific(String firstDate,String lastDate) async {
+  Future<DataModel> getStoresReportSpecific(
+      String firstDate, String lastDate) async {
     ReportsStoreResponse? _storeReportResponse =
         await _reportManager.getStoresReportSpecific(firstDate, lastDate);
     if (_storeReportResponse == null) {
@@ -132,9 +136,10 @@ class ReportsService {
     return StoresReportModel.withData(_storeReportResponse.data!);
   }
 
-  Future<DataModel> getProductsReportSpecific(String firstDate,String lastDate) async {
+  Future<DataModel> getProductsReportSpecific(
+      String firstDate, String lastDate) async {
     ReportsProductsResponse? _reportProductsResponse =
-        await _reportManager.getProductsReportSpecific(firstDate,lastDate);
+        await _reportManager.getProductsReportSpecific(firstDate, lastDate);
     if (_reportProductsResponse == null) {
       return DataModel.withError(S.current.networkError);
     }
@@ -145,5 +150,4 @@ class ReportsService {
     if (_reportProductsResponse.data == null) return DataModel.empty();
     return ProductsReportModel.withData(_reportProductsResponse.data!);
   }
-
 }

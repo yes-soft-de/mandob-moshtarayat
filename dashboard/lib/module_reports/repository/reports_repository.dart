@@ -47,9 +47,11 @@ class ReportRepository {
     return ReportsStoreResponse.fromJson(response);
   }
 
-  Future<ReportsCaptainResponse?> getCaptainsReportSpecific(String firstDate,String lastDate) async {
+  Future<ReportsCaptainResponse?> getCaptainsReportSpecific(
+      String firstDate, String lastDate) async {
     var token = await _authService.getToken();
-    dynamic response = await _apiClient.get(Urls.GET_CAPTAINS_REPORT_SPECIFIC + '/$firstDate' + '/$lastDate', 
+    dynamic response = await _apiClient.get(
+        Urls.GET_CAPTAINS_REPORT_SPECIFIC + '/$firstDate' + '/$lastDate',
         headers: {'Authorization': 'Bearer ' + token.toString()});
     if (response == null) return null;
     return ReportsCaptainResponse.fromJson(response);

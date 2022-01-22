@@ -41,7 +41,8 @@ class ProductsReportScreenState extends State<ProductsReportScreen> {
   void getCaptains() {
     widget._stateManager.getReports(this);
   }
-   DateTime? fDate;
+
+  DateTime? fDate;
   DateTime? lDate;
   void getOrderFilteredDate(DateTime firstDate, DateTime endDate) {
     fDate = firstDate;

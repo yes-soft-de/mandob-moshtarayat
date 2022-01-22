@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat_dashboad/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_chat/chat_routes.dart';
+import 'package:mandob_moshtarayat_dashboad/module_chat/model/chat_argument.dart';
 import 'package:mandob_moshtarayat_dashboad/module_clients/model/client_need_support.dart';
 import 'package:mandob_moshtarayat_dashboad/module_clients/ui/screen/clients_needs_support_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/module_clients/ui/widget/client_card.dart';
@@ -55,8 +56,12 @@ class ClientsNeedSupportLoadedState extends States {
         clientName: element.clientName,
         image: element.image,
         onTap: () {
-          Navigator.of(context)
-              .pushNamed(ChatRoutes.chatRoute, arguments: element.roomID);
+          Navigator.of(context).pushNamed(ChatRoutes.chatRoute,
+              arguments: ChatArgument(
+                roomID: element.roomID,
+                userType: 'client',
+                userID: int.parse(element.id), 
+              ));
         },
       ));
     }

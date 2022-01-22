@@ -153,12 +153,14 @@ class CaptainsReportLoadedState extends States {
       ),
     ));
     if (empty) {
-       widgets.add(
+      widgets.add(
         Center(child: Text(S.current.homeDataEmpty)),
       );
-      widgets.add(
-        SvgPicture.asset(SvgAsset.EMPTY_SVG,width: 150,height: 150,)
-      );
+      widgets.add(SvgPicture.asset(
+        SvgAsset.EMPTY_SVG,
+        width: 150,
+        height: 150,
+      ));
       return widgets;
     }
     if (model == null) return [];

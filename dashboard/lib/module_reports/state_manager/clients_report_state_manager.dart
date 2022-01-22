@@ -31,9 +31,11 @@ class ClientsReportStateManager {
       }
     });
   }
-     void getReportsSpecific(ClientsReportScreenState screenState,String firstDate, lastDate) {
+
+  void getReportsSpecific(
+      ClientsReportScreenState screenState, String firstDate, lastDate) {
     _stateSubject.add(LoadingState(screenState));
-    _reportsService.getClientsReportSpecific(firstDate,lastDate).then((value) {
+    _reportsService.getClientsReportSpecific(firstDate, lastDate).then((value) {
       if (value.hasError) {
         _stateSubject.add(
             ClientsReportLoadedState(screenState, null, error: value.error));

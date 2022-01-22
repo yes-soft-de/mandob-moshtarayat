@@ -55,7 +55,11 @@ class PaymentModel {
   DateTime paymentDate;
   var amount;
   String? note;
-  PaymentModel({required this.id,required this.paymentDate, required this.amount, this.note});
+  PaymentModel(
+      {required this.id,
+      required this.paymentDate,
+      required this.amount,
+      this.note});
 }
 
 class AccountBalance extends BalanceModel {

@@ -29,14 +29,17 @@ class ReportsManager {
       _reportRepository.getClientsReport();
   Future<CustomProductResponse?> getCustomProduct() =>
       _reportRepository.getCustomProduct();
-      ////////////////////////////////////////
-  Future<ReportsCaptainResponse?> getCaptainsReportSpecific(String firstDate,String lastDate) =>
+  ////////////////////////////////////////
+  Future<ReportsCaptainResponse?> getCaptainsReportSpecific(
+          String firstDate, String lastDate) =>
       _reportRepository.getCaptainsReportSpecific(firstDate, lastDate);
-  Future<ReportsStoreResponse?> getStoresReportSpecific(String firstDate,String lastDate) =>
+  Future<ReportsStoreResponse?> getStoresReportSpecific(
+          String firstDate, String lastDate) =>
       _reportRepository.getSpecificStoresReport(firstDate, lastDate);
-  Future<ReportsProductsResponse?> getProductsReportSpecific(String firstDate,String lastDate) =>
+  Future<ReportsProductsResponse?> getProductsReportSpecific(
+          String firstDate, String lastDate) =>
       _reportRepository.getProductsReportSpecific(firstDate, lastDate);
-  Future<ReportsClientResponse?> getClientReportSpecific(String firstDate,String lastDate) =>
-      _reportRepository.getClientsReportSpecific(firstDate,lastDate);
-      
+  Future<ReportsClientResponse?> getClientReportSpecific(
+          String firstDate, String lastDate) =>
+      _reportRepository.getClientsReportSpecific(firstDate, lastDate);
 }

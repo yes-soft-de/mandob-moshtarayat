@@ -11,7 +11,8 @@ class PaymentsModule extends YesModule {
   final PaymentsFromCaptainScreen _fromCaptainScreen;
   final PaymentsToCaptainScreen _paymentsToCaptainScreen;
   final PaymentsListScreen paymentsListScreen;
-  PaymentsModule(this._fromCaptainScreen, this._paymentsToCaptainScreen,this.paymentsListScreen) {
+  PaymentsModule(this._fromCaptainScreen, this._paymentsToCaptainScreen,
+      this.paymentsListScreen) {
     YesModule.RoutesMap.addAll(getRoutes());
   }
   Map<String, WidgetBuilder> getRoutes() {

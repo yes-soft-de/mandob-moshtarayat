@@ -14,7 +14,8 @@ class Urls {
   static const REPORT_API = BASE_API + '/report';
   static const NOTIFICATION_API = BASE_API + '/notificationtoken';
   static const COMPANYINFO_API = BASE_API + '/companyinfoforuser';
-  static const NOTIFICATIONNEWCHAT_API = BASE_API + '/notificationnewchat';
+  static const NOTIFICATIONNEWCHAT_API =
+      BASE_API + '/notificationnewchatbyuserid';
   static const NOTIFICATIONTOADMIN_API = BASE_API + '/notificationtoadmin';
   static const CREATE_CAPTAIN_PROFILE = BASE_API + '/captainprofile';
   static const CAPTAIN_ACTIVE_STATUS_API = BASE_API + '/captainisactive';
@@ -53,8 +54,7 @@ class Urls {
   static const CREATE_STORES = BASE_API + '/storeownercreatbyadmin';
   static const CREATE_PAYMENTS_FOR_STORE =
       BASE_API + '/deliverycompanypaymentstostore';
-  static const DELETE_PAYMENTS_FOR_STORE =
-      BASE_API + '/paymenttostore';
+  static const DELETE_PAYMENTS_FOR_STORE = BASE_API + '/paymenttostore';
   static const CREATE_SUB_CATEGORIES =
       BASE_API + '/storeproductcategorylevelone';
   static const GET_PRODUCTS_CATEGORY = BASE_API + '/storeProductsCategory/';

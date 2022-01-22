@@ -78,8 +78,7 @@ class PaymentsFromCaptainStateManager {
       } else {
         getCaptainPaymentsDetails(screenState, screenState.captainId);
         CustomFlushBarHelper.createSuccess(
-                title: S.current.warnning,
-                message: S.current.deleteSuccess)
+                title: S.current.warnning, message: S.current.deleteSuccess)
             .show(screenState.context);
       }
     });
