@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
 import 'package:lottie/lottie.dart';
-import 'package:mandob_moshtarayat/di/di_config.dart';
-import 'package:mandob_moshtarayat/module_account/account_routes.dart';
-import 'package:mandob_moshtarayat/module_chat/manager/chat/chat_manager.dart';
+import 'package:mandob_moshtarayat/module_chat/model/chat_argument.dart';
 import 'package:mandob_moshtarayat/utils/components/fixed_container.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:soundpool/soundpool.dart';
@@ -153,16 +151,15 @@ class ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
     }
   }
 
+  late ChatArgument args;
   bool sendSupport = false;
   @override
   Widget build(BuildContext context) {
     MediaQuery.of(context).removeViewInsets(removeBottom: true);
     if (currentState == ChatStateManager.STATUS_CODE_INIT) {
-      chatRoomId = ModalRoute.of(context)?.settings.arguments as String;
-      if (chatRoomId.substring(0, 3) == '#S#') {
-        sendSupport = true;
-        chatRoomId = chatRoomId.substring(3);
-      }
+      args = ModalRoute.of(context)?.settings.arguments as ChatArgument;
+      chatRoomId = args.roomID;
+      sendSupport = args.support;
       widget._chatStateManager.getMessages(chatRoomId);
     }
     if (currentState == ChatStateManager.STATUS_CODE_EMPTY_LIST) {
@@ -240,8 +237,8 @@ class ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                           }
                         },
                         onMessageSend: (msg) {
-                          widget._chatStateManager.sendMessage(
-                              chatRoomId, msg, widget._authService.username);
+                          widget._chatStateManager.sendMessage(chatRoomId, msg,
+                              widget._authService.username, args);
                         },
                         uploadService: widget._uploadService,
                       ),
@@ -324,14 +321,6 @@ class ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
       newMessagesList.insert(lastSeenIndex!, lastSeen(lastSeenIndex!));
     }
     chatsMessagesWidgets = newMessagesList;
-    print('+++++++++++++++++++++++++++++++++++++++++++++++');
-    print(newMessages);
-    print(lastSeenIndex != null ? (lastSeenIndex! < chatList.length) : false);
-    print(lastSeenIndex);
-    print(chatList.length);
-    print(chatsMessagesWidgets.length);
-    print('+++++++++++++++++++++++++++++++++++++++++++++++');
-
     return;
   }
 
