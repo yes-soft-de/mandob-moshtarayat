@@ -45,4 +45,9 @@ class DeliveryCompanyPaymentToRepresentativeService
 
         return $response;
     }
+
+    public function deletePaymentToRepresentative($id)
+    {
+        return $this->deliveryCompanyPaymentToRepresentativeManager->deletePaymentToRepresentative($id);
+    }
 }

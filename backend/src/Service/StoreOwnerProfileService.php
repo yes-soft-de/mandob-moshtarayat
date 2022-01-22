@@ -75,7 +75,7 @@ class StoreOwnerProfileService
             $this->createVerificationCodeForStoreOwner($request);
 
             // Check if the IP of the store owner device is linked with representative
-            $this->checkIfStoreOwnerDeviceIsLinkedWithRepresentative($userRegister->getUserID());
+            $this->checkIfStoreOwnerDeviceIsLinkedWithRepresentative($userRegister->getId());
 
             return $this->autoMapping->map(UserEntity::class, UserRegisterResponse::class, $userRegister);
         }

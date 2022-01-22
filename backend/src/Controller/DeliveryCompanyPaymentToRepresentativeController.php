@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\AutoMapping;
+use App\Constant\ItemStatusConstant;
 use App\Request\DeliveryCompanyPaymentToRepresentativeCreateRequest;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -130,5 +131,61 @@ class DeliveryCompanyPaymentToRepresentativeController extends BaseController
         $result = $this->deliveryCompanyPaymentToRepresentativeService->getDeliveryCompanyPaymentsToRepresentativeByRepresentativeID($this->getUserId());
 
         return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * admin: delete Payment To Representative.
+     * @Route("paymenttorepresentative/{id}", name="deletePaymentToRepresentative", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
+     *
+     * @OA\Tag(name="Delivery Company Payments To Store")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a Representative",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=401,
+     *      description="Delete Payment To Representative",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="integer", property="id"),
+     *              @OA\Property(type="string", property="storeOwnerProfileID"),
+     *              @OA\Property(type="object", property="date"),
+     *              @OA\Property(type="number", property="amount"),
+     *              @OA\Property(type="string", property="note"),
+     *          )
+     *      )
+     * )
+     *
+     * or
+     *
+     * @OA\Response(
+     *      response=404,
+     *      description="Returns Not found Successfully.",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="string", property="Data"),
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function deletePaymentToRepresentative($id)
+    {
+        $response = $this->deliveryCompanyPaymentToRepresentativeService->deletePaymentToRepresentative($id);
+
+        if ($response == ItemStatusConstant::$ITEM_NOT_FOUND) {
+
+            return $this->response($response, self::NOTFOUND);
+        }
+
+        return $this->response($response, self::DELETE);
     }
 }
