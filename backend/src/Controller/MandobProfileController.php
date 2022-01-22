@@ -127,6 +127,7 @@ class MandobProfileController extends BaseController
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
      *              @OA\Property(type="integer", property="id"),
+     *              @OA\Property(type="string", property="mandobID"),
      *              @OA\Property(type="string", property="mandobName"),
      *              @OA\Property(type="object", property="image",
      *                  @OA\Property(type="string", property="imageURL"),

@@ -6,6 +6,8 @@ class RepresentativeProfileGetResponse
 {
     public $id;
 
+    public $mandobID;
+
     public $mandobName;
 
     public $image;
