@@ -3,6 +3,7 @@
 namespace App\Manager;
 
 use App\AutoMapping;
+use App\Constant\ItemStatusConstant;
 use App\Entity\DeliveryCompanyPaymentsToRepresentativeEntity;
 use App\Repository\DeliveryCompanyPaymentsToRepresentativeEntityRepository;
 use App\Request\DeliveryCompanyPaymentToRepresentativeCreateRequest;
@@ -34,5 +35,20 @@ class DeliveryCompanyPaymentToRepresentativeManager
     public function getDeliveryCompanyPaymentsToRepresentativeByRepresentativeID($representativeID): ?array
     {
         return $this->deliveryCompanyPaymentsToRepresentativeEntityRepository->getDeliveryCompanyPaymentsToRepresentativeByRepresentativeID($representativeID);
+    }
+
+    public function deletePaymentToRepresentative($id)
+    {
+        $result = $this->deliveryCompanyPaymentsToRepresentativeEntityRepository->find($id);
+
+        if($result) {
+            
+            $this->entityManager->remove($result);
+            $this->entityManager->flush();
+
+            return $result;
+        }
+
+        return ItemStatusConstant::$ITEM_NOT_FOUND;
     }
 }
