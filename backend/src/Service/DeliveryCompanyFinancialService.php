@@ -41,6 +41,13 @@ class DeliveryCompanyFinancialService
         return $this->autoMapping->map(DeliveryCompanyFinancialEntity::class, DeliveryCompanyFinancialResponse::class, $result);
     }
 
+    public function updateDeliveryCompanyRepresentativeCommission($request)
+    {
+        $result = $this->deliveryCompanyFinancialManager->updateDeliveryCompanyRepresentativeCommission($request);
+
+        return $this->autoMapping->map(DeliveryCompanyFinancialEntity::class, DeliveryCompanyFinancialResponse::class, $result);
+    }
+
     public function  getDeliveryCompanyFinancialById($id)
     {
         $result = $this->deliveryCompanyFinancialManager->getDeliveryCompanyFinancialById($id);

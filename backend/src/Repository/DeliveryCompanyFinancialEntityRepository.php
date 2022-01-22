@@ -35,7 +35,7 @@ class DeliveryCompanyFinancialEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('DeliveryCompanyFinancialEntity') 
 
-            ->select('DeliveryCompanyFinancialEntity.id','DeliveryCompanyFinancialEntity.deliveryCost')
+            ->select('DeliveryCompanyFinancialEntity.id', 'DeliveryCompanyFinancialEntity.deliveryCost', 'DeliveryCompanyFinancialEntity.representativeCommission')
 
             ->getQuery()
             ->getResult();
