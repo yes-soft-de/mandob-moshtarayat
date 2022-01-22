@@ -9,4 +9,5 @@ class OrderInfoForCaptainResponse
     public $deliveryCost;
     public $rate;
     public $invoices;
+    public $clientID;
 }
