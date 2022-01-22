@@ -259,15 +259,21 @@ class OrderDetailService
         $priceWithDiscount = $productPrice - ($productPrice * $discount / 100);;
 
         if($isCommission == true){
-            return ( $priceWithDiscount * $commission  / 100) + $priceWithDiscount;
+//            return ( $priceWithDiscount * $commission  / 100) + $priceWithDiscount;
+            $productPrice = ( $priceWithDiscount * $commission  / 100) + $priceWithDiscount;
+            return round($productPrice, 1);
         }
 
-        return ( $priceWithDiscount * $storeCommission  / 100) + $priceWithDiscount;
+//        return ( $priceWithDiscount * $storeCommission  / 100) + $priceWithDiscount;
+        $productPrice = ( $priceWithDiscount * $storeCommission  / 100) + $priceWithDiscount;
+        return round($productPrice, 1);
+
     }
 
     public function priceForCaptain( $productPrice, $discount)
     {
-        return $productPrice - ($productPrice * $discount / 100);
+        $productPrice = $productPrice - ($productPrice * $discount / 100);
+        return round($productPrice, 1);
     }
 
     public function priceForStore( $productPrice, $discount)
@@ -277,16 +283,19 @@ class OrderDetailService
 
     public function priceForAdmin( $productPrice, $discount)
     {
-        return $productPrice - ($productPrice * $discount / 100);
+        $productPrice = $productPrice - ($productPrice * $discount / 100);
+        return round($productPrice, 1);
     }
 
     public function priceForAdminWithCommission($isCommission, $priceWithDiscount, $commission, $storeCommission)
     {
         if($isCommission == true){
-            return ( $priceWithDiscount * $commission  / 100) + $priceWithDiscount;
+            $productPrice = ( $priceWithDiscount * $commission  / 100) + $priceWithDiscount;
+            return round($productPrice, 1);
         }
 
-        return ( $priceWithDiscount * $storeCommission  / 100) + $priceWithDiscount;
+        $productPrice = ( $priceWithDiscount * $storeCommission  / 100) + $priceWithDiscount;
+        return round($productPrice, 1);
     }
 
     public function orderDetails($orderNumber): array

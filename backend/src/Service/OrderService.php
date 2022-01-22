@@ -599,7 +599,6 @@ class OrderService
         $response = [];
 
         $item['orderDetails'] = $this->orderDetailService->getOrderDetailsByOrderNumberForAdmin($orderNumber);
-//        $item['deliveryCost'] = $this->deliveryCompanyFinancialService->getDeliveryCostScalar();
         $deliveryCost = $this->deliveryCompanyFinancialService->deliveryCost();
         if(!$deliveryCost){
             $item['deliveryCost'] = (string) 0;
