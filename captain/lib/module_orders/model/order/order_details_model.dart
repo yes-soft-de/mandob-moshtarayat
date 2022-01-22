@@ -119,6 +119,7 @@ class OrderInfo {
   Destination? source;
   double? sourceDistanceValue;
   double? recieveDistanceValue;
+  String? clientID;
   OrderInfo(
       {required this.id,
       required this.state,
@@ -139,7 +140,9 @@ class OrderInfo {
       this.invoiceAmount,
       this.source,
       this.sourceDistanceValue,
-      this.recieveDistanceValue});
+      this.recieveDistanceValue,
+      required this.clientID
+      });
 
   OrderInfo.Empty() {
     empty = true;
@@ -229,7 +232,9 @@ OrderInfo toOrder(Order? order, LatLng? defaultLoc) {
         invoiceImage: null,
         sourceDistanceValue: _getDestination(defaultLoc, order.source),
         recieveDistanceValue: _getDestination(defaultLoc, order.destination),
-        removable: !timeout);
+        removable: !timeout,
+        clientID: order.clientID
+        );
   } else {
     return OrderInfo(
         id: -1,
@@ -241,6 +246,7 @@ OrderInfo toOrder(Order? order, LatLng? defaultLoc) {
         deliveryCost: 0,
         payment: 'cash',
         orderType: 0,
+        clientID: '-1',
         removable: false);
   }
 }

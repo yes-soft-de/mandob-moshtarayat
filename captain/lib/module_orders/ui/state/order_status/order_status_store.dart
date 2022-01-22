@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mandob_moshtarayat_captain/consts/order_status.dart';
 import 'package:mandob_moshtarayat_captain/generated/l10n.dart';
 import 'package:mandob_moshtarayat_captain/module_chat/chat_routes.dart';
+import 'package:mandob_moshtarayat_captain/module_chat/model/chat_argument.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/model/order/order_details_model.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/request/update_store_order_status_request.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/ui/screens/order_status/order_status_screen.dart';
@@ -125,7 +126,10 @@ class OrderDetailsStoreLoaded extends OrderDetailsState {
                 onTap: () {
                   Navigator.of(context).pushNamed(
                     ChatRoutes.chatRoute,
-                    arguments: storeOwnerInfo.roomID,
+                    arguments: ChatArgument(
+                        roomID: storeOwnerInfo.roomID,
+                        userType: 'store',
+                        userID: storeOwnerInfo.storeOwnerID),
                   );
                 },
                 child: CommunicationCard(
@@ -356,12 +360,16 @@ class OrderDetailsStoreLoaded extends OrderDetailsState {
         child: InkWell(
           borderRadius: BorderRadius.circular(10),
           onTap: () {
-            bool invoiceAvailable = screenState.invoiceRequest?.storeID.toString() == storeOwnerInfo.storeOwnerID.toString() ;
+            bool invoiceAvailable =
+                screenState.invoiceRequest?.storeID.toString() ==
+                    storeOwnerInfo.storeOwnerID.toString();
             if (invoiceAvailable) {
-            acceptOrder();
-            }
-            else {
-              CustomFlushBarHelper.createError(title: S.current.warnning, message: S.current.pleaseProvideStoreBill).show(context);
+              acceptOrder();
+            } else {
+              CustomFlushBarHelper.createError(
+                      title: S.current.warnning,
+                      message: S.current.pleaseProvideStoreBill)
+                  .show(context);
             }
           },
           child: CommunicationCard(
@@ -425,12 +433,12 @@ class OrderDetailsStoreLoaded extends OrderDetailsState {
                 onPressed: (isBilled) {
                   Navigator.of(context).pop();
                   screenState.widget.stateManager.uploadBill(
-                      screenState,
-                      imagePath!,
-                      double.tryParse(totalCost.text) ?? 0,
-                      isBilled: isBilled,
-                      storeID:storeOwnerInfo.storeOwnerID.toString(),
-                      );
+                    screenState,
+                    imagePath!,
+                    double.tryParse(totalCost.text) ?? 0,
+                    isBilled: isBilled,
+                    storeID: storeOwnerInfo.storeOwnerID.toString(),
+                  );
                 },
               ),
             );
