@@ -226,7 +226,7 @@ class _ProductComponentState extends State<ProductComponent> {
                                     width: 4,
                                   ),
                                   Text(
-                                    widget.discount,
+                                    widget.discount + ' % ',
                                     style: const TextStyle(
                                       fontSize: 12,
                                     ),
