@@ -37,9 +37,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomMandobAppBar.appBar(context,
-          title: S.of(context).settings, icon: Icons.menu, onTap: () {
-        GlobalVariable.mainScreenScaffold.currentState?.openDrawer();
-      }),
+          title: S.of(context).settings),
       body: FixedContainer(
         child: Padding(
           padding: const EdgeInsets.only(right: 8.0, left: 8.0),

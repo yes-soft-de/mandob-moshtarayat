@@ -15,12 +15,14 @@ class  ProfileModel extends DataModel {
   String status='';
   num age = 0;
   String? image;
+  String mandobID ='-1';
 
 
   ProfileModel? _models;
 
   ProfileModel(
       {required this.id,
+        required this.mandobID,
       required this.mandobName,
       required this.phone,
         required this.roomID,
@@ -39,7 +41,8 @@ class  ProfileModel extends DataModel {
       phone: data.phone??'',
       roomID: data.roomID??'',
       image: data.imageURL!.image??'',
-      status: data.status??''
+      status: data.status??'',
+      mandobID: data.mandobID??'-1'
 
     );
   }

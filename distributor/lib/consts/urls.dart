@@ -21,6 +21,8 @@ class Urls {
   static const VERIFY_RESET_PASSWORD_CODE =
       BASE_API + '/verifyresetpasswordcode';
   static const UPDATE_PASSWORD = BASE_API + '/updatepassword';
+  static const GOOGLE_LINK = BASE_API + '/getstoreappurlongoogleplaystore/';
+
 
 
 }

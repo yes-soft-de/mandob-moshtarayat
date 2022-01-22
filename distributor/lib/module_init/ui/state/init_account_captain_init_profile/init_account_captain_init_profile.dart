@@ -19,43 +19,9 @@ import 'package:mandob_moshtarayat/module_init/ui/state/init_account/init_accoun
 
 class InitAccountCaptainInitProfile extends InitAccountState {
   final InitAccountScreenState screenState;
-  // Uri? restaurantIamge;
-  //
-  // final _nameController = TextEditingController();
-  // final _phoneController = TextEditingController();
-  //
-  //
-  // int hasProduct=0;
-  // int privateOrders=0;
-  //
-  // // TimeOfDay closingTime='';
-  // // TimeOfDay openingTime='';
-  //
-  // int storeCategoryId=0;
-
-
   InitAccountCaptainInitProfile( this.screenState)
       : super(screenState);
-
-  // InitAccountCaptainInitProfile.withData(
-  //     InitAccountScreenState screenState,
-  //     CreateStoreRequest request, this.categories)
-  //     : super(screenState);
-  // {
-  //   _nameController.text = request.storeOwnerName??'';
-  //    _phoneController.text = request.phone??'';
-  //    storeCategoryId =request.storeCategoryId??0;
-  //   // closingTime = request.closingTime??'';
-  //   // openingTime = request.openingTime??'';
-  //   hasProduct = request.hasProducts??0;
-  //   privateOrders = request.privateOrders??0;
-  //
-  //   restaurantIamge = this.restaurantIamge;
-  // }
-
   final GlobalKey<FormState> _initKey = GlobalKey<FormState>();
-
-
   String? imagePath;
   final _nameController = TextEditingController();
   final _phoneController = TextEditingController();
@@ -63,7 +29,7 @@ class InitAccountCaptainInitProfile extends InitAccountState {
   final _bankAccountNumberController = TextEditingController();
   final _stcPayController = TextEditingController();
   final _ageController = TextEditingController();
-
+  int val = 1;
   @override
   Widget getUI(BuildContext context) {
     return SafeArea(
@@ -180,37 +146,81 @@ class InitAccountCaptainInitProfile extends InitAccountState {
 
 
                 //bank account Number
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: 12.0, bottom: 8, right: 12, top: 16.0),
-                  child: Text(
-                    S.current.bankAccountNumber,
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.start,
+                Row(children: [
+                  Flexible(
+                    flex: 1,
+                    child: ListTile(
+                      title: Text(S.of(context).bankAccountNumber,style: TextStyle(fontSize: 12)),
+                      leading: Radio(
+                        value: 1,
+                        groupValue: val,
+                        onChanged: (value) {
+                          val = value as  int;
+                          screenState.refresh();
+                        },
+                        activeColor: Theme.of(context).accentColor,
+                      ),
+                    ),
                   ),
-                ),
-                CustomFormField(
-                  controller: _bankAccountNumberController,
-                  hintText: S.current.bankAccountNumber,
-                  numbers: true,
-                ),
+                  Flexible(
+                    flex: 1,
+                    child: ListTile(
+                      title: Text(S.of(context).stcPayCode,style: TextStyle(fontSize: 12),),
+                      leading: Radio(
+                          value: 2,
+                          groupValue: val,
+                          onChanged: (value) {
+                            val = value as  int;
+                            screenState.refresh();
 
-
-
-                //stcPay
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: 12.0, bottom: 8, right: 12, top: 16.0),
-                  child: Text(
-                    S.current.stcPayCode,
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.start,
+                          },
+                          activeColor: Theme.of(context).accentColor
+                      ),
+                    ),
                   ),
+                ],),
+
+                Visibility(
+                  visible: val==1,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 12.0, bottom: 8, right: 12, top: 16.0),
+                        child: Text(
+                          S.current.bankAccountNumber,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                      CustomFormField(
+                        controller: _bankAccountNumberController,
+                        hintText: S.current.bankAccountNumber,
+                        validator:val==1?true: false,
+                      ),
+                    ],),
                 ),
-                CustomFormField(
-                  controller: _stcPayController,
-                  hintText: S.current.stcPayCode,
-                  numbers: true,
+                Visibility(
+                  visible: val==2,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 12.0, bottom: 8, right: 12, top: 16.0),
+                        child: Text(
+                          S.current.stc,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                      CustomFormField(
+                        controller: _stcPayController,
+                        hintText: S.current.stc,
+                        validator:val==2?true: false,
+                      ),
+                    ],),
                 ),
 
 

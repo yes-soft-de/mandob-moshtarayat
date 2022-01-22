@@ -38,6 +38,7 @@ class UpdateProfileWidget extends StatefulWidget {
    String? imagePath;
    String? status;
    final ImagePicker _imagePicker = ImagePicker();
+   int val = 1;
    @override
    Widget build(BuildContext context) {
      return StackedForm(
@@ -126,32 +127,86 @@ class UpdateProfileWidget extends StatefulWidget {
                      hintText: S.current.bankName,
                    ),
 
-                   Padding(
-                     padding: const EdgeInsets.only(
-                         left: 12.0, bottom: 8, right: 12, top: 16.0),
-                     child: Text(
-                       S.current.bankAccountNumber,
-                       style: TextStyle(fontWeight: FontWeight.bold),
-                       textAlign: TextAlign.start,
-                     ),
-                   ),
-                   CustomFormField(
-                     controller: _bankAccountNumber,
-                     hintText: S.current.bankAccountNumber,
-                   ),
+                   //bank account Number
+                   Row(children: [
+                     Flexible(
+                       flex: 1,
+                       child: ListTile(
+                         title: Text(S.of(context).bankAccountNumber,style: TextStyle(fontSize: 12)),
+                         leading: Radio(
+                           value: 1,
+                           groupValue: val,
+                           onChanged: (value) {
+                             val = value as  int;
+                            setState(() {
 
-                   Padding(
-                     padding: const EdgeInsets.only(
-                         left: 12.0, bottom: 8, right: 12, top: 16.0),
-                     child: Text(
-                       S.current.stc,
-                       style: TextStyle(fontWeight: FontWeight.bold),
-                       textAlign: TextAlign.start,
+                            });
+                           },
+                           activeColor: Theme.of(context).accentColor,
+                         ),
+                       ),
                      ),
+                     Flexible(
+                       flex: 1,
+                       child: ListTile(
+                         title: Text(S.of(context).stcPayCode,style: TextStyle(fontSize: 12),),
+                         leading: Radio(
+                             value: 2,
+                             groupValue: val,
+                             onChanged: (value) {
+                               val = value as  int;
+                             setState(() {
+
+                             });
+
+                             },
+                             activeColor: Theme.of(context).accentColor
+                         ),
+                       ),
+                     ),
+                   ],),
+
+                   Visibility(
+                     visible: val==1,
+                     child: Column(
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                       children: [
+                         Padding(
+                           padding: const EdgeInsets.only(
+                               left: 12.0, bottom: 8, right: 12, top: 16.0),
+                           child: Text(
+                             S.current.bankAccountNumber,
+                             style: TextStyle(fontWeight: FontWeight.bold),
+                             textAlign: TextAlign.start,
+                           ),
+                         ),
+                         CustomFormField(
+                           controller: _bankAccountNumber,
+                           hintText: S.current.bankAccountNumber,
+                           validator:val==1?true: false,
+                         ),
+                       ],),
                    ),
-                   CustomFormField(
-                     controller: _stcPay,
-                     hintText: S.current.stc,
+                   Visibility(
+                     visible: val==2,
+                     child: Column(
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                       children: [
+                         Padding(
+                           padding: const EdgeInsets.only(
+                               left: 12.0, bottom: 8, right: 12, top: 16.0),
+                           child: Text(
+                             S.current.stc,
+                             style: TextStyle(fontWeight: FontWeight.bold),
+                             textAlign: TextAlign.start,
+                           ),
+                         ),
+                         CustomFormField(
+                           controller: _stcPay,
+                           hintText: S.current.stc,
+                           validator:val==2?true: false,
+                         ),
+                       ],),
                    ),
                    // Store Shift
 
@@ -199,6 +254,7 @@ class UpdateProfileWidget extends StatefulWidget {
        _bankAccountNumber.text = widget.request?.bankNumber??'';
        _bankName.text = widget.request?.bankName??'';
        _stcPay.text = widget.request?.stcPay??'';
+       val = _bankAccountNumber.text != '' ? 1 : 2;
      }
      super.initState();
    }
