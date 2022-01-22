@@ -12,6 +12,7 @@ import 'package:mandob_moshtarayat_dashboad/module_distributor/distros_module.da
 import 'package:mandob_moshtarayat_dashboad/module_filters/filters_module.dart';
 import 'package:mandob_moshtarayat_dashboad/module_main/main_module.dart';
 import 'package:mandob_moshtarayat_dashboad/module_orders/orders_module.dart';
+import 'package:mandob_moshtarayat_dashboad/module_payments/payments_module.dart';
 import 'package:mandob_moshtarayat_dashboad/module_reports/report_module.dart';
 import 'package:mandob_moshtarayat_dashboad/module_settings/settings_module.dart';
 import 'package:mandob_moshtarayat_dashboad/module_stores/stores_module.dart';
@@ -239,6 +240,8 @@ class _NavigatorMenuState extends State<NavigatorMenu> {
                     S.current.clients, FontAwesomeIcons.headset, true),
               ],
               page: widget.currentPage),
+          customListTile(getIt<PaymentsModule>().paymentsListScreen,
+              S.current.paymentsList, FontAwesomeIcons.creditCard),
           customListTile(getIt<SettingsModule>().settingsScreen,
               S.current.settings, FontAwesomeIcons.cog),
         ]));

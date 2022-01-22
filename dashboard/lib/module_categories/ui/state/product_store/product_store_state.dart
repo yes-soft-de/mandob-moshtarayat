@@ -8,7 +8,6 @@ import 'package:mandob_moshtarayat_dashboad/module_categories/ui/screen/store_pr
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/widget/add_product_form.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/ui/widget/product_card.dart';
 import 'package:mandob_moshtarayat_dashboad/module_theme/service/theme_service/theme_service.dart';
-import 'package:mandob_moshtarayat_dashboad/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_list_view.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/empty_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/error_screen.dart';
@@ -135,14 +134,14 @@ class ProductStoreState extends States {
         children: [
           Expanded(
             child: ProductComponent(
-                discount: element.discount.toString(),
-                description: '',
+                discount: element.discount.toStringAsFixed(1),
                 image: element.productImage.image ?? '',
-                rating: 0,
                 commission: element.commission.toString(),
                 title: element.productName,
                 productId: element.id.toString(),
-                price: element.productPrice.toString()),
+                isCommission: element.isCommission,
+                costDetailsResponse: element.costDetails,
+                price: element.productPrice.toStringAsFixed(1)),
           ),
           InkWell(
             onTap: () {
@@ -171,8 +170,7 @@ class ProductStoreState extends States {
                               id: element.id,
                               storeOwnerProfileID: element.storeOwnerProfileID,
                               commission: element.commission.toString(),
-                              isCommission:
-                                  element.commission != 0 ? true : false),
+                              isCommission: element.isCommission),
                         ),
                       ),
                     );

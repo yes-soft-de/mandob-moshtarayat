@@ -243,7 +243,8 @@ class _AddSubCategoriesWidgetState
         onTap: () {
           List<String> langs =
               LinkedHashSet<String>.from(chosenString).toList();
-          if (_key.currentState!.validate() && langs.length == translateWidgets.length) {
+          if (_key.currentState!.validate() &&
+              langs.length == translateWidgets.length) {
             Navigator.of(context).pop();
             if (imagePath?.contains('http') == true &&
                 widget.subCategoriesModel != null) {
@@ -291,7 +292,7 @@ class _AddSubCategoriesWidgetState
         initLanguage = widget.languages[1];
       }
       TranslateSubTwoCategory translateStoreCategory =
-          TranslateSubTwoCategory(lang:initLanguage);
+          TranslateSubTwoCategory(lang: initLanguage);
       TextEditingController _nameController = TextEditingController();
       chosenString.add(initLanguage);
       late String language = '';

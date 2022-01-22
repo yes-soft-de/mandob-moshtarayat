@@ -11,7 +11,8 @@ class StoresCategoryCard extends StatelessWidget {
       {required this.storeName,
       required this.onTap,
       required this.image,
-      required this.dialog,required this.onEdit});
+      required this.dialog,
+      required this.onEdit});
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +61,7 @@ class StoresCategoryCard extends StatelessWidget {
               ),
               InkWell(
                 customBorder: CircleBorder(),
-                onTap:onEdit,
+                onTap: onEdit,
 //                  () {
 ////                  showDialog(
 ////                      context: context,

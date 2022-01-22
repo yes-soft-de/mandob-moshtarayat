@@ -1,5 +1,6 @@
 import 'package:mandob_moshtarayat_dashboad/abstracts/data_model/data_model.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
+import 'package:mandob_moshtarayat_dashboad/module_categories/response/cost_details_response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/store_products_response.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/images/images.dart';
 
@@ -43,6 +44,8 @@ class ProductsModel extends DataModel {
   num productPrice = 0;
   num discount = 0;
   num commission = 0;
+  bool isCommission = false;
+  late CostDetailsResponse costDetails;
   int storeProductCategoryID = -1;
 
   List<ProductsModel> _model = [];
@@ -55,7 +58,9 @@ class ProductsModel extends DataModel {
       required this.productPrice,
       required this.discount,
       required this.storeProductCategoryID,
-      required this.commission});
+      required this.commission,
+      required this.costDetails,
+      required this.isCommission});
 
   ProductsModel.withData(List<Data> data) : super.withData() {
     _model = [];
@@ -69,7 +74,9 @@ class ProductsModel extends DataModel {
           productPrice: element.productPrice ?? 0,
           discount: element.discount ?? 0,
           commission: element.commission ?? 0,
-          storeProductCategoryID: element.storeProductCategoryID ?? -1));
+          storeProductCategoryID: element.storeProductCategoryID ?? -1,
+          costDetails: element.costDetails ?? CostDetailsResponse(),
+          isCommission: element.isCommission ?? false));
     }
   }
   List<ProductsModel> get data => _model;

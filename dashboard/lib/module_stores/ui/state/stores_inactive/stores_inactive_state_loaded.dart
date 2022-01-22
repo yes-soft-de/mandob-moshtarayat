@@ -122,7 +122,7 @@ class StoresInActiveLoadedState extends States {
                     image: element.image,
                     privateOrders: element.privateOrders,
                     hasProducts: element.hasProducts,
-                    categoryId:'',
+                    categoryId: '',
                     stcPay: element.stcPay,
                     bankNumber: element.bankNumber,
                     bankName: element.bankName,

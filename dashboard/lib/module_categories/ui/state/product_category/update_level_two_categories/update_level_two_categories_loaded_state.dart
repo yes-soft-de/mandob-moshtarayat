@@ -100,7 +100,8 @@ class LevelTwoCategoryLoaded extends States {
                                               onSelected: (langNew) {
                                                 lang = langNew;
                                               },
-                                              initLanguage: missingTranslate.first,
+                                              initLanguage:
+                                                  missingTranslate.first,
                                               languages: missingTranslate,
                                             ),
                                             actions: [
@@ -115,7 +116,10 @@ class LevelTwoCategoryLoaded extends States {
                                                             storeProductCategoryName:
                                                                 _newTransController
                                                                     .text,
-                                                            language: lang == 'ur' ? 'urdu' : lang));
+                                                            language:
+                                                                lang == 'ur'
+                                                                    ? 'urdu'
+                                                                    : lang));
                                                   },
                                                   child:
                                                       Text(S.current.confirm)),

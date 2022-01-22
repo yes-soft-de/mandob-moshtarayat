@@ -495,6 +495,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "passwordIsTooShort":
             MessageLookupByLibrary.simpleMessage("كلمة السر قصيرة جدا"),
         "pay": MessageLookupByLibrary.simpleMessage("ادفع"),
+        "payStatus": MessageLookupByLibrary.simpleMessage("حالة الدفع"),
         "paySubscription": MessageLookupByLibrary.simpleMessage("دفع الاشتراك"),
         "paymentAmount": MessageLookupByLibrary.simpleMessage("قيمة الدفعة"),
         "paymentFromCaptain":
@@ -510,6 +511,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("دفعات للمتجر"),
         "paymentsFromCaptain":
             MessageLookupByLibrary.simpleMessage("الدفعات  السابقة من الكابتن"),
+        "paymentsList": MessageLookupByLibrary.simpleMessage("قائمة المدفوعات"),
         "paymentsManagement":
             MessageLookupByLibrary.simpleMessage("تسجيل دفعة"),
         "paymentsToCaptain":
@@ -559,6 +561,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "preferredLanguage":
             MessageLookupByLibrary.simpleMessage("اللغة المفضلة"),
         "price": MessageLookupByLibrary.simpleMessage("سعر"),
+        "priceWithComission":
+            MessageLookupByLibrary.simpleMessage("السعر مع العمولة"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("شروط الخصوصية"),
         "privateOrder": MessageLookupByLibrary.simpleMessage("طلب خاص"),
         "product": MessageLookupByLibrary.simpleMessage("منتج"),

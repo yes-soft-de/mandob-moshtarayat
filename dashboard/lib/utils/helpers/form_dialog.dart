@@ -250,8 +250,8 @@ class _InsertFormState extends State<InsertForm> {
         languages: widget.languages,
         controller: _nameController,
         onSelected: (lan) {
-            chosenString.remove(translateStoreCategory.lang);
-            chosenString.add(lan);
+          chosenString.remove(translateStoreCategory.lang);
+          chosenString.add(lan);
           language = lan;
           translateStoreCategory.lang = language;
           setState(() {});

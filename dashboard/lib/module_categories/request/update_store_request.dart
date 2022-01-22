@@ -51,7 +51,7 @@ class UpdateStoreRequest {
     map['is_best'] = isBest;
     map['storeOwnerName'] = storeOwnerName;
     map['image'] = image;
-   // map['storeCategoryId'] = storeCategoryId;
+    // map['storeCategoryId'] = storeCategoryId;
     map['privateOrders'] = privateOrders;
     map['hasProducts'] = hasProducts;
     map['closingTime'] = closingTime;

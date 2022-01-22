@@ -51,6 +51,8 @@ class Urls {
   static const GET_STORES_INACTIVE_FILTER = BASE_API + '/storesinactivefilter/';
   static const GET_STORE_PROFILE = BASE_API + '/storeownerprofilebyid/';
   static const CREATE_STORES = BASE_API + '/storeownercreatbyadmin';
+  static const CREATE_PAYMENTS_FOR_STORE =
+      BASE_API + '/deliverycompanypaymentstostore';
   static const CREATE_SUB_CATEGORIES =
       BASE_API + '/storeproductcategorylevelone';
   static const GET_PRODUCTS_CATEGORY = BASE_API + '/storeProductsCategory/';
@@ -79,6 +81,8 @@ class Urls {
       BASE_API + '/deliveryCompanyPaymentsFromCaptain';
   static const PAYMENTS_TO_CAPTAIN =
       BASE_API + '/deliveryCompanyPaymentsToCaptain';
+  static const PAYMENTS_LIST =
+      BASE_API + '/electronicpaymentinfo';
   static const GET_CAPTAIN_PROFILE = BASE_API + '/captainProfile/';
   static const GET_CLIENT_PROFILE = BASE_API + '/clientprofilebyid/';
   static const UPDATE_STORE_CATEGORY = BASE_API + '/updatestorecategory';
@@ -145,5 +149,4 @@ class Urls {
       BASE_API + '/createstorecategorytranslation';
   static const CREATE_NEW_TRANS_PRODUCT_CATEGORY =
       BASE_API + '/createstoreproductcategorytranslation';
-
 }

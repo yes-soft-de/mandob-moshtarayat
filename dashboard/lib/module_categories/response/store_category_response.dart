@@ -15,7 +15,6 @@ class CategoryResponse {
   String? statusCode;
   String? msg;
   Data? data;
-
 }
 
 class Data {
@@ -42,7 +41,6 @@ class Data {
   String? categoryName;
   ProductCategoryImage? categoryImage;
   List<Translate>? translates;
-
 }
 
 class ProductCategoryImage {
@@ -70,12 +68,12 @@ class ProductCategoryImage {
   }
 }
 
-class Translate{
+class Translate {
   int? id;
   String? language;
   String? storeCategoryName;
 
-  Translate({ this.id, this.language, this.storeCategoryName });
+  Translate({this.id, this.language, this.storeCategoryName});
 
   Translate.fromJson(dynamic json) {
     id = json['id'];

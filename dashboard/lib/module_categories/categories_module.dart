@@ -22,9 +22,14 @@ class CategoriesModule extends YesModule {
   final UpdateSubCategoryScreen updateSubCategoryScreen;
   final UpdateLevelTwoCategoryScreen updateLevelTwoCategoryScreen;
 
-
-  CategoriesModule(this.storeCategoriesScreen, this.productCategoriesScreen,
-      this.productStoreCategoriesScreen, this.subCategoriesScreen, this.updateStoreCategoryScreen, this.updateSubCategoryScreen, this.updateLevelTwoCategoryScreen) {
+  CategoriesModule(
+      this.storeCategoriesScreen,
+      this.productCategoriesScreen,
+      this.productStoreCategoriesScreen,
+      this.subCategoriesScreen,
+      this.updateStoreCategoryScreen,
+      this.updateSubCategoryScreen,
+      this.updateLevelTwoCategoryScreen) {
     YesModule.RoutesMap.addAll(getRoutes());
   }
   Map<String, WidgetBuilder> getRoutes() {
@@ -34,10 +39,12 @@ class CategoriesModule extends YesModule {
       CategoriesRoutes.PRODUCT_STORE_CATEGORIES: (context) =>
           productStoreCategoriesScreen,
       CategoriesRoutes.SUB_CATEGORIES: (context) => subCategoriesScreen,
-
-      CategoriesRoutes.UPDATE_STORE_CATEGORIES: (context) => updateStoreCategoryScreen,
-      CategoriesRoutes.UPDATE_SUB_CATEGORIES: (context) => updateSubCategoryScreen,
-      CategoriesRoutes.UPDATE_PRODUCT_CATEGORIES: (context) => updateLevelTwoCategoryScreen,
+      CategoriesRoutes.UPDATE_STORE_CATEGORIES: (context) =>
+          updateStoreCategoryScreen,
+      CategoriesRoutes.UPDATE_SUB_CATEGORIES: (context) =>
+          updateSubCategoryScreen,
+      CategoriesRoutes.UPDATE_PRODUCT_CATEGORIES: (context) =>
+          updateLevelTwoCategoryScreen,
     };
   }
 }

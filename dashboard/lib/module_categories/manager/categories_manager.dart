@@ -47,9 +47,11 @@ class CategoriesManager {
   Future<ActionResponse?> createCategory(CreateStoreCategoryRequest request) =>
       _categoriesRepository.addCategory(request);
 
-  Future<ActionResponse?> createNewTransStoreCategory(CreateNewTransStoreCategoryRequest request) =>
+  Future<ActionResponse?> createNewTransStoreCategory(
+          CreateNewTransStoreCategoryRequest request) =>
       _categoriesRepository.createNewTransStoreCategory(request);
-  Future<ActionResponse?> createNewTransProductCategory(CreateNewTransProductCategoryRequest request) =>
+  Future<ActionResponse?> createNewTransProductCategory(
+          CreateNewTransProductCategoryRequest request) =>
       _categoriesRepository.createNewTransProductCategory(request);
 
   Future<ProductsCategoryResponse?> getProductCategories(int id) =>

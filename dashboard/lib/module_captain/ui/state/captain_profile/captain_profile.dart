@@ -119,8 +119,9 @@ class CaptainProfileLoadedState extends States {
                       borderRadius: BorderRadius.circular(25),
                       color: Theme.of(context).primaryColor),
                   child: Flex(
-                    direction:
-                        ScreenType.isMobile(context) ? Axis.vertical : Axis.horizontal,
+                    direction: ScreenType.isMobile(context)
+                        ? Axis.vertical
+                        : Axis.horizontal,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       ImageTile(

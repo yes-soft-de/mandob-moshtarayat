@@ -72,10 +72,13 @@ class StoreCategoriesLoadedState extends StoreCategoriesState {
       widgets.add(StoresCategoryCard(
         image: element.image,
         storeName: element.categoryName,
-        onEdit: (){
-          Navigator.pushNamed(context, CategoriesRoutes.UPDATE_STORE_CATEGORIES,arguments: element.id).then((value) {
-            if(value != null && value is bool && value ){
-              screenState.getStoreCategoriesWithLang(screenState.languageSelected??'ar');
+        onEdit: () {
+          Navigator.pushNamed(context, CategoriesRoutes.UPDATE_STORE_CATEGORIES,
+                  arguments: element.id)
+              .then((value) {
+            if (value != null && value is bool && value) {
+              screenState.getStoreCategoriesWithLang(
+                  screenState.languageSelected ?? 'ar');
             }
           });
         },

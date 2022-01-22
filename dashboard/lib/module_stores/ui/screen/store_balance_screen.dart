@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat_dashboad/abstracts/states/loading_state.dart';
 import 'package:mandob_moshtarayat_dashboad/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
+import 'package:mandob_moshtarayat_dashboad/module_stores/request/store_payment_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_stores/state_manager/store_balance_state_manager.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_app_bar.dart';
 
@@ -27,6 +28,10 @@ class StoreBalanceScreenState extends State<StoreBalanceScreen> {
       refresh();
     });
     super.initState();
+  }
+
+  void pay(StorePaymentRequest request) {
+    widget._stateManager.payForStore(this, request);
   }
 
   void getPayments() {

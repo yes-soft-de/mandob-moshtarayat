@@ -56,7 +56,7 @@ class SubCategoriesListLoadedState extends States {
     }
     if (model!.isEmpty) return widgets;
     for (var element in model!) {
-       if (!element.categoryName.contains(search ?? '') && search != null) {
+      if (!element.categoryName.contains(search ?? '') && search != null) {
         continue;
       }
       widgets.add(Padding(

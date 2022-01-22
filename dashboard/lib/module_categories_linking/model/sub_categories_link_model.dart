@@ -16,7 +16,8 @@ class SubCategoriesLinksModel extends DataModel {
     for (var element in data) {
       _models.add(SubCategoriesLinksModel(
           id: element.id ?? -1,
-          categoryName: element.productCategoryName ?? S.current.storeCategories,
+          categoryName:
+              element.productCategoryName ?? S.current.storeCategories,
           image: element.productCategoryImage?.image ?? '',
           linked: element.linked ?? false));
     }
