@@ -27,21 +27,7 @@ class DeliveryCompanyPaymentsToRepresentativeEntityRepository extends ServiceEnt
         return $this->createQueryBuilder('paymentsToRepresentative')
             ->select('paymentsToRepresentative.id', 'paymentsToRepresentative.representativeID', 'paymentsToRepresentative.amount, paymentsToRepresentative.date, paymentsToRepresentative.note')
 
-            ->leftJoin(
-                UserEntity::class,
-                'userEntity',
-                Join::WITH,
-                'userEntity.userID = paymentsToRepresentative.representativeID'
-            )
-
-            ->leftJoin(
-                MandobProfileEntity::class,
-                'mandobProfileEntity',
-                Join::WITH,
-                'mandobProfileEntity.mandobID = userEntity.id'
-            )
-
-            ->andWhere('userEntity.id = :representativeID')
+            ->andWhere('paymentsToRepresentative.representativeID = :representativeID')
             ->setParameter('representativeID', $representativeID)
 
             ->getQuery()
