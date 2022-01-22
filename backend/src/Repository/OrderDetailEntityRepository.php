@@ -346,7 +346,7 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
             ->addSelect('StoreOwnerProfileEntity.storeOwnerName', 'StoreOwnerProfileEntity.image', 'StoreOwnerProfileEntity.phone', 'StoreOwnerProfileEntity.storeCategoryId', 'StoreOwnerProfileEntity.roomID')
             ->addSelect('StoreOwnerBranchEntity.location')
             ->addSelect('OrdersInvoicesEntity.invoiceAmount', 'OrdersInvoicesEntity.invoiceImage')
-            ->addSelect('OrderEntity.note', 'OrderEntity.createdAt', 'OrderEntity.detail', 'OrderEntity.orderType', 'OrderEntity.deliveryDate')
+            ->addSelect('OrderEntity.note', 'OrderEntity.createdAt', 'OrderEntity.detail', 'OrderEntity.orderType', 'OrderEntity.deliveryDate', 'OrderEntity.clientID', 'OrderEntity.captainID')
 
             ->leftJoin(OrderEntity::class, 'OrderEntity', Join::WITH, 'OrderEntity.id = OrderDetailEntity.orderID')
             ->leftJoin(StoreOwnerProfileEntity::class, 'StoreOwnerProfileEntity', Join::WITH, 'StoreOwnerProfileEntity.id = OrderDetailEntity.storeOwnerProfileID')

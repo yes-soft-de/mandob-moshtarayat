@@ -19,5 +19,7 @@ class OrderDetailForStoreResponse
     public $roomID;
     public $products;
     public $state;
+    public $clientID;
+    public $captainID;
 
 }
