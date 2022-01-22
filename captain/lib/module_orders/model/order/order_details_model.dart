@@ -77,6 +77,7 @@ class StoreOwnerInfo {
   String roomID = '';
   OrderStatus state = OrderStatus.WAITING;
   late List<Item> items;
+  String? storeID;
   StoreOwnerInfo(
       {required this.storeOwnerName,
       required this.storeOwnerID,
@@ -88,7 +89,9 @@ class StoreOwnerInfo {
       this.branchDestance,
       this.branchLocation,
       required this.state,
-      required this.roomID});
+      required this.roomID,
+      required this.storeID
+      });
 
   StoreOwnerInfo.Empty() {
     empty = true;
@@ -141,8 +144,7 @@ class OrderInfo {
       this.source,
       this.sourceDistanceValue,
       this.recieveDistanceValue,
-      required this.clientID
-      });
+      required this.clientID});
 
   OrderInfo.Empty() {
     empty = true;
@@ -176,6 +178,7 @@ List<StoreOwnerInfo> toCartList(List<OrderDetail> ordersItems, myLoc) {
         phone: element.phone,
         roomID: element.roomID ?? '',
         branchLocation: element.location,
+        storeID: element.storeOwnerID,
         branchDestance: _getDestination(myLoc, element.location),
         state: StatusHelper.getStatusEnum(element.state)));
   });
@@ -233,8 +236,7 @@ OrderInfo toOrder(Order? order, LatLng? defaultLoc) {
         sourceDistanceValue: _getDestination(defaultLoc, order.source),
         recieveDistanceValue: _getDestination(defaultLoc, order.destination),
         removable: !timeout,
-        clientID: order.clientID
-        );
+        clientID: order.clientID);
   } else {
     return OrderInfo(
         id: -1,

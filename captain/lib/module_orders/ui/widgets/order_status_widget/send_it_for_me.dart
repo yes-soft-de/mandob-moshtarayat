@@ -199,7 +199,9 @@ class SendItForMe extends StatelessWidget {
                 Navigator.of(context).pushNamed(
                   ChatRoutes.chatRoute,
                   arguments: ChatArgument(
-                      roomID: orderInfo.roomID, userType: 'client'),
+                      roomID: orderInfo.roomID, userType: 'client',
+                      userID: int.parse(orderInfo.clientID ?? '-1'),
+                      ),
                 );
               },
               child: CommunicationCard(

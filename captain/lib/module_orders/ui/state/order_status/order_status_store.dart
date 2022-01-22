@@ -129,7 +129,7 @@ class OrderDetailsStoreLoaded extends OrderDetailsState {
                     arguments: ChatArgument(
                         roomID: storeOwnerInfo.roomID,
                         userType: 'store',
-                        userID: storeOwnerInfo.storeOwnerID),
+                        userID: int.parse(storeOwnerInfo.storeID ?? '-1')),
                   );
                 },
                 child: CommunicationCard(
