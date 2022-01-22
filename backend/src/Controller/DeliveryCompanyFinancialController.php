@@ -199,6 +199,23 @@ class DeliveryCompanyFinancialController extends BaseController
      /**
      * @Route("getDeliveryCompanyFinancialById/{id}", name="getDeliveryCompanyFinancialById", methods={"GET"})
      * @return JsonResponse
+     * 
+     * @OA\Tag(name="Delivery Company Financial")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the delivery cost and the representative commission by id",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="number", property="deliveryCost"),
+     *                  @OA\Property(type="number", property="representativeCommission")
+     *          )
+     *      )
+     * )
+     *
      */
     public function getDeliveryCompanyFinancialById($id)
     {
@@ -210,6 +227,25 @@ class DeliveryCompanyFinancialController extends BaseController
      /**
      * @Route("getDeliveryCompanyFinancialAll", name="getDeliveryCompanyFinancialAll", methods={"GET"})
      * @return JsonResponse
+     * 
+     * @OA\Tag(name="Delivery Company Financial")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns all delivery cost and the representative commission",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="number", property="deliveryCost"),
+     *                  @OA\Property(type="number", property="representativeCommission")
+     *              )
+     *          )
+     *      )
+     * )
+     *
      */
     public function getDeliveryCompanyFinancialAll()
     {
