@@ -139,7 +139,7 @@ class NotificationController extends BaseController
      *  @OA\RequestBody (
      *        description="notification new chat by other userID",
      *        @OA\JsonContent(
-     *              @OA\Property(type="integer", property="userID"),
+     *              @OA\Property(type="integer", property="otherUserID", description="if null send new msg notification to admins"),
      *               ),
      *         ),
      *

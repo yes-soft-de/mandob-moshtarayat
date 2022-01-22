@@ -232,6 +232,10 @@ class NotificationService
 
     public function notificationNewChatByUserID(NotificationTokenByUserIDRequest $request)
     {
+        if(!$request->getOtherUserID()){
+            return $this->notificationNewChatToAdmins();
+        }
+
         $payload = [
             'click_action' => 'FLUTTER_NOTIFICATION_CLICK',
             'navigate_route' => self::URLCHAT,
