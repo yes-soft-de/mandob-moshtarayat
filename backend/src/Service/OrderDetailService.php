@@ -109,6 +109,7 @@ class OrderDetailService
 
         $stores = $this->orderDetailManager->getStoreOwnerProfileByOrderNumber($orderNumber);
         foreach ($stores as $store) {
+
             $store['image'] = $this->getImageParams($store['image'], $this->params . $store['image'], $this->params);
             $store['invoiceImage'] = $this->getImageParams($store['invoiceImage'], $this->params . $store['invoiceImage'], $this->params);
 
