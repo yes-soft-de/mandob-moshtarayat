@@ -7,6 +7,7 @@ class OrderDetailResponse
     public $orderDetailID;
     public $orderID;
     public $storeOwnerProfileID;
+    public $storeOwnerID;
     public $storeOwnerName;
     public $phone;
     public $image;
