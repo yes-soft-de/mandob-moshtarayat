@@ -6,8 +6,12 @@ class Data {
   List<OrderDetail>? orderDetails;
   String? deliveryCost;
   String? rate;
-
-  Data({this.order, this.orderDetails, this.deliveryCost, this.rate});
+  Data(
+      {this.order,
+      this.orderDetails,
+      this.deliveryCost,
+      this.rate,
+      });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         order: json['order'] == null

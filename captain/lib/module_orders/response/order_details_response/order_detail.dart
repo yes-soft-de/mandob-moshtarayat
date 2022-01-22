@@ -17,6 +17,7 @@ class OrderDetail {
   String? state;
   Destination? location;
   String? roomID;
+  String? storeOwnerID;
   OrderDetail(
       {this.orderDetailId,
       this.orderId,
@@ -30,12 +31,15 @@ class OrderDetail {
       this.invoiceImage,
       this.location,
       this.state,
-      this.roomID});
+      this.roomID,
+      this.storeOwnerID
+      });
 
   factory OrderDetail.fromJson(Map<String, dynamic> json) => OrderDetail(
       orderDetailId: json['orderDetailID'] as int?,
       orderId: json['orderID'] as int?,
       storeOwnerProfileId: json['storeOwnerProfileID'] as int?,
+      storeOwnerID: json['storeOwnerID'] as String?,
       storeOwnerName: json['storeOwnerName'] as String?,
       phone: json['phone'] as String?,
       state: json['state'],

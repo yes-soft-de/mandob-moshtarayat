@@ -20,6 +20,7 @@ class Order {
   num? deliveryCost;
   num? orderCost;
   int? orderType;
+  String? clientID;
   Order({
     this.id,
     this.source,
@@ -38,6 +39,7 @@ class Order {
     this.deliveryCost,
     this.orderCost,
     this.orderType,
+    this.clientID
   });
 
   factory Order.fromJson(Map<String, dynamic> json) => Order(
@@ -67,6 +69,7 @@ class Order {
         deliveryCost: json['deliveryCost'] as num?,
         orderCost: json['orderCost'] as num?,
         orderType: json['orderType'] as int?,
+        clientID: json['clientID']?.toString(),
       );
 
   Map<String, dynamic> toJson() => {

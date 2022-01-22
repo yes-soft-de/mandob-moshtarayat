@@ -4,10 +4,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mandob_moshtarayat_captain/consts/order_status.dart';
 import 'package:mandob_moshtarayat_captain/generated/l10n.dart';
 import 'package:mandob_moshtarayat_captain/module_chat/chat_routes.dart';
+import 'package:mandob_moshtarayat_captain/module_chat/model/chat_argument.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/model/order/order_details_model.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/ui/widgets/communication_card/communication_card.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/util/whatsapp_link_helper.dart';
 import 'package:mandob_moshtarayat_captain/module_orders/utils/icon_helper/order_progression_helper.dart';
+import 'package:mandob_moshtarayat_captain/utils/components/hider.dart';
 import 'package:mandob_moshtarayat_captain/utils/helpers/custom_flushbar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -182,31 +184,40 @@ class PrivateOrder extends StatelessWidget {
         ),
         // To Progress the Order
         _getNextStageCard(context),
-        Padding(
-          padding: const EdgeInsets.only(right: 24.0, left: 24.0),
-          child: Divider(
-            thickness: 2.5,
-            color: Theme.of(context).backgroundColor,
+        Hider(
+          active: orderInfo.state != OrderStatus.WAITING,
+          child: Padding(
+            padding: const EdgeInsets.only(right: 24.0, left: 24.0),
+            child: Divider(
+              thickness: 2.5,
+              color: Theme.of(context).backgroundColor,
+            ),
           ),
         ),
         // To Chat with client in app
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(10),
-            onTap: () {
-              Navigator.of(context).pushNamed(
-                ChatRoutes.chatRoute,
-                arguments: orderInfo.roomID,
-              );
-            },
-            child: CommunicationCard(
-              text: S.of(context).chatWithStoreOwner,
-              color: Theme.of(context).primaryColor,
-              image: Icon(
-                Icons.chat_rounded,
-                color: Colors.white,
-                size: 28,
+        Hider(
+          active: orderInfo.state != OrderStatus.WAITING,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: InkWell(
+              borderRadius: BorderRadius.circular(10),
+              onTap: () {
+                Navigator.of(context).pushNamed(
+                  ChatRoutes.chatRoute,
+                  arguments: ChatArgument(
+                      roomID: orderInfo.roomID,
+                      userType: 'client',
+                      userID: int.parse(orderInfo.clientID ?? '-1')),
+                );
+              },
+              child: CommunicationCard(
+                text: S.of(context).chatWithStoreOwner,
+                color: Theme.of(context).primaryColor,
+                image: Icon(
+                  Icons.chat_rounded,
+                  color: Colors.white,
+                  size: 28,
+                ),
               ),
             ),
           ),
