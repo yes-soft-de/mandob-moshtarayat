@@ -117,7 +117,7 @@ class CustomInvoiceAlert extends StatelessWidget {
                                           child: Hero(
                                               tag: 'Invoice',
                                               child: Image.network(
-                                                  Urls.IMAGES_ROOT + image)),
+                                                 image)),
                                           resetDuration:
                                               const Duration(milliseconds: 100),
                                           maxScale: 2.5,

@@ -4,6 +4,8 @@ import 'package:mandob_moshtarayat_dashboad/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat_dashboad/consts/order_status.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_orders/model/order_time_line_model.dart';
+import 'package:mandob_moshtarayat_dashboad/module_orders/orders_routes.dart';
+import 'package:mandob_moshtarayat_dashboad/module_orders/response/order_details_response/order_detail.dart';
 import 'package:mandob_moshtarayat_dashboad/module_orders/ui/screen/order_timeline_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/module_orders/ui/widget/custom_step.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/empty_screen.dart';
@@ -46,6 +48,34 @@ class OrderTimLineLoadedState extends States {
             physics:
                 BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
             children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  decoration:
+                      BoxDecoration(color: Theme.of(context).backgroundColor),
+                  child: ListTile(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(
+                          OrdersRoutes.ORDER_DETAILS,
+                          arguments: screenState.orderId.toString());
+                    },
+                    leading: Icon(
+                      Icons.info,
+                      color: Theme.of(context).disabledColor,
+                    ),
+                    title: Text(
+                      S.current.orderDetails,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).disabledColor),
+                    ),
+                    trailing: Icon(
+                      Icons.arrow_forward,
+                      color: Theme.of(context).disabledColor,
+                    ),
+                  ),
+                ),
+              ),
               ListTile(
                 shape: RoundedRectangleBorder(
                     borderRadius:

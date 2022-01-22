@@ -1,3 +1,5 @@
+import 'package:mandob_moshtarayat_dashboad/module_orders/response/order_details_response/invoice.dart';
+
 import 'order.dart';
 import 'order_detail.dart';
 
@@ -6,8 +8,13 @@ class Data {
   List<OrderDetail>? orderDetails;
   String? deliveryCost;
   String? rate;
-
-  Data({this.order, this.orderDetails, this.deliveryCost, this.rate});
+  List<Invoice>? invoices;
+  Data(
+      {this.order,
+      this.orderDetails,
+      this.deliveryCost,
+      this.rate,
+      this.invoices});
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         order: json['order'] == null
@@ -18,6 +25,9 @@ class Data {
             .toList(),
         deliveryCost: json['deliveryCost'] as String?,
         rate: json['rate']?.toString(),
+        invoices: (json['Invoice'] as List<dynamic>?)
+            ?.map((e) => Invoice.fromJson(e as Map<String, dynamic>))
+            .toList(),
       );
 
   Map<String, dynamic> toJson() => {
