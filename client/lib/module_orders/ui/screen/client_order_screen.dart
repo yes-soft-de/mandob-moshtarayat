@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
+import 'package:mandob_moshtarayat/di/di_config.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_auth/authorization_routes.dart';
 import 'package:mandob_moshtarayat/module_main/main_routes.dart';
@@ -12,6 +13,7 @@ import 'package:mandob_moshtarayat/module_orders/request/create_payment_record_r
 import 'package:mandob_moshtarayat/module_orders/state_manager/client_order_state_manager.dart';
 import 'package:mandob_moshtarayat/module_orders/ui/state/client_order/client_order_loaded_state.dart';
 import 'package:mandob_moshtarayat/module_orders/ui/state/client_order/client_order_state.dart';
+import 'package:mandob_moshtarayat/module_stores/presistance/cart_hive_box_helper.dart';
 import 'package:mandob_moshtarayat/utils/components/fixed_container.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 import 'package:mandob_moshtarayat/utils/helpers/payment_portal.dart';
@@ -69,6 +71,7 @@ class ClientOrderScreenState extends State<ClientOrderScreen> {
   }
 
   void moveDecision(bool success, [String err = '']) {
+    getIt<CartHiveHelper>().deleteCart();
     if (success) {
       Navigator.of(context)
           .pushNamedAndRemoveUntil(MainRoutes.MAIN_SCREEN, (route) => false);

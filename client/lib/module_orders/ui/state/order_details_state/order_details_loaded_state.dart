@@ -2,6 +2,7 @@ import 'package:dotted_line/dotted_line.dart';
 import 'package:mandob_moshtarayat/consts/order_status.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_chat/chat_routes.dart';
+import 'package:mandob_moshtarayat/module_chat/model/chat_argument.dart';
 import 'package:mandob_moshtarayat/module_main/main_routes.dart';
 import 'package:mandob_moshtarayat/module_orders/model/order_details_model.dart';
 import 'package:mandob_moshtarayat/module_orders/orders_routes.dart';
@@ -205,7 +206,11 @@ class OrderDetailsLoadedState extends OrderDetailsState {
                                           Navigator.of(context).pushNamed(
                                               ChatRoutes.chatRoute,
                                               arguments:
-                                                  orderDetails.order.roomID);
+                                                  ChatArgument(
+                                                    roomID:orderDetails.order.roomID,
+                                                    userType:'captain',
+                                                    userID:int.parse(orderDetails.order.captainID),
+                                                  ));
                                         },
                                         title: Text(
                                           S.of(context).chatWithCaptain,

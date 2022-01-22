@@ -8,13 +8,16 @@ import 'package:mandob_moshtarayat/module_account/ui/widget/custom_field.dart';
 import 'package:mandob_moshtarayat/module_auth/presistance/auth_prefs_helper.dart';
 import 'package:mandob_moshtarayat/module_auth/service/auth_service/auth_service.dart';
 import 'package:mandob_moshtarayat/module_chat/manager/chat/chat_manager.dart';
+import 'package:mandob_moshtarayat/module_chat/model/chat_argument.dart';
 import 'package:mandob_moshtarayat/module_chat/state_manager/chat_state_manager.dart';
 import 'package:mandob_moshtarayat/module_chat/ui/widget/chat_writer/chat_writer.dart';
 import 'package:mandob_moshtarayat/module_upload/service/image_upload/image_upload_service.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
 import 'package:mandob_moshtarayat/utils/effect/scaling.dart';
+
 final TextEditingController supportName = TextEditingController();
+
 class EmptyChatPage extends StatelessWidget {
   final ChatStateManager _chatStateManager;
   final ImageUploadService _uploadService;
@@ -23,14 +26,12 @@ class EmptyChatPage extends StatelessWidget {
 
   EmptyChatPage(this._chatStateManager, this._uploadService, this._authService,
       this.sendSupport);
-  
+  late ChatArgument args;
   @override
   Widget build(BuildContext context) {
     String chatRoomId = '';
-    chatRoomId = ModalRoute.of(context)?.settings.arguments.toString() ?? '';
-    if (chatRoomId.substring(0, 3) == '#S#') {
-      chatRoomId = chatRoomId.substring(3);
-    }
+    args = ModalRoute.of(context)?.settings.arguments as ChatArgument;
+    chatRoomId = args.roomID;
     return GestureDetector(
       onTap: () {
         var focus = FocusScope.of(context);
@@ -69,7 +70,7 @@ class EmptyChatPage extends StatelessWidget {
                           ),
                         ),
                         Hider(
-                          active:getIt<AuthService>().isLoggedIn == false,
+                          active: getIt<AuthService>().isLoggedIn == false,
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 top: 8.0, left: 16, right: 16),
@@ -83,7 +84,8 @@ class EmptyChatPage extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     Align(
-                                      alignment: AlignmentDirectional.centerStart,
+                                      alignment:
+                                          AlignmentDirectional.centerStart,
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(
@@ -117,10 +119,11 @@ class EmptyChatPage extends StatelessWidget {
                     onTap: () {},
                     onMessageSend: (msg) {
                       _chatStateManager.sendMessage(
-                          chatRoomId, msg, _authService.username);
+                          chatRoomId, msg, _authService.username,args);
                       if (sendSupport) {
                         if (getIt<AuthService>().isLoggedIn == false) {
-                          getIt<AuthPrefsHelper>().setUsername(supportName.text);
+                          getIt<AuthPrefsHelper>()
+                              .setUsername(supportName.text);
                         }
                         getIt<ChatManager>().needSupport();
                       }
