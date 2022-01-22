@@ -14,6 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 
 
@@ -46,7 +47,6 @@ class DeliveryCompanyFinancialController extends BaseController
     *      required=true
     * )
     *
-    *
     * @OA\RequestBody(
     *      description="create delivery cost and representative commission",
     *      @OA\JsonContent(
@@ -56,7 +56,7 @@ class DeliveryCompanyFinancialController extends BaseController
     * )
     *
     * @OA\Response(
-    *      response=204,
+    *      response=201,
     *      description="Returns the delivery cost and the representative commission",
     *      @OA\JsonContent(
     *          @OA\Property(type="string", property="status_code"),
@@ -69,6 +69,7 @@ class DeliveryCompanyFinancialController extends BaseController
     *      )
     * )
     *
+    * @Security(name="Bearer")
     */
     public function createDeliveryCompanyFinancial(Request $request)
     {
@@ -92,6 +93,40 @@ class DeliveryCompanyFinancialController extends BaseController
      * @Route("deliveryCompanyFinancial", name="updateDeliveryCompanyFinancial", methods={"PUT"})
      * @param Request $request
      * @return JsonResponse
+     * 
+     * @OA\Tag(name="Delivery Company Financial")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\RequestBody(
+     *      description="update delivery cost and representative commission",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="integer", property="id"),
+     *          @OA\Property(type="number", property="deliveryCost"),
+     *          @OA\Property(type="number", property="representativeCommission")
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=204,
+     *      description="Returns the delivery cost and the representative commission",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="number", property="deliveryCost"),
+     *                  @OA\Property(type="number", property="representativeCommission")
+     *          )
+     *      )
+     * )
+     * 
+     * @Security(name="Bearer")
      */
     public function updateDeliveryCompanyFinancial(Request $request)
     {

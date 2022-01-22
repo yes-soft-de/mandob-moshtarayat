@@ -7,6 +7,8 @@ class DeliveryCompanyFinancialUpdateRequest
      private $id;
    
      private $deliveryCost;
+    
+     private $representativeCommission;
  
      public function getId()
      {
