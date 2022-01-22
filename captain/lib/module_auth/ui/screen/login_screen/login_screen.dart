@@ -109,8 +109,8 @@ class LoginScreenState extends State<LoginScreen> {
           context, SplashRoutes.SPLASH_SCREEN, (route) => false);
       return;
     }
-    Navigator.of(context).pushNamedAndRemoveUntil(
-        AuthorizationRoutes.REGISTER_SCREEN, (route) => false,
+    Navigator.of(context).pushNamed(
+        AuthorizationRoutes.REGISTER_SCREEN,
         arguments: {"userID": userID, "pass": password});
     CustomFlushBarHelper.createError(
             title: S.current.warnning, message: S.current.confirmCode)
