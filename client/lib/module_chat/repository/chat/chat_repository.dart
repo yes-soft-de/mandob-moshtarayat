@@ -7,6 +7,7 @@ import 'package:mandob_moshtarayat/module_chat/model/chat_argument.dart';
 import 'package:mandob_moshtarayat/module_network/http_client/http_client.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mandob_moshtarayat/module_chat/model/chat/chat_model.dart';
+import 'package:mandob_moshtarayat/module_notifications/service/fire_notification_service/fire_notification_service.dart';
 
 @injectable
 class ChatRepository {
@@ -49,6 +50,7 @@ class ChatRepository {
       await _apiClient.post(
         Urls.NEEDFORSUPPORT_ANYNAMOUS,
         {
+          'token': await getIt<FireNotificationService>().getFireToken(),
           'needSupport': true,
           'name': '${_authService.username}',
           'roomID': '${getIt<FavoriteHiveHelper>().getRoomID()}',

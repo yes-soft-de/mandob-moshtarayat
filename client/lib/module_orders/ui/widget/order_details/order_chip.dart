@@ -7,7 +7,7 @@ import 'package:mandob_moshtarayat/utils/components/progresive_image.dart';
 class OrderChip extends StatefulWidget {
   final String title;
   final String image;
-  final price;
+  final double price;
   final String currency;
   final Function(Products) quantity;
   final int defaultQuantity;
@@ -73,7 +73,7 @@ class _OrderChipState extends State<OrderChip> {
               child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Text(
-                    '${products.price ?? widget.price} ${widget.currency}',
+                    '${products.price?.toStringAsFixed(1) ?? widget.price.toStringAsFixed(1)} ${widget.currency}',
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                     ),
@@ -146,11 +146,11 @@ class _OrderChipState extends State<OrderChip> {
                                                       .languageCode ==
                                                   'en'
                                               ? Radius.zero
-                                              : Radius.circular(10),
+                                              : const Radius.circular(10),
                                           right: Localizations.localeOf(context)
                                                       .languageCode ==
                                                   'en'
-                                              ? Radius.circular(10)
+                                              ? const Radius.circular(10)
                                               : Radius.zero),
                                     ),
                                   ),
@@ -163,7 +163,7 @@ class _OrderChipState extends State<OrderChip> {
                                     widget.quantity(products);
                                   });
                                 },
-                                child: Icon(Icons.add),
+                                child: const Icon(Icons.add),
                               ),
                             ],
                           )
@@ -173,7 +173,7 @@ class _OrderChipState extends State<OrderChip> {
                                   const EdgeInsets.only(right: 16, left: 16),
                               child: Text(
                                 products.countProduct.toString(),
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: const TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),

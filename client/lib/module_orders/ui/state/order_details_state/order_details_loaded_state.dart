@@ -482,7 +482,7 @@ class OrderDetailsLoadedState extends OrderDetailsState {
             padding: const EdgeInsets.all(8.0),
             child: CustomInvoiceAlert(
               image: orderDetails.order.invoiceImage.toString(),
-              cost: orderDetails.order.invoiceAmount.toString(),
+              cost: orderDetails.order.invoiceAmount?.toStringAsFixed(1)??'0',
             ),
           )));
     });

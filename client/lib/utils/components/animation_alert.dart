@@ -100,7 +100,7 @@ class CustomInvoiceAlert extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    '${S.current.invoiceImage}',
+                    S.current.invoiceImage,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
@@ -201,8 +201,8 @@ class CustomInvoiceAlert extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    '${S.current.invoiceCost}',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    S.current.invoiceCost,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
                 Padding(
@@ -218,7 +218,7 @@ class CustomInvoiceAlert extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     '$cost ${S.current.sar}',
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Colors.red, fontWeight: FontWeight.bold),
                   ),
                 ),

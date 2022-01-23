@@ -65,6 +65,11 @@ class FireNotificationService {
     }
   }
 
+  Future<String?> getFireToken() async {
+    var token = await _fcm.getToken();
+    return token;
+  }
+
   static Future<dynamic> backgroundMessageHandler(RemoteMessage message) async {
     print('AppPush myBackgroundMessageHandler : $message');
     NotificationsPrefHelper().setBackgroundMessage(message);

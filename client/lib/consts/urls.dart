@@ -6,7 +6,7 @@
 // New Domain ===> 'https://api.al-mandob.com'
 
 class Urls {
-  static const String DOMAIN = 'https://api.al-mandob.com';
+  static const String DOMAIN = 'http://138.197.186.138';
   static const String BASE_API = DOMAIN + '';
   static const String IMAGES_ROOT = DOMAIN + '/upload/';
   static const UPLOAD_API = BASE_API + '/uploadfile';
@@ -20,7 +20,7 @@ class Urls {
   static const CREATE_CUSTOM_PRODUCT_API = BASE_API + '/customproductnotfound';
   static const NOTIFICATION_API = BASE_API + '/notificationtoken';
   static const COMPANYINFO_API = BASE_API + '/companyinfoforuser';
-  static const NOTIFICATIONNEWCHAT_API = BASE_API + '/notificationnewchat';
+  static const NOTIFICATIONNEWCHAT_API = BASE_API + '/notificationnewchatbyuserid';
   static const NEEDFORSUPPORT = BASE_API + '/updateneedsupport';
   static const NEEDFORSUPPORT_ANYNAMOUS = BASE_API + '/anonymouschat';
   static const NOTIFICATIONTOADMIN_API = BASE_API + '/notificationtoadmin';
