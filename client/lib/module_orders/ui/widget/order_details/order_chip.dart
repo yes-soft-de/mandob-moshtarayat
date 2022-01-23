@@ -7,7 +7,7 @@ import 'package:mandob_moshtarayat/utils/components/progresive_image.dart';
 class OrderChip extends StatefulWidget {
   final String title;
   final String image;
-  final price;
+  final double price;
   final String currency;
   final Function(Products) quantity;
   final int defaultQuantity;
@@ -73,7 +73,7 @@ class _OrderChipState extends State<OrderChip> {
               child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Text(
-                    '${products.price ?? widget.price} ${widget.currency}',
+                    '${products.price?.toStringAsFixed(1) ?? widget.price.toStringAsFixed(1)} ${widget.currency}',
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                     ),

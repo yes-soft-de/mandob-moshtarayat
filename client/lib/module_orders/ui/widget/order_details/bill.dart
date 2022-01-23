@@ -194,7 +194,7 @@ class _BillCardDetailsState extends State<BillCardDetails> {
               width: 100,
               child: Center(
                 child: Text(
-                  (element.quantity * element.price).toString() + ' \$',
+                  (element.quantity * element.price).toStringAsFixed(1) + ' ${S.current.sar} ',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context).disabledColor),
@@ -255,7 +255,7 @@ class _BillCardDetailsState extends State<BillCardDetails> {
                   width: 16,
                 ),
                 Text(
-                  '${widget.orderCost} ${S.of(context).sar}',
+                  '${widget.orderCost.toStringAsFixed(1)} ${S.of(context).sar}',
                   style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
