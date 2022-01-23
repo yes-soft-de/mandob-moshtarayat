@@ -35,4 +35,23 @@ class RepresentativeStoreLinkEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function getNotLinkedRepresentativeStoreLinkByStoreOwnerIpAndRepresentativeUserID($storeOwnerIP, $representativeUserID): ?array
+    {
+        return $this->createQueryBuilder('representativeStoreLinkEntity')
+            ->select('representativeStoreLinkEntity.id', 'representativeStoreLinkEntity.linkStatus', 'representativeStoreLinkEntity.representativeUserID', 'representativeStoreLinkEntity.storeOwnerUserID',
+             'representativeStoreLinkEntity.storeOwnerIP')
+
+            ->andWhere('representativeStoreLinkEntity.storeOwnerIP = :storeOwnerIP')
+            ->setParameter('storeOwnerIP', $storeOwnerIP)
+
+            ->andWhere('representativeStoreLinkEntity.representativeUserID = :representativeUserID')
+            ->setParameter('representativeUserID', $representativeUserID)
+
+            ->andWhere('representativeStoreLinkEntity.linkStatus = :status')
+            ->setParameter('status', RepresentativeStoreLinkTypeConstant::$REPRESENTATIVE_STORE_NOT_LINKED)
+
+            ->getQuery()
+            ->getResult();
+    }
 }

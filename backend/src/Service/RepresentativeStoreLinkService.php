@@ -24,9 +24,17 @@ class RepresentativeStoreLinkService
 
     public function createRepresentativeStoreLink(RepresentativeStoreLinkCreateRequest $request)
     {
-        $result = $this->representativeStoreLinkManager->createRepresentativeStoreLink($request);
+        $request->setStoreOwnerIP(str_replace(array(":", "."), "", $_SERVER['REMOTE_ADDR']));
 
-        return $this->autoMapping->map(RepresentativeStoreLinkEntity::class, RepresentativeStoreLinkCreateResponse::class, $result);
+        // first, check if there is a previous link of the same (storeOwnerIP - representativeUserID) and linkStatus = notLinked
+        $result = $this->representativeStoreLinkManager->getNotLinkedRepresentativeStoreLinkByStoreOwnerIpAndRepresentativeUserID($request->getStoreOwnerIP(), $request->getRepresentativeUserID());
+
+        if (!$result) {
+
+            $result = $this->representativeStoreLinkManager->createRepresentativeStoreLink($request);
+
+            return $this->autoMapping->map(RepresentativeStoreLinkEntity::class, RepresentativeStoreLinkCreateResponse::class, $result);
+        }
     }
 
     public function getRepresentativeStoreLinkByStoreOwnerIP($storeOwnerIP)
