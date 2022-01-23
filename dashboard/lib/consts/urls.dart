@@ -16,6 +16,8 @@ class Urls {
   static const COMPANYINFO_API = BASE_API + '/companyinfoforuser';
   static const NOTIFICATIONNEWCHAT_API =
       BASE_API + '/notificationnewchatbyuserid';
+  static const NOTIFICATIONNEWCHAT_ANYN_API =
+      BASE_API + '/notificationnewchatanonymous';
   static const NOTIFICATIONTOADMIN_API = BASE_API + '/notificationtoadmin';
   static const CREATE_CAPTAIN_PROFILE = BASE_API + '/captainprofile';
   static const CAPTAIN_ACTIVE_STATUS_API = BASE_API + '/captainisactive';

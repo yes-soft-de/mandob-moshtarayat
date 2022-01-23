@@ -6,7 +6,7 @@ class ClientsNeedSupportModel extends DataModel {
   String clientName = '';
   String image = '';
   String id = '';
-
+  String clientID = '';
   List<ClientsNeedSupportModel> _model = [];
 
   ClientsNeedSupportModel({
@@ -14,6 +14,7 @@ class ClientsNeedSupportModel extends DataModel {
     required this.image,
     required this.clientName,
     required this.id,
+    required this.clientID
   });
 
   ClientsNeedSupportModel.withData(List<Datum> data) : super.withData() {
@@ -23,7 +24,9 @@ class ClientsNeedSupportModel extends DataModel {
           roomID: element.roomId ?? '-1',
           image: element.image ?? '',
           clientName: element.clientName ?? '',
-          id: element.id?.toString() ?? ''));
+          id: element.id?.toString() ?? '',
+          clientID: element.clientID ?? '-1'
+          ));
     }
   }
   List<ClientsNeedSupportModel> get data => _model;
