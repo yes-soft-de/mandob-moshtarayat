@@ -4,10 +4,12 @@
 namespace App\Controller;
 
 use App\AutoMapping;
+use App\Constant\AppStoreTypeConstant;
 use App\Request\RepresentativeStoreLinkCreateRequest;
 use App\Service\RepresentativeStoreLinkService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use stdClass;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,13 +24,16 @@ class RepresentativeStoreLinkController extends BaseController
     private $autoMapping;
     private $validator;
     private $representativeStoreLinkService;
+    private $params;
 
-    public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, ValidatorInterface $validator, RepresentativeStoreLinkService $representativeStoreLinkService)
+    public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, ValidatorInterface $validator, RepresentativeStoreLinkService $representativeStoreLinkService,
+                                ParameterBagInterface $params)
     {
         parent::__construct($serializer);
         $this->autoMapping = $autoMapping;
         $this->validator = $validator;
         $this->representativeStoreLinkService = $representativeStoreLinkService;
+        $this->params = $params;
     }
 
     /**
@@ -81,7 +86,7 @@ class RepresentativeStoreLinkController extends BaseController
     }
 
     /**
-     * @Route("getstoreappurlongoogleplaystore/{representativeUserID}", name="getStoreAppURL", methods={"GET"})
+     * @Route("getstoreappurl/{representativeUserID}/{store}", name="getStoreAppURL", methods={"GET"})
      *
      * @OA\Tag(name="Representative Store Link")
      *
@@ -90,7 +95,7 @@ class RepresentativeStoreLinkController extends BaseController
      *     description="redirect to the URL of the store app on Google Play Store"
      * )
      */
-    public function getStoreAppURL($representativeUserID)
+    public function getStoreAppURL($representativeUserID, $store): RedirectResponse
     {
         $request['representativeUserID'] = $representativeUserID;
 
@@ -98,6 +103,13 @@ class RepresentativeStoreLinkController extends BaseController
 
         $this->representativeStoreLinkService->createRepresentativeStoreLink($createRequest);
 
-        return new RedirectResponse("https://play.google.com/store/apps/details?id=de.yessoft.mandob_moshtarayat.store");
+        if ($store === AppStoreTypeConstant::$APPLE_STORE) {
+
+            return new RedirectResponse($this->params->get('store_url_on_apple_store'));
+            
+        } elseif ($store === AppStoreTypeConstant::$GOOGLE_PLAY_STORE) {
+
+            return new RedirectResponse($this->params->get('store_url_on_google_play_store'));
+        }
     }
 }
