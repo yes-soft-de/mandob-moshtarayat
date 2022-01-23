@@ -66,7 +66,6 @@ class NotificationService
                 Notification::create(DeliveryCompanyNameConstant::$Delivery_Company_Name, MessageConstant::$MESSAGE_CAPTAIN_NEW_ORDER))
             ->withDefaultSounds()
             ->withHighestPossiblePriority()->withData($payload);
-//        $message = $message->withData($payload);
 
         $this->messaging->sendMulticast($message, $tokens);
     }
@@ -94,8 +93,6 @@ class NotificationService
                 Notification::create(DeliveryCompanyNameConstant::$Delivery_Company_Name, $msg))
             ->withDefaultSounds()
             ->withHighestPossiblePriority()->withData($payload);
-
-//        $message = $message->withData($payload);
 
         $this->messaging->sendMulticast($message, $devicesToken);
     }
@@ -133,8 +130,6 @@ class NotificationService
                 Notification::create(DeliveryCompanyNameConstant::$Delivery_Company_Name, $msg))
             ->withDefaultSounds()
             ->withHighestPossiblePriority()->withData($payload);
-
-//        $message = $message->withData($payload);
 
         $this->messaging->sendMulticast($message, $tokens);
     }
@@ -210,11 +205,6 @@ class NotificationService
     public function getNotificationTokenByUserID($userID)
     {
         return $this->notificationManager->getNotificationTokenByUserID($userID);
-    }
-
-    public function getCaptainRoomID($roomID)
-    {
-        return $this->notificationManager->getCaptainRoomID($roomID);
     }
 
     public function notificationNewChatByUserID(NotificationTokenByUserIDRequest $request)
