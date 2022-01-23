@@ -158,7 +158,7 @@ class StoreProfileLoadedState extends States {
               child: FlutterMap(
 
                 options: MapOptions(
-                  center: LatLng(profile?.branches![0].location.lat!.toDouble() ??0,profile?.branches![0].location.lon!.toDouble() ??0),
+                  center: LatLng(profile?.branches![0].location.lat?.toDouble() ??0,profile?.branches![0].location.lon?.toDouble() ??0),
                   zoom: 17.0,
                 ),
                 layers: [
@@ -168,7 +168,7 @@ class StoreProfileLoadedState extends States {
                   ),
                   MarkerLayerOptions(
                     markers:  [ Marker(
-                      point: LatLng(profile?.branches![0].location.lat!.toDouble() ??0,profile?.branches![0].location.lon!.toDouble() ??0),
+                      point: LatLng(profile?.branches![0].location.lat?.toDouble() ??0,profile?.branches![0].location.lon?.toDouble() ??0),
                       builder: (ctx) => Container(
                         child: Icon(
                           Icons.location_pin,

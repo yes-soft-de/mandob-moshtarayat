@@ -1,7 +1,6 @@
-import 'package:intl/intl.dart';
-import 'package:mandob_moshtarayat/abstracts/data_model/data_model.dart';
+ import 'package:mandob_moshtarayat/abstracts/data_model/data_model.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
-import 'package:mandob_moshtarayat/module_profile/response/store_profile_response.dart';
+ import 'package:mandob_moshtarayat/module_profile/response/store_profile_response.dart';
 import 'package:mandob_moshtarayat/utils/helpers/date_converter.dart';
 import 'package:mandob_moshtarayat/utils/images/images.dart';
 
@@ -44,7 +43,11 @@ class StoreProfileModel extends DataModel {
   StoreProfileModel.withData(Data data) : super.withData() {
     List<BranchesModel> branches =[];
     data.branches!.forEach((v) {
-      branches.add(BranchesModel(isActive: v.isActive??false,location: Location(lat: v.location?.lat,lon: v.location?.lon)));
+      if(checkLatLonValue(v.location??Location(lat: 0,lon: 0))){
+        branches.add(BranchesModel(isActive: v.isActive??false,location: Location(lat: v.location?.lat,lon: v.location?.lon)));
+      }else{
+        branches.add(BranchesModel(isActive: v.isActive??false,location: Location(lat: 	21.543333,lon: 39.172779)));
+      }
     });
     _models = StoreProfileModel(
       storeCategoryName: data.storeCategoryName??'',
@@ -73,6 +76,13 @@ class StoreProfileModel extends DataModel {
       throw Exception('There is no data');
     }
   }
+  bool checkLatLonValue(Location location){
+    print('in check');
+    if(-90 <= location.lon! && location.lon! <= 90  && -90 <= location.lat! && location.lat! <= 90  ){
+      return true;
+    }
+    return false;
+  }
 }
 
 class BranchesModel extends DataModel{
@@ -84,7 +94,7 @@ class BranchesModel extends DataModel{
   BranchesModel({required this.location, required this.isActive});
 
   BranchesModel.withData(Branches data) : super.withData() {
-    if(  (data.location!.lat! > 90 || data.location!.lat!<-90)){
+    if(! checkLatLonValue(data.location??Location(lat: 0,lon: 0))){
       data.location = Location(lat: 0,lon: 0);
     }
     _models = BranchesModel(
@@ -101,10 +111,11 @@ class BranchesModel extends DataModel{
       throw Exception('There is no data');
     }
   }
-// bool checkLatLonValue(Location location){
-//    if(-90 <= location.lon && location.lon <= 90  && -90 <= location.lat && location.lat <= 90  ){
-//      return true;
-//    }
-//    return false;
-//  }
+ bool checkLatLonValue(Location location){
+    print('in check');
+    if(-90 <= location.lon! && location.lon! <= 90  && -90 <= location.lat! && location.lat! <= 90  ){
+      return true;
+    }
+    return false;
+  }
 }

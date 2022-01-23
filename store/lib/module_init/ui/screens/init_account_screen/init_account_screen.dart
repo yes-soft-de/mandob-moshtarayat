@@ -2,7 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:injectable/injectable.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:location/location.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_init/request/create_captain_profile/create_captain_profile_request.dart';
 import 'package:mandob_moshtarayat/module_init/state_manager/init_account/init_account.state_manager.dart';
@@ -26,7 +29,8 @@ class InitAccountScreenState extends State<InitAccountScreen> {
   StreamSubscription? _streamSubscription;
  InitAccountState? currentState;
  String? phoneNumber;
-
+  LatLng? myPos;
+ late MapController  mapController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   void refresh() {
@@ -52,6 +56,7 @@ class InitAccountScreenState extends State<InitAccountScreen> {
   }
   @override
   void initState() {
+     mapController = MapController();
     SchedulerBinding.instance!.addPostFrameCallback((Duration duration) async {
       await Future.delayed(Duration(seconds: 5)).whenComplete(() {
         FeatureDiscovery.discoverFeatures(
@@ -67,6 +72,16 @@ class InitAccountScreenState extends State<InitAccountScreen> {
       currentState = event;
       if (mounted) {
         setState(() {});
+      }
+    });
+    defaultLocation().then((value) {
+      if (value == null) {
+      } else {
+        myPos = value;
+//        mapController.move(myPos!, 17);
+        if (mounted) {
+          setState(() {});
+        }
       }
     });
     getStoreCategories();
@@ -89,7 +104,6 @@ class InitAccountScreenState extends State<InitAccountScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return GestureDetector(
       onTap: () {
         final node = FocusScope.of(context);
@@ -107,5 +121,22 @@ class InitAccountScreenState extends State<InitAccountScreen> {
   void dispose() {
     _streamSubscription?.cancel();
     super.dispose();
+  }
+  Future<LatLng?> defaultLocation() async {
+    Location location = new Location();
+
+    bool _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+    }
+
+    var _permissionGranted = await location.requestPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      return null;
+    }
+
+    var myLocation = await Location.instance.getLocation();
+    LatLng myPos = LatLng(myLocation.latitude ?? 0, myLocation.longitude ?? 0);
+    return myPos;
   }
 }
