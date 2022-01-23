@@ -32,4 +32,6 @@ class ProductsByProductCategoryIdForStoreResponse
     public $isLevel1;
 
     public $isLevel2;
+
+    public $categoryLink;
 }

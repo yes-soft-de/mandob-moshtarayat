@@ -884,6 +884,10 @@ class StoreProductCategoryController extends BaseController
      *                  @OA\Property(type="string", property="status"),
      *                  @OA\Property(type="boolean", property="isLevel1"),
      *                  @OA\Property(type="boolean", property="isLevel2"),
+     *                  @OA\Property(type="object", property="categoryLink",
+     *                      @OA\Property(type="integer", property="subCategoryLevelOneID"),
+     *                      @OA\Property(type="integer", property="subCategoryLevelTwoID"),
+     *                  ),
      *              )
      *          )
      *      )
