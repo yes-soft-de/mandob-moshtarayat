@@ -27,12 +27,18 @@ class OrdersInvoicesService
 
     public function getInvoicesByOrderNumber($orderNumber)
     {
-        return $this->ordersInvoicesManager->getInvoicesByOrderNumber($orderNumber);
-//        $invoice =  $this->ordersInvoicesManager->getInvoicesByOrderNumber($orderNumber);
-//
-//        $invoice[0]['invoiceAmount'] =  round($invoice[0]['invoiceAmount'], 1);
-//
-//        return $invoice;
+//        return $this->ordersInvoicesManager->getInvoicesByOrderNumber($orderNumber);
+        $response = [];
+
+        $invoices =  $this->ordersInvoicesManager->getInvoicesByOrderNumber($orderNumber);
+
+        foreach ($invoices as $invoice){
+            $invoice['invoiceAmount'] = round($invoice['invoiceAmount'], 1);
+
+            $response[] = $invoice;
+        }
+
+        return $response;
     }
 
     public function sumInvoiceAmountWithoutOrderTypeSendIt($invoicesIDs)
