@@ -20,7 +20,7 @@ class Urls {
   static const CREATE_CUSTOM_PRODUCT_API = BASE_API + '/customproductnotfound';
   static const NOTIFICATION_API = BASE_API + '/notificationtoken';
   static const COMPANYINFO_API = BASE_API + '/companyinfoforuser';
-  static const NOTIFICATIONNEWCHAT_API = BASE_API + '/notificationnewchat';
+  static const NOTIFICATIONNEWCHAT_API = BASE_API + '/notificationnewchatbyuserid';
   static const NEEDFORSUPPORT = BASE_API + '/updateneedsupport';
   static const NEEDFORSUPPORT_ANYNAMOUS = BASE_API + '/anonymouschat';
   static const NOTIFICATIONTOADMIN_API = BASE_API + '/notificationtoadmin';
