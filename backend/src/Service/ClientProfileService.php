@@ -14,6 +14,7 @@ use App\Request\UserProfilePreferredLanguageUpdateRequest;
 use App\Request\UserRegisterRequest;
 use App\Request\ClientProfileUpdateRequest;
 use App\Request\VerificationCreateRequest;
+use App\Response\AnonymousUsersWhoNeedSupportResponse;
 use App\Response\clientOrdersCountResponse;
 use App\Response\ClientProfileByUserIdGetResponse;
 use App\Response\ClientProfileNeedSupportUpdateResponse;
@@ -272,7 +273,7 @@ class ClientProfileService
             {
                 $anonymousChat['clientName'] = (string)($anonymousChat['createdAt'])->format('Y-m-d H:i:s');
             }
-            $response[] = $this->autoMapping->map('array', ClientProfileByUserIdGetResponse::class, $anonymousChat);
+            $response[] = $this->autoMapping->map('array', AnonymousUsersWhoNeedSupportResponse::class, $anonymousChat);
         }
 
         return $response;

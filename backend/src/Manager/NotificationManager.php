@@ -95,4 +95,9 @@ class NotificationManager
     {
         return $this->notificationTokenEntityRepository->getClientRoomID($roomID);
     }
+
+    public function getAnonymousToken($anonymousChatID)
+    {
+        return $this->notificationTokenEntityRepository->getAnonymousToken($anonymousChatID);
+    }
 }

@@ -2,18 +2,15 @@
 
 namespace App\Response;
 
-class ClientProfileByUserIdGetResponse
+class AnonymousUsersWhoNeedSupportResponse
 {
     public $id;
 
     public $clientName;
 
     public $roomID;
-    
+
     public $image;
 
     public $createdAt;
-
-    public $clientID;
-
 }

@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\AnonymousChatEntity;
 use App\Entity\ClientProfileEntity;
 use App\Entity\NotificationTokenEntity;
 use App\Entity\StaffProfileEntity;
@@ -92,6 +93,23 @@ class NotificationTokenEntityRepository extends ServiceEntityRepository
 
             ->getQuery()
             ->getResult();
+    }
+
+    public function getAnonymousToken($anonymousChatID)
+    {
+        return $this->createQueryBuilder('NotificationTokenEntity')
+            ->select('anonymousChatEntity.token')
+
+            ->leftJoin(AnonymousChatEntity::class, 'anonymousChatEntity', Join::WITH, 'anonymousChatEntity.id = :anonymousChatID')
+
+            ->andWhere("anonymousChatEntity.id = :anonymousChatID ")
+
+            ->setParameter('anonymousChatID', $anonymousChatID)
+
+            ->groupBy('anonymousChatEntity.id')
+
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
     public function getAdminsTokens()

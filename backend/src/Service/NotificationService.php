@@ -6,6 +6,7 @@ namespace App\Service;
 use App\AutoMapping;
 use App\Entity\NotificationTokenEntity;
 use App\Manager\NotificationManager;
+use App\Request\NotificationNewChatAnonymousRequest;
 use App\Request\NotificationTokenByUserIDRequest;
 use App\Request\NotificationTokenRequest;
 use App\Response\NotificationTokenResponse;
@@ -138,49 +139,31 @@ class NotificationService
         $this->messaging->sendMulticast($message, $tokens);
     }
 
-    public function notificationNewChat(NotificationTokenRequest $request)
+    public function notificationNewChatAnonymous(NotificationNewChatAnonymousRequest $request)
     {
-        if($request->getUserType() == "captain"){
-            $item = $this->notificationManager->getCaptainRoomID($request->getRoomID());
-            $item = $item["captainID"];
-        }
-
-        elseif($request->getUserType() == "store"){
-            $item = $this->notificationManager->getStoreRoomID($request->getRoomID());
-
-            $item = $item["storeOwnerID"];
-        }
-
-        elseif($request->getUserType() == "client"){
-            $item = $this->notificationManager->getClientRoomID($request->getRoomID());
-
-            $item = $item["clientID"];
-        }
-
-        elseif($request->getUserType() == "admin"){
-           return $this->notificationNewChatToAdmins();
-        }
-
         $payload = [
             'click_action' => 'FLUTTER_NOTIFICATION_CLICK',
             'navigate_route' => self::URLCHAT,
-            'argument' => $request->getRoomID(),
+            'argument' => null,
         ];
 
-        if($item) {
+        $devicesToken = [];
+        $userToken = $this->notificationManager->getAnonymousToken($request->getAnonymousChatID());
+        if( $userToken) {
+            $devicesToken[] = $userToken['token'];
+        }
 
-            $devicesToken = [];
-
-            $userToken = $this->notificationManager->getNotificationTokenByUserID($item);
-
-            $devicesToken[] = $userToken;
-
-            $message = CloudMessage::new()
+        $message = CloudMessage::new()
                 ->withNotification(Notification::create(DeliveryCompanyNameConstant::$Delivery_Company_Name, MessageConstant::$MESSAGE_NEW_CHAT))->withDefaultSounds()
                 ->withHighestPossiblePriority();
 
-            $message = $message->withData($payload);
+        $message = $message->withData($payload);
+
+        try {
             $this->messaging->sendMulticast($message, $devicesToken);
+        }
+        catch (\Exception $e) {
+            error_log($e);
         }
 
         return $devicesToken;

@@ -37,7 +37,8 @@ class AnonymousChatController extends BaseController
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="name"),
      *          @OA\Property(type="string", property="roomID"),
-     *          @OA\Property(type="boolean", property="needSupport")
+     *          @OA\Property(type="boolean", property="needSupport"),
+     *          @OA\Property(type="string", property="token")
      *      )
      * )
      *

@@ -39,6 +39,11 @@ class AnonymousChatEntity
      */
     private $createdAt;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $token;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -91,4 +96,17 @@ class AnonymousChatEntity
 
         return $this;
     }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(string $token): self
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
 }

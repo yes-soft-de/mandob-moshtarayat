@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\AutoMapping;
+use App\Request\NotificationNewChatAnonymousRequest;
 use App\Request\NotificationTokenByUserIDRequest;
 use App\Request\NotificationTokenRequest;
 use App\Service\NotificationService;
@@ -79,7 +80,7 @@ class NotificationController extends BaseController
 
     /**
      * notification new chat.
-     * @Route("/notificationnewchat", name="notificationnewchat", methods={"POST"})
+     * @Route("/notificationnewchatanonymous", name="notificationNewChatAnonymous", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
      * *
@@ -95,8 +96,7 @@ class NotificationController extends BaseController
      *  @OA\RequestBody (
      *        description="notification new chat",
      *        @OA\JsonContent(
-     *              @OA\Property(type="string", property="roomID"),
-     *              @OA\Property(type="object", property="userType", description="captain or store or client or admin"),
+     *              @OA\Property(type="string", property="anonymousChatID"),
      *               ),
      *         ),
      *
@@ -114,15 +114,13 @@ class NotificationController extends BaseController
      *
      * @Security(name="Bearer")
      */
-    public function notificationNewChat(Request $request): JsonResponse
+    public function notificationNewChatAnonymous(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class,NotificationTokenRequest::class,(object)$data);
+        $request = $this->autoMapping->map(stdClass::class,NotificationNewChatAnonymousRequest::class,(object)$data);
 
-        $request->setUserID($this->getUserId());
-
-        $response = $this->notificationService->notificationNewChat($request);
+        $response = $this->notificationService->notificationNewChatAnonymous($request);
 
         return $this->response($response, self::CREATE);
     }
