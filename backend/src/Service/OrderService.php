@@ -613,6 +613,8 @@ class OrderService
         if($item['orderDetails']) {
 
             $item['order'] = $this->orderManager->orderStatusByOrderId($item['orderDetails'][0]->orderID);
+            $item['order']['orderCost'] = round($item['order']['orderCost'], 1);
+
             if($item['order']['payment'] == "card"){
                 $item['payInfo'] = $this->electronicPaymentInfoService->getPayInfoByOrderNumber($orderNumber);
             }
@@ -641,6 +643,8 @@ class OrderService
         $item['rate'] = $this->ratingService->getAvgOrder($orderNumber);
         if($item['orderDetails']) {
             $item['order'] = $this->orderManager->orderStatusByOrderId($item['orderDetails'][0]->orderID);
+            $item['order']['orderCost'] = round($item['order']['orderCost'], 1);
+
             $response = $this->autoMapping->map('array', OrderInfoForCaptainResponse::class, $item);
         }
         return $response;
@@ -664,6 +668,8 @@ class OrderService
         $item['rate'] = $this->ratingService->getAvgOrder($orderNumber);
         if($item['orderDetails']) {
             $item['order'] = $this->orderManager->orderStatusByOrderId($item['orderDetails'][0]->orderID);
+            $item['order']['orderCost'] = round($item['order']['orderCost'], 1);
+
             if($item['order']['payment'] == "card"){
                 $item['payInfo'] = $this->electronicPaymentInfoService->getPayInfoByOrderNumber($orderNumber);
             }
