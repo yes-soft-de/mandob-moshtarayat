@@ -120,6 +120,7 @@ dependencies:
   hexagon: ^0.2.0-nullsafety.1
   file_picker: ^4.3.1
   cross_file: ^0.3.2
+  webviewx: ^0.2.1
 
 dev_dependencies:
   # Test Libs

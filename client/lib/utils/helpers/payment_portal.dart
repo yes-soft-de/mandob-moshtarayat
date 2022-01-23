@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_sell_sdk_flutter/go_sell_sdk_flutter.dart';
 import 'package:go_sell_sdk_flutter/model/models.dart';
+import 'package:http/http.dart';
 import 'package:mandob_moshtarayat/consts/country_code.dart';
 import 'package:mandob_moshtarayat/consts/payment_secret_keys.dart';
 import 'package:mandob_moshtarayat/di/di_config.dart';
@@ -14,8 +15,10 @@ import 'package:mandob_moshtarayat/module_orders/model/order_details_model.dart'
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_feild.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
+import 'package:mandob_moshtarayat/utils/helpers/payment_portal_web.dart';
 import 'package:mandob_moshtarayat/utils/helpers/tab_loader.dart';
 import 'package:mandob_moshtarayat/utils/logger/logger.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class PaymentsPortal extends StatefulWidget {
   final OrderDetailsModel model;
@@ -58,15 +61,11 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
   // configure app key and bundle-id (You must get those keys from tap)
   Future<void> configureApp() async {
     GoSellSdkFlutter.configureApp(
-        bundleId: Platform.isAndroid
-            ? 'de.yessoft.mandob_moshtarayat_client'
-            : '',
-        productionSecreteKey: Platform.isAndroid
-            ? SecretPaymentsKeys.production
-            : '',
-        sandBoxsecretKey: Platform.isAndroid
-            ? SecretPaymentsKeys.sandBox
-            : '',
+        bundleId:
+            Platform.isAndroid ? 'de.yessoft.mandob_moshtarayat_client' : '',
+        productionSecreteKey:
+            Platform.isAndroid ? SecretPaymentsKeys.production : '',
+        sandBoxsecretKey: Platform.isAndroid ? SecretPaymentsKeys.sandBox : '',
         lang: getIt<LocalizationService>().getLanguage());
   }
 
@@ -414,8 +413,25 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
                                     (emailController.text.isNotEmpty ||
                                         phoneNumberController
                                             .text.isNotEmpty)) {
-                                  await setupSDKSession();
-                                  await startSDK();
+                                  if (kIsWeb) {
+                                    var sdk = PaymentPortalWeb(
+                                        amount: widget.model.order.orderCost
+                                            .toStringAsFixed(1),
+                                        email: emailController.text,
+                                        firstName: firstNameController.text,
+                                        items: payments,
+                                        lastName: lastNameController.text,
+                                        middleName: middleNameController.text,
+                                        orderID:
+                                            widget.model.order.id.toString(),
+                                        phoneNumber: phoneNumberController.text,
+                                        transID: transactionID,
+                                        context: context);
+                                    sdk.startSdk();
+                                  } else {
+                                    await setupSDKSession();
+                                    await startSDK();
+                                  }
                                 } else {
                                   CustomFlushBarHelper.createError(
                                           title: S.current.warnning,

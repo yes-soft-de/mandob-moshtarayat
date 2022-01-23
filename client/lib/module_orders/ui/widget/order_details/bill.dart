@@ -28,7 +28,7 @@ class BillCard extends StatelessWidget {
             padding: const EdgeInsets.only(top: 16.0),
             child: Text(
               S.of(context).bill,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
@@ -48,7 +48,7 @@ class BillCard extends StatelessWidget {
                 Expanded(
                     child: CustomListTile(
                         title: S.of(context).orderPrice,
-                        subtitle: '$orderCost ${S.of(context).sar}')),
+                        subtitle: '${orderCost.toStringAsFixed(1)} ${S.of(context).sar}')),
               ],
             ),
           ),
@@ -68,7 +68,7 @@ class BillCard extends StatelessWidget {
               children: [
                 Text(
                   S.of(context).sum,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
@@ -77,8 +77,8 @@ class BillCard extends StatelessWidget {
                   width: 16,
                 ),
                 Text(
-                  '${deliveryCost + orderCost} ${S.of(context).sar}',
-                  style: TextStyle(
+                  '${(deliveryCost + orderCost).toStringAsFixed(1)} ${S.of(context).sar}',
+                  style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
                       color: Colors.red),
@@ -194,7 +194,8 @@ class _BillCardDetailsState extends State<BillCardDetails> {
               width: 100,
               child: Center(
                 child: Text(
-                  (element.quantity * element.price).toStringAsFixed(1) + ' ${S.current.sar} ',
+                  (element.quantity * element.price).toStringAsFixed(1) +
+                      ' ${S.current.sar} ',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context).disabledColor),
