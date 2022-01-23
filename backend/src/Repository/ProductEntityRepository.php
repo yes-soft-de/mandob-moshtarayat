@@ -666,11 +666,11 @@ class ProductEntityRepository extends ServiceEntityRepository
                 ->andWhere('product.storeProductCategoryID = :storeProductCategoryID')
                 ->andWhere('product.status = :status')
                 ->andWhere('product.storeOwnerProfileID = :storeOwnerProfileID')
-                ->andWhere('storeOwnerProfile.status = :storeStatus')
+                // ->andWhere('storeOwnerProfile.status = :storeStatus')
 
                 ->setParameter('storeProductCategoryID', $storeProductCategoryID)
                 ->setParameter('status', ProductStatusConstant::$ACTIVE_PRODUCT_STATUS)
-                ->setParameter('storeStatus', StoreStatusConstant::$ACTIVE_STORE_STATUS)
+                // ->setParameter('storeStatus', StoreStatusConstant::$ACTIVE_STORE_STATUS)
                 ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
 
                 ->getQuery()
@@ -768,6 +768,29 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    public function getCategoryLinkByStoreProductCategoryLevelTwoID($storeProductCategoryLevelTwoID)
+    {
+        return $this->createQueryBuilder('product')
+            ->select('categoryLinkEntity.subCategoryLevelOneID', 'categoryLinkEntity.subCategoryLevelTwoID')
+
+            ->leftJoin(
+                CategoryLinkEntity::class,
+                'categoryLinkEntity',
+                Join::WITH,
+                'categoryLinkEntity.subCategoryLevelTwoID = :storeProductCategoryID'
+            )
+
+            ->andWhere('categoryLinkEntity.linkType = :linkType')
+
+            ->setParameter('linkType', CategoryLinkTypeConstant::$LEVEL_ONE_WITH_LEVEL_TWO_LINK_TYPE)
+            ->setParameter('storeProductCategoryID', $storeProductCategoryLevelTwoID)
+
+            ->groupBy('categoryLinkEntity.id')
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+//
     public function getProductsTranslationsByStoreProductCategoryIDForStore($storeProductCategoryID, $storeOwnerProfileID)
     {
         return $this->createQueryBuilder('product')
