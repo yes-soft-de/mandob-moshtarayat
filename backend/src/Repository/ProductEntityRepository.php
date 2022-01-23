@@ -666,11 +666,11 @@ class ProductEntityRepository extends ServiceEntityRepository
                 ->andWhere('product.storeProductCategoryID = :storeProductCategoryID')
                 ->andWhere('product.status = :status')
                 ->andWhere('product.storeOwnerProfileID = :storeOwnerProfileID')
-                ->andWhere('storeOwnerProfile.status = :storeStatus')
+                // ->andWhere('storeOwnerProfile.status = :storeStatus')
 
                 ->setParameter('storeProductCategoryID', $storeProductCategoryID)
                 ->setParameter('status', ProductStatusConstant::$ACTIVE_PRODUCT_STATUS)
-                ->setParameter('storeStatus', StoreStatusConstant::$ACTIVE_STORE_STATUS)
+                // ->setParameter('storeStatus', StoreStatusConstant::$ACTIVE_STORE_STATUS)
                 ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
 
                 ->getQuery()
@@ -767,7 +767,7 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
-
+//
     public function getProductsTranslationsByStoreProductCategoryIDForStore($storeProductCategoryID, $storeOwnerProfileID)
     {
         return $this->createQueryBuilder('product')
