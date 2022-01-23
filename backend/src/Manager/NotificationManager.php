@@ -81,18 +81,8 @@ class NotificationManager
         return $token[0]->getToken();
     }
 
-    public function getCaptainRoomID($roomID)
+    public function getAnonymousToken($anonymousChatID)
     {
-        return $this->notificationTokenEntityRepository->getCaptainRoomID($roomID);
-    }
-
-    public function getStoreRoomID($roomID)
-    {
-        return $this->notificationTokenEntityRepository->getStoreRoomID($roomID);
-    }
-
-    public function getClientRoomID($roomID)
-    {
-        return $this->notificationTokenEntityRepository->getClientRoomID($roomID);
+        return $this->notificationTokenEntityRepository->getAnonymousToken($anonymousChatID);
     }
 }

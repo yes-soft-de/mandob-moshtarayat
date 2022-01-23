@@ -10,4 +10,6 @@ class AnonymousChatCreateRequest
 
     private $needSupport;
 
+    private $token;
+
 }

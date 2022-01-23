@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\AnonymousChatEntity;
 use App\Entity\ClientProfileEntity;
 use App\Entity\NotificationTokenEntity;
 use App\Entity\StaffProfileEntity;
@@ -24,61 +25,6 @@ class NotificationTokenEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, NotificationTokenEntity::class);
     }
 
-    public function getCaptainRoomID($roomID)
-    {
-        return $this->createQueryBuilder('NotificationTokenEntity')
-
-        ->select('captainProfileEntity.captainID')
-
-        ->leftJoin(CaptainProfileEntity::class, 'captainProfileEntity', Join::WITH, 'captainProfileEntity.roomID = :roomID')
-
-        ->andWhere("captainProfileEntity.roomID = :roomID ")
-
-        ->setParameter('roomID', $roomID)
-
-        ->groupBy('captainProfileEntity.captainID')
-
-        ->getQuery()
-
-        ->getOneOrNullResult();
-    }
-
-    public function getStoreRoomID($roomID)
-    {
-        return $this->createQueryBuilder('NotificationTokenEntity')
-
-        ->select('storeOwnerProfileEntity.storeOwnerID')
-
-        ->leftJoin(StoreOwnerProfileEntity::class, 'storeOwnerProfileEntity', Join::WITH, 'storeOwnerProfileEntity.roomID = :roomID')
-
-        ->andWhere("storeOwnerProfileEntity.roomID = :roomID ")
-
-        ->setParameter('roomID', $roomID)
-
-        ->groupBy('storeOwnerProfileEntity.storeOwnerID')
-
-        ->getQuery()
-        ->getOneOrNullResult();
-    }
-
-    public function getClientRoomID($roomID)
-    {
-        return $this->createQueryBuilder('NotificationTokenEntity')
-
-        ->select('clientProfileEntity.clientID')
-
-        ->leftJoin(ClientProfileEntity::class, 'clientProfileEntity', Join::WITH, 'clientProfileEntity.roomID = :roomID')
-
-        ->andWhere("clientProfileEntity.roomID = :roomID ")
-
-        ->setParameter('roomID', $roomID)
-
-        ->groupBy('clientProfileEntity.clientID')
-
-        ->getQuery()
-        ->getOneOrNullResult();
-    }
-
     public function getCaptainTokens()
     {
         return $this->createQueryBuilder('NotificationTokenEntity')
@@ -92,6 +38,23 @@ class NotificationTokenEntityRepository extends ServiceEntityRepository
 
             ->getQuery()
             ->getResult();
+    }
+
+    public function getAnonymousToken($anonymousChatID)
+    {
+        return $this->createQueryBuilder('NotificationTokenEntity')
+            ->select('anonymousChatEntity.token')
+
+            ->leftJoin(AnonymousChatEntity::class, 'anonymousChatEntity', Join::WITH, 'anonymousChatEntity.id = :anonymousChatID')
+
+            ->andWhere("anonymousChatEntity.id = :anonymousChatID ")
+
+            ->setParameter('anonymousChatID', $anonymousChatID)
+
+            ->groupBy('anonymousChatEntity.id')
+
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
     public function getAdminsTokens()

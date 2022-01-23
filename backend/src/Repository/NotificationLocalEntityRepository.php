@@ -27,7 +27,7 @@ class NotificationLocalEntityRepository extends ServiceEntityRepository
             ->where('notificationLocal.userID = :userID')
 
             ->setParameter('userID',$userID)
-
+            ->addOrderBy('notificationLocal.id','DESC')
             ->getQuery()
             ->getResult();
     }
