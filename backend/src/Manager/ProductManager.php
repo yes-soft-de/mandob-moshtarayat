@@ -169,6 +169,11 @@ class ProductManager
         return $this->productEntityRepository->getCategoryLinkByStoreProductCategoryID($storeProductCategoryID);
     }
 
+    public function getCategoryLinkByStoreProductCategoryLevelTwoID($storeProductCategoryLevelTwoID)
+    {
+        return $this->productEntityRepository->getCategoryLinkByStoreProductCategoryLevelTwoID($storeProductCategoryLevelTwoID);
+    }
+
     public function getProductsTranslationsByStoreProductCategoryIDForStore($storeProductCategoryID, $storeOwnerProfileID)
     {
         return $this->productEntityRepository->getProductsTranslationsByStoreProductCategoryIDForStore($storeProductCategoryID, $storeOwnerProfileID);

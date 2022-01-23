@@ -767,6 +767,29 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function getCategoryLinkByStoreProductCategoryLevelTwoID($storeProductCategoryLevelTwoID)
+    {
+        return $this->createQueryBuilder('product')
+            ->select('categoryLinkEntity.subCategoryLevelOneID', 'categoryLinkEntity.subCategoryLevelTwoID')
+
+            ->leftJoin(
+                CategoryLinkEntity::class,
+                'categoryLinkEntity',
+                Join::WITH,
+                'categoryLinkEntity.subCategoryLevelTwoID = :storeProductCategoryID'
+            )
+
+            ->andWhere('categoryLinkEntity.linkType = :linkType')
+
+            ->setParameter('linkType', CategoryLinkTypeConstant::$LEVEL_ONE_WITH_LEVEL_TWO_LINK_TYPE)
+            ->setParameter('storeProductCategoryID', $storeProductCategoryLevelTwoID)
+
+            ->groupBy('categoryLinkEntity.id')
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 //
     public function getProductsTranslationsByStoreProductCategoryIDForStore($storeProductCategoryID, $storeOwnerProfileID)
     {

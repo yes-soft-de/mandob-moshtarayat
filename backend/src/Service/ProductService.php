@@ -164,7 +164,6 @@ class ProductService
             $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
             $item['soldCount'] = $this->getProductsSoldCount($item['id']);
             $item['store'] = $this->storeOwnerProfileService->getStoreNameById($item['storeOwnerProfileID']);
-            $item['categoryLink'] = $this->productManager->getCategoryLinkByStoreProductCategoryID($storeProductCategoryID);
 
             $response[] = $this->autoMapping->map('array', ProductsByProductCategoryIdResponse::class, $item);
         }
@@ -708,7 +707,7 @@ class ProductService
             $item['rate'] = $this->ratingService->getAvgRating($item['id'], 'product');
             $item['image'] = $this->getImageParams($item['productImage'], $this->params.$item['productImage'], $this->params);
             $item['soldCount'] = $this->getProductsSoldCount($item['id']);
-            $item['categoryLink'] = $this->productManager->getCategoryLinkByStoreProductCategoryID($storeProductCategoryIdLevelTwo);
+            $item['categoryLink'] = $this->productManager->getCategoryLinkByStoreProductCategoryLevelTwoID($storeProductCategoryIdLevelTwo);
 
             $response[] = $this->autoMapping->map('array', ProductsByProductCategoryIdResponse::class, $item);
         }
