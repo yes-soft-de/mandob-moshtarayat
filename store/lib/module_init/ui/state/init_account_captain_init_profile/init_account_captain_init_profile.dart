@@ -17,10 +17,11 @@ import 'package:mandob_moshtarayat/utils/components/faded_button_bar.dart';
 import 'package:mandob_moshtarayat/utils/components/map.dart';
 import 'package:mandob_moshtarayat/utils/effect/checked.dart';
 import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
+import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 
 class InitAccountCaptainInitProfile extends InitAccountState {
   final InitAccountScreenState screenState;
-  final List<StoreCategoriesModel> categories;
+//  final List<StoreCategoriesModel> categories;
   // Uri? restaurantIamge;
   //
   // final _nameController = TextEditingController();
@@ -36,7 +37,7 @@ class InitAccountCaptainInitProfile extends InitAccountState {
   // int storeCategoryId=0;
 
 
-  InitAccountCaptainInitProfile( this.screenState,this.categories)
+  InitAccountCaptainInitProfile( this.screenState)
       : super(screenState);
 
   // InitAccountCaptainInitProfile.withData(
@@ -73,12 +74,10 @@ class InitAccountCaptainInitProfile extends InitAccountState {
   final _bankName = TextEditingController();
   final _bankAccountNumber= TextEditingController();
   final _stcPay= TextEditingController();
-
   int val = 1;
   @override
   Widget getUI(BuildContext context) {
     _phoneController.text=screenState.phoneNumber??'';
-
     return SafeArea(
       child: Form(
         key: _initKey,
@@ -126,8 +125,11 @@ class InitAccountCaptainInitProfile extends InitAccountState {
                     borderRadius: BorderRadius.circular(25),
                     onTap: () {
                       FocusScope.of(context).unfocus();
-                      storeLocation = null;
+                      if(storeLocation == null){
+                        storeLocation = screenState.myPos;
+                      }
                       mapController = MapController();
+                      screenState.refresh();
                       showDialog(
                           builder: (_) {
                             return Scaffold(
@@ -146,6 +148,8 @@ class InitAccountCaptainInitProfile extends InitAccountState {
                                   storeLocation = newPos;
                                  screenState.refresh();
                                 },
+                                myPos: storeLocation,
+                                defaultPoint: storeLocation,
                               ),
                             );
                           },
@@ -432,8 +436,9 @@ class InitAccountCaptainInitProfile extends InitAccountState {
                     : () {
                         if (_initKey.currentState!.validate() &&
                             imagePath != null &&
+                            storeLocation != null &&
                         openingTime != null &&
-                        closingTime != null) {
+                        closingTime != null ) {
                           screen.submitProfile(
                               CreateStoreRequest(
                                 openingTime: DateTime(date.year, date.month,
@@ -461,6 +466,16 @@ class InitAccountCaptainInitProfile extends InitAccountState {
 
 
                               ));
+                        } else if (storeLocation == null) {
+                          CustomFlushBarHelper.createError(
+                              title: S.current.warnning,
+                              message: S.current.chooseLocation)
+                              .show(context);
+                        } else {
+                          CustomFlushBarHelper.createError(
+                              title: S.current.warnning,
+                              message: S.current.pleaseCompleteTheForm)
+                              .show(context);
                         }},
               ),
             ),
@@ -471,29 +486,5 @@ class InitAccountCaptainInitProfile extends InitAccountState {
   }
 
 
-  Widget _getCaptainImageFG() {
-    if (restaurantIamge != null) {
-      return Container(
-          decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        image: DecorationImage(
-          image: FileImage(File.fromUri(restaurantIamge!)),
-          fit: BoxFit.cover,
-        ),
-      ));
-    } else {
-      return Container();
-    }
-  }
-  List<DropdownMenuItem<String>> getStoresCategories() {
-    List<DropdownMenuItem<String>> items = [];
-    categories.forEach((element) {
-      items.add(DropdownMenuItem(
-        value: element.id.toString(),
-        child: Text(element.categoryName),
-      ));
-    });
-    return items;
-  }
 
 }

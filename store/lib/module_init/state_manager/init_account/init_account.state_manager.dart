@@ -52,7 +52,7 @@ class InitAccountStateManager {
         ).then((value) {
                if (value.hasError){
                  _stateSubject.add(InitAccountCaptainInitProfile(
-                     screenState,[]));
+                     screenState,));
                  screenState.showMessage(value.error,false);
                }
                else {
@@ -62,7 +62,7 @@ class InitAccountStateManager {
         });
       } else {
         _stateSubject.add(InitAccountCaptainInitProfile(
-            screenState, []));
+            screenState, ));
         screenState.showMessage(S.current.errorUploadingImages,false);
       }
     });
@@ -84,17 +84,7 @@ class InitAccountStateManager {
   //   _stateSubject.add(InitAccountCaptainInitProfile(screenState));
   // }
   void getStoreCategories(InitAccountScreenState screenState) {
-    _stateSubject.add(InitAccountStateFirstLoading(screenState));
-    _categoriesService.getStoreCategories().then((value) {
-      if (value.hasError) {
-        // _stateSubject.add(StoreCategoriesLoadedState(screenState,null,error: value.error));
-      } else if (value.isEmpty) {
-        _stateSubject.add(InitAccountCaptainInitProfile(screenState,[],));
-      } else {
-        StoreCategoriesModel model = value as StoreCategoriesModel;
-        _stateSubject.add(InitAccountCaptainInitProfile(screenState,model.data));
-      }
-    });
+    _stateSubject.add(InitAccountCaptainInitProfile(screenState));
   }
 
 }

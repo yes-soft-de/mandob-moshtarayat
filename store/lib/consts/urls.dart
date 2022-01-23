@@ -13,7 +13,7 @@ class Urls {
   static const CHECK_USER_VERIFIED_API = BASE_API + '/checkverificationstatus';
   static const RESEND_CODE_API = BASE_API + '/resendnewverificationcode';
   static const NOTIFICATION_API = BASE_API + '/notificationtoken';
-  static const NOTIFICATIONNEWCHAT_API = BASE_API + '/notificationnewchat';
+  static const NOTIFICATIONNEWCHAT_API = BASE_API + '/notificationnewchatbyuserid';
   static const NOTIFICATIONTOADMIN_API = BASE_API + '/notificationtoadmin';
   static const CREATE_STORE_PROFILE = BASE_API + '/storeowner' ;
   static const CHECK_USER_ROLE = BASE_API + '/checkUserType';
