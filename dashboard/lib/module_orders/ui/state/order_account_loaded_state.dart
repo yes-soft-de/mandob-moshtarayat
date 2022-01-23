@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat_dashboad/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
-import 'package:mandob_moshtarayat_dashboad/module_captain/captains_routes.dart';
-import 'package:mandob_moshtarayat_dashboad/module_captain/model/captain_model_payment_model.dart';
-import 'package:mandob_moshtarayat_dashboad/module_captain/model/inActiveModel.dart';
 import 'package:mandob_moshtarayat_dashboad/module_orders/model/order_account_model.dart';
 import 'package:mandob_moshtarayat_dashboad/module_orders/ui/screen/order_accounts_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/module_payments/payments_routes.dart';

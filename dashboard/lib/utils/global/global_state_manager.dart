@@ -2,8 +2,6 @@ import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:mandob_moshtarayat_dashboad/module_captain/state_manager/captain_list.dart';
 import 'package:mandob_moshtarayat_dashboad/module_captain/state_manager/in_active_captains_state_manager.dart';
-import 'package:mandob_moshtarayat_dashboad/module_captain/ui/screen/captains_list_screen.dart';
-import 'package:mandob_moshtarayat_dashboad/module_captain/ui/screen/in_active_captains_screen.dart';
 
 @singleton
 @injectable

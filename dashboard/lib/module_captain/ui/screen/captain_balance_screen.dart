@@ -3,9 +3,11 @@ import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
 import 'package:mandob_moshtarayat_dashboad/abstracts/states/loading_state.dart';
 import 'package:mandob_moshtarayat_dashboad/abstracts/states/state.dart';
+import 'package:mandob_moshtarayat_dashboad/di/di_config.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_captain/state_manager/captain_balance_state_manager.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_app_bar.dart';
+import 'package:mandob_moshtarayat_dashboad/utils/global/global_state_manager.dart';
 
 @injectable
 class CaptainBalanceScreen extends StatefulWidget {
@@ -26,6 +28,9 @@ class CaptainBalanceScreenState extends State<CaptainBalanceScreen> {
     widget._stateManager.stateStream.listen((event) {
       currentState = event;
       refresh();
+    });
+    getIt<GlobalStateManager>().stateStream.listen((event) {
+      getCaptain();
     });
     super.initState();
   }

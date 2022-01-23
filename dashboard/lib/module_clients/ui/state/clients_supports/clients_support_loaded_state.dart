@@ -60,7 +60,8 @@ class ClientsNeedSupportLoadedState extends States {
               arguments: ChatArgument(
                 roomID: element.roomID,
                 userType: 'client',
-                userID: int.parse(element.id), 
+                guest:element.clientID != '-1' ? false : true,
+                userID: int.parse(element.clientID != '-1' ? element.clientID : element.id), 
               ));
         },
       ));
