@@ -7,20 +7,22 @@ import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_captain/captains_routes.dart';
 import 'package:mandob_moshtarayat_dashboad/module_captain/request/accept_captain_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_captain/state_manager/captain_profile_state_manager.dart';
+import 'package:mandob_moshtarayat_dashboad/module_distributor/request/accept_captain_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_distributor/state_manager/distros_profile_state_manager.dart';
 import 'package:mandob_moshtarayat_dashboad/module_payments/payments_routes.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_app_bar.dart';
 
 @injectable
-class CaptainProfileScreen extends StatefulWidget {
-  final CaptainProfileStateManager _stateManager;
+class DistrosProfileScreen extends StatefulWidget {
+  final DistrosProfileStateManager _stateManager;
 
-  CaptainProfileScreen(this._stateManager);
+  DistrosProfileScreen(this._stateManager);
 
   @override
-  CaptainProfileScreenState createState() => CaptainProfileScreenState();
+  DistributorProfileScreenState createState() => DistributorProfileScreenState();
 }
 
-class CaptainProfileScreenState extends State<CaptainProfileScreen> {
+class DistributorProfileScreenState extends State<DistrosProfileScreen> {
   late States currentState;
 
   @override
@@ -37,8 +39,8 @@ class CaptainProfileScreenState extends State<CaptainProfileScreen> {
     //  widget._stateManager.getCaptainProfile(this, captainId);
   }
 
-  void enableCaptain(AcceptCaptainRequest request) {
-    // widget._stateManager.acceptCaptainProfile(this, captainId, request);
+  void enableDistro(AcceptDistroRequest request) {
+     widget._stateManager.acceptDistroProfile(this, distorId, request);
   }
 
   void refresh() {
@@ -47,15 +49,15 @@ class CaptainProfileScreenState extends State<CaptainProfileScreen> {
     }
   }
 
-  int captainId = -1;
+  int distorId = -1;
 
   @override
   Widget build(BuildContext context) {
-    if (captainId == -1) {
+    if (distorId == -1) {
       var arg = ModalRoute.of(context)?.settings.arguments;
       if (arg != null && arg is int) {
-        captainId = arg;
-        //  widget._stateManager.getCaptainProfile(this, captainId);
+        distorId = arg;
+          widget._stateManager.getDistorProfile(this, distorId);
       }
     }
     return Scaffold(
@@ -69,8 +71,8 @@ class CaptainProfileScreenState extends State<CaptainProfileScreen> {
                 child: InkWell(
                   customBorder: CircleBorder(),
                   onTap: () {
-                    Navigator.pushNamed(context, CaptainsRoutes.CAPTAIN_BALANCE,
-                        arguments: captainId);
+//                    Navigator.pushNamed(context, CaptainsRoutes.CAPTAIN_BALANCE,
+//                        arguments: distorsId);
                   },
                   child: Container(
                     decoration: BoxDecoration(

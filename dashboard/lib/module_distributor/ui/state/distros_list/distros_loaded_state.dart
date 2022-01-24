@@ -10,6 +10,8 @@ import 'package:mandob_moshtarayat_dashboad/utils/components/empty_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/error_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/fixed_container.dart';
 
+import '../../../distros_routes.dart';
+
 class DistrosLoadedState extends States {
   final DistrosScreenState screenState;
   final String? error;
@@ -32,7 +34,7 @@ class DistrosLoadedState extends States {
     if (error != null) {
       return ErrorStateWidget(
         onRefresh: () {
-          screenState.getCaptains();
+          screenState.getDistros();
         },
         error: error,
       );
@@ -40,7 +42,7 @@ class DistrosLoadedState extends States {
       return EmptyStateWidget(
           empty: S.current.emptyStaff,
           onRefresh: () {
-            screenState.getCaptains();
+            screenState.getDistros();
           });
     }
     return FixedContainer(
@@ -54,7 +56,10 @@ class DistrosLoadedState extends States {
         continue;
       }
       widgets.add(CaptainCard(
-        onTap: () {},
+        onTap: () {
+          Navigator.of(context).pushNamed(DistributorRoutes.DISTRO_PROFILE,
+              arguments: int.parse(element.distroID));
+        },
         key: ValueKey(element.distroID),
         captainId: element.distroID,
         captainName: element.distroName,

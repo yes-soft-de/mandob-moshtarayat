@@ -9,7 +9,7 @@ import 'package:mandob_moshtarayat_dashboad/abstracts/states/state.dart';
 
 @injectable
 class InActiveDistributorsStateManager {
-  final DistributerService _distroService;
+  final DistributorService _distroService;
   final PublishSubject<States> _stateSubject = PublishSubject();
 
   Stream<States> get stateStream => _stateSubject.stream;

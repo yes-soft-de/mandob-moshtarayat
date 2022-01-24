@@ -33,3 +33,28 @@ class DistributorResponse {
         'Data': data?.map((e) => e.toJson()).toList(),
       };
 }
+
+class DistributorProfileResponse {
+  String? statusCode;
+  String? msg;
+  Datum ? data;
+
+  DistributorProfileResponse({this.statusCode, this.msg, this.data});
+
+  factory DistributorProfileResponse.fromJson(Map<String, dynamic> json) {
+    try {
+      return DistributorProfileResponse(
+        statusCode: json['status_code'] as String?,
+        msg: json['msg'] as String?,
+        data:Datum.fromJson(json['Data'])
+      );
+    } catch (e) {
+      Logger().error('Distirbutor Profile Response', e.toString(), StackTrace.current);
+      return DistributorProfileResponse(
+        statusCode: '-1',
+        msg: json['msg'] as String?,
+      );
+    }
+  }
+
+}

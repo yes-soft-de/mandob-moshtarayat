@@ -10,6 +10,8 @@ import 'package:mandob_moshtarayat_dashboad/utils/components/error_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/fixed_container.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/progresive_image.dart';
 
+import '../../../distros_routes.dart';
+
 class InDistributedActiveLoadedState extends States {
   final InActiveDistributorsScreenState screenState;
   final String? error;
@@ -30,7 +32,7 @@ class InDistributedActiveLoadedState extends States {
     if (error != null) {
       return ErrorStateWidget(
         onRefresh: () {
-          screenState.getCaptains();
+          screenState.getDistros();
         },
         error: error,
       );
@@ -38,7 +40,7 @@ class InDistributedActiveLoadedState extends States {
       return EmptyStateWidget(
           empty: S.current.emptyStaff,
           onRefresh: () {
-            screenState.getCaptains();
+            screenState.getDistros();
           });
     }
     return FixedContainer(
@@ -58,8 +60,8 @@ class InDistributedActiveLoadedState extends States {
         child: InkWell(
           borderRadius: BorderRadius.circular(50),
           onTap: () {
-            // Navigator.of(context).pushNamed(CaptainsRoutes.CAPTAIN_PROFILE,
-            //     arguments: int.parse(element.captainID));
+             Navigator.of(context).pushNamed(DistributorRoutes.DISTRO_PROFILE,
+                 arguments: int.parse(element.distroID));
           },
           child: Container(
             decoration: BoxDecoration(

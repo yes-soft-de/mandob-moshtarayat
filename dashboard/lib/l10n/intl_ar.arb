@@ -503,6 +503,7 @@
     "firstDate": "من تاريخ",
     "lastDate": "حتى تاريخ",
     "captainUpdatedSuccessfully": "تم تعديل بيانات الكابتن بنجاح",
+    "distroUpdatedSuccessfully": "تم تعديل بيانات المندوب بنجاح",
     "reports": "تقارير",
     "productsReport": "تقارير المنتجات",
     "clientsReport": "تقارير العملاء",
@@ -557,6 +558,6 @@
     "paymentsList": "قائمة المدفوعات",
     "payStatus": "حالة الدفع",
     "areYouSureToDeleteThisPayment": "هل انت متأكد بإنك تريد حذف هذه الدفعة",
-    "representativeCommission": "عمولة المندوب"
-
+    "representativeCommission": "عمولة المندوب",
+    "representativeStatus": "حالة المندوب"
 }

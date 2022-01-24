@@ -5070,6 +5070,16 @@ class S {
     );
   }
 
+  /// `Distributor Updated Successfully`
+  String get distroUpdatedSuccessfully {
+    return Intl.message(
+      'Distributor Updated Successfully',
+      name: 'distroUpdatedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Reports`
   String get reports {
     return Intl.message(
@@ -5615,6 +5625,16 @@ class S {
     return Intl.message(
       'Representative commission',
       name: 'representativeCommission',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Representative status`
+  String get representativeStatus {
+    return Intl.message(
+      'Representative status',
+      name: 'representativeStatus',
       desc: '',
       args: [],
     );
