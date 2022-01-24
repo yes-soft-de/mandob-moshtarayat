@@ -5,6 +5,7 @@ namespace App\Service;
 use App\AutoMapping;
 use App\Entity\RepresentativeStoreLinkEntity;
 use App\Manager\RepresentativeStoreLinkManager;
+use App\Request\RepresentativeDueCreateRequest;
 use App\Request\RepresentativeStoreLinkCreateRequest;
 use App\Request\RepresentativeStoreLinkUpdateRequest;
 use App\Response\RepresentativeStoreLinkCreateResponse;
@@ -15,11 +16,13 @@ class RepresentativeStoreLinkService
 {
     private $autoMapping;
     private $representativeStoreLinkManager;
+    private $representativeDueService;
 
-    public function __construct(AutoMapping $autoMapping, RepresentativeStoreLinkManager $representativeStoreLinkManager)
+    public function __construct(AutoMapping $autoMapping, RepresentativeStoreLinkManager $representativeStoreLinkManager, RepresentativeDueService $representativeDueService)
     {
         $this->autoMapping = $autoMapping;
         $this->representativeStoreLinkManager = $representativeStoreLinkManager;
+        $this->representativeDueService = $representativeDueService;
     }
 
     public function createRepresentativeStoreLink(RepresentativeStoreLinkCreateRequest $request)
@@ -54,7 +57,17 @@ class RepresentativeStoreLinkService
 
         } else {
 
+            // then, insert due for the representative for linking the store
+            $this->createDueForRepresentative($representativeStoreLinkResult);
+
             return $this->autoMapping->map(RepresentativeStoreLinkEntity::class, RepresentativeStoreLinkUpdateResponse::class, $representativeStoreLinkResult);
         }
+    }
+
+    public function createDueForRepresentative(RepresentativeStoreLinkEntity $representativeStoreLinkEntity)
+    {
+        $createRepresentativeDueRequest = $this->autoMapping->map(RepresentativeStoreLinkEntity::class, RepresentativeDueCreateRequest::class, $representativeStoreLinkEntity);
+
+        $this->representativeDueService->createRepresentativeDue($createRepresentativeDueRequest);
     }
 }

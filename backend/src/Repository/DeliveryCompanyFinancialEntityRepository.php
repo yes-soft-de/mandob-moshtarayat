@@ -60,4 +60,13 @@ class DeliveryCompanyFinancialEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function getRepresentativeCommission()
+    {
+        return $this->createQueryBuilder('deliveryCompanyFinancialEntity')
+            ->select('deliveryCompanyFinancialEntity.representativeCommission')
+
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }
