@@ -18,4 +18,16 @@ class RepresentativeDueEntityRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, RepresentativeDueEntity::class);
     }
+
+    public function getSumRepresentativeDueByRepresentativeUserID($representativeUserID)
+    {
+        return $this->createQueryBuilder('representativeDueEntity')
+            ->select('SUM(representativeDueEntity.dueAmount)')
+
+            ->andWhere('representativeDueEntity.representativeUserID = :representativeUserID')
+            ->setParameter('representativeUserID', $representativeUserID)
+
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }
