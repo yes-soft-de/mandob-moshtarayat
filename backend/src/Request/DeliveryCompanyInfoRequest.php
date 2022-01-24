@@ -24,6 +24,6 @@ class DeliveryCompanyInfoRequest
 
     private $taxNumber;
 
-    private $QRCode;
+    private $qrCode;
 
 }

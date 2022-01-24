@@ -30,10 +30,10 @@ class ClientProfileResponse
 
     public $taxNumber;
 
-    public $QRCode;
+    public $qrCode;
 
-    public $QRCodeURL;
+    public $qrCodeURL;
 
-    public $QRCodeBase64;
+    public $qrCodeBase64;
 
 }

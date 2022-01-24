@@ -115,7 +115,7 @@ class ClientProfileController extends BaseController
      *          @OA\Property(type="string", property="nationalAddress"),
      *          @OA\Property(type="string", property="recordNumber"),
      *          @OA\Property(type="string", property="taxNumber"),
-     *          @OA\Property(type="string", property="QRCode"),
+     *          @OA\Property(type="string", property="qrCode"),
      *      )
      * )
      *
@@ -136,7 +136,7 @@ class ClientProfileController extends BaseController
      *                  @OA\Property(type="string", property="nationalAddress"),
      *                  @OA\Property(type="string", property="recordNumber"),
      *                  @OA\Property(type="string", property="taxNumber"),
-     *                  @OA\Property(type="string", property="QRCode"),
+     *                  @OA\Property(type="string", property="qrCode"),
      *          )
      *      )
      * )
@@ -192,8 +192,8 @@ class ClientProfileController extends BaseController
      *                  @OA\Property(type="string", property="nationalAddress"),
      *                  @OA\Property(type="string", property="recordNumber"),
      *                  @OA\Property(type="string", property="taxNumber"),
-     *                  @OA\Property(type="string", property="QRCode"),
-     *                  @OA\Property(type="string", property="QRCodeBase64"),
+     *                  @OA\Property(type="string", property="qrCode"),
+     *                  @OA\Property(type="string", property="qrCodeBase64"),
      *          )
      *      )
      * )
@@ -242,9 +242,9 @@ class ClientProfileController extends BaseController
      *                  @OA\Property(type="string", property="nationalAddress"),
      *                  @OA\Property(type="string", property="recordNumber"),
      *                  @OA\Property(type="string", property="taxNumber"),
-     *                  @OA\Property(type="string", property="QRCode"),
-     *                  @OA\Property(type="string", property="QRCodeURL"),
-     *                  @OA\Property(type="string", property="QRCodeBase64"),
+     *                  @OA\Property(type="string", property="qrCode"),
+     *                  @OA\Property(type="string", property="qrCodeURL"),
+     *                  @OA\Property(type="string", property="qrCodeBase64"),
      *          )
      *      )
      * )

@@ -80,7 +80,7 @@ class ClientProfileEntity
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $QRCode;
+    private $qrCode;
 
     public function getId(): ?int
     {
@@ -231,14 +231,14 @@ class ClientProfileEntity
         return $this;
     }
 
-    public function getQRCode(): ?string
+    public function getQrCode(): ?string
     {
-        return $this->QRCode;
+        return $this->qrCode;
     }
 
-    public function setQRCode(?string $QRCode): self
+    public function setQrCode(?string $qrCode): self
     {
-        $this->QRCode = $QRCode;
+        $this->qrCode = $qrCode;
 
         return $this;
     }

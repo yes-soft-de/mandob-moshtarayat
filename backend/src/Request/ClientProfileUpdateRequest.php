@@ -20,7 +20,7 @@ class ClientProfileUpdateRequest
 
     private $taxNumber;
 
-    private $QRCode;
+    private $qrCode;
 
    
     /**
