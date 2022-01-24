@@ -616,6 +616,7 @@ class OrderService
 
             $item['order'] = $this->orderManager->orderStatusByOrderId($item['orderDetails'][0]->orderID);
             $item['order']['orderCost'] = round($item['order']['orderCost'], 1);
+            $item['vatTax'] = $this->getVatTax($item['order']['orderCost']);
 
             if($item['order']['payment'] == "card"){
                 $item['payInfo'] = $this->electronicPaymentInfoService->getPayInfoByOrderNumber($orderNumber);
@@ -646,6 +647,7 @@ class OrderService
         if($item['orderDetails']) {
             $item['order'] = $this->orderManager->orderStatusByOrderId($item['orderDetails'][0]->orderID);
             $item['order']['orderCost'] = round($item['order']['orderCost'], 1);
+            $item['vatTax'] = $this->getVatTax($item['order']['orderCost']);
 
             $response = $this->autoMapping->map('array', OrderInfoForCaptainResponse::class, $item);
         }
@@ -671,6 +673,7 @@ class OrderService
         if($item['orderDetails']) {
             $item['order'] = $this->orderManager->orderStatusByOrderId($item['orderDetails'][0]->orderID);
             $item['order']['orderCost'] = round($item['order']['orderCost'], 1);
+            $item['vatTax'] = $this->getVatTax($item['order']['orderCost']);
 
             if($item['order']['payment'] == "card"){
                 $item['payInfo'] = $this->electronicPaymentInfoService->getPayInfoByOrderNumber($orderNumber);
@@ -681,6 +684,14 @@ class OrderService
         return $response;
     }
 
+    public function getVatTax($orderCost) {
+        $item = [];
+        $item['itemsTotal'] = $orderCost;
+        $item['vatTax'] = ($orderCost * 15) / 100;
+        $item['total'] = round($item['vatTax'] + $orderCost, 1);
+
+        return $item;
+    }
     public function orderUpdateByClient(OrderUpdateByClientRequest $request)
     {
         $response = ResponseConstant::$ERROR;
