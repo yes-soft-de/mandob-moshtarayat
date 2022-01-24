@@ -37,6 +37,11 @@ class DeliveryCompanyPaymentToRepresentativeManager
         return $this->deliveryCompanyPaymentsToRepresentativeEntityRepository->getDeliveryCompanyPaymentsToRepresentativeByRepresentativeID($representativeID);
     }
 
+    public function getDeliveryCompanySumPaymentsToRepresentative($representativeID)
+    {
+        return $this->deliveryCompanyPaymentsToRepresentativeEntityRepository->getDeliveryCompanySumPaymentsToRepresentative($representativeID);
+    }
+
     public function deletePaymentToRepresentative($id)
     {
         $result = $this->deliveryCompanyPaymentsToRepresentativeEntityRepository->find($id);

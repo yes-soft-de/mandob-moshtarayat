@@ -70,4 +70,9 @@ class RepresentativeStoreLinkService
 
         $this->representativeDueService->createRepresentativeDue($createRepresentativeDueRequest);
     }
+
+    public function getCountLinkedStoresByRepresentativeUserID($representativeUserID)
+    {
+        return $this->representativeStoreLinkManager->getCountLinkedStoresByRepresentativeUserID($representativeUserID);
+    }
 }

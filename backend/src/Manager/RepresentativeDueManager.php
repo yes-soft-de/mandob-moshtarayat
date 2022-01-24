@@ -48,4 +48,9 @@ class RepresentativeDueManager
             return $representativeCommission;
         }
     }
+
+    public function getSumRepresentativeDueByRepresentativeUserID($representativeUserID)
+    {
+        return $this->representativeDueEntityRepository->getSumRepresentativeDueByRepresentativeUserID($representativeUserID);
+    }
 }

@@ -33,4 +33,16 @@ class DeliveryCompanyPaymentsToRepresentativeEntityRepository extends ServiceEnt
             ->getQuery()
             ->getResult();
     }
+
+    public function getDeliveryCompanySumPaymentsToRepresentative($representativeID)
+    {
+        return $this->createQueryBuilder('paymentsToRepresentative')
+               ->select('SUM(paymentsToRepresentative.amount)')
+
+               ->andWhere('paymentsToRepresentative.representativeID = :representativeID')
+               ->setParameter('representativeID', $representativeID)
+
+               ->getQuery()
+               ->getSingleScalarResult();
+    }
 }

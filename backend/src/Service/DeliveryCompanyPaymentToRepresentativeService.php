@@ -46,6 +46,11 @@ class DeliveryCompanyPaymentToRepresentativeService
         return $response;
     }
 
+    public function getDeliveryCompanySumPaymentsToRepresentative($representativeID)
+    {
+        return $this->deliveryCompanyPaymentToRepresentativeManager->getDeliveryCompanySumPaymentsToRepresentative($representativeID);
+    }
+
     public function deletePaymentToRepresentative($id)
     {
         return $this->deliveryCompanyPaymentToRepresentativeManager->deletePaymentToRepresentative($id);

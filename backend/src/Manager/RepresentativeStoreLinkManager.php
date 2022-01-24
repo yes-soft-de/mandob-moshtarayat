@@ -45,6 +45,11 @@ class RepresentativeStoreLinkManager
         return $this->representativeStoreLinkEntityRepository->getNotLinkedRepresentativeStoreLinkByStoreOwnerIpAndRepresentativeUserID($storeOwnerIP, $representativeUserID);
     }
 
+    public function getCountLinkedStoresByRepresentativeUserID($representativeUserID)
+    {
+        return $this->representativeStoreLinkEntityRepository->getCountLinkedStoresByRepresentativeUserID($representativeUserID);
+    }
+
     public function updateRepresentativeStoreLink(RepresentativeStoreLinkUpdateRequest $request)
     {
         $representativeStoreLinkResult = $this->representativeStoreLinkEntityRepository->find($request->getId());

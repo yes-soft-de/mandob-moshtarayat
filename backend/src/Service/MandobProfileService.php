@@ -16,6 +16,7 @@ use App\Response\RepresentativeProfileForAdminGetResponse;
 use App\Response\RepresentativeProfileGetResponse;
 use App\Response\UserRegisterResponse ;
 use App\Manager\MandobProfileManager;
+use App\Response\RepresentativeFinancialAccountForAdminGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class MandobProfileService
@@ -24,14 +25,21 @@ class MandobProfileService
     private $params;
     private $roomIdHelperService;
     private $verificationService;
+    private $deliveryCompanyPaymentToRepresentativeService;
+    private $representativeStoreLinkService;
+    private $representativeDueService;
     private $mandobProfileManager;
 
     public function __construct(AutoMapping $autoMapping, ParameterBagInterface $params, RoomIdHelperService $roomIdHelperService, MandobProfileManager $mandobProfileManager,
-                                VerificationService $verificationService)
+                                VerificationService $verificationService, DeliveryCompanyPaymentToRepresentativeService $deliveryCompanyPaymentToRepresentativeService, RepresentativeStoreLinkService $representativeStoreLinkService,
+     RepresentativeDueService $representativeDueService)
     {
         $this->autoMapping = $autoMapping;
         $this->roomIdHelperService = $roomIdHelperService;
         $this->verificationService = $verificationService;
+        $this->deliveryCompanyPaymentToRepresentativeService = $deliveryCompanyPaymentToRepresentativeService;
+        $this->representativeStoreLinkService = $representativeStoreLinkService;
+        $this->representativeDueService = $representativeDueService;
         $this->mandobProfileManager = $mandobProfileManager;
 
         $this->params = $params->get('upload_base_url') . '/';
@@ -117,5 +125,18 @@ class MandobProfileService
             return $item;
         }
         return $this->autoMapping->map(MandobProfileEntity::class, ActivateMandobAccountByAdminResponse::class, $item);
+    }
+
+    public function getRepresentativeFinancialAccountForAdmin($representativeID)
+    {
+        $response = [];
+
+        $response['paymentsToRepresentative'] = $this->deliveryCompanyPaymentToRepresentativeService->getDeliveryCompanyPaymentsToRepresentativeByRepresentativeID($representativeID);
+        $response['sumPaymentsToRepresentative'] = (float)$this->deliveryCompanyPaymentToRepresentativeService->getDeliveryCompanySumPaymentsToRepresentative($representativeID);
+        $response['countLinkedStores'] = (float)$this->representativeStoreLinkService->getCountLinkedStoresByRepresentativeUserID($representativeID);
+        $response['sumRepresentativeDue'] = (float)$this->representativeDueService->getSumRepresentativeDueByRepresentativeUserID($representativeID);
+        $response['totalRemainingPaymentsToRepresentative'] = $response['sumRepresentativeDue'] - $response['sumPaymentsToRepresentative'];
+
+        return $this->autoMapping->map('array', RepresentativeFinancialAccountForAdminGetResponse::class, $response);
     }
 }

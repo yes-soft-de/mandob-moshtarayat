@@ -25,4 +25,9 @@ class RepresentativeDueService
 
         return $this->autoMapping->map(RepresentativeDueEntity::class, RepresentativeDueCreateResponse::class, $representativeDueEntity);
     }
+
+    public function getSumRepresentativeDueByRepresentativeUserID($representativeUserID)
+    {
+        return $this->representativeDueManager->getSumRepresentativeDueByRepresentativeUserID($representativeUserID);
+    }
 }
