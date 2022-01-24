@@ -112,6 +112,10 @@ class ClientProfileController extends BaseController
      *          @OA\Property(type="string", property="image"),
      *          @OA\Property(type="object", property="location"),
      *          @OA\Property(type="string", property="phone"),
+     *          @OA\Property(type="string", property="nationalAddress"),
+     *          @OA\Property(type="string", property="recordNumber"),
+     *          @OA\Property(type="string", property="taxNumber"),
+     *          @OA\Property(type="string", property="qrCode"),
      *      )
      * )
      *
@@ -129,9 +133,14 @@ class ClientProfileController extends BaseController
      *                  @OA\Property(type="string", property="phone"),
      *                  @OA\Property(type="string", property="image"),
      *                  @OA\Property(type="object", property="location"),
+     *                  @OA\Property(type="string", property="nationalAddress"),
+     *                  @OA\Property(type="string", property="recordNumber"),
+     *                  @OA\Property(type="string", property="taxNumber"),
+     *                  @OA\Property(type="string", property="qrCode"),
      *          )
      *      )
      * )
+     *
      * @Security(name="Bearer")
      */
     public function updateClientProfile(Request $request)
@@ -180,9 +189,15 @@ class ClientProfileController extends BaseController
      *                  @OA\Property(type="array", property="favouriteCategories",
      *                      @OA\Items(),
      *              ),
+     *                  @OA\Property(type="string", property="nationalAddress"),
+     *                  @OA\Property(type="string", property="recordNumber"),
+     *                  @OA\Property(type="string", property="taxNumber"),
+     *                  @OA\Property(type="string", property="qrCode"),
+     *                  @OA\Property(type="string", property="qrCodeBase64"),
      *          )
      *      )
      * )
+     *
      * @Security(name="Bearer")
      */
     public function getClientProfileByClientID()
@@ -224,9 +239,16 @@ class ClientProfileController extends BaseController
      *                  @OA\Property(type="string", property="baseURL"),
      *                  @OA\Property(type="object", property="location"),
      *                  @OA\Property(type="object", property="statistics"),
+     *                  @OA\Property(type="string", property="nationalAddress"),
+     *                  @OA\Property(type="string", property="recordNumber"),
+     *                  @OA\Property(type="string", property="taxNumber"),
+     *                  @OA\Property(type="string", property="qrCode"),
+     *                  @OA\Property(type="string", property="qrCodeURL"),
+     *                  @OA\Property(type="string", property="qrCodeBase64"),
      *          )
      *      )
      * )
+     *
      * @Security(name="Bearer")
      */
     public function getClientProfileByID($id)

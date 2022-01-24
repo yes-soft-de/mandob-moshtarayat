@@ -10,4 +10,5 @@ class OrderInfoForCaptainResponse
     public $rate;
     public $invoices;
     public $clientID;
+    public $vatTax;
 }

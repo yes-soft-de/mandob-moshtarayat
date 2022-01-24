@@ -56,6 +56,10 @@ class DeliveryCompanyProfileController extends BaseController
      *          @OA\Property(type="string", property="bank"),
      *          @OA\Property(type="string", property="stc"),
      *          @OA\Property(type="string", property="email"),
+     *          @OA\Property(type="string", property="nationalAddress"),
+     *          @OA\Property(type="string", property="recordNumber"),
+     *          @OA\Property(type="string", property="taxNumber"),
+     *          @OA\Property(type="string", property="qrCode"),
      *      )
      * )
      *
@@ -75,6 +79,10 @@ class DeliveryCompanyProfileController extends BaseController
      *                    @OA\Property(type="string", property="bank"),
      *                    @OA\Property(type="string", property="stc"),
      *                    @OA\Property(type="string", property="email"),
+     *                    @OA\Property(type="string", property="nationalAddress"),
+     *                    @OA\Property(type="string", property="recordNumber"),
+     *                    @OA\Property(type="string", property="taxNumber"),
+     *                    @OA\Property(type="string", property="qrCode"),
      *                 )
      *              )
      *          )
@@ -127,6 +135,10 @@ class DeliveryCompanyProfileController extends BaseController
       *          @OA\Property(type="string", property="bank"),
       *          @OA\Property(type="string", property="stc"),
       *          @OA\Property(type="string", property="email"),
+      *          @OA\Property(type="string", property="nationalAddress"),
+      *          @OA\Property(type="string", property="recordNumber"),
+      *          @OA\Property(type="string", property="taxNumber"),
+      *          @OA\Property(type="string", property="qrCode"),
       *      )
       * )
       *
@@ -145,9 +157,14 @@ class DeliveryCompanyProfileController extends BaseController
       *                    @OA\Property(type="string", property="bank"),
       *                    @OA\Property(type="string", property="stc"),
       *                    @OA\Property(type="string", property="email"),
+      *                    @OA\Property(type="string", property="nationalAddress"),
+      *                    @OA\Property(type="string", property="recordNumber"),
+      *                    @OA\Property(type="string", property="taxNumber"),
+      *                    @OA\Property(type="string", property="qrCode"),
       *              )
       *          )
       *      )
+      *
       *
       * @Security(name="Bearer")
       */
@@ -205,6 +222,11 @@ class DeliveryCompanyProfileController extends BaseController
       *                    @OA\Property(type="string", property="bank"),
       *                    @OA\Property(type="string", property="stc"),
       *                    @OA\Property(type="string", property="email"),
+      *                    @OA\Property(type="string", property="nationalAddress"),
+      *                    @OA\Property(type="string", property="recordNumber"),
+      *                    @OA\Property(type="string", property="taxNumber"),
+      *                    @OA\Property(type="string", property="qrCode"),
+      *                    @OA\Property(type="string", property="qrCodeBase64"),
       *                 )
       *              )
       *          )

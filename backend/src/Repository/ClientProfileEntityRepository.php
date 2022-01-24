@@ -23,7 +23,7 @@ class ClientProfileEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('clientProfile')
 
-            ->select('clientProfile.id', 'clientProfile.clientName','clientProfile.clientID', 'clientProfile.image', 'clientProfile.phone', 'clientProfile.roomID', 'clientProfile.location','clientProfile.favouriteCategories')
+            ->select('clientProfile.id', 'clientProfile.clientName','clientProfile.clientID', 'clientProfile.image', 'clientProfile.phone', 'clientProfile.roomID', 'clientProfile.location','clientProfile.favouriteCategories', 'clientProfile.nationalAddress','clientProfile.recordNumber', 'clientProfile.taxNumber','clientProfile.qrCode')
 
             ->andWhere('clientProfile.clientID = :clientID')
 
@@ -37,7 +37,7 @@ class ClientProfileEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('clientProfile')
 
-            ->select('clientProfile.id', 'clientProfile.clientName','clientProfile.clientID', 'clientProfile.image', 'clientProfile.phone', 'clientProfile.roomID', 'clientProfile.location')
+            ->select('clientProfile.id', 'clientProfile.clientName','clientProfile.clientID', 'clientProfile.image', 'clientProfile.phone', 'clientProfile.roomID', 'clientProfile.location', 'clientProfile.nationalAddress','clientProfile.recordNumber', 'clientProfile.taxNumber','clientProfile.qrCode')
 
             ->andWhere('clientProfile.id = :id')
 

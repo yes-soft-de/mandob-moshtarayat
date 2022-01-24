@@ -7,16 +7,19 @@ use App\Entity\DeliveryCompanyProfileEntity;
 use App\Manager\DeliveryCompanyProfileManager;
 use App\Request\DeliveryCompanyInfoRequest;
 use App\Response\DeliveryCompanyInfoResponse;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class DeliveryCompanyProfileService
 {
     private $autoMapping;
     private $deliveryCompanyProfileManager;
+    private $params;
 
-    public function __construct(AutoMapping $autoMapping, DeliveryCompanyProfileManager $deliveryCompanyProfileManager)
+    public function __construct(AutoMapping $autoMapping, DeliveryCompanyProfileManager $deliveryCompanyProfileManager, ParameterBagInterface $params)
     {
         $this->autoMapping = $autoMapping;
         $this->deliveryCompanyProfileManager = $deliveryCompanyProfileManager;
+        $this->params = $params->get('upload_base_url') . '/';
     }
 
     public function createDeliveryCompanyInfo(DeliveryCompanyInfoRequest $request)
@@ -51,17 +54,19 @@ class DeliveryCompanyProfileService
 
     public function  getcompanyinfoAll()
     {
-        $respons=[];
+        $response=[];
 
         $results = $this->deliveryCompanyProfileManager->getcompanyinfoAll();
        
         foreach ($results as  $result) {
 
-           $respons[]= $this->autoMapping->map('array', DeliveryCompanyInfoResponse::class, $result);
+            $result['qrCode'] = $this->params.$result['qrCode'];
+            $result['qrCodeBase64'] = base64_encode($this->params.$result['qrCode']);
+            $response[]= $this->autoMapping->map('array', DeliveryCompanyInfoResponse::class, $result);
 
         }
 
-        return $respons;
+        return $response;
     }
 
      public function  getAllCompanyInfoForStoreOwner($userId)
