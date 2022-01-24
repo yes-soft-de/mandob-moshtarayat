@@ -23,4 +23,17 @@ class ClientProfileResponse
     public $location;
 
     public $statistics;
+
+    public $nationalAddress;
+
+    public $recordNumber;
+
+    public $taxNumber;
+
+    public $QRCode;
+
+    public $QRCodeURL;
+
+    public $QRCodeBase64;
+
 }

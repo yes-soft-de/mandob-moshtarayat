@@ -99,8 +99,11 @@ class ClientProfileService
 
     public function getClientProfileByClientID($clientID)
     {
-        $item = $this->userManager->getClientProfileByClientID($clientID);  
-            
+        $item = $this->userManager->getClientProfileByClientID($clientID);
+
+        $item['QRCode'] = $this->params.$item['QRCode'];
+        $item['QRCodeBase64'] = base64_encode($this->params.$item['QRCode']);
+
         return $this->autoMapping->map('array', ClientProfileWithFavouriteCategoriesResponse::class, $item);
     }
 
@@ -118,6 +121,10 @@ class ClientProfileService
         $item = $this->userManager->getClientProfileByID($id);
         $item['imageURL'] = $item['image'];
         $item['image'] = $this->params.$item['image'];
+
+        $item['QRCodeURL'] = $item['QRCode'];
+        $item['QRCode'] = $this->params.$item['QRCode'];
+        $item['QRCodeBase64'] = base64_encode($this->params.$item['QRCode']);
         $item['baseURL'] = $this->params;
         $item['statistics'] = $this->clientOrdersReport($item['clientID']);
 

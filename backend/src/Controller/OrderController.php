@@ -1106,6 +1106,11 @@ class OrderController extends BaseController
      *              @OA\Property(type="string", property="payStatus"),
      *              @OA\Property(type="object", property="createdAt"),
      *              @OA\Property(type="object", property="updatedAt"),
+     *              @OA\Property(type="object", property="vatTax",
+     *                   @OA\Property(type="number", property="itemsTotal"),
+     *                   @OA\Property(type="number", property="vatTax"),
+     *                   @OA\Property(type="number", property="total"),
+     *             )
      *          )
      *      )
      *  )
@@ -1191,8 +1196,13 @@ class OrderController extends BaseController
      *
      *                               ),
      *               ),
-     *          @OA\Property(type="number", property="deliveryCost"),
-     *          @OA\Property(type="number", property="rate"),
+     *                @OA\Property(type="number", property="deliveryCost"),
+     *                @OA\Property(type="number", property="rate"),
+     *                @OA\Property(type="object", property="vatTax",
+     *                   @OA\Property(type="number", property="itemsTotal"),
+     *                   @OA\Property(type="number", property="vatTax"),
+     *                   @OA\Property(type="number", property="total"),
+     *          )
      *      )
      *  )
      *)
@@ -1288,6 +1298,11 @@ class OrderController extends BaseController
      *              @OA\Property(type="string", property="payStatus"),
      *              @OA\Property(type="object", property="createdAt"),
      *              @OA\Property(type="object", property="updatedAt"),
+     *              @OA\Property(type="object", property="vatTax",
+     *                   @OA\Property(type="number", property="itemsTotal"),
+     *                   @OA\Property(type="number", property="vatTax"),
+     *                   @OA\Property(type="number", property="total"),
+     *              )
      *          )
      *      )
      *  )

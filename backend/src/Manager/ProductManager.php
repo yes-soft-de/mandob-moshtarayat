@@ -11,6 +11,7 @@ use App\Request\ProductCommissionByAdminUpdateRequest;
 use App\Request\ProductCreateRequest;
 use App\Request\ProductUpdateByStoreOwnerRequest;
 use App\Request\ProductUpdateRequest;
+use App\Request\UpdateProductQuantityRequest;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Manager\StoreProductCategoryManager;
 
@@ -367,5 +368,24 @@ class ProductManager
     public function getStoreOwnersProfilesIDsByStoreProductCategoriesIDs($storeProductsCategoriesIDsArray)
     {
         return $this->productEntityRepository->getStoreOwnersProfilesIDsByStoreProductCategoriesIDs($storeProductsCategoriesIDsArray);
+    }
+
+    public function updateProductQuantity(UpdateProductQuantityRequest $request)
+    {
+        $entity = $this->productEntityRepository->find($request->getProductID());
+
+        if (!$entity) {
+            return $entity;
+        }
+//        Calculate the remaining product quantity after the order.
+        $productQuantity = $entity->getProductQuantity() - $request->getProductQuantity();
+
+        $request->setProductQuantity($productQuantity);
+
+        $entity = $this->autoMapping->mapToObject(UpdateProductQuantityRequest::class, ProductEntity::class, $request, $entity);
+
+        $this->entityManager->flush();
+
+        return $entity;
     }
 }

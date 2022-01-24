@@ -10,4 +10,5 @@ class OrderInfoResponse
     public $rate;
     public $invoices;
     public $payInfo;
+    public $vatTax;
 }

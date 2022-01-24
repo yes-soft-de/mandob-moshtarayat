@@ -17,4 +17,13 @@ class DeliveryCompanyInfoRequest
     private $stc;
   
     private $email;
+
+    private $nationalAddress;
+
+    private $recordNumber;
+
+    private $taxNumber;
+
+    private $QRCode;
+
 }
