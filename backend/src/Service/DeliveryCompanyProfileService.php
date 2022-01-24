@@ -60,8 +60,8 @@ class DeliveryCompanyProfileService
        
         foreach ($results as  $result) {
 
-            $result['QRCode'] = $this->params.$result['QRCode'];
-            $result['QRCodeBase64'] = base64_encode($this->params.$result['QRCode']);
+            $result['qrCode'] = $this->params.$result['qrCode'];
+            $result['qrCodeBase64'] = base64_encode($this->params.$result['qrCode']);
             $response[]= $this->autoMapping->map('array', DeliveryCompanyInfoResponse::class, $result);
 
         }

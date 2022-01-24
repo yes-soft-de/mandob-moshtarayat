@@ -16,6 +16,6 @@ class DeliveryCompanyInfoResponse
     public $nationalAddress;
     public $recordNumber;
     public $taxNumber;
-    public $QRCode;
-    public $QRCodeBase64;
+    public $qrCode;
+    public $qrCodeBase64;
 }

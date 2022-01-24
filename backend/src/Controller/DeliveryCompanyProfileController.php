@@ -59,7 +59,7 @@ class DeliveryCompanyProfileController extends BaseController
      *          @OA\Property(type="string", property="nationalAddress"),
      *          @OA\Property(type="string", property="recordNumber"),
      *          @OA\Property(type="string", property="taxNumber"),
-     *          @OA\Property(type="string", property="QRCode"),
+     *          @OA\Property(type="string", property="qrCode"),
      *      )
      * )
      *
@@ -82,7 +82,7 @@ class DeliveryCompanyProfileController extends BaseController
      *                    @OA\Property(type="string", property="nationalAddress"),
      *                    @OA\Property(type="string", property="recordNumber"),
      *                    @OA\Property(type="string", property="taxNumber"),
-     *                    @OA\Property(type="string", property="QRCode"),
+     *                    @OA\Property(type="string", property="qrCode"),
      *                 )
      *              )
      *          )
@@ -138,7 +138,7 @@ class DeliveryCompanyProfileController extends BaseController
       *          @OA\Property(type="string", property="nationalAddress"),
       *          @OA\Property(type="string", property="recordNumber"),
       *          @OA\Property(type="string", property="taxNumber"),
-      *          @OA\Property(type="string", property="QRCode"),
+      *          @OA\Property(type="string", property="qrCode"),
       *      )
       * )
       *
@@ -160,7 +160,7 @@ class DeliveryCompanyProfileController extends BaseController
       *                    @OA\Property(type="string", property="nationalAddress"),
       *                    @OA\Property(type="string", property="recordNumber"),
       *                    @OA\Property(type="string", property="taxNumber"),
-      *                    @OA\Property(type="string", property="QRCode"),
+      *                    @OA\Property(type="string", property="qrCode"),
       *              )
       *          )
       *      )
@@ -225,8 +225,8 @@ class DeliveryCompanyProfileController extends BaseController
       *                    @OA\Property(type="string", property="nationalAddress"),
       *                    @OA\Property(type="string", property="recordNumber"),
       *                    @OA\Property(type="string", property="taxNumber"),
-      *                    @OA\Property(type="string", property="QRCode"),
-      *                    @OA\Property(type="string", property="QRCodeBase64"),
+      *                    @OA\Property(type="string", property="qrCode"),
+      *                    @OA\Property(type="string", property="qrCodeBase64"),
       *                 )
       *              )
       *          )
