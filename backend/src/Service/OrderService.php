@@ -442,6 +442,8 @@ class OrderService
                if(!$orderDetail) {
                    return $response;
                }
+            //  Calculate the remaining product quantity after the order.
+               $this->productService->updateProductQuantity($productID, $countProduct);
 
                $storeIDs[] = $orderDetail->storeOwnerProfileID;
             }

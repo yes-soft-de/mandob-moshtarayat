@@ -14,6 +14,7 @@ use App\Request\ProductUpdateByStoreOwnerRequest;
 use App\Request\ProductUpdateRequest;
 use App\Request\ProductWithTranslationCreateRequest;
 use App\Request\ProductWithTranslationUpdateRequest;
+use App\Request\UpdateProductQuantityRequest;
 use App\Response\CostDetailsResponse;
 use App\Response\ProductCreateResponse;
 use App\Response\ProductsByProductCategoryIdAndStoreOwnerProfileIdResponse;
@@ -884,5 +885,16 @@ class ProductService
     public function getStoreOwnersProfilesIDsByStoreProductCategoriesIDs($storeProductsCategoriesIDsArray)
     {
         return $this->productManager->getStoreOwnersProfilesIDsByStoreProductCategoriesIDs($storeProductsCategoriesIDsArray);
+    }
+
+    public function updateProductQuantity($productID, $countProduct)
+    {
+        $request = new UpdateProductQuantityRequest();
+        $request->setProductID($productID);
+        $request->setProductQuantity($countProduct);
+
+        $item = $this->productManager->updateProductQuantity($request);
+
+        return $this->autoMapping->map(ProductEntity::class, ProductCreateResponse::class, $item);
     }
 }
