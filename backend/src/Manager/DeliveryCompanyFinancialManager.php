@@ -90,4 +90,9 @@ class DeliveryCompanyFinancialManager
     {
        return $this->deliveryCompanyFinancialEntityRepository->getDeliveryCost();
     }
+
+    public function getRepresentativeCommission()
+    {
+        return $this->deliveryCompanyFinancialEntityRepository->getRepresentativeCommission();
+    }
 }
