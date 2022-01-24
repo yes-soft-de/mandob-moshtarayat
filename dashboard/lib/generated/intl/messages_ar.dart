@@ -616,6 +616,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تجديد الاشتراك"),
         "reportSent": MessageLookupByLibrary.simpleMessage("تم ارسال الابلاغ"),
         "reports": MessageLookupByLibrary.simpleMessage("تقارير"),
+        "representativeCommission":
+            MessageLookupByLibrary.simpleMessage("عمولة المندوب"),
         "requestMeeting":
             MessageLookupByLibrary.simpleMessage("اطلب موعدا للقاء"),
         "resendCode": MessageLookupByLibrary.simpleMessage("اعادة الارسال"),

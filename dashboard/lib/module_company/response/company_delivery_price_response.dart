@@ -33,18 +33,21 @@ class CompanyDeliveryPriceResponse {
 class Data {
   int? id;
   num? deliveryCost;
+  num? representativeCommission;
 
-  Data({this.id, this.deliveryCost});
+  Data({this.id, this.deliveryCost , this.representativeCommission});
 
   Data.fromJson(dynamic json) {
     id = json['id'];
     deliveryCost = json['deliveryCost'];
+    representativeCommission = json['representativeCommission'];
   }
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
     map['id'] = id;
     map['deliveryCost'] = deliveryCost;
+    map['representativeCommission'] = representativeCommission;
     return map;
   }
 }

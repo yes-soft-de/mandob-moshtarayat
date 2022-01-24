@@ -556,6 +556,7 @@
     "priceWithComission": "السعر مع العمولة",
     "paymentsList": "قائمة المدفوعات",
     "payStatus": "حالة الدفع",
-    "areYouSureToDeleteThisPayment": "هل انت متأكد بإنك تريد حذف هذه الدفعة"
+    "areYouSureToDeleteThisPayment": "هل انت متأكد بإنك تريد حذف هذه الدفعة",
+    "representativeCommission": "عمولة المندوب"
 
 }

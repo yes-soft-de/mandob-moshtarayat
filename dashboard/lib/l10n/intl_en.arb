@@ -559,8 +559,8 @@
     "priceWithComission": "Price With Commission",
     "paymentsList": "Payments List",
     "payStatus": "Payment Status",
-    "areYouSureToDeleteThisPayment": "Are you sure you want to delete this payment"
-
+    "areYouSureToDeleteThisPayment": "Are you sure you want to delete this payment",
+    "representativeCommission": "Representative commission"
 
 
 

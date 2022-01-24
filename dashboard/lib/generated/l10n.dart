@@ -5609,6 +5609,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Representative commission`
+  String get representativeCommission {
+    return Intl.message(
+      'Representative commission',
+      name: 'representativeCommission',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
