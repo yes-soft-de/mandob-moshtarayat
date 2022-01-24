@@ -62,6 +62,25 @@ class ClientProfileEntity
      */
     private $needSupport;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $nationalAddress;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $recordNumber;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $taxNumber;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $QRCode;
 
     public function getId(): ?int
     {
@@ -172,6 +191,54 @@ class ClientProfileEntity
     public function setNeedSupport(?bool $needSupport): self
     {
         $this->needSupport = $needSupport;
+
+        return $this;
+    }
+
+    public function getNationalAddress(): ?string
+    {
+        return $this->nationalAddress;
+    }
+
+    public function setNationalAddress(string $nationalAddress): self
+    {
+        $this->nationalAddress = $nationalAddress;
+
+        return $this;
+    }
+
+    public function getRecordNumber(): ?string
+    {
+        return $this->recordNumber;
+    }
+
+    public function setRecordNumber(string $recordNumber): self
+    {
+        $this->recordNumber = $recordNumber;
+
+        return $this;
+    }
+
+    public function getTaxNumber(): ?string
+    {
+        return $this->taxNumber;
+    }
+
+    public function setTaxNumber(string $taxNumber): self
+    {
+        $this->taxNumber = $taxNumber;
+
+        return $this;
+    }
+
+    public function getQRCode(): ?string
+    {
+        return $this->QRCode;
+    }
+
+    public function setQRCode(?string $QRCode): self
+    {
+        $this->QRCode = $QRCode;
 
         return $this;
     }

@@ -25,4 +25,12 @@ class ClientProfileWithFavouriteCategoriesResponse
     public $statistics;
 
     public $favouriteCategories;
+
+    public $nationalAddress;
+
+    public $recordNumber;
+
+    public $taxNumber;
+
+    public $QRCode;
 }

@@ -14,6 +14,14 @@ class ClientProfileUpdateRequest
 
     private $location;
 
+    private $nationalAddress;
+
+    private $recordNumber;
+
+    private $taxNumber;
+
+    private $QRCode;
+
    
     /**
      * @return mixed
