@@ -102,6 +102,7 @@ class ClientProfileService
         $item = $this->userManager->getClientProfileByClientID($clientID);
 
         $item['QRCode'] = $this->params.$item['QRCode'];
+        $item['QRCodeBase64'] = base64_encode($this->params.$item['QRCode']);
 
         return $this->autoMapping->map('array', ClientProfileWithFavouriteCategoriesResponse::class, $item);
     }
@@ -123,7 +124,7 @@ class ClientProfileService
 
         $item['QRCodeURL'] = $item['QRCode'];
         $item['QRCode'] = $this->params.$item['QRCode'];
-
+        $item['QRCodeBase64'] = base64_encode($this->params.$item['QRCode']);
         $item['baseURL'] = $this->params;
         $item['statistics'] = $this->clientOrdersReport($item['clientID']);
 

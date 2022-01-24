@@ -13,4 +13,9 @@ class DeliveryCompanyInfoResponse
     public $stc;
     public $email;
     public $roomID;
+    public $nationalAddress;
+    public $recordNumber;
+    public $taxNumber;
+    public $QRCode;
+    public $QRCodeBase64;
 }

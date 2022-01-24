@@ -38,7 +38,7 @@ class DeliveryCompanyProfileEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('CompanyInfoEntity') 
 
-            ->select('CompanyInfoEntity.id, CompanyInfoEntity.phone, CompanyInfoEntity.phone2, CompanyInfoEntity.whatsapp, CompanyInfoEntity.fax, CompanyInfoEntity.bank, CompanyInfoEntity.stc, CompanyInfoEntity.email')
+            ->select('CompanyInfoEntity.id, CompanyInfoEntity.phone, CompanyInfoEntity.phone2, CompanyInfoEntity.whatsapp, CompanyInfoEntity.fax, CompanyInfoEntity.bank, CompanyInfoEntity.stc, CompanyInfoEntity.email', 'CompanyInfoEntity.nationalAddress', 'CompanyInfoEntity.recordNumber', 'CompanyInfoEntity.taxNumber', 'CompanyInfoEntity.QRCode')
 
             ->getQuery()
             ->getResult();

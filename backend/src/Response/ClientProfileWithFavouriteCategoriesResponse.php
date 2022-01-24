@@ -33,4 +33,6 @@ class ClientProfileWithFavouriteCategoriesResponse
     public $taxNumber;
 
     public $QRCode;
+
+    public $QRCodeBase64;
 }

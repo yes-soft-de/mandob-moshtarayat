@@ -34,4 +34,6 @@ class ClientProfileResponse
 
     public $QRCodeURL;
 
+    public $QRCodeBase64;
+
 }
