@@ -34,15 +34,14 @@ class ChatRepository {
 
   Future<void> sendNotification(ChatArgument chatArgument) async {
     var token = await _authService.getToken();
-    if (token != null) {
-      await _apiClient.post(
-        Urls.NOTIFICATIONNEWCHAT_API,
-        chatArgument.userID == null
-            ? {'otherUserID': ''}
-            : {'otherUserID': chatArgument.userID},
-        headers: {'Authorization': 'Bearer ' + '$token'},
-      );
-    }
+
+    await _apiClient.post(
+      Urls.NOTIFICATIONNEWCHAT_API,
+      chatArgument.userID == null
+          ? {'otherUserID': ''}
+          : {'otherUserID': chatArgument.userID},
+      headers: token == null ? null : {'Authorization': 'Bearer ' + '$token'},
+    );
   }
 
   Future<void> needSupport() async {
