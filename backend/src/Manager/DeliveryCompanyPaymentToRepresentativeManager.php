@@ -37,9 +37,19 @@ class DeliveryCompanyPaymentToRepresentativeManager
         return $this->deliveryCompanyPaymentsToRepresentativeEntityRepository->getDeliveryCompanyPaymentsToRepresentativeByRepresentativeID($representativeID);
     }
 
+    public function getDeliveryCompanyPaymentsToRepresentativeByRepresentativeIdInSpecificDate($representativeID, $fromDate, $toDate): ?array
+    {
+        return $this->deliveryCompanyPaymentsToRepresentativeEntityRepository->getDeliveryCompanyPaymentsToRepresentativeByRepresentativeIdInSpecificDate($representativeID, $fromDate, $toDate);
+    }
+
     public function getDeliveryCompanySumPaymentsToRepresentative($representativeID)
     {
         return $this->deliveryCompanyPaymentsToRepresentativeEntityRepository->getDeliveryCompanySumPaymentsToRepresentative($representativeID);
+    }
+
+    public function getDeliveryCompanySumPaymentsToRepresentativeInSpecificDate($representativeID, $fromDate, $toDate)
+    {
+        return $this->deliveryCompanyPaymentsToRepresentativeEntityRepository->getDeliveryCompanySumPaymentsToRepresentativeInSpecificDate($representativeID, $fromDate, $toDate);
     }
 
     public function deletePaymentToRepresentative($id)

@@ -30,4 +30,9 @@ class RepresentativeDueService
     {
         return $this->representativeDueManager->getSumRepresentativeDueByRepresentativeUserID($representativeUserID);
     }
+
+    public function getSumRepresentativeDueByRepresentativeUserIdAndInSpecificDate($representativeUserID, $fromDate, $toDate)
+    {
+        return $this->representativeDueManager->getSumRepresentativeDueByRepresentativeUserIdAndInSpecificDate($representativeUserID, $fromDate, $toDate);
+    }
 }

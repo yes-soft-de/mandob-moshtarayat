@@ -53,4 +53,9 @@ class RepresentativeDueManager
     {
         return $this->representativeDueEntityRepository->getSumRepresentativeDueByRepresentativeUserID($representativeUserID);
     }
+
+    public function getSumRepresentativeDueByRepresentativeUserIdAndInSpecificDate($representativeUserID, $fromDate, $toDate)
+    {
+        return $this->representativeDueEntityRepository->getSumRepresentativeDueByRepresentativeUserIdAndInSpecificDate($representativeUserID, $fromDate, $toDate);
+    }
 }

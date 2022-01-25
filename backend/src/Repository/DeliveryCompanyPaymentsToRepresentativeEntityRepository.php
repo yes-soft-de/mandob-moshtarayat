@@ -34,6 +34,24 @@ class DeliveryCompanyPaymentsToRepresentativeEntityRepository extends ServiceEnt
             ->getResult();
     }
 
+    public function getDeliveryCompanyPaymentsToRepresentativeByRepresentativeIdInSpecificDate($representativeID, $fromDate, $toDate): ?array
+    {
+        return $this->createQueryBuilder('paymentsToRepresentative')
+            ->select('paymentsToRepresentative.id', 'paymentsToRepresentative.representativeID', 'paymentsToRepresentative.amount, paymentsToRepresentative.date, paymentsToRepresentative.note')
+
+            ->andWhere('paymentsToRepresentative.representativeID = :representativeID')
+            ->setParameter('representativeID', $representativeID)
+
+            ->andWhere('paymentsToRepresentative.date >= :fromDate')
+            ->andWhere('paymentsToRepresentative.date <= :toDate')
+
+            ->setParameter('fromDate', $fromDate)
+            ->setParameter('toDate', $toDate)
+
+            ->getQuery()
+            ->getResult();
+    }
+
     public function getDeliveryCompanySumPaymentsToRepresentative($representativeID)
     {
         return $this->createQueryBuilder('paymentsToRepresentative')
@@ -44,5 +62,23 @@ class DeliveryCompanyPaymentsToRepresentativeEntityRepository extends ServiceEnt
 
                ->getQuery()
                ->getSingleScalarResult();
+    }
+
+    public function getDeliveryCompanySumPaymentsToRepresentativeInSpecificDate($representativeID, $fromDate, $toDate)
+    {
+        return $this->createQueryBuilder('paymentsToRepresentative')
+            ->select('SUM(paymentsToRepresentative.amount)')
+
+            ->andWhere('paymentsToRepresentative.representativeID = :representativeID')
+            ->setParameter('representativeID', $representativeID)
+
+            ->andWhere('paymentsToRepresentative.date >= :fromDate')
+            ->andWhere('paymentsToRepresentative.date <= :toDate')
+
+            ->setParameter('fromDate', $fromDate)
+            ->setParameter('toDate', $toDate)
+
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 }
