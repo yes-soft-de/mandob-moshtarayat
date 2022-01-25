@@ -12,6 +12,7 @@ use App\Request\ProductCreateRequest;
 use App\Request\ProductUpdateByStoreOwnerRequest;
 use App\Request\ProductUpdateRequest;
 use App\Request\UpdateProductQuantityRequest;
+use App\Request\UpdateProductToDeletedRequest;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Manager\StoreProductCategoryManager;
 
@@ -388,4 +389,23 @@ class ProductManager
 
         return $entity;
     }
+
+    public function updateProductToDeleted(UpdateProductToDeletedRequest $request)
+    {
+        $productEntity = $this->productEntityRepository->find($request->getId());
+
+        if(!$productEntity) {
+            return 'productNotFound';
+        }
+
+        else {
+            $request->setIsDeleted(1);
+            $entity = $this->autoMapping->mapToObject(UpdateProductToDeletedRequest::class, ProductEntity::class, $request, $productEntity);
+
+            $this->entityManager->flush();
+
+            return $productEntity;
+        }
+    }
+
 }

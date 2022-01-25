@@ -15,6 +15,7 @@ use App\Request\ProductUpdateRequest;
 use App\Request\ProductWithTranslationCreateRequest;
 use App\Request\ProductWithTranslationUpdateRequest;
 use App\Request\UpdateProductQuantityRequest;
+use App\Request\UpdateProductToDeletedRequest;
 use App\Response\CostDetailsResponse;
 use App\Response\ProductCreateResponse;
 use App\Response\ProductsByProductCategoryIdAndStoreOwnerProfileIdResponse;
@@ -896,5 +897,18 @@ class ProductService
         $item = $this->productManager->updateProductQuantity($request);
 
         return $this->autoMapping->map(ProductEntity::class, ProductCreateResponse::class, $item);
+    }
+
+    public function updateProductToDeleted(UpdateProductToDeletedRequest $request)
+    {
+        $result = $this->productManager->updateProductToDeleted($request);
+
+        if($result == 'productNotFound') {
+            return $result;
+        }
+
+        else {
+            return $this->autoMapping->map(ProductEntity::class, ProductCreateResponse::class, $result);
+        }
     }
 }
