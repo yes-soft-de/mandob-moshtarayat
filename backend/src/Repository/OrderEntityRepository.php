@@ -919,16 +919,13 @@ class OrderEntityRepository extends ServiceEntityRepository
                 ->getSingleScalarResult();
     }
 
-    public function countCompletedOrdersForStoreOwner($id)
+    public function countOrdersForStoreOwner($id)
     {
         return  $this->createQueryBuilder('OrderEntity')
 
             ->select('count(OrderEntity.id) as count')
 
-            ->andWhere("OrderEntity.state = :delivered")
             ->andWhere("OrderEntity.id IN (:id)")
-
-            ->setParameter('delivered', self::DELIVERED)
             ->setParameter('id', $id)
 
             ->getQuery()

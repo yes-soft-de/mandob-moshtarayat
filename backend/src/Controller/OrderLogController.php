@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Service\OrderLogService;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -59,7 +60,7 @@ class OrderLogController extends BaseController
      *              @OA\Property(type="string", property="state"),
      *              @OA\Property(type="object", property="createdAt")
      *
-     *          )
+     *                  )
      *              )
      *          )
      *      )
@@ -69,6 +70,56 @@ class OrderLogController extends BaseController
       {
           $result = $this->orderLogService->getOrderLogsTimeLineNew($orderNumber);
   
+          return $this->response($result, self::FETCH);
+      }
+
+    /**
+     * Get order logs timeLine for store.
+     * @Route("/orderlogstimelineforstore/{orderNumber}", name="getOrderLogsTimeLineForStore", methods={"GET"})
+     * @IsGranted("ROLE_OWNER")
+     * @param $orderNumber
+     * @return JsonResponse
+     * *
+     * @OA\Tag(name="Logs")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns Order Logs Time Line For Store",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *
+     *                  @OA\Property(type="object", property="orderStatus",
+     *                      @OA\Property(type="string", property="completionTime"),
+     *                      @OA\Property(type="string", property="currentStage"),
+     *                      @OA\Property(type="string", property="deliveredTime"),
+     *                  ),
+     *              @OA\Property(type="array", property="logs",
+     *                  @OA\Items(
+     *              @OA\Property(type="integer", property="id"),
+     *              @OA\Property(type="string", property="state"),
+     *              @OA\Property(type="object", property="createdAt")
+     *
+     *                  )
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+      public function getOrderLogsTimeLineForStore($orderNumber): JsonResponse
+      {
+          $result = $this->orderLogService->getOrderLogsTimeLineForStore($orderNumber, $this->getUserId());
+
           return $this->response($result, self::FETCH);
       }
 

@@ -48,6 +48,8 @@ class BaseController extends AbstractController
     const STORE_OWNER_PROFILE_NOT_EXIST = ["store owner profile not exist!", "9157"];
     // client
     const CLIENT_PROFILE_NOT_EXIST = ["client profile not exist!", "9210"];
+    //profile not completed
+    const PROFILE_NOT_COMPLETED = ["profile is not completed!", "9220"];
 
     const NOTFOUND=["Not found", "404"];
 //    const TEST = [

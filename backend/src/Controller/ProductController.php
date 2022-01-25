@@ -12,6 +12,7 @@ use App\Request\ProductUpdateByStoreOwnerRequest;
 use App\Request\ProductUpdateRequest;
 use App\Request\ProductWithTranslationCreateRequest;
 use App\Request\ProductWithTranslationUpdateRequest;
+use App\Request\UpdateProductToDeletedRequest;
 use App\Service\ProductService;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -1242,6 +1243,62 @@ class ProductController extends BaseController
         $result = $this->productService->getProductsStoreOwnerProfileId($request->getPreferredLanguage(), $storeOwnerProfileId);
 
         return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * update product to deleted .
+     * @Route("updateproducttodeleted/{id}", name=" updateProductToDeleted", methods={"PUT"})
+     * @param Request $request
+     * @return JsonResponse
+     **
+     * @OA\Tag(name="Product")
+     *
+     * @OA\Response(
+     *      response=204,
+     *      description="update product to deleted",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="integer", property="id"),
+     *              @OA\Property(type="string", property="productName"),
+     *              @OA\Property(type="string", property="productImage"),
+     *              @OA\Property(type="number", property="productPrice"),
+     *              @OA\Property(type="integer", property="storeOwnerProfileID"),
+     *              @OA\Property(type="integer", property="storeProductCategoryID"),
+     *              @OA\Property(type="integer", property="discount"),
+     *              @OA\Property(type="string", property="description"),
+     *              @OA\Property(type="string", property="status")
+     *          )
+     *      )
+     * )
+     *
+     * or
+     *
+     * @OA\Response(
+     *      response=404,
+     *      description="Returns Not found Successfully.",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="string", property="Data"),
+     *      )
+     * )
+     *
+     */
+
+    public function updateProductToDeleted(Request $request, $id)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, UpdateProductToDeletedRequest::class, (object)$data);
+        $request->setId($id);
+
+        $result = $this->productService->updateProductToDeleted($request);
+        if ($result == "productNotFound"){
+            return $this->response($result, self::NOTFOUND);
+        }
+        return $this->response($result, self::UPDATE);
     }
 
 }
