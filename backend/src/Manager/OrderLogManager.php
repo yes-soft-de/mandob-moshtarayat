@@ -52,19 +52,39 @@ class OrderLogManager
         return $this->orderLogEntityRepository->getOrderLogsByOrderNumber($orderNumber);
     }
 
+    public function getOrderLogsTimeLineForByStoreID($orderNumber, $storeId)
+    {
+        return $this->orderLogEntityRepository->getOrderLogsTimeLineForByStoreID($orderNumber, $storeId);
+    }
+
     public function getFirstDate($orderNumber)
     {
         return $this->orderLogEntityRepository->getFirstDate($orderNumber);
+    }
+
+    public function getFirstDateForStore($orderNumber, $storeID)
+    {
+        return $this->orderLogEntityRepository->getFirstDateForStore($orderNumber, $storeID);
     }
 
     public function getAcceptOrderDate($orderNumber)
     {
         return $this->orderLogEntityRepository->getAcceptOrderDate($orderNumber);
     }
-    
+
+    public function getAcceptOrderDateForStore($orderNumber, $storeId)
+    {
+        return $this->orderLogEntityRepository->getAcceptOrderDateForStore($orderNumber, $storeId);
+    }
+
     public function getLastDate($orderNumber)
     {
         return $this->orderLogEntityRepository->getLastDate($orderNumber);
+    }
+
+    public function getLastDateForStore($orderNumber, $storeId)
+    {
+        return $this->orderLogEntityRepository->getLastDateForStore($orderNumber, $storeId);
     }
 
     public function getCaptainOrderLogs($captainID)

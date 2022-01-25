@@ -267,6 +267,50 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getOrderIdsForCompletedOrders($storeOwnerProfileId)
+    {
+        return $this->createQueryBuilder('OrderDetailEntity')
+
+            ->select('OrderDetailEntity.orderID')
+
+            ->andWhere('OrderDetailEntity.storeOwnerProfileID = :storeOwnerProfileId')
+
+            ->andWhere("OrderDetailEntity.state = :delivered")
+
+            ->setParameter('delivered', OrderStateConstant::$ORDER_STATE_DELIVERED)
+            ->setParameter('storeOwnerProfileId', $storeOwnerProfileId)
+
+            ->groupBy('OrderDetailEntity.orderNumber')
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getOrderIdsForOngoingOrders($storeOwnerProfileId)
+    {
+        return $this->createQueryBuilder('OrderDetailEntity')
+
+            ->select('OrderDetailEntity.orderID')
+
+            ->andWhere('OrderDetailEntity.storeOwnerProfileID = :storeOwnerProfileId')
+
+            ->andWhere('OrderDetailEntity.state != :notPaid')
+            ->andWhere("OrderDetailEntity.state != :delivered")
+            ->andWhere("OrderDetailEntity.state != :pending")
+            ->andWhere("OrderDetailEntity.state != :cancel")
+
+            ->setParameter('delivered', OrderStateConstant::$ORDER_STATE_DELIVERED)
+            ->setParameter('pending', OrderStateConstant::$ORDER_STATE_PENDING)
+            ->setParameter('cancel', OrderStateConstant::$ORDER_STATE_CANCEL)
+            ->setParameter('notPaid', OrderStateConstant::$ORDER_STATE_NOT_PAID)
+            ->setParameter('storeOwnerProfileId', $storeOwnerProfileId)
+
+            ->groupBy('OrderDetailEntity.orderNumber')
+
+            ->getQuery()
+            ->getResult();
+    }
+
     public function getStorePendingOrders($storeOwnerProfileId)
     {
         return $this->createQueryBuilder('orderDetailEntity')

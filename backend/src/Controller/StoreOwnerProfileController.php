@@ -1159,4 +1159,61 @@ class StoreOwnerProfileController extends BaseController
 
         return $this->response($result, self::DELETE);
     }
+
+
+    /**
+     * store: store owner profile Is Completed.
+     * @Route("storeownerprofileiscomplated", name="storeOwnerProfileIsCompleted", methods={"GET"})
+     * @IsGranted("ROLE_OWNER")
+     * @return JsonResponse
+     * *
+     * @OA\Tag(name="Store Owner Profile")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="store owner profile Is Completed",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="string", property="storeOwnerProfile"),
+     *      )
+     *   )
+     * )
+     *
+     * or
+     *
+     * @OA\Response(
+     *      response="default",
+     *      description="store owner profile Is Not Completed",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code", description="9220"),
+     *          @OA\Property(type="string", property="msg", description="profile is not completed! Successfully."),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="string", property="storeOwnerProfile", description="profile is not completed"),
+     *      )
+     *   )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function storeOwnerProfileIsCompleted()
+    {
+        $response = $this->storeOwnerProfileService->storeOwnerProfileIsCompleted($this->getUserId());
+
+        if ($response['storeOwnerProfile'] == "profile is not completed"){
+            return $this->response($response, self::PROFILE_NOT_COMPLETED);
+
+        }
+
+        return $this->response($response, self::FETCH);
+    }
+
 }

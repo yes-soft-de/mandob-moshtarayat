@@ -503,4 +503,42 @@ class StoreOwnerProfileService
 
         return $isRelated;
     }
+
+    public function storeOwnerProfileIsCompleted($userID)
+    {
+        $response = [];
+
+        $storeOwnerProfileId = $this->storeOwnerProfileManager->getStoreProfileId($userID);
+
+        $item = $this->storeOwnerProfileManager->getStoreOwnerProfileByID($storeOwnerProfileId);
+
+        if($item['image'] and $item['openingTime'] and $item['closingTime'] ){
+            if($item['hasProducts'] or $item['privateOrders'] ){
+                $response['storeOwnerProfile'] = 'profile is completed';
+            }
+        }
+
+        if($item['image'] == null){
+            $response['image'] = 'image is null';
+            $response['storeOwnerProfile'] = 'profile is not completed';
+        }
+
+        if($item['openingTime'] == null){
+            $response['openingTime'] = 'openingTime is null';
+            $response['storeOwnerProfile'] = 'profile is not completed';
+        }
+
+        if($item['closingTime'] == null){
+            $response['closingTime'] = 'closingTime is null';
+            $response['storeOwnerProfile'] = 'profile is not completed';
+        }
+
+        if($item['hasProducts'] == null and $item['privateOrders'] == null){
+            $response['orderType'] = 'select hasProducts or privateOrders or two';
+            $response['storeOwnerProfile'] = 'profile is not completed';
+        }
+
+        return $response;
+    }
+
 }

@@ -40,7 +40,9 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID','product.discount','product.description')
 
             ->andWhere('product.storeProductCategoryID =:storeProductCategoryID')
-
+//            ->andWhere('product.isDeleted !=:isDeleted')
+//
+//            ->setParameter('isDeleted',ProductStatusConstant::$DELETED_PRODUCT)
             ->setParameter('storeProductCategoryID',$storeProductCategoryID)
 
             ->getQuery()

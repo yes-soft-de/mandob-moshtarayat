@@ -445,9 +445,9 @@ class OrderManager
         return $this->orderEntityRepository->countCompletedOrders();
     }
 
-    public function countCompletedOrdersForStoreOwner($id)
+    public function countOrdersForStoreOwner($id)
     {
-        return $this->orderEntityRepository->countCompletedOrdersForStoreOwner($id);
+        return $this->orderEntityRepository->countOrdersForStoreOwner($id);
     }
 
     public function getOrdersForSpecificClient($clientID)
