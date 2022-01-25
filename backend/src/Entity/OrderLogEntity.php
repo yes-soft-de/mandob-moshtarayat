@@ -48,7 +48,7 @@ class OrderLogEntity
     /**
      * @ORM\Column(type="integer", length=255)
      */
-    private $storeOwnerProfileID;
+    private $storeOwnerProfileID;//change to storeID
 
     /**
      * @ORM\Column(type="integer", length=255)
