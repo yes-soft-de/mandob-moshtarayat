@@ -69,4 +69,21 @@ class RepresentativeStoreLinkEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleScalarResult();
     }
+
+    public function getCountLinkedStoresByRepresentativeUserIdAndInSpecificDate($representativeUserID, $fromDate, $toDate)
+    {
+        return $this->createQueryBuilder('representativeStoreLinkEntity')
+            ->select('COUNT(representativeStoreLinkEntity.id)')
+
+            ->andWhere('representativeStoreLinkEntity.representativeUserID = :representativeUserID')
+            ->setParameter('representativeUserID', $representativeUserID)
+
+            ->andWhere('representativeStoreLinkEntity.linkStatus = :status')
+            ->setParameter('status', RepresentativeStoreLinkTypeConstant::$REPRESENTATIVE_STORE_LINKED)
+
+            ->andWhere('re')
+
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

@@ -17,6 +17,7 @@ use App\Response\RepresentativeProfileGetResponse;
 use App\Response\UserRegisterResponse ;
 use App\Manager\MandobProfileManager;
 use App\Response\RepresentativeFinancialAccountForAdminGetResponse;
+use DateTime;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class MandobProfileService
@@ -28,11 +29,12 @@ class MandobProfileService
     private $deliveryCompanyPaymentToRepresentativeService;
     private $representativeStoreLinkService;
     private $representativeDueService;
+    private $dateFactoryService;
     private $mandobProfileManager;
 
     public function __construct(AutoMapping $autoMapping, ParameterBagInterface $params, RoomIdHelperService $roomIdHelperService, MandobProfileManager $mandobProfileManager,
                                 VerificationService $verificationService, DeliveryCompanyPaymentToRepresentativeService $deliveryCompanyPaymentToRepresentativeService, RepresentativeStoreLinkService $representativeStoreLinkService,
-     RepresentativeDueService $representativeDueService)
+     RepresentativeDueService $representativeDueService, DateFactoryService $dateFactoryService)
     {
         $this->autoMapping = $autoMapping;
         $this->roomIdHelperService = $roomIdHelperService;
@@ -40,6 +42,7 @@ class MandobProfileService
         $this->deliveryCompanyPaymentToRepresentativeService = $deliveryCompanyPaymentToRepresentativeService;
         $this->representativeStoreLinkService = $representativeStoreLinkService;
         $this->representativeDueService = $representativeDueService;
+        $this->dateFactoryService = $dateFactoryService;
         $this->mandobProfileManager = $mandobProfileManager;
 
         $this->params = $params->get('upload_base_url') . '/';
@@ -135,6 +138,21 @@ class MandobProfileService
         $response['sumPaymentsToRepresentative'] = (float)$this->deliveryCompanyPaymentToRepresentativeService->getDeliveryCompanySumPaymentsToRepresentative($representativeID);
         $response['countLinkedStores'] = (float)$this->representativeStoreLinkService->getCountLinkedStoresByRepresentativeUserID($representativeID);
         $response['sumRepresentativeDue'] = (float)$this->representativeDueService->getSumRepresentativeDueByRepresentativeUserID($representativeID);
+        $response['totalRemainingPaymentsToRepresentative'] = $response['sumRepresentativeDue'] - $response['sumPaymentsToRepresentative'];
+
+        return $this->autoMapping->map('array', RepresentativeFinancialAccountForAdminGetResponse::class, $response);
+    }
+
+    public function getRepresentativeFinancialAccountInLastMonthForAdmin($representativeID)
+    {
+        $response = [];
+
+        $date = $this->dateFactoryService->returnLastMonthDate();
+
+        $response['paymentsToRepresentative'] = $this->deliveryCompanyPaymentToRepresentativeService->getDeliveryCompanyPaymentsToRepresentativeByRepresentativeIdInSpecificDate($representativeID, $date[0], $date[1]);
+        $response['sumPaymentsToRepresentative'] = (float)$this->deliveryCompanyPaymentToRepresentativeService->getDeliveryCompanySumPaymentsToRepresentativeInSpecificDate($representativeID, $date[0], $date[1]);
+        $response['countLinkedStores'] = (float)$this->representativeStoreLinkService->getCountLinkedStoresByRepresentativeUserID($representativeID);
+        $response['sumRepresentativeDue'] = (float)$this->representativeDueService->getSumRepresentativeDueByRepresentativeUserIdAndInSpecificDate($representativeID, $date[0], $date[1]);
         $response['totalRemainingPaymentsToRepresentative'] = $response['sumRepresentativeDue'] - $response['sumPaymentsToRepresentative'];
 
         return $this->autoMapping->map('array', RepresentativeFinancialAccountForAdminGetResponse::class, $response);

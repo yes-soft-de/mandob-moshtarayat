@@ -46,9 +46,31 @@ class DeliveryCompanyPaymentToRepresentativeService
         return $response;
     }
 
+    public function getDeliveryCompanyPaymentsToRepresentativeByRepresentativeIdInSpecificDate($representativeID, $fromDate, $toDate): ?array
+    {
+        $response = [];
+
+        $payments = $this->deliveryCompanyPaymentToRepresentativeManager->getDeliveryCompanyPaymentsToRepresentativeByRepresentativeIdInSpecificDate($representativeID, $fromDate, $toDate);
+
+        if ($payments) {
+
+            foreach ($payments as $payment) {
+
+                $response[] = $this->autoMapping->map('array', DeliveryCompanyPaymentToRepresentativeGetResponse::class, $payment);
+            }
+        }
+
+        return $response;
+    }
+
     public function getDeliveryCompanySumPaymentsToRepresentative($representativeID)
     {
         return $this->deliveryCompanyPaymentToRepresentativeManager->getDeliveryCompanySumPaymentsToRepresentative($representativeID);
+    }
+
+    public function getDeliveryCompanySumPaymentsToRepresentativeInSpecificDate($representativeID, $fromDate, $toDate)
+    {
+        return $this->deliveryCompanyPaymentToRepresentativeManager->getDeliveryCompanySumPaymentsToRepresentativeInSpecificDate($representativeID, $fromDate, $toDate);
     }
 
     public function deletePaymentToRepresentative($id)

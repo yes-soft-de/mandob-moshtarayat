@@ -30,4 +30,22 @@ class RepresentativeDueEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleScalarResult();
     }
+
+    public function getSumRepresentativeDueByRepresentativeUserIdAndInSpecificDate($representativeUserID, $fromDate, $toDate)
+    {
+        return $this->createQueryBuilder('representativeDueEntity')
+            ->select('SUM(representativeDueEntity.dueAmount)')
+
+            ->andWhere('representativeDueEntity.representativeUserID = :representativeUserID')
+            ->setParameter('representativeUserID', $representativeUserID)
+
+            ->andWhere('representativeDueEntity.createdAt >= :fromDate')
+            ->setParameter('fromDate', $fromDate)
+
+            ->andWhere('representativeDueEntity.createdAt <= :toDate')
+            ->setParameter('toDate', $toDate)
+
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

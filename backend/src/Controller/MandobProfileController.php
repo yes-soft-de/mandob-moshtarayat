@@ -452,4 +452,53 @@ class MandobProfileController extends BaseController
 
         return $this->response($response, self::FETCH);
     }
+
+    /**
+     * admin: Get representative's financial account in last month.
+     * @Route("representativefinancialaccountinlastmonthforadmin/{representativeID}", name="captainFinancialAccountInLastMonthForAdmin", methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
+     * @param $representativeID
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Mandob Profile")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Get representative's financial account in last month ,for admin",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *             @OA\Property(type="array", property="paymentsToRepresentative",
+     *                  @OA\Items(
+     *                          @OA\Property(type="integer", property="id"),
+     *                          @OA\Property(type="string", property="representativeID"),
+     *                          @OA\Property(type="number", property="amount"),
+     *                          @OA\Property(type="object", property="date"),
+     *                          @OA\Property(type="text", property="note"),
+     *                  )
+     *              ),
+     *              @OA\Property(type="number", property="sumPaymentsToRepresentative"),
+     *              @OA\Property(type="number", property="countLinkedStores"),
+     *              @OA\Property(type="number", property="sumRepresentativeDue"),
+     *              @OA\Property(type="number", property="totalRemainingPaymentsToRepresentative")
+     *              )
+     *          )
+     * )
+     * 
+     * @Security(name="Bearer")
+     */
+    public function getRepresentativeFinancialAccountInLastMonthForAdmin($representativeID): JsonResponse
+    {
+        $response = $this->mandobProfileService->getRepresentativeFinancialAccountInLastMonthForAdmin($representativeID);
+
+        return $this->response($response, self::FETCH);
+    }
 }
