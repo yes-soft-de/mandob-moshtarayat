@@ -33,12 +33,12 @@ class InActiveDistributorsScreenState
     });
     widget._stateManager.getDistros(this);
     getIt<GlobalStateManager>().stateStream.listen((event) {
-      getCaptains();
+      getDistros();
     });
     super.initState();
   }
 
-  void getCaptains() {
+  void getDistros() {
     widget._stateManager.getDistros(this);
   }
 

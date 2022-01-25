@@ -81,6 +81,7 @@ class Urls {
   static const STORE_FILTER = BASE_API + '/storeFilter/';
   static const CLIENT_FILTER = BASE_API + '/clientfilterbyname/';
   static const ACTIVATE_CAPTAIN = BASE_API + '/captainprofileupdatebyadmin';
+  static const ACTIVATE_DISTRO = BASE_API + '/mandobupdatebyadmin';
   static const PAYMENTS_FROM_CAPTAIN =
       BASE_API + '/deliveryCompanyPaymentsFromCaptain';
   static const DELETE_PAYMENTS_FROM_CAPTAIN = BASE_API + '/paymentfromcaptain';
@@ -89,6 +90,7 @@ class Urls {
   static const DELETE_PAYMENTS_TO_CAPTAIN = BASE_API + '/paymenttocaptain';
   static const PAYMENTS_LIST = BASE_API + '/electronicpaymentinfo';
   static const GET_CAPTAIN_PROFILE = BASE_API + '/captainProfile/';
+  static const GET_DISTRO_PROFILE = BASE_API + '/representativeprofile/';
   static const GET_CLIENT_PROFILE = BASE_API + '/clientprofilebyid/';
   static const UPDATE_STORE_CATEGORY = BASE_API + '/updatestorecategory';
   static const UPDATE_STORE = BASE_API + '/storeownerprofileupdatebyadmin';

@@ -4,24 +4,24 @@ class Datum {
   int? id;
   dynamic mandobId;
   String? mandobName;
-  dynamic location;
-  dynamic age;
+
+  num? age;
   String? status;
-  String? roomId;
+
   Image? image;
-  dynamic phone;
-  dynamic bankName;
-  dynamic bankAccountNumber;
-  dynamic stcPay;
+  String? phone;
+  String? bankName;
+  String? bankAccountNumber;
+  String? stcPay;
 
   Datum({
     this.id,
     this.mandobId,
     this.mandobName,
-    this.location,
+
     this.age,
     this.status,
-    this.roomId,
+
     this.image,
     this.phone,
     this.bankName,
@@ -31,29 +31,29 @@ class Datum {
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json['id'] as int?,
-        mandobId: json['mandobID'] as dynamic?,
-        mandobName: json['mandobName'] as String?,
-        location: json['location'] as dynamic?,
-        age: json['age'] as dynamic?,
-        status: json['status'] as String?,
-        roomId: json['roomID'] as String?,
+        mandobId: json['mandobID']  ,
+        mandobName: json['mandobName']  ,
+
+        age: json['age']  ,
+        status: json['status']  ,
+
         image: json['image'] == null
             ? null
-            : Image.fromJson(json['image'] as Map<String, dynamic>),
-        phone: json['phone'] as dynamic?,
-        bankName: json['bankName'] as dynamic?,
-        bankAccountNumber: json['bankAccountNumber'] as dynamic?,
-        stcPay: json['stcPay'] as dynamic?,
+            : Image.fromJson(json['image']),
+        phone: json['phone']  ,
+        bankName: json['bankName']  ,
+        bankAccountNumber: json['bankAccountNumber']  ,
+        stcPay: json['stcPay']  ,
       );
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'mandobID': mandobId,
         'mandobName': mandobName,
-        'location': location,
+
         'age': age,
         'status': status,
-        'roomID': roomId,
+
         'image': image?.toJson(),
         'phone': phone,
         'bankName': bankName,

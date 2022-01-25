@@ -250,6 +250,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "discount": MessageLookupByLibrary.simpleMessage("الخصم"),
         "distance": MessageLookupByLibrary.simpleMessage("يبعد عنك"),
         "distributors": MessageLookupByLibrary.simpleMessage("مناديب"),
+        "distroUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
+            "تم تعديل بيانات المندوب بنجاح"),
         "driverLicence": MessageLookupByLibrary.simpleMessage("رخصة القيادة"),
         "duplicateLang":
             MessageLookupByLibrary.simpleMessage("لديك لغات حقول بلغات مكررة"),
@@ -616,6 +618,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تجديد الاشتراك"),
         "reportSent": MessageLookupByLibrary.simpleMessage("تم ارسال الابلاغ"),
         "reports": MessageLookupByLibrary.simpleMessage("تقارير"),
+        "representativeCommission":
+            MessageLookupByLibrary.simpleMessage("عمولة المندوب"),
+        "representativeStatus":
+            MessageLookupByLibrary.simpleMessage("حالة المندوب"),
         "requestMeeting":
             MessageLookupByLibrary.simpleMessage("اطلب موعدا للقاء"),
         "resendCode": MessageLookupByLibrary.simpleMessage("اعادة الارسال"),

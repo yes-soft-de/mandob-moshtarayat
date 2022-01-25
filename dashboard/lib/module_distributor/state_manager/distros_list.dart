@@ -9,7 +9,7 @@ import 'package:mandob_moshtarayat_dashboad/abstracts/states/state.dart';
 
 @injectable
 class DistrosStateManager {
-  final DistributerService _distrosService;
+  final DistributorService _distrosService;
   final PublishSubject<States> _stateSubject = PublishSubject();
   DistrosScreenState? _captainsScreenState;
   Stream<States> get stateStream => _stateSubject.stream;

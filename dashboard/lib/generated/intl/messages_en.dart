@@ -253,6 +253,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "discount": MessageLookupByLibrary.simpleMessage("discount"),
         "distance": MessageLookupByLibrary.simpleMessage("Distance"),
         "distributors": MessageLookupByLibrary.simpleMessage("Distributors"),
+        "distroUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
+            "Distributor Updated Successfully"),
         "driverLicence": MessageLookupByLibrary.simpleMessage("Driver Licence"),
         "duplicateLang": MessageLookupByLibrary.simpleMessage(
             "Duplicate Language Filed , please resolve it"),
@@ -629,6 +631,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Renew Subscription"),
         "reportSent": MessageLookupByLibrary.simpleMessage("Report sent"),
         "reports": MessageLookupByLibrary.simpleMessage("Reports"),
+        "representativeCommission":
+            MessageLookupByLibrary.simpleMessage("Representative commission"),
+        "representativeStatus":
+            MessageLookupByLibrary.simpleMessage("Representative status"),
         "requestMeeting":
             MessageLookupByLibrary.simpleMessage("Request Meeting"),
         "resendCode": MessageLookupByLibrary.simpleMessage("Resend Code"),

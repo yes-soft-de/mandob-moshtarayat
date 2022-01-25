@@ -48,6 +48,7 @@ class CompanyFinanceLoadedState extends States {
     }
     if (model != null) {
       deliveryCostController.text = model?.deliveryPrice.toString() ?? '';
+      representativeCommissionController.text = model?.representativeCommission.toString() ?? '';
       screenState.refresh();
     }
   }
@@ -58,6 +59,7 @@ class CompanyFinanceLoadedState extends States {
   var minKilometerBonusController = TextEditingController();
   var maxKilometerBonusController = TextEditingController();
   var deliveryCostController = TextEditingController();
+  var representativeCommissionController = TextEditingController();
 
   @override
   Widget getUI(BuildContext context) {
@@ -90,6 +92,21 @@ class CompanyFinanceLoadedState extends States {
                   numbers: true,
                   controller: deliveryCostController,
                   hintText: S.current.deliverPrice,
+                ),
+
+                    Padding(
+                  padding: const EdgeInsets.only(
+                      left: 12.0, bottom: 8, right: 12, top: 16.0),
+                  child: Text(
+                    S.current.representativeCommission,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                CustomFormField(
+                  numbers: true,
+                  controller: representativeCommissionController,
+                  hintText: S.current.representativeCommission,
                 ),
                 // kilometer
                 Padding(
@@ -157,6 +174,7 @@ class CompanyFinanceLoadedState extends States {
               DeliveryCompanyFinancialRequest(
                 id: model?.id,
                 deliveryCost: deliveryCostController.text.trim(),
+                representativeCommission: representativeCommissionController.text.trim()
               ),
             );
           } else {
