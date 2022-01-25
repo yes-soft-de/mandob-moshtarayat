@@ -17,7 +17,7 @@ use App\Response\RepresentativeProfileGetResponse;
 use App\Response\UserRegisterResponse ;
 use App\Manager\MandobProfileManager;
 use App\Response\RepresentativeFinancialAccountForAdminGetResponse;
-use DateTime;
+use App\Response\RepresentativeFinancialAccountGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class MandobProfileService
@@ -156,5 +156,20 @@ class MandobProfileService
         $response['totalRemainingPaymentsToRepresentative'] = $response['sumRepresentativeDue'] - $response['sumPaymentsToRepresentative'];
 
         return $this->autoMapping->map('array', RepresentativeFinancialAccountForAdminGetResponse::class, $response);
+    }
+
+    public function getRepresentativeFinancialAccountInSpecificDate($representativeID, $fromDate, $toDate)
+    {
+        $response = [];
+
+        $date = $this->dateFactoryService->returnSpecificDate($fromDate, $toDate);
+
+        $response['paymentsToRepresentative'] = $this->deliveryCompanyPaymentToRepresentativeService->getDeliveryCompanyPaymentsToRepresentativeByRepresentativeIdInSpecificDate($representativeID, $date[0], $date[1]);
+        $response['sumPaymentsToRepresentative'] = (float)$this->deliveryCompanyPaymentToRepresentativeService->getDeliveryCompanySumPaymentsToRepresentativeInSpecificDate($representativeID, $date[0], $date[1]);
+        $response['countLinkedStores'] = (float)$this->representativeStoreLinkService->getCountLinkedStoresByRepresentativeUserID($representativeID);
+        $response['sumRepresentativeDue'] = (float)$this->representativeDueService->getSumRepresentativeDueByRepresentativeUserIdAndInSpecificDate($representativeID, $date[0], $date[1]);
+        $response['totalRemainingPaymentsToRepresentative'] = $response['sumRepresentativeDue'] - $response['sumPaymentsToRepresentative'];
+
+        return $this->autoMapping->map('array', RepresentativeFinancialAccountGetResponse::class, $response);
     }
 }
