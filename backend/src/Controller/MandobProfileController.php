@@ -501,4 +501,53 @@ class MandobProfileController extends BaseController
 
         return $this->response($response, self::FETCH);
     }
+
+    /**
+     * representative: Get representative's financial account in specific date.
+     * @Route("representativefinancialaccountinspecificdate/{fromDate}/{toDate}", name="getRepresentativeFinancialAccountInSpecificDate", methods={"GET"})
+     * @IsGranted("ROLE_MANDOB")
+     * @return JsonResponse
+     * 
+     * @OA\Tag(name="Mandob Profile")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Get representative's financial account in specific date",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="array", property="paymentsToRepresentative",
+     *                  @OA\Items(
+     *                          @OA\Property(type="integer", property="id"),
+     *                          @OA\Property(type="string", property="representativeID"),
+     *                          @OA\Property(type="number", property="amount"),
+     *                          @OA\Property(type="object", property="date"),
+     *                          @OA\Property(type="text", property="note"),
+     *                  )
+     *              ),
+     *              @OA\Property(type="number", property="sumPaymentsToRepresentative"),
+     *              @OA\Property(type="number", property="countLinkedStores"),
+     *              @OA\Property(type="number", property="sumRepresentativeDue"),
+     *              @OA\Property(type="number", property="totalRemainingPaymentsToRepresentative")
+     *            )
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function getRepresentativeFinancialAccountInSpecificDate($fromDate, $toDate): JsonResponse
+    {
+        $response = $this->mandobProfileService->getRepresentativeFinancialAccountInSpecificDate($this->getUserId(), $fromDate, $toDate);
+
+        return $this->response($response, self::FETCH);
+    }
 }
