@@ -76,8 +76,8 @@ class AccountLoadedState extends AccountState {
             icon: Icons.headphones,
             onTap: () {
               if (profileModel?.roomID == null) {
-                var uuid = Uuid();
                 if (getIt<FavoriteHiveHelper>().getRoomID() == null) {
+                  var uuid = const Uuid();
                   getIt<FavoriteHiveHelper>().setRoomID(uuid.v1());
                 }
                 Navigator.of(context).pushNamed(ChatRoutes.chatRoute,

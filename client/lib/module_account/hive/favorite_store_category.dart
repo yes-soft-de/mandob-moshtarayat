@@ -3,10 +3,10 @@ import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_home/model/favorite_categories_model.dart';
 
-@singleton
 @injectable
 class FavoriteHiveHelper {
   var box = Hive.box('Authorization');
+  var box2 = Hive.box('Support');
   String favKey = 'FavoriteCategory';
   String favKeyImage = 'FavoriteCategoryImage';
   String favKeyName = 'FavoriteCategoryName';
@@ -21,11 +21,11 @@ class FavoriteHiveHelper {
   }
 
   void setRoomID(String roomID) {
-    box.put('supportRoomID', roomID);
+    box2.put('supportRoomID', roomID);
   }
 
   String? getRoomID() {
-    return box.get('supportRoomID');
+    return box2.get('supportRoomID');
   }
 
   String? getFavoriteCategory() {
@@ -44,5 +44,6 @@ class FavoriteHiveHelper {
     await box.delete(favKey);
     await box.delete(favKeyName);
     await box.delete(favKeyImage);
+    await box2.delete('supportRoomID');
   }
 }

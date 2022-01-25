@@ -46,22 +46,23 @@ class ChatRepository {
 
   Future<void> needSupport() async {
     if (_authService.isLoggedIn == false) {
+      var notiToken = await getIt<FireNotificationService>().getFireToken();
       await _apiClient.post(
         Urls.NEEDFORSUPPORT_ANYNAMOUS,
         {
-          'token': await getIt<FireNotificationService>().getFireToken(),
+          'token': notiToken,
           'needSupport': true,
-          'name': '${_authService.username}',
+          'name': _authService.username,
           'roomID': '${getIt<FavoriteHiveHelper>().getRoomID()}',
         },
       );
-      return;
+    } else {
+      var token = await _authService.getToken();
+      await _apiClient.put(
+        Urls.NEEDFORSUPPORT,
+        {"needSupport": true},
+        headers: {'Authorization': 'Bearer ' + token!},
+      );
     }
-    var token = await _authService.getToken();
-    await _apiClient.put(
-      Urls.NEEDFORSUPPORT,
-      {"needSupport": true},
-      headers: {'Authorization': 'Bearer ' + token!},
-    );
   }
 }

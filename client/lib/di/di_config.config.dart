@@ -158,7 +158,7 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.factory<_i5.CartHiveHelper>(() => _i5.CartHiveHelper());
   gh.factory<_i6.CartScreen>(() => _i6.CartScreen());
   gh.factory<_i7.ChatHiveHelper>(() => _i7.ChatHiveHelper());
-  gh.singleton<_i8.FavoriteHiveHelper>(_i8.FavoriteHiveHelper());
+  gh.factory<_i8.FavoriteHiveHelper>(() => _i8.FavoriteHiveHelper());
   gh.factory<_i9.FireStoreHelper>(() => _i9.FireStoreHelper());
   gh.singleton<_i10.GlobalStateManager>(_i10.GlobalStateManager());
   gh.factory<_i11.LocalNotificationService>(

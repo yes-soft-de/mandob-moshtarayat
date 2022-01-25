@@ -120,14 +120,17 @@ class EmptyChatPage extends StatelessWidget {
                     ChatWriterWidget(
                       onTap: () {},
                       onMessageSend: (msg) {
-                        _chatStateManager.sendMessage(
-                            chatRoomId, msg, _authService.username,args);
                         if (sendSupport) {
                           if (getIt<AuthService>().isLoggedIn == false) {
                             getIt<AuthPrefsHelper>()
                                 .setUsername(supportName.text);
                           }
+                          _chatStateManager.sendMessage(
+                              chatRoomId, msg, '', args);
                           getIt<ChatManager>().needSupport();
+                        } else {
+                          _chatStateManager.sendMessage(
+                              chatRoomId, msg, _authService.username, args);
                         }
                       },
                       uploadService: _uploadService,
