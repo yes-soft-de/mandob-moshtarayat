@@ -1100,8 +1100,12 @@ class OrderService
 
         $orderIds = $this->orderDetailService->getOrderIds($storeOwnerProfileId);
 
-        $item['countCompletedOrders'] =  $this->orderManager->countCompletedOrdersForStoreOwner($orderIds);
-        $item['countOngoingOrders'] =  $this->orderManager->countOngoingOrdersForStoreOwner($orderIds);
+        $orderIdsForCompletedOrders = $this->orderDetailService->getOrderIdsForCompletedOrders($storeOwnerProfileId);
+
+        $orderIdsForOngoingOrders = $this->orderDetailService->getOrderIdsForOngoingOrders($storeOwnerProfileId);
+
+        $item['countCompletedOrders'] =  $this->orderManager->countOrdersForStoreOwner($orderIdsForCompletedOrders);
+        $item['countOngoingOrders'] =  $this->orderManager->countOrdersForStoreOwner($orderIdsForOngoingOrders);
         $item['countOrdersInToday'] = $this->countOrdersInTodayForStoreOwner($orderIds);
 
         return $this->autoMapping->map("array", CountReportForStoreOwnerResponse::class, $item);

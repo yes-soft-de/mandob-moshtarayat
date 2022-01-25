@@ -162,6 +162,16 @@ class OrderDetailManager
         return $this->orderDetailEntityRepository->getOrderIds($storeOwnerProfileId);
     }
 
+    public function getOrderIdsForCompletedOrders($storeOwnerProfileId)
+    {
+        return $this->orderDetailEntityRepository->getOrderIdsForCompletedOrders($storeOwnerProfileId);
+    }
+
+    public function getOrderIdsForOngoingOrders($storeOwnerProfileId)
+    {
+        return $this->orderDetailEntityRepository->getOrderIdsForOngoingOrders($storeOwnerProfileId);
+    }
+
     public function getStorePendingOrders($storeOwnerProfileId)
     {
         return $this->orderDetailEntityRepository->getStorePendingOrders($storeOwnerProfileId);
