@@ -1,11 +1,12 @@
 import 'dart:convert';
-
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/di/di_config.dart';
 import 'package:mandob_moshtarayat/hive/objects/cart_model/cart_model.dart';
 import 'package:mandob_moshtarayat/module_orders/request/client_order_request.dart';
 import 'package:mandob_moshtarayat/utils/global/global_state_manager.dart';
 
+@injectable
 class CartHiveHelper {
   var box = Hive.box('Order');
   String cartKey = 'cart';

@@ -22,7 +22,7 @@ class CartModelAdapter extends TypeAdapter<CartModel> {
       price: fields[2] as double,
       image: fields[4] as String?,
       name: fields[3] as String?,
-      storeID: fields[5] as String,
+      storeID: fields[5] as String?,
     );
   }
 

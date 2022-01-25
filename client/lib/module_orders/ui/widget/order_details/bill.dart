@@ -117,7 +117,7 @@ class _BillCardDetailsState extends State<BillCardDetails> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           SizedBox(
-            width: 100,
+            width: 75,
             child: Center(
               child: Text(
                 S.current.item,
@@ -128,7 +128,7 @@ class _BillCardDetailsState extends State<BillCardDetails> {
             ),
           ),
           SizedBox(
-            width: 100,
+            width: 75,
             child: Center(
               child: Text(
                 S.current.productQuantity,
@@ -139,7 +139,7 @@ class _BillCardDetailsState extends State<BillCardDetails> {
             ),
           ),
           SizedBox(
-            width: 100,
+            width: 75,
             child: Center(
               child: Text(
                 S.current.cost,
@@ -169,7 +169,7 @@ class _BillCardDetailsState extends State<BillCardDetails> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             SizedBox(
-              width: 100,
+              width: 75,
               child: Center(
                 child: Text(
                   element.name ?? S.current.unknown,
@@ -180,7 +180,7 @@ class _BillCardDetailsState extends State<BillCardDetails> {
               ),
             ),
             SizedBox(
-              width: 100,
+              width: 75,
               child: Center(
                 child: Text(
                   'x ${element.quantity}',
@@ -191,7 +191,7 @@ class _BillCardDetailsState extends State<BillCardDetails> {
               ),
             ),
             SizedBox(
-              width: 100,
+              width: 75,
               child: Center(
                 child: Text(
                   (element.quantity * element.price).toStringAsFixed(1) +
