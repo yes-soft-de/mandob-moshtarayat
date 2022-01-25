@@ -43,7 +43,7 @@ class ProductsDetailsModel extends DataModel {
       description: data.description ?? '',
       id: data.id ?? -1,
       productName: data.productName ?? S.current.unknown,
-      productPrice: data.productPrice ?? 0,
+      productPrice: data.costDetails?.priceFinal ?? 0,
       discount: data.discount ?? '0',
       storeOwnerProfileID: data.storeOwnerProfileID ?? 0,
       storeProductCategoryID: data.storeProductCategoryID ?? 0,

@@ -7,7 +7,7 @@ import 'store.dart';
 class Datum {
   int? id;
   String? productName;
-  int? productPrice;
+  num? productPrice;
   dynamic productQuantity;
   int? storeOwnerProfileId;
   int? storeProductCategoryId;
@@ -18,7 +18,7 @@ class Datum {
   dynamic soldCount;
   String? status;
   Store? store;
-  int? productPriceWithOutCommission;
+  num? productPriceWithOutCommission;
   CostDetailsResponse? costDetails;
   dynamic commission;
   dynamic isLevel1;
@@ -48,7 +48,7 @@ class Datum {
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json['id'] as int?,
         productName: json['productName'] as String?,
-        productPrice: json['productPrice'] as int?,
+        productPrice: json['productPrice'] as num?,
         productQuantity: json['productQuantity'] as dynamic,
         storeOwnerProfileId: json['storeOwnerProfileID'] as int?,
         storeProductCategoryId: json['storeProductCategoryID'] as int?,
@@ -64,7 +64,7 @@ class Datum {
             ? null
             : Store.fromJson(json['store'] as Map<String, dynamic>),
         productPriceWithOutCommission:
-            json['productPriceWithOutCommission'] as int?,
+            json['productPriceWithOutCommission'] as num?,
         costDetails: json['costDetails'] == null
             ? null
             : CostDetailsResponse.fromJson(json['costDetails'] as Map<String, dynamic>),

@@ -1,4 +1,5 @@
 import 'package:mandob_moshtarayat/utils/logger/logger.dart';
+import 'package:mandob_moshtarayat/utils/response/cost_details_response/cost_details.dart';
 
 class ProductsDetailsResponse {
   ProductsDetailsResponse({
@@ -46,6 +47,7 @@ class Data {
     this.branchName,
     this.deliveryCost,
     this.discount,
+    this.costDetails
   });
 
   Data.fromJson(dynamic json) {
@@ -64,6 +66,7 @@ class Data {
     description = json['description'];
     rate = json['rate'];
     soldCount = json['soldCount']?.toString();
+    costDetails = json['costDetails'] != null ? CostDetails.fromJson(json['costDetails']) : null;
   }
 
   int? id;
@@ -82,7 +85,7 @@ class Data {
   String? description;
   String? rate;
   String? soldCount;
-
+  CostDetails? costDetails;
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = id;

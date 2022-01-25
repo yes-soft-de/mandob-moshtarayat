@@ -36,7 +36,7 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
   }
 
   void getProducts(int id) {
-    widget._stateManager.getSimilarProduct(this,id);
+    widget._stateManager.getSimilarProduct(this, id);
   }
 
   @override
@@ -79,57 +79,65 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 ? [
                     Hider(
                       active: getIt<AuthService>().isLoggedIn,
-                      child: InkWell(
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) => RatingAlertDialog(
-                              title: S.current.rateProduct,
-                              message: S.current.rateProductMessage,
-                              image: (currentState as ProductDetailsLoadedState)
-                                  .model
-                                  .productImage,
-                              onPressed: (rate) {
-                                widget._stateManager.rateProduct(
-                                    RateStoreRequest(
-                                        rating: rate,
-                                        itemType: 'product',
-                                        itemID: productId),
-                                    this);
-                              },
-                            ),
-                          );
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).cardColor.withOpacity(0.5),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Icon(
-                              Icons.star,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(10),
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => RatingAlertDialog(
+                                title: S.current.rateProduct,
+                                message: S.current.rateProductMessage,
+                                image: (currentState as ProductDetailsLoadedState)
+                                    .model
+                                    .productImage,
+                                onPressed: (rate) {
+                                  widget._stateManager.rateProduct(
+                                      RateStoreRequest(
+                                          rating: rate,
+                                          itemType: 'product',
+                                          itemID: productId),
+                                      this);
+                                },
+                              ),
+                            );
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
                               color: Colors.yellow,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Icon(
+                                Icons.star,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context)
-                            .pushNamed(ProductsRoutes.CART_SCREEN);
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).cardColor.withOpacity(0.5),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Icon(
-                            Icons.shopping_cart_rounded,
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(10),
+                        onTap: () {
+                          Navigator.of(context)
+                              .pushNamed(ProductsRoutes.CART_SCREEN);
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
                             color: Theme.of(context).primaryColor,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Icon(
+                              Icons.shopping_cart_rounded,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),

@@ -2,18 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/utils/components/rate_dialog.dart';
 import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
-import 'package:mandob_moshtarayat/utils/images/images.dart';
 
 class CustomStoresProductsAppBar extends StatelessWidget {
   final Function(double) onRate;
   final bool isLogin;
   final String image;
-  CustomStoresProductsAppBar(
+  const CustomStoresProductsAppBar(
       {required this.onRate, required this.isLogin, required this.image});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 100,
       width: double.maxFinite,
       child: Row(
@@ -28,19 +27,20 @@ class CustomStoresProductsAppBar extends StatelessWidget {
                 onTap: () => Navigator.of(context).pop(),
                 child: Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                      borderRadius: BorderRadius.circular(10),
+                      color: Theme.of(context).primaryColor),
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
                     child: Icon(
                       Icons.arrow_back,
+                      color: Colors.white,
                     ),
                   ),
                 ),
               ),
             ),
           ),
-          Spacer(
+          const Spacer(
             flex: 1,
           ),
           Hider(
@@ -68,12 +68,13 @@ class CustomStoresProductsAppBar extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
+                      color: Colors.yellow
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
                       child: Icon(
                         Icons.star,
-                        color: Colors.yellow.withOpacity(0.85),
+                        color: Colors.white,
                       ),
                     ),
                   ),
