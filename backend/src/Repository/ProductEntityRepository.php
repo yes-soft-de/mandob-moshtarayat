@@ -1258,4 +1258,23 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function productAvailableAndQuantityAvailable($id)
+    {
+        return $this->createQueryBuilder('product')
+
+            ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount',
+                'product.description', 'product.status', 'product.productQuantity', 'product.commission', 'product.isCommission')
+
+            ->andWhere('product.isDeleted !=:isDeleted')
+            ->andWhere('product.status =:status')
+            ->andWhere('product.id =:id')
+
+            ->setParameter('isDeleted',ProductStatusConstant::$DELETED_PRODUCT)
+            ->setParameter('status',ProductStatusConstant::$ACTIVE_PRODUCT_STATUS)
+            ->setParameter('id',$id)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

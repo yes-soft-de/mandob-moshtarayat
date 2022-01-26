@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\AutoMapping;
+use App\Constant\ResponseConstant;
 use App\Request\DeleteRequest;
+use App\Request\productAvailableAndQuantityAvailableRequest;
 use App\Request\ProductCancelByStoreOwnerRequest;
 use App\Request\ProductCommissionByAdminUpdateRequest;
 use App\Request\ProductCreateRequest;
@@ -1299,6 +1301,30 @@ class ProductController extends BaseController
             return $this->response($result, self::NOTFOUND);
         }
         return $this->response($result, self::UPDATE);
+    }
+
+    /**
+     * Is the product available, is the required quantity available.
+     * @Route("productavailableandquantityavailable", name="productAvailableAndQuantityAvailable", methods={"POST"})
+     * @param Request $request
+     * @return JsonResponse
+     */
+
+    public function productAvailableAndQuantityAvailable(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, productAvailableAndQuantityAvailableRequest::class, (object)$data);
+
+        if(!isset($data['productDetails'])){
+            return $this->response(ResponseConstant::$ERROR_VALIDATION_PRODUCT_DETAILS, self::ERROR);
+        }
+
+        $request->setProductDetails($data['productDetails']);
+
+        $response = $this->productService->productAvailableAndQuantityAvailable($request);
+
+        return $this->response($response, self::FETCH);
     }
 
 }

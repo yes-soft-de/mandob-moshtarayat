@@ -408,4 +408,8 @@ class ProductManager
         }
     }
 
+    public function productAvailableAndQuantityAvailable($id)
+    {
+        return $this->productEntityRepository->productAvailableAndQuantityAvailable($id);
+    }
 }

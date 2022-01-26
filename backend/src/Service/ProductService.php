@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\ProductEntity;
 use App\Manager\ProductManager;
 use App\Manager\UserManager;
+use App\Request\productAvailableAndQuantityAvailableRequest;
 use App\Request\ProductCreateRequest;
 use App\Request\ProductFilterByNameRequest;
 use App\Request\ProductTranslationCreateRequest;
@@ -17,6 +18,7 @@ use App\Request\ProductWithTranslationUpdateRequest;
 use App\Request\UpdateProductQuantityRequest;
 use App\Request\UpdateProductToDeletedRequest;
 use App\Response\CostDetailsResponse;
+use App\Response\productAvailableAndQuantityAvailableResponse;
 use App\Response\ProductCreateResponse;
 use App\Response\ProductsByProductCategoryIdAndStoreOwnerProfileIdResponse;
 use App\Response\ProductsByStoreOwnerProfileIdResponse;
@@ -27,6 +29,7 @@ use App\Response\ProductsByProductCategoryIdResponse;
 use App\Response\ProductsTopWantedResponse;
 use App\Response\ProductUpdateResponse;
 use App\Response\StoreProductCategoriesResponse;
+use Response\productAvailableAndQuantityAvailable1Response;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use App\Service\StoreOwnerProfileService;
 
@@ -910,5 +913,60 @@ class ProductService
         else {
             return $this->autoMapping->map(ProductEntity::class, ProductCreateResponse::class, $result);
         }
+    }
+
+    public function productAvailableAndQuantityAvailable(productAvailableAndQuantityAvailableRequest $request)
+    {
+        foreach ($request->getProductDetails() as $productDetail) {
+
+            $product = $this->productManager->productAvailableAndQuantityAvailable($productDetail['id']);
+            if($product) {
+                $product['userQuantity'] = $productDetail['quantity'];
+                $product['maxQuantity'] = $product['productQuantity'];
+
+                if ($product['productQuantity'] < $product['userQuantity']) {
+                    $product['quantity'] = "Required quantity is not available";
+                    $product['attention'] = true;
+                }
+                else {
+                    $product['quantity'] = "Required quantity is available";
+                    $product['attention'] = false;
+                }
+
+            }
+            $items[] = $product;
+        }
+
+        $items = $this->getAttention($items);
+
+        foreach ($items as $item){
+
+        $response = $this->autoMapping->map("array", productAvailableAndQuantityAvailableResponse::class, $item);
+
+    }
+
+        return $response;
+
+    }
+
+    public function getAttention($products){
+        $attention = false;
+        $items = [];
+        $attentions = [];
+
+        foreach ($products as $item){
+            if($item){
+                $items[] =  $item;
+                $attentions[] = $item['attention'];
+            }
+        }
+
+       if(in_array(true, $attentions) == true) {
+           $attention = true;
+       }
+
+        $result[] = ['attention' => $attention, 'products' => $items];
+
+        return $result;
     }
 }

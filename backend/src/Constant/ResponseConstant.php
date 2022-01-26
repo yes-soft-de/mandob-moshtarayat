@@ -27,4 +27,6 @@ abstract class ResponseConstant
     static $ERROR = "error";
 
     static $ERROR_VALIDATION_ORDER_DETAILS = "please enter order Details.";
+
+    static $ERROR_VALIDATION_PRODUCT_DETAILS = "please enter product Details.";
 }
