@@ -1,13 +1,11 @@
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat_dashboad/di/di_config.dart';
-import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_auth/authorization_routes.dart';
 import 'package:mandob_moshtarayat_dashboad/module_auth/service/auth_service/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:mandob_moshtarayat_dashboad/module_localization/service/localization_service/localization_service.dart';
 import 'package:mandob_moshtarayat_dashboad/module_main/main_routes.dart';
 import 'package:mandob_moshtarayat_dashboad/module_settings/setting_routes.dart';
-import 'package:mandob_moshtarayat_dashboad/utils/images/images.dart';
 
 @injectable
 class SplashScreen extends StatefulWidget {

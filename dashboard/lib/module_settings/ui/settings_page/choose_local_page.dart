@@ -116,6 +116,7 @@ class _ChooseLocalScreenState extends State<ChooseLocalScreen> {
                   ),
                 ),
                 onPressed: () {
+                   widget._localizationService.setLanguage(myLocale.languageCode);
                   Navigator.of(context).pushNamedAndRemoveUntil(
                       SplashRoutes.SPLASH_SCREEN, (route) => false);
                 },
