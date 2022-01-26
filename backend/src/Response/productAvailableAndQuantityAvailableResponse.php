@@ -2,7 +2,7 @@
 
 namespace App\Response;
 
-class productAvailableAndQuantityAvailableResponse
+class ProductAvailableAndQuantityAvailableResponse
 {
     public $attention;
     public $products;
