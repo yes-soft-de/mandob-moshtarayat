@@ -26,6 +26,8 @@ class ProductCreateRequest
 
     private $isCommission;
 
+    private $isDeleted;
+
     /**
      * @return mixed
      */
@@ -77,4 +79,21 @@ class ProductCreateRequest
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIsDeleted()
+    {
+        return $this->isDeleted;
+    }
+
+    /**
+     * @param mixed $isDeleted
+     */
+    public function setIsDeleted($isDeleted): void
+    {
+        $this->isDeleted = $isDeleted;
+    }
+
 }

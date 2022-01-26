@@ -115,6 +115,11 @@ class OrderEntity
      */
     private $isBillCalculated;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $billPdf;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -363,6 +368,19 @@ class OrderEntity
     public function setBillCalculated(?bool $isBillCalculated): self
     {
         $this->isBillCalculated = $isBillCalculated;
+
+        return $this;
+    }
+
+
+    public function getBillPdf(): ?string
+    {
+        return $this->billPdf;
+    }
+
+    public function setBillPdf(string $billPdf): self
+    {
+        $this->billPdf = $billPdf;
 
         return $this;
     }

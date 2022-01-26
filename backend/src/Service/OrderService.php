@@ -26,6 +26,7 @@ use App\Request\OrderUpdateSpecialByClientRequest;
 use App\Request\OrderUpdateSendByClientRequest;
 use App\Request\OrderUpdateStateForEachStoreByCaptainRequest;
 use App\Request\SendNotificationRequest;
+use App\Request\UpdateOrderForAddBillPdfRequest;
 use App\Response\AddInfoPayByClientResponse;
 use App\Response\CountReportForStoreOwnerResponse;
 use App\Response\OrderCancelResponse;
@@ -52,6 +53,7 @@ use App\Response\CountOrdersInLastMonthForClientResponse;
 use App\Response\CountOrdersInLastMonthForProoductResponse;
 use App\Response\StoreOrdersOngoingResponse;
 use App\Constant\ResponseConstant;
+use App\Response\UpdateOrderForAddBillPdfRequestResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use DateTime;
 use App\Service\ElectronicPaymentInfoService;
@@ -671,8 +673,11 @@ class OrderService
 
         $item['rate'] = $this->ratingService->getAvgOrder($orderNumber);
         if($item['orderDetails']) {
+
             $item['order'] = $this->orderManager->orderStatusByOrderId($item['orderDetails'][0]->orderID);
             $item['order']['orderCost'] = round($item['order']['orderCost'], 1);
+            $item['order']['billPdf'] = $this->getFileParams($item['order']['billPdf'], $this->params . $item['order']['billPdf'], $this->params);
+
             $item['vatTax'] = $this->getVatTax($item['order']['orderCost']);
 
             if($item['order']['payment'] == "card"){
@@ -1136,6 +1141,15 @@ class OrderService
         return $item;
     }
 
+    public function getFileParams($fileURL, $file, $baseURL): array
+    {
+        $item['fileURL'] = $fileURL;
+        $item['file'] = $file;
+        $item['baseURL'] = $baseURL;
+
+        return $item;
+    }
+
     public function getStorePendingOrders($userId): array
     {
         $response = [];
@@ -1309,6 +1323,19 @@ class OrderService
         }
 
         return $response;
+    }
+
+    public function updateOrderForAddBillPdf(UpdateOrderForAddBillPdfRequest $request)
+    {
+        $item = [];
+
+        $orderId = $this->orderDetailService->getOrderId($request->getOrderNumber());
+
+        if($orderId){
+            $item = $this->orderManager->updateOrderForAddBillPdf($request, $orderId['0']['orderID']);
+        }
+
+        return $this->autoMapping->map(OrderEntity::class, UpdateOrderForAddBillPdfRequestResponse::class, $item);
     }
 
 }

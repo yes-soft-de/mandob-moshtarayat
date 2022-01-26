@@ -17,4 +17,6 @@ class OrdersPendingForStoreResponse
     public $note;
 
     public $invoiceAmount;
+
+    public $state;
 }

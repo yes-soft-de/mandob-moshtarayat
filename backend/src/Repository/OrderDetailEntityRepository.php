@@ -362,7 +362,7 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('orderDetailEntity')
 
             ->select('OrderEntity.id', 'OrderEntity.deliveryDate', 'OrderEntity.createdAt', 'OrderEntity.source', 'OrderEntity.payment', 'OrderEntity.detail', 'OrderEntity.deliveryCost', 'OrderEntity.orderCost', 'OrderEntity.orderType', 'OrderEntity.destination', 'OrderEntity.note')
-            ->addSelect('orderDetailEntity.id as orderDetailId', 'orderDetailEntity.orderNumber')
+            ->addSelect('orderDetailEntity.id as orderDetailId', 'orderDetailEntity.orderNumber', 'orderDetailEntity.state')
 
             ->leftJoin(OrderEntity::class, 'OrderEntity', Join::WITH, 'orderDetailEntity.orderID = OrderEntity.id')
 
@@ -370,11 +370,13 @@ class OrderDetailEntityRepository extends ServiceEntityRepository
             ->andWhere('OrderEntity.deliveryDate < :toDate')
             ->andWhere('orderDetailEntity.storeOwnerProfileID = :storeOwnerProfileId ')
             ->andWhere('orderDetailEntity.state != :notPaid ')
+            ->andWhere('orderDetailEntity.state != :cancel ')
 
             ->setParameter('storeOwnerProfileId', $storeOwnerProfileId)
             ->setParameter('fromDate', $fromDate)
             ->setParameter('toDate', $toDate)
             ->setParameter('notPaid', OrderStateConstant::$ORDER_STATE_NOT_PAID)
+            ->setParameter('cancel', OrderStateConstant::$ORDER_STATE_CANCEL)
 
             ->addGroupBy('OrderEntity.id')
 
