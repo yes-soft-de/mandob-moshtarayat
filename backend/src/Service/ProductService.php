@@ -969,4 +969,19 @@ class ProductService
 
         return $result;
     }
+
+    public function deletedFalse()
+    {
+        $items = $this->productManager->getAllProducts();
+        foreach ($items as $item) {
+          $request = new UpdateDeletedFalseRequest ();
+          $request->setId($item->getId());
+          $request->setIsDeleted(0);
+
+          $items = $this->productManager->updateDeletedFalse($request);
+
+        }
+
+        return $items;
+    }
 }

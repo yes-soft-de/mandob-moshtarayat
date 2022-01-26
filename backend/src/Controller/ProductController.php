@@ -1327,4 +1327,16 @@ class ProductController extends BaseController
         return $this->response($response, self::FETCH);
     }
 
+    /**
+     *
+     * @Route("deletedfalse", name="deletedFalse", methods={"PUT"})
+     * @return JsonResponse
+     */
+    public function deletedFalse(): JsonResponse
+    {
+        $result = $this->productService->deletedFalse();
+
+        return $this->response($result, self::FETCH);
+    }
+
 }

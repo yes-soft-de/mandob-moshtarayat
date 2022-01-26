@@ -13,6 +13,7 @@ use App\Request\ProductUpdateByStoreOwnerRequest;
 use App\Request\ProductUpdateRequest;
 use App\Request\UpdateProductQuantityRequest;
 use App\Request\UpdateProductToDeletedRequest;
+use App\Service\UpdateDeletedFalseRequest;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Manager\StoreProductCategoryManager;
 
@@ -35,6 +36,7 @@ class ProductManager
     public function createProductByAdmin(ProductCreateRequest $request)
     {
         $request->setStatus('active');
+        $request->setIsDeleted(0);
 
         $entity = $this->autoMapping->map(ProductCreateRequest::class, ProductEntity::class, $request);
 
@@ -247,6 +249,7 @@ class ProductManager
     public function createProductByStore(ProductCreateRequest $request)
     {
         $request->setStatus('active');
+        $request->setIsDeleted(0);
 
         $entity = $this->autoMapping->map(ProductCreateRequest::class, ProductEntity::class, $request);
 
@@ -412,4 +415,24 @@ class ProductManager
     {
         return $this->productEntityRepository->productAvailableAndQuantityAvailable($id);
     }
+
+    public function getAllProducts()
+    {
+       return $this->productEntityRepository->findAll();
+    }
+
+    public function updateDeletedFalse(UpdateDeletedFalseRequest $request)
+    {
+        $entity = $this->productEntityRepository->find($request->getId());
+
+        if (!$entity) {
+            return $entity;
+        }
+        $entity = $this->autoMapping->mapToObject(UpdateDeletedFalseRequest::class, ProductEntity::class, $request, $entity);
+
+        $this->entityManager->flush();
+
+        return $entity;
+    }
 }
+
