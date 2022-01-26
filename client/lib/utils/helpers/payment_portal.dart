@@ -61,11 +61,15 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
   // configure app key and bundle-id (You must get those keys from tap)
   Future<void> configureApp() async {
     GoSellSdkFlutter.configureApp(
-        bundleId:
-            Platform.isAndroid ? 'de.yessoft.mandob_moshtarayat_client' : '',
-        productionSecreteKey:
-            Platform.isAndroid ? SecretPaymentsKeys.production : '',
-        sandBoxsecretKey: Platform.isAndroid ? SecretPaymentsKeys.sandBox : '',
+        bundleId: Platform.isAndroid
+            ? 'de.yessoft.mandob_moshtarayat_client'
+            : 'de.yessoft.mandobMoshtarayat',
+        productionSecreteKey: Platform.isAndroid
+            ? SecretPaymentsKeys.production
+            : SecretPaymentsKeys.productionIOS,
+        sandBoxsecretKey: Platform.isAndroid
+            ? SecretPaymentsKeys.sandBox
+            : SecretPaymentsKeys.sandBoxIOS,
         lang: getIt<LocalizationService>().getLanguage());
   }
 
@@ -76,7 +80,15 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
           trxMode: TransactionMode.PURCHASE,
           paymentItems: payments,
           paymentMetaData: {},
-          taxes: [],
+          taxes: [
+            Tax(
+                amount: Amount(
+                    type: '% 15',
+                    value: (widget.model.order.orderCost * 15) / 100,
+                    maximumFee: widget.model.order.orderCost,
+                    minimumFee: (widget.model.order.orderCost * 15) / 100),
+                name: S.current.withTaxes)
+          ],
           shippings: [],
           customer: Customer(
               customerId:
@@ -89,7 +101,7 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
               lastName: lastNameController.text,
               metaData: null),
           transactionCurrency: 'sar',
-          amount: widget.model.order.orderCost.toString(),
+          amount: widget.model.order.orderCost.toStringAsFixed(2),
           // Post URL
           postURL: 'https://tap.company',
           // Payment description
@@ -116,7 +128,7 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
           merchantID: '13120685',
           // Allowed cards
           allowedCadTypes: CardType.ALL,
-          applePayMerchantID: '',
+          applePayMerchantID: 'merchant.de.yessoft.mandobclientPayment',
           allowsToSaveSameCardMoreThanOnce: false,
           // pass the card holder name to the SDK
           cardHolderName:
@@ -244,7 +256,7 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
     print('$trx_mode  source_object      : ${tapSDKResult['source_object']}');
     print(
         '$trx_mode source_payment_type : ${tapSDKResult['source_payment_type']}');
-    responseID = tapSDKResult['charge_id'];
+    responseID = tapSDKResult['charge_id'] ?? '';
   }
 
   TextEditingController firstNameController = TextEditingController();
@@ -400,7 +412,10 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
                                 widget.model.carts.forEach((e) {
                                   e.items.forEach((element) {
                                     payments.add(PaymentItem(
-                                        amountPerUnit: element.productPrice,
+                                        amountPerUnit: element.productPrice + (
+                                                      (element.productPrice *
+                                                              15) /
+                                                          100),
                                         name: element.productName,
                                         quantity: Quantity(
                                             value: element.countProduct),
@@ -416,7 +431,7 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
                                   if (kIsWeb) {
                                     var sdk = PaymentPortalWeb(
                                         amount: widget.model.order.orderCost
-                                            .toStringAsFixed(1),
+                                            .toStringAsFixed(2),
                                         email: emailController.text,
                                         firstName: firstNameController.text,
                                         items: payments,
