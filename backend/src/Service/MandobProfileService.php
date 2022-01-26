@@ -159,6 +159,21 @@ class MandobProfileService
         return $this->autoMapping->map('array', RepresentativeFinancialAccountForAdminGetResponse::class, $response);
     }
 
+    public function getRepresentativeFinancialAccountInSpecificDateForAdmin($representativeID, $fromDate, $toDate)
+    {
+        $response = [];
+
+        $date = $this->dateFactoryService->returnSpecificDate($fromDate, $toDate);
+
+        $response['paymentsToRepresentative'] = $this->deliveryCompanyPaymentToRepresentativeService->getDeliveryCompanyPaymentsToRepresentativeByRepresentativeIdInSpecificDate($representativeID, $date[0], $date[1]);
+        $response['sumPaymentsToRepresentative'] = (float)$this->deliveryCompanyPaymentToRepresentativeService->getDeliveryCompanySumPaymentsToRepresentativeInSpecificDate($representativeID, $date[0], $date[1]);
+        $response['countLinkedStores'] = (float)$this->representativeStoreLinkService->getCountLinkedStoresByRepresentativeUserID($representativeID);
+        $response['sumRepresentativeDue'] = (float)$this->representativeDueService->getSumRepresentativeDueByRepresentativeUserIdAndInSpecificDate($representativeID, $date[0], $date[1]);
+        $response['totalRemainingPaymentsToRepresentative'] = $response['sumRepresentativeDue'] - $response['sumPaymentsToRepresentative'];
+
+        return $this->autoMapping->map('array', RepresentativeFinancialAccountForAdminGetResponse::class, $response);
+    }
+
     public function getRepresentativeFinancialAccountInSpecificDate($representativeID, $fromDate, $toDate)
     {
         $response = [];
