@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_sell_sdk_flutter/go_sell_sdk_flutter.dart';
@@ -80,16 +81,13 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
           trxMode: TransactionMode.PURCHASE,
           paymentItems: payments,
           paymentMetaData: {},
-          taxes: [
-            Tax(
-                amount: Amount(
-                    type: '% 15',
-                    value: (widget.model.order.orderCost * 15) / 100,
-                    maximumFee: widget.model.order.orderCost,
-                    minimumFee: (widget.model.order.orderCost * 15) / 100),
-                name: S.current.withTaxes)
+          taxes: [],
+          shippings: [
+            Shipping(
+                name: S.current.tax,
+                description: S.current.withTaxes + ' %15 ' ,
+                amount: (widget.model.order.orderCost * 15) / 100)
           ],
-          shippings: [],
           customer: Customer(
               customerId:
                   '', // customer id is important to retrieve cards saved for this customer
@@ -412,10 +410,7 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
                                 widget.model.carts.forEach((e) {
                                   e.items.forEach((element) {
                                     payments.add(PaymentItem(
-                                        amountPerUnit: element.productPrice + (
-                                                      (element.productPrice *
-                                                              15) /
-                                                          100),
+                                        amountPerUnit: element.productPrice,
                                         name: element.productName,
                                         quantity: Quantity(
                                             value: element.countProduct),
