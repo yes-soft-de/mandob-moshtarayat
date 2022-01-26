@@ -173,6 +173,7 @@ class _AddProductsFormState extends State<AddProductsForm> {
                       controller: _discountController,
                       hintText: S.current.discount,
                       numbers: true,
+                      validator: false,
                     ),
 
                     SizedBox(height: 32),
@@ -205,10 +206,12 @@ class _AddProductsFormState extends State<AddProductsForm> {
           label: S.current.save,
           onTap: () {
             if (_key.currentState!.validate() && imagePath != null) {
+              if(_discountController.text.isEmpty)
+                _discountController.text = '0';
               widget.addProduct(
                   _nameController.text,
                   imagePath!,
-                  int.parse(_priceController.text),
+                  double.parse(_priceController.text),
                   double.parse(_discountController.text),
                   translate);
             } else {
@@ -353,7 +356,7 @@ class _UpdateProductsFormState extends State<UpdateProductsForm> {
           widget.request.dataStoreProduct.productPrice?.toString() ?? '0';
       _discountController.text =
           widget.request.dataStoreProduct.discount?.toString() ?? '0';
-      maincatId = widget.request.dataStoreProduct.isLevelOne ?? false
+      maincatId = widget.request.dataStoreProduct.isLevelOne
           ? widget.request.dataStoreProduct.storeProductCategoryID?.toString()
           : null;
       if(widget.request.dataStoreProduct.isLevelTwo){

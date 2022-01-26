@@ -49,8 +49,7 @@ class StoreProductsStateManager {
       }
   void getCategoriesLevelOne(StoreProductScreenState screenState,String name){
     if(_authService.isLoggedIn){
-      print('tfff');
-      _storesService.getStoreProfile().then((value){
+      _categoriesService.getCategoryLevelOne().then((value) {
         if (value.hasError) {
           _stateSubject.add(
               ProductStoreState(screenState, null,null,null,error: value.error));
@@ -58,19 +57,8 @@ class StoreProductsStateManager {
           _stateSubject.add(ProductStoreState(screenState, [],[],[],
               empty: value.isEmpty));
         } else {
-          StoreProfileModel model = value as StoreProfileModel;
-          _categoriesService.getCategoryLevelOne().then((value) {
-            if (value.hasError) {
-              _stateSubject.add(
-                  ProductStoreState(screenState, null,null,null,error: value.error));
-            } else if (value.isEmpty) {
-              _stateSubject.add(ProductStoreState(screenState, [],[],[],
-                  empty: value.isEmpty));
-            } else {
-              ProductsCategoryModel categoryModel = value as ProductsCategoryModel;
-              _stateSubject.add(ProductStoreState(screenState,[],categoryModel.data,[]));
-            }
-          });
+          ProductsCategoryModel categoryModel = value as ProductsCategoryModel;
+          _stateSubject.add(ProductStoreState(screenState,[],categoryModel.data,[]));
         }
       });
     }else{
@@ -81,7 +69,7 @@ class StoreProductsStateManager {
  void getCategoriesLevelOneWithAllProducts(StoreProductScreenState screenState,String name){
    if(_authService.isLoggedIn){
      print('tfff');
-     _storesService.getStoreProfile().then((value){
+     _categoriesService.getCategoryLevelOne().then((value) {
        if (value.hasError) {
          _stateSubject.add(
              ProductStoreState(screenState, null,null,null,error: value.error));
@@ -89,21 +77,9 @@ class StoreProductsStateManager {
          _stateSubject.add(ProductStoreState(screenState, [],[],[],
              empty: value.isEmpty));
        } else {
-         StoreProfileModel model = value as StoreProfileModel;
-         print(model.storeCategoryId);
-         _categoriesService.getCategoryLevelOne().then((value) {
-           if (value.hasError) {
-             _stateSubject.add(
-                 ProductStoreState(screenState, null,null,null,error: value.error));
-           } else if (value.isEmpty) {
-             _stateSubject.add(ProductStoreState(screenState, [],[],[],
-                 empty: value.isEmpty));
-           } else {
-             ProductsCategoryModel categoryModel = value as ProductsCategoryModel;
-             getStoreProducts(screenState,name,catOne: categoryModel.data,catTwo: []);
+         ProductsCategoryModel categoryModel = value as ProductsCategoryModel;
+         getStoreProducts(screenState,name,catOne: categoryModel.data,catTwo: []);
 //             _stateSubject.add(ProductCategoriesLoadedState(screenState, model.data,[],[],-1));
-           }
-         });
        }
      });
    }else{
@@ -160,8 +136,8 @@ class StoreProductsStateManager {
 
   void updateProduct(UpdateProductRequest request , StoreProductScreenState screenState,List<ProductsCategoryModel>? levelOne){
     _stateSubject.add(LoadingState(screenState));
-    if (!request.dataStoreProduct!.productImage!.contains('/original-image/')){
-      _uploadService.uploadImage(request.dataStoreProduct?.productImage ?? '').then((value){
+    if (!request.dataStoreProduct.productImage!.contains('/original-image/')){
+      _uploadService.uploadImage(request.dataStoreProduct.productImage ?? '').then((value){
         if (value == null){
           getStoreProducts(screenState,'',catOne:levelOne,catTwo: []);
           CustomFlushBarHelper.createError(
@@ -169,7 +145,7 @@ class StoreProductsStateManager {
             ..show(screenState.context);
         }
         else {
-          request.dataStoreProduct?.productImage = value;
+          request.dataStoreProduct.productImage = value;
           _categoriesService.updateProduct(request).then((value) {
             if (value.hasError) {
               getStoreProducts(screenState,'',catOne: levelOne);
