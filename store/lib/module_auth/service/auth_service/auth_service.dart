@@ -73,6 +73,20 @@ class AuthService {
       throw AuthorizationException(
           StatusCodeHelper.getStatusCodeMessages(response?.statusCode ?? '0'));
     }
+    RegisterResponse? responseProfile =
+    await _authManager.checkUserProfile(loginResult.token ?? '');
+    if (responseProfile?.statusCode != '200') {
+      _prefsHelper.setNeedInit(true);
+
+      _prefsHelper.setUsername(username);
+      _prefsHelper.setPassword(password);
+      _prefsHelper.setToken(loginResult.token);
+
+      _authSubject.add(AuthStatus.UNREGISTERED);
+      throw AuthorizationException(
+          StatusCodeHelper.getStatusCodeMessages(response?.statusCode ?? '0'));
+    }
+
     _prefsHelper.setUsername(username);
     _prefsHelper.setPassword(password);
     _prefsHelper.setToken(loginResult.token);
@@ -93,7 +107,7 @@ class AuthService {
           registerResponse.statusCode ?? '0'));
     }
     _authSubject.add(AuthStatus.CODE_SENT);
-//    _prefsHelper.setNeedInit(true);
+    _prefsHelper.setNeedInit(true);
 //    await loginApi(request.userID ?? '', request.password ?? '');
   }
 

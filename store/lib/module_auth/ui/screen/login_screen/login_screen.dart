@@ -125,8 +125,8 @@ class LoginScreenState extends State<LoginScreen> {
   }
   void moveToProfileInit(String userID) {
     Navigator.of(context).pushNamedAndRemoveUntil(InitAccountRoutes.INIT_ACCOUNT_SCREEN, (route) => false,arguments: userID);
-    CustomFlushBarHelper.createSuccess(
-        title: S.current.warnning, message: S.current.loginSuccess)
+    CustomFlushBarHelper.createError(
+        title: S.current.warnning, message: S.current.profileIncomplete)
         .show(context);
   }
   void verifyFirst() {

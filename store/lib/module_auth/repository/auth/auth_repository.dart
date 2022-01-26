@@ -91,4 +91,12 @@ class AuthRepository {
 
     return RegisterResponse.fromJson(result);
   }
+  Future<RegisterResponse?> checkUserProfile(String token) async {
+    dynamic result = await _apiClient.get(Urls.CHECK_STORE_PROFILE_COMPLATED ,
+        headers: {'Authorization': 'Bearer $token'});
+
+    if (result == null) return null;
+
+    return RegisterResponse.fromJson(result);
+  }
 }
