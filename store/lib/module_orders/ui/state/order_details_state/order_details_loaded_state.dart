@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mandob_moshtarayat/consts/order_status.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_chat/chat_routes.dart';
+import 'package:mandob_moshtarayat/module_chat/model/chat_argument.dart';
 import 'package:mandob_moshtarayat/module_orders/model/order_details_model.dart';
 import 'package:mandob_moshtarayat/module_orders/ui/screen/order_details_screen.dart';
 import 'package:mandob_moshtarayat/module_orders/ui/state/order_details_state/order_details_state.dart';
@@ -135,7 +136,8 @@ class OrderDetailsLoadedState extends OrderDetailsState {
               ],
             ),
           ),
-          orderDetails.roomID.isNotEmpty
+          orderDetails.roomID.isNotEmpty && orderDetails.state !=
+              OrderStatusEnum.WAITING
               ? Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Container(
@@ -146,7 +148,11 @@ class OrderDetailsLoadedState extends OrderDetailsState {
                       onTap: () {
                         print(orderDetails.roomID);
                         Navigator.of(context).pushNamed(ChatRoutes.chatRoute,
-                            arguments: orderDetails.roomID);
+                            arguments: ChatArgument(
+                              roomID:orderDetails.roomID,
+                              userType:'captain',
+                              userID:int.parse(orderDetails.captainID),
+                            ));
                       },
                       title: Text(
                         S.of(context).chatWithCaptain,
