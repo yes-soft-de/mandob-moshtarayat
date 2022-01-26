@@ -35,6 +35,11 @@
 	<string>We need to access your current location to deliver order to you </string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>We need to access your gellary to pick photo to your profile</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
