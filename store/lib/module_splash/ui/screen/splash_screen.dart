@@ -4,6 +4,7 @@ import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_auth/authorization_routes.dart';
 import 'package:mandob_moshtarayat/module_auth/service/auth_service/auth_service.dart';
 import 'package:flutter/material.dart';
+import 'package:mandob_moshtarayat/module_init/init_routes.dart';
 import 'package:mandob_moshtarayat/module_localization/service/localization_service/localization_service.dart';
 import 'package:mandob_moshtarayat/module_main/main_routes.dart';
 import 'package:mandob_moshtarayat/module_splash/ui/widget/costum_button.dart';
@@ -66,12 +67,20 @@ class _SplashScreenState extends State<SplashScreen> {
     if (widget._authService.isLoggedIn) {
       return   Navigator.of(context).pushNamedAndRemoveUntil(MainRoutes.MAIN_SCREEN, (route) => false);
     }
+    if(widget._authService.needToInitAccount){
+      return Navigator.of(context).pushNamedAndRemoveUntil(InitAccountRoutes.INIT_ACCOUNT_SCREEN, (route) => false);;
+    }
     return Navigator.of(context).pushNamedAndRemoveUntil(StoresRoutes.STORES_SCREEN, (route) => false);
   }
 
   Future<String> _getNextRoute() async {
+    print('INsPLASH');
+    print(widget._authService.needToInitAccount);
     await Future.delayed(Duration(seconds: 3));
-    if (widget._authService.isLoggedIn) {
+    if (widget._authService.isLoggedIn && widget._authService.needToInitAccount) {
+      return InitAccountRoutes.INIT_ACCOUNT_SCREEN;
+    }
+    if(widget._authService.isLoggedIn && !widget._authService.needToInitAccount){
       return MainRoutes.MAIN_SCREEN;
     }
     return StoresRoutes.STORES_SCREEN;

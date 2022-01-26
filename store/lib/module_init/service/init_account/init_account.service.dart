@@ -16,7 +16,8 @@ class InitAccountService {
   Future<ProfilePostState> createStoreProfile(CreateStoreRequest request) async {
     CreateCaptainProfileResponse? clientOrderResponse = await _manager.createStoreProfile(request);
       if (clientOrderResponse == null) return ProfilePostState.error(S.current.networkError);
-      if (clientOrderResponse.statusCode != '204') return ProfilePostState.error(StatusCodeHelper.getStatusCodeMessages(clientOrderResponse.statusCode));
+      if (clientOrderResponse.statusCode != '204')
+        return ProfilePostState.error(StatusCodeHelper.getStatusCodeMessages(clientOrderResponse.statusCode));
       return ProfilePostState.empty();
   }
 

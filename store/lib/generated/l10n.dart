@@ -5566,6 +5566,16 @@ class S {
       args: [],
     );
   }
+
+  /// `You must complete your account information first`
+  String get profileIncomplete {
+    return Intl.message(
+      'You must complete your account information first',
+      name: 'profileIncomplete',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

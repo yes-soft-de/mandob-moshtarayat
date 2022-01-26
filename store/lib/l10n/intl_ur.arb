@@ -563,5 +563,7 @@
   "passwordUpdatedSuccess": "پاس ورڈ کامیابی کے ساتھ اپ ڈیٹ ہو گیا۔",
   "informSendCode": "ہم آپ کے نمبر پر ایک تصدیقی کوڈ بھیجیں گے۔",
   "passwordNotMatch": "پاس ورڈ میچ نہیں کرتا",
-  "accountNotExist":"اکاؤنٹ موجود نہیں ہے۔"
+  "accountNotExist":"اکاؤنٹ موجود نہیں ہے۔",
+  "profileIncomplete": "آپ کو پہلے اپنے اکاؤنٹ کی معلومات کو مکمل کرنا ہوگا"
+
 }

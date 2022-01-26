@@ -3,7 +3,7 @@ class Urls {
  //static const String DOMAIN = 'https://api.al-mandob.com';
  // http://138.197.186.138
 //  //newfl
- static const String DOMAIN = 'https://api.al-mandob.com';
+ static const String DOMAIN = 'http://138.197.186.138';
   static const String BASE_API = DOMAIN + '';
   static const String IMAGES_ROOT = DOMAIN + '/upload/';
   static const UPLOAD_API = BASE_API + '/uploadfile';
@@ -17,6 +17,7 @@ class Urls {
   static const NOTIFICATIONTOADMIN_API = BASE_API + '/notificationtoadmin';
   static const CREATE_STORE_PROFILE = BASE_API + '/storeowner' ;
   static const CHECK_USER_ROLE = BASE_API + '/checkUserType';
+  static const CHECK_STORE_PROFILE_COMPLATED = BASE_API + '/storeownerprofileiscomplated';
   static const STORE_CATEGORIES = BASE_API + '/storecategories';
   static const GET_STORE_PROFILE = BASE_API + '/storeownerprofilebyid';
   static const CREATE_PRODUCTS = BASE_API + '/createproductbystore';
@@ -26,7 +27,7 @@ class Urls {
   static const GET_ONGOING_ORDERS = BASE_API + '/getstoreordersongoing';
   static const GET_SPECIFIC_DATE_ORDERS = BASE_API + '/getstoreordersinspecificdate/';
   static const GET_ORDER_DETAILS = BASE_API + '/orderdetailsforstore/';
-  static const GET_ORDER_TIMELINE = BASE_API + '/orderlogstimeline/';
+  static const GET_ORDER_TIMELINE = BASE_API + '/orderlogstimelineforstore/';
   static const CATEGORY_LEVEL_ONE = BASE_API + '/allstoreproductscategoriesleveloneforstore';
   static const CATEGORY_LEVEL_TWO = BASE_API + '/storeproductscategoryleveltwo/';
   static const GET_STORE_PRODUCT_BY_Category = BASE_API + '/productsbystoreproductcategoryidforstore/';

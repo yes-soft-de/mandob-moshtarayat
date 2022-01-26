@@ -28,7 +28,7 @@ class InitAccountScreen extends StatefulWidget {
 class InitAccountScreenState extends State<InitAccountScreen> {
   StreamSubscription? _streamSubscription;
  InitAccountState? currentState;
- String? phoneNumber;
+
   LatLng? myPos;
  late MapController  mapController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -98,7 +98,7 @@ class InitAccountScreenState extends State<InitAccountScreen> {
     super.didChangeDependencies();
     var args = ModalRoute.of(context)?.settings.arguments;
     if (args != null) {
-      phoneNumber = args.toString();
+//      phoneNumber = args.toString();
     }
   }
 

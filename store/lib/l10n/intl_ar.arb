@@ -560,6 +560,7 @@
   "passwordUpdatedSuccess": "تم تحديث كلمة المرور بنجاح",
   "informSendCode": "سنقوم بأرسال كود تحقق الى رقمك",
   "passwordNotMatch": "كلمة السر غير متطابقة",
-  "accountNotExist":"الحساب غير موجود"
+  "accountNotExist":"الحساب غير موجود",
+  "profileIncomplete": "يجب استكمال معلوماتك الشخصية اولا"
 
 }

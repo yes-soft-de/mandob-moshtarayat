@@ -33,6 +33,8 @@ class StatusCodeHelper {
         return S.current.accountNotExist;
       case '9156':
         return S.current.notVerifiedNumber;
+      case '9220':
+        return S.current.profileIncomplete;
       case '-1':
         return S.current.dataDecodeError;
       default:

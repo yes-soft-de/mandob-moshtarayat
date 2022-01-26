@@ -449,7 +449,6 @@ class UpdateStoreWidget extends StatefulWidget {
        privateOrder = widget.request?.privateOrders == 1 ? true : false;
        openingTime = TimeOfDay.fromDateTime(DateTime.parse(
            widget.request?.openingTime ?? DateTime.now().toString()));
-
        closingTime = TimeOfDay.fromDateTime(DateTime.parse(
            widget.request?.closingTime ?? DateTime.now().toString()));
        status = widget.request?.status ?? 'active';
