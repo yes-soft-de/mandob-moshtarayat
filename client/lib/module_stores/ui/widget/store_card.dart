@@ -78,7 +78,7 @@ class StoreCard extends StatelessWidget {
                                 width: 2,
                               ),
                               Text(
-                                '${rate.toStringAsFixed(1)}',
+                                '${rate.toStringAsFixed(2)}',
                                 style: TextStyle(fontSize: 14),
                               ),
                             ],

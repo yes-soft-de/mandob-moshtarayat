@@ -90,7 +90,7 @@ class _ProductsCardState extends State<ProductsCard> {
                         maxWidth: 85,
                       ),
                       child: Text(
-                        '${widget.price.toStringAsFixed(1)} ${S.current.sar}',
+                        '${widget.price.toStringAsFixed(2)} ${S.current.sar}',
                         style: const TextStyle(fontWeight: FontWeight.w600),
                         textAlign: TextAlign.start,
                         overflow: TextOverflow.ellipsis,
@@ -269,7 +269,7 @@ class _ProductsSearchCardState extends State<ProductsSearchCard> {
                 child: Align(
                     alignment: Alignment.bottomCenter,
                     child: Text(
-                      '${widget.price.toStringAsFixed(1)} ${S.current.sar}',
+                      '${widget.price.toStringAsFixed(2)} ${S.current.sar}',
                       style: const TextStyle(fontWeight: FontWeight.w600),
                     )),
               ),

@@ -48,7 +48,7 @@ class BillCard extends StatelessWidget {
                 Expanded(
                     child: CustomListTile(
                         title: S.of(context).orderPrice,
-                        subtitle: '${orderCost.toStringAsFixed(1)} ${S.of(context).sar}')),
+                        subtitle: '${orderCost.toStringAsFixed(2)} ${S.of(context).sar}')),
               ],
             ),
           ),
@@ -77,7 +77,7 @@ class BillCard extends StatelessWidget {
                   width: 16,
                 ),
                 Text(
-                  '${(deliveryCost + orderCost).toStringAsFixed(1)} ${S.of(context).sar}',
+                  '${(deliveryCost + orderCost).toStringAsFixed(2)} ${S.of(context).sar}',
                   style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
@@ -194,7 +194,7 @@ class _BillCardDetailsState extends State<BillCardDetails> {
               width: 75,
               child: Center(
                 child: Text(
-                  (element.quantity * element.price).toStringAsFixed(1) +
+                  (element.quantity * element.price).toStringAsFixed(2) +
                       ' ${S.current.sar} ',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -256,7 +256,7 @@ class _BillCardDetailsState extends State<BillCardDetails> {
                   width: 16,
                 ),
                 Text(
-                  '${widget.orderCost.toStringAsFixed(1)} ${S.of(context).sar}',
+                  '${widget.orderCost.toStringAsFixed(2)} ${S.of(context).sar}',
                   style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,

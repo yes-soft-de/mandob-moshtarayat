@@ -73,7 +73,7 @@ class _OrderChipState extends State<OrderChip> {
               child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Text(
-                    '${products.price?.toStringAsFixed(1) ?? widget.price.toStringAsFixed(1)} ${widget.currency}',
+                    '${products.price?.toStringAsFixed(2) ?? widget.price.toStringAsFixed(2)} ${widget.currency}',
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                     ),

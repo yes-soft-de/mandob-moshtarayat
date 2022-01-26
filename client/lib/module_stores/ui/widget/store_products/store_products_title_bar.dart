@@ -7,7 +7,7 @@ class StoreProductsTitleBar extends StatelessWidget {
   final num rate;
   final int views;
   final num deliveryCost;
-  StoreProductsTitleBar(
+  const StoreProductsTitleBar(
       {required this.title,
       required this.rate,
       required this.views,
@@ -15,7 +15,7 @@ class StoreProductsTitleBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.maxFinite,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -44,7 +44,7 @@ class StoreProductsTitleBar extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       '${S.of(context).views} $views',
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontWeight: FontWeight.bold, color: Colors.white),
                     ),
                   ),
@@ -53,33 +53,17 @@ class StoreProductsTitleBar extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    rate.toStringAsFixed(1),
-                    style: TextStyle(
+                    rate.toStringAsFixed(2),
+                    style: const TextStyle(
                         fontWeight: FontWeight.bold, color: Colors.white),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                const Padding(
+                  padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
                   child: Icon(
                     Icons.star,
                     size: 18,
                     color: Colors.white,
-                  ),
-                ),
-                Container(
-                  width: 8,
-                ),
-                Icon(
-                  Icons.circle,
-                  size: 18,
-                  color: Colors.white,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    '${S.of(context).deliverPrice} $deliveryCost ${S.of(context).sar}',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.white),
                   ),
                 ),
               ],

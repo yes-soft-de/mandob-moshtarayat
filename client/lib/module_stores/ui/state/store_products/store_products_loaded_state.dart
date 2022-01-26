@@ -304,7 +304,7 @@ dynamic getTotal() {
   for (int i = 0; i < carts.length; i++) {
     total += carts[i].price * carts[i].quantity;
   }
-  return total.toStringAsFixed(1);
+  return total.toStringAsFixed(2);
 }
 
 String getItemsCount() {
