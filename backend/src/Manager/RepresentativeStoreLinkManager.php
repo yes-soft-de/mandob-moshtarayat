@@ -50,6 +50,16 @@ class RepresentativeStoreLinkManager
         return $this->representativeStoreLinkEntityRepository->getCountLinkedStoresByRepresentativeUserID($representativeUserID);
     }
 
+    public function getCountLinkedStores()
+    {
+        return $this->representativeStoreLinkEntityRepository->getCountLinkedStores();
+    }
+
+    public function getCountLinkedStoresByRepresentativeUserIdAndInSpecificDate($representativeUserID, $fromDate, $toDate)
+    {
+        return $this->representativeStoreLinkEntityRepository->getCountLinkedStoresByRepresentativeUserIdAndInSpecificDate($representativeUserID, $fromDate, $toDate);
+    }
+
     public function updateRepresentativeStoreLink(RepresentativeStoreLinkUpdateRequest $request)
     {
         $representativeStoreLinkResult = $this->representativeStoreLinkEntityRepository->find($request->getId());

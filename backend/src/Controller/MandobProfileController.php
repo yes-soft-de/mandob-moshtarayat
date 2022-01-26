@@ -550,4 +550,42 @@ class MandobProfileController extends BaseController
 
         return $this->response($response, self::FETCH);
     }
+
+    /**
+     * representative: Get statistics.
+     * @Route("representativestatistics", name="getStatisticsForRepresentative", methods={"GET"})
+     * @IsGranted("ROLE_MANDOB")
+     * @return JsonResponse
+     * 
+     * @OA\Tag(name="Mandob Profile")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Get statistics for representative",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="number", property="totalLinkedStores"),
+     *              @OA\Property(type="number", property="representativeTotalLinkedStores"),
+     *              @OA\Property(type="number", property="representativeLinkedStoresLastMonth")
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function getStatisticsForRepresentative()
+    {
+        $response = $this->mandobProfileService->getStatisticsForRepresentative($this->getUserId());
+
+        return $this->response($response, self::FETCH);
+    }
 }
