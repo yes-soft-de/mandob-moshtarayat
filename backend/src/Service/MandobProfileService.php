@@ -18,6 +18,7 @@ use App\Response\UserRegisterResponse ;
 use App\Manager\MandobProfileManager;
 use App\Response\RepresentativeFinancialAccountForAdminGetResponse;
 use App\Response\RepresentativeFinancialAccountGetResponse;
+use App\Response\StatisticsForRepresentativeGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class MandobProfileService
@@ -171,5 +172,18 @@ class MandobProfileService
         $response['totalRemainingPaymentsToRepresentative'] = $response['sumRepresentativeDue'] - $response['sumPaymentsToRepresentative'];
 
         return $this->autoMapping->map('array', RepresentativeFinancialAccountGetResponse::class, $response);
+    }
+
+    public function getStatisticsForRepresentative($representativeID)
+    {
+        $response = [];
+
+        $date = $this->dateFactoryService->returnLastMonthDate();
+
+        $response['totalLinkedStores'] = (float)$this->representativeStoreLinkService->getCountLinkedStores();
+        $response['representativeTotalLinkedStores'] = (float)$this->representativeStoreLinkService->getCountLinkedStoresByRepresentativeUserID($representativeID);
+        $response['representativeLinkedStoresLastMonth'] = (float)$this->representativeStoreLinkService->getCountLinkedStoresByRepresentativeUserIdAndInSpecificDate($representativeID, $date[0], $date[1]);
+        
+        return $this->autoMapping->map('array', StatisticsForRepresentativeGetResponse::class, $response);
     }
 }

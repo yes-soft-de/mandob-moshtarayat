@@ -75,4 +75,14 @@ class RepresentativeStoreLinkService
     {
         return $this->representativeStoreLinkManager->getCountLinkedStoresByRepresentativeUserID($representativeUserID);
     }
+
+    public function getCountLinkedStoresByRepresentativeUserIdAndInSpecificDate($representativeUserID, $fromDate, $toDate)
+    {
+        return $this->representativeStoreLinkManager->getCountLinkedStoresByRepresentativeUserIdAndInSpecificDate($representativeUserID, $fromDate, $toDate);
+    }
+
+    public function getCountLinkedStores()
+    {
+        return $this->representativeStoreLinkManager->getCountLinkedStores();
+    }
 }
