@@ -7,6 +7,7 @@ use App\Request\AddInfoPayByClientRequest;
 use App\Request\ElectronicPaymentInfoCreateRequest;
 use App\Request\OrderUpdateBillCalculatedByCaptainRequest;
 use App\Request\OrderUpdateStateForEachStoreByCaptainRequest;
+use App\Request\UpdateOrderForAddBillPdfRequest;
 use App\Service\OrderService;
 use App\Request\OrderClientCreateRequest ;
 use App\Request\OrderClientSendCreateRequest ;
@@ -1110,6 +1111,11 @@ class OrderController extends BaseController
      *                   @OA\Property(type="number", property="itemsTotal"),
      *                   @OA\Property(type="number", property="vatTax"),
      *                   @OA\Property(type="number", property="total"),
+     *             ),
+     *             @OA\Property(type="object", property="billPdf",
+     *                   @OA\Property(type="number", property="fileURL"),
+     *                   @OA\Property(type="number", property="file"),
+     *                   @OA\Property(type="number", property="baseURL"),
      *             )
      *          )
      *      )
@@ -2510,4 +2516,62 @@ class OrderController extends BaseController
 
         return $this->response($result, self::FETCH);
     }
+
+    /**
+     * captain: Update Order for add bill pdf.
+     * @Route("/updateorderforaddbillpdf", name="UpdateOrderForAddBillPdf", methods={"PUT"})
+     * @IsGranted("ROLE_ADMIN")
+     * @param Request $request
+     * @return JsonResponse
+     * *
+     * @OA\Tag(name="Order")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\RequestBody (
+     *        description="Update Order for add bill pdf",
+     *        @OA\JsonContent(
+     *              @OA\Property(type="integer", property="orderNumber"),
+     *              @OA\Property(type="string", property="billPdf"),
+     *         ),
+     *      ),
+     *
+     * @OA\Response(
+     *      response=204,
+     *      description="Return object.",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="string", property="billPdf"),
+     *
+     *              )
+     *          )
+     *     )
+     *
+     * @Security(name="Bearer")
+     */
+    public function updateOrderForAddBillPdf(Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, UpdateOrderForAddBillPdfRequest::class, (object) $data);
+
+        $violations = $this->validator->validate($request);
+        if (\count($violations) > 0) {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $response = $this->orderService->updateOrderForAddBillPdf($request);
+
+        return $this->response($response, self::UPDATE);
+    }
+
 }

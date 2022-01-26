@@ -18,6 +18,7 @@ use App\Request\OrderUpdateStateByCaptainRequest;
 use App\Request\OrderUpdateInvoiceByCaptainRequest;
 use App\Request\OrderUpdateSpecialByClientRequest;
 use App\Request\OrderUpdateSendByClientRequest;
+use App\Request\UpdateOrderForAddBillPdfRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
 class OrderManager
@@ -528,6 +529,19 @@ class OrderManager
             $item = $this->autoMapping->mapToObject(OrderStateRequest::class, OrderEntity::class, $request, $item);
 
             $this->entityManager->flush();
+            return $item;
+        }
+    }
+
+    public function updateOrderForAddBillPdf(UpdateOrderForAddBillPdfRequest $request, $orderId)
+    {
+        $item = $this->orderEntityRepository->find($orderId);
+
+        if ($item) {
+            $item = $this->autoMapping->mapToObject(UpdateOrderForAddBillPdfRequest::class, OrderEntity::class, $request, $item);
+
+            $this->entityManager->flush();
+
             return $item;
         }
     }

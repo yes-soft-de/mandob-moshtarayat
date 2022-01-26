@@ -448,3 +448,10 @@ App\Request\RepresentativeCommissionUpdateRequest:
   properties:
     id:
       - NotBlank: ~
+
+App\Request\UpdateOrderForAddBillPdfRequest:
+  properties:
+    orderNumber:
+      - NotBlank: ~
+    billPdf:
+      - NotBlank: ~
