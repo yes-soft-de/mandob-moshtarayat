@@ -1057,6 +1057,11 @@ class OrderController extends BaseController
      *                   @OA\Property(type="number", property="deliveryCost"),
      *                   @OA\Property(type="number", property="orderCost"),
      *                   @OA\Property(type="integer", property="orderType"),
+     *                   @OA\Property(type="object", property="billPdf",
+     *                      @OA\Property(type="number", property="fileURL"),
+     *                      @OA\Property(type="number", property="file"),
+     *                      @OA\Property(type="number", property="baseURL"),
+     *             )
      *                           ),
      *                   @OA\Property(type="array", property="orderDetails",
      *                   @OA\Items(
@@ -1111,11 +1116,6 @@ class OrderController extends BaseController
      *                   @OA\Property(type="number", property="itemsTotal"),
      *                   @OA\Property(type="number", property="vatTax"),
      *                   @OA\Property(type="number", property="total"),
-     *             ),
-     *             @OA\Property(type="object", property="billPdf",
-     *                   @OA\Property(type="number", property="fileURL"),
-     *                   @OA\Property(type="number", property="file"),
-     *                   @OA\Property(type="number", property="baseURL"),
      *             )
      *          )
      *      )
