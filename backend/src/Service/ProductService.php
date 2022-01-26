@@ -6,7 +6,7 @@ use App\AutoMapping;
 use App\Entity\ProductEntity;
 use App\Manager\ProductManager;
 use App\Manager\UserManager;
-use App\Request\productAvailableAndQuantityAvailableRequest;
+use App\Request\ProductAvailableAndQuantityAvailableRequest;
 use App\Request\ProductCreateRequest;
 use App\Request\ProductFilterByNameRequest;
 use App\Request\ProductTranslationCreateRequest;
@@ -29,7 +29,6 @@ use App\Response\ProductsByProductCategoryIdResponse;
 use App\Response\ProductsTopWantedResponse;
 use App\Response\ProductUpdateResponse;
 use App\Response\StoreProductCategoriesResponse;
-use Response\productAvailableAndQuantityAvailable1Response;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use App\Service\StoreOwnerProfileService;
 
@@ -915,7 +914,7 @@ class ProductService
         }
     }
 
-    public function productAvailableAndQuantityAvailable(productAvailableAndQuantityAvailableRequest $request)
+    public function productAvailableAndQuantityAvailable(ProductAvailableAndQuantityAvailableRequest $request)
     {
         foreach ($request->getProductDetails() as $productDetail) {
 

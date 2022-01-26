@@ -2,7 +2,7 @@
 
 namespace App\Request;
 
-class productAvailableAndQuantityAvailableRequest
+class ProductAvailableAndQuantityAvailableRequest
 {
     private $productDetails;
 

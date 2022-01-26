@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\AutoMapping;
 use App\Constant\ResponseConstant;
 use App\Request\DeleteRequest;
-use App\Request\productAvailableAndQuantityAvailableRequest;
+use App\Request\ProductAvailableAndQuantityAvailableRequest;
 use App\Request\ProductCancelByStoreOwnerRequest;
 use App\Request\ProductCommissionByAdminUpdateRequest;
 use App\Request\ProductCreateRequest;
@@ -1314,7 +1314,7 @@ class ProductController extends BaseController
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class, productAvailableAndQuantityAvailableRequest::class, (object)$data);
+        $request = $this->autoMapping->map(stdClass::class, ProductAvailableAndQuantityAvailableRequest::class, (object)$data);
 
         if(!isset($data['productDetails'])){
             return $this->response(ResponseConstant::$ERROR_VALIDATION_PRODUCT_DETAILS, self::ERROR);
