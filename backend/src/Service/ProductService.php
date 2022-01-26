@@ -18,7 +18,7 @@ use App\Request\ProductWithTranslationUpdateRequest;
 use App\Request\UpdateProductQuantityRequest;
 use App\Request\UpdateProductToDeletedRequest;
 use App\Response\CostDetailsResponse;
-use App\Response\productAvailableAndQuantityAvailableResponse;
+use App\Response\ProductAvailableAndQuantityAvailableResponse;
 use App\Response\ProductCreateResponse;
 use App\Response\ProductsByProductCategoryIdAndStoreOwnerProfileIdResponse;
 use App\Response\ProductsByStoreOwnerProfileIdResponse;
@@ -940,7 +940,7 @@ class ProductService
 
         foreach ($items as $item){
 
-        $response = $this->autoMapping->map("array", productAvailableAndQuantityAvailableResponse::class, $item);
+        $response = $this->autoMapping->map("array", ProductAvailableAndQuantityAvailableResponse::class, $item);
 
     }
 
