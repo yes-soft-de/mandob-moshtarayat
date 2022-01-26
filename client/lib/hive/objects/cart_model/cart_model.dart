@@ -15,7 +15,7 @@ class CartModel extends HiveObject {
   @HiveField(4)
   late String? image;
   @HiveField(5)
-  late String storeID;
+  late String? storeID;
 
   CartModel(
       {required this.id,

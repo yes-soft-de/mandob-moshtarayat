@@ -63,9 +63,9 @@ class ProductDetailsLoadedState extends States {
             padding: const EdgeInsets.only(top: 16.0),
             child: Container(
               width: double.maxFinite,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+              decoration:  BoxDecoration(
+                color:Theme.of(context).cardColor,
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(25)),
               ),
               child: Column(
                 children: [
@@ -207,7 +207,7 @@ class ProductDetailsLoadedState extends States {
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Text(
-                                        '${model.productPrice} ${S.current.sar}',
+                                        '${model.productPrice.toStringAsFixed(1)} ${S.current.sar}',
                                         style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: Colors.white),
@@ -295,7 +295,7 @@ class ProductDetailsLoadedState extends States {
                           S.current.totalPrice,
                           style: const TextStyle(fontSize: 16),
                         ),
-                        Spacer(
+                        const Spacer(
                           flex: 1,
                         ),
                         Container(
