@@ -373,6 +373,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "paymentHistory": MessageLookupByLibrary.simpleMessage("تاريخ الدفعات"),
         "paymentMethod": MessageLookupByLibrary.simpleMessage("طريقة الدفع"),
         "paymentMethodHint": MessageLookupByLibrary.simpleMessage("اختر"),
+        "paymentPortalHint": MessageLookupByLibrary.simpleMessage(
+            "المبلغ النهائي في بوابة الدفع شاملة للقيمة المضافة %15"),
         "paymentsVia":
             MessageLookupByLibrary.simpleMessage("إيصال المدفوعات عبر"),
         "personalData":
@@ -545,6 +547,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sureForDelete": MessageLookupByLibrary.simpleMessage(
             "هل أنت متأكد من قيامك بحذف هذا الطلب"),
         "syria": MessageLookupByLibrary.simpleMessage("سوريا"),
+        "tax": MessageLookupByLibrary.simpleMessage("القيمة المضافة ال %15"),
         "termsOfService":
             MessageLookupByLibrary.simpleMessage("شروط الاستخدام"),
         "thisErrorHappened":

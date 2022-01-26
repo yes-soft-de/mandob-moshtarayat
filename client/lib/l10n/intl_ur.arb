@@ -406,5 +406,7 @@
     "update": "اپ ڈیٹ",
     "phoneNumberLong": "فون نمبر غلط فارمیٹ، وجہ 9 سے زیادہ ہے۔",
     "similarProducts": "اسی طرح کی مصنوعات",
-    "accountNotExist": "اکاؤنٹ موجود نہیں ہے۔"
+    "accountNotExist": "اکاؤنٹ موجود نہیں ہے۔",
+    "paymentPortalHint": "پیمنٹ پورٹل میں تمام قیمتیں 15% ٹیکس کے ساتھ شامل ہیں",
+    "tax": "ٹیکس"
 }

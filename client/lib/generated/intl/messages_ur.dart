@@ -388,6 +388,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ادائیگی کا طریقہ"),
         "paymentMethodHint":
             MessageLookupByLibrary.simpleMessage(" منتخب کریں۔"),
+        "paymentPortalHint": MessageLookupByLibrary.simpleMessage(
+            "پیمنٹ پورٹل میں تمام قیمتیں 15% ٹیکس کے ساتھ شامل ہیں"),
         "paymentsVia": MessageLookupByLibrary.simpleMessage("کے ذریعے ادائیگی"),
         "personalData": MessageLookupByLibrary.simpleMessage(" ذاتی مواد"),
         "phoneIsRequired":
@@ -568,6 +570,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sureForDelete": MessageLookupByLibrary.simpleMessage(
             " کیا آپ اس آرڈر کو حذف کرنے کے بارے میں یقین رکھتے ہیں، براہ کرم تصدیق کریں۔"),
         "syria": MessageLookupByLibrary.simpleMessage("Syria"),
+        "tax": MessageLookupByLibrary.simpleMessage("ٹیکس"),
         "termsOfService": MessageLookupByLibrary.simpleMessage("سروس کی شرائط"),
         "thisErrorHappened":
             MessageLookupByLibrary.simpleMessage(" یہ ایرر ہوا ہے۔"),

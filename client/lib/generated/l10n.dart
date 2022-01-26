@@ -4119,6 +4119,26 @@ class S {
       args: [],
     );
   }
+
+  /// `All prices in payments portal are included with 15% tax`
+  String get paymentPortalHint {
+    return Intl.message(
+      'All prices in payments portal are included with 15% tax',
+      name: 'paymentPortalHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `15% Tax`
+  String get tax {
+    return Intl.message(
+      '15% Tax',
+      name: 'tax',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

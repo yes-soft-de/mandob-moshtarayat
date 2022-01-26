@@ -377,6 +377,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Payment History"),
         "paymentMethod": MessageLookupByLibrary.simpleMessage("Payment Method"),
         "paymentMethodHint": MessageLookupByLibrary.simpleMessage("Choose"),
+        "paymentPortalHint": MessageLookupByLibrary.simpleMessage(
+            "All prices in payments portal are included with 15% tax"),
         "paymentsVia": MessageLookupByLibrary.simpleMessage("Payments via"),
         "personalData": MessageLookupByLibrary.simpleMessage("Personal Data"),
         "phoneIsRequired":
@@ -547,6 +549,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sureForDelete": MessageLookupByLibrary.simpleMessage(
             "Are you sure about deleting this order , please confirm"),
         "syria": MessageLookupByLibrary.simpleMessage("Syria"),
+        "tax": MessageLookupByLibrary.simpleMessage("15% Tax"),
         "termsOfService":
             MessageLookupByLibrary.simpleMessage("Terms of Service"),
         "thisErrorHappened":
