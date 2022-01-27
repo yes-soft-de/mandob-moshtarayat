@@ -10,7 +10,7 @@ class CartValidationModel extends DataModel {
     data.products?.forEach((element) {
       carts.add(CartModel(
         id: element.id ?? -1,
-        quantity: (element.maxQuantity! > element.userQuantity!)
+        quantity: ((element.maxQuantity ?? 0) > (element.userQuantity ?? 0))
             ? element.userQuantity ?? -1
             : element.maxQuantity ?? -1,
         price: element.productPrice ?? 0,
