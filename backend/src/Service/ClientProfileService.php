@@ -15,7 +15,7 @@ use App\Request\UserRegisterRequest;
 use App\Request\ClientProfileUpdateRequest;
 use App\Request\VerificationCreateRequest;
 use App\Response\AnonymousUsersWhoNeedSupportResponse;
-use App\Response\clientOrdersCountResponse;
+use App\Response\ClientOrdersCountResponse;
 use App\Response\ClientProfileByUserIdGetResponse;
 use App\Response\ClientProfileNeedSupportUpdateResponse;
 use App\Response\ClientProfilePreferredLanguageUpdateResponse;
@@ -152,7 +152,7 @@ class ClientProfileService
         $item['clientOrdersCancel'] = $this->userManager->clientOrdersCancel($clientID);
         $item['clientOrdersDelivered'] = $this->userManager->clientOrdersDelivered($clientID);
 
-        return $this->autoMapping->map('array', clientOrdersCountResponse::class, $item);
+        return $this->autoMapping->map('array', ClientOrdersCountResponse::class, $item);
     }
 
     public function countClients() {
