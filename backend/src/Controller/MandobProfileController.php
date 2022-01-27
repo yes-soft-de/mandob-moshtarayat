@@ -455,7 +455,7 @@ class MandobProfileController extends BaseController
 
     /**
      * admin: Get representative's financial account in last month.
-     * @Route("representativefinancialaccountinlastmonthforadmin/{representativeID}", name="captainFinancialAccountInLastMonthForAdmin", methods={"GET"})
+     * @Route("representativefinancialaccountinlastmonthforadmin/{representativeID}", name="getRepresentativeFinancialAccountInLastMonthForAdmin", methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @param $representativeID
      * @return JsonResponse
