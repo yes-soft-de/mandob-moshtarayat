@@ -63,9 +63,10 @@ class ProductDetailsLoadedState extends States {
             padding: const EdgeInsets.only(top: 16.0),
             child: Container(
               width: double.maxFinite,
-              decoration:  BoxDecoration(
-                color:Theme.of(context).cardColor,
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(25)),
+              decoration: BoxDecoration(
+                color: Theme.of(context).cardColor,
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(25)),
               ),
               child: Column(
                 children: [
@@ -315,7 +316,7 @@ class ProductDetailsLoadedState extends States {
                       ],
                     ),
                   ),
-                 ListTile(
+                  ListTile(
                     leading: Icon(
                       FontAwesomeIcons.shoppingCart,
                       color: Theme.of(context).disabledColor,

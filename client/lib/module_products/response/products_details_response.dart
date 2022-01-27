@@ -33,22 +33,21 @@ class ProductsDetailsResponse {
 }
 
 class Data {
-  Data({
-    this.id,
-    this.productName,
-    this.productImage,
-    this.productPrice,
-    this.storeOwnerProfileID,
-    this.storeProductCategoryID,
-    this.storeOwnerName,
-    this.image,
-    this.phone,
-    this.location,
-    this.branchName,
-    this.deliveryCost,
-    this.discount,
-    this.costDetails
-  });
+  Data(
+      {this.id,
+      this.productName,
+      this.productImage,
+      this.productPrice,
+      this.storeOwnerProfileID,
+      this.storeProductCategoryID,
+      this.storeOwnerName,
+      this.image,
+      this.phone,
+      this.location,
+      this.branchName,
+      this.deliveryCost,
+      this.discount,
+      this.costDetails});
 
   Data.fromJson(dynamic json) {
     id = json['id'];
@@ -66,7 +65,9 @@ class Data {
     description = json['description'];
     rate = json['rate'];
     soldCount = json['soldCount']?.toString();
-    costDetails = json['costDetails'] != null ? CostDetails.fromJson(json['costDetails']) : null;
+    costDetails = json['costDetails'] != null
+        ? CostDetails.fromJson(json['costDetails'])
+        : null;
   }
 
   int? id;
