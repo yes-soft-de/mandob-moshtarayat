@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'dart:typed_data';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_map/plugin_api.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
@@ -36,9 +38,7 @@ class InitAccountCaptainInitProfile extends InitAccountState {
   //
   // int storeCategoryId=0;
 
-
-  InitAccountCaptainInitProfile( this.screenState)
-      : super(screenState);
+  InitAccountCaptainInitProfile(this.screenState) : super(screenState);
 
   // InitAccountCaptainInitProfile.withData(
   //     InitAccountScreenState screenState,
@@ -58,10 +58,11 @@ class InitAccountCaptainInitProfile extends InitAccountState {
 
   final GlobalKey<FormState> _initKey = GlobalKey<FormState>();
 
- // String? catId;
+  // String? catId;
   MapController mapController = MapController();
   LatLng? storeLocation;
   String? imagePath;
+  Uint8List? imageBytes;
   bool privateOrder = false;
   bool products = false;
   TimeOfDay? openingTime;
@@ -72,8 +73,8 @@ class InitAccountCaptainInitProfile extends InitAccountState {
   final _nameController = TextEditingController();
   final _phoneController = TextEditingController();
   final _bankName = TextEditingController();
-  final _bankAccountNumber= TextEditingController();
-  final _stcPay= TextEditingController();
+  final _bankAccountNumber = TextEditingController();
+  final _stcPay = TextEditingController();
   int val = 1;
   @override
   Widget getUI(BuildContext context) {
@@ -85,7 +86,9 @@ class InitAccountCaptainInitProfile extends InitAccountState {
             CustomListView.custom(
               padding: EdgeInsets.only(right: 16, left: 16),
               children: [
-                Container(height: 50,),
+                Container(
+                  height: 50,
+                ),
 //name
                 Padding(
                   padding: const EdgeInsets.only(
@@ -123,7 +126,7 @@ class InitAccountCaptainInitProfile extends InitAccountState {
                     borderRadius: BorderRadius.circular(25),
                     onTap: () {
                       FocusScope.of(context).unfocus();
-                      if(storeLocation == null){
+                      if (storeLocation == null) {
                         storeLocation = screenState.myPos;
                       }
                       mapController = MapController();
@@ -144,7 +147,7 @@ class InitAccountCaptainInitProfile extends InitAccountState {
                                 mapController,
                                 onTap: (newPos) {
                                   storeLocation = newPos;
-                                 screenState.refresh();
+                                  screenState.refresh();
                                 },
                                 myPos: storeLocation,
                                 defaultPoint: storeLocation,
@@ -166,7 +169,8 @@ class InitAccountCaptainInitProfile extends InitAccountState {
                           child: Text(
                             S.current.storeLocation,
                             style: TextStyle(
-                                fontWeight: FontWeight.bold, color: Colors.white),
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
                             textAlign: TextAlign.start,
                           ),
                         ),
@@ -179,18 +183,19 @@ class InitAccountCaptainInitProfile extends InitAccountState {
                   padding: const EdgeInsets.all(16.0),
                   child: Center(
                       child: Text(
-                        S.current.storeImage,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      )),
+                    S.current.storeImage,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  )),
                 ),
                 InkWell(
                   onTap: () {
                     ImagePicker.platform
                         .getImage(source: ImageSource.gallery, imageQuality: 70)
-                        .then((value) {
+                        .then((value) async {
                       if (value != null) {
                         imagePath = value.path;
-                       screenState.refresh();
+                        imageBytes = await value.readAsBytes();
+                        screenState.refresh();
                       }
                     });
                   },
@@ -204,10 +209,15 @@ class InitAccountCaptainInitProfile extends InitAccountState {
                         height: 150,
                         child: ClipRRect(
                             borderRadius: BorderRadius.circular(25),
-                            child: Image.file(
-                              File(imagePath ?? ''),
-                              fit: BoxFit.cover,
-                            ))),
+                            child: kIsWeb
+                                ? Image.memory(
+                                    imageBytes ?? Uint8List(0),
+                                    fit: BoxFit.cover,
+                                  )
+                                : Image.file(
+                                    File(imagePath ?? ''),
+                                    fit: BoxFit.cover,
+                                  ))),
                   ),
                 ),
 
@@ -226,90 +236,97 @@ class InitAccountCaptainInitProfile extends InitAccountState {
                   hintText: S.current.bankName,
                 ),
 
-                SizedBox(height: 10,),
+                SizedBox(
+                  height: 10,
+                ),
 
-                Row(children: [
-                  Flexible(
-                    flex: 1,
-                    child: ListTile(
-                      title: Text(S.of(context).bankAccountNumber,style: TextStyle(fontSize: 12)),
-                      leading: Radio(
-                        value: 1,
-                        groupValue: val,
-                        onChanged: (value) {
-                          val = value as  int;
-                          screenState.refresh();
-                        },
-                        activeColor: Theme.of(context).accentColor,
-                      ),
-                    ),
-                  ),
-                  Flexible(
-                    flex: 1,
-                    child: ListTile(
-                      title: Text(S.of(context).stcPayCode,style: TextStyle(fontSize: 12),),
-                      leading: Radio(
-                          value: 2,
+                Row(
+                  children: [
+                    Flexible(
+                      flex: 1,
+                      child: ListTile(
+                        title: Text(S.of(context).bankAccountNumber,
+                            style: TextStyle(fontSize: 12)),
+                        leading: Radio(
+                          value: 1,
                           groupValue: val,
                           onChanged: (value) {
-                            val = value as  int;
+                            val = value as int;
                             screenState.refresh();
-
                           },
-                          activeColor: Theme.of(context).accentColor
+                          activeColor: Theme.of(context).accentColor,
+                        ),
                       ),
                     ),
+                    Flexible(
+                      flex: 1,
+                      child: ListTile(
+                        title: Text(
+                          S.of(context).stcPayCode,
+                          style: TextStyle(fontSize: 12),
+                        ),
+                        leading: Radio(
+                            value: 2,
+                            groupValue: val,
+                            onChanged: (value) {
+                              val = value as int;
+                              screenState.refresh();
+                            },
+                            activeColor: Theme.of(context).accentColor),
+                      ),
+                    ),
+                  ],
+                ),
+
+                Visibility(
+                  visible: val == 1,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 12.0, bottom: 8, right: 12, top: 16.0),
+                        child: Text(
+                          S.current.bankAccountNumber,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                      CustomFormField(
+                        controller: _bankAccountNumber,
+                        hintText: S.current.bankAccountNumber,
+                        validator: val == 1 ? true : false,
+                      ),
+                    ],
                   ),
-                ],),
-
+                ),
                 Visibility(
-                  visible: val==1,
+                  visible: val == 2,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 12.0, bottom: 8, right: 12, top: 16.0),
-                      child: Text(
-                        S.current.bankAccountNumber,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.start,
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 12.0, bottom: 8, right: 12, top: 16.0),
+                        child: Text(
+                          S.current.stc,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.start,
+                        ),
                       ),
-                    ),
-                    CustomFormField(
-                      controller: _bankAccountNumber,
-                      hintText: S.current.bankAccountNumber,
-                      validator:val==1?true: false,
-                    ),
-                  ],),
-                ),
-                Visibility(
-                  visible: val==2,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 12.0, bottom: 8, right: 12, top: 16.0),
-                      child: Text(
-                        S.current.stc,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.start,
+                      CustomFormField(
+                        controller: _stcPay,
+                        hintText: S.current.stc,
+                        validator: val == 2 ? true : false,
                       ),
-                    ),
-                    CustomFormField(
-                      controller: _stcPay,
-                      hintText: S.current.stc,
-                      validator:val==2?true: false,
-                    ),
-                  ],),
+                    ],
+                  ),
                 ),
-
-
 
                 //hours
                 Padding(
-                  padding: const EdgeInsets.only(top: 32.0, left: 16, right: 16),
+                  padding:
+                      const EdgeInsets.only(top: 32.0, left: 16, right: 16),
                   child: Align(
                       alignment: AlignmentDirectional.centerStart,
                       child: Text(
@@ -346,7 +363,8 @@ class InitAccountCaptainInitProfile extends InitAccountState {
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              openingTime?.format(context).toString() ?? '00:00 ',
+                              openingTime?.format(context).toString() ??
+                                  '00:00 ',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                           )),
@@ -382,7 +400,8 @@ class InitAccountCaptainInitProfile extends InitAccountState {
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              closingTime?.format(context).toString() ?? '00:00 ',
+                              closingTime?.format(context).toString() ??
+                                  '00:00 ',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                           )),
@@ -391,7 +410,8 @@ class InitAccountCaptainInitProfile extends InitAccountState {
                 ),
                 // Store Services
                 Padding(
-                  padding: const EdgeInsets.only(top: 32.0, left: 16, right: 16),
+                  padding:
+                      const EdgeInsets.only(top: 32.0, left: 16, right: 16),
                   child: Align(
                       alignment: AlignmentDirectional.centerStart,
                       child: Text(
@@ -422,7 +442,6 @@ class InitAccountCaptainInitProfile extends InitAccountState {
                 SizedBox(
                   height: 100,
                 ),
-
               ],
             ),
             Align(
@@ -435,46 +454,48 @@ class InitAccountCaptainInitProfile extends InitAccountState {
                         if (_initKey.currentState!.validate() &&
                             imagePath != null &&
                             storeLocation != null &&
-                        openingTime != null &&
-                        closingTime != null ) {
-                          screen.submitProfile(
-                              CreateStoreRequest(
-                                openingTime: DateTime(date.year, date.month,
-                                    date.day, openingTime!.hour,
-                                    openingTime!.minute)
-                                    .toUtc()
-                                    .toIso8601String(),
-                                closingTime: DateTime(date.year, date.month,
-                                    date.day, closingTime!.hour,
-                                    closingTime!.minute)
-                                    .toUtc()
-                                    .toIso8601String(),
-                                hasProducts: products ? 1 : 0,
-                                privateOrders: privateOrder ? 1 : 0,
-                                location: GeoJson(
-                                    lat: storeLocation?.latitude,
-                                    long: storeLocation?.longitude),
-
-                                image: imagePath!.toString(),
-                                storeOwnerName: _nameController.text,
-                                phone: _phoneController.text,
-                                bankAccountNumber: _bankAccountNumber.text,
-                                bankName: _bankName.text,
-                                stcPay: _stcPay.text
-
-
-                              ));
+                            openingTime != null &&
+                            closingTime != null) {
+                          screen.submitProfile(CreateStoreRequest(
+                              openingTime: DateTime(
+                                      date.year,
+                                      date.month,
+                                      date.day,
+                                      openingTime!.hour,
+                                      openingTime!.minute)
+                                  .toUtc()
+                                  .toIso8601String(),
+                              closingTime: DateTime(
+                                      date.year,
+                                      date.month,
+                                      date.day,
+                                      closingTime!.hour,
+                                      closingTime!.minute)
+                                  .toUtc()
+                                  .toIso8601String(),
+                              hasProducts: products ? 1 : 0,
+                              privateOrders: privateOrder ? 1 : 0,
+                              location: GeoJson(
+                                  lat: storeLocation?.latitude,
+                                  long: storeLocation?.longitude),
+                              image: imagePath!.toString(),
+                              storeOwnerName: _nameController.text,
+                              phone: _phoneController.text,
+                              bankAccountNumber: _bankAccountNumber.text,
+                              bankName: _bankName.text,
+                              stcPay: _stcPay.text));
                         } else if (storeLocation == null) {
                           CustomFlushBarHelper.createError(
-                              title: S.current.warnning,
-                              message: S.current.chooseLocation)
+                                  title: S.current.warnning,
+                                  message: S.current.chooseLocation)
                               .show(context);
                         } else {
                           CustomFlushBarHelper.createError(
-                              title: S.current.warnning,
-                              message: S.current.pleaseCompleteTheForm)
+                                  title: S.current.warnning,
+                                  message: S.current.pleaseCompleteTheForm)
                               .show(context);
-                        }},
+                        }
+                      },
               ),
             ),
           ],
@@ -482,7 +503,4 @@ class InitAccountCaptainInitProfile extends InitAccountState {
       ),
     );
   }
-
-
-
 }
