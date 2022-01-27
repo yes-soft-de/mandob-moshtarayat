@@ -32,6 +32,10 @@ class AuthManager {
       _authRepository.checkUserType(role,token);
 
 
+  Future<RegisterResponse?> checkUserProfile( String token) =>
+      _authRepository.checkUserProfile(token);
+
+
 
   Future<RegisterResponse?> resetPassRequest(ResetPassRequest request) =>
       _authRepository.resetPassRequest(request);

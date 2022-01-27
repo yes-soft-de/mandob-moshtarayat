@@ -52,7 +52,7 @@ class OrderWithoutPendingLoadedState extends States {
   }
 
   List<Widget> getOrders(List<OrderModel> orders) {
-    if (orders.isEmpty) return [];
+//    if (orders.isEmpty) return [];
     List<Widget> ordersCard = [];
     ordersCard.add(Padding(
       padding: const EdgeInsets.all(8.0),

@@ -16,6 +16,7 @@ class OrderDetailsModel extends DataModel {
   String orderDetails = '';
   String createdAt = '';
   String roomID = '';
+  String captainID = '';
   String deliveryDate = '';
 //  StoreOwnerInfo storeInfo = StoreOwnerInfo.Empty();
 //  OrderInfo order = OrderInfo.Empty();
@@ -32,6 +33,7 @@ class OrderDetailsModel extends DataModel {
       required this.orderDetails,
       required this.note,
       required this.roomID,
+      required this.captainID,
       required this.deliveryDate});
 
   OrderDetailsModel.Data(OrderDetailsResponse response) {
@@ -55,6 +57,7 @@ class OrderDetailsModel extends DataModel {
       state: StatusHelper.getStatusEnum(response.data!.data![0].state),
       invoiceImage: response.data!.data![0].invoiceImage!.image ?? '',
       roomID: response.data!.data![0].roomID ?? '',
+      captainID: response.data!.data![0].captainID ?? '',
     );
 //        order: toOrder(response.data?.order),
 //        storeInfo: StoreOwnerInfo(
@@ -82,7 +85,7 @@ class OrderDetailsModel extends DataModel {
           note: note,
           createdAt: createdAt,
           orderDetails: orderDetails,
-          roomID: roomID);
+          roomID: roomID ,captainID: captainID);
 }
 
 class Item {

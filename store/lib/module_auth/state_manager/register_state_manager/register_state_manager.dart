@@ -39,12 +39,17 @@ class RegisterStateManager {
           break;
         case AuthStatus.AUTHORIZED:
           _aboutService.setInitialized();
-          _registerScreen.moveToNext(_registerScreen.userID);
+          _registerScreen.moveToNext();
+          break;
+        case AuthStatus.UNREGISTERED:
+          _aboutService.setInitialized();
+          _registerScreen.moveToNext();
           break;
         case AuthStatus.REGISTERED:
           registered = true;
           break;
         default:
+          print('default');
           _registerStateSubject.add(RegisterStateInit(_registerScreen));
           break;
       }

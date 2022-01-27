@@ -58,7 +58,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
           controller: widget.controller,
           readOnly: widget.readOnly,
           maxLines: widget.maxLines ?? 1,
-          keyboardType: widget.numbers ? TextInputType.phone : null,
+          keyboardType: widget.numbers ? TextInputType.numberWithOptions(decimal: true): null,
           onEditingComplete:
               widget.maxLines != null ? null : () => node.nextFocus(),
           onFieldSubmitted: widget.maxLines == null && widget.last
@@ -69,7 +69,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
               : TextInputAction.next,
           inputFormatters: widget.numbers
               ? <TextInputFormatter>[
-                  FilteringTextInputFormatter.allow(RegExp('[0-9+]')),
+                  FilteringTextInputFormatter.allow(RegExp('[0-9.,]')),
                 ]
               : [],
           onChanged: (v) {

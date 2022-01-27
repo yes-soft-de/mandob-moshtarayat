@@ -406,6 +406,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "profile" : MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
     "profileDataEmpty" : MessageLookupByLibrary.simpleMessage("لايوجد بيانات شخصية متوفرة بعد"),
     "profileFetchedSuccessfully" : MessageLookupByLibrary.simpleMessage("تم جلب بياناتك الشخصية بنجاح"),
+    "profileIncomplete" : MessageLookupByLibrary.simpleMessage("يجب استكمال معلوماتك الشخصية اولا"),
     "rating" : MessageLookupByLibrary.simpleMessage("التقييم"),
     "reasonIsRequired" : MessageLookupByLibrary.simpleMessage("الرجاء تزويدنا بسبب الابلاغ"),
     "reasonOfTheReport" : MessageLookupByLibrary.simpleMessage("سبب طلب الدعم"),

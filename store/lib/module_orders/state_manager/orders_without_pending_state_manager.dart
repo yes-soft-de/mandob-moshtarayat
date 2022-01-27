@@ -40,10 +40,8 @@ class OrderWithoutPendingStateManager {
             getOrders(screenState);
           }));
         } else if (value.isEmpty) {
-          _stateSubject.add(MyOrdersEmptyState(
-              screenState, S.current.homeDataEmpty, refresh: () {
-            getOrders(screenState);
-          }));
+          _stateSubject
+              .add(OrderWithoutPendingLoadedState(screenState, []));
         } else {
           OrderModel model = value as OrderModel;
           _stateSubject
@@ -66,10 +64,8 @@ class OrderWithoutPendingStateManager {
             getOrders(screenState);
           }));
         } else if (value.isEmpty) {
-          _stateSubject.add(MyOrdersEmptyState(
-              screenState, S.current.homeDataEmpty, refresh: () {
-            getOrders(screenState);
-          }));
+          _stateSubject
+              .add(OrderWithoutPendingLoadedState(screenState, []));
         } else {
           OrderModel model = value as OrderModel;
           _stateSubject

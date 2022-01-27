@@ -20,7 +20,7 @@ class RegisterStateSuccess extends RegisterState {
           padding: EdgeInsets.all(8),
           color: Theme.of(context).primaryColor,
           onPressed: () {
-            screen.moveToNext('');
+            screen.moveToNext();
           },
           child: Text(
             S.of(context).registerSuccessSetupMyProfile,

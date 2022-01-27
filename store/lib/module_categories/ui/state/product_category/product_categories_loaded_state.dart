@@ -11,14 +11,12 @@ import 'package:mandob_moshtarayat/module_categories/ui/state/product_category/p
 import 'package:mandob_moshtarayat/module_categories/ui/widget/add_product_form.dart';
 import 'package:mandob_moshtarayat/module_categories/ui/widget/category_card.dart';
 import 'package:mandob_moshtarayat/module_categories/ui/widget/product_component.dart';
-import 'package:mandob_moshtarayat/module_stores/ui/widget/catagories_card.dart';
 import 'package:mandob_moshtarayat/module_theme/service/theme_service/theme_service.dart';
-import 'package:mandob_moshtarayat/utils/components/custom_feild.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_list_view.dart';
 import 'package:mandob_moshtarayat/utils/components/empty_screen.dart';
 import 'package:mandob_moshtarayat/utils/components/error_screen.dart';
-import 'package:mandob_moshtarayat/utils/components/progresive_image.dart';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 
 class ProductCategoriesLoadedState extends ProductCategoriesState {
   final ProductCategoriesScreenState screenState;
@@ -27,36 +25,21 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
   final List<ProductsCategoryModel> categoriesOne;
   final List<ProductsCategoryModel> categoriesTwo;
   final List<ProductsModel> productsModel;
-  final int storeProductCategoryID;
-  final String? nameOne;
-  final String? nameTwo;
-  final int? idFirstCat;
-
   ProductCategoriesLoadedState(
     this.screenState,
     this.categoriesOne,
     this.categoriesTwo,
     this.productsModel,
-    this.storeProductCategoryID, {
-    this.nameOne,
-    this.nameTwo,
+      {
     this.empty = false,
     this.error,
-    this.idFirstCat,
   }) : super(screenState) {
     if (error != null) {
       screenState.canAddCategories = false;
       screenState.refresh();
     }
   }
-  //   String? catId = '-1';
-  ProductsCategoryModel? idOne;
-  ProductsCategoryModel? idTwo;
 
-//  String? NameOne;
-//  String? NameTwo;
-
-  int selectedIndex = 0;
   @override
   Widget getUI(BuildContext context) {
     if (error != null) {
@@ -118,12 +101,12 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
                       model?.categoryName ?? S.current.unknown,
                   onChanged: (v) {
                     v as ProductsCategoryModel;
-                    idOne = v;
-                    screenState.mainCatId = v.id;
+                    screenState.idOne = v;
+                    screenState.idTwo = null;
                     screenState.getStoreCategoriesLevelTwo(categoriesOne,
-                        int.parse(idOne!.id.toString()), idOne!.categoryName);
+                         v.id);
                   },
-                  selectedItem: idOne),
+                  selectedItem: screenState.idOne),
             ),
           ),
         ),
@@ -181,15 +164,13 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
                       model?.categoryName ?? S.current.unknown,
                   onChanged: (v) {
                     v as ProductsCategoryModel;
-                    idTwo = v;
+//                    idTwo = v;
+                    screenState.idTwo = v;
                     screenState.getStoreProductLevelTwo(
                         categoriesOne,
-                        categoriesTwo,
-                        int.parse(idTwo!.id.toString()),
-                        nameOne ?? '',
-                        idTwo!.categoryName);
+                        categoriesTwo,v.id);
                   },
-                  selectedItem: idTwo),
+                  selectedItem:  screenState.idTwo),
             ),
           ),
         ),
@@ -198,7 +179,7 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
         ),
         ElevatedButton(
           onPressed: () {
-            if (nameOne != null) {
+            if (screenState.idOne != null) {
               showDialog(
                   context: context,
                   builder: (_) {
@@ -215,21 +196,19 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
                                   productImage: image,
                                   productPrice: price,
                                   discount: discount,
-                                  storeProductCategoryID:
-                                      storeProductCategoryID,
+                                  storeProductCategoryID: screenState.idTwo != null ?
+                                  screenState.idTwo?.id :screenState.idOne?.id,
                                 ),
                                 translate: trans),
                             categoriesOne,
-                            categoriesTwo,
-                            nameOne: nameOne,
-                            nameTwo: nameTwo);
+                            categoriesTwo,screenState.idTwo?.id != null ?true:false);
                       },
                     );
                   });
             } else {
-              Fluttertoast.showToast(
-                  msg: S.of(context).chooseCategory,
-                  webBgColor: 'linear-gradient(to right, #f6b26b, #e69138)');
+              CustomFlushBarHelper.createError(
+                  title: S.current.warnning, message: S.current.chooseCategory)
+                ..show(screenState.context);
             }
           },
           child: Padding(
@@ -304,9 +283,9 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
 
     if (productsModel.isEmpty) return widgets;
     for (var element in productsModel) {
-      if (idTwo != null && idTwo != element.storeProductCategoryID.toString()) {
-        continue;
-      }
+//      if (idTwo != null && idTwo != element.storeProductCategoryID.toString()) {
+//        continue;
+//      }
       widgets.add(Row(
         children: [
           Expanded(
@@ -338,8 +317,8 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
                                 productQuantity: element.productQuantity,
                                 storeProductCategoryID:
                                     element.storeProductCategoryID,
-                                storeMainCategoryID: screenState.mainCatId,
-                                categoryName: screenState.mainCatId,
+                                storeMainCategoryID: screenState.idOne?.id,
+                                categoryName: screenState.idOne?.id,
                                 isLevelOne: element.levelOne,
                                 isLevelTwo: element.levelTwo),
                           ),
@@ -361,9 +340,8 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
                                       isLevelTwo: element.levelTwo
                                 )),
                                 categoriesOne,
-                                categoriesTwo,
-                                nameTwo: nameTwo,
-                                nameOne: nameOne);
+                                categoriesTwo,screenState.idTwo != null ?true:false,
+                                );
                           },
                         );
                       });
@@ -392,11 +370,9 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
                           id: element.id,
                           storeProductCategoryID:
                               element.storeProductCategoryID,
-                          storeMainCategoryID: idFirstCat ?? -1),
+                          storeMainCategoryID:  -1),
                       categoriesOne,
-                      categoriesTwo,
-                      nameTwo: nameTwo,
-                      nameOne: nameOne);
+                      categoriesTwo,);
                 },
                 child: Padding(
                   padding: const EdgeInsetsDirectional.only(end: 8),

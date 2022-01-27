@@ -77,7 +77,6 @@ class InitAccountCaptainInitProfile extends InitAccountState {
   int val = 1;
   @override
   Widget getUI(BuildContext context) {
-    _phoneController.text=screenState.phoneNumber??'';
     return SafeArea(
       child: Form(
         key: _initKey,
@@ -116,7 +115,6 @@ class InitAccountCaptainInitProfile extends InitAccountState {
                   hintText: S.current.storePhone,
                   phone: true,
                   numbers: true,
-                  readOnly: true,
                 ),
                 // Store Location
                 Padding(

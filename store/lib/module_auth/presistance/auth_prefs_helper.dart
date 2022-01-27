@@ -28,7 +28,7 @@ class AuthPrefsHelper {
   }
 
   bool needInit() {
-    return box.get('registerState') ?? false;
+    return box.get('registerState') ?? true;
   }
 
   void clearUserCreated() {

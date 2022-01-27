@@ -52,6 +52,7 @@ class Data {
   CreatedAt? createdAt;
   CreatedAt? deliveryDate;
   String? roomID;
+  String? captainID;
 
   Data(
       {this.orderDetails,
@@ -63,7 +64,7 @@ class Data {
       this.note,
       this.detail,
       this.roomID,
-      this.deliveryDate});
+      this.deliveryDate,this.captainID});
 
   Data.fromJson(dynamic json) {
     if (json['products'] != null) {
@@ -81,6 +82,7 @@ class Data {
     detail = json['detail'];
     note = json['note'];
     roomID = json['roomID'];
+    captainID = json['captainID'];
   }
 }
 
