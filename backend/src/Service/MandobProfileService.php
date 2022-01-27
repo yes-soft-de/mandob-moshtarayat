@@ -14,6 +14,7 @@ use App\Response\MandobFilterByStatusResponse;
 use App\Response\MandobProfileCreateResponse;
 use App\Response\RepresentativeProfileForAdminGetResponse;
 use App\Response\RepresentativeProfileGetResponse;
+use App\Response\RepresentativeRemainingForItAmountResponse;
 use App\Response\UserRegisterResponse ;
 use App\Manager\MandobProfileManager;
 use App\Response\RepresentativeFinancialAccountForAdminGetResponse;
@@ -187,6 +188,29 @@ class MandobProfileService
         $response['totalRemainingPaymentsToRepresentative'] = $response['sumRepresentativeDue'] - $response['sumPaymentsToRepresentative'];
 
         return $this->autoMapping->map('array', RepresentativeFinancialAccountGetResponse::class, $response);
+    }
+
+    public function getRemainingPaymentsForRepresentative(): array
+    {
+        $response = [];
+
+        $representatives = $this->mandobProfileManager->getAllRepresentatives();
+
+        foreach ($representatives as $representative) {
+
+            $financialAccount = $this->getRepresentativeFinancialAccountForAdmin($representative['mandobID']);
+
+            $representative['totalRemainingPaymentsToRepresentative'] = $financialAccount->totalRemainingPaymentsToRepresentative;
+
+            if ($representative['totalRemainingPaymentsToRepresentative'] < 0 ) {
+
+                $representative['image'] = $this->getImageParams($representative['image'], $this->params . $representative['image'], $this->params);
+
+                $response[] =  $this->autoMapping->map('array', RepresentativeRemainingForItAmountResponse::class, $representative);
+            }
+        }
+
+        return $response;
     }
 
     public function getStatisticsForRepresentative($representativeID)

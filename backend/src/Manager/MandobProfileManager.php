@@ -129,4 +129,9 @@ class MandobProfileManager
 
         return "user is not found";
     }
+
+    public function getAllRepresentatives()
+    {
+        return $this->mandobProfileEntityRepository->getAllRepresentatives();
+    }
 }

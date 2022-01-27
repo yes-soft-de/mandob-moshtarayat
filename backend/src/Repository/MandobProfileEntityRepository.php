@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Constant\ResponseConstant;
 use App\Entity\MandobProfileEntity;
 use App\Entity\UserEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -87,5 +88,17 @@ class MandobProfileEntityRepository extends ServiceEntityRepository
 
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    public function getAllRepresentatives()
+    {
+        return $this->createQueryBuilder('profile')
+            ->select('profile.id', 'profile.mandobID', 'profile.mandobName', 'profile.image', 'profile.location', 'profile.age', 'profile.status', 'profile.roomID', 'profile.bankName', 'profile.bankAccountNumber', 'profile.stcPay', 'profile.phone')
+
+            ->andWhere("profile.status = :active")
+            ->setParameter('active', ResponseConstant::$REPRESENTATIVE_ACTIVE)
+
+            ->getQuery()
+            ->getResult();
     }
 }
