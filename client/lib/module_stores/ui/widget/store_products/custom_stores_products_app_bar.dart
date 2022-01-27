@@ -67,9 +67,8 @@ class CustomStoresProductsAppBar extends StatelessWidget {
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.yellow
-                    ),
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.yellow),
                     child: const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Icon(

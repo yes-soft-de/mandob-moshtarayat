@@ -13,14 +13,14 @@ class WebImageLoader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: XFile(filePath).readAsBytes(),
-      initialData: Image.asset(ImageAsset.LOGO),
-      builder: (context, snapshoot) {
-        if (snapshoot.connectionState == ConnectionState.waiting) {
-          return Image.asset(ImageAsset.LOGO);
-        } else {
-          return Image.memory(snapshoot.data as Uint8List);
-        }
-      });
+        future: XFile(filePath).readAsBytes(),
+        initialData: Image.asset(ImageAsset.LOGO),
+        builder: (context, snapshoot) {
+          if (snapshoot.connectionState == ConnectionState.waiting) {
+            return Image.asset(ImageAsset.LOGO);
+          } else {
+            return Image.memory(snapshoot.data as Uint8List);
+          }
+        });
   }
 }

@@ -173,7 +173,8 @@ class _OrderChipState extends State<OrderChip> {
                                   const EdgeInsets.only(right: 16, left: 16),
                               child: Text(
                                 products.countProduct.toString(),
-                                style: const TextStyle(fontWeight: FontWeight.bold),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),

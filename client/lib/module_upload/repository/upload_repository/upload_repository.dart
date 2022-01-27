@@ -18,7 +18,7 @@ class UploadRepository {
           filename: DateTime.now().toIso8601String() + '-image');
     }
     FormData data = FormData.fromMap({
-      'image':kIsWeb ? multi : await MultipartFile.fromFile(filePath),
+      'image': kIsWeb ? multi : await MultipartFile.fromFile(filePath),
     });
 
     Logger().info('UploadRepo', 'Uploading: ' + filePath);

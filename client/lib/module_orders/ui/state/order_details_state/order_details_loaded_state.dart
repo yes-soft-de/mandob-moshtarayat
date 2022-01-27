@@ -205,12 +205,13 @@ class OrderDetailsLoadedState extends OrderDetailsState {
                                         onTap: () {
                                           Navigator.of(context).pushNamed(
                                               ChatRoutes.chatRoute,
-                                              arguments:
-                                                  ChatArgument(
-                                                    roomID:orderDetails.order.roomID,
-                                                    userType:'captain',
-                                                    userID:int.parse(orderDetails.order.captainID),
-                                                  ));
+                                              arguments: ChatArgument(
+                                                roomID:
+                                                    orderDetails.order.roomID,
+                                                userType: 'captain',
+                                                userID: int.parse(orderDetails
+                                                    .order.captainID),
+                                              ));
                                         },
                                         title: Text(
                                           S.of(context).chatWithCaptain,
@@ -482,7 +483,7 @@ class OrderDetailsLoadedState extends OrderDetailsState {
             padding: const EdgeInsets.all(8.0),
             child: CustomInvoiceAlert(
               image: orderDetails.order.invoiceImage.toString(),
-              cost: orderDetails.order.invoiceAmount?.toStringAsFixed(2)??'0',
+              cost: orderDetails.order.invoiceAmount?.toStringAsFixed(2) ?? '0',
             ),
           )));
     });
