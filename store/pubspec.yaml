@@ -50,12 +50,10 @@ dependencies:
   google_fonts: ^2.1.0
   # Camera And Gallery
   image_picker: ^0.8.0
-  # Shared Pref
-  shared_preferences: ^2.0.6
   # NoSQL Database
-  hive: ^2.0.4
+  hive: ^2.0.5
   hive_flutter: ^1.1.0
-  hive_generator: ^1.1.0
+  hive_generator: ^1.1.2
   # Open Url On Browser
   url_launcher: ^6.0.6
   share: ^2.0.4
@@ -75,16 +73,11 @@ dependencies:
   rxdart: ^0.27.1
   # Firebase
   firebase_core: ^1.10.6
-  firebase_auth: ^3.1.0
   firebase_analytics: ^8.1.0
-  firebase_remote_config: ^0.10.0
   cloud_firestore: ^3.1.6
   firebase_performance: ^0.7.0
   firebase_messaging: ^11.2.4
-  firebase_crashlytics: ^2.0.4
-  # Sign In
-  google_sign_in: ^5.0.4
-  sign_in_with_apple: ^3.0.0
+  firebase_crashlytics: ^2.0.3
   # Internationalization
   intl: ^0.17.0
   intl_utils: ^2.3.0
@@ -94,8 +87,6 @@ dependencies:
   latlong2: ^0.8.0
   location: ^4.1.1
   uni_links: ^0.5.1
-  # Payment Gates
-  flutter_credit_card: ^2.0.0
   # Lottie And Flare Animation
   lottie: ^1.2.1
   flare_flutter: ^3.0.0
@@ -111,8 +102,6 @@ dependencies:
   flutter_advanced_drawer: ^1.2.3
   flutter_snake_navigationbar: ^0.5.0
   scroll_to_index: ^2.0.0
-#  soundpool: ^2.1.0
-#  permission_handler: ^8.1.4+2
   device_info: ^2.0.2
   liquid_progress_indicator: ^0.4.0
   pinch_zoom: ^1.0.0

@@ -74,8 +74,6 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<String> _getNextRoute() async {
-    print('INsPLASH');
-    print(widget._authService.needToInitAccount);
     await Future.delayed(Duration(seconds: 3));
     if (widget._authService.isLoggedIn && widget._authService.needToInitAccount) {
       return InitAccountRoutes.INIT_ACCOUNT_SCREEN;

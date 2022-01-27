@@ -31,78 +31,81 @@ class MainScreenState extends State<MainScreen> {
     //   flagPageIndex = false;
     // }
     return Scaffold(
-      body:Container(
-        decoration: BoxDecoration(
-          color:  Theme.of(context).scaffoldBackgroundColor,
-        ),
-        child: Stack(
-          children: [
-            PageView(
-              physics: BouncingScrollPhysics(
-                  parent: AlwaysScrollableScrollPhysics()),
-              controller: homeController,
-              onPageChanged: (index) {
-                selectedPage = index;
-                setState(() {});
-                homeController.animateToPage(index,
-                    duration: Duration(milliseconds: 15), curve: Curves.linear);
-              },
-              children: [
+      body:SafeArea(
+        bottom: true,
+        child: Container(
+          decoration: BoxDecoration(
+            color:  Theme.of(context).scaffoldBackgroundColor,
+          ),
+          child: Stack(
+            children: [
+              PageView(
+                physics: BouncingScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics()),
+                controller: homeController,
+                onPageChanged: (index) {
+                  selectedPage = index;
+                  setState(() {});
+                  homeController.animateToPage(index,
+                      duration: Duration(milliseconds: 15), curve: Curves.linear);
+                },
+                children: [
 
-                getIt<HomeScreen>(),
-                getIt<OnGoingOrdersScreen>(),
-                // getIt<MyOrdersScreen>(),
-                // getIt<MyNotificationsScreen>(),
-                // getIt<AccountScreen>()
-              ],
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                height: 65,
-                child: Scaffold(
-                  backgroundColor: Colors.transparent.withOpacity(0.0),
-                  floatingActionButton: FloatingActionButton(
-                    backgroundColor: Theme.of(context).primaryColor,
-                    child: Center(
-                      child: Icon(
-                        Icons.add,
-                        color: Colors.white,
-                        size: 30,
+                  getIt<HomeScreen>(),
+                  getIt<OnGoingOrdersScreen>(),
+                  // getIt<MyOrdersScreen>(),
+                  // getIt<MyNotificationsScreen>(),
+                  // getIt<AccountScreen>()
+                ],
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  height: 65,
+                  child: Scaffold(
+                    backgroundColor: Colors.transparent.withOpacity(0.0),
+                    floatingActionButton: FloatingActionButton(
+                      backgroundColor: Theme.of(context).primaryColor,
+                      child: Center(
+                        child: Icon(
+                          Icons.add,
+                          color: Colors.white,
+                          size: 30,
+                        ),
                       ),
+                      onPressed: () {
+                        Navigator.pushNamed(context, CategoriesRoutes.PRODUCT_CATEGORIES);
+                        // Share.share('${S.current.downloadTwaslnaApp} https://play.google.com/store/apps/details?id=de.yes_soft.twaslna');
+                      },
                     ),
-                    onPressed: () {
-                      Navigator.pushNamed(context, CategoriesRoutes.PRODUCT_CATEGORIES);
-                      // Share.share('${S.current.downloadTwaslnaApp} https://play.google.com/store/apps/details?id=de.yes_soft.twaslna');
-                    },
-                  ),
-                  floatingActionButtonLocation:
-                  FloatingActionButtonLocation.centerDocked,
-                  bottomNavigationBar: AnimatedBottomNavigationBar(
-                    inactiveColor: Theme.of(context).disabledColor,
-                    activeColor: Theme.of(context).primaryColor,
-                    gapLocation: GapLocation.center,
-                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                    notchSmoothness: NotchSmoothness.defaultEdge,
-                    icons: [
-                      Icons.home,
-                      // Icons.list,
-                      // Icons.notifications,
-                      Icons.insert_invitation_outlined
-                    ],
-                    onTap: (int index) {
-                      selectedPage = index;
-                      homeController.animateToPage(index,
-                          duration: Duration(milliseconds: 15),
-                          curve: Curves.linear);
-                    },
-                    activeIndex: selectedPage,
+                    floatingActionButtonLocation:
+                    FloatingActionButtonLocation.centerDocked,
+                    bottomNavigationBar: AnimatedBottomNavigationBar(
+                      inactiveColor: Theme.of(context).disabledColor,
+                      activeColor: Theme.of(context).primaryColor,
+                      gapLocation: GapLocation.center,
+                      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                      notchSmoothness: NotchSmoothness.defaultEdge,
+                      icons: [
+                        Icons.home,
+                        // Icons.list,
+                        // Icons.notifications,
+                        Icons.insert_invitation_outlined
+                      ],
+                      onTap: (int index) {
+                        selectedPage = index;
+                        homeController.animateToPage(index,
+                            duration: Duration(milliseconds: 15),
+                            curve: Curves.linear);
+                      },
+                      activeIndex: selectedPage,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
-        ),),
+            ],
+          ),),
+      ),
     );
   }
 }
