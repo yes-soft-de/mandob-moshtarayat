@@ -53,6 +53,8 @@ class StoreOwnerProfileManager
 
             $userRegister->setRoles(['ROLE_OWNER']);
 
+            $userRegister->setVerificationStatus(UserVerificationStatusConstant::$NOT_VERIFIED_STATUS);
+
             $this->entityManager->persist($userRegister);
             $this->entityManager->flush();
 

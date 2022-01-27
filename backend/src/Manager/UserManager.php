@@ -72,9 +72,10 @@ class UserManager
 
             $userRegister->setRoles(["ROLE_CLIENT"]);
 
+            $userRegister->setVerificationStatus(UserVerificationStatusConstant::$NOT_VERIFIED_STATUS);
+
             $this->entityManager->persist($userRegister);
             $this->entityManager->flush();
-            $this->entityManager->clear();
 
             // Second, create the client's profile
             $clientProfile = $this->getClientProfileByClientID($request->getUserID());
@@ -488,7 +489,8 @@ class UserManager
             $userRegister->setPassword($this->encoder->encodePassword($user, $request->getPassword()));
         }
 
-//        $userRegister->setRoles(["ROLE_MANDOB"]);
+        $userRegister->setVerificationStatus(UserVerificationStatusConstant::$NOT_VERIFIED_STATUS);
+
         $this->entityManager->persist($userRegister);
         $this->entityManager->flush();
 
