@@ -278,6 +278,9 @@ class StoreOwnerProfileEntityRepository extends ServiceEntityRepository
             ->andWhere('representativeStoreLinkEntity.linkStatus = :status')
             ->setParameter('status', RepresentativeStoreLinkTypeConstant::$REPRESENTATIVE_STORE_LINKED)
 
+            ->andWhere('representativeStoreLinkEntity.representativeUserID = :representativeUserID')
+            ->setParameter('representativeUserID', $representativeUserID)
+
             ->getQuery()
             ->getResult();
     }
