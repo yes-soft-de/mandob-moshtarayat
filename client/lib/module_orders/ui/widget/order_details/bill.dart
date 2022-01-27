@@ -119,13 +119,12 @@ class _BillCardDetailsState extends State<BillCardDetails> {
         children: [
           SizedBox(
             width: 75,
-            child: Center(
-              child: Text(
-                S.current.item,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).disabledColor),
-              ),
+            child: Text(
+              S.current.item,
+              textAlign: TextAlign.start,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).disabledColor),
             ),
           ),
           SizedBox(
@@ -133,6 +132,7 @@ class _BillCardDetailsState extends State<BillCardDetails> {
             child: Center(
               child: Text(
                 S.current.productQuantity,
+                textAlign: TextAlign.start,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).disabledColor),
@@ -141,13 +141,12 @@ class _BillCardDetailsState extends State<BillCardDetails> {
           ),
           SizedBox(
             width: 75,
-            child: Center(
-              child: Text(
-                S.current.cost,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).disabledColor),
-              ),
+            child: Text(
+              S.current.cost,
+              textAlign: TextAlign.start,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).disabledColor),
             ),
           ),
         ],
@@ -171,13 +170,12 @@ class _BillCardDetailsState extends State<BillCardDetails> {
           children: [
             SizedBox(
               width: 75,
-              child: Center(
-                child: Text(
-                  element.name ?? S.current.unknown,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
+              child: Text(
+                element.name ?? S.current.unknown,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
                 ),
+                textAlign: TextAlign.start,
               ),
             ),
             SizedBox(
@@ -193,14 +191,13 @@ class _BillCardDetailsState extends State<BillCardDetails> {
             ),
             SizedBox(
               width: 75,
-              child: Center(
-                child: Text(
-                  (element.quantity * element.price).toStringAsFixed(2) +
-                      ' ${S.current.sar} ',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).disabledColor),
-                ),
+              child: Text(
+                (element.quantity * element.price).toStringAsFixed(2) +
+                    ' ${S.current.sar} ',
+                textAlign: TextAlign.start,
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).disabledColor),
               ),
             ),
           ],
@@ -233,8 +230,43 @@ class _BillCardDetailsState extends State<BillCardDetails> {
             ),
           ),
           Padding(
-            padding:
-                const EdgeInsets.only(right: 16.0, left: 16.0, bottom: 16.0),
+            padding: const EdgeInsets.all(16),
+            child: DottedLine(
+              dashColor: Colors.grey[400]!.withOpacity(0.3),
+              lineThickness: 2.5,
+              dashLength: 6,
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              SizedBox(
+                width: 150,
+                child: Text(
+                  S.current.extraTax + ' %15 ',
+                  textAlign: TextAlign.start,
+                  style:  TextStyle(
+                    color: Theme.of(context).primaryColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 75,
+                child: Center(
+                  child: Text(
+                    ((widget.orderCost * 15) / 100).toStringAsFixed(2) +
+                        ' ${S.current.sar} ',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).disabledColor),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16),
             child: Divider(
               color: Colors.grey[400]?.withOpacity(0.3),
               thickness: 2.5,
@@ -257,7 +289,7 @@ class _BillCardDetailsState extends State<BillCardDetails> {
                   width: 16,
                 ),
                 Text(
-                  '${widget.orderCost.toStringAsFixed(2)} ${S.of(context).sar}',
+                  '${(widget.orderCost + ((widget.orderCost * 15) / 100)).toStringAsFixed(2)} ${S.of(context).sar}',
                   style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
