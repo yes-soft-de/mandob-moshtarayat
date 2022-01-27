@@ -4139,6 +4139,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Pay Attention to cart content because changes have been made`
+  String get cartAttention {
+    return Intl.message(
+      'Pay Attention to cart content because changes have been made',
+      name: 'cartAttention',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Checking Cart`
+  String get cartValidation {
+    return Intl.message(
+      'Checking Cart',
+      name: 'cartValidation',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

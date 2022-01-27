@@ -410,7 +410,11 @@
     "similarProducts": "Similar Products",
     "accountNotExist": "Account not exist",
     "paymentPortalHint": "All prices in payments portal are included with 15% tax",
-    "tax": "15% Tax"
+    "tax": "15% Tax",
+    "cartAttention": "Pay Attention to cart content because changes have been made",
+    "cartValidation": "Checking Cart"
+
+
 
 
 

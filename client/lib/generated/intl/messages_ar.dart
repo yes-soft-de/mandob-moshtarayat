@@ -94,10 +94,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "car": MessageLookupByLibrary.simpleMessage("سيارة "),
         "card": MessageLookupByLibrary.simpleMessage("بطاقة"),
         "cart": MessageLookupByLibrary.simpleMessage("سلة المشتريات"),
+        "cartAttention": MessageLookupByLibrary.simpleMessage(
+            "يرجى التحقق من السلة قد تم تغيير بعض من محتوياتها"),
         "cartItemAdded": MessageLookupByLibrary.simpleMessage(
             "تم إضافة عنصر إلى سلة الشراء"),
         "cartItemRemoved": MessageLookupByLibrary.simpleMessage(
             "تمت إزالة عنصر من سلة الشراء"),
+        "cartValidation":
+            MessageLookupByLibrary.simpleMessage("جاري التحقق من السلة"),
         "cash": MessageLookupByLibrary.simpleMessage("نقدا"),
         "categories": MessageLookupByLibrary.simpleMessage("التصنيفات"),
         "category": MessageLookupByLibrary.simpleMessage("تصنيف"),

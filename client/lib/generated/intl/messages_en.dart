@@ -94,10 +94,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "car": MessageLookupByLibrary.simpleMessage("Car"),
         "card": MessageLookupByLibrary.simpleMessage("Card"),
         "cart": MessageLookupByLibrary.simpleMessage("Cart"),
+        "cartAttention": MessageLookupByLibrary.simpleMessage(
+            "Pay Attention to cart content because changes have been made"),
         "cartItemAdded":
             MessageLookupByLibrary.simpleMessage("Item added to cart"),
         "cartItemRemoved":
             MessageLookupByLibrary.simpleMessage("Item removed from cart"),
+        "cartValidation": MessageLookupByLibrary.simpleMessage("Checking Cart"),
         "cash": MessageLookupByLibrary.simpleMessage("Cash"),
         "categories": MessageLookupByLibrary.simpleMessage("Categories"),
         "category": MessageLookupByLibrary.simpleMessage("category"),

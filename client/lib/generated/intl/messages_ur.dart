@@ -95,10 +95,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "car": MessageLookupByLibrary.simpleMessage("گاڑی"),
         "card": MessageLookupByLibrary.simpleMessage(" کارڈ"),
         "cart": MessageLookupByLibrary.simpleMessage(" ٹوکری"),
+        "cartAttention": MessageLookupByLibrary.simpleMessage(
+            "کارٹ کے مواد پر توجہ دیں کیونکہ تبدیلیاں کی گئی ہیں"),
         "cartItemAdded": MessageLookupByLibrary.simpleMessage(
             " آئٹم کو کارٹ میں شامل کیا گیا۔"),
         "cartItemRemoved": MessageLookupByLibrary.simpleMessage(
             " آئٹم کو کارٹ سے ہٹا دیا گیا۔"),
+        "cartValidation": MessageLookupByLibrary.simpleMessage("چیکنگ کارٹ"),
         "cash": MessageLookupByLibrary.simpleMessage("نقد"),
         "categories": MessageLookupByLibrary.simpleMessage(" اقسام"),
         "category": MessageLookupByLibrary.simpleMessage(" قسم"),
