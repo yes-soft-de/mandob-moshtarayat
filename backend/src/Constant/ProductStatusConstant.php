@@ -8,4 +8,6 @@ abstract class ProductStatusConstant
 
     static $DELETED_PRODUCT = 1;
 
+    static $NOT_DELETED_PRODUCT = 0;
+
 }
