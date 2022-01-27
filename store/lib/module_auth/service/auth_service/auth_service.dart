@@ -88,7 +88,6 @@ class AuthService {
           StatusCodeHelper.getStatusCodeMessages(response?.statusCode ?? '0'));
 
     }
-
     _prefsHelper.setUsername(username);
     _prefsHelper.setPassword(password);
     _prefsHelper.setToken(loginResult.token);

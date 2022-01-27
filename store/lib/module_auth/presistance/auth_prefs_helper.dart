@@ -6,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 @injectable
 class AuthPrefsHelper {
   var box = Hive.box('Authorization');
-
   void setUsername(String username) {
     box.put('username', username);
   }
@@ -24,11 +23,11 @@ class AuthPrefsHelper {
   }
 
   void setNeedInit(bool state) {
-    box.put('registerState',state);
+    box.put('registerState', state);
   }
 
   bool needInit() {
-    return box.get('registerState') ?? true;
+    return box.get('registerState') ?? false;
   }
 
   void clearUserCreated() {
@@ -62,6 +61,7 @@ class AuthPrefsHelper {
   }
 
   Future<void> cleanAll() async {
+    print('--------------------------------------------------------------------------');
     await box.clear();
   }
 
