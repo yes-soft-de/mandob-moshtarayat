@@ -464,7 +464,7 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
                                       ),
                                     ),
                                     const Spacer(),
-                                    Text(S.current.pay,
+                                    Text(S.current.paymentResume,
                                         style: const TextStyle(
                                             color: Colors.white,
                                             fontSize: 16.0)),
