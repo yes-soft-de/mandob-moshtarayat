@@ -25,7 +25,7 @@ class LoginStateManager {
           _screenState.moveToNext();
           break;
           case AuthStatus.UNREGISTERED:
-          _screenState.moveToProfileInit(_screenState.userID);
+          _screenState.moveToProfileInit();
           break;
           case AuthStatus.CODE_SENT:
           _screenState.verifyFirst();

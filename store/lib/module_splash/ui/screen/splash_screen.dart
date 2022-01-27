@@ -64,10 +64,10 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   _getNextRoutFirst(){
-    if (widget._authService.isLoggedIn) {
+    if (widget._authService.isLoggedIn  && !widget._authService.needToInitAccount) {
       return   Navigator.of(context).pushNamedAndRemoveUntil(MainRoutes.MAIN_SCREEN, (route) => false);
     }
-    if(widget._authService.needToInitAccount){
+    if(widget._authService.isLoggedIn && widget._authService.needToInitAccount){
       return Navigator.of(context).pushNamedAndRemoveUntil(InitAccountRoutes.INIT_ACCOUNT_SCREEN, (route) => false);;
     }
     return Navigator.of(context).pushNamedAndRemoveUntil(StoresRoutes.STORES_SCREEN, (route) => false);

@@ -129,8 +129,8 @@ class RegisterScreenState extends State<RegisterScreen> {
         title: S.current.warnning, message: S.current.error)
         .show(context);
   }
-  void moveToNext(String userID) {
-    Navigator.of(context).pushNamedAndRemoveUntil(InitAccountRoutes.INIT_ACCOUNT_SCREEN, (route) => false,arguments: userID);
+  void moveToNext() {
+    Navigator.of(context).pushNamedAndRemoveUntil(InitAccountRoutes.INIT_ACCOUNT_SCREEN, (route) => false,);
     CustomFlushBarHelper.createSuccess(
         title: S.current.warnning, message: S.current.loginSuccess)
         .show(context);
