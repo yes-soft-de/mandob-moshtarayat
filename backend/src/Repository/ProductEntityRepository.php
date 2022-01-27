@@ -88,6 +88,10 @@ class ProductEntityRepository extends ServiceEntityRepository
 
             ->andWhere('product.status =:status')
 
+            ->andWhere('product.isDeleted = :deleted')
+
+            ->setParameter('deleted', ProductStatusConstant::$NOT_DELETED_PRODUCT)
+
             ->setParameter('storeProductCategoryID',$storeProductCategoryID)
 
             ->setParameter('status', ProductStatusConstant::$ACTIVE_PRODUCT_STATUS)
@@ -200,11 +204,12 @@ class ProductEntityRepository extends ServiceEntityRepository
 
             ->andWhere('product.storeProductCategoryID =:storeProductCategoryID')
             ->andWhere('product.storeOwnerProfileID =:storeOwnerProfileId')
+            ->andWhere('product.isDeleted = :deleted')
+            ->andWhere('product.status = :status')
 
             ->setParameter('storeProductCategoryID',$storeProductCategoryID)
             ->setParameter('storeOwnerProfileId',$storeOwnerProfileId)
-
-            ->andWhere('product.status = :status')
+            ->setParameter('deleted', ProductStatusConstant::$NOT_DELETED_PRODUCT)
             ->setParameter('status', self::STATUS_ACTIVE)
 
             ->getQuery()
@@ -293,8 +298,10 @@ class ProductEntityRepository extends ServiceEntityRepository
 
             ->setParameter('storeProductCategoryID',$storeProductCategoryID)
             ->setParameter('storeOwnerProfileId',$storeOwnerProfileId)
-
+            ->andWhere('product.isDeleted = :deleted')
             ->andWhere('product.status = :status')
+
+            ->setParameter('deleted', ProductStatusConstant::$NOT_DELETED_PRODUCT)
             ->setParameter('status', self::STATUS_ACTIVE)
 
             ->leftJoin(
