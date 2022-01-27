@@ -127,7 +127,8 @@ class PersonalDataLoadedState extends PersonalDataState {
                             fit: BoxFit.cover,
                             image: screenState.fileString != null
                                 ? (kIsWeb
-                                    ? Image.network(Urls.IMAGES_ROOT + (profileModel?.image ?? ''))
+                                    ? Image.network(Urls.IMAGES_ROOT +
+                                            (profileModel?.image ?? ''))
                                         .image
                                     : Image.file(File(screenState.fileString!))
                                         .image)

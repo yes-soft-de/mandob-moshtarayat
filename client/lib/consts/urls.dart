@@ -20,7 +20,8 @@ class Urls {
   static const CREATE_CUSTOM_PRODUCT_API = BASE_API + '/customproductnotfound';
   static const NOTIFICATION_API = BASE_API + '/notificationtoken';
   static const COMPANYINFO_API = BASE_API + '/companyinfoforuser';
-  static const NOTIFICATIONNEWCHAT_API = BASE_API + '/notificationnewchatbyuserid';
+  static const NOTIFICATIONNEWCHAT_API =
+      BASE_API + '/notificationnewchatbyuserid';
   static const NEEDFORSUPPORT = BASE_API + '/updateneedsupport';
   static const NEEDFORSUPPORT_ANYNAMOUS = BASE_API + '/anonymouschat';
   static const NOTIFICATIONTOADMIN_API = BASE_API + '/notificationtoadmin';
@@ -72,6 +73,8 @@ class Urls {
       BASE_API + '/favouritestorecategoriesandstores';
   static const GET_PRODUCT_DETAILS_API = BASE_API + '/product';
   static const GET_PRODUCTS_SIMILAR_API = BASE_API + '/productssimilar/';
+  static const VALIDATE_CART_API =
+      BASE_API + '/productavailableandquantityavailable';
   static const UPDATE_FAVORITE_CLIENT_API =
       BASE_API + '/updateclientfavouritecategories';
   static const CREATE_FAVORITE_CLIENT_API =

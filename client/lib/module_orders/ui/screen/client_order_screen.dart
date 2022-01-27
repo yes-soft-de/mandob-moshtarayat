@@ -72,7 +72,7 @@ class ClientOrderScreenState extends State<ClientOrderScreen> {
 
   void moveDecision(bool success, [String err = '']) {
     if (success) {
-    getIt<CartHiveHelper>().deleteCart();
+      getIt<CartHiveHelper>().deleteCart();
       Navigator.of(context)
           .pushNamedAndRemoveUntil(MainRoutes.MAIN_SCREEN, (route) => false);
       CustomFlushBarHelper.createSuccess(

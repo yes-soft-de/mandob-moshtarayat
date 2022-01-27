@@ -16,8 +16,6 @@ class ChatModule extends YesModule {
   }
 
   Map<String, WidgetBuilder> getRoutes() {
-    return {
-      ChatRoutes.chatRoute: (context) => _chatPage
-    };
+    return {ChatRoutes.chatRoute: (context) => _chatPage};
   }
 }

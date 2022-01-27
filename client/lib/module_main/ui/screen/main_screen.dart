@@ -143,7 +143,8 @@ class _MainScreenState extends State<MainScreen> {
                                 ));
                             setState(() {});
                           } else {
-                            Navigator.of(context).pushNamed(AuthorizationRoutes.LOGIN_SCREEN);
+                            Navigator.of(context)
+                                .pushNamed(AuthorizationRoutes.LOGIN_SCREEN);
                           }
                         },
                       ),
