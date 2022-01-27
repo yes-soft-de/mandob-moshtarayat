@@ -21,7 +21,7 @@ import 'package:mandob_moshtarayat/utils/effect/hidder.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 
 class AddProductsForm extends StatefulWidget {
-  final Function(String, String, num, num, List<TranslateStoreProduct>)
+  final Function(String, String, num, num, int,List<TranslateStoreProduct>)
       addProduct;
   final ProductCategoriesState? state;
   final List<String> languages;
@@ -213,6 +213,7 @@ class _AddProductsFormState extends State<AddProductsForm> {
                   imagePath!,
                   double.parse(_priceController.text),
                   double.parse(_discountController.text),
+                  int.parse(_quantityController.text),
                   translate);
             } else {
               CustomFlushBarHelper.createError(
@@ -312,7 +313,7 @@ class _AddProductsFormState extends State<AddProductsForm> {
 }
 
 class UpdateProductsForm extends StatefulWidget {
-  final Function(String, String, String, String, String) addProduct;
+  final Function(String, String, String, String, String,int) addProduct;
   final UpdateProductRequest  request;
   final CategoryLink categoryLink;
   final List<DropdownMenuItem<String>>? categoriesOne;
@@ -336,7 +337,7 @@ class _UpdateProductsFormState extends State<UpdateProductsForm> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _discountController = TextEditingController();
-// final TextEditingController _quantityController = TextEditingController();
+  final TextEditingController _quantityController = TextEditingController();
   String? imagePath;
   final ImagePicker _imagePicker = ImagePicker();
   String? maincatId;
@@ -363,13 +364,9 @@ class _UpdateProductsFormState extends State<UpdateProductsForm> {
         subcatId = widget.request.dataStoreProduct.isLevelTwo
             ? widget.request.dataStoreProduct.storeProductCategoryID?.toString()
             : null;
-        print('haven');
-        print(widget.categoryLink.subCategoryLevelOneID.toString());
         maincatId =  widget.categoryLink.subCategoryLevelOneID.toString();
       }
-
-
-//      _quantityController.text =  widget.request?.dataStoreProduct?.productQuantity?.toString() ?? '0';
+      _quantityController.text =  widget.request.dataStoreProduct.productQuantity?.toString() ?? '0';
     }
     super.initState();
   }
@@ -546,16 +543,15 @@ class _UpdateProductsFormState extends State<UpdateProductsForm> {
                       hintText: S.current.discount,
                       numbers: true,
                     ),
-
-//                  Padding(
-//                    padding: const EdgeInsets.only(left: 12.0,bottom: 8,right: 12,top: 16.0),
-//                    child: Text(S.current.productQuantity,style: TextStyle(fontWeight: FontWeight.bold),textAlign: TextAlign.start,),
-//                  ),
-//                  CustomFormField(
-//                    controller: _quantityController,
-//                    hintText: S.current.productQuantity,
-//                    numbers: true,
-//                  ),
+                 Padding(
+                   padding: const EdgeInsets.only(left: 12.0,bottom: 8,right: 12,top: 16.0),
+                   child: Text(S.current.productQuantity,style: TextStyle(fontWeight: FontWeight.bold),textAlign: TextAlign.start,),
+                 ),
+                 CustomFormField(
+                   controller: _quantityController,
+                   hintText: S.current.productQuantity,
+                   numbers: true,
+                 ),
                     SizedBox(height: 32),
                     InkWell(
                       onTap: () {
@@ -598,7 +594,9 @@ class _UpdateProductsFormState extends State<UpdateProductsForm> {
                   _priceController.text,
                   imagePath!,
                   _discountController.text,
-                  isUpdatedToMain ? maincatId! : subcatId ?? '-1');
+                  isUpdatedToMain ? maincatId! : subcatId ?? '-1',
+                  int.parse(_quantityController.text)
+                  );
             } else {
               CustomFlushBarHelper.createError(
                       title: S.current.warnning,

@@ -26,7 +26,7 @@ class ProductsModel extends DataModel{
     for (var element in data) {
       _model.add(ProductsModel(
         id:element.id ?? -1,
-        productQuantity: element.productQuantity??0,
+        productQuantity: element.productQuantity ?? 0,
         productName: element.productName ?? S.current.productCategory,
         productImage : element.productImage ??ImageUrl(image:ImageAsset.PLACEHOLDER ),
         productPrice : element.productPrice ?? 0,

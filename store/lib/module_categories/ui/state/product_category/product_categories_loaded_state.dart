@@ -29,8 +29,7 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
     this.screenState,
     this.categoriesOne,
     this.categoriesTwo,
-    this.productsModel,
-      {
+    this.productsModel, {
     this.empty = false,
     this.error,
   }) : super(screenState) {
@@ -103,8 +102,7 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
                     v as ProductsCategoryModel;
                     screenState.idOne = v;
                     screenState.idTwo = null;
-                    screenState.getStoreCategoriesLevelTwo(categoriesOne,
-                         v.id);
+                    screenState.getStoreCategoriesLevelTwo(categoriesOne, v.id);
                   },
                   selectedItem: screenState.idOne),
             ),
@@ -167,10 +165,9 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
 //                    idTwo = v;
                     screenState.idTwo = v;
                     screenState.getStoreProductLevelTwo(
-                        categoriesOne,
-                        categoriesTwo,v.id);
+                        categoriesOne, categoriesTwo, v.id);
                   },
-                  selectedItem:  screenState.idTwo),
+                  selectedItem: screenState.idTwo),
             ),
           ),
         ),
@@ -187,7 +184,8 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
                       lang: screenState.language,
                       state: this,
                       languages: ['ar', 'en', 'ur'],
-                      addProduct: (name, image, price, discount, trans) {
+                      addProduct:
+                          (name, image, price, discount, quantity, trans) {
                         Navigator.of(context).pop();
                         screenState.createProduct(
                             CreateProductRequest(
@@ -196,12 +194,16 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
                                   productImage: image,
                                   productPrice: price,
                                   discount: discount,
-                                  storeProductCategoryID: screenState.idTwo != null ?
-                                  screenState.idTwo?.id :screenState.idOne?.id,
+                                  productQuantity: quantity,
+                                  storeProductCategoryID:
+                                      screenState.idTwo != null
+                                          ? screenState.idTwo?.id
+                                          : screenState.idOne?.id,
                                 ),
                                 translate: trans),
                             categoriesOne,
-                            categoriesTwo,screenState.idTwo?.id != null ?true:false);
+                            categoriesTwo,
+                            screenState.idTwo?.id != null ? true : false);
                       },
                     );
                   });
@@ -324,24 +326,25 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
                           ),
                           categoriesOne: getChoicesOne(),
                           categoriesTwo: getChoicesTwo(),
-                          categoryLink: element.categoryLink ??CategoryLink(),
-                          addProduct: (name, price, image, discount, catID) {
+                          categoryLink: element.categoryLink ?? CategoryLink(),
+                          addProduct: (name, price, image, discount, catID,q) {
                             Navigator.of(context).pop();
                             screenState.updateProduct(
-                                UpdateProductRequest(
-                                    dataStoreProduct: DataStoreUpdateProduct(
-                                  id: element.id,
-                                  productName: name,
-                                  productImage: image,
-                                  discount: double.parse(discount),
-                                  productPrice: double.parse(price),
-                                  storeProductCategoryID: int.parse(catID),
+                              UpdateProductRequest(
+                                  dataStoreProduct: DataStoreUpdateProduct(
+                                      id: element.id,
+                                      productName: name,
+                                      productImage: image,
+                                      productQuantity: q,
+                                      discount: double.parse(discount),
+                                      productPrice: double.parse(price),
+                                      storeProductCategoryID: int.parse(catID),
                                       isLevelOne: element.levelOne,
-                                      isLevelTwo: element.levelTwo
-                                )),
-                                categoriesOne,
-                                categoriesTwo,screenState.idTwo != null ?true:false,
-                                );
+                                      isLevelTwo: element.levelTwo)),
+                              categoriesOne,
+                              categoriesTwo,
+                              screenState.idTwo != null ? true : false,
+                            );
                           },
                         );
                       });
@@ -365,14 +368,14 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
               InkWell(
                 onTap: () {
                   screenState.updateProductStatus(
-                      UpdateProductStatusRequest(
-                          status: 'inactive',
-                          id: element.id,
-                          storeProductCategoryID:
-                              element.storeProductCategoryID,
-                          storeMainCategoryID:  -1),
-                      categoriesOne,
-                      categoriesTwo,);
+                    UpdateProductStatusRequest(
+                        status: 'inactive',
+                        id: element.id,
+                        storeProductCategoryID: element.storeProductCategoryID,
+                        storeMainCategoryID: -1),
+                    categoriesOne,
+                    categoriesTwo,
+                  );
                 },
                 child: Padding(
                   padding: const EdgeInsetsDirectional.only(end: 8),

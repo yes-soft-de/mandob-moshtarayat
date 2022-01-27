@@ -65,6 +65,7 @@ class Data {
     productName = json['productName'];
     productImage = json['image'] != null ?ImageUrl.fromJson(json['image']) : null;
     productPrice = json['productPrice'];
+    productQuantity = json['productQuantity'];
     discount = json['discount'];
     storeProductCategoryID = json['storeProductCategoryID'];
     isLevelOne = json['isLevel1'];

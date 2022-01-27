@@ -22,14 +22,14 @@ class ProductStoreState extends States {
   final List<ProductsModel>? productsModel;
   final List<ProductsCategoryModel>? categoriesOne;
   final List<ProductsCategoryModel>? categoriesTwo;
-   int? idOne;
-   int? idTwo;
+  int? idOne;
+  int? idTwo;
   final String? error;
   final bool empty;
 
   ProductStoreState(this.screenState, this.productsModel, this.categoriesOne,
-      this.categoriesTwo,{this.idOne ,this.idTwo ,
-      this.empty = false, this.error})
+      this.categoriesTwo,
+      {this.idOne, this.idTwo, this.empty = false, this.error})
       : super(screenState) {
     if (error != null) {
       screenState.save = false;
@@ -37,8 +37,8 @@ class ProductStoreState extends States {
     }
   }
   String? id;
-  late List<ProductsModel> newDataList = productsModel??[] ;
-   late List<ProductsModel> mainDataList=productsModel??[]  ;
+  late List<ProductsModel> newDataList = productsModel ?? [];
+  late List<ProductsModel> mainDataList = productsModel ?? [];
   TextEditingController nameController = TextEditingController();
   @override
   Widget getUI(BuildContext context) {
@@ -58,28 +58,32 @@ class ProductStoreState extends States {
     }
     return FixedContainer(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-      children: [
-          CustomDeliverySearch(hintText: S.of(context).search,onChanged: (name){
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          CustomDeliverySearch(
+            hintText: S.of(context).search,
+            onChanged: (name) {
 //            newDataList = mainDataList
 //                .where((string) => string.productName.toLowerCase().contains(name.toLowerCase()))
 //                .toList();
 //            screenState.refresh();
-          screenState.getCategoriesLevelOneWithAllProducts(name);
-          },controller: nameController,),
+              screenState.getCategoriesLevelOneWithAllProducts(name);
+            },
+            controller: nameController,
+          ),
           SizedBox(
             height: 55,
             child: ListView.builder(
               itemBuilder: (context, index) {
                 return CategoryCard(
                   title: categoriesOne![index].categoryName,
-                  selected: categoriesOne![index].id == idOne ?true :false,
+                  selected: categoriesOne![index].id == idOne ? true : false,
                   id: categoriesOne![index].id,
                   onTap: (id) {
-                    print('hihih');
-                idOne = id;
-                screenState.getCategoriesLevelTwoWithProducts( id,categoriesOne);
+                    idOne = id;
+                    screenState.getCategoriesLevelTwoWithProducts(
+                        id, categoriesOne);
                   },
                 );
               },
@@ -89,16 +93,17 @@ class ProductStoreState extends States {
             ),
           ),
           SizedBox(
-            height:categoriesTwo!.isEmpty ? 0: 60,
+            height: categoriesTwo!.isEmpty ? 0 : 60,
             child: ListView.builder(
               itemBuilder: (context, index) {
                 return CategoryCard(
                   title: categoriesTwo![index].categoryName,
-                  selected: categoriesTwo![index].id == idTwo ?true :false,
+                  selected: categoriesTwo![index].id == idTwo ? true : false,
                   id: categoriesTwo![index].id,
                   onTap: (id) {
-                idTwo = id;
-               screenState.getStoreProductLevelTwo(idTwo??-1,idOne??-1 ,categoriesOne, categoriesTwo);
+                    idTwo = id;
+                    screenState.getStoreProductLevelTwo(
+                        idTwo ?? -1, idOne ?? -1, categoriesOne, categoriesTwo);
                   },
                 );
               },
@@ -110,9 +115,9 @@ class ProductStoreState extends States {
           Expanded(
             child: CustomListView.custom(children: getProducts()),
           )
-      ],
-    ),
-        ));
+        ],
+      ),
+    ));
   }
 
   List<Widget> getProducts() {
@@ -126,94 +131,108 @@ class ProductStoreState extends States {
       if (id != null && id != element.storeProductCategoryID.toString()) {
         continue;
       }
-      widgets.add(
-          Row(
+      widgets.add(Row(
+        children: [
+          Expanded(
+              child: ProductComponent(
+            discount: element.discount.toString(),
+            description: '',
+            image: element.productImage.image ?? '',
+            rating: 0,
+            title: element.productName,
+            productId: element.id.toString(),
+            price: element.productPrice.toString(),
+          )),
+          Column(
             children: [
-              Expanded(child: ProductComponent(discount: element.discount.toString(),description: '',image: element.productImage.image??'',rating: 0,title: element.productName, productId: element.id.toString(),price: element.productPrice.toString(),)),
-              Column(
-                children: [
-                  InkWell(
-                    onTap: (){
-                      showDialog(context: screenState.context, builder:(context){
+              InkWell(
+                onTap: () {
+                  showDialog(
+                      context: screenState.context,
+                      builder: (context) {
                         return UpdateProductsForm(
-                          categoriesService: screenState.widget.categoriesService,
+                          categoriesService:
+                              screenState.widget.categoriesService,
                           categoriesOne: getChoicesOne(),
                           categoriesTwo: getChoicesTwo(),
-                          categoryLink: element.categoryLink??CategoryLink(),
+                          categoryLink: element.categoryLink ?? CategoryLink(),
                           request: UpdateProductRequest(
                             dataStoreProduct: DataStoreUpdateProduct(
                                 productName: element.productName,
-                                productImage: element.productImage.image??'',
+                                productImage: element.productImage.image ?? '',
                                 productPrice: element.productPrice.toDouble(),
                                 discount: element.discount,
                                 productQuantity: element.productQuantity,
-                                storeProductCategoryID: element.storeProductCategoryID,
-                              isLevelTwo: element.levelTwo,
-                              isLevelOne: element.levelOne
-                            ),
-
+                                storeProductCategoryID:
+                                    element.storeProductCategoryID,
+                                isLevelTwo: element.levelTwo,
+                                isLevelOne: element.levelOne),
                           ),
-                          addProduct: (name,price,image,discount,catID){
+                          addProduct: (name, price, image, discount, catID,q) {
                             Navigator.of(context).pop();
-                            screenState.updateProduct(UpdateProductRequest(
-                              dataStoreProduct: DataStoreUpdateProduct(
-                                  id: element.id,
-                                  productName: name,
-                                  productImage: image,
-                                  discount: double.parse(discount),
-                                  productPrice:double.parse(price),
-                                  storeProductCategoryID:int.parse(catID),
-                                  isLevelTwo: element.levelTwo,
-                                  isLevelOne: element.levelOne
+                            screenState.updateProduct(
+                              UpdateProductRequest(
+                                dataStoreProduct: DataStoreUpdateProduct(
+                                    id: element.id,
+                                    productName: name,
+                                    productImage: image,
+                                    discount: double.parse(discount),
+                                    productQuantity: q,
+                                    productPrice: double.parse(price),
+                                    storeProductCategoryID: int.parse(catID),
+                                    isLevelTwo: element.levelTwo,
+                                    isLevelOne: element.levelOne),
                               ),
-
-                            ), categoriesOne??[],);
+                              categoriesOne ?? [],
+                            );
                           },
                         );
                       });
-                    },
+                },
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.only(end: 8),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: AppThemeDataService.AccentColor,
+                        shape: BoxShape.circle),
                     child: Padding(
-                      padding: const EdgeInsetsDirectional.only(end: 8),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: AppThemeDataService.AccentColor,
-                            shape: BoxShape.circle),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Icon(Icons.edit),
-                        ),
-                      ),
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(Icons.edit),
                     ),
                   ),
-                  SizedBox(height: 8,),
-                  InkWell(
-                    onTap: (){
-                      screenState.updateProductStatus(
-                          UpdateProductStatusRequest(
-                              status: 'inactive',
-                              id: element.id,
-                              storeProductCategoryID:element.storeProductCategoryID,
-                              storeMainCategoryID: -1
-                          ),categoriesOne??[]);
-                    },
+                ),
+              ),
+              SizedBox(
+                height: 8,
+              ),
+              InkWell(
+                onTap: () {
+                  screenState.updateProductStatus(
+                      UpdateProductStatusRequest(
+                          status: 'inactive',
+                          id: element.id,
+                          storeProductCategoryID:
+                              element.storeProductCategoryID,
+                          storeMainCategoryID: -1),
+                      categoriesOne ?? []);
+                },
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.only(end: 8),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: AppThemeDataService.AccentColor,
+                        shape: BoxShape.circle),
                     child: Padding(
-                      padding: const EdgeInsetsDirectional.only(end: 8),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: AppThemeDataService.AccentColor,
-                            shape: BoxShape.circle),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Icon(Icons.delete),
-                        ),
-                      ),
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(Icons.delete),
                     ),
                   ),
-                ],
-              )
+                ),
+              ),
             ],
           )
-      );
+        ],
+      ));
     }
     return widgets;
   }
@@ -233,6 +252,7 @@ class ProductStoreState extends States {
     });
     return items;
   }
+
   List<DropdownMenuItem<String>> getChoicesTwo() {
     List<DropdownMenuItem<String>> items = [];
     categoriesTwo?.forEach((element) {

@@ -11,8 +11,8 @@ import 'package:mandob_moshtarayat/module_init/request/create_captain_profile/cr
 import 'package:mandob_moshtarayat/module_init/state_manager/init_account/init_account.state_manager.dart';
 import 'package:mandob_moshtarayat/module_init/ui/state/init_account/init_account.state.dart';
 import 'package:feature_discovery/feature_discovery.dart';
+import 'package:mandob_moshtarayat/utils/components/fixed_container.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
-
 
 @injectable
 class InitAccountScreen extends StatefulWidget {
@@ -27,10 +27,10 @@ class InitAccountScreen extends StatefulWidget {
 
 class InitAccountScreenState extends State<InitAccountScreen> {
   StreamSubscription? _streamSubscription;
- InitAccountState? currentState;
+  InitAccountState? currentState;
 
   LatLng? myPos;
- late MapController  mapController;
+  late MapController mapController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   void refresh() {
@@ -39,24 +39,28 @@ class InitAccountScreenState extends State<InitAccountScreen> {
     }
   }
 
-  void showMessage(String msg,bool success) {
-    if (success){
-      CustomFlushBarHelper.createSuccess(title: S.current.warnning, message:msg).show(context);
-    }
-    else {
-      CustomFlushBarHelper.createError(title: S.current.warnning, message:msg).show(context);
+  void showMessage(String msg, bool success) {
+    if (success) {
+      CustomFlushBarHelper.createSuccess(
+              title: S.current.warnning, message: msg)
+          .show(context);
+    } else {
+      CustomFlushBarHelper.createError(title: S.current.warnning, message: msg)
+          .show(context);
     }
   }
 
   void submitProfile(CreateStoreRequest request) {
     widget._stateManager.submitProfile(request, this);
   }
+
   void getStoreCategories() {
     widget._stateManager.getStoreCategories(this);
   }
+
   @override
   void initState() {
-     mapController = MapController();
+    mapController = MapController();
     SchedulerBinding.instance!.addPostFrameCallback((Duration duration) async {
       await Future.delayed(Duration(seconds: 5)).whenComplete(() {
         FeatureDiscovery.discoverFeatures(
@@ -68,7 +72,7 @@ class InitAccountScreenState extends State<InitAccountScreen> {
         );
       });
     });
-   _streamSubscription  =  widget._stateManager.stateStream.listen((event) {
+    _streamSubscription = widget._stateManager.stateStream.listen((event) {
       currentState = event;
       if (mounted) {
         setState(() {});
@@ -87,8 +91,6 @@ class InitAccountScreenState extends State<InitAccountScreen> {
     getStoreCategories();
     super.initState();
   }
-
-
 
   // void getRoleInitState() {
   //   widget._stateManager.getRoleInit(this);
@@ -112,7 +114,7 @@ class InitAccountScreenState extends State<InitAccountScreen> {
         }
       },
       child: Scaffold(
-        body:currentState?.getUI(context),
+        body: FixedContainer(child: currentState?.getUI(context) ?? SizedBox()),
       ),
     );
   }
@@ -122,6 +124,7 @@ class InitAccountScreenState extends State<InitAccountScreen> {
     _streamSubscription?.cancel();
     super.dispose();
   }
+
   Future<LatLng?> defaultLocation() async {
     Location location = new Location();
 

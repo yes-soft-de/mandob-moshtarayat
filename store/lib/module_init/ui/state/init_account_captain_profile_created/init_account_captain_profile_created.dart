@@ -16,22 +16,24 @@ class InitAccountStateProfileCreated extends InitAccountState {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          Lottie.asset('assets/animations/register-success.json'),
+          Expanded(
+              child: Lottie.asset('assets/animations/register-success.json',
+                 )),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  elevation: 0,
                 ),
-                elevation: 0,
-              ),
                 child: Padding(
                   padding: const EdgeInsets.all(14.0),
-                  child: Text(S.of(context).go,style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16
-                  ),),
+                  child: Text(
+                    S.of(context).go,
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
                 ),
                 onPressed: () {
                   Navigator.of(context).pushNamedAndRemoveUntil(
@@ -42,5 +44,4 @@ class InitAccountStateProfileCreated extends InitAccountState {
       ),
     );
   }
-
 }
