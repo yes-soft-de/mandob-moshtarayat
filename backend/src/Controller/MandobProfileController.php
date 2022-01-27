@@ -555,8 +555,10 @@ class MandobProfileController extends BaseController
      * representative: Get representative's financial account in specific date.
      * @Route("representativefinancialaccountinspecificdate/{fromDate}/{toDate}", name="getRepresentativeFinancialAccountInSpecificDate", methods={"GET"})
      * @IsGranted("ROLE_MANDOB")
+     * @param $fromDate
+     * @param $toDate
      * @return JsonResponse
-     * 
+     *
      * @OA\Tag(name="Mandob Profile")
      *
      * @OA\Parameter(
@@ -596,6 +598,53 @@ class MandobProfileController extends BaseController
     public function getRepresentativeFinancialAccountInSpecificDate($fromDate, $toDate): JsonResponse
     {
         $response = $this->mandobProfileService->getRepresentativeFinancialAccountInSpecificDate($this->getUserId(), $fromDate, $toDate);
+
+        return $this->response($response, self::FETCH);
+    }
+
+    /**
+     * admin: Get remaining payments for representative.
+     * @Route("representativeremainigforitamount", name="getRepresentativeRemainingForItAmount", methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
+     *
+     * @OA\Tag(name="Mandob Profile")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Get representative's financial account in specific date",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *            @OA\Items(
+     *              @OA\Property(type="integer", property="id"),
+     *              @OA\Property(type="string", property="mandobID"),
+     *              @OA\Property(type="string", property="mandobName"),
+     *              @OA\Property(type="string", property="roomID"),
+     *              @OA\Property(type="object", property="image",
+     *                  @OA\Property(type="string", property="imageURL"),
+     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="string", property="baseURL")
+     *              ),
+     *              @OA\Property(type="string", property="phone"),
+     *              @OA\Property(type="string", property="totalRemainingPaymentsToRepresentative"),
+     *            )
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function getRemainingPaymentsForRepresentative(): JsonResponse
+    {
+        $response = $this->mandobProfileService->getRemainingPaymentsForRepresentative();
 
         return $this->response($response, self::FETCH);
     }

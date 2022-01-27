@@ -10,6 +10,8 @@ abstract class ResponseConstant
 
     static $CAPTAIN_ACTIVE = "active";
 
+    static $REPRESENTATIVE_ACTIVE = "active";
+
     static $INACTIVE = "inactive";
 
     static $ERROR_LON_LOT = "error lon or lat";
