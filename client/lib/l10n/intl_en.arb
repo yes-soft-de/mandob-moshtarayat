@@ -363,7 +363,7 @@
     "sold": "Sold",
     "specification": "Specification",
     "totalPrice": "Total Price",
-    "productQuantity": "Product Quantity",
+    "productQuantity": "Quantity",
     "youHaveProductsFromDifferentStore": "You have products from other store , Do you want to clear your cart and add the new ones",
     "productRated": "Product Rated",
     "rateProductMessage": "Please rate this product",
@@ -412,7 +412,12 @@
     "paymentPortalHint": "All prices in payments portal are included with 15% tax",
     "tax": "15% Tax",
     "cartAttention": "Pay Attention to cart content because changes have been made",
-    "cartValidation": "Checking Cart"
+    "cartValidation": "Checking Cart",
+    "withoutTax": "Without tax fee",
+    "extraTax": "Tax fee",
+    "paymentResume": "Payment Resume"
+
+
 
 
 

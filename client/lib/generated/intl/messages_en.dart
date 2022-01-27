@@ -197,6 +197,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Can not remove it, Exceeded time allowed"),
         "externalOrder": MessageLookupByLibrary.simpleMessage("External Order"),
         "extraDetails": MessageLookupByLibrary.simpleMessage("Extra details"),
+        "extraTax": MessageLookupByLibrary.simpleMessage("Tax fee"),
         "failureRenew": MessageLookupByLibrary.simpleMessage(
             "Your renew has been failed please try again"),
         "favoriteCategories":
@@ -382,6 +383,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "paymentMethodHint": MessageLookupByLibrary.simpleMessage("Choose"),
         "paymentPortalHint": MessageLookupByLibrary.simpleMessage(
             "All prices in payments portal are included with 15% tax"),
+        "paymentResume": MessageLookupByLibrary.simpleMessage("Payment Resume"),
         "paymentsVia": MessageLookupByLibrary.simpleMessage("Payments via"),
         "personalData": MessageLookupByLibrary.simpleMessage("Personal Data"),
         "phoneIsRequired":
@@ -432,8 +434,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "productDetails":
             MessageLookupByLibrary.simpleMessage("Products Details"),
         "productName": MessageLookupByLibrary.simpleMessage("Product Name"),
-        "productQuantity":
-            MessageLookupByLibrary.simpleMessage("Product Quantity"),
+        "productQuantity": MessageLookupByLibrary.simpleMessage("Quantity"),
         "productRated": MessageLookupByLibrary.simpleMessage("Product Rated"),
         "products": MessageLookupByLibrary.simpleMessage("Products"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
@@ -625,6 +626,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "whatsappWithStoreOwner":
             MessageLookupByLibrary.simpleMessage("Store Owner"),
         "withTaxes": MessageLookupByLibrary.simpleMessage("With taxes "),
+        "withoutTax": MessageLookupByLibrary.simpleMessage("Without tax fee"),
         "youHaveProductsFromDifferentStore": MessageLookupByLibrary.simpleMessage(
             "You have products from other store , Do you want to clear your cart and add the new ones"),
         "yourCartEmpty": MessageLookupByLibrary.simpleMessage(

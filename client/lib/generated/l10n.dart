@@ -3680,10 +3680,10 @@ class S {
     );
   }
 
-  /// `Product Quantity`
+  /// `Quantity`
   String get productQuantity {
     return Intl.message(
-      'Product Quantity',
+      'Quantity',
       name: 'productQuantity',
       desc: '',
       args: [],
@@ -4155,6 +4155,36 @@ class S {
     return Intl.message(
       'Checking Cart',
       name: 'cartValidation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Without tax fee`
+  String get withoutTax {
+    return Intl.message(
+      'Without tax fee',
+      name: 'withoutTax',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tax fee`
+  String get extraTax {
+    return Intl.message(
+      'Tax fee',
+      name: 'extraTax',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payment Resume`
+  String get paymentResume {
+    return Intl.message(
+      'Payment Resume',
+      name: 'paymentResume',
       desc: '',
       args: [],
     );

@@ -201,6 +201,7 @@ class MessageLookup extends MessageLookupByLibrary {
             " اسے ہٹایا نہیں جا سکتا، اجازت شدہ وقت سے زیادہ"),
         "externalOrder": MessageLookupByLibrary.simpleMessage(" بیرونی آرڈر"),
         "extraDetails": MessageLookupByLibrary.simpleMessage("اضافی تفصیلات"),
+        "extraTax": MessageLookupByLibrary.simpleMessage("ویلیو ایڈڈ"),
         "failureRenew": MessageLookupByLibrary.simpleMessage(
             " آپ کی تجدید ناکام ہو گئی ہے براہ کرم دوبارہ کوشش کریں۔"),
         "favoriteCategories":
@@ -393,6 +394,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(" منتخب کریں۔"),
         "paymentPortalHint": MessageLookupByLibrary.simpleMessage(
             "پیمنٹ پورٹل میں تمام قیمتیں 15% ٹیکس کے ساتھ شامل ہیں"),
+        "paymentResume": MessageLookupByLibrary.simpleMessage("مکمل ادائیگی"),
         "paymentsVia": MessageLookupByLibrary.simpleMessage("کے ذریعے ادائیگی"),
         "personalData": MessageLookupByLibrary.simpleMessage(" ذاتی مواد"),
         "phoneIsRequired":
@@ -444,8 +446,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "productDetails":
             MessageLookupByLibrary.simpleMessage(" مصنوعات کی تفصیلات"),
         "productName": MessageLookupByLibrary.simpleMessage("پروڈکٹ کا نام"),
-        "productQuantity":
-            MessageLookupByLibrary.simpleMessage(" مصنوعات کی مقدار"),
+        "productQuantity": MessageLookupByLibrary.simpleMessage("مقدار"),
         "productRated":
             MessageLookupByLibrary.simpleMessage(" مصنوعات کی درجہ بندی"),
         "products": MessageLookupByLibrary.simpleMessage(" مصنوعات"),
@@ -648,6 +649,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "whatsappWithStoreOwner":
             MessageLookupByLibrary.simpleMessage("سٹور کا مالک"),
         "withTaxes": MessageLookupByLibrary.simpleMessage(" ٹیکس کے ساتھ"),
+        "withoutTax":
+            MessageLookupByLibrary.simpleMessage("شامل نہیں ویلیو ایڈڈ"),
         "youHaveProductsFromDifferentStore": MessageLookupByLibrary.simpleMessage(
             " آپ کے پاس دوسرے اسٹور کے پروڈکٹس ہیں، کیا آپ اپنی ٹوکری کو صاف کرنا چاہتے ہیں اور نئی شامل کرنا چاہتے ہیں؟"),
         "yourCartEmpty": MessageLookupByLibrary.simpleMessage(
