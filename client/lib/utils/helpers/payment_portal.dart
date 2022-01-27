@@ -85,7 +85,7 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
           shippings: [
             Shipping(
                 name: S.current.tax,
-                description: S.current.withTaxes + ' %15 ' ,
+                description: S.current.withTaxes + ' %15 ',
                 amount: (widget.model.order.orderCost * 15) / 100)
           ],
           customer: Customer(
