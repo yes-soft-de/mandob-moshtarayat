@@ -2,7 +2,7 @@
 
 namespace App\Response;
 
-class orderUpdateBillCalculatedByCaptainResponse
+class OrderUpdateBillCalculatedByCaptainResponse
 {
     public $isBillCalculated;
 }

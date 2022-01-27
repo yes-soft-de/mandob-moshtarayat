@@ -2,7 +2,7 @@
 
 namespace App\Response;
 
-class clientOrdersCountResponse
+class ClientOrdersCountResponse
 {
     public $clientOrdersCount;
     public $clientOrdersCancel;

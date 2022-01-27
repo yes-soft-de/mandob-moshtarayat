@@ -38,7 +38,7 @@ use App\Response\OrderClosestResponse;
 use App\Response\OrderPendingResponse;
 use App\Response\OrdersAndCountByStoreProfileIdResponse;
 use App\Response\OrdersPendingForStoreResponse;
-use App\Response\orderUpdateBillCalculatedByCaptainResponse;
+use App\Response\OrderUpdateBillCalculatedByCaptainResponse;
 use App\Response\OrderUpdateProductCountByClientResponse;
 use App\Response\OrderUpdateStateForEachStoreResponse;
 use App\Response\OrderUpdateStateResponse;
@@ -972,7 +972,7 @@ class OrderService
 
             $item = $this->orderManager->orderUpdateBillCalculatedByCaptain($request);
 
-            $response = $this->autoMapping->map(OrderEntity::class, orderUpdateBillCalculatedByCaptainResponse::class, $item);
+            $response = $this->autoMapping->map(OrderEntity::class, OrderUpdateBillCalculatedByCaptainResponse::class, $item);
        }
         return $response;
     }
