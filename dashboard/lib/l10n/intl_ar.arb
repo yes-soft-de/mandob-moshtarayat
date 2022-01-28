@@ -559,5 +559,17 @@
     "payStatus": "حالة الدفع",
     "areYouSureToDeleteThisPayment": "هل انت متأكد بإنك تريد حذف هذه الدفعة",
     "representativeCommission": "عمولة المندوب",
-    "representativeStatus": "حالة المندوب"
+    "representativeStatus": "حالة المندوب",
+
+    "distroPayments": "حسابات المناديب",
+    "searchingForDistro": "ابحث عن مندوب",
+
+    "totalPaymentToRepresentative": "إجمالي الدفعات إلى المندوب",
+    "totalDuToRepresentative": "إجمالي مستحقات المندوب",
+    "remainingAmountToDistro": "المبلغ المتبقي للمندوب",
+
+    "distroInfo": "تفاصيل مندوب",
+    "distroInfoBalance": "التفاصيل المالية لمندوب",
+    "lastPaymentsToDistro": "الدفعات السابقة لمندوب"
+
 }

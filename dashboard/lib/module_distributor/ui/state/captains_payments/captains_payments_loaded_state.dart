@@ -1,8 +1,8 @@
 import 'package:mandob_moshtarayat_dashboad/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
-import 'package:mandob_moshtarayat_dashboad/module_captain/model/captain_model_payment_model.dart';
-import 'package:mandob_moshtarayat_dashboad/module_captain/ui/screen/catpains_payment_screen.dart';
-import 'package:mandob_moshtarayat_dashboad/module_captain/ui/widget/captain_payments.dart';
+import 'package:mandob_moshtarayat_dashboad/module_distributor/model/distro_payment_model.dart';
+import 'package:mandob_moshtarayat_dashboad/module_distributor/ui/screen/distros_payment_screen.dart';
+import 'package:mandob_moshtarayat_dashboad/module_distributor/ui/widget/captain_payments.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/costom_search.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_list_view.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/empty_screen.dart';
@@ -10,13 +10,13 @@ import 'package:mandob_moshtarayat_dashboad/utils/components/error_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/fixed_container.dart';
 import 'package:flutter/material.dart';
 
-class CaptainsPaymentsLoadedState extends States {
-  final CaptainsPaymentsScreenState screenState;
+class DistrosPaymentsLoadedState extends States {
+  final DistrosPaymentsScreenState screenState;
   final String? error;
   final bool empty;
-  final List<CaptainPaymentModel>? model;
+  final List<DistroPaymentModel>? model;
 
-  CaptainsPaymentsLoadedState(this.screenState, this.model,
+  DistrosPaymentsLoadedState(this.screenState, this.model,
       {this.empty = false, this.error})
       : super(screenState) {
     if (error != null) {
@@ -32,7 +32,7 @@ class CaptainsPaymentsLoadedState extends States {
     if (error != null) {
       return ErrorStateWidget(
         onRefresh: () {
-          screenState.getCaptains();
+          screenState.getDistros();
         },
         error: error,
       );
@@ -40,7 +40,7 @@ class CaptainsPaymentsLoadedState extends States {
       return EmptyStateWidget(
           empty: S.current.emptyStaff,
           onRefresh: () {
-            screenState.getCaptains();
+            screenState.getDistros();
           });
     }
     return FixedContainer(
@@ -49,16 +49,16 @@ class CaptainsPaymentsLoadedState extends States {
 
   List<Widget> getCaptains(BuildContext context) {
     List<Widget> widgets = [];
-    for (var element in model ?? <CaptainPaymentModel>[]) {
-      if (!element.captainName!.contains(search ?? '') && search != null) {
+    for (var element in model ?? <DistroPaymentModel>[]) {
+      if (!element.mandobName!.contains(search ?? '') && search != null) {
         continue;
       }
 
-      widgets.add(CaptainCardPayment(
-        captainId: element.captainID,
+      widgets.add(DistroCardPayment(
+        captainId: element.id.toString(),
         image: element.image ?? '',
-        remainingAmountForCaptain: element.remainingAmountForCaptain ?? 0,
-        captainName: element.captainName ?? S.current.unknown,
+        remainingAmountForCaptain: element.remainingAmountForMandob ?? 0,
+        captainName: element.mandobName ?? S.current.unknown,
       ));
     }
 
@@ -68,7 +68,7 @@ class CaptainsPaymentsLoadedState extends States {
           Padding(
             padding: EdgeInsets.only(left: 18.0, right: 18.0, bottom: 16),
             child: CustomDeliverySearch(
-              hintText: S.current.searchingForCaptain,
+              hintText: S.current.searchingForDistro,
               onChanged: (s) {
                 if (s == '' || s.isEmpty) {
                   search = null;

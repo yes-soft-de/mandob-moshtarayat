@@ -250,6 +250,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "discount": MessageLookupByLibrary.simpleMessage("الخصم"),
         "distance": MessageLookupByLibrary.simpleMessage("يبعد عنك"),
         "distributors": MessageLookupByLibrary.simpleMessage("مناديب"),
+        "distroInfo": MessageLookupByLibrary.simpleMessage("تفاصيل مندوب"),
+        "distroInfoBalance":
+            MessageLookupByLibrary.simpleMessage("التفاصيل المالية لمندوب"),
+        "distroPayments":
+            MessageLookupByLibrary.simpleMessage("حسابات المناديب"),
         "distroUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "تم تعديل بيانات المندوب بنجاح"),
         "driverLicence": MessageLookupByLibrary.simpleMessage("رخصة القيادة"),
@@ -361,6 +366,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("+100 موظف"),
         "lastDate": MessageLookupByLibrary.simpleMessage("حتى تاريخ"),
         "lastMonth": MessageLookupByLibrary.simpleMessage("الماضي"),
+        "lastPaymentsToDistro":
+            MessageLookupByLibrary.simpleMessage("الدفعات السابقة لمندوب"),
         "lastSeenMessage": MessageLookupByLibrary.simpleMessage("رسائل جديدة"),
         "latestUpdates": MessageLookupByLibrary.simpleMessage("اخر التحديثات"),
         "launch": MessageLookupByLibrary.simpleMessage("شغل تطبيقنا"),
@@ -608,6 +615,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("المبلغ المتبقي للشركة"),
         "remainingAmountForStore":
             MessageLookupByLibrary.simpleMessage("المبلغ المتبقي للمتجر"),
+        "remainingAmountToDistro":
+            MessageLookupByLibrary.simpleMessage("المبلغ المتبقي للمندوب"),
         "renewNewPlan":
             MessageLookupByLibrary.simpleMessage("اشتراك بباقة جديدة"),
         "renewOldPlan":
@@ -660,6 +669,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("جار البحث عن كابتن"),
         "searchingForCategories":
             MessageLookupByLibrary.simpleMessage("البحث عن صنف"),
+        "searchingForDistro":
+            MessageLookupByLibrary.simpleMessage("ابحث عن مندوب"),
         "searchingForStores":
             MessageLookupByLibrary.simpleMessage("البحث عن متجر"),
         "second": MessageLookupByLibrary.simpleMessage("ثانية"),
@@ -772,6 +783,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "totalBillCostHint": MessageLookupByLibrary.simpleMessage(
             "تكلفة الفاتورة المستحقة بدون تكلفة التوصيل"),
         "totalBonus": MessageLookupByLibrary.simpleMessage("الراتب"),
+        "totalDuToRepresentative":
+            MessageLookupByLibrary.simpleMessage("إجمالي مستحقات المندوب"),
+        "totalPaymentToRepresentative":
+            MessageLookupByLibrary.simpleMessage("إجمالي الدفعات إلى المندوب"),
         "twaslnaDashboard":
             MessageLookupByLibrary.simpleMessage("لوحة تحكم مندوب"),
         "unaccept": MessageLookupByLibrary.simpleMessage(

@@ -253,6 +253,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "discount": MessageLookupByLibrary.simpleMessage("discount"),
         "distance": MessageLookupByLibrary.simpleMessage("Distance"),
         "distributors": MessageLookupByLibrary.simpleMessage("Distributors"),
+        "distroInfo": MessageLookupByLibrary.simpleMessage("Distributors info"),
+        "distroInfoBalance":
+            MessageLookupByLibrary.simpleMessage("Distributors Balance Info"),
+        "distroPayments":
+            MessageLookupByLibrary.simpleMessage("Distributors Balance"),
         "distroUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "Distributor Updated Successfully"),
         "driverLicence": MessageLookupByLibrary.simpleMessage("Driver Licence"),
@@ -371,6 +376,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("+100 Employees"),
         "lastDate": MessageLookupByLibrary.simpleMessage("Last Date"),
         "lastMonth": MessageLookupByLibrary.simpleMessage("Last Month"),
+        "lastPaymentsToDistro": MessageLookupByLibrary.simpleMessage(
+            "Last Payments To Distributors"),
         "lastSeenMessage": MessageLookupByLibrary.simpleMessage("New Messages"),
         "latestUpdates": MessageLookupByLibrary.simpleMessage("Latest Updates"),
         "launch": MessageLookupByLibrary.simpleMessage("Launch our app"),
@@ -521,6 +528,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Payment has been registered successfully"),
         "paymentToCaptain":
             MessageLookupByLibrary.simpleMessage("Payment To Captain"),
+        "paymentToDistro":
+            MessageLookupByLibrary.simpleMessage("Payment To Distributors"),
         "paymentsForStore":
             MessageLookupByLibrary.simpleMessage("Payments for store"),
         "paymentsFromCaptain":
@@ -621,6 +630,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Remaining Amount For Company"),
         "remainingAmountForStore":
             MessageLookupByLibrary.simpleMessage("Amount owed for store"),
+        "remainingAmountToDistro": MessageLookupByLibrary.simpleMessage(
+            "Remaining amount to distributors"),
         "renewNewPlan": MessageLookupByLibrary.simpleMessage(
             "Subscription with new package"),
         "renewOldPlan":
@@ -674,6 +685,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Searching for Captain"),
         "searchingForCategories":
             MessageLookupByLibrary.simpleMessage("Searching for categories"),
+        "searchingForDistro":
+            MessageLookupByLibrary.simpleMessage("Searching for Distributors"),
         "searchingForStores":
             MessageLookupByLibrary.simpleMessage("searching for store"),
         "second": MessageLookupByLibrary.simpleMessage("second"),
@@ -784,6 +797,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "totalBillCostHint": MessageLookupByLibrary.simpleMessage(
             "The total cost without delivery cost"),
         "totalBonus": MessageLookupByLibrary.simpleMessage("Total Salary"),
+        "totalDuToRepresentative":
+            MessageLookupByLibrary.simpleMessage("Total dues to Distributors"),
+        "totalPaymentToRepresentative": MessageLookupByLibrary.simpleMessage(
+            "Total payment to Distributors"),
         "twaslnaDashboard":
             MessageLookupByLibrary.simpleMessage("Mandoob Dashboard"),
         "unaccept": MessageLookupByLibrary.simpleMessage(

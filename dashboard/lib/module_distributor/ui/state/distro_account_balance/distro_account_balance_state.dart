@@ -4,9 +4,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:mandob_moshtarayat_dashboad/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
-import 'package:mandob_moshtarayat_dashboad/module_captain/model/balance_model.dart';
-import 'package:mandob_moshtarayat_dashboad/module_captain/ui/screen/captain_balance_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/module_captain/ui/widget/custom_tile.dart';
+import 'package:mandob_moshtarayat_dashboad/module_distributor/model/balance_model.dart';
+import 'package:mandob_moshtarayat_dashboad/module_distributor/ui/screen/distros_balance_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_list_view.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/empty_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/error_screen.dart';
@@ -14,15 +14,15 @@ import 'package:mandob_moshtarayat_dashboad/utils/components/fixed_container.dar
 import 'package:mandob_moshtarayat_dashboad/utils/effect/hidder.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/effect/scaling.dart';
 
-class CaptainBalanceLoadedState extends States {
-  final CaptainBalanceScreenState screenState;
+class DistroBalanceLoadedState extends States {
+  final DistroBalanceScreenState screenState;
   final List<String>? error;
   final bool empty;
   final AccountBalance? captainBalance;
   final AccountBalance? captainBalanceLastMonth;
   final AccountBalance? specificCaptainBalance;
 
-  CaptainBalanceLoadedState(
+  DistroBalanceLoadedState(
       this.screenState, this.captainBalance, this.captainBalanceLastMonth,
       {this.empty = false, this.error, this.specificCaptainBalance})
       : super(screenState) {
@@ -44,7 +44,7 @@ class CaptainBalanceLoadedState extends States {
     if (error != null) {
       return ErrorStateWidget(
         onRefresh: () {
-          screenState.getCaptain();
+          screenState.getDistroBalance();
         },
         errors: error,
       );
@@ -52,7 +52,7 @@ class CaptainBalanceLoadedState extends States {
       return EmptyStateWidget(
           empty: S.current.emptyStaff,
           onRefresh: () {
-            screenState.getCaptain();
+            screenState.getDistroBalance();
           });
     }
     return FixedContainer(
@@ -309,29 +309,18 @@ class CaptainBalanceLoadedState extends States {
     return Flex(
       direction: Axis.vertical,
       children: [
-        CustomTile(Icons.local_atm_rounded, S.current.sumPaymentsFromCaptain,
-            balance.sumPaymentsFromCaptain),
+        CustomTile(Icons.local_atm_rounded, S.current.totalPaymentToRepresentative,
+            balance.sumPaymentToRepresentative),
         CustomTile(Icons.account_balance_rounded,
-            S.current.sumPaymentsToCaptain, balance.sumPaymentsToCaptain),
+            S.current.totalDuToRepresentative, balance.sumRepresentativeDue),
         CustomTile(Icons.delivery_dining_rounded,
-            S.current.countOrdersDelivered, balance.countOrdersDelivered),
-        CustomTile(Icons.account_balance_wallet_rounded, S.current.amountYouOwn,
-            balance.amountYouOwn),
-        CustomTile(
-            Icons.monetization_on_rounded,
-            S.current.remainingAmountForCompany,
-            balance.remainingAmountForCompany),
-        CustomTile(FontAwesomeIcons.gift, S.current.bounce, balance.bounce),
-        CustomTile(
-            Icons.add_road, S.current.kilometerBonus, balance.kilometerBonus),
-        CustomTile(Icons.show_chart, S.current.netProfit, balance.netProfit),
+            S.current.remainingAmountToDistro, balance.totalRemainingPaymentsToRepresentative),
         Padding(
           padding: const EdgeInsets.only(right: 16.0, left: 16),
           child: Divider(
             thickness: 2,
           ),
         ),
-        CustomTile(FontAwesomeIcons.coins, S.current.total, balance.total),
       ],
     );
   }

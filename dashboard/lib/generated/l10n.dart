@@ -5639,6 +5639,96 @@ class S {
       args: [],
     );
   }
+
+  /// `Distributors Balance`
+  String get distroPayments {
+    return Intl.message(
+      'Distributors Balance',
+      name: 'distroPayments',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Searching for Distributors`
+  String get searchingForDistro {
+    return Intl.message(
+      'Searching for Distributors',
+      name: 'searchingForDistro',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total payment to Distributors`
+  String get totalPaymentToRepresentative {
+    return Intl.message(
+      'Total payment to Distributors',
+      name: 'totalPaymentToRepresentative',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total dues to Distributors`
+  String get totalDuToRepresentative {
+    return Intl.message(
+      'Total dues to Distributors',
+      name: 'totalDuToRepresentative',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remaining amount to distributors`
+  String get remainingAmountToDistro {
+    return Intl.message(
+      'Remaining amount to distributors',
+      name: 'remainingAmountToDistro',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Distributors info`
+  String get distroInfo {
+    return Intl.message(
+      'Distributors info',
+      name: 'distroInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Distributors Balance Info`
+  String get distroInfoBalance {
+    return Intl.message(
+      'Distributors Balance Info',
+      name: 'distroInfoBalance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Last Payments To Distributors`
+  String get lastPaymentsToDistro {
+    return Intl.message(
+      'Last Payments To Distributors',
+      name: 'lastPaymentsToDistro',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payment To Distributors`
+  String get paymentToDistro {
+    return Intl.message(
+      'Payment To Distributors',
+      name: 'paymentToDistro',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

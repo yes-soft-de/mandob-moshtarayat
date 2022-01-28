@@ -8,7 +8,7 @@ import 'package:mandob_moshtarayat_dashboad/module_captain/ui/widget/captain_pro
 import 'package:mandob_moshtarayat_dashboad/module_captain/ui/widget/captain_profile/image_tile.dart';
 import 'package:mandob_moshtarayat_dashboad/module_captain/ui/widget/update_profile_widget.dart';
 import 'package:mandob_moshtarayat_dashboad/module_distributor/model/profile_model.dart';
-import 'package:mandob_moshtarayat_dashboad/module_distributor/request/accept_captain_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_distributor/request/accept_distro_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_distributor/ui/screen/distros_profile_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_list_view.dart';

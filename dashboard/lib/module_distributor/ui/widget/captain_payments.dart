@@ -3,12 +3,12 @@ import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_payments/payments_routes.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/progresive_image.dart';
 
-class CaptainCardPayment extends StatelessWidget {
+class DistroCardPayment extends StatelessWidget {
   final String captainId;
   final String image;
   final String captainName;
 
-  CaptainCardPayment(
+  DistroCardPayment(
       {Key? key,
       required this.captainId,
       required this.image,
@@ -25,7 +25,7 @@ class CaptainCardPayment extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(50),
         onTap: () {
-          Navigator.of(context).pushNamed(PaymentsRoutes.PAYMENTS_TO_CAPTAIN,
+          Navigator.of(context).pushNamed(PaymentsRoutes.PAYMENTS_TO_DISTRO,
               arguments: int.parse(captainId));
         },
         child: Container(

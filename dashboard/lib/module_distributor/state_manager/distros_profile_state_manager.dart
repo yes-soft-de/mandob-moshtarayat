@@ -2,7 +2,7 @@ import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat_dashboad/di/di_config.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_distributor/model/profile_model.dart';
-import 'package:mandob_moshtarayat_dashboad/module_distributor/request/accept_captain_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_distributor/request/accept_distro_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_distributor/service/distributer_service.dart';
 import 'package:mandob_moshtarayat_dashboad/module_distributor/ui/screen/distros_profile_screen.dart';
 import 'package:mandob_moshtarayat_dashboad/module_distributor/ui/state/distributors_profile/distributor_profile.dart';

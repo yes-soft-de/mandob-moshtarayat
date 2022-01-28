@@ -7,10 +7,12 @@ import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_captain/captains_routes.dart';
 import 'package:mandob_moshtarayat_dashboad/module_captain/request/accept_captain_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_captain/state_manager/captain_profile_state_manager.dart';
-import 'package:mandob_moshtarayat_dashboad/module_distributor/request/accept_captain_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_distributor/request/accept_distro_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_distributor/state_manager/distros_profile_state_manager.dart';
 import 'package:mandob_moshtarayat_dashboad/module_payments/payments_routes.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_app_bar.dart';
+
+import '../../distros_routes.dart';
 
 @injectable
 class DistrosProfileScreen extends StatefulWidget {
@@ -71,8 +73,8 @@ class DistributorProfileScreenState extends State<DistrosProfileScreen> {
                 child: InkWell(
                   customBorder: CircleBorder(),
                   onTap: () {
-//                    Navigator.pushNamed(context, CaptainsRoutes.CAPTAIN_BALANCE,
-//                        arguments: distorsId);
+                    Navigator.pushNamed(context, DistributorRoutes.DISTRO_BALANCE,
+                        arguments: distorId);
                   },
                   child: Container(
                     decoration: BoxDecoration(

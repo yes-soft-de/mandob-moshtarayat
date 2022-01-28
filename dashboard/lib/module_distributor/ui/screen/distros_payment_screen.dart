@@ -4,20 +4,20 @@ import 'package:mandob_moshtarayat_dashboad/abstracts/states/loading_state.dart'
 import 'package:mandob_moshtarayat_dashboad/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/global_nav_key.dart';
-import 'package:mandob_moshtarayat_dashboad/module_captain/state_manager/captain_captains_payment_list_state_manager.dart';
+import 'package:mandob_moshtarayat_dashboad/module_distributor/state_manager/distro_payment_list_state_manager.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_app_bar.dart';
 
 @injectable
-class CaptainsPaymentsScreen extends StatefulWidget {
-  final CaptainsPaymentsStateManager _stateManager;
+class DistrosPaymentsScreen extends StatefulWidget {
+  final DistrosPaymentsStateManager _stateManager;
 
-  CaptainsPaymentsScreen(this._stateManager);
+  DistrosPaymentsScreen(this._stateManager);
 
   @override
-  CaptainsPaymentsScreenState createState() => CaptainsPaymentsScreenState();
+  DistrosPaymentsScreenState createState() =>DistrosPaymentsScreenState();
 }
 
-class CaptainsPaymentsScreenState extends State<CaptainsPaymentsScreen> {
+class DistrosPaymentsScreenState extends State<DistrosPaymentsScreen> {
   late States currentState;
 
   @override
@@ -27,12 +27,12 @@ class CaptainsPaymentsScreenState extends State<CaptainsPaymentsScreen> {
       currentState = event;
       refresh();
     });
-    // widget._stateManager.getCaptains(this);
+     widget._stateManager.getDistros(this);
     super.initState();
   }
 
-  void getCaptains() {
-    //  widget._stateManager.getCaptains(this);
+  void getDistros() {
+      widget._stateManager.getDistros(this);
   }
 
   void refresh() {
@@ -45,7 +45,7 @@ class CaptainsPaymentsScreenState extends State<CaptainsPaymentsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomMandoobAppBar.appBar(context,
-          title: S.of(context).captainPayments, icon: Icons.menu, onTap: () {
+          title: S.of(context).distroPayments, icon: Icons.menu, onTap: () {
         GlobalVariable.mainScreenScaffold.currentState?.openDrawer();
       }),
       body: currentState.getUI(context),

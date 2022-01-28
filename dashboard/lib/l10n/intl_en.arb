@@ -562,15 +562,18 @@
     "payStatus": "Payment Status",
     "areYouSureToDeleteThisPayment": "Are you sure you want to delete this payment",
     "representativeCommission": "Representative commission",
-    "representativeStatus": "Representative status"
+    "representativeStatus": "Representative status",
 
+    "distroPayments": "Distributors Balance",
+    "searchingForDistro": "Searching for Distributors",
 
+    "totalPaymentToRepresentative": "Total payment to Distributors",
+    "totalDuToRepresentative": "Total dues to Distributors",
+    "remainingAmountToDistro": "Remaining amount to distributors",
 
-
-
-
-
-
-
+    "distroInfo": "Distributors info",
+    "distroInfoBalance": "Distributors Balance Info",
+    "lastPaymentsToDistro": "Last Payments To Distributors",
+    "paymentToDistro": "Payment To Distributors"
 
 }
