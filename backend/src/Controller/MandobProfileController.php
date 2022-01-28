@@ -10,7 +10,6 @@ use App\Request\UserRegisterRequest;
 use App\Service\MandobProfileService;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -40,7 +39,7 @@ class MandobProfileController extends BaseController
      * @Route("mandobregister", name="mandobRegister", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
-     * *
+     * 
      * @OA\Tag(name="Mandob Profile")
      *
      * @OA\RequestBody(
@@ -281,7 +280,7 @@ class MandobProfileController extends BaseController
      * @Route("/mandobfilterbystatus/{status}", name="mandobFilterByStatus", methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
-     * *
+     * 
      * @OA\Tag(name="Mandob Profile")
      *
      * @OA\Parameter(
@@ -343,7 +342,7 @@ class MandobProfileController extends BaseController
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
-     * *
+     * 
      * @OA\Tag(name="Mandob Profile")
      * @OA\Parameter(
      *      name="token",
