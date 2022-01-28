@@ -5,6 +5,7 @@ import 'package:mandob_moshtarayat_dashboad/module_categories/response/response.
 import 'package:mandob_moshtarayat_dashboad/module_payments/manager/payments_manager.dart';
 import 'package:mandob_moshtarayat_dashboad/module_payments/model/payments_model.dart';
 import 'package:mandob_moshtarayat_dashboad/module_payments/request/captain_payments_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_payments/request/distro_payments_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_payments/response/payment_list_response/payment_list_response.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/helpers/status_code_helper.dart';
 
@@ -81,5 +82,33 @@ class PaymentsService {
           StatusCodeHelper.getStatusCodeMessages(actionResponse.statusCode));
     }
     return PaymentsModel.withData(actionResponse.data ?? []);
+  }
+
+  Future<DataModel> paymentToDistro(DistroPaymentsRequest request) async {
+    ActionResponse? actionResponse =
+    await _paymentsManager.paymentToDistro(request);
+
+    if (actionResponse == null) {
+      return DataModel.withError(S.current.networkError);
+    }
+    if (actionResponse.statusCode != '201') {
+      return DataModel.withError(
+          StatusCodeHelper.getStatusCodeMessages(actionResponse.statusCode));
+    }
+    return DataModel.empty();
+  }
+
+  Future<DataModel> deletePaymentToDistro(String id) async {
+    ActionResponse? actionResponse =
+    await _paymentsManager.deletePaymentToDistro(id);
+
+    if (actionResponse == null) {
+      return DataModel.withError(S.current.networkError);
+    }
+    if (actionResponse.statusCode != '401') {
+      return DataModel.withError(
+          StatusCodeHelper.getStatusCodeMessages(actionResponse.statusCode));
+    }
+    return DataModel.empty();
   }
 }
