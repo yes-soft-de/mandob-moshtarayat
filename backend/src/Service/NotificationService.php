@@ -164,7 +164,31 @@ class NotificationService
         return $devicesToken;
     }
 
-    public function notificationNewChatToAdmins(){
+    public function notificationNewChatToAdmins($chatRoomID = null, $userID = null){
+
+        if($userID) {
+            $client = $this->notificationManager->getClientNameByUserID($userID);
+
+            if($client){
+                $clientName = $client['clientName'];
+            }
+        }
+        else {
+            $anonymouseName = $this->notificationManager->getAnonymouseNameByChaRoomID($chatRoomID);
+
+            if($anonymouseName) {
+                $clientName = $anonymouseName['name'];
+            }
+
+            else {
+                $clientName = "anonymouse";
+            }
+        }
+
+        $msg =  MessageConstant::$MESSAGE_NEW_CHAT_TO_ADMIN;
+        if(isset($clientName)){
+            $msg =  MessageConstant::$MESSAGE_NEW_CHAT_TO_ADMIN.$clientName;
+        }
 
         $getTokens = $this->getAdminsTokens();
 
@@ -181,10 +205,11 @@ class NotificationService
         ];
 
         $message = CloudMessage::new()
-                ->withNotification(Notification::create(DeliveryCompanyNameConstant::$Delivery_Company_Name, MessageConstant::$MESSAGE_NEW_CHAT))->withDefaultSounds()
+                ->withNotification(Notification::create(DeliveryCompanyNameConstant::$Delivery_Company_Name, $msg))->withDefaultSounds()
                 ->withHighestPossiblePriority();
 
         $message = $message->withData($payload);
+
         try{
             $this->messaging->sendMulticast($message, $devicesToken);
         }
@@ -210,7 +235,7 @@ class NotificationService
     public function notificationNewChatByUserID(NotificationTokenByUserIDRequest $request)
     {
         if(!$request->getOtherUserID()){
-            return $this->notificationNewChatToAdmins();
+            return $this->notificationNewChatToAdmins($request->getChatRoomID(), $request->getUserID());
         }
 
         $payload = [

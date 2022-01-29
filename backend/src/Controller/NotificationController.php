@@ -138,6 +138,7 @@ class NotificationController extends BaseController
      *        description="notification new chat by other userID",
      *        @OA\JsonContent(
      *              @OA\Property(type="integer", property="otherUserID", description="if null send new msg notification to admins"),
+     *              @OA\Property(type="string", property="chatRoomID", description="if the client is anonymous you must send your support roomID"),
      *               ),
      *         ),
      *
@@ -158,6 +159,10 @@ class NotificationController extends BaseController
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class,NotificationTokenByUserIDRequest::class,(object)$data);
+
+        if( $this->isGranted('ROLE_CLIENT') ) {
+           $request->setUserID($this->getUserId());
+        }
 
         $response = $this->notificationService->notificationNewChatByUserID($request);
 

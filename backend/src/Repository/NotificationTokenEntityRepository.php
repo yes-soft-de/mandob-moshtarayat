@@ -82,4 +82,36 @@ class NotificationTokenEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getAnonymouseNameByChaRoomID($chatRoomID)
+    {
+        return $this->createQueryBuilder('NotificationTokenEntity')
+            ->select('anonymousChatEntity.name')
+
+            ->leftJoin(AnonymousChatEntity::class, 'anonymousChatEntity', Join::WITH, 'anonymousChatEntity.roomID = :chatRoomID')
+
+            ->andWhere("anonymousChatEntity.roomID = :chatRoomID ")
+
+            ->setParameter('chatRoomID', $chatRoomID)
+
+            ->groupBy('anonymousChatEntity.id')
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function getClientNameByUserID($userID)
+    {
+        return $this->createQueryBuilder('NotificationTokenEntity')
+            ->select('clientProfileEntity.clientName')
+
+            ->leftJoin(ClientProfileEntity::class, 'clientProfileEntity', Join::WITH, 'clientProfileEntity.clientID = NotificationTokenEntity.userID')
+
+            ->andWhere("clientProfileEntity.clientID = :userID ")
+
+            ->setParameter('userID', $userID)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
