@@ -94,10 +94,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "car": MessageLookupByLibrary.simpleMessage("سيارة "),
         "card": MessageLookupByLibrary.simpleMessage("بطاقة"),
         "cart": MessageLookupByLibrary.simpleMessage("سلة المشتريات"),
+        "cartAttention": MessageLookupByLibrary.simpleMessage(
+            "يرجى التحقق من السلة قد تم تغيير بعض من محتوياتها"),
         "cartItemAdded": MessageLookupByLibrary.simpleMessage(
             "تم إضافة عنصر إلى سلة الشراء"),
         "cartItemRemoved": MessageLookupByLibrary.simpleMessage(
             "تمت إزالة عنصر من سلة الشراء"),
+        "cartValidation":
+            MessageLookupByLibrary.simpleMessage("جاري التحقق من السلة"),
         "cash": MessageLookupByLibrary.simpleMessage("نقدا"),
         "categories": MessageLookupByLibrary.simpleMessage("التصنيفات"),
         "category": MessageLookupByLibrary.simpleMessage("تصنيف"),
@@ -193,6 +197,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "لقد تجاوزت الوقت المسموح لإزالة الطلب"),
         "externalOrder": MessageLookupByLibrary.simpleMessage("طلبية خارجية"),
         "extraDetails": MessageLookupByLibrary.simpleMessage("تفاصيل إضافية"),
+        "extraTax": MessageLookupByLibrary.simpleMessage("القيمة المضافة"),
         "favoriteCategories":
             MessageLookupByLibrary.simpleMessage("التصنيفات المفضلة"),
         "favoriteStores":
@@ -373,6 +378,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "paymentHistory": MessageLookupByLibrary.simpleMessage("تاريخ الدفعات"),
         "paymentMethod": MessageLookupByLibrary.simpleMessage("طريقة الدفع"),
         "paymentMethodHint": MessageLookupByLibrary.simpleMessage("اختر"),
+        "paymentPortalHint": MessageLookupByLibrary.simpleMessage(
+            "المبلغ النهائي في بوابة الدفع شاملة للقيمة المضافة %15"),
+        "paymentResume": MessageLookupByLibrary.simpleMessage("استكمال الدفع"),
         "paymentsVia":
             MessageLookupByLibrary.simpleMessage("إيصال المدفوعات عبر"),
         "personalData":
@@ -423,7 +431,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "product": MessageLookupByLibrary.simpleMessage("منتج"),
         "productDetails": MessageLookupByLibrary.simpleMessage("تفاصيل منتج"),
         "productName": MessageLookupByLibrary.simpleMessage("اسم المنتج"),
-        "productQuantity": MessageLookupByLibrary.simpleMessage("عدد الوحدات"),
+        "productQuantity": MessageLookupByLibrary.simpleMessage("الكمية"),
         "productRated": MessageLookupByLibrary.simpleMessage("تم تقييم المنتج"),
         "products": MessageLookupByLibrary.simpleMessage("منتجات"),
         "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
@@ -545,6 +553,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sureForDelete": MessageLookupByLibrary.simpleMessage(
             "هل أنت متأكد من قيامك بحذف هذا الطلب"),
         "syria": MessageLookupByLibrary.simpleMessage("سوريا"),
+        "tax": MessageLookupByLibrary.simpleMessage("القيمة المضافة ال %15"),
         "termsOfService":
             MessageLookupByLibrary.simpleMessage("شروط الاستخدام"),
         "thisErrorHappened":
@@ -619,6 +628,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("صاحب المحل"),
         "withTaxes":
             MessageLookupByLibrary.simpleMessage("شامل القيمة المضافة"),
+        "withoutTax": MessageLookupByLibrary.simpleMessage(
+            "السعر غير شامل القيمة المضافة"),
         "youHaveProductsFromDifferentStore": MessageLookupByLibrary.simpleMessage(
             "السلة تحتوي على أصناف من متجر آخر , هل تريد حذف أصناف السلة وإضافة الأصناف الجديدة"),
         "yourCartEmpty": MessageLookupByLibrary.simpleMessage(

@@ -363,7 +363,7 @@
     "sold": " فروخت",
     "specification": " تفصیلات",
     "totalPrice": " کل قیمت",
-    "productQuantity": " مصنوعات کی مقدار",
+    "productQuantity": "مقدار",
     "youHaveProductsFromDifferentStore": " آپ کے پاس دوسرے اسٹور کے پروڈکٹس ہیں، کیا آپ اپنی ٹوکری کو صاف کرنا چاہتے ہیں اور نئی شامل کرنا چاہتے ہیں؟",
     "productRated": " مصنوعات کی درجہ بندی",
     "rateProductMessage": " براہ کرم اس پروڈکٹ کی درجہ بندی کریں۔",
@@ -406,5 +406,16 @@
     "update": "اپ ڈیٹ",
     "phoneNumberLong": "فون نمبر غلط فارمیٹ، وجہ 9 سے زیادہ ہے۔",
     "similarProducts": "اسی طرح کی مصنوعات",
-    "accountNotExist": "اکاؤنٹ موجود نہیں ہے۔"
+    "accountNotExist": "اکاؤنٹ موجود نہیں ہے۔",
+    "paymentPortalHint": "پیمنٹ پورٹل میں تمام قیمتیں 15% ٹیکس کے ساتھ شامل ہیں",
+    "tax": "ٹیکس",
+    "cartAttention": "کارٹ کے مواد پر توجہ دیں کیونکہ تبدیلیاں کی گئی ہیں",
+    "cartValidation": "چیکنگ کارٹ",
+    "withoutTax": "شامل نہیں ویلیو ایڈڈ",
+    "extraTax": "ویلیو ایڈڈ",
+    "paymentResume": "مکمل ادائیگی"
+
+
+
+
 }

@@ -63,9 +63,10 @@ class ProductDetailsLoadedState extends States {
             padding: const EdgeInsets.only(top: 16.0),
             child: Container(
               width: double.maxFinite,
-              decoration:  BoxDecoration(
-                color:Theme.of(context).cardColor,
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(25)),
+              decoration: BoxDecoration(
+                color: Theme.of(context).cardColor,
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(25)),
               ),
               child: Column(
                 children: [
@@ -207,7 +208,7 @@ class ProductDetailsLoadedState extends States {
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Text(
-                                        '${model.productPrice.toStringAsFixed(1)} ${S.current.sar}',
+                                        '${model.productPrice.toStringAsFixed(2)} ${S.current.sar}',
                                         style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: Colors.white),
@@ -307,7 +308,7 @@ class ProductDetailsLoadedState extends States {
                           ),
                           child: Center(
                               child: Text(
-                            '${getQuantity(model.id) * model.productPrice} ${S.current.sar}',
+                            '${(getQuantity(model.id) * model.productPrice).toStringAsFixed(2)} ${S.current.sar}',
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 17),
                           )),
@@ -315,10 +316,10 @@ class ProductDetailsLoadedState extends States {
                       ],
                     ),
                   ),
-                  Text(
-                    S.current.withTaxes + ' 15% ',
-                    style: const TextStyle(fontSize: 16, color: Colors.red),
-                  ),
+                 Text(S.current.withoutTax + ' %15 ',style: const TextStyle(
+                   fontWeight: FontWeight.bold,
+                   color: Colors.red
+                 ),), 
                   ListTile(
                     leading: Icon(
                       FontAwesomeIcons.shoppingCart,

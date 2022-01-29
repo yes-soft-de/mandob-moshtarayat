@@ -130,10 +130,12 @@ class _OuterOrderBottomSheetState extends State<OuterOrderBottomSheet> {
                           ),
                           checkedWidget: ClipRRect(
                               borderRadius: BorderRadius.circular(18),
-                              child:kIsWeb ? WebImageLoader(filePath: imagePath ?? '') : Image.file(
-                                File(imagePath ?? ''),
-                                fit: BoxFit.cover,
-                              ))),
+                              child: kIsWeb
+                                  ? WebImageLoader(filePath: imagePath ?? '')
+                                  : Image.file(
+                                      File(imagePath ?? ''),
+                                      fit: BoxFit.cover,
+                                    ))),
                     ),
                   ),
                 ), // send

@@ -164,7 +164,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   ) {
     return FeatureDiscovery(
       child: MaterialApp(
-        scrollBehavior:MyCustomScrollBehavior(),
+        scrollBehavior: MyCustomScrollBehavior(),
         debugShowCheckedModeBanner: false,
         navigatorObservers: <NavigatorObserver>[observer],
         navigatorKey: GlobalVariable.navState,
@@ -191,12 +191,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     return getConfiguratedApp(YesModule.RoutesMap);
   }
 }
+
 class MyCustomScrollBehavior extends MaterialScrollBehavior {
   // Override behavior methods and getters like dragDevices
   @override
-  Set<PointerDeviceKind> get dragDevices => { 
-    PointerDeviceKind.touch,
-    PointerDeviceKind.mouse,
-    // etc.
-  };
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+        // etc.
+      };
 }

@@ -94,10 +94,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "car": MessageLookupByLibrary.simpleMessage("Car"),
         "card": MessageLookupByLibrary.simpleMessage("Card"),
         "cart": MessageLookupByLibrary.simpleMessage("Cart"),
+        "cartAttention": MessageLookupByLibrary.simpleMessage(
+            "Pay Attention to cart content because changes have been made"),
         "cartItemAdded":
             MessageLookupByLibrary.simpleMessage("Item added to cart"),
         "cartItemRemoved":
             MessageLookupByLibrary.simpleMessage("Item removed from cart"),
+        "cartValidation": MessageLookupByLibrary.simpleMessage("Checking Cart"),
         "cash": MessageLookupByLibrary.simpleMessage("Cash"),
         "categories": MessageLookupByLibrary.simpleMessage("Categories"),
         "category": MessageLookupByLibrary.simpleMessage("category"),
@@ -194,6 +197,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Can not remove it, Exceeded time allowed"),
         "externalOrder": MessageLookupByLibrary.simpleMessage("External Order"),
         "extraDetails": MessageLookupByLibrary.simpleMessage("Extra details"),
+        "extraTax": MessageLookupByLibrary.simpleMessage("Tax fee"),
         "failureRenew": MessageLookupByLibrary.simpleMessage(
             "Your renew has been failed please try again"),
         "favoriteCategories":
@@ -377,6 +381,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Payment History"),
         "paymentMethod": MessageLookupByLibrary.simpleMessage("Payment Method"),
         "paymentMethodHint": MessageLookupByLibrary.simpleMessage("Choose"),
+        "paymentPortalHint": MessageLookupByLibrary.simpleMessage(
+            "All prices in payments portal are included with 15% tax"),
+        "paymentResume": MessageLookupByLibrary.simpleMessage("Payment Resume"),
         "paymentsVia": MessageLookupByLibrary.simpleMessage("Payments via"),
         "personalData": MessageLookupByLibrary.simpleMessage("Personal Data"),
         "phoneIsRequired":
@@ -427,8 +434,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "productDetails":
             MessageLookupByLibrary.simpleMessage("Products Details"),
         "productName": MessageLookupByLibrary.simpleMessage("Product Name"),
-        "productQuantity":
-            MessageLookupByLibrary.simpleMessage("Product Quantity"),
+        "productQuantity": MessageLookupByLibrary.simpleMessage("Quantity"),
         "productRated": MessageLookupByLibrary.simpleMessage("Product Rated"),
         "products": MessageLookupByLibrary.simpleMessage("Products"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
@@ -547,6 +553,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sureForDelete": MessageLookupByLibrary.simpleMessage(
             "Are you sure about deleting this order , please confirm"),
         "syria": MessageLookupByLibrary.simpleMessage("Syria"),
+        "tax": MessageLookupByLibrary.simpleMessage("15% Tax"),
         "termsOfService":
             MessageLookupByLibrary.simpleMessage("Terms of Service"),
         "thisErrorHappened":
@@ -619,6 +626,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "whatsappWithStoreOwner":
             MessageLookupByLibrary.simpleMessage("Store Owner"),
         "withTaxes": MessageLookupByLibrary.simpleMessage("With taxes "),
+        "withoutTax": MessageLookupByLibrary.simpleMessage("Without tax fee"),
         "youHaveProductsFromDifferentStore": MessageLookupByLibrary.simpleMessage(
             "You have products from other store , Do you want to clear your cart and add the new ones"),
         "yourCartEmpty": MessageLookupByLibrary.simpleMessage(

@@ -67,7 +67,8 @@ class Datum {
             json['productPriceWithOutCommission'] as num?,
         costDetails: json['costDetails'] == null
             ? null
-            : CostDetailsResponse.fromJson(json['costDetails'] as Map<String, dynamic>),
+            : CostDetailsResponse.fromJson(
+                json['costDetails'] as Map<String, dynamic>),
         commission: json['commission'] as dynamic,
         isLevel1: json['isLevel1'] as dynamic,
         isLevel2: json['isLevel2'] as dynamic,

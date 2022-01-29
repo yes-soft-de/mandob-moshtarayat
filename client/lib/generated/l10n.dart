@@ -3680,10 +3680,10 @@ class S {
     );
   }
 
-  /// `Product Quantity`
+  /// `Quantity`
   String get productQuantity {
     return Intl.message(
-      'Product Quantity',
+      'Quantity',
       name: 'productQuantity',
       desc: '',
       args: [],
@@ -4115,6 +4115,76 @@ class S {
     return Intl.message(
       'Account not exist',
       name: 'accountNotExist',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All prices in payments portal are included with 15% tax`
+  String get paymentPortalHint {
+    return Intl.message(
+      'All prices in payments portal are included with 15% tax',
+      name: 'paymentPortalHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `15% Tax`
+  String get tax {
+    return Intl.message(
+      '15% Tax',
+      name: 'tax',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pay Attention to cart content because changes have been made`
+  String get cartAttention {
+    return Intl.message(
+      'Pay Attention to cart content because changes have been made',
+      name: 'cartAttention',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Checking Cart`
+  String get cartValidation {
+    return Intl.message(
+      'Checking Cart',
+      name: 'cartValidation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Without tax fee`
+  String get withoutTax {
+    return Intl.message(
+      'Without tax fee',
+      name: 'withoutTax',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tax fee`
+  String get extraTax {
+    return Intl.message(
+      'Tax fee',
+      name: 'extraTax',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payment Resume`
+  String get paymentResume {
+    return Intl.message(
+      'Payment Resume',
+      name: 'paymentResume',
       desc: '',
       args: [],
     );

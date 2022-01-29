@@ -308,7 +308,7 @@ class ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
         index: index,
         child: ChatBubbleWidget(
           message: element.msg ?? '',
-          me: element.sender == username || element.sender == '' ?  true : false,
+          me: element.sender == username || element.sender == '' ? true : false,
           sentDate: element.sentDate,
         ),
       ));
