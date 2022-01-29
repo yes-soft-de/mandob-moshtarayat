@@ -35,6 +35,11 @@ class NotificationManager
         return $this->notificationTokenEntityRepository->getAdminsTokens();
     }
 
+    public function getAnonymouseNameByChaRoomID($chatRoomID)
+    {
+        return $this->notificationTokenEntityRepository->getAnonymouseNameByChaRoomID($chatRoomID);
+    }
+
     public function getStoreTokens($storeIDs)
     {
         return $this->notificationTokenEntityRepository->getStoreTokens($storeIDs);
@@ -79,6 +84,12 @@ class NotificationManager
         $token = $this->notificationTokenEntityRepository->findBy(['userID' => $userID]);
 
         return $token[0]->getToken();
+    }
+
+    public function getClientNameByUserID($userID)
+    {
+        return $this->notificationTokenEntityRepository->getClientNameByUserID($userID);
+
     }
 
     public function getAnonymousToken($anonymousChatID)

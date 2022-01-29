@@ -855,7 +855,8 @@ class ProductController extends BaseController
      *              @OA\Property(type="number", property="productPrice"),
      *              @OA\Property(type="integer", property="storeProductCategoryID"),
      *              @OA\Property(type="integer", property="discount"),
-     *              @OA\Property(type="integer", property="productQuantity")
+     *              @OA\Property(type="integer", property="productQuantity"),
+     *              @OA\Property(type="string", property="status")
      *          ),
      *          @OA\Property(type="array", property="translate",
      *              @OA\Items(

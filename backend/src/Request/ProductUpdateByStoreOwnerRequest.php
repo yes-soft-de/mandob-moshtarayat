@@ -20,6 +20,8 @@ class ProductUpdateByStoreOwnerRequest
 
     private $productQuantity;
 
+    private $status;
+
     /**
      * Get the value of id
      */
