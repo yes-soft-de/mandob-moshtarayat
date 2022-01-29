@@ -316,10 +316,11 @@ class ProductDetailsLoadedState extends States {
                       ],
                     ),
                   ),
-                 Text(S.current.withoutTax + ' %15 ',style: const TextStyle(
-                   fontWeight: FontWeight.bold,
-                   color: Colors.red
-                 ),), 
+                  Text(
+                    S.current.withoutTax + ' %15 ',
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.red),
+                  ),
                   ListTile(
                     leading: Icon(
                       FontAwesomeIcons.shoppingCart,

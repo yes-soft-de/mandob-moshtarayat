@@ -42,7 +42,9 @@ class CartStateManager {
         var model = value as CartValidationModel;
         if (model.attention) {
           CustomFlushBarHelper.createSuccess(
-                  title: S.current.warnning, message: S.current.cartAttention,background: Theme.of(screenState.context).primaryColor)
+                  title: S.current.warnning,
+                  message: S.current.cartAttention,
+                  background: Theme.of(screenState.context).primaryColor)
               .show(screenState.context);
         }
         _stateSubject.add(CartLoadedState(screenState));
