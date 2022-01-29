@@ -5,6 +5,7 @@ import 'package:mandob_moshtarayat/module_orders/response/order_details_response
 import 'package:mandob_moshtarayat/module_orders/response/order_details_response/order.dart';
 import 'package:mandob_moshtarayat/module_orders/response/order_details_response/order_detail.dart';
 import 'package:mandob_moshtarayat/module_orders/response/order_details_response/order_details_response.dart';
+import 'package:mandob_moshtarayat/module_orders/response/order_details_response/vat_response/vat_tax.dart';
 import 'package:mandob_moshtarayat/utils/helpers/order_status_helper.dart';
 
 class OrderDetailsModel {
@@ -30,7 +31,7 @@ class OrderDetailsModel {
   OrderDetailsModel.Data(OrderDetailsResponse response) {
     orderDetailsModel = OrderDetailsModel(
       carts: toCartList(response.data?.orderDetails ?? <OrderDetail>[]),
-      order: toOrder(response.data?.order),
+      order: toOrder(response.data?.order,response.data?.vatTax),
     );
   }
 
@@ -163,7 +164,7 @@ List<StoreOwnerInfo> toCartList(List<OrderDetail> ordersItems) {
   return items;
 }
 
-OrderInfo toOrder(Order? order) {
+OrderInfo toOrder(Order? order,VatTax? vats) {
   if (order != null) {
     bool timeout = false;
     var date = DateTime.fromMillisecondsSinceEpoch(
@@ -177,7 +178,7 @@ OrderInfo toOrder(Order? order) {
         state: StatusHelper.getStatusEnum(order.state),
         roomID: order.roomId ?? 'roomID',
         ownerID: -1,
-        orderCost: order.orderCost?.toDouble() ?? 0,
+        orderCost: vats?.total?.toDouble() ?? 0,
         deliveryDate: DateTime.fromMillisecondsSinceEpoch(
                 (order.deliveryDate?.timestamp ??
                         DateTime.now().millisecondsSinceEpoch) *

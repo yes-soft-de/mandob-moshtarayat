@@ -75,6 +75,17 @@ class BillCard extends StatelessWidget {
                   ),
                 ),
                 Container(
+                  width: 8,
+                ),
+                Text(
+                  S.of(context).withTaxes,
+                  style:  TextStyle(
+                    fontSize: 16,
+                    color: Theme.of(context).primaryColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Container(
                   width: 16,
                 ),
                 Text(
@@ -245,7 +256,7 @@ class _BillCardDetailsState extends State<BillCardDetails> {
                 child: Text(
                   S.current.extraTax + ' %15 ',
                   textAlign: TextAlign.start,
-                  style:  TextStyle(
+                  style: TextStyle(
                     color: Theme.of(context).primaryColor,
                     fontWeight: FontWeight.bold,
                   ),
