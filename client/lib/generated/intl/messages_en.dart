@@ -197,7 +197,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Can not remove it, Exceeded time allowed"),
         "externalOrder": MessageLookupByLibrary.simpleMessage("External Order"),
         "extraDetails": MessageLookupByLibrary.simpleMessage("Extra details"),
-        "extraTax": MessageLookupByLibrary.simpleMessage("Tax fee"),
+        "extraTax": MessageLookupByLibrary.simpleMessage("vat fee"),
         "failureRenew": MessageLookupByLibrary.simpleMessage(
             "Your renew has been failed please try again"),
         "favoriteCategories":
@@ -382,7 +382,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "paymentMethod": MessageLookupByLibrary.simpleMessage("Payment Method"),
         "paymentMethodHint": MessageLookupByLibrary.simpleMessage("Choose"),
         "paymentPortalHint": MessageLookupByLibrary.simpleMessage(
-            "All prices in payments portal are included with 15% tax"),
+            "All prices in payments portal are included with 15% vat"),
         "paymentResume": MessageLookupByLibrary.simpleMessage("Payment Resume"),
         "paymentsVia": MessageLookupByLibrary.simpleMessage("Payments via"),
         "personalData": MessageLookupByLibrary.simpleMessage("Personal Data"),
@@ -553,7 +553,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sureForDelete": MessageLookupByLibrary.simpleMessage(
             "Are you sure about deleting this order , please confirm"),
         "syria": MessageLookupByLibrary.simpleMessage("Syria"),
-        "tax": MessageLookupByLibrary.simpleMessage("15% Tax"),
+        "tax": MessageLookupByLibrary.simpleMessage("15% vat"),
         "termsOfService":
             MessageLookupByLibrary.simpleMessage("Terms of Service"),
         "thisErrorHappened":
@@ -626,7 +626,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "whatsappWithStoreOwner":
             MessageLookupByLibrary.simpleMessage("Store Owner"),
         "withTaxes": MessageLookupByLibrary.simpleMessage("With taxes "),
-        "withoutTax": MessageLookupByLibrary.simpleMessage("Without tax fee"),
+        "withoutTax": MessageLookupByLibrary.simpleMessage("Without vat fee"),
         "youHaveProductsFromDifferentStore": MessageLookupByLibrary.simpleMessage(
             "You have products from other store , Do you want to clear your cart and add the new ones"),
         "yourCartEmpty": MessageLookupByLibrary.simpleMessage(
