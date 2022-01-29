@@ -2,6 +2,7 @@ class DataStoreUpdateProduct {
   int? id;
   String? productName;
   String? productImage;
+  String? productStatus;
   num? discount;
   num? productQuantity;
   double? productPrice;
@@ -20,6 +21,7 @@ class DataStoreUpdateProduct {
       this.storeOwnerProfileID,
       this.storeProductCategoryID,
       this.productQuantity,
+        this.productStatus,
       this.storeMainCategoryID,
       required this.isLevelTwo ,
      required  this.isLevelOne ,
@@ -37,6 +39,7 @@ class DataStoreUpdateProduct {
     storeProductCategoryID = json['storeProductCategoryID'];
     isLevelOne = json['isLevel1']??false;
     isLevelTwo = json['isLevel2']??false;
+    productStatus = json['status'];
   }
 
   Map<String, dynamic> toJson() {
@@ -49,6 +52,7 @@ class DataStoreUpdateProduct {
     map['storeOwnerProfileID'] = storeOwnerProfileID;
     map['storeProductCategoryID'] = storeProductCategoryID;
     map['productQuantity'] = productQuantity;
+    map['status'] = productStatus;
     return map;
   }
 }

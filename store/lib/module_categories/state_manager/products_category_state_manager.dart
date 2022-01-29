@@ -221,12 +221,12 @@ class ProductsCategoryStateManager {
     }
   }
 //
-  void updateProductStatus(
+  void deleteProduct(
       ProductCategoriesScreenState screenState,
-      UpdateProductStatusRequest request,
+      String request,
       List<ProductsCategoryModel> levelOne) {
     _stateSubject.add(ProductCategoriesLoadingState(screenState));
-    _categoriesService.updateProductStatus(request).then((value) {
+    _categoriesService.deleteProduct(request).then((value) {
       if (value.hasError) {
         _stateSubject.add(ProductCategoriesLoadedState(
             screenState,

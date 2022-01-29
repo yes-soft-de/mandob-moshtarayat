@@ -294,11 +294,13 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
               child: ProductComponent(
             discount: element.discount.toString(),
             description: '',
+            status: element.status,
             image: element.productImage.image ?? '',
             rating: 0,
             title: element.productName,
             productId: element.id.toString(),
             price: element.productPrice.toString(),
+                quantity: element.productQuantity.toString(),
           )),
           Column(
             children: [
@@ -322,12 +324,13 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
                                 storeMainCategoryID: screenState.idOne?.id,
                                 categoryName: screenState.idOne?.id,
                                 isLevelOne: element.levelOne,
-                                isLevelTwo: element.levelTwo),
+                                isLevelTwo: element.levelTwo
+                                ,productStatus: element.status),
                           ),
                           categoriesOne: getChoicesOne(),
                           categoriesTwo: getChoicesTwo(),
                           categoryLink: element.categoryLink ?? CategoryLink(),
-                          addProduct: (name, price, image, discount, catID,q) {
+                          addProduct: (name, price, image, discount, catID,q,status) {
                             Navigator.of(context).pop();
                             screenState.updateProduct(
                               UpdateProductRequest(
@@ -340,7 +343,7 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
                                       productPrice: double.parse(price),
                                       storeProductCategoryID: int.parse(catID),
                                       isLevelOne: element.levelOne,
-                                      isLevelTwo: element.levelTwo)),
+                                      isLevelTwo: element.levelTwo,productStatus: status)),
                               categoriesOne,
                               categoriesTwo,
                               screenState.idTwo != null ? true : false,
@@ -367,12 +370,8 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
               ),
               InkWell(
                 onTap: () {
-                  screenState.updateProductStatus(
-                    UpdateProductStatusRequest(
-                        status: 'inactive',
-                        id: element.id,
-                        storeProductCategoryID: element.storeProductCategoryID,
-                        storeMainCategoryID: -1),
+                  screenState.deleteProduct(
+                    element.id.toString(),
                     categoriesOne,
                     categoriesTwo,
                   );

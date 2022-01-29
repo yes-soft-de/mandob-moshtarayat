@@ -28,6 +28,7 @@ class CategoriesManager {
 
   Future<ActionResponse?> updateProduct(UpdateProductRequest request) => _categoriesRepository.updateProduct(request);
   Future<ActionResponse?> updateProductStatus(UpdateProductStatusRequest request) => _categoriesRepository.updateProductStatus(request);
+  Future<ActionResponse?> deleteProduct(String id) => _categoriesRepository.deleteProduct(id);
 
 
 }

@@ -72,16 +72,16 @@ class ProductCategoriesScreenState extends State<ProductCategoriesScreen> {
     widget._stateManager.updateProduct(this, request, levelOne, levelTwo,isLevelTwo,idTwo != null ? idTwo?.id??-1 : idOne?.id ?? -1);
   }
 
-  void updateProductStatus(
-      UpdateProductStatusRequest request,
+  void deleteProduct(
+      String id,
       List<ProductsCategoryModel> levelOne,
       List<ProductsCategoryModel> levelTwo) {
     showDialog(
         context: context,
         builder: (_) {
           return CustomAlertDialog(onPressed: () {
-            widget._stateManager.updateProductStatus(
-                this, request, levelOne);
+            widget._stateManager.deleteProduct(
+                this, id, levelOne);
             Navigator.pop(context);
           });
         });

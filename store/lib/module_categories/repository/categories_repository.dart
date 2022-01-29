@@ -98,6 +98,13 @@ class CategoriesRepository {
     if (response == null) return null;
     return ActionResponse.fromJson(response);
   }
+  Future<ActionResponse?> deleteProduct(String id) async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.put(Urls.DELETE_PRODUCT + '$id',{},
+        headers: {'Authorization': 'Bearer ' + token.toString()});
+    if (response == null) return null;
+    return ActionResponse.fromJson(response);
+  }
 
 
 }

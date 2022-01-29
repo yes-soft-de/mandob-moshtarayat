@@ -151,5 +151,18 @@ class CategoriesService {
     }
     return DataModel.empty();
   }
+  Future<DataModel> deleteProduct(String id) async {
+    ActionResponse? actionResponse =
+    await _categoriesManager.deleteProduct(id);
+
+    if (actionResponse == null) {
+      return DataModel.withError(S.current.networkError);
+    }
+    if (actionResponse.statusCode != '204') {
+      return DataModel.withError(StatusCodeHelper.getStatusCodeMessages(
+          actionResponse.statusCode));
+    }
+    return DataModel.empty();
+  }
 
 }

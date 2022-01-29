@@ -137,11 +137,13 @@ class ProductStoreState extends States {
               child: ProductComponent(
             discount: element.discount.toString(),
             description: '',
+            status: element.status,
             image: element.productImage.image ?? '',
             rating: 0,
             title: element.productName,
             productId: element.id.toString(),
             price: element.productPrice.toString(),
+                quantity: element.productQuantity.toString(),
           )),
           Column(
             children: [
@@ -166,9 +168,9 @@ class ProductStoreState extends States {
                                 storeProductCategoryID:
                                     element.storeProductCategoryID,
                                 isLevelTwo: element.levelTwo,
-                                isLevelOne: element.levelOne),
+                                isLevelOne: element.levelOne,productStatus: element.status),
                           ),
-                          addProduct: (name, price, image, discount, catID,q) {
+                          addProduct: (name, price, image, discount, catID,q,status) {
                             Navigator.of(context).pop();
                             screenState.updateProduct(
                               UpdateProductRequest(
@@ -181,7 +183,7 @@ class ProductStoreState extends States {
                                     productPrice: double.parse(price),
                                     storeProductCategoryID: int.parse(catID),
                                     isLevelTwo: element.levelTwo,
-                                    isLevelOne: element.levelOne),
+                                    isLevelOne: element.levelOne,productStatus: status),
                               ),
                               categoriesOne ?? [],
                             );
@@ -207,13 +209,8 @@ class ProductStoreState extends States {
               ),
               InkWell(
                 onTap: () {
-                  screenState.updateProductStatus(
-                      UpdateProductStatusRequest(
-                          status: 'inactive',
-                          id: element.id,
-                          storeProductCategoryID:
-                              element.storeProductCategoryID,
-                          storeMainCategoryID: -1),
+                  screenState.deleteProduct(
+                      element.id.toString(),
                       categoriesOne ?? []);
                 },
                 child: Padding(
