@@ -409,12 +409,12 @@
     "phoneNumberLong": "Phone number invalid format , cause is more than 9",
     "similarProducts": "Similar Products",
     "accountNotExist": "Account not exist",
-    "paymentPortalHint": "All prices in payments portal are included with 15% tax",
-    "tax": "15% Tax",
+    "paymentPortalHint": "All prices in payments portal are included with 15% vat",
+    "tax": "15% vat",
     "cartAttention": "Pay Attention to cart content because changes have been made",
     "cartValidation": "Checking Cart",
-    "withoutTax": "Without tax fee",
-    "extraTax": "Tax fee",
+    "withoutTax": "Without vat fee",
+    "extraTax": "vat fee",
     "paymentResume": "Payment Resume"
 
 
