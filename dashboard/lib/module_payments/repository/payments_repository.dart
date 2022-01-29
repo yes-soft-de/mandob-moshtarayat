@@ -4,6 +4,7 @@ import 'package:mandob_moshtarayat_dashboad/module_auth/service/auth_service/aut
 import 'package:mandob_moshtarayat_dashboad/module_categories/response/response.dart';
 import 'package:mandob_moshtarayat_dashboad/module_network/http_client/http_client.dart';
 import 'package:mandob_moshtarayat_dashboad/module_payments/request/captain_payments_request.dart';
+import 'package:mandob_moshtarayat_dashboad/module_payments/request/distro_payments_request.dart';
 import 'package:mandob_moshtarayat_dashboad/module_payments/response/payment_list_response/payment_list_response.dart';
 
 @injectable
@@ -57,5 +58,24 @@ class PaymentsRepository {
         headers: {'Authorization': 'Bearer ' + token.toString()});
     if (response == null) return null;
     return PaymentListResponse.fromJson(response);
+  }
+
+
+  Future<ActionResponse?> paymentToDistro(
+      DistroPaymentsRequest request) async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.post(
+        Urls.PAYMENTS_TO_DISTRO, request.toJson(),
+        headers: {'Authorization': 'Bearer ' + token.toString()});
+    if (response == null) return null;
+    return ActionResponse.fromJson(response);
+  }
+  Future<ActionResponse?> deletePaymentToDistro(String id) async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.delete(
+        Urls.DELETE_PAYMENTS_TO_DISTRO + '/$id',
+        headers: {'Authorization': 'Bearer ' + token.toString()});
+    if (response == null) return null;
+    return ActionResponse.fromJson(response);
   }
 }

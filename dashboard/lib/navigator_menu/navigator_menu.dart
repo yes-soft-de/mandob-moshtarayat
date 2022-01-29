@@ -139,6 +139,11 @@ class _NavigatorMenuState extends State<NavigatorMenu> {
                     S.current.inActiveDistributors,
                     FontAwesomeIcons.adversal,
                     true),
+                customListTile(
+                    getIt<DistributorsModule>().distrosPaymentsScreen,
+                    S.current.distroPayments,
+                    FontAwesomeIcons.solidCreditCard,
+                    true)
               ],
               page: widget.currentPage),
           // Captains

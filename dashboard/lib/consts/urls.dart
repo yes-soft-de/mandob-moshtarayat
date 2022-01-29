@@ -87,7 +87,10 @@ class Urls {
   static const DELETE_PAYMENTS_FROM_CAPTAIN = BASE_API + '/paymentfromcaptain';
   static const PAYMENTS_TO_CAPTAIN =
       BASE_API + '/deliveryCompanyPaymentsToCaptain';
+  static const PAYMENTS_TO_DISTRO =
+      BASE_API + '/deliverycompanypaymenttorepresentative';
   static const DELETE_PAYMENTS_TO_CAPTAIN = BASE_API + '/paymenttocaptain';
+  static const DELETE_PAYMENTS_TO_DISTRO = BASE_API + '/paymenttorepresentative';
   static const PAYMENTS_LIST = BASE_API + '/electronicpaymentinfo';
   static const GET_CAPTAIN_PROFILE = BASE_API + '/captainProfile/';
   static const GET_DISTRO_PROFILE = BASE_API + '/representativeprofile/';
@@ -109,14 +112,22 @@ class Urls {
   static const GET_REPORT = BASE_API + '/countreport';
   static const GET_ACCOUNT_BALANCE_CAPTAIN =
       BASE_API + '/captainfinancialaccountforadmin/';
+  static const GET_ACCOUNT_BALANCE_DISTRO =
+      BASE_API + '/representativefinancialaccountforadmin/';
   static const GET_ACCOUNT_BALANCE_CAPTAIN_LAST_MONTH =
       BASE_API + '/captainfinancialaccountinlastmonthforadmin/';
+  static const GET_ACCOUNT_BALANCE_DISTRO_LAST_MONTH =
+      BASE_API + '/representativefinancialaccountinlastmonthforadmin/';
   static const GET_ACCOUNT_BALANCE_CAPTAIN_SPECIFIC =
       BASE_API + '/captainfinancialaccountinspecificdateforadmin/';
+  static const GET_ACCOUNT_BALANCE_DISTRO_SPECIFIC =
+      BASE_API + '/representativefinancialaccountinspecificdateforadmin/';
   static const GET_UNFINISHED_PAYMENT =
       BASE_API + '/captainsremainingforitamount';
   static const GET_REMAINING_PAYMENT =
       BASE_API + '/captainsremainingonitamount';
+  static const GET_REMAINING_PAYMENT_TO_DISTRO =
+      BASE_API + '/representativeremainigforitamount';
   static const GET_PENDING_ORDER = BASE_API + '/getpendingorders';
   static const GET_WITHOUT_PENDING_ORDER =
       BASE_API + '/getOrdersWithOutPending ';

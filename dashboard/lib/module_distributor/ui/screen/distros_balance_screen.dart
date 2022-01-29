@@ -5,19 +5,20 @@ import 'package:mandob_moshtarayat_dashboad/abstracts/states/loading_state.dart'
 import 'package:mandob_moshtarayat_dashboad/abstracts/states/state.dart';
 import 'package:mandob_moshtarayat_dashboad/generated/l10n.dart';
 import 'package:mandob_moshtarayat_dashboad/module_captain/state_manager/captain_balance_state_manager.dart';
+import 'package:mandob_moshtarayat_dashboad/module_distributor/state_manager/distro_balance_state_manager.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/components/custom_app_bar.dart';
 
 @injectable
-class CaptainBalanceScreen extends StatefulWidget {
-  final CaptainBalanceStateManager _stateManager;
+class DistroBalanceScreen extends StatefulWidget {
+  final DistroBalanceStateManager _stateManager;
 
-  CaptainBalanceScreen(this._stateManager);
+  DistroBalanceScreen(this._stateManager);
 
   @override
-  CaptainBalanceScreenState createState() => CaptainBalanceScreenState();
+  DistroBalanceScreenState createState() => DistroBalanceScreenState();
 }
 
-class CaptainBalanceScreenState extends State<CaptainBalanceScreen> {
+class DistroBalanceScreenState extends State<DistroBalanceScreen> {
   late States currentState;
 
   @override
@@ -30,8 +31,8 @@ class CaptainBalanceScreenState extends State<CaptainBalanceScreen> {
     super.initState();
   }
 
-  void getCaptain() {
-    // widget._stateManager.getCaptainBalance(this, captainId);
+  void getDistroBalance() {
+     widget._stateManager.getDistroBalance(this, captainId);
   }
 
   void refresh() {
@@ -49,13 +50,13 @@ class CaptainBalanceScreenState extends State<CaptainBalanceScreen> {
       captainBalance, captainBalanceLastMonth) {
     fDate = firstDate;
     lDate = endDate;
-    // widget._stateManager.getBalanceFilteredDate(
-    //     this,
-    //     captainId,
-    //     captainBalance,
-    //     captainBalanceLastMonth,
-    //     DateFormat('yyyy-MM-dd', 'en').format(firstDate.toUtc()),
-    //     DateFormat('yyyy-MM-dd', 'en').format(endDate.toUtc()));
+     widget._stateManager.getBalanceFilteredDate(
+         this,
+         captainId,
+         captainBalance,
+         captainBalanceLastMonth,
+         DateFormat('yyyy-MM-dd', 'en').format(firstDate.toUtc()),
+         DateFormat('yyyy-MM-dd', 'en').format(endDate.toUtc()));
   }
 
   @override
@@ -64,7 +65,7 @@ class CaptainBalanceScreenState extends State<CaptainBalanceScreen> {
       var arg = ModalRoute.of(context)?.settings.arguments;
       if (arg != null && arg is int) {
         captainId = arg;
-        //  widget._stateManager.getCaptainBalance(this, captainId);
+          widget._stateManager.getDistroBalance(this, captainId);
       }
     }
     return Scaffold(
