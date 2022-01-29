@@ -109,7 +109,7 @@ class ProductController extends BaseController
 
     /**
      * Get products of category specific.
-     * @Route("/product/{storeProductCategoryID}", name="productsByStoreProductCategoryID", methods={"GET"})
+     * @Route("/productscategory/{storeProductCategoryID}", name="productsByStoreProductCategoryID", methods={"GET"})
      * @param $storeProductCategoryID
      * @return JsonResponse
      *
