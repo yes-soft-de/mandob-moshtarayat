@@ -315,7 +315,10 @@ class ProductService
         foreach ($products as $product) {
 
             $product['productPriceWithOutCommission'] = $product['productPrice'];
-            $product['productPrice'] = $this->willProductCommissionBeCharged($product['isCommission'], $product['productPrice'], $product['commission'], $product['storeCommission']);
+
+            $productPrice = $this->willProductCommissionBeCharged($product['isCommission'], $product['productPrice'], $product['commission'], $product['storeCommission']);
+
+            $product['productPrice'] =round($productPrice, 1);
 
             $img = isset($product['image']);
 
