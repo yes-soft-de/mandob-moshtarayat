@@ -564,5 +564,11 @@
   "informSendCode": "We will send a verification code to your number",
   "passwordNotMatch": "Password not matching",
   "accountNotExist":"Account not exist",
-  "profileIncomplete": "You must complete your account information first"
+  "profileIncomplete": "You must complete your account information first",
+
+  "active": "Active",
+  "inactiveProduct": "inactive",
+  "productAvailable": "Product available",
+  "quantity": "quantity"
+
 }

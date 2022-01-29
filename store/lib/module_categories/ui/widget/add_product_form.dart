@@ -313,7 +313,7 @@ class _AddProductsFormState extends State<AddProductsForm> {
 }
 
 class UpdateProductsForm extends StatefulWidget {
-  final Function(String, String, String, String, String,int) addProduct;
+  final Function(String, String, String, String, String,int,String) addProduct;
   final UpdateProductRequest  request;
   final CategoryLink categoryLink;
   final List<DropdownMenuItem<String>>? categoriesOne;
@@ -342,9 +342,11 @@ class _UpdateProductsFormState extends State<UpdateProductsForm> {
   final ImagePicker _imagePicker = ImagePicker();
   String? maincatId;
   String? subcatId;
+  String? storeProductCategoryID;
   List<DropdownMenuItem<String>> categoriesTwoLocal = [];
 
   bool isUpdatedToMain = false;
+ late String status;
 
   @override
   void initState() {
@@ -357,15 +359,18 @@ class _UpdateProductsFormState extends State<UpdateProductsForm> {
           widget.request.dataStoreProduct.productPrice?.toString() ?? '0';
       _discountController.text =
           widget.request.dataStoreProduct.discount?.toString() ?? '0';
+      storeProductCategoryID = widget.request.dataStoreProduct.storeProductCategoryID?.toString();
       maincatId = widget.request.dataStoreProduct.isLevelOne
           ? widget.request.dataStoreProduct.storeProductCategoryID?.toString()
           : null;
+      status = widget.request.dataStoreProduct.productStatus ??'inactive';
       if(widget.request.dataStoreProduct.isLevelTwo){
         subcatId = widget.request.dataStoreProduct.isLevelTwo
             ? widget.request.dataStoreProduct.storeProductCategoryID?.toString()
             : null;
         maincatId =  widget.categoryLink.subCategoryLevelOneID.toString();
       }
+
       _quantityController.text =  widget.request.dataStoreProduct.productQuantity?.toString() ?? '0';
     }
     super.initState();
@@ -449,6 +454,7 @@ class _UpdateProductsFormState extends State<UpdateProductsForm> {
                             items: widget.categoriesOne,
                             onChanged: (v) {
                               maincatId = v.toString();
+                              storeProductCategoryID = maincatId;
                               isUpdatedToMain = true;
                               changeLocalCategory();
                               getCategoryLevelTwo(int.parse(maincatId ?? '0'));
@@ -485,6 +491,7 @@ class _UpdateProductsFormState extends State<UpdateProductsForm> {
                             onChanged: (v) {
                               isUpdatedToMain = false;
                               subcatId = v.toString();
+                              storeProductCategoryID = subcatId;
                               setState(() {});
                             },
                             hint: Text(
@@ -552,6 +559,16 @@ class _UpdateProductsFormState extends State<UpdateProductsForm> {
                    hintText: S.current.productQuantity,
                    numbers: true,
                  ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16.0),
+                      child: CheckboxListTile(
+                          value: status == 'active',
+                          title: Text(S.of(context).productAvailable),
+                          onChanged: (v) {
+                            status = v == true ? 'active' : 'inactive';
+                            setState(() {});
+                          }),
+                    ),
                     SizedBox(height: 32),
                     InkWell(
                       onTap: () {
@@ -594,8 +611,9 @@ class _UpdateProductsFormState extends State<UpdateProductsForm> {
                   _priceController.text,
                   imagePath!,
                   _discountController.text,
-                  isUpdatedToMain ? maincatId! : subcatId ?? '-1',
-                  int.parse(_quantityController.text)
+                  storeProductCategoryID ??'-1',
+                  int.parse(_quantityController.text),
+                status
                   );
             } else {
               CustomFlushBarHelper.createError(
@@ -621,7 +639,6 @@ changeLocalCategory(){
       } else if (value.isEmpty) {
         return ProductsCategoryModel(id: -1, categoryName: '');
       } else {
-        print('fuk');
         ProductsCategoryModel model = value as ProductsCategoryModel;
         print(model.data.length);
         getChoicesTwo(model.data);

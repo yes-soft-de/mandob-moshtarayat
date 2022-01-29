@@ -11,11 +11,14 @@ class ProductComponent extends StatelessWidget {
   final String description;
   final String image;
   final String price;
+  final String status;
   final String discount;
+  final String quantity;
   final double rating;
 
   ProductComponent(
-      {required this.title,required this.image,required this.discount,required this.rating,required this.description,required this.productId,required this.price});
+      {required this.status,required this.quantity,
+        required this.title,required this.image,required this.discount,required this.rating,required this.description,required this.productId,required this.price});
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +46,26 @@ class ProductComponent extends StatelessWidget {
                           ),
                           textAlign: TextAlign.start,
                           overflow: TextOverflow.ellipsis),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Container(
+                          constraints:
+                          const BoxConstraints(maxHeight: 50, maxWidth: 200),
+                          child: RichText(
+                            text: TextSpan(
+                              style: DefaultTextStyle.of(context).style,
+                              children: <TextSpan>[
+//                                TextSpan(
+//                                    text:S.current.status,
+//                                    style: TextStyle(
+//                                        fontSize: 14,
+//                                        fontWeight: FontWeight.bold,)),
+//                                 TextSpan(text: ' '),
+                                 TextSpan(text:status=='active'? S.of(context).active : S.of(context).inactiveProduct,style: TextStyle(color: status=='active'?Colors.green :Colors.red)),
+                              ],
+                            ),
+                          )),
                       SizedBox(
                         height: 8,
                       ),
@@ -93,6 +116,26 @@ class ProductComponent extends StatelessWidget {
                               ],
                             ),
                           )),
+                      SizedBox(
+                        height: 8,
+                      ),
+                 Container(
+                        child: Row(
+                          children: [
+                            Text(
+                              S.of(context).quantity+': ',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              quantity,
+                              style: TextStyle(
+                                fontSize: 14,
+                              ),
+                              textAlign: TextAlign.start,
+                            ),
+                          ],
+                        ),
+                      ),
                       SizedBox(
                         height: 16,
                       ),

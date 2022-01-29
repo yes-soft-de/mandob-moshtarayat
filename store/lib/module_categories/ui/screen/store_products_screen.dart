@@ -66,13 +66,13 @@ class StoreProductScreenState
 //     widget._stateManager.updateProductStatus(request,this,levelOne);
 //   }
 
-   void updateProductStatus(UpdateProductStatusRequest request,List<ProductsCategoryModel> levelOne) {
+   void deleteProduct(String id,List<ProductsCategoryModel> levelOne) {
      showDialog(
          context: context,
          builder: (_) {
            return CustomAlertDialog(
                onPressed: () {
-                 widget._stateManager.updateProductStatus(request,this,levelOne);
+                 widget._stateManager.deleteProduct(id,this,levelOne);
                  Navigator.pop(context);
                });
          });

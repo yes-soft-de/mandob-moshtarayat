@@ -8,6 +8,7 @@ class ProductsModel extends DataModel{
   bool  levelOne = false;
   bool  levelTwo = false;
   String productName = '';
+  String status = '';
   ImageUrl productImage = ImageUrl();
   num productPrice = 0;
   num discount = 0;
@@ -19,7 +20,7 @@ class ProductsModel extends DataModel{
 
   ProductsModel({required this.id,required this.productName,required this.productImage,required this.productPrice,
     required  this.discount,
-    required this.storeProductCategoryID ,required this.productQuantity ,required this.levelOne ,required this.levelTwo,this.categoryLink});
+    required this.storeProductCategoryID ,required this.productQuantity ,required this.levelOne ,required this.levelTwo,this.categoryLink,required this.status});
 
   ProductsModel.withData(List <Data> data) : super.withData() {
     _model = [];
@@ -34,7 +35,7 @@ class ProductsModel extends DataModel{
         storeProductCategoryID: element.storeProductCategoryID ?? -1,
         levelOne: element.isLevelOne ??false,
         levelTwo: element.isLevelTwo ??false,
-        categoryLink: element.categoryLink
+        categoryLink: element.categoryLink,status: element.productStatus ??''
       ));
     }
   }

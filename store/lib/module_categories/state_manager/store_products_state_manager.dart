@@ -177,10 +177,10 @@ class StoreProductsStateManager {
         }});
     }
   }
-  void updateProductStatus(
-      UpdateProductStatusRequest request,  StoreProductScreenState screenState,List<ProductsCategoryModel> levelOne) {
+  void deleteProduct(
+      String id,  StoreProductScreenState screenState,List<ProductsCategoryModel> levelOne) {
     _stateSubject.add(LoadingState(screenState));
-    _categoriesService.updateProductStatus(request).then((value) {
+    _categoriesService.deleteProduct(id).then((value) {
       if (value.hasError) {
         print('bssst');
         getStoreProducts(screenState,'',catOne:levelOne,catTwo: []);

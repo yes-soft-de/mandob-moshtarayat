@@ -41,6 +41,7 @@ class StoreProductsResponse {
 class Data {
   int? id;
   String? productName;
+  String? productStatus;
   ImageUrl? productImage;
   num? productPrice;
   num? discount;
@@ -52,7 +53,8 @@ class Data {
 
   Data({
       this.id, 
-      this.productName, 
+      this.productName,
+    this.productStatus,
       this.productImage, 
       this.productPrice, 
       this.discount,
@@ -70,6 +72,7 @@ class Data {
     storeProductCategoryID = json['storeProductCategoryID'];
     isLevelOne = json['isLevel1'];
     isLevelTwo = json['isLevel2'];
+    productStatus = json['status'];
     categoryLink = json['categoryLink'] != null ? CategoryLink.fromJson(json['categoryLink']) : CategoryLink();
   }
 
