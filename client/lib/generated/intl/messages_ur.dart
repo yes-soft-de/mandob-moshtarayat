@@ -90,6 +90,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("کپتان راستے میں ہے۔"),
         "captainNotActive": MessageLookupByLibrary.simpleMessage(
             " آپ کا اکاؤنٹ ابھی تک فعال نہیں ہوا ہے براہ کرم انتظار کریں۔"),
+        "captainRated": MessageLookupByLibrary.simpleMessage(
+            "کیپٹن نے کامیابی سے درجہ بندی کی"),
         "captainStartedDelivery": MessageLookupByLibrary.simpleMessage(
             " کپتان نے ڈلیوری شروع کر دی۔"),
         "car": MessageLookupByLibrary.simpleMessage("گاڑی"),

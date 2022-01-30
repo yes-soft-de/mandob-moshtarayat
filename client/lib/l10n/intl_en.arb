@@ -418,7 +418,9 @@
     "paymentResume": "Payment Resume",
     "recordNumber": "Record Number",
     "nationalAddress": "National Address",
-    "taxNumber": "Tax Number"
+    "taxNumber": "Tax Number",
+    "captainRated": "Captain rated successfully"
+
 
 
 

@@ -417,7 +417,8 @@
     "paymentResume": "استكمال الدفع",
     "recordNumber": "رقم السجل",
     "nationalAddress": "العنوان الوطني",
-    "taxNumber": "الرقم الضريبي"
+    "taxNumber": "الرقم الضريبي",
+    "captainRated": "تم تقييم الكابتن بنجاح"
 
 
 }

@@ -4219,6 +4219,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Captain rated successfully`
+  String get captainRated {
+    return Intl.message(
+      'Captain rated successfully',
+      name: 'captainRated',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
