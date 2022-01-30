@@ -50,13 +50,15 @@ class DistroBalanceScreenState extends State<DistroBalanceScreen> {
       captainBalance, captainBalanceLastMonth) {
     fDate = firstDate;
     lDate = endDate;
+    print('what');
+    print(DateFormat('yyyy-MM-dd', 'en').format(endDate));
      widget._stateManager.getBalanceFilteredDate(
          this,
          captainId,
          captainBalance,
          captainBalanceLastMonth,
-         DateFormat('yyyy-MM-dd', 'en').format(firstDate.toUtc()),
-         DateFormat('yyyy-MM-dd', 'en').format(endDate.toUtc()));
+         DateFormat('yyyy-MM-dd', 'en').format(firstDate),
+         DateFormat('yyyy-MM-dd', 'en').format(endDate));
   }
 
   @override

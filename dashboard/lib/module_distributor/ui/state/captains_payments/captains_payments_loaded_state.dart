@@ -55,7 +55,8 @@ class DistrosPaymentsLoadedState extends States {
       }
 
       widgets.add(DistroCardPayment(
-        captainId: element.id.toString(),
+        Id: element.id.toString(),
+        mandobId: element.mandobID,
         image: element.image ?? '',
         remainingAmountForCaptain: element.remainingAmountForMandob ?? 0,
         captainName: element.mandobName ?? S.current.unknown,

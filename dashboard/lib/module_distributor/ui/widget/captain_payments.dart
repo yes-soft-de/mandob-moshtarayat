@@ -4,13 +4,15 @@ import 'package:mandob_moshtarayat_dashboad/module_payments/payments_routes.dart
 import 'package:mandob_moshtarayat_dashboad/utils/components/progresive_image.dart';
 
 class DistroCardPayment extends StatelessWidget {
-  final String captainId;
+  final String Id;
+  final String mandobId;
   final String image;
   final String captainName;
 
   DistroCardPayment(
       {Key? key,
-      required this.captainId,
+      required this.mandobId,
+      required this.Id,
       required this.image,
       required this.captainName,
       required this.remainingAmountForCaptain});
@@ -26,7 +28,10 @@ class DistroCardPayment extends StatelessWidget {
         borderRadius: BorderRadius.circular(50),
         onTap: () {
           Navigator.of(context).pushNamed(PaymentsRoutes.PAYMENTS_TO_DISTRO,
-              arguments: int.parse(captainId));
+              arguments:[
+                int.parse(Id),
+                int.parse(mandobId),
+              ] );
         },
         child: Container(
           decoration: BoxDecoration(

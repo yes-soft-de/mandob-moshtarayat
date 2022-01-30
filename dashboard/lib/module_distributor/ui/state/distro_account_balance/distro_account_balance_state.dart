@@ -181,7 +181,7 @@ class DistroBalanceLoadedState extends States {
                                                     Text(S.current.lastDate)),
                                             subtitle: Center(
                                                 child: Text(lastDate != null
-                                                    ? DateFormat('yyyy/M/dd')
+                                                    ? DateFormat('yyyy/M/d')
                                                         .format(lastDate!)
                                                     : '0000/00/00')),
                                           ),

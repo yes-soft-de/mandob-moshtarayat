@@ -100,7 +100,7 @@ class PaymentsToDistrosLoadedState extends States {
             ElevatedButton(
                 onPressed: () {
                   screenState.pay(DistroPaymentsRequest(
-                      representativeID: screenState.captainId,
+                      representativeID: screenState.mandobId,
                       note: _note.text,
                       amount: num.parse(_amount.text.trim())));
                 },

@@ -61,7 +61,10 @@ class InDistributedActiveLoadedState extends States {
           borderRadius: BorderRadius.circular(50),
           onTap: () {
              Navigator.of(context).pushNamed(DistributorRoutes.DISTRO_PROFILE,
-                 arguments: int.parse(element.distroID));
+                 arguments:  [
+                   int.parse(element.id),
+                   int.parse(element.distroID),
+                 ]);
           },
           child: Container(
             decoration: BoxDecoration(
