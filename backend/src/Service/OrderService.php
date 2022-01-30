@@ -617,7 +617,7 @@ class OrderService
         if($item['orderDetails']) {
 
             $item['order'] = $this->orderManager->orderStatusByOrderId($item['orderDetails'][0]->orderID);
-            $item['order']['orderCost'] = round($item['order']['orderCost'], 1);
+            $item['order']['orderCost'] = round($item['order']['orderCost'], 2);
             $item['vatTax'] = $this->getVatTax($item['order']['orderCost']);
 
             if($item['order']['payment'] == "card"){
@@ -648,7 +648,7 @@ class OrderService
         $item['rate'] = $this->ratingService->getAvgOrder($orderNumber);
         if($item['orderDetails']) {
             $item['order'] = $this->orderManager->orderStatusByOrderId($item['orderDetails'][0]->orderID);
-            $item['order']['orderCost'] = round($item['order']['orderCost'], 1);
+            $item['order']['orderCost'] = round($item['order']['orderCost'], 2);
             $item['vatTax'] = $this->getVatTax($item['order']['orderCost']);
 
             $response = $this->autoMapping->map('array', OrderInfoForCaptainResponse::class, $item);
@@ -675,7 +675,7 @@ class OrderService
         if($item['orderDetails']) {
 
             $item['order'] = $this->orderManager->orderStatusByOrderId($item['orderDetails'][0]->orderID);
-            $item['order']['orderCost'] = round($item['order']['orderCost'], 1);
+            $item['order']['orderCost'] = round($item['order']['orderCost'], 2);
             $item['order']['billPdf'] = $this->getFileParams($item['order']['billPdf'], $this->params . $item['order']['billPdf'], $this->params);
 
             $item['vatTax'] = $this->getVatTax($item['order']['orderCost']);
@@ -693,7 +693,7 @@ class OrderService
         $item = [];
         $item['itemsTotal'] = $orderCost;
         $item['vatTax'] = ($orderCost * 15) / 100;
-        $item['total'] = round($item['vatTax'] + $orderCost, 1);
+        $item['total'] = round($item['vatTax'] + $orderCost, 2);
 
         return $item;
     }
