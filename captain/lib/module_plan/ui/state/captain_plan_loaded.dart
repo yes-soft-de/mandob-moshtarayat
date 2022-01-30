@@ -119,7 +119,7 @@ class CaptainPlanScreenStateLoaded extends PlanState {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              '${value} ${currency ? S.current.sar : S.current.sOrder}',
+              '${value.toStringAsFixed(2)} ${currency ? S.current.sar : S.current.sOrder}',
               style: TextStyle(
                 color: Colors.white,
               ),
