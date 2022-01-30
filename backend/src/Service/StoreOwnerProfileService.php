@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\AutoMapping;
 use App\Constant\RepresentativeStoreLinkTypeConstant;
+use App\Constant\StoreProfileConstant;
 use App\Entity\UserEntity;
 use App\Manager\StoreOwnerProfileManager;
 use App\Request\RepresentativeStoreLinkUpdateRequest;
@@ -514,28 +515,28 @@ class StoreOwnerProfileService
 
         if($item['image'] and $item['openingTime'] and $item['closingTime'] ){
             if($item['hasProducts'] or $item['privateOrders'] ){
-                $response['storeOwnerProfile'] = 'profile is completed';
+                $response['storeOwnerProfile'] = StoreProfileConstant::$PROFILE_IS_COMPLETED;
             }
         }
 
         if($item['image'] == null){
-            $response['image'] = 'image is null';
-            $response['storeOwnerProfile'] = 'profile is not completed';
+            $response['image'] = StoreProfileConstant::$IMAG_NULL;
+            $response['storeOwnerProfile'] = StoreProfileConstant::$PROFILE_IS_NOT_COMPLETED;
         }
 
         if($item['openingTime'] == null){
-            $response['openingTime'] = 'openingTime is null';
-            $response['storeOwnerProfile'] = 'profile is not completed';
+            $response['openingTime'] = StoreProfileConstant::$OPENING_TIME_NULL;
+            $response['storeOwnerProfile'] = StoreProfileConstant::$PROFILE_IS_NOT_COMPLETED;
         }
 
         if($item['closingTime'] == null){
-            $response['closingTime'] = 'closingTime is null';
-            $response['storeOwnerProfile'] = 'profile is not completed';
+            $response['closingTime'] = StoreProfileConstant::$CLOSING_TIME_NULL;
+            $response['storeOwnerProfile'] = StoreProfileConstant::$PROFILE_IS_NOT_COMPLETED;
         }
 
         if($item['hasProducts'] == null and $item['privateOrders'] == null){
-            $response['orderType'] = 'select hasProducts or privateOrders or two';
-            $response['storeOwnerProfile'] = 'profile is not completed';
+            $response['orderType'] = StoreProfileConstant::$HAS_PRODUCT_OR_PRIVATE_ORDER_NULL;
+            $response['storeOwnerProfile'] = StoreProfileConstant::$PROFILE_IS_NOT_COMPLETED;
         }
 
         return $response;

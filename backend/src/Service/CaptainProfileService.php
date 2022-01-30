@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\AutoMapping;
+use App\Constant\CaptainProfileConstant;
 use App\Entity\CaptainProfileEntity;
 use App\Entity\UserEntity;
 use App\Request\UserProfilePreferredLanguageUpdateRequest;
@@ -723,4 +724,35 @@ class CaptainProfileService
 
         return $item;
     }
+
+    public function captainProfileIsCompleted($userID)
+    {
+        $response = [];
+
+        $item = $this->captainProfileManager->getCaptainInfoRequired($userID);
+
+        if($item['image'] and $item['location'] and $item['captainName'] ){
+            if($item['stcPay'] or $item['bankAccountNumber'] ) {
+                $response['captainProfile'] = CaptainProfileConstant::$PROFILE_IS_COMPLETED;
+            }
+        }
+
+        if($item['image'] == null){
+            $response['image'] = CaptainProfileConstant::$IMAG_NULL;
+            $response['captainProfile'] = CaptainProfileConstant::$PROFILE_IS_NOT_COMPLETED;
+        }
+
+        if($item['location'] == null){
+            $response['location'] = CaptainProfileConstant::$LOCATION_NULL;
+            $response['captainProfile'] = CaptainProfileConstant::$PROFILE_IS_NOT_COMPLETED;
+        }
+
+        if($item['stcPay'] == null and $item['bankAccountNumber'] == null){
+            $response['bankInfo'] = CaptainProfileConstant::$STC_OR_BANK_NUMBER_NULL;
+            $response['captainProfile'] = CaptainProfileConstant::$PROFILE_IS_NOT_COMPLETED;
+        }
+
+        return $response;
+    }
+
 }

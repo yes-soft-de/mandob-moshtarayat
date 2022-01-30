@@ -279,4 +279,10 @@ class CaptainProfileManager
     {
         return $this->orderManager->getOrderKilometersInThisMonth($captainId, $fromDate, $toDate);
     }
+
+    public function getCaptainInfoRequired($captainID)
+    {
+        return $this->captainProfileEntityRepository->getCaptainInfoRequired($captainID);
+    }
+
 }

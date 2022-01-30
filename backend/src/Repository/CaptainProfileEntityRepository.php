@@ -350,4 +350,19 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getCaptainInfoRequired($captainID)
+    {
+        return $this->createQueryBuilder('captainProfile')
+
+            ->addSelect('captainProfile.id', 'captainProfile.captainID', 'captainProfile.captainName', 'captainProfile.image', 'captainProfile.location', 'captainProfile.stcPay', 'captainProfile.bankAccountNumber')
+
+            ->andWhere('captainProfile.captainID = :captainID')
+
+            ->setParameter('captainID', $captainID)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 }

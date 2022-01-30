@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\AutoMapping;
+use App\Constant\CaptainProfileConstant;
 use App\Constant\ResponseConstant;
 use App\Request\CaptainProfileUpdateRequest;
 use App\Request\CaptainProfileUpdateLocationRequest;
@@ -1144,5 +1145,60 @@ class CaptainProfileController extends BaseController
         $result = $this->captainProfileService->captainFilter($name);
 
         return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * captain: captain profile Is Completed.
+     * @Route("captainprofileiscomplated", name="captainProfileIsCompleted", methods={"GET"})
+     * @IsGranted("ROLE_CAPTAIN")
+     * @return JsonResponse
+     * *
+     * @OA\Tag(name="Captain Profile")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="captain profile Is Completed",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="string", property="captainProfile"),
+     *      )
+     *   )
+     * )
+     *
+     * or
+     *
+     * @OA\Response(
+     *      response="default",
+     *      description="Captain Profile Is Not Completed",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code", description="9220"),
+     *          @OA\Property(type="string", property="msg", description="profile is not completed! Successfully."),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="string", property="captainProfile", description="profile is not completed"),
+     *      )
+     *   )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function captinProfileIsCompleted()
+    {
+        $response = $this->captainProfileService->captainProfileIsCompleted($this->getUserId());
+
+        if ($response['captainProfile'] == CaptainProfileConstant::$PROFILE_IS_NOT_COMPLETED){
+            return $this->response($response, self::PROFILE_NOT_COMPLETED);
+
+        }
+
+        return $this->response($response, self::FETCH);
     }
 }

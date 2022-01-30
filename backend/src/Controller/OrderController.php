@@ -1652,6 +1652,11 @@ class OrderController extends BaseController
      *                  @OA\Property(type="number", property="deliveryCost"),
      *                  @OA\Property(type="number", property="orderCost"),
      *                  @OA\Property(type="integer", property="orderType"),
+     *                  @OA\Property(type="object", property="vatTax",
+     *                    @OA\Property(type="number", property="itemsTotal"),
+     *                    @OA\Property(type="number", property="vatTax"),
+     *                    @OA\Property(type="number", property="total"),
+     *                )
      *              )
      *          )
      *      )
