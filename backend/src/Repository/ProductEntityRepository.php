@@ -699,6 +699,9 @@ class ProductEntityRepository extends ServiceEntityRepository
                 ->getResult();
     }
 
+    /**
+     * This function for store, so that we do not need the condition product.status == active
+     */
     public function getProductsByStoreProductCategoryIDAndStoreOwnerProfileID($storeProductCategoryID, $storeOwnerProfileID)
     {
         return $this->createQueryBuilder('product')
@@ -716,12 +719,12 @@ class ProductEntityRepository extends ServiceEntityRepository
                 )
 
                 ->andWhere('product.storeProductCategoryID = :storeProductCategoryID')
-                ->andWhere('product.status = :status')
+                // ->andWhere('product.status = :status')
                 ->andWhere('product.storeOwnerProfileID = :storeOwnerProfileID')
                 ->andWhere('product.isDeleted = :deleted')
 
                 ->setParameter('storeProductCategoryID', $storeProductCategoryID)
-                ->setParameter('status', ProductStatusConstant::$ACTIVE_PRODUCT_STATUS)
+                // ->setParameter('status', ProductStatusConstant::$ACTIVE_PRODUCT_STATUS)
                 ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
                 ->setParameter('deleted', ProductStatusConstant::$NOT_DELETED_PRODUCT)
 
