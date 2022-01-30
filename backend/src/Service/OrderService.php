@@ -922,6 +922,8 @@ class OrderService
         foreach ($orders as $order) {
            $order['amount'] = $order['deliveryCost'] + $order['orderCost'];
 
+           $order['vatTax'] = $this->getVatTax($order['orderCost']);
+
            $response[] = $this->autoMapping->map('array', OrdersByClientResponse::class, $order);
        }
 
