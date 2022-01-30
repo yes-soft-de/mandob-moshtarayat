@@ -3,6 +3,7 @@ import 'package:mandob_moshtarayat_dashboad/module_distributor/response/distirbu
 
 class DistributorModel extends DataModel {
   late String distroID;
+  late String id;
   late String distroName;
   late String image;
   String? age = '';
@@ -13,13 +14,15 @@ class DistributorModel extends DataModel {
       {required this.distroID,
       required this.image,
       required this.distroName,
+        required this.id,
       required this.age});
 
   DistributorModel.withData(List<Datum> data) : super.withData() {
     _model = [];
     for (var element in data) {
       _model.add(DistributorModel(
-          distroID: element.id?.toString() ?? '-1',
+          distroID: element.mandobId?.toString() ?? '-1',
+          id: element.id?.toString() ?? '-1',
           image: element.image?.image ?? '',
           distroName: element.mandobName ?? '',
           age: element.age?.toString() ?? ''));

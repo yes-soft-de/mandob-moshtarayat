@@ -58,7 +58,10 @@ class DistrosLoadedState extends States {
       widgets.add(CaptainCard(
         onTap: () {
           Navigator.of(context).pushNamed(DistributorRoutes.DISTRO_PROFILE,
-              arguments: int.parse(element.distroID));
+              arguments: [
+                int.parse(element.id),
+                int.parse(element.distroID),
+              ]);
         },
         key: ValueKey(element.distroID),
         captainId: element.distroID,

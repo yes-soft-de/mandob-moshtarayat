@@ -45,7 +45,7 @@ class Data {
       this.imageURL,
       this.baseURL,
       this.location,
-      this.statistics});
+      this.statistics , this.nationalAddress , this.recordNumber,this.taxNumber});
 
   Data.fromJson(dynamic json) {
     id = json['id'];
@@ -57,6 +57,9 @@ class Data {
     imageURL = json['imageURL'];
     baseURL = json['baseURL'];
     location = json['location'];
+    nationalAddress = json['nationalAddress'];
+    recordNumber = json['recordNumber'];
+    taxNumber = json['taxNumber'];
     statistics = json['statistics'] != null
         ? Statistics.fromJson(json['statistics'])
         : null;
@@ -64,6 +67,9 @@ class Data {
   int? id;
   String? clientID;
   String? clientName;
+  String? nationalAddress;
+  String? recordNumber;
+  String? taxNumber;
   String? roomID;
   dynamic phone;
   String? image;

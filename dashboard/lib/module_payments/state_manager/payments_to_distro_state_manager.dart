@@ -23,11 +23,11 @@ class PaymentsToDistroStateManager {
   PaymentsToDistroStateManager(this._distributorService, this._paymentsService);
 
   void getDistroPaymentsDetails(
-      PaymentsToDistroScreenState screenState, int captainId) {
+      PaymentsToDistroScreenState screenState, int  Id,int mandobID) {
     _stateSubject.add(LoadingState(screenState));
     Future.wait([
-      _distributorService.getDistorProfile(captainId),
-      _distributorService.getDistroBalance(captainId)
+      _distributorService.getDistorProfile(Id),
+      _distributorService.getDistroBalance(mandobID)
     ]).then((value) {
       if (value[0].hasError || value[1].hasError) {
         _stateSubject.add(PaymentsToDistrosLoadedState(
@@ -56,9 +56,9 @@ class PaymentsToDistroStateManager {
         CustomFlushBarHelper.createError(
                 title: S.current.warnning, message: value.error.toString())
             .show(screenState.context);
-        getDistroPaymentsDetails(screenState, request.representativeID ?? -1);
+        getDistroPaymentsDetails(screenState, screenState.Id,request.representativeID ?? -1);
       } else {
-        getDistroPaymentsDetails(screenState, request.representativeID ?? -1);
+        getDistroPaymentsDetails(screenState,screenState.Id ,request.representativeID ?? -1);
         CustomFlushBarHelper.createSuccess(
                 title: S.current.warnning,
                 message: S.current.paymentSuccessfully)
@@ -74,9 +74,9 @@ class PaymentsToDistroStateManager {
         CustomFlushBarHelper.createError(
                 title: S.current.warnning, message: value.error.toString())
             .show(screenState.context);
-        getDistroPaymentsDetails(screenState, screenState.captainId);
+        getDistroPaymentsDetails(screenState,screenState.Id ,screenState.mandobId);
       } else {
-        getDistroPaymentsDetails(screenState, screenState.captainId);
+        getDistroPaymentsDetails(screenState,screenState.Id ,screenState.mandobId);
         CustomFlushBarHelper.createSuccess(
                 title: S.current.warnning, message: S.current.deleteSuccess)
             .show(screenState.context);

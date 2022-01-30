@@ -59,8 +59,8 @@ class CaptainBalanceScreenState extends State<CaptainBalanceScreen> {
         captainId,
         captainBalance,
         captainBalanceLastMonth,
-        DateFormat('yyyy-MM-dd', 'en').format(firstDate.toUtc()),
-        DateFormat('yyyy-MM-dd', 'en').format(endDate.toUtc()));
+        DateFormat('yyyy-MM-dd', 'en').format(firstDate),
+        DateFormat('yyyy-MM-dd', 'en').format(endDate));
   }
 
   @override

@@ -22,7 +22,8 @@ class PaymentsToDistroScreen extends StatefulWidget {
 
 class PaymentsToDistroScreenState extends State<PaymentsToDistroScreen> {
   late States currentState;
-  int captainId = -1;
+  int  Id = -1;
+  int mandobId = -1;
   @override
   void initState() {
     currentState = LoadingState(this);
@@ -34,7 +35,7 @@ class PaymentsToDistroScreenState extends State<PaymentsToDistroScreen> {
   }
 
   void getPayments() {
-    widget._stateManager.getDistroPaymentsDetails(this, captainId);
+    widget._stateManager.getDistroPaymentsDetails(this, Id,mandobId);
   }
 
   void pay(DistroPaymentsRequest request) {
@@ -53,11 +54,12 @@ class PaymentsToDistroScreenState extends State<PaymentsToDistroScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (captainId == -1) {
+    if (Id == -1) {
       var arg = ModalRoute.of(context)?.settings.arguments;
-      if (arg != null && arg is int) {
-        captainId = arg;
-        widget._stateManager.getDistroPaymentsDetails(this, captainId);
+      if (arg != null && arg is List<int>) {
+        Id = arg.first;
+        mandobId = arg.last;
+        widget._stateManager.getDistroPaymentsDetails(this, Id,mandobId);
       }
     }
     return Scaffold(

@@ -52,14 +52,16 @@ class DistributorProfileScreenState extends State<DistrosProfileScreen> {
   }
 
   int distorId = -1;
+  int  Id = -1;
 
   @override
   Widget build(BuildContext context) {
-    if (distorId == -1) {
+    if (Id == -1) {
       var arg = ModalRoute.of(context)?.settings.arguments;
-      if (arg != null && arg is int) {
-        distorId = arg;
-          widget._stateManager.getDistorProfile(this, distorId);
+      if (arg != null && arg is List<int>) {
+        distorId = arg.last;
+        Id = arg.first;
+          widget._stateManager.getDistorProfile(this, Id);
       }
     }
     return Scaffold(

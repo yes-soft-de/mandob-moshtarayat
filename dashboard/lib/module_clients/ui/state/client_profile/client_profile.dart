@@ -78,6 +78,18 @@ class ClientProfileLoadedState extends States {
                     title: S.of(context).phoneNumber,
                     subTitle: model?.phone,
                     iconData: Icons.phone),
+                ClientCustomListTile(
+                    title: S.of(context).nationalAddress,
+                    subTitle: model?.nationalAddress,
+                    iconData: Icons.location_on),
+                ClientCustomListTile(
+                    title: S.of(context).taxNumber,
+                    subTitle: model?.taxNumber,
+                    iconData: Icons.money),
+                ClientCustomListTile(
+                    title: S.of(context).recordNumber,
+                    subTitle: model?.recordNumber,
+                    iconData: Icons.recent_actors),
               ],
             ),
           ),

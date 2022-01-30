@@ -5,9 +5,12 @@ class ClientProfileModel extends DataModel {
   String? image;
   String? name;
   String? phone;
+  String? nationalAddress;
+  String? recordNumber;
+  String? taxNumber;
   Statistics? statistics;
 
-  ClientProfileModel({this.image, this.name, this.phone, this.statistics});
+  ClientProfileModel({this.image, this.name, this.phone, this.statistics , this.taxNumber , this.recordNumber,this.nationalAddress});
 
   ClientProfileModel? _models;
 
@@ -16,6 +19,9 @@ class ClientProfileModel extends DataModel {
       image: data.image,
       name: data.clientName,
       phone: data.phone,
+      nationalAddress: data.nationalAddress,
+      recordNumber: data.recordNumber,
+      taxNumber: data.taxNumber,
       statistics: Statistics(
         clientOrdersCancel:
             int.parse(data.statistics?.clientOrdersCancel ?? '0'),

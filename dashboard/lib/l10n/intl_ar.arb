@@ -570,6 +570,10 @@
 
     "distroInfo": "تفاصيل مندوب",
     "distroInfoBalance": "التفاصيل المالية لمندوب",
-    "lastPaymentsToDistro": "الدفعات السابقة لمندوب"
+    "lastPaymentsToDistro": "الدفعات السابقة لمندوب",
+    "paymentToDistro": "دفعة لمندوب",
+    "recordNumber": "رقم السجل",
+    "taxNumber": "الرقم الضريبي",
+    "nationalAddress": "العنوان الوطني"
 
 }

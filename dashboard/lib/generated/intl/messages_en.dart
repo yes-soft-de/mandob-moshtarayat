@@ -420,6 +420,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "nameHint": MessageLookupByLibrary.simpleMessage("e.g yazan"),
         "nameIsRequired":
             MessageLookupByLibrary.simpleMessage("Name is required"),
+        "nationalAddress":
+            MessageLookupByLibrary.simpleMessage("National address"),
         "nearbyOrders": MessageLookupByLibrary.simpleMessage("Nearby Orders"),
         "nearbyStore": MessageLookupByLibrary.simpleMessage("Nearby Store"),
         "netProfit": MessageLookupByLibrary.simpleMessage("Profit"),
@@ -617,6 +619,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "recipientName": MessageLookupByLibrary.simpleMessage("Recipient Name"),
         "recipientPhoneNumber":
             MessageLookupByLibrary.simpleMessage("Recipient Phone Number"),
+        "recordNumber": MessageLookupByLibrary.simpleMessage("Record number"),
         "redo": MessageLookupByLibrary.simpleMessage("Redo"),
         "refresh": MessageLookupByLibrary.simpleMessage("refresh"),
         "register": MessageLookupByLibrary.simpleMessage("Register"),
@@ -778,6 +781,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sureForDeleteCategories": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to delete this category"),
         "syria": MessageLookupByLibrary.simpleMessage("Syria"),
+        "taxNumber": MessageLookupByLibrary.simpleMessage("Tax number"),
         "termsOfService":
             MessageLookupByLibrary.simpleMessage("Terms of Service"),
         "thereIsNoPermission": MessageLookupByLibrary.simpleMessage(
