@@ -920,11 +920,14 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->leftJoin(DeliveryCompanyFinancialEntity::class, 'DeliveryCompanyFinancialEntity', Join::WITH, 'product.id = product.id')
            
             ->andWhere('product.productName LIKE :productName')
-            ->andWhere('product.status= :status')
-            ->andWhere('storeOwnerProfile.status= :status')
+            ->andWhere('product.status= :productStatus')
+            ->andWhere('product.isDeleted = :deleted')
+            ->andWhere('storeOwnerProfile.status= :storeStatus')
 
             ->setParameter('productName', '%'.$name.'%')
-            ->setParameter('status', self::STATUS_ACTIVE)
+            ->setParameter('productStatus', ProductStatusConstant::$ACTIVE_PRODUCT_STATUS)
+            ->setParameter('deleted', ProductStatusConstant::$NOT_DELETED_PRODUCT)
+            ->setParameter('storeStatus', StoreStatusConstant::$ACTIVE_STORE_STATUS)
 
             ->setMaxResults(20)
 
