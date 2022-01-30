@@ -40,8 +40,7 @@ class OrderModel {
           orderDate: date,
           orderId: element.orderNumber ?? '-1',
           orderStatus: StatusHelper.getStatusEnum(element.state),
-          orderCost:
-              orderCost + ((orderCost * 15) / 100)));
+          orderCost:element.vatTax?.total ?? 0));
     });
   }
   bool get hasError => error != null;

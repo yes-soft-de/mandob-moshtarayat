@@ -31,7 +31,7 @@ class OrderDetailsModel {
   OrderDetailsModel.Data(OrderDetailsResponse response) {
     orderDetailsModel = OrderDetailsModel(
       carts: toCartList(response.data?.orderDetails ?? <OrderDetail>[]),
-      order: toOrder(response.data?.order,response.data?.vatTax),
+      order: toOrder(response.data?.order, response.data?.vatTax),
     );
   }
 
@@ -109,7 +109,7 @@ class OrderInfo {
   bool? removable;
   String? invoiceImage;
   num? invoiceAmount;
-
+  double totalCost= 0;
   OrderInfo(
       {required this.id,
       required this.state,
@@ -119,6 +119,7 @@ class OrderInfo {
       required this.orderCost,
       required this.deliveryCost,
       required this.payment,
+      required this.totalCost,
       this.note,
       this.destination,
       required this.orderType,
@@ -164,7 +165,7 @@ List<StoreOwnerInfo> toCartList(List<OrderDetail> ordersItems) {
   return items;
 }
 
-OrderInfo toOrder(Order? order,VatTax? vats) {
+OrderInfo toOrder(Order? order, VatTax? vats) {
   if (order != null) {
     bool timeout = false;
     var date = DateTime.fromMillisecondsSinceEpoch(
@@ -178,7 +179,8 @@ OrderInfo toOrder(Order? order,VatTax? vats) {
         state: StatusHelper.getStatusEnum(order.state),
         roomID: order.roomId ?? 'roomID',
         ownerID: -1,
-        orderCost: vats?.total?.toDouble() ?? 0,
+        orderCost: order.orderCost?.toDouble() ?? 0,
+        totalCost: vats?.total?.toDouble() ?? 0,
         deliveryDate: DateTime.fromMillisecondsSinceEpoch(
                 (order.deliveryDate?.timestamp ??
                         DateTime.now().millisecondsSinceEpoch) *
@@ -209,6 +211,7 @@ OrderInfo toOrder(Order? order,VatTax? vats) {
         deliveryCost: 0,
         payment: 'cash',
         orderType: 0,
+        totalCost: 0,
         removable: false);
   }
 }

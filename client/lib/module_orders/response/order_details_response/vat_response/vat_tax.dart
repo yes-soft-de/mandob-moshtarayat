@@ -1,12 +1,12 @@
 class VatTax {
-  int? itemsTotal;
+  num? itemsTotal;
   double? vatTax;
   double? total;
 
   VatTax({this.itemsTotal, this.vatTax, this.total});
 
   factory VatTax.fromJson(Map<String, dynamic> json) => VatTax(
-        itemsTotal: json['itemsTotal'] as int?,
+        itemsTotal: json['itemsTotal'] as num?,
         vatTax: (json['vatTax'] as num?)?.toDouble(),
         total: (json['total'] as num?)?.toDouble(),
       );

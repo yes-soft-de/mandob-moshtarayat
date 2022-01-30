@@ -9,9 +9,13 @@ class BillCard extends StatelessWidget {
   final int? id;
   final double orderCost;
   final double deliveryCost;
+  final double totalCost;
 
-  BillCard(
-      {required this.id, required this.orderCost, required this.deliveryCost});
+  const BillCard(
+      {required this.id,
+      required this.orderCost,
+      required this.deliveryCost,
+      required this.totalCost});
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +54,11 @@ class BillCard extends StatelessWidget {
                         title: S.of(context).orderPrice,
                         subtitle:
                             '${orderCost.toStringAsFixed(2)} ${S.of(context).sar}')),
+                Expanded(
+                    child: CustomListTile(
+                        title: S.of(context).deliverPrice,
+                        subtitle:
+                            '${deliveryCost.toStringAsFixed(2)} ${S.of(context).sar}')),
               ],
             ),
           ),
@@ -79,7 +88,7 @@ class BillCard extends StatelessWidget {
                 ),
                 Text(
                   S.of(context).withTaxes,
-                  style:  TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
                     color: Theme.of(context).primaryColor,
                     fontWeight: FontWeight.bold,
@@ -89,7 +98,7 @@ class BillCard extends StatelessWidget {
                   width: 16,
                 ),
                 Text(
-                  '${(deliveryCost + orderCost).toStringAsFixed(2)} ${S.of(context).sar}',
+                  '${(deliveryCost + totalCost).toStringAsFixed(2)} ${S.of(context).sar}',
                   style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
