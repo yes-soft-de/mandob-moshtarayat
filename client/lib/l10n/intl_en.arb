@@ -415,7 +415,10 @@
     "cartValidation": "Checking Cart",
     "withoutTax": "Without vat fee",
     "extraTax": "vat fee",
-    "paymentResume": "Payment Resume"
+    "paymentResume": "Payment Resume",
+    "recordNumber": "Record Number",
+    "nationalAddress": "National Address",
+    "taxNumber": "Tax Number"
 
 
 

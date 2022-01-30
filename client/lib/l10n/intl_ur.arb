@@ -413,7 +413,10 @@
     "cartValidation": "چیکنگ کارٹ",
     "withoutTax": "شامل نہیں ویلیو ایڈڈ",
     "extraTax": "ویلیو ایڈڈ",
-    "paymentResume": "مکمل ادائیگی"
+    "paymentResume": "مکمل ادائیگی",
+    "recordNumber": "ریکارڈ نمبر",
+    "nationalAddress": "قومی پتہ",
+    "taxNumber": "ٹیکس نمبر"
 
 
 

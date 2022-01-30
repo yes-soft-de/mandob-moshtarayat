@@ -304,6 +304,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "nameHint":
             MessageLookupByLibrary.simpleMessage(" مثال کے طور پر یازان"),
         "nameIsRequired": MessageLookupByLibrary.simpleMessage("نام درکار ہے۔"),
+        "nationalAddress": MessageLookupByLibrary.simpleMessage("قومی پتہ"),
         "nearbyOrders": MessageLookupByLibrary.simpleMessage("قریبی احکامات"),
         "nearbyStore": MessageLookupByLibrary.simpleMessage(" قریبی اسٹور"),
         "networkError": MessageLookupByLibrary.simpleMessage(
@@ -477,6 +478,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(" وصول کنندہ کا نام"),
         "recipientPhoneNumber":
             MessageLookupByLibrary.simpleMessage("وصول کنندہ کا فون نمبر"),
+        "recordNumber": MessageLookupByLibrary.simpleMessage("ریکارڈ نمبر"),
         "refresh": MessageLookupByLibrary.simpleMessage(" ریفریش"),
         "register": MessageLookupByLibrary.simpleMessage("رجسٹر کریں۔"),
         "registerHint":
@@ -575,6 +577,7 @@ class MessageLookup extends MessageLookupByLibrary {
             " کیا آپ اس آرڈر کو حذف کرنے کے بارے میں یقین رکھتے ہیں، براہ کرم تصدیق کریں۔"),
         "syria": MessageLookupByLibrary.simpleMessage("Syria"),
         "tax": MessageLookupByLibrary.simpleMessage("ٹیکس"),
+        "taxNumber": MessageLookupByLibrary.simpleMessage("ٹیکس نمبر"),
         "termsOfService": MessageLookupByLibrary.simpleMessage("سروس کی شرائط"),
         "thisErrorHappened":
             MessageLookupByLibrary.simpleMessage(" یہ ایرر ہوا ہے۔"),

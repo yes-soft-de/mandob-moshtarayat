@@ -296,6 +296,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "nameHint": MessageLookupByLibrary.simpleMessage("e.g yazan"),
         "nameIsRequired":
             MessageLookupByLibrary.simpleMessage("Name is required"),
+        "nationalAddress":
+            MessageLookupByLibrary.simpleMessage("National Address"),
         "nearbyOrders": MessageLookupByLibrary.simpleMessage("Nearby Orders"),
         "nearbyStore": MessageLookupByLibrary.simpleMessage("Nearby Store"),
         "networkError": MessageLookupByLibrary.simpleMessage(
@@ -461,6 +463,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "recipientName": MessageLookupByLibrary.simpleMessage("Recipient Name"),
         "recipientPhoneNumber":
             MessageLookupByLibrary.simpleMessage("Recipient Phone Number"),
+        "recordNumber": MessageLookupByLibrary.simpleMessage("Record Number"),
         "refresh": MessageLookupByLibrary.simpleMessage("refresh"),
         "register": MessageLookupByLibrary.simpleMessage("Register"),
         "registerHint":
@@ -554,6 +557,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Are you sure about deleting this order , please confirm"),
         "syria": MessageLookupByLibrary.simpleMessage("Syria"),
         "tax": MessageLookupByLibrary.simpleMessage("15% vat"),
+        "taxNumber": MessageLookupByLibrary.simpleMessage("Tax Number"),
         "termsOfService":
             MessageLookupByLibrary.simpleMessage("Terms of Service"),
         "thisErrorHappened":
