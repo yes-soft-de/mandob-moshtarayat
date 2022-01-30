@@ -4,7 +4,7 @@ import 'package:mandob_moshtarayat_captain/utils/components/progresive_image.dar
 class OrderChip extends StatefulWidget {
   final String title;
   final String image;
-  final price;
+  final num price;
   final String currency;
   final int defaultQuantity;
   final int productID;
@@ -57,7 +57,7 @@ class _OrderChipState extends State<OrderChip> {
             child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Text(
-                  '${widget.price} ${widget.currency}',
+                  '${widget.price.toStringAsFixed(2)} ${widget.currency}',
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                   ),
