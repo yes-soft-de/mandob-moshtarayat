@@ -202,7 +202,7 @@ class MandobProfileService
 
             $representative['totalRemainingPaymentsToRepresentative'] = $financialAccount->totalRemainingPaymentsToRepresentative;
 
-            if ($representative['totalRemainingPaymentsToRepresentative'] < 0 ) {
+            if ($representative['totalRemainingPaymentsToRepresentative'] > 0 ) {
 
                 $representative['image'] = $this->getImageParams($representative['image'], $this->params . $representative['image'], $this->params);
 
