@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\AutoMapping;
+use App\Constant\StoreProfileConstant;
 use App\Request\DeleteRequest;
 use App\Request\storeOwnerProfileStatusUpdateByAdminRequest;
 use App\Request\StoreOwnerProfileCreateByAdminRequest;
@@ -1208,7 +1209,7 @@ class StoreOwnerProfileController extends BaseController
     {
         $response = $this->storeOwnerProfileService->storeOwnerProfileIsCompleted($this->getUserId());
 
-        if ($response['storeOwnerProfile'] == "profile is not completed"){
+        if ($response['storeOwnerProfile'] == StoreProfileConstant::$PROFILE_IS_NOT_COMPLETED){
             return $this->response($response, self::PROFILE_NOT_COMPLETED);
 
         }
