@@ -574,6 +574,9 @@
     "distroInfo": "Distributors info",
     "distroInfoBalance": "Distributors Balance Info",
     "lastPaymentsToDistro": "Last Payments To Distributors",
-    "paymentToDistro": "Payment To Distributors"
+    "paymentToDistro": "Payment To Distributors",
+    "recordNumber": "Record number",
+    "taxNumber": "Tax number",
+    "nationalAddress": "National address"
 
 }

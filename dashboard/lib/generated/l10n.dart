@@ -5729,6 +5729,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Record number`
+  String get recordNumber {
+    return Intl.message(
+      'Record number',
+      name: 'recordNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tax number`
+  String get taxNumber {
+    return Intl.message(
+      'Tax number',
+      name: 'taxNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `National address`
+  String get nationalAddress {
+    return Intl.message(
+      'National address',
+      name: 'nationalAddress',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

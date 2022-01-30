@@ -409,6 +409,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "nameHint": MessageLookupByLibrary.simpleMessage("مثال يزن"),
         "nameIsRequired":
             MessageLookupByLibrary.simpleMessage("حقل الاسم فارغ"),
+        "nationalAddress":
+            MessageLookupByLibrary.simpleMessage("العنوان الوطني"),
         "nearbyOrders": MessageLookupByLibrary.simpleMessage("الطلبات القريبة"),
         "nearbyStore":
             MessageLookupByLibrary.simpleMessage("المتاجر القريبة إليك"),
@@ -518,6 +520,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تم الدفع بنجاح"),
         "paymentToCaptain":
             MessageLookupByLibrary.simpleMessage("دفعة للكابتن"),
+        "paymentToDistro": MessageLookupByLibrary.simpleMessage("دفعة لمندوب"),
         "paymentsForStore":
             MessageLookupByLibrary.simpleMessage("دفعات للمتجر"),
         "paymentsFromCaptain":
@@ -602,6 +605,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "recipientName": MessageLookupByLibrary.simpleMessage("اسم المستلم"),
         "recipientPhoneNumber":
             MessageLookupByLibrary.simpleMessage("رقم هاتف المستلم"),
+        "recordNumber": MessageLookupByLibrary.simpleMessage("رقم السجل"),
         "redo": MessageLookupByLibrary.simpleMessage("تراجع"),
         "refresh": MessageLookupByLibrary.simpleMessage("تحديث"),
         "register": MessageLookupByLibrary.simpleMessage("انشاء حساب جديد"),
@@ -764,6 +768,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sureForDeleteCategories": MessageLookupByLibrary.simpleMessage(
             "هل أنت متأكد من رغبتك بحذف هذا الصنف"),
         "syria": MessageLookupByLibrary.simpleMessage("سوريا"),
+        "taxNumber": MessageLookupByLibrary.simpleMessage("الرقم الضريبي"),
         "termsOfService":
             MessageLookupByLibrary.simpleMessage("شروط الاستخدام"),
         "thereIsNoPermission": MessageLookupByLibrary.simpleMessage(
