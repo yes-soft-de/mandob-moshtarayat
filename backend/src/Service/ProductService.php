@@ -917,6 +917,20 @@ class ProductService
         }
     }
 
+    public function priceForClient($isCommission, $productPrice, $commission, $storeCommission, $discount)
+    {
+        $priceWithDiscount = $productPrice - ($productPrice * $discount / 100);;
+
+        if($isCommission == true){
+            $productPrice = ( $priceWithDiscount * $commission  / 100) + $priceWithDiscount;
+            return round($productPrice, 2);
+        }
+
+        $productPrice = ( $priceWithDiscount * $storeCommission  / 100) + $priceWithDiscount;
+        return round($productPrice, 2);
+
+    }
+
     public function productAvailableAndQuantityAvailable(ProductAvailableAndQuantityAvailableRequest $request)
     {
         foreach ($request->getProductDetails() as $productDetail) {
@@ -925,6 +939,7 @@ class ProductService
             if($product) {
                 $product['userQuantity'] = $productDetail['quantity'];
                 $product['maxQuantity'] = $product['productQuantity'];
+                $product['productPrice'] = $this->priceForClient($product['isCommission'], $product['productPrice'], $product['commission'], $product['storeCommission'], $product['discount']);
 
                 if ($product['productQuantity'] < $product['userQuantity']) {
                     $product['quantity'] = "Required quantity is not available";
