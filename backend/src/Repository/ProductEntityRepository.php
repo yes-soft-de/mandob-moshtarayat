@@ -1341,6 +1341,14 @@ class ProductEntityRepository extends ServiceEntityRepository
 
             ->select('product.id', 'product.productName', 'product.productImage', 'product.productPrice', 'product.storeOwnerProfileID', 'product.storeProductCategoryID', 'product.discount',
                 'product.description', 'product.status', 'product.productQuantity', 'product.commission', 'product.isCommission')
+            ->addSelect( 'storeOwnerProfile.commission as storeCommission')
+
+            ->leftJoin(
+                StoreOwnerProfileEntity::class,
+                'storeOwnerProfile',
+                Join::WITH,
+                'storeOwnerProfile.id = product.storeOwnerProfileID')
+
 
             ->andWhere('product.isDeleted !=:isDeleted')
             ->andWhere('product.status =:status')
