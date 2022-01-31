@@ -319,7 +319,8 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
           get<_i48.CategoriesService>(),
           get<_i25.AuthService>(),
           get<_i31.ImageUploadService>(),
-          get<_i70.StoresService>()));
+          get<_i70.StoresService>(),
+          get<_i8.LocalizationService>()));
   gh.factory<_i85.RegisterScreen>(
       () => _i85.RegisterScreen(get<_i65.RegisterStateManager>()));
   gh.factory<_i86.SettingsModule>(
@@ -329,7 +330,8 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
           get<_i48.CategoriesService>(),
           get<_i25.AuthService>(),
           get<_i70.StoresService>(),
-          get<_i31.ImageUploadService>()));
+          get<_i31.ImageUploadService>(),
+          get<_i8.LocalizationService>()));
   gh.factory<_i88.StoreProfileStateManager>(() => _i88.StoreProfileStateManager(
       get<_i70.StoresService>(),
       get<_i31.ImageUploadService>(),

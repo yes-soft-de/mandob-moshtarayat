@@ -2,9 +2,11 @@ import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
 import 'package:mandob_moshtarayat/module_categories/model/products_categories_model.dart';
 import 'package:mandob_moshtarayat/module_categories/request/update_product_request.dart';
+import 'package:mandob_moshtarayat/module_localization/service/localization_service/localization_service.dart';
 import 'package:mandob_moshtarayat/module_profile/model/store_profile_model.dart';
 import 'package:mandob_moshtarayat/module_profile/service/store_service.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
+import 'package:mandob_moshtarayat/utils/helpers/laguage_code_helper.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:mandob_moshtarayat/abstracts/states/loading_state.dart';
 import 'package:mandob_moshtarayat/abstracts/states/state.dart';
@@ -21,12 +23,14 @@ class StoreProductsStateManager {
   final StoresService _storesService;
   final AuthService _authService;
   final ImageUploadService _uploadService;
+  final LocalizationService _localizationService;
+
   final PublishSubject<States> _stateSubject = PublishSubject();
 
   Stream<States> get stateStream => _stateSubject.stream;
 
   StoreProductsStateManager(
-      this._categoriesService, this._authService, this._storesService, this._uploadService);
+      this._categoriesService, this._authService, this._storesService, this._uploadService, this._localizationService);
 
   void getStoreProducts(StoreProductScreenState screenState,String name,{List<ProductsCategoryModel>? catOne ,List<ProductsCategoryModel>? catTwo}) {
     if (_authService.isLoggedIn) {
@@ -146,6 +150,10 @@ class StoreProductsStateManager {
         }
         else {
           request.dataStoreProduct.productImage = value;
+          if(_localizationService.getLanguage() != 'ar'){
+            request.translate =[];
+            request.translate?.add(TranslateStoreUpdateProduct(lang: LanguageCodeHelper.getLanguageName(_localizationService.getLanguage())  ,productName: request.dataStoreProduct.productName,productID: request.dataStoreProduct.id ??-1));
+          }
           _categoriesService.updateProduct(request).then((value) {
             if (value.hasError) {
               getStoreProducts(screenState,'',catOne: levelOne);
@@ -162,6 +170,10 @@ class StoreProductsStateManager {
         }
       });
     }else {
+      if(_localizationService.getLanguage() != 'ar'){
+        request.translate =[];
+        request.translate?.add(TranslateStoreUpdateProduct(lang: LanguageCodeHelper.getLanguageName(_localizationService.getLanguage())  ,productName: request.dataStoreProduct.productName,productID: request.dataStoreProduct.id ??-1));
+      }
       _categoriesService.updateProduct(request).then((value) {
         if (value.hasError) {
           getStoreProducts(screenState,'',catOne: levelOne,catTwo: []);

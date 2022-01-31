@@ -9,6 +9,7 @@ import 'package:mandob_moshtarayat/module_categories/response/store_categories_r
 import 'package:mandob_moshtarayat/module_categories/response/store_products_response.dart';
 import 'package:mandob_moshtarayat/module_localization/service/localization_service/localization_service.dart';
 import 'package:mandob_moshtarayat/module_network/http_client/http_client.dart';
+import 'package:mandob_moshtarayat/utils/helpers/laguage_code_helper.dart';
 
 @injectable
 class CategoriesRepository {
@@ -21,7 +22,7 @@ class CategoriesRepository {
 
   Future<StoreCategoriesResponse?> getStoreCategories() async {
     var token = await _authService.getToken();
-    var lang = _localizationService.getLanguage();
+    var lang = LanguageCodeHelper.getLanguageName(_localizationService.getLanguage());
     dynamic response = await _apiClient.get(Urls.STORE_CATEGORIES,
         headers: {'Authorization': 'Bearer ' + token.toString(),  'Accept-Language':lang});
     if (response == null) return null;
@@ -30,7 +31,7 @@ class CategoriesRepository {
 
   Future<ProductsCategoryResponse?> getCategoryLevelTwo(int levelOne) async {
     var token = await _authService.getToken();
-    var lang = _localizationService.getLanguage();
+    var lang = LanguageCodeHelper.getLanguageName(_localizationService.getLanguage());
     dynamic response = await _apiClient.get(Urls.CATEGORY_LEVEL_TWO + '$levelOne',
         headers: {'Authorization': 'Bearer ' + token.toString(),  'Accept-Language':lang});
     if (response == null) return null;
@@ -39,7 +40,7 @@ class CategoriesRepository {
 
   Future<ProductsCategoryResponse?> getCategoryLevelOne() async {
     var token = await _authService.getToken();
-    var lang = _localizationService.getLanguage();
+    var lang = LanguageCodeHelper.getLanguageName(_localizationService.getLanguage());
     dynamic response = await _apiClient.get(Urls.CATEGORY_LEVEL_ONE,
         headers: {'Authorization': 'Bearer ' + token.toString(),'Accept-Language':lang});
     if (response == null) return null;
@@ -47,7 +48,7 @@ class CategoriesRepository {
   }
   Future<StoreProductsResponse?> getProductsLevelTwo(int id) async {
     var token = await _authService.getToken();
-    var lang = _localizationService.getLanguage();
+    var lang = LanguageCodeHelper.getLanguageName(_localizationService.getLanguage());
 
     dynamic response = await _apiClient.get(Urls.GET_STORE_PRODUCT_BY_Category + '$id',
         headers: {'Authorization': 'Bearer ' + token.toString(),  'Accept-Language':lang});
@@ -56,7 +57,7 @@ class CategoriesRepository {
   }
   Future<StoreProductsResponse?> getProductsLevelOne(int id) async {
     var token = await _authService.getToken();
-    var lang = _localizationService.getLanguage();
+    var lang = LanguageCodeHelper.getLanguageName(_localizationService.getLanguage());
     dynamic response = await _apiClient.get(Urls.GET_STORE_PRODUCT_BY_Category_LEVEL_ONE + '$id',
         headers: {'Authorization': 'Bearer ' + token.toString(),  'Accept-Language':lang});
     if (response == null) return null;
@@ -64,8 +65,7 @@ class CategoriesRepository {
   }
   Future<StoreProductsResponse?> getStoreProducts(String name) async {
     var token = await _authService.getToken();
-    var lang = _localizationService.getLanguage();
-
+    var lang = LanguageCodeHelper.getLanguageName(_localizationService.getLanguage());
     dynamic response = await _apiClient.post(Urls.GET_STORE_PRODUCT,{
       'name':name,'language':lang
     },

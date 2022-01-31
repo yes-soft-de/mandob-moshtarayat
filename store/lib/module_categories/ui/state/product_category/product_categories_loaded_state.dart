@@ -183,7 +183,7 @@ class ProductCategoriesLoadedState extends ProductCategoriesState {
                     return AddProductsForm(
                       lang: screenState.language,
                       state: this,
-                      languages: ['ar', 'en', 'ur'],
+                      languages: ['ar', 'en', 'urdu'],
                       addProduct:
                           (name, image, price, discount, quantity, trans) {
                         Navigator.of(context).pop();
