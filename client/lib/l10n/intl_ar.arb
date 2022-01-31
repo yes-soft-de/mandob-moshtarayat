@@ -414,7 +414,11 @@
     "cartValidation": "جاري التحقق من السلة",
     "withoutTax": "السعر غير شامل القيمة المضافة",
     "extraTax": "القيمة المضافة",
-    "paymentResume": "استكمال الدفع"
+    "paymentResume": "استكمال الدفع",
+    "recordNumber": "رقم السجل",
+    "nationalAddress": "العنوان الوطني",
+    "taxNumber": "الرقم الضريبي",
+    "captainRated": "تم تقييم الكابتن بنجاح"
 
 
 }

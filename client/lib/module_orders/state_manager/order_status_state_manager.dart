@@ -11,7 +11,6 @@ import 'package:mandob_moshtarayat/module_orders/ui/state/order_status/order_sta
 import 'package:mandob_moshtarayat/module_orders/ui/state/order_status/order_status_state.dart';
 import 'package:mandob_moshtarayat/module_orders/ui/state/order_status/orders_status_error_state.dart';
 import 'package:mandob_moshtarayat/module_stores/request/rate_store_request.dart';
-import 'package:mandob_moshtarayat/module_stores/ui/screen/store_products_screen.dart';
 import 'package:mandob_moshtarayat/utils/helpers/custom_flushbar.dart';
 import 'package:mandob_moshtarayat/utils/helpers/fire_store_helper.dart';
 
@@ -71,7 +70,7 @@ class OrderStatusStateManager {
         ).show(screenState.context);
       } else {
         CustomFlushBarHelper.createSuccess(
-                title: S.current.warnning, message: S.current.storeRated)
+                title: S.current.warnning, message: S.current.captainRated)
             .show(screenState.context);
       }
     });

@@ -22,6 +22,9 @@ class PersonalDataLoadedState extends PersonalDataState {
       : super(screenState) {
     nameController.text = profileModel?.name ?? '';
     locationController.text = profileModel?.location ?? '';
+    nationalController.text = profileModel?.nationalAddress ?? '';
+    taxController.text = profileModel?.taxNumber ?? '';
+    recordController.text = profileModel?.recordNumber ?? '';
     image = profileModel?.image ?? ImageAsset.NETWORK;
     if (profileModel!.image.contains('http')) {
       image = profileModel!.image;
@@ -33,6 +36,10 @@ class PersonalDataLoadedState extends PersonalDataState {
   final GlobalKey<FormState> _personal_data = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController locationController = TextEditingController();
+  TextEditingController nationalController = TextEditingController();
+  TextEditingController taxController = TextEditingController();
+  TextEditingController recordController = TextEditingController();
+
   late ProfileRequest request;
   String? genders = '';
 
@@ -67,6 +74,9 @@ class PersonalDataLoadedState extends PersonalDataState {
                           screenState.fileString = value.path;
                           screenState.uploadImage(
                               ProfileModel(
+                                recordNumber: recordController.text.trim(),
+                                nationalAddress: nationalController.text,
+                                taxNumber: taxController.text,
                                 name: nameController.text.trim(),
                                 location: locationController.text.trim(),
                                 image: image,
@@ -200,41 +210,59 @@ class PersonalDataLoadedState extends PersonalDataState {
                         contentPadding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
                         preIcon: const Icon(Icons.location_on_rounded),
                         hintText: S.of(context).myAddressHint,
+                      ),
+                    ),
+                    ListTile(
+                      title: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          S.of(context).nationalAddress,
+                          style: const TextStyle(fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                      subtitle: CustomFormField(
+                        controller: nationalController,
+                        contentPadding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+                        preIcon: const Icon(Icons.location_city_rounded),
+                        hintText: S.of(context).myAddressHint,
+                        validator: false,
+                      ),
+                    ),
+                    ListTile(
+                      title: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          S.of(context).taxNumber,
+                          style: const TextStyle(fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                      subtitle: CustomFormField(
+                        controller: taxController,
+                        contentPadding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+                        preIcon: const Icon(Icons.money_off),
+                        hintText: 'xxxxxxxxxxxxxxxx',
+                        validator: false,
+                      ),
+                    ),
+                    ListTile(
+                      title: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          S.of(context).recordNumber,
+                          style: const TextStyle(fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                      subtitle: CustomFormField(
+                        controller: recordController,
+                        contentPadding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+                        preIcon: const Icon(Icons.fiber_smart_record),
+                        hintText: 'xxxxxxxxxxxxxxxx',
+                        validator: false,
                         last: true,
                       ),
                     ),
                     const SizedBox(
                       height: 16,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor,
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                        child: ListTile(
-                          trailing: const Icon(
-                            Icons.arrow_forward,
-                            color: Colors.white,
-                          ),
-                          leading: const Icon(
-                            Icons.favorite,
-                            color: Colors.white,
-                          ),
-                          title: Text(
-                            S.current.favoriteCategories,
-                            style: const TextStyle(color: Colors.white),
-                          ),
-                          onTap: () {
-                            showDialog(
-                                context: context,
-                                builder: (_) {
-                                  return getIt<FavouritScreen>();
-                                });
-                          },
-                        ),
-                      ),
                     ),
                   ],
                 ),
@@ -252,6 +280,9 @@ class PersonalDataLoadedState extends PersonalDataState {
                 request = ProfileRequest(
                     clientName: nameController.text.trim(),
                     location: locationController.text.trim(),
+                    nationalAddress: nationalController.text.trim(),
+                    taxNumber: taxController.text.trim(),
+                    recordNumber: recordController.text.trim(),
                     image: profileModel!.image);
                 screenState.postClientProfile(request);
               }

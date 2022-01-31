@@ -13,8 +13,13 @@ class LoadingState extends States {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const CircularProgressIndicator(),
-          const SizedBox(height: 16,),
-          Text(message! + '...',style: const TextStyle(fontWeight: FontWeight.bold),)
+          const SizedBox(
+            height: 16,
+          ),
+          Text(
+            message! + '...',
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          )
         ],
       );
     }

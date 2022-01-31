@@ -26,6 +26,7 @@ class OrderModel {
   OrderModel.Data(MyOrdersResponse orders) {
     var data = orders.data;
     data?.forEach((element) {
+      var orderCost = element.orderCost ?? 0;
       String date = DateFormat('dd-MM-yyyy').format(
           DateTime.fromMillisecondsSinceEpoch(
               (element.deliveryDate?.timestamp ??
@@ -39,7 +40,7 @@ class OrderModel {
           orderDate: date,
           orderId: element.orderNumber ?? '-1',
           orderStatus: StatusHelper.getStatusEnum(element.state),
-          orderCost: element.orderCost ?? 0));
+          orderCost:element.vatTax?.total ?? 0));
     });
   }
   bool get hasError => error != null;

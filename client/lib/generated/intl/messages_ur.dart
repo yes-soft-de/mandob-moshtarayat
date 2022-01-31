@@ -90,6 +90,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("کپتان راستے میں ہے۔"),
         "captainNotActive": MessageLookupByLibrary.simpleMessage(
             " آپ کا اکاؤنٹ ابھی تک فعال نہیں ہوا ہے براہ کرم انتظار کریں۔"),
+        "captainRated": MessageLookupByLibrary.simpleMessage(
+            "کیپٹن نے کامیابی سے درجہ بندی کی"),
         "captainStartedDelivery": MessageLookupByLibrary.simpleMessage(
             " کپتان نے ڈلیوری شروع کر دی۔"),
         "car": MessageLookupByLibrary.simpleMessage("گاڑی"),
@@ -304,6 +306,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "nameHint":
             MessageLookupByLibrary.simpleMessage(" مثال کے طور پر یازان"),
         "nameIsRequired": MessageLookupByLibrary.simpleMessage("نام درکار ہے۔"),
+        "nationalAddress": MessageLookupByLibrary.simpleMessage("قومی پتہ"),
         "nearbyOrders": MessageLookupByLibrary.simpleMessage("قریبی احکامات"),
         "nearbyStore": MessageLookupByLibrary.simpleMessage(" قریبی اسٹور"),
         "networkError": MessageLookupByLibrary.simpleMessage(
@@ -477,6 +480,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(" وصول کنندہ کا نام"),
         "recipientPhoneNumber":
             MessageLookupByLibrary.simpleMessage("وصول کنندہ کا فون نمبر"),
+        "recordNumber": MessageLookupByLibrary.simpleMessage("ریکارڈ نمبر"),
         "refresh": MessageLookupByLibrary.simpleMessage(" ریفریش"),
         "register": MessageLookupByLibrary.simpleMessage("رجسٹر کریں۔"),
         "registerHint":
@@ -575,6 +579,7 @@ class MessageLookup extends MessageLookupByLibrary {
             " کیا آپ اس آرڈر کو حذف کرنے کے بارے میں یقین رکھتے ہیں، براہ کرم تصدیق کریں۔"),
         "syria": MessageLookupByLibrary.simpleMessage("Syria"),
         "tax": MessageLookupByLibrary.simpleMessage("ٹیکس"),
+        "taxNumber": MessageLookupByLibrary.simpleMessage("ٹیکس نمبر"),
         "termsOfService": MessageLookupByLibrary.simpleMessage("سروس کی شرائط"),
         "thisErrorHappened":
             MessageLookupByLibrary.simpleMessage(" یہ ایرر ہوا ہے۔"),

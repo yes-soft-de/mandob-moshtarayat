@@ -316,10 +316,11 @@ class ProductDetailsLoadedState extends States {
                       ],
                     ),
                   ),
-                 Text(S.current.withoutTax + ' %15 ',style: const TextStyle(
-                   fontWeight: FontWeight.bold,
-                   color: Colors.red
-                 ),), 
+                  Text(
+                    S.current.withoutTax + ' %15 ',
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.red),
+                  ),
                   ListTile(
                     leading: Icon(
                       FontAwesomeIcons.shoppingCart,
@@ -366,7 +367,7 @@ class ProductDetailsLoadedState extends States {
           onTap: () {
             Navigator.of(screenState.context).pushNamed(
                 StoreRoutes.STORE_PRODUCTS,
-                arguments: {'storeId': element.id.toString()});
+                arguments: {'storeId': element.storeOwnerProfileID.toString()});
           },
           child: HomeCard(title: element.productName, image: element.image)));
     });

@@ -37,6 +37,9 @@ class Data {
   String? phone;
   String? image;
   dynamic location;
+  String? taxNumber;
+  String? nationalAddress;
+  String? recordNumber;
 
   Data(
       {this.id,
@@ -45,7 +48,11 @@ class Data {
       this.roomID,
       this.phone,
       this.image,
-      this.location});
+      this.location,
+      this.nationalAddress,
+      this.recordNumber,
+      this.taxNumber
+      });
 
   Data.fromJson(dynamic json) {
     id = json['id'];
@@ -54,6 +61,9 @@ class Data {
     roomID = json['roomID'];
     phone = json['phone'];
     image = json['image'];
+    recordNumber = json['recordNumber'];
+    nationalAddress = json['nationalAddress'];
+    taxNumber= json['taxNumber'];
     if (json['location'] is String) {
       location = json['location'];
     }

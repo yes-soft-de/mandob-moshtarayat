@@ -286,6 +286,7 @@ class OrderDetailsLoadedState extends OrderDetailsState {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: BillCard(
+              totalCost: orderDetails.order.totalCost,
               id: screenState.orderNumber!,
               deliveryCost: orderDetails.order.deliveryCost,
               orderCost: orderDetails.order.orderCost,

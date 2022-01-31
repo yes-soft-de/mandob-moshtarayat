@@ -84,7 +84,7 @@ class MyOrdersLoadedState extends MyOrdersState {
     orders.forEach((element) {
       ordersCard.add(OrderCard(
         orderId: element.orderId,
-        orderCost: element.orderCost.toString(),
+        orderCost: element.orderCost.toStringAsFixed(2),
         orderStatus: element.orderStatus,
         orderDate: element.orderDate,
       ));

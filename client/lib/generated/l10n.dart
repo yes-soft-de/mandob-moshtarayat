@@ -4120,20 +4120,20 @@ class S {
     );
   }
 
-  /// `All prices in payments portal are included with 15% tax`
+  /// `All prices in payments portal are included with 15% vat`
   String get paymentPortalHint {
     return Intl.message(
-      'All prices in payments portal are included with 15% tax',
+      'All prices in payments portal are included with 15% vat',
       name: 'paymentPortalHint',
       desc: '',
       args: [],
     );
   }
 
-  /// `15% Tax`
+  /// `15% vat`
   String get tax {
     return Intl.message(
-      '15% Tax',
+      '15% vat',
       name: 'tax',
       desc: '',
       args: [],
@@ -4160,20 +4160,20 @@ class S {
     );
   }
 
-  /// `Without tax fee`
+  /// `Without vat fee`
   String get withoutTax {
     return Intl.message(
-      'Without tax fee',
+      'Without vat fee',
       name: 'withoutTax',
       desc: '',
       args: [],
     );
   }
 
-  /// `Tax fee`
+  /// `vat fee`
   String get extraTax {
     return Intl.message(
-      'Tax fee',
+      'vat fee',
       name: 'extraTax',
       desc: '',
       args: [],
@@ -4185,6 +4185,46 @@ class S {
     return Intl.message(
       'Payment Resume',
       name: 'paymentResume',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Record Number`
+  String get recordNumber {
+    return Intl.message(
+      'Record Number',
+      name: 'recordNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `National Address`
+  String get nationalAddress {
+    return Intl.message(
+      'National Address',
+      name: 'nationalAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tax Number`
+  String get taxNumber {
+    return Intl.message(
+      'Tax Number',
+      name: 'taxNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Captain rated successfully`
+  String get captainRated {
+    return Intl.message(
+      'Captain rated successfully',
+      name: 'captainRated',
       desc: '',
       args: [],
     );

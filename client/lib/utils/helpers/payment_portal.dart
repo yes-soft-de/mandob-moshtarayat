@@ -77,6 +77,7 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> setupSDKSession() async {
     try {
+      print(widget.model.order.orderCost);
       GoSellSdkFlutter.sessionConfigurations(
           trxMode: TransactionMode.PURCHASE,
           paymentItems: payments,
@@ -86,7 +87,8 @@ class _PaymentsPortalState extends State<PaymentsPortal> {
             Shipping(
                 name: S.current.tax,
                 description: S.current.withTaxes + ' %15 ',
-                amount: (widget.model.order.orderCost * 15) / 100)
+                amount: double.parse(((widget.model.order.orderCost * 15) / 100)
+                    .toStringAsFixed(2)))
           ],
           customer: Customer(
               customerId:

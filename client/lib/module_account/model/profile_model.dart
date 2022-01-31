@@ -7,6 +7,9 @@ class ProfileModel {
   String image = ImageAsset.NETWORK;
   String? roomID = '';
   String location = '';
+  String nationalAddress = '';
+  String recordNumber = '';
+  String taxNumber = '';
   bool _empty = false;
   String? _error;
   ProfileModel? _profileModel;
@@ -21,7 +24,11 @@ class ProfileModel {
       {required this.name,
       required this.image,
       required this.location,
-      this.roomID});
+      this.roomID,
+      required this.taxNumber,
+      required this.recordNumber,
+      required this.nationalAddress
+      });
 
   bool get hasError => _error != null;
 
@@ -34,7 +41,11 @@ class ProfileModel {
         name: profileResponse.data?.clientName ?? S.current.username,
         roomID: profileResponse.data?.roomID ?? S.current.unknown,
         image: profileResponse.data?.image ?? ImageAsset.NETWORK,
-        location: profileResponse.data?.location ?? '');
+        location: profileResponse.data?.location ?? '',
+        recordNumber:profileResponse.data?.recordNumber ??'' ,
+        taxNumber: profileResponse.data?.taxNumber ?? '',
+        nationalAddress: profileResponse.data?.nationalAddress ?? '',
+        );
   }
 
   ProfileModel get data => _profileModel ?? ProfileModel.Empty();
