@@ -32,7 +32,7 @@ class RegisterStateInit extends RegisterState {
     }
   }
 
-  TextEditingController nameController = TextEditingController();
+//  TextEditingController nameController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> _registerKey = GlobalKey<FormState>();
@@ -56,26 +56,26 @@ class RegisterStateInit extends RegisterState {
                 width: 150,
                     )
                   : Container(),
-              Padding(
-                padding: const EdgeInsets.only(
-                    bottom: 4.0, left: 32, right: 32, top: 8),
-                child: Text(
-                  S.of(context).name,
-                  style: StyleText.textsAlmaraiNormalBold,
-                ),
-              ),
-              ListTile(
-                title: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CustomLoginFormField(
-                    contentPadding:
-                        EdgeInsets.only(left: 0, right: 0, top: 15, bottom: 0),
-                    controller: nameController,
-                    hintText: S.of(context).nameHint,
-                    preIcon: Icon(Icons.person),
-                  ),
-                ),
-              ),
+//              Padding(
+//                padding: const EdgeInsets.only(
+//                    bottom: 4.0, left: 32, right: 32, top: 8),
+//                child: Text(
+//                  S.of(context).name,
+//                  style: StyleText.textsAlmaraiNormalBold,
+//                ),
+//              ),
+//              ListTile(
+//                title: Padding(
+//                  padding: const EdgeInsets.all(8.0),
+//                  child: CustomLoginFormField(
+//                    contentPadding:
+//                        EdgeInsets.only(left: 0, right: 0, top: 15, bottom: 0),
+//                    controller: nameController,
+//                    hintText: S.of(context).nameHint,
+//                    preIcon: Icon(Icons.person),
+//                  ),
+//                ),
+//              ),
               Padding(
                 padding: const EdgeInsets.only(
                     bottom: 4.0, left: 32, right: 32, top: 8),
@@ -208,7 +208,7 @@ class RegisterStateInit extends RegisterState {
                       screen.registerClient(RegisterRequest(
                           userID: usernameController.text,
                           password: passwordController.text,
-                          userName: nameController.text));
+                          ));
                     }
                   }
                 : null,
