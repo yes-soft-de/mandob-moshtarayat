@@ -118,7 +118,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 'Urdu',
                                 style: TextStyle(),
                               ),
-                              value: 'urdu',
+                              value: 'ur',
                             ),
                           ],
                           onChanged: (newLang) {

@@ -76,13 +76,15 @@ class UpdateProductRequest {
 class TranslateStoreUpdateProduct {
   String? productName;
   String? lang;
+  int productID;
 
-  TranslateStoreUpdateProduct({this.productName, this.lang});
+  TranslateStoreUpdateProduct({this.productName, this.lang ,required this.productID});
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
     map['productName'] = productName;
     map['language'] = lang;
+    map['productID'] = productID;
     return map;
   }
 }

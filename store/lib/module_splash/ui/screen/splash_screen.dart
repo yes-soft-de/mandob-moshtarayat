@@ -131,7 +131,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 color: Colors.white,
                 onTap: (){
                   widget._localizationService
-                      .setLanguage('urdu');
+                      .setLanguage('ur');
                   Navigator.pop(context);
                   _getNextRoutFirst();
                 },
