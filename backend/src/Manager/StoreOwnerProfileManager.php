@@ -46,7 +46,7 @@ class StoreOwnerProfileManager
             $userName = "default";
         }
 
-            if($userResult == null)
+        if($userResult == null)
         {
             $userRegister = $this->autoMapping->map(UserRegisterRequest::class, UserEntity::class, $request);
 
