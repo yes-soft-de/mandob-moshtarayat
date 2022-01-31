@@ -11,6 +11,7 @@ use App\Request\ProductCreateRequest;
 use App\Request\ProductFilterByNameRequest;
 use App\Request\ProductTranslationCreateRequest;
 use App\Request\ProductTranslationUpdateRequest;
+use App\Request\ProductTranslationLanguageCodeUpdateRequest;
 use App\Request\ProductUpdateByStoreOwnerRequest;
 use App\Request\ProductUpdateRequest;
 use App\Request\ProductWithTranslationCreateRequest;
@@ -646,6 +647,12 @@ class ProductService
                 $this->productTranslationService->updateProductTranslationByProductIdAndLanguage($productTranslationUpdateRequest);
             }
         }
+    }
+
+    // for testing issues: update language code
+    public function updateAllProductTranslationLanguageCodeByProductIdAndLanguage(ProductTranslationLanguageCodeUpdateRequest $request): array
+    {
+        return $this->productTranslationService->updateAllProductTranslationLanguageCodeByProductIdAndLanguage($request);
     }
 
     public function getProductsByStoreCategoryID($userLocale, $storeCategoryID): ?array

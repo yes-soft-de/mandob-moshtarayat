@@ -10,7 +10,7 @@ use App\Request\ProductCancelByStoreOwnerRequest;
 use App\Request\ProductCommissionByAdminUpdateRequest;
 use App\Request\ProductCreateRequest;
 use App\Request\ProductFilterByNameRequest;
-use App\Request\ProductUpdateByStoreOwnerRequest;
+use App\Request\ProductTranslationLanguageCodeUpdateRequest;
 use App\Request\ProductUpdateRequest;
 use App\Request\ProductWithTranslationCreateRequest;
 use App\Request\ProductWithTranslationUpdateRequest;
@@ -1340,4 +1340,18 @@ class ProductController extends BaseController
         return $this->response($result, self::FETCH);
     }
 
+    /**
+     * for testing issues: update language code
+     * @Route("producttranslationlanguage", name="updateProductTranslationLanguageByLanguage", methods={"PUT"})
+     */
+    public function updateAllProductTranslationLanguageCodeByProductIdAndLanguage(Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, ProductTranslationLanguageCodeUpdateRequest::class, (object)$data);
+
+        $response = $this->productService->updateAllProductTranslationLanguageCodeByProductIdAndLanguage($request);
+
+        return $this->response($response, self::UPDATE);
+    }
 }
