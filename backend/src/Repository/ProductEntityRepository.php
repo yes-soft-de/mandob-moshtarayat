@@ -1345,6 +1345,7 @@ class ProductEntityRepository extends ServiceEntityRepository
             ->andWhere('product.isDeleted !=:isDeleted')
             ->andWhere('product.status =:status')
             ->andWhere('product.id =:id')
+            ->andWhere('product.productQuantity > 0')
 
             ->setParameter('isDeleted',ProductStatusConstant::$DELETED_PRODUCT)
             ->setParameter('status',ProductStatusConstant::$ACTIVE_PRODUCT_STATUS)
