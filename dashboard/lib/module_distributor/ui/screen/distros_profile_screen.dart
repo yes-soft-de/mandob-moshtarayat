@@ -42,7 +42,7 @@ class DistributorProfileScreenState extends State<DistrosProfileScreen> {
   }
 
   void enableDistro(AcceptDistroRequest request) {
-     widget._stateManager.acceptDistroProfile(this, distorId, request);
+     widget._stateManager.acceptDistroProfile(this, Id, request);
   }
 
   void refresh() {
