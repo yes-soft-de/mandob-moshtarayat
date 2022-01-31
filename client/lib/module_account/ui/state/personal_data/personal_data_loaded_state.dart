@@ -210,7 +210,6 @@ class PersonalDataLoadedState extends PersonalDataState {
                         contentPadding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
                         preIcon: const Icon(Icons.location_on_rounded),
                         hintText: S.of(context).myAddressHint,
-                        last: true,
                       ),
                     ),
                     ListTile(
@@ -226,7 +225,7 @@ class PersonalDataLoadedState extends PersonalDataState {
                         contentPadding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
                         preIcon: const Icon(Icons.location_city_rounded),
                         hintText: S.of(context).myAddressHint,
-                        last: true,
+                        validator: false,
                       ),
                     ),
                     ListTile(
@@ -242,7 +241,7 @@ class PersonalDataLoadedState extends PersonalDataState {
                         contentPadding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
                         preIcon: const Icon(Icons.money_off),
                         hintText: 'xxxxxxxxxxxxxxxx',
-                        last: true,
+                        validator: false,
                       ),
                     ),
                     ListTile(
@@ -258,13 +257,14 @@ class PersonalDataLoadedState extends PersonalDataState {
                         contentPadding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
                         preIcon: const Icon(Icons.fiber_smart_record),
                         hintText: 'xxxxxxxxxxxxxxxx',
+                        validator: false,
                         last: true,
                       ),
                     ),
                     const SizedBox(
                       height: 16,
                     ),
-                 ],
+                  ],
                 ),
               ),
             ),
