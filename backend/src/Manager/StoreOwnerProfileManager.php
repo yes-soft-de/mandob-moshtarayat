@@ -39,6 +39,12 @@ class StoreOwnerProfileManager
     public function storeOwnerRegister(UserRegisterRequest $request)
     {
         $userResult = $this->userManager->getUserByUserID($request->getUserID());
+        if($request->getUserName()){
+            $userName = $request->getUserName();
+        }
+        else{
+            $userName = "default";
+        }
 
         if($userResult == null)
         {
@@ -66,7 +72,7 @@ class StoreOwnerProfileManager
                 $storeOwnerProfile = $this->autoMapping->map(UserRegisterRequest::class, StoreOwnerProfileEntity::class, $request);
 
                 $storeOwnerProfile->setStoreOwnerID($userRegister->getId());
-                $storeOwnerProfile->setStoreOwnerName($request->getUserName());
+                $storeOwnerProfile->setStoreOwnerName($userName);
                 $storeOwnerProfile->setRoomID($request->getRoomID());
                 $storeOwnerProfile->setStatus('inactive');
                 $storeOwnerProfile->setFree(false);
@@ -110,7 +116,7 @@ class StoreOwnerProfileManager
                 $storeOwnerProfile = $this->autoMapping->map(UserRegisterRequest::class, StoreOwnerProfileEntity::class, $request);
 
                 $storeOwnerProfile->setStoreOwnerID($userResult['id']);
-                $storeOwnerProfile->setStoreOwnerName($request->getUserName());
+                $storeOwnerProfile->setStoreOwnerName($userName);
                 $storeOwnerProfile->setRoomID($request->getRoomID());
                 $storeOwnerProfile->setStatus('inactive');
                 $storeOwnerProfile->setFree(false);
