@@ -574,6 +574,7 @@
     "paymentToDistro": "دفعة لمندوب",
     "recordNumber": "رقم السجل",
     "taxNumber": "الرقم الضريبي",
-    "nationalAddress": "العنوان الوطني"
+    "nationalAddress": "العنوان الوطني",
+    "withTaxes": "شامل القيمة المضافة"
 
 }

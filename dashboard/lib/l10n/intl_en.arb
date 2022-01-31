@@ -577,6 +577,7 @@
     "paymentToDistro": "Payment To Distributors",
     "recordNumber": "Record number",
     "taxNumber": "Tax number",
-    "nationalAddress": "National address"
+    "nationalAddress": "National address",
+    "withTaxes": "With taxes "
 
 }

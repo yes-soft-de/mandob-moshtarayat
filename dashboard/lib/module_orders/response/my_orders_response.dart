@@ -1,3 +1,4 @@
+import 'package:mandob_moshtarayat_dashboad/module_orders/response/order_details_response/vat_tax.dart';
 import 'package:mandob_moshtarayat_dashboad/utils/logger/logger.dart';
 
 class MyOrdersResponse {
@@ -43,6 +44,7 @@ class Data {
   dynamic amount;
   double? deliveryCost;
   double? orderCost;
+  VatTax? vatTax;
 
   Data(
       {this.deliveryDate,
@@ -51,7 +53,8 @@ class Data {
       this.orderNumber,
       this.amount,
       this.orderCost,
-      this.deliveryCost});
+      this.deliveryCost,
+      this.vatTax});
 
   Data.fromJson(dynamic json) {
     deliveryDate = json['deliveryDate'] != null
@@ -65,6 +68,7 @@ class Data {
     amount = json['amount'];
     orderCost = json['orderCost']?.toDouble();
     deliveryCost = json['deliveryCost']?.toDouble();
+    vatTax = json['vatTax'] != null ? VatTax.fromJson(json['vatTax']) : null;
   }
 
   Map<String, dynamic> toJson() {

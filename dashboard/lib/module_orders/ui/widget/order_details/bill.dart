@@ -5,9 +5,13 @@ class BillCard extends StatelessWidget {
   final int id;
   final double orderCost;
   final double deliveryCost;
+  final double totalCost;
 
   BillCard(
-      {required this.id, required this.orderCost, required this.deliveryCost});
+      {required this.id,
+      required this.orderCost,
+      required this.deliveryCost,
+      required this.totalCost});
 
   @override
   Widget build(BuildContext context) {
@@ -73,10 +77,20 @@ class BillCard extends StatelessWidget {
                       color: Colors.white),
                 ),
                 Container(
-                  width: 16,
+                  width: 8,
                 ),
                 Text(
-                  '${deliveryCost + orderCost} ${S.of(context).sar}',
+                  S.of(context).withTaxes,
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
+                Container(
+                  width: 8,
+                ),
+                Text(
+                  '${deliveryCost + totalCost} ${S.of(context).sar}',
                   style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,

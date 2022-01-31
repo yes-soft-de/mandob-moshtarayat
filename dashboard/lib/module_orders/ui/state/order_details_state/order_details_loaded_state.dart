@@ -187,6 +187,7 @@ class OrderDetailsLoadedState extends OrderDetailsState {
             child: BillCard(
               id: screenState.orderNumber!,
               deliveryCost: orderDetails.order.deliveryCost,
+              totalCost:orderDetails.totalCost,
               orderCost: orderDetails.order.orderCost,
             ),
           )

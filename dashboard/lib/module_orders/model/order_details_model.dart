@@ -13,13 +13,17 @@ class OrderDetailsModel extends DataModel {
   List<StoreOwnerInfo> carts = [];
   List<Invoice> invoices = [];
   StoreOwnerInfo storeInfo = StoreOwnerInfo.Empty();
+  double totalCost = 0;
   OrderInfo order = OrderInfo.Empty();
   String? error;
   bool empty = false;
   OrderDetailsModel? orderDetailsModel;
 
   OrderDetailsModel(
-      {required this.carts, required this.order, required this.invoices});
+      {required this.carts,
+      required this.order,
+      required this.invoices,
+      required this.totalCost});
 
   OrderDetailsModel.Error(this.error);
 
@@ -33,8 +37,10 @@ class OrderDetailsModel extends DataModel {
 
   OrderDetailsModel.Data(OrderDetailsResponse response) {
     orderDetailsModel = OrderDetailsModel(
+      totalCost: response.data?.vatTax?.total ?? 0,
       carts: toCartList(response.data?.orderDetails ?? <OrderDetail>[]),
-      order: toOrder(response.data?.order),
+      order: toOrder(response.data?.order,
+          double.tryParse(response.data?.deliveryCost ?? '0')),
       invoices: response.data?.invoices ?? [],
     );
   }
@@ -42,7 +48,9 @@ class OrderDetailsModel extends DataModel {
   bool get hasData => orderDetailsModel != null;
 
   OrderDetailsModel get data =>
-      orderDetailsModel ?? OrderDetailsModel(carts: carts, order: order,invoices: invoices);
+      orderDetailsModel ??
+      OrderDetailsModel(
+          carts: carts, order: order, invoices: invoices, totalCost: totalCost);
 }
 
 class Item {
@@ -166,7 +174,7 @@ List<StoreOwnerInfo> toCartList(List<OrderDetail> ordersItems) {
   return items;
 }
 
-OrderInfo toOrder(Order? order) {
+OrderInfo toOrder(Order? order, double? deliveryCost) {
   if (order != null) {
     bool timeout = false;
     var date = DateTime.fromMillisecondsSinceEpoch(
@@ -187,7 +195,7 @@ OrderInfo toOrder(Order? order) {
                     1000)
             .toUtc()
             .toIso8601String(),
-        deliveryCost: order.deliveryCost?.toDouble() ?? 0,
+        deliveryCost: deliveryCost ?? 0,
         payment: order.payment!,
         note: order.note,
         destination: order.destination,
