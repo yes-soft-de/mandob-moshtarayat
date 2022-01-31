@@ -131,10 +131,10 @@ class DistributorProfileLoadedState extends States {
                         onChanged: (v) {
                           if (v) {
                             model?.status = 'active';
-                            screenState.enableDistro(AcceptDistroRequest(distroID: screenState.distorId.toString() ,status:model?.status ));
+                            screenState.enableDistro(AcceptDistroRequest(distroID: screenState.Id.toString() ,status:model?.status ));
                           } else {
                             model?.status = 'inActive';
-                            screenState.enableDistro(AcceptDistroRequest(distroID: screenState.distorId.toString() ,status:model?.status ));
+                            screenState.enableDistro(AcceptDistroRequest(distroID: screenState.Id.toString() ,status:model?.status ));
                           }
                         }),
                   ),
