@@ -34,4 +34,15 @@ class ProductTranslationEntityRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    // for testing issues: update language code
+    public function getAllProductsTranslationsByLanguage($language)
+    {
+        return $this->createQueryBuilder('productTranslationEntity')
+
+            ->andWhere('productTranslationEntity.language = :language')
+            ->setParameter('language', $language)
+
+            ->getQuery()
+            ->getResult();
+    }
 }
