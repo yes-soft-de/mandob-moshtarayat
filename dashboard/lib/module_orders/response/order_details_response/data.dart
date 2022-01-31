@@ -1,4 +1,5 @@
 import 'package:mandob_moshtarayat_dashboad/module_orders/response/order_details_response/invoice.dart';
+import 'package:mandob_moshtarayat_dashboad/module_orders/response/order_details_response/vat_tax.dart';
 
 import 'order.dart';
 import 'order_detail.dart';
@@ -9,12 +10,15 @@ class Data {
   String? deliveryCost;
   String? rate;
   List<Invoice>? invoices;
+  VatTax? vatTax;
   Data(
       {this.order,
       this.orderDetails,
       this.deliveryCost,
       this.rate,
-      this.invoices});
+      this.invoices,
+      this.vatTax
+      });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         order: json['order'] == null
@@ -28,6 +32,9 @@ class Data {
         invoices: (json['Invoice'] as List<dynamic>?)
             ?.map((e) => Invoice.fromJson(e as Map<String, dynamic>))
             .toList(),
+        vatTax: json['vatTax'] == null
+            ? null
+            : VatTax.fromJson(json['vatTax'] as Map<String, dynamic>)
       );
 
   Map<String, dynamic> toJson() => {

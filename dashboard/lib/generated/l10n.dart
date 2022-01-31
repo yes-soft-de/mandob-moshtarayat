@@ -5759,6 +5759,16 @@ class S {
       args: [],
     );
   }
+
+  /// `With taxes `
+  String get withTaxes {
+    return Intl.message(
+      'With taxes ',
+      name: 'withTaxes',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

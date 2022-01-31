@@ -866,6 +866,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "whatsappWithClient": MessageLookupByLibrary.simpleMessage("الزبون"),
         "whatsappWithStoreOwner":
             MessageLookupByLibrary.simpleMessage("صاحب المحل"),
+        "withTaxes":
+            MessageLookupByLibrary.simpleMessage("شامل القيمة المضافة"),
         "workTime": MessageLookupByLibrary.simpleMessage("أوقات العمل"),
         "yes": MessageLookupByLibrary.simpleMessage("نعم"),
         "youReached": MessageLookupByLibrary.simpleMessage("لقد تجاوزت"),
