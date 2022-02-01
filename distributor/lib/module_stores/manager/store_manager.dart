@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:mandob_moshtarayat/module_stores/repository/store_repository.dart';
+import 'package:mandob_moshtarayat/module_stores/response/store_response.dart';
 
 @injectable
 class StoreManager {
@@ -8,7 +9,5 @@ class StoreManager {
 
   StoreManager(this._storesRepository);
 
-//  Future<ProfileResponse?> getProfile() => _storesRepository.getProfile();
-//  Future<ActionResponse?> updateStore(CreateMandobRequest request) => _storesRepository.updateProfile(request);
-
+  Future<StoreResponse?> getStores() => _storesRepository.getStores();
 }

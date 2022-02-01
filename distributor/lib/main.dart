@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:injectable/injectable.dart';
+import 'package:mandob_moshtarayat/module_balance/balance_module.dart';
 import 'package:mandob_moshtarayat/module_stores/store_module.dart';
 import 'package:simple_moment/simple_moment.dart';
 import 'package:mandob_moshtarayat/abstracts/module/yes_module.dart';
@@ -82,6 +83,7 @@ class MyApp extends StatefulWidget {
   final MyCodeModule _codeModule;
   final StoreModule _storeModule;
   final PrivacyModule _privacyModule;
+  final BalanceModule _balanceModule;
 
   MyApp(
     this._themeDataService,
@@ -94,7 +96,8 @@ class MyApp extends StatefulWidget {
     this._settingsModule,
       this._initAccountModule,
       this._homeModule,
-      this._aboutModule,this._profileModule,this._codeModule,this._storeModule,this._privacyModule
+      this._aboutModule,this._profileModule,
+      this._codeModule,this._storeModule,this._privacyModule,this._balanceModule
   );
 
   @override

@@ -29,7 +29,7 @@ class HomeLoadedState extends States {
     if (error != null) {
       return ErrorStateWidget(
         onRefresh: () {
-//          screenState.getReport();
+          screenState.getReport();
         },
         error: error,
       );
@@ -37,17 +37,30 @@ class HomeLoadedState extends States {
       return EmptyStateWidget(
           empty: S.current.emptyStaff,
           onRefresh: () {
-//                    screenState.getReport();
+                    screenState.getReport();
           });
     }
-    return SingleChildScrollView(
-      physics:
-      BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-      child: Wrap(
-        alignment: WrapAlignment.center,
-        direction: Axis.horizontal,
-          children: [
-            widgetTile(model?.countOrdersInToday.toString() ?? '',S.current.countTodayOrder),
+    return RefreshIndicator(
+      onRefresh: (){
+       return   screenState.getHome();
+      },
+      child: SingleChildScrollView(
+        physics:
+        BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+        child: Wrap(
+          alignment: WrapAlignment.center,
+          direction: Axis.horizontal,
+            children: [
+              widgetTile(model?.totalLinkedStores.toString() ?? '',S.current.totalStore),
+              Padding(
+                padding: const EdgeInsets.only(right:32,left: 32),
+                child: Divider(
+                  thickness: 2.5,
+                  color: Theme.of(context).primaryColor.withOpacity(0.3),
+                ),
+              ),
+              widgetTile(model?.representativeTotalLinkedStores.toString() ?? '',S.current.myStore),
+          widgetTile(model?.representativeLinkedStoresLastMonth.toString() ?? '',S.current.myStoreLastMonth),
             Padding(
               padding: const EdgeInsets.only(right:32,left: 32),
               child: Divider(
@@ -55,19 +68,8 @@ class HomeLoadedState extends States {
                 color: Theme.of(context).primaryColor.withOpacity(0.3),
               ),
             ),
-            widgetTile(model?.countCompletedOrders.toString() ?? '',S.current.countCompletedOrders),
-        widgetTile(model?.countOngoingOrders.toString() ?? '',S.current.countOngoingOrders),
-          Padding(
-            padding: const EdgeInsets.only(right:32,left: 32),
-            child: Divider(
-              thickness: 2.5,
-              color: Theme.of(context).primaryColor.withOpacity(0.3),
-            ),
-          ),
-//          widgetTile(model?.countOngoingOrders.toString()?? '',S.current.countClients),
-//          widgetTile(model?.countOngoingOrders.toString() ?? '',S.current.countProducts),
-//          widgetTile(model?.countOngoingOrders.toString() ?? '',S.current.countProducts),
-          ]),
+            ]),
+      ),
     );
   }
   Widget widgetTile(String count,String title) {

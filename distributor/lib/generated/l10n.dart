@@ -5456,6 +5456,96 @@ class S {
       args: [],
     );
   }
+
+  /// `Remaining amount`
+  String get remainingAmount {
+    return Intl.message(
+      'Remaining amount',
+      name: 'remainingAmount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total payments`
+  String get totalPayment {
+    return Intl.message(
+      'Total payments',
+      name: 'totalPayment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total dues`
+  String get totalDues {
+    return Intl.message(
+      'Total dues',
+      name: 'totalDues',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `at`
+  String get at {
+    return Intl.message(
+      'at',
+      name: 'at',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You cannot use your QR code because your account is not activated yet`
+  String get noScan {
+    return Intl.message(
+      'You cannot use your QR code because your account is not activated yet',
+      name: 'noScan',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `number of my store`
+  String get myStore {
+    return Intl.message(
+      'number of my store',
+      name: 'myStore',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `number of my store last month`
+  String get myStoreLastMonth {
+    return Intl.message(
+      'number of my store last month',
+      name: 'myStoreLastMonth',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gallery`
+  String get gallery {
+    return Intl.message(
+      'Gallery',
+      name: 'gallery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Camera`
+  String get camera {
+    return Intl.message(
+      'Camera',
+      name: 'camera',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

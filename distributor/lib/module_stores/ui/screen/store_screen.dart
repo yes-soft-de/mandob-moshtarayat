@@ -49,18 +49,11 @@ class StoreScreenState extends State<StoreScreen> {
       setState(() {});
     }
   }
-  void updateProfile(CreateMandobRequest request){
-//    widget.stateManager.updateProfiel(this,request);
-  }
-  void goToLogin(){
-    Navigator.of(context).pushReplacementNamed(AuthorizationRoutes.LOGIN_SCREEN,arguments:1);
-    CustomFlushBarHelper.createError(title:S.current.warnning, message:S.current.pleaseLoginToContinue).show(context);
-  }
+ void getStores(){
+   widget.stateManager.getStore(this);
+ }
   @override
   Widget build(BuildContext context) {
-
-
-
     return Scaffold(
       appBar: CustomMandobAppBar.appBar(
           context, title:S.current.stores,

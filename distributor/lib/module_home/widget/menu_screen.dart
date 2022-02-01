@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mandob_moshtarayat/consts/social_type.dart';
 import 'package:mandob_moshtarayat/generated/l10n.dart';
+import 'package:mandob_moshtarayat/module_balance/balance_routes.dart';
 import 'package:mandob_moshtarayat/module_home/sceen/home_screen.dart';
 import 'package:mandob_moshtarayat/module_privacy/policy_routes.dart';
 import 'package:mandob_moshtarayat/module_profile/model/profile_model.dart';
@@ -26,7 +27,7 @@ class MenuScreen extends StatelessWidget {
       child: SingleChildScrollView(
         physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         child: Container(
-          height: MediaQuery.of(context).size.height,
+//          height: MediaQuery.of(context).size.height,
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -84,6 +85,30 @@ class MenuScreen extends StatelessWidget {
               ),
               ListTile(
                 onTap: () {
+                  Navigator.of(context)
+                      .pushNamed(BalanceRoutes.BALANCE);
+                },
+                leading:Container(
+                    decoration: BoxDecoration(
+                        color: AppThemeDataService.PrimaryColor,
+                        borderRadius: BorderRadius.circular(8)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Icon(Icons.monetization_on,color: Colors.white,),
+                    )),
+                title: Text('${S.of(context).myBalance}'),
+                trailing: Container(
+                    decoration: BoxDecoration(
+                        color: StyleText.geyApp,
+                        borderRadius: BorderRadius.circular(8)),
+
+                    child: Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: Icon(Icons.arrow_forward),
+                    )),
+              ),
+              ListTile(
+                onTap: () {
                   Navigator.of(context).pushNamed( StoreRoutes.STORES);
                 },
                 leading: Container(
@@ -108,10 +133,6 @@ class MenuScreen extends StatelessWidget {
               ),
               ListTile(
                 onTap: () {
-                  // if (screenState.currentState is CaptainOrdersListStateOrdersLoaded){
-                  //   screenState.currentState = CaptainOrdersListStateLoading(screenState);
-                  //   screenState.getMyOrders();
-                  // }
                   Navigator.of(context).pushNamed(SettingRoutes.ROUTE_SETTINGS);
                 },
                 leading: Container(
@@ -253,6 +274,7 @@ class MenuScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              SizedBox(height: 50,)
             ],
           ),
         ),

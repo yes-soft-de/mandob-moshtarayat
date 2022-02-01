@@ -68,7 +68,7 @@ this.mandobID,
     age = json['age'];
     roomID = json['roomID'];
     status = json['status'];
-    mandobID = json['mandobID'] ?? '512345678';
+    mandobID = json['mandobID'];
   }
 }
 
