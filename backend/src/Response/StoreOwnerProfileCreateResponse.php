@@ -23,8 +23,6 @@ class StoreOwnerProfileCreateResponse
     public $imageURL;
 
     public $baseURL;
-    
-    public $bank;
 
     public $deliveryCost;
 
@@ -43,4 +41,14 @@ class StoreOwnerProfileCreateResponse
     public $storeCategoryName;
 
     public $status;
+
+    public $store;
+
+    public $commission;
+
+    public $bankName;
+
+    public $bankAccountNumber;
+
+    public $stcPay;
 }

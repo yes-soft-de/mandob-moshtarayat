@@ -27,9 +27,19 @@ class OrderLogManager
         
         $this->entityManager->persist($orderLogEntity);
         $this->entityManager->flush();
-        $this->entityManager->clear();
 
         return $orderLogEntity;
+    }
+    //TODO this for remove when creat request file for createOrderLog
+    public function createOrderLogFromManager($orderNumber, $state, $userID, $storeOwnerProfileID = 0)
+    {
+        $item['orderNumber'] = $orderNumber;
+        $item['state'] = $state;
+        $item['userID'] = $userID;
+        $item['storeOwnerProfileID'] = $storeOwnerProfileID;
+
+        $result = $this->createOrderLog($item);
+
     }
 
     public function getOrderLogByOrderNumber($orderNumber)
@@ -42,14 +52,9 @@ class OrderLogManager
         return $this->orderLogEntityRepository->getOrderLogsByOrderNumber($orderNumber);
     }
 
-    public function orderLogsByCaptainId($captainId)
+    public function getOrderLogsTimeLineForByStoreID($orderNumber, $storeId)
     {
-        return $this->orderLogEntityRepository->orderLogsByCaptainId($captainId);
-    }
-
-    public function orderLogsByStoreProfileId($storeProfileId)
-    {
-        return $this->orderLogEntityRepository->orderLogsByStoreProfileId($storeProfileId);
+        return $this->orderLogEntityRepository->getOrderLogsTimeLineForByStoreID($orderNumber, $storeId);
     }
 
     public function getFirstDate($orderNumber)
@@ -57,28 +62,43 @@ class OrderLogManager
         return $this->orderLogEntityRepository->getFirstDate($orderNumber);
     }
 
+    public function getFirstDateForStore($orderNumber, $storeID)
+    {
+        return $this->orderLogEntityRepository->getFirstDateForStore($orderNumber, $storeID);
+    }
+
     public function getAcceptOrderDate($orderNumber)
     {
         return $this->orderLogEntityRepository->getAcceptOrderDate($orderNumber);
     }
-    
+
+    public function getAcceptOrderDateForStore($orderNumber, $storeId)
+    {
+        return $this->orderLogEntityRepository->getAcceptOrderDateForStore($orderNumber, $storeId);
+    }
+
     public function getLastDate($orderNumber)
     {
         return $this->orderLogEntityRepository->getLastDate($orderNumber);
     }
 
-    public function getOrderNumberByOwnerId($ownerID)
+    public function getLastDateForStore($orderNumber, $storeId)
     {
-        return $this->orderLogEntityRepository->getOrderNumberByOwnerId($ownerID);
+        return $this->orderLogEntityRepository->getLastDateForStore($orderNumber, $storeId);
     }
 
-    public function getOrderNumberByCaptainId($captainID)
+    public function getCaptainOrderLogs($captainID)
     {
-        return $this->orderLogEntityRepository->getOrderNumberByCaptainId($captainID);
+        return $this->orderLogEntityRepository->getCaptainOrderLogs($captainID);
     }
 
     public function getOrderNumberUserID($userID)
     {
         return $this->orderLogEntityRepository->getOrderNumberUserID($userID);
+    }
+
+    public function getOwnerOrderLogs($userID)
+    {
+        return $this->orderLogEntityRepository->getOwnerOrderLogs($userID);
     }
 }

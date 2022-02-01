@@ -3,6 +3,7 @@
 namespace App\Manager;
 
 use App\AutoMapping;
+use App\Constant\ItemStatusConstant;
 use App\Entity\DeliveryCompanyPaymentsFromCaptainEntity;
 use App\Repository\DeliveryCompanyPaymentsFromCaptainEntityRepository;
 use App\Request\DeliveryCompanyPaymentsFromCaptainCreateRequest;
@@ -55,5 +56,19 @@ class DeliveryCompanyPaymentsFromCaptainManager
     public function deliveryCompanyPaymentsFromCaptainInSpecificDate($captainId, $fromDate, $toDate)
     {
         return $this->deliveryCompanyPaymentsFromCaptainEntityRepository->deliveryCompanyPaymentsFromCaptainInSpecificDate($captainId, $fromDate, $toDate);
+    }
+
+    public function deletePaymentFromCaptain($id)
+    {
+        $result = $this->deliveryCompanyPaymentsFromCaptainEntityRepository->find($id);
+
+        if($result) {
+            $this->entityManager->remove($result);
+            $this->entityManager->flush();
+
+            return $result;
+        }
+
+        return ItemStatusConstant::$ITEM_NOT_FOUND;
     }
 }

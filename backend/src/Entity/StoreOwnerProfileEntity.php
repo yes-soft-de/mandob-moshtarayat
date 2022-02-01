@@ -97,7 +97,31 @@ class StoreOwnerProfileEntity
      */
     private $closingTime;
 
-    
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $commission;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $bankName;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $bankAccountNumber;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $stcPay;
+
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     */
+    private $preferredLanguage;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -302,4 +326,63 @@ class StoreOwnerProfileEntity
         return $this;
     }
 
+    public function getCommission(): ?float
+    {
+        return $this->commission;
+    }
+
+    public function setCommission(?float $commission): self
+    {
+        $this->commission = $commission;
+
+        return $this;
+    }
+
+    public function getBankName(): ?string
+    {
+        return $this->bankName;
+    }
+
+    public function setBankName(?string $bankName): self
+    {
+        $this->bankName = $bankName;
+
+        return $this;
+    }
+
+    public function getBankAccountNumber(): ?string
+    {
+        return $this->bankAccountNumber;
+    }
+
+    public function setBankAccountNumber(string $bankAccountNumber): self
+    {
+        $this->bankAccountNumber = $bankAccountNumber;
+
+        return $this;
+    }
+
+    public function getStcPay(): ?string
+    {
+        return $this->stcPay;
+    }
+
+    public function setStcPay(?string $stcPay): self
+    {
+        $this->stcPay = $stcPay;
+
+        return $this;
+    }
+
+    public function getPreferredLanguage(): ?string
+    {
+        return $this->preferredLanguage;
+    }
+
+    public function setPreferredLanguage(?string $preferredLanguage): self
+    {
+        $this->preferredLanguage = $preferredLanguage;
+
+        return $this;
+    }
 }

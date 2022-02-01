@@ -12,4 +12,5 @@ class OrdersByClientResponse
     public $deliveryCost;
     public $orderCost;
     public $orderType;
+    public $vatTax;
 }

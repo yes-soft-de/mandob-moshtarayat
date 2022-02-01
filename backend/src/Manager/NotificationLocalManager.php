@@ -8,7 +8,7 @@ use App\Entity\NotificationLocalEntity;
 use App\Repository\NotificationLocalEntityRepository;
 use App\Request\NotificationLocalCreateRequest;
 use Doctrine\ORM\EntityManagerInterface;
-
+use App\Manager\StoreOwnerProfileManager;
 
 class NotificationLocalManager
 {
@@ -25,11 +25,12 @@ class NotificationLocalManager
      */
     private $autoMapping;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, NotificationLocalEntityRepository $notificationLocalEntityRepository)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, NotificationLocalEntityRepository $notificationLocalEntityRepository, StoreOwnerProfileManager $storeOwnerProfileManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
         $this->notificationLocalEntityRepository = $notificationLocalEntityRepository;
+        $this->storeOwnerProfileManager = $storeOwnerProfileManager;
     }
 
     public function createNotificationLocal(NotificationLocalCreateRequest $request)
@@ -51,5 +52,11 @@ class NotificationLocalManager
     public function getLocalNotifications($userID)
     {
         return $this->notificationLocalEntityRepository->getLocalNotifications($userID);
+    }
+
+    public function getLocalStoreNotifications($userID)
+    {
+        $storeOwnerProfileId = $this->storeOwnerProfileManager->getStoreProfileId($userID);
+        return $this->notificationLocalEntityRepository->getLocalNotifications($storeOwnerProfileId);
     }
 }

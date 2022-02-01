@@ -3,8 +3,8 @@ App\Request\UploadImageRequest:
     uploadedFile:
       - Image:
           #mimeTypesMessage: "this id not message"
-          maxSize: 2m
-          maxSizeMessage: "Image size over 2M"
+          maxSize: 112m
+          maxSizeMessage: "Image size over 112M"
 
 App\Request\CreateImageRequest:
   properties:
@@ -171,4 +171,287 @@ App\Request\UpdateUpdateRequest:
     title:
       - NotBlank: ~
     content:
+      - NotBlank: ~
+
+App\Request\StoreProductCategoryLevelOneUpdateRequest:
+  properties:
+    productCategoryName:
+      - NotBlank: ~
+
+App\Request\StoreProductCategoryLevelTwoUpdateRequest:
+  properties:
+    productCategoryName:
+      - NotBlank: ~
+
+App\Request\ProductCreateRequest:
+  properties:
+    productName:
+      - NotBlank: ~
+    productImage:
+      - NotBlank: ~
+    productPrice:
+      - NotBlank: ~
+    storeProductCategoryID:
+      - NotBlank: ~
+
+App\Request\ProductUpdateByStoreOwnerRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    productName:
+      - NotBlank: ~
+    productImage:
+      - NotBlank: ~
+    productPrice:
+      - NotBlank: ~
+    storeProductCategoryID:
+      - NotBlank: ~
+
+App\Request\ProductUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    productName:
+      - NotBlank: ~
+    productImage:
+      - NotBlank: ~
+    productPrice:
+      - NotBlank: ~
+    storeProductCategoryID:
+      - NotBlank: ~
+    storeOwnerProfileID:
+      - NotBlank: ~
+
+App\Request\StoreCategoryCreateRequest:
+  properties:
+    storeCategoryName:
+      - NotBlank: ~
+
+App\Request\StoreCategoryUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    storeCategoryName:
+      - NotBlank: ~
+
+App\Request\StoreProductCategoryLevelTwoCreateRequest:
+  properties:
+    productCategoryName:
+      - NotBlank: ~
+    storeProductCategoryID:
+      - NotBlank: ~
+
+App\Request\StoreProductCategoryCreateRequest:
+  properties:
+    productCategoryName:
+      - NotBlank: ~
+    storeCategoryID:
+      - NotBlank: ~
+
+App\Request\AdminCreateRequest:
+  properties:
+    userID:
+      - NotBlank: ~
+    password:
+      - NotBlank: ~
+
+App\Request\CaptainTermCreateRequest:
+  properties:
+    content:
+      - NotBlank: ~
+
+App\Request\DeliveryCompanyFinancialCompensationCreateRequest:
+  properties:
+    kilometers:
+      - NotBlank: ~
+    maxKilometerBonus:
+      - NotBlank: ~
+    minKilometerBonus:
+      - NotBlank: ~
+
+App\Request\DeliveryCompanyFinancialRequest:
+  properties:
+    deliveryCost:
+      - NotBlank: ~
+
+App\Request\DeliveryCompanyFinancialUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    deliveryCost:
+      - NotBlank: ~
+
+App\Request\DeliveryCompanyPaymentsFromCaptainCreateRequest:
+  properties:
+    captainId:
+      - NotBlank: ~
+    amount:
+      - NotBlank: ~
+
+App\Request\DeliveryCompanyPaymentsToCaptainCreateRequest:
+  properties:
+    captainId:
+      - NotBlank: ~
+    amount:
+      - NotBlank: ~
+
+App\Request\DeliveryCompanyPaymentsToStoreCreateRequest:
+  properties:
+    storeOwnerProfileID:
+      - NotBlank: ~
+    amount:
+      - NotBlank: ~
+
+App\Request\DeliveryCompanyInfoRequest:
+  properties:
+    phone:
+      - NotBlank: ~
+
+App\Request\RatingCreateRequest:
+  properties:
+    itemID:
+      - NotBlank: ~
+    rating:
+      - NotBlank: ~
+
+App\Request\StoreOwnerBranchUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    location:
+      - NotBlank: ~
+
+App\Request\StoreOwnerProfileUpdateRequest:
+  properties:
+    storeOwnerName:
+      - NotBlank: ~
+    image:
+      - NotBlank: ~
+    phone:
+      - NotBlank: ~
+    privateOrders:
+      - NotBlank: ~
+    hasProducts:
+      - NotBlank: ~
+    location:
+      - NotBlank: ~
+    branchName:
+      - NotBlank: ~
+    openingTime:
+      - NotBlank: ~
+    closingTime:
+      - NotBlank: ~
+
+App\Request\StoreOwnerUpdateByAdminRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    storeOwnerName:
+      - NotBlank: ~
+    status:
+      - NotBlank: ~
+    privateOrders:
+      - NotBlank: ~
+    hasProducts:
+      - NotBlank: ~
+    openingTime:
+      - NotBlank: ~
+    closingTime:
+      - NotBlank: ~
+
+App\Request\storeOwnerProfileStatusUpdateByAdminRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    status:
+      - NotBlank: ~
+    commission:
+      - NotBlank: ~
+
+App\Request\MandobProfileUpdateRequest:
+  properties:
+    mandobName:
+      - NotBlank: ~
+    phone:
+      - NotBlank: ~
+
+App\Request\ActivateMandobAccountByAdminRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    status:
+      - NotBlank: ~
+
+App\Request\ProductCommissionByAdminUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+
+App\Request\StoreProductCategoryTranslationCreateRequest:
+  properties:
+    storeProductCategoryID:
+      - NotBlank: ~
+    language:
+      - NotBlank: ~
+
+App\Request\ResetPasswordOrderCreateRequest:
+  properties:
+    userID:
+      - NotBlank: ~
+
+App\Request\UserPasswordUpdateRequest:
+  properties:
+    userID:
+      - NotBlank: ~
+    password:
+      - NotBlank: ~
+
+App\Request\CustomProductNotFoundCreateRequest:
+  properties:
+    productName:
+      - NotBlank: ~
+
+App\Request\ElectronicPaymentInfoCreateRequest:
+  properties:
+    orderNumber:
+      - NotBlank: ~
+    payStatus:
+      - NotBlank: ~
+    transactionID:
+      - NotBlank: ~
+    amount:
+      - NotBlank: ~
+
+App\Request\MainAndSubLevelOneCategoriesLinkUpdateRequest:
+  properties:
+    subCategoryLevelOneID:
+      - NotBlank: ~
+
+App\Request\StoreCategoriesWithLinkedMarkRequest:
+  properties:
+    storeProductCategoryLevelOneID:
+      - NotBlank: ~
+
+App\Request\OneAndSubLevelTwoCategoriesLinkUpdateRequest:
+  properties:
+    subCategoryLevelOneID:
+      - NotBlank: ~
+    subCategoryLevelTwoID:
+      - NotBlank: ~
+
+App\Request\SubCategoriesWithLinkedMarkRequest:
+  properties:
+    storeProductCategoryLevelTwoID:
+      - NotBlank: ~
+
+App\Request\RepresentativeCommissionUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+
+App\Request\UpdateOrderForAddBillPdfRequest:
+  properties:
+    orderNumber:
+      - NotBlank: ~
+    billPdf:
       - NotBlank: ~

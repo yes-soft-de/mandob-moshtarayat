@@ -37,10 +37,19 @@ class StoreOwnerBranchService
     public function getBranchesByStoreOwnerProfileID($storeOwnerProfileID):array
     {
         $response = [];
+
         $items = $this->storeOwnerBranchManager->getBranchesByStoreOwnerProfileID($storeOwnerProfileID);
-        foreach ($items as $item) {
-        $response[] =  $this->autoMapping->map('array', StoreOwnerBranchResponse::class, $item);
+
+        foreach($items as $item)
+        {
+            if(empty($item['geoLocation']))
+            {
+                $item['geoLocation'] = null;
+            }
+
+            $response[] =  $this->autoMapping->map('array', StoreOwnerBranchResponse::class, $item);
         }
+
         return $response;
     }
 

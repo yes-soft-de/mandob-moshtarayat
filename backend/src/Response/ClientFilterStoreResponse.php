@@ -21,4 +21,5 @@ class ClientFilterStoreResponse
     public $is_best;
 
     public $rate;
+
 }

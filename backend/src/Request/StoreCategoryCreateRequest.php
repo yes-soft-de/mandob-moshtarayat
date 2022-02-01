@@ -10,6 +10,8 @@ class StoreCategoryCreateRequest
   
     private $image;
 
+    private $language;
+
     /**
      * Get the value of StoreCategoryName
      */ 

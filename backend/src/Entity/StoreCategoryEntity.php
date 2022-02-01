@@ -32,6 +32,10 @@ class StoreCategoryEntity
      */
     private $image;
 
+    /**
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    private $language;
 
     public function getId(): ?int
     {
@@ -70,6 +74,18 @@ class StoreCategoryEntity
     public function setImage(?string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getLanguage(): ?string
+    {
+        return $this->language;
+    }
+
+    public function setLanguage(?string $language): self
+    {
+        $this->language = $language;
 
         return $this;
     }

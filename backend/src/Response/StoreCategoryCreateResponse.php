@@ -8,6 +8,4 @@ class StoreCategoryCreateResponse
     public $storeCategoryName;
     public $description;
     public $image;
-    public $imageURL;
-    public $baseURL;
 }

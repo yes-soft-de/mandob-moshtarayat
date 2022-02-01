@@ -24,10 +24,33 @@ class BaseController extends AbstractController
     const UPDATE = ["updated","204"];
     const DELETE = ["deleted","401"];
     const FETCH = ["fetched","200"];
-    const ERROR = ["error","425"];
+    //error order
+    const ERROR = ["error","9201"];
+    const ERROR_ORDER_REMOVE = ["error","9202"];
+    const ERROR_ORDER_UPDATE = ["error","9203"];
+    //error related
+    const ERROR_RELATED= ["error related","9251"];
+    // error users
     const ERROR_USER_CHECK = ["error user check","9000"];
     const ERROR_USER_FOUND = ["error user found","9001"];
-    const ERROR_CAPTAIN_INACTIVE = ["error captain inactive","9002"];
+    const ERROR_UNMATCHED_PASSWORDS = ["password and its confirmation are not matched", "9002"];
+    const ERROR_USER_CREATED = ["error, not created user","9010"];
+    // error captain
+    const ERROR_CAPTAIN_INACTIVE = ["error captain inactive","9100"];
+    const CAPTAIN_PROFILE_NOT_EXIST = ["captain profile not exist!", "9101"];
+    //error store
+    const ERROR_STORE_INACTIVE = ["error store inactive","9151"];
+    const INCORRECT_ENTERED_DATA = ["incorrect entered date!", "9152"];
+    const CODE_DATE_IS_NOT_VALID = ["overdue cod!", "9153"];
+    const ALREADY_VERIFIED_STORE_OWNER = ["already verified store owner!", "9154"];
+    const STORE_OWNER_IS_NOT_REGISTERED = ["store owner is not registered!", "9155"];
+    const STORE_OWNER_IS_NOT_VERIFIED = ["store owner is not verified!", "9156"];
+    const STORE_OWNER_PROFILE_NOT_EXIST = ["store owner profile not exist!", "9157"];
+    // client
+    const CLIENT_PROFILE_NOT_EXIST = ["client profile not exist!", "9210"];
+    //profile not completed
+    const PROFILE_NOT_COMPLETED = ["profile is not completed!", "9220"];
+
     const NOTFOUND=["Not found", "404"];
 //    const TEST = [
 //        "one"=>[ "error error", "9003"],

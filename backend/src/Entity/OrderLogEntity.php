@@ -48,7 +48,12 @@ class OrderLogEntity
     /**
      * @ORM\Column(type="integer", length=255)
      */
-    private $storeOwnerProfileID;
+    private $storeOwnerProfileID;//change to storeID
+
+    /**
+     * @ORM\Column(type="integer", length=255)
+     */
+    private $captainID;
 
     public function getId(): ?int
     {
@@ -123,6 +128,18 @@ class OrderLogEntity
     public function setStoreOwnerProfileID(int $storeOwnerProfileID): self
     {
         $this->storeOwnerProfileID = $storeOwnerProfileID;
+
+        return $this;
+    }
+
+    public function getCaptainID(): ?int
+    {
+        return $this->captainID;
+    }
+
+    public function setCaptainID(int $captainID): self
+    {
+        $this->captainID = $captainID;
 
         return $this;
     }

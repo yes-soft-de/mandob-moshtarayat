@@ -24,10 +24,12 @@ class SettingEntityRepository extends ServiceEntityRepository
         $result =  $this->createQueryBuilder('setting')
 
             ->andWhere('setting.id=:id')
+
             ->setParameter('id','1')
+
             ->getQuery()
             ->getOneOrNullResult();
 
-        return $result;
+             return $result;
     }
 }

@@ -24,13 +24,20 @@ class StoreOwnerBranchEntityRepository extends ServiceEntityRepository
     public function getBranchesByStoreOwnerProfileID($storeOwnerProfileID)
     {
         return $this->createQueryBuilder('BranchesEntity')
-            ->select('BranchesEntity.id', 'BranchesEntity.storeOwnerProfileID', 'BranchesEntity.location', 'BranchesEntity.city', 'BranchesEntity.branchName','userProfileEntity.free','userProfileEntity.storeOwnerName','userProfileEntity.status','BranchesEntity.isActive') 
 
-            ->leftJoin(StoreOwnerProfileEntity::class, 'userProfileEntity', Join::WITH, 'userProfileEntity.id = BranchesEntity.storeOwnerProfileID')
+            ->select('BranchesEntity.id', 'BranchesEntity.storeOwnerProfileID', 'BranchesEntity.location as geoLocation', 'BranchesEntity.city', 'BranchesEntity.branchName', 'userProfileEntity.free',
+                'userProfileEntity.storeOwnerName', 'userProfileEntity.status', 'BranchesEntity.isActive')
 
-            ->andWhere("BranchesEntity.storeOwnerProfileID = :storeOwnerProfileID ")
+            ->leftJoin(
+                StoreOwnerProfileEntity::class,
+                'userProfileEntity',
+                Join::WITH,
+                'userProfileEntity.id = BranchesEntity.storeOwnerProfileID')
 
-            ->setParameter('storeOwnerProfileID',$storeOwnerProfileID)
+            ->andWhere("BranchesEntity.storeOwnerProfileID = :storeOwnerProfileID")
+
+            ->setParameter('storeOwnerProfileID', $storeOwnerProfileID)
+
             ->getQuery()
             ->getResult();
     }
@@ -38,11 +45,13 @@ class StoreOwnerBranchEntityRepository extends ServiceEntityRepository
     public function branchesByStoreOwnerProfileID($storeOwnerProfileID)
     {
         return $this->createQueryBuilder('BranchesEntity')
-            ->select('BranchesEntity.id', 'BranchesEntity.storeOwnerProfileID', 'BranchesEntity.location', 'BranchesEntity.city', 'BranchesEntity.branchName') 
+
+            ->select('BranchesEntity.id', 'BranchesEntity.storeOwnerProfileID', 'BranchesEntity.location', 'BranchesEntity.city', 'BranchesEntity.branchName')
 
             ->andWhere("BranchesEntity.storeOwnerProfileID = :storeOwnerProfileID ")
 
             ->setParameter('storeOwnerProfileID',$storeOwnerProfileID)
+
             ->getQuery()
             ->getResult();
     }
@@ -50,11 +59,13 @@ class StoreOwnerBranchEntityRepository extends ServiceEntityRepository
     public function getBrancheById($userId)
     {
         return $this->createQueryBuilder('BranchesEntity')
-            ->select('BranchesEntity.id', 'BranchesEntity.ownerID', 'BranchesEntity.location', 'BranchesEntity.city', 'BranchesEntity.branchName') 
+
+            ->select('BranchesEntity.id', 'BranchesEntity.ownerID', 'BranchesEntity.location', 'BranchesEntity.city', 'BranchesEntity.branchName')
 
             ->andWhere("BranchesEntity.ownerID = :userId ")
 
             ->setParameter('userId',$userId)
+
             ->getQuery()
             ->getResult();
     }

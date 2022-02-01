@@ -14,50 +14,34 @@ class UserRegisterRequest
 
     private $location;
 
-    /**
-     * @return mixed
-     */
+    private $roomID;
+
     public function getUserID()
     {
         return $this->userID;
     }
 
-    /**
-     * @param mixed $userID
-     */
-    public function setUserID($userID): void
+    public function setUserID($userID)
     {
         $this->userID = $userID;
     }
 
-    /**
-     * @return array
-     */
-    public function getRoles(): array
+    public function getRoles()
     {
         return $this->roles;
     }
 
-    /**
-     * @param array $roles
-     */
-    public function setRoles(array $roles): void
+    public function setRoles(array $roles)
     {
         $this->roles = $roles;
     }
 
-    /**
-     * @return mixed
-     */
     public function getPassword()
     {
         return $this->password;
     }
 
-    /**
-     * @param mixed $password
-     */
-    public function setPassword($password): void
+    public function setPassword($password)
     {
         $this->password = $password;
     }
@@ -70,27 +54,26 @@ class UserRegisterRequest
     public function setUserName($userName)
     {
         $this->userName = $userName;
-
-        return $this;
     }
 
-    /**
-     * Get the value of location
-     */ 
     public function getLocation()
     {
         return $this->location;
     }
 
-    /**
-     * Set the value of location
-     *
-     * @return  self
-     */ 
     public function setLocation($location)
     {
         $this->location = $location;
-
-        return $this;
     }
+
+    public function getRoomID()
+    {
+        return $this->roomID;
+    }
+
+    public function setRoomID($roomID)
+    {
+        $this->roomID = $roomID;
+    }
+
 }

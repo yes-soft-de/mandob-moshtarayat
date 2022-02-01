@@ -6,13 +6,13 @@ namespace App\Request;
 
 class SendNotificationRequest
 {
-    private $userIdOne;
+    private $firstUserToken;
 
-    private $userIdTwo;
+    private $secondUserToken;
 
     private $message;
 
-    private $orderID;
+    private $orderNumber;
 
     /**
      * @return mixed
@@ -33,48 +33,48 @@ class SendNotificationRequest
     /**
      * @return mixed
      */
-    public function getUserIdOne()
+    public function getFirstUserToken()
     {
-        return $this->userIdOne;
+        return $this->firstUserToken;
     }
 
     /**
-     * @param mixed $userIdOne
+     * @param mixed $firstUserToken
      */
-    public function setUserIdOne($userIdOne): void
+    public function setFirstUserToken($firstUserToken): void
     {
-        $this->userIdOne = $userIdOne;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getUserIdTwo()
-    {
-        return $this->userIdTwo;
-    }
-
-    /**
-     * @param mixed $userIdTwo
-     */
-    public function setUserIdTwo($userIdTwo): void
-    {
-        $this->userIdTwo = $userIdTwo;
+        $this->firstUserToken = $firstUserToken;
     }
 
     /**
      * @return mixed
      */
-    public function getOrderID()
+    public function getSecondUserToken()
     {
-        return $this->orderID;
+        return $this->secondUserToken;
     }
 
     /**
-     * @param mixed $orderID
+     * @param mixed $secondUserToken
      */
-    public function setOrderID($orderID): void
+    public function setSecondUserToken($secondUserToken): void
     {
-        $this->orderID = $orderID;
+        $this->secondUserToken = $secondUserToken;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOrderNumber()
+    {
+        return $this->orderNumber;
+    }
+
+    /**
+     * @param mixed $orderNumber
+     */
+    public function setOrderNumber($orderNumber): void
+    {
+        $this->orderNumber = $orderNumber;
     }
 }

@@ -22,6 +22,11 @@ class DeliveryCompanyFinancialEntity
      */
     private $deliveryCost;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $representativeCommission;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,6 +40,18 @@ class DeliveryCompanyFinancialEntity
     public function setDeliveryCost(?float $deliveryCost): self
     {
         $this->deliveryCost = $deliveryCost;
+
+        return $this;
+    }
+
+    public function getRepresentativeCommission(): ?float
+    {
+        return $this->representativeCommission;
+    }
+
+    public function setRepresentativeCommission(?float $representativeCommission): self
+    {
+        $this->representativeCommission = $representativeCommission;
 
         return $this;
     }

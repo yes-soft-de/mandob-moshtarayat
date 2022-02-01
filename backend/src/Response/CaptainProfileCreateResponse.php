@@ -17,8 +17,6 @@ class CaptainProfileCreateResponse
     public $car;
 
     public $drivingLicence;
-    
-    public $drivingLicenceURL;
 
     public $salary;
 
@@ -31,10 +29,6 @@ class CaptainProfileCreateResponse
     public $roomID;
 
     public $image;
-    
-    public $imageURL;
-
-    public $baseURL;
     
     public $phone;
 

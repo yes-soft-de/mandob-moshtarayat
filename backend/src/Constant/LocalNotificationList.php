@@ -6,11 +6,13 @@ abstract class LocalNotificationList
 {
     static $STATE_TITLE = "حالة الطلب";
 
-    static $STATE_ON_WAY_PICK_ORDER = "المندوب في طريقه إلى المتجر";
+    static $STATE_ON_WAY_PICK_ORDER = "الكابتن في طريقه إلى المتجر";
 
-    static $STATE_IN_STORE = "المندوب في المتجر";
+    static $STATE_IN_STORE = "الكابتن في المتجر";
 
-    static $STATE_ONGOING = "المندوب في طريقه إليك";
+    static $STATE_PICKED = "الكابتن إلتقط الطلب من المتجر";
+
+    static $STATE_ONGOING = "الكابتن في طريقه إليك";
 
     static $STATE_DELIVERED = "تم تسليم الطلب";
 
@@ -31,5 +33,7 @@ abstract class LocalNotificationList
     static $CANCEL_ORDER_ERROR_TIME = "لا يمكن حذف الطلب, لقد تجاوزت الوقت المسموح به للحذف.";
 
     static $CANCEL_ORDER_ERROR_ACCEPTED = "لا يمكن حذف الطلب, الكابتن استلم الطلب.";
+
+    static $ORDER_NOT_CREATE = "لم تنجح عمليةالدفع";
 
 }

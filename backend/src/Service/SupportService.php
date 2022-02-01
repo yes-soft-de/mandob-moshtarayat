@@ -25,25 +25,27 @@ class SupportService
     public function createSupport(SupportCreateRequest $request)
     {
         $roomID = $this->roomIdHelperService->roomIdGenerate();
-        
-        $reprot = $this->supportManager->createSupport($request, $roomID);
 
-        return $this->autoMapping->map(SupportEntity::class, SupportResponse::class, $reprot);
+        $report = $this->supportManager->createSupport($request, $roomID);
+
+        return $this->autoMapping->map(SupportEntity::class, SupportResponse::class, $report);
     }
 
     public function getSupports()
     {
         $response = [];
+
         $items = $this->supportManager->getSupports();
+
         foreach ($items as $item) {
-        $response[] =  $this->autoMapping->map('array', SupportResponse::class, $item);
+            $response[] =  $this->autoMapping->map('array', SupportResponse::class, $item);
         }
+
         return $response;
     }
 
     public function getSupport($id)
     {
-       
         $item = $this->supportManager->getSupport($id);
     
         return  $this->autoMapping->map('array', SupportResponse::class, $item);
@@ -59,7 +61,5 @@ class SupportService
     public function supportReportNewMessageStatus($id)
     {
         return $this->supportManager->supportReportNewMessageStatus($id);
-   
-       
      }
 }

@@ -8,6 +8,7 @@ use App\Repository\StoreOwnerBranchEntityRepository;
 use App\Request\StoreOwnerBranchCreateRequest;
 use App\Request\StoreOwnerBranchUpdateRequest;
 use App\Request\BranchesDeleteRequest;
+use App\Request\StoreOwnerProfileUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
 
@@ -28,6 +29,7 @@ class StoreOwnerBranchManager
     {
         $entity = $this->autoMapping->map(StoreOwnerBranchCreateRequest::class, StoreOwnerBranchEntity::class, $request);
         $entity->setIsActive(1);
+
         $this->entityManager->persist($entity);
         $this->entityManager->flush();
         $this->entityManager->clear();
@@ -44,6 +46,27 @@ class StoreOwnerBranchManager
         }
         
         $entity = $this->autoMapping->mapToObject(StoreOwnerBranchUpdateRequest::class, StoreOwnerBranchEntity::class, $request, $entity);
+
+        $this->entityManager->flush();
+
+        return $entity;
+    }
+
+    public function update($id, $location, $branchName)
+    {
+      $request = new StoreOwnerBranchUpdateRequest();
+      $request->setBranchName($branchName);
+      $request->setLocation($location);
+
+      $storeOwnerProfileID = $this-> getBranchesByStoreOwnerProfileID($id);
+
+      $entity = $this->storeOwnerBranchEntityRepository->find($storeOwnerProfileID[0]['id']);
+      if (!$entity) {
+            return null;
+        }
+
+        $entity = $this->autoMapping->mapToObject(StoreOwnerBranchUpdateRequest::class, StoreOwnerBranchEntity::class, $request, $entity);
+
         $this->entityManager->flush();
 
         return $entity;
@@ -82,6 +105,7 @@ class StoreOwnerBranchManager
     {
         $entity = $this->autoMapping->map(StoreOwnerBranchCreateRequest::class, StoreOwnerBranchEntity::class, $request);
         $entity->setIsActive(1);
+
         $this->entityManager->persist($entity);
         $this->entityManager->flush();
         $this->entityManager->clear();

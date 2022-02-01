@@ -32,11 +32,12 @@ class ClientPaymentController extends BaseController
      */
     public function createClientPayment(Request $request)
     {
-            $data = json_decode($request->getContent(), true);
+        $data = json_decode($request->getContent(), true);
 
-            $request = $this->autoMapping->map(stdClass::class, ClientPaymentCreateRequest::class, (object)$data);
-            $request->setCaptainID($this->getUserId());
-            $result = $this->clientPaymentService->createClientPayment($request);
+        $request = $this->autoMapping->map(stdClass::class, ClientPaymentCreateRequest::class, (object)$data);
+        $request->setCaptainID($this->getUserId());
+
+        $result = $this->clientPaymentService->createClientPayment($request);
 
         return $this->response($result, self::CREATE);
     }

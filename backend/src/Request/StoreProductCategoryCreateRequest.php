@@ -5,11 +5,32 @@ namespace App\Request;
 class StoreProductCategoryCreateRequest
 {
     private $productCategoryName;
-   
+
     private $storeOwnerProfileId;
    
     private $productCategoryImage;
 
+    private $isLevel1;
+
+    private $storeCategoryID;
+
+    private $language;
+
+    /**
+     * @return mixed
+     */
+    public function getIsLevel1()
+    {
+        return $this->isLevel1;
+    }
+
+    /**
+     * @param mixed $isLevel1
+     */
+    public function setIsLevel1($isLevel1): void
+    {
+        $this->isLevel1 = $isLevel1;
+    }
 
     /**
      * Get the value of ProductCategoryName

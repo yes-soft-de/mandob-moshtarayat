@@ -6,34 +6,35 @@ class OrderUpdateInvoiceByCaptainRequest
 {
     private $id;
 
-    private $captainID;
-    
     private $orderNumber;
+
+    private $orderDetailID;
+
+    private $captainID;
+
+    private $storeOwnerProfileID;
 
     private $invoiceAmount;
 
     private $invoiceImage;
 
-    private $updatedAt;
-    
+
+    /**
+     * Get the value of id
+     */
     public function getId()
     {
         return $this->id;
     }
 
-    public function setId($id): void
+    /**
+     * Set the value of id
+     *
+     * @return  self
+     */
+    public function setId($id)
     {
         $this->id = $id;
-    }
-   
-    public function getCaptainID()
-    {
-        return $this->captainID;
-    }
- 
-    public function setCaptainID($captainID)
-    {
-        $this->captainID = $captainID;
 
         return $this;
     }
@@ -42,11 +43,32 @@ class OrderUpdateInvoiceByCaptainRequest
     {
         return $this->orderNumber;
     }
- 
+
     public function setOrderNumber($orderNumber)
     {
         $this->orderNumber = $orderNumber;
+        return $this;
+    }
 
+    public function getOrderDetailID()
+    {
+        return $this->orderDetailID;
+    }
+
+    public function setOrderDetailID($orderDetailID)
+    {
+        $this->orderDetailID = $orderDetailID;
+        return $this;
+    }
+
+    public function getCaptainID()
+    {
+        return $this->captainID;
+    }
+
+    public function setCaptainID($captainID)
+    {
+        $this->captainID = $captainID;
         return $this;
     }
 
@@ -73,4 +95,29 @@ class OrderUpdateInvoiceByCaptainRequest
 
         return $this;
     }
+
+    public function getStoreOwnerProfileID()
+    {
+        return $this->storeOwnerProfileID;
+    }
+
+    public function setStoreOwnerProfileID($storeOwnerProfileID)
+    {
+        $this->storeOwnerProfileID = $storeOwnerProfileID;
+
+        return $this;
+    }
+
+    public function getOrderInvoiceId(): ?int
+    {
+        return $this->orderInvoiceId;
+    }
+
+    public function setOrderInvoiceId(int $orderInvoiceId): self
+    {
+        $this->orderInvoiceId = $orderInvoiceId;
+
+        return $this;
+    }
+
 }
