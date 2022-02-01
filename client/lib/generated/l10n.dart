@@ -1110,16 +1110,6 @@ class S {
     );
   }
 
-  /// `order`
-  String get sOrder {
-    return Intl.message(
-      'order',
-      name: 'sOrder',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Home`
   String get home {
     return Intl.message(
@@ -1850,6 +1840,26 @@ class S {
     );
   }
 
+  /// `minutes`
+  String get minutes {
+    return Intl.message(
+      'minutes',
+      name: 'minutes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `minute`
+  String get minute {
+    return Intl.message(
+      'minute',
+      name: 'minute',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `I Agree to the Terms os service.`
   String get iAgreeToTheTermsOsService {
     return Intl.message(
@@ -1860,10 +1870,10 @@ class S {
     );
   }
 
-  /// `I agree to the terms of service & privacy policy`
+  /// `I Agree To The Terms Of Service & privacy policy`
   String get iAgreeToTheTermsOfServicePrivacyPolicy {
     return Intl.message(
-      'I agree to the terms of service & privacy policy',
+      'I Agree To The Terms Of Service & privacy policy',
       name: 'iAgreeToTheTermsOfServicePrivacyPolicy',
       desc: '',
       args: [],
@@ -2105,6 +2115,66 @@ class S {
     return Intl.message(
       'Your account not activated yet please wait',
       name: 'captainNotActive',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `day`
+  String get day {
+    return Intl.message(
+      'day',
+      name: 'day',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `days`
+  String get days {
+    return Intl.message(
+      'days',
+      name: 'days',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `second`
+  String get second {
+    return Intl.message(
+      'second',
+      name: 'second',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `seconds`
+  String get seconds {
+    return Intl.message(
+      'seconds',
+      name: 'seconds',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `hour`
+  String get hour {
+    return Intl.message(
+      'hour',
+      name: 'hour',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `hours`
+  String get hours {
+    return Intl.message(
+      'hours',
+      name: 'hours',
       desc: '',
       args: [],
     );
@@ -2370,10 +2440,10 @@ class S {
     );
   }
 
-  /// `Order Status`
+  /// `order status`
   String get orderStatus {
     return Intl.message(
-      'Order Status',
+      'order status',
       name: 'orderStatus',
       desc: '',
       args: [],
@@ -2425,6 +2495,16 @@ class S {
     return Intl.message(
       'Account',
       name: 'account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Personal Data`
+  String get personalData {
+    return Intl.message(
+      'Personal Data',
+      name: 'personalData',
       desc: '',
       args: [],
     );
@@ -2590,16 +2670,6 @@ class S {
     );
   }
 
-  /// `Personal Data`
-  String get personalData {
-    return Intl.message(
-      'Personal Data',
-      name: 'personalData',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Update Data`
   String get updateYourData {
     return Intl.message(
@@ -2680,10 +2750,10 @@ class S {
     );
   }
 
-  /// `Deliver Price`
+  /// `deliver price`
   String get deliverPrice {
     return Intl.message(
-      'Deliver Price',
+      'deliver price',
       name: 'deliverPrice',
       desc: '',
       args: [],
@@ -2830,16 +2900,6 @@ class S {
     );
   }
 
-  /// `Delivery Time`
-  String get deliveryTime {
-    return Intl.message(
-      'Delivery Time',
-      name: 'deliveryTime',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Choose`
   String get paymentMethodHint {
     return Intl.message(
@@ -2900,21 +2960,11 @@ class S {
     );
   }
 
-  /// `Note`
+  /// `Notes`
   String get note {
     return Intl.message(
-      'Note',
-      name: 'note',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Notes`
-  String get notes {
-    return Intl.message(
       'Notes',
-      name: 'notes',
+      name: 'note',
       desc: '',
       args: [],
     );
@@ -3330,671 +3380,11 @@ class S {
     );
   }
 
-  /// `Launch our app`
-  String get launch {
-    return Intl.message(
-      'Launch our app',
-      name: 'launch',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `If you have somthing to deliver far from you dont wory just open our app`
-  String get lanchDescribtion {
-    return Intl.message(
-      'If you have somthing to deliver far from you dont wory just open our app',
-      name: 'lanchDescribtion',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `You need to book a car to deliver your package to your destenation`
-  String get bookACarDescribtion {
-    return Intl.message(
-      'You need to book a car to deliver your package to your destenation',
-      name: 'bookACarDescribtion',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `We will deliver your package for you in the fastest way and the best`
-  String get weDeliverDescribtion {
-    return Intl.message(
-      'We will deliver your package for you in the fastest way and the best',
-      name: 'weDeliverDescribtion',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `If you have the ability to deliver packages for us you are welcome`
-  String get lanchDescribtionCaptain {
-    return Intl.message(
-      'If you have the ability to deliver packages for us you are welcome',
-      name: 'lanchDescribtionCaptain',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `You can check the app for packages near you to deliver`
-  String get checkOrdersDescribtion {
-    return Intl.message(
-      'You can check the app for packages near you to deliver',
-      name: 'checkOrdersDescribtion',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `You can accept your mission to deliver package`
-  String get acceptOrderDescribtion {
-    return Intl.message(
-      'You can accept your mission to deliver package',
-      name: 'acceptOrderDescribtion',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `After accepting your mission you will deliver package to the right destination`
-  String get deliverDescribtion {
-    return Intl.message(
-      'After accepting your mission you will deliver package to the right destination',
-      name: 'deliverDescribtion',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `After you doing your job your effort will be rewarded by earning money`
-  String get earnCashDescribtion {
-    return Intl.message(
-      'After you doing your job your effort will be rewarded by earning money',
-      name: 'earnCashDescribtion',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Are you want to update this order status , please confirm`
-  String get confirmUpdateOrderStatus {
-    return Intl.message(
-      'Are you want to update this order status , please confirm',
-      name: 'confirmUpdateOrderStatus',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Error`
-  String get error {
-    return Intl.message(
-      'Error',
-      name: 'error',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `The order has been receved by another captain`
-  String get orderReceved {
-    return Intl.message(
-      'The order has been receved by another captain',
-      name: 'orderReceved',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `All City`
-  String get allcity {
-    return Intl.message(
-      'All City',
-      name: 'allcity',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Empty Stuff`
-  String get emptyStaff {
-    return Intl.message(
-      'Empty Stuff',
-      name: 'emptyStaff',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `You have reached `
-  String get youReached {
-    return Intl.message(
-      'You have reached ',
-      name: 'youReached',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `percent of your orders limit`
-  String get orderAverage {
-    return Intl.message(
-      'percent of your orders limit',
-      name: 'orderAverage',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Are your sure about renewing your subscription`
-  String get confirmRenewSub {
-    return Intl.message(
-      'Are your sure about renewing your subscription',
-      name: 'confirmRenewSub',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `City`
-  String get city {
-    return Intl.message(
-      'City',
-      name: 'city',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Mechanich Licence`
-  String get mechanichLicence {
-    return Intl.message(
-      'Mechanich Licence',
-      name: 'mechanichLicence',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Identity`
-  String get identity {
-    return Intl.message(
-      'Identity',
-      name: 'identity',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Bonus`
-  String get bonus {
-    return Intl.message(
-      'Bonus',
-      name: 'bonus',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Fuel Bonus`
-  String get kiloBonus {
-    return Intl.message(
-      'Fuel Bonus',
-      name: 'kiloBonus',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Sum Balance`
-  String get sumBalance {
-    return Intl.message(
-      'Sum Balance',
-      name: 'sumBalance',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Total Salary`
-  String get totalBonus {
-    return Intl.message(
-      'Total Salary',
-      name: 'totalBonus',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `General Profite`
-  String get netProfite {
-    return Intl.message(
-      'General Profite',
-      name: 'netProfite',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Balance Details`
-  String get balanceDetails {
-    return Intl.message(
-      'Balance Details',
-      name: 'balanceDetails',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Sending record has been failed`
-  String get sendToRecordFaild {
-    return Intl.message(
-      'Sending record has been failed',
-      name: 'sendToRecordFaild',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `The report send with a success`
-  String get sendToRecordSuccess {
-    return Intl.message(
-      'The report send with a success',
-      name: 'sendToRecordSuccess',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Yes`
-  String get yes {
-    return Intl.message(
-      'Yes',
-      name: 'yes',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `No`
-  String get no {
-    return Intl.message(
-      'No',
-      name: 'no',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Confirm with yes and no if captain reach you`
-  String get confirmingCaptainLocation {
-    return Intl.message(
-      'Confirm with yes and no if captain reach you',
-      name: 'confirmingCaptainLocation',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Redo`
-  String get redo {
-    return Intl.message(
-      'Redo',
-      name: 'redo',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Sending report within 15 seconds`
-  String get sendingReport {
-    return Intl.message(
-      'Sending report within 15 seconds',
-      name: 'sendingReport',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Company contact info`
-  String get social {
-    return Intl.message(
-      'Company contact info',
-      name: 'social',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `You have consumed 35%`
-  String get orderAverage35 {
-    return Intl.message(
-      'You have consumed 35%',
-      name: 'orderAverage35',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `You have consumed 40%`
-  String get orderAverage40 {
-    return Intl.message(
-      'You have consumed 40%',
-      name: 'orderAverage40',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `You have consumed 75%`
-  String get orderAverage75 {
-    return Intl.message(
-      'You have consumed 75%',
-      name: 'orderAverage75',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `You have consumed 80%`
-  String get orderAverage80 {
-    return Intl.message(
-      'You have consumed 80%',
-      name: 'orderAverage80',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Dear`
-  String get dear {
-    return Intl.message(
-      'Dear',
-      name: 'dear',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Whatsapp`
-  String get whatsapp {
-    return Intl.message(
-      'Whatsapp',
-      name: 'whatsapp',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Kilometers limit`
-  String get kilometerLimt {
-    return Intl.message(
-      'Kilometers limit',
-      name: 'kilometerLimt',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `bonus on max limit`
-  String get kilometerLimtMax {
-    return Intl.message(
-      'bonus on max limit',
-      name: 'kilometerLimtMax',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `bonus on min limit`
-  String get kilometerLimtMin {
-    return Intl.message(
-      'bonus on min limit',
-      name: 'kilometerLimtMin',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `You have new notification`
-  String get newMessageCommingOut {
-    return Intl.message(
-      'You have new notification',
-      name: 'newMessageCommingOut',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Active`
-  String get captainStateActive {
-    return Intl.message(
-      'Active',
-      name: 'captainStateActive',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `UnActive`
-  String get captainStateInactive {
-    return Intl.message(
-      'UnActive',
-      name: 'captainStateInactive',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `choose your state`
-  String get chooseYourState {
-    return Intl.message(
-      'choose your state',
-      name: 'chooseYourState',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `update profile`
-  String get updateProfile {
-    return Intl.message(
-      'update profile',
-      name: 'updateProfile',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Are you sure about dispose your changes`
-  String get areYouSureToDisposeThis {
-    return Intl.message(
-      'Are you sure about dispose your changes',
-      name: 'areYouSureToDisposeThis',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Distance`
-  String get distance {
-    return Intl.message(
-      'Distance',
-      name: 'distance',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `km`
-  String get km {
-    return Intl.message(
-      'km',
-      name: 'km',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Products`
-  String get products {
-    return Intl.message(
-      'Products',
-      name: 'products',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Cancelled`
-  String get cancelled {
-    return Intl.message(
-      'Cancelled',
-      name: 'cancelled',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Store location`
-  String get storeLocation {
-    return Intl.message(
-      'Store location',
-      name: 'storeLocation',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `chat with client`
-  String get chatWithClient {
-    return Intl.message(
-      'chat with client',
-      name: 'chatWithClient',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `The order has been cancelled by the client`
-  String get cancelledHint {
-    return Intl.message(
-      'The order has been cancelled by the client',
-      name: 'cancelledHint',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Upload Bill`
-  String get makeBill {
-    return Intl.message(
-      'Upload Bill',
-      name: 'makeBill',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Please provide the bill of the order`
-  String get pleaseProvideStoreBill {
-    return Intl.message(
-      'Please provide the bill of the order',
-      name: 'pleaseProvideStoreBill',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Receipt Location`
-  String get receiptPoint {
-    return Intl.message(
-      'Receipt Location',
-      name: 'receiptPoint',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Destination Location`
-  String get destinationPoint {
-    return Intl.message(
-      'Destination Location',
-      name: 'destinationPoint',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Expected Order Bill`
-  String get expectedOrderBill {
-    return Intl.message(
-      'Expected Order Bill',
-      name: 'expectedOrderBill',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Receipt`
-  String get receipt {
-    return Intl.message(
-      'Receipt',
-      name: 'receipt',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Saving invoice process has been failed`
-  String get saveInvoiceFailed {
-    return Intl.message(
-      'Saving invoice process has been failed',
-      name: 'saveInvoiceFailed',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Saving invoice was a success`
-  String get saveInvoiceSuccess {
-    return Intl.message(
-      'Saving invoice was a success',
-      name: 'saveInvoiceSuccess',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `The total cost without delivery cost`
-  String get totalBillCostHint {
-    return Intl.message(
-      'The total cost without delivery cost',
-      name: 'totalBillCostHint',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Total cost of store invoice`
-  String get totalBillCost {
-    return Intl.message(
-      'Total cost of store invoice',
-      name: 'totalBillCost',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Please wait we are invoice saving ...`
-  String get savingInvoice {
-    return Intl.message(
-      'Please wait we are invoice saving ...',
-      name: 'savingInvoice',
+  /// `New Messages`
+  String get lastSeenMessage {
+    return Intl.message(
+      'New Messages',
+      name: 'lastSeenMessage',
       desc: '',
       args: [],
     );
@@ -4010,161 +3400,31 @@ class S {
     );
   }
 
-  /// `New Messages`
-  String get lastSeenMessage {
+  /// `Chat With Captain`
+  String get chatWithCaptain {
     return Intl.message(
-      'New Messages',
-      name: 'lastSeenMessage',
+      'Chat With Captain',
+      name: 'chatWithCaptain',
       desc: '',
       args: [],
     );
   }
 
-  /// `Actual`
-  String get actual {
+  /// `Cancelled`
+  String get cancelled {
     return Intl.message(
-      'Actual',
-      name: 'actual',
+      'Cancelled',
+      name: 'cancelled',
       desc: '',
       args: [],
     );
   }
 
-  /// `Last Month`
-  String get lastMonth {
+  /// `The order has been cancelled by the client`
+  String get cancelledHint {
     return Intl.message(
-      'Last Month',
-      name: 'lastMonth',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Here we are showing captain balance status`
-  String get myBalanceHint {
-    return Intl.message(
-      'Here we are showing captain balance status',
-      name: 'myBalanceHint',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Total Payments To Company`
-  String get sumPaymentsToCompany {
-    return Intl.message(
-      'Total Payments To Company',
-      name: 'sumPaymentsToCompany',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Total Payments From Company`
-  String get sumPaymentsFromCompany {
-    return Intl.message(
-      'Total Payments From Company',
-      name: 'sumPaymentsFromCompany',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Total Payments To Captain`
-  String get sumPaymentsToCaptain {
-    return Intl.message(
-      'Total Payments To Captain',
-      name: 'sumPaymentsToCaptain',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Total Payments From Captain`
-  String get sumPaymentsFromCaptain {
-    return Intl.message(
-      'Total Payments From Captain',
-      name: 'sumPaymentsFromCaptain',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Count Orders Delivered`
-  String get countOrdersDelivered {
-    return Intl.message(
-      'Count Orders Delivered',
-      name: 'countOrdersDelivered',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `My Actual Balance`
-  String get amountYouOwn {
-    return Intl.message(
-      'My Actual Balance',
-      name: 'amountYouOwn',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Remaining Amount For Company`
-  String get remainingAmountForCompany {
-    return Intl.message(
-      'Remaining Amount For Company',
-      name: 'remainingAmountForCompany',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Bounce`
-  String get bounce {
-    return Intl.message(
-      'Bounce',
-      name: 'bounce',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Kilometer Bonus`
-  String get kilometerBonus {
-    return Intl.message(
-      'Kilometer Bonus',
-      name: 'kilometerBonus',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Profit`
-  String get netProfit {
-    return Intl.message(
-      'Profit',
-      name: 'netProfit',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Total`
-  String get total {
-    return Intl.message(
-      'Total',
-      name: 'total',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `There is no permission to handle this feature`
-  String get thereIsNoPermission {
-    return Intl.message(
-      'There is no permission to handle this feature',
-      name: 'thereIsNoPermission',
+      'The order has been cancelled by the client',
+      name: 'cancelledHint',
       desc: '',
       args: [],
     );
@@ -4180,481 +3440,11 @@ class S {
     );
   }
 
-  /// `day`
-  String get day {
+  /// `The total cost without delivery cost`
+  String get totalBillCostHint {
     return Intl.message(
-      'day',
-      name: 'day',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `days`
-  String get days {
-    return Intl.message(
-      'days',
-      name: 'days',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `second`
-  String get second {
-    return Intl.message(
-      'second',
-      name: 'second',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `seconds`
-  String get seconds {
-    return Intl.message(
-      'seconds',
-      name: 'seconds',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `hour`
-  String get hour {
-    return Intl.message(
-      'hour',
-      name: 'hour',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `hours`
-  String get hours {
-    return Intl.message(
-      'hours',
-      name: 'hours',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `minutes`
-  String get minutes {
-    return Intl.message(
-      'minutes',
-      name: 'minutes',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `minute`
-  String get minute {
-    return Intl.message(
-      'minute',
-      name: 'minute',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `This account already exist`
-  String get accountAlreadyExist {
-    return Intl.message(
-      'This account already exist',
-      name: 'accountAlreadyExist',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Stores Categories`
-  String get storeCategories {
-    return Intl.message(
-      'Stores Categories',
-      name: 'storeCategories',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Add Category`
-  String get addNewCategory {
-    return Intl.message(
-      'Add Category',
-      name: 'addNewCategory',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `CategoryName`
-  String get categoryName {
-    return Intl.message(
-      'CategoryName',
-      name: 'categoryName',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Category created successfully`
-  String get categoryCreatedSuccessfully {
-    return Intl.message(
-      'Category created successfully',
-      name: 'categoryCreatedSuccessfully',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Stores List`
-  String get storesList {
-    return Intl.message(
-      'Stores List',
-      name: 'storesList',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Add Stores`
-  String get addStore {
-    return Intl.message(
-      'Add Stores',
-      name: 'addStore',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Product Category`
-  String get productCategory {
-    return Intl.message(
-      'Product Category',
-      name: 'productCategory',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Product Categories`
-  String get productCategories {
-    return Intl.message(
-      'Product Categories',
-      name: 'productCategories',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Choose Category`
-  String get chooseCategory {
-    return Intl.message(
-      'Choose Category',
-      name: 'chooseCategory',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Store Info`
-  String get storeInfo {
-    return Intl.message(
-      'Store Info',
-      name: 'storeInfo',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Don't Serve`
-  String get notServe {
-    return Intl.message(
-      'Don\'t Serve',
-      name: 'notServe',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Serve`
-  String get serve {
-    return Intl.message(
-      'Serve',
-      name: 'serve',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Store Management`
-  String get storeManagment {
-    return Intl.message(
-      'Store Management',
-      name: 'storeManagment',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Product Name`
-  String get productName {
-    return Intl.message(
-      'Product Name',
-      name: 'productName',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Product Price`
-  String get productPrice {
-    return Intl.message(
-      'Product Price',
-      name: 'productPrice',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `In Active Captains`
-  String get inActiveCaptains {
-    return Intl.message(
-      'In Active Captains',
-      name: 'inActiveCaptains',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Salary`
-  String get salary {
-    return Intl.message(
-      'Salary',
-      name: 'salary',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Account Status`
-  String get captainStatus {
-    return Intl.message(
-      'Account Status',
-      name: 'captainStatus',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Online Status`
-  String get status {
-    return Intl.message(
-      'Online Status',
-      name: 'status',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Captain Activated Successfully`
-  String get captainActivated {
-    return Intl.message(
-      'Captain Activated Successfully',
-      name: 'captainActivated',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Store Category Updated Successfully`
-  String get updateStoreCategory {
-    return Intl.message(
-      'Store Category Updated Successfully',
-      name: 'updateStoreCategory',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `update`
-  String get update {
-    return Intl.message(
-      'update',
-      name: 'update',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Update Store`
-  String get updateStore {
-    return Intl.message(
-      'Update Store',
-      name: 'updateStore',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Update Product Category`
-  String get updateProductCategory {
-    return Intl.message(
-      'Update Product Category',
-      name: 'updateProductCategory',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Update Product`
-  String get updateProduct {
-    return Intl.message(
-      'Update Product',
-      name: 'updateProduct',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Phone`
-  String get phone {
-    return Intl.message(
-      'Phone',
-      name: 'phone',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Phone 2`
-  String get phone2 {
-    return Intl.message(
-      'Phone 2',
-      name: 'phone2',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Fax`
-  String get fax {
-    return Intl.message(
-      'Fax',
-      name: 'fax',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `STC`
-  String get stc {
-    return Intl.message(
-      'STC',
-      name: 'stc',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Company Info`
-  String get companyInfo {
-    return Intl.message(
-      'Company Info',
-      name: 'companyInfo',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Captains`
-  String get captains {
-    return Intl.message(
-      'Captains',
-      name: 'captains',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Stores`
-  String get stores {
-    return Intl.message(
-      'Stores',
-      name: 'stores',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Completed Orders`
-  String get countCompletedOrders {
-    return Intl.message(
-      'Completed Orders',
-      name: 'countCompletedOrders',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Ongoing Orders`
-  String get countOngoingOrders {
-    return Intl.message(
-      'Ongoing Orders',
-      name: 'countOngoingOrders',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Clients Count`
-  String get countClients {
-    return Intl.message(
-      'Clients Count',
-      name: 'countClients',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Captains Count`
-  String get countCaptains {
-    return Intl.message(
-      'Captains Count',
-      name: 'countCaptains',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Products Count`
-  String get countProducts {
-    return Intl.message(
-      'Products Count',
-      name: 'countProducts',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Stores Count`
-  String get countStores {
-    return Intl.message(
-      'Stores Count',
-      name: 'countStores',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Captains Balance`
-  String get captainPayments {
-    return Intl.message(
-      'Captains Balance',
-      name: 'captainPayments',
+      'The total cost without delivery cost',
+      name: 'totalBillCostHint',
       desc: '',
       args: [],
     );
@@ -4680,141 +3470,411 @@ class S {
     );
   }
 
-  /// `Pending Orders`
-  String get orderPending {
+  /// `This account already exist`
+  String get accountAlreadyExist {
     return Intl.message(
-      'Pending Orders',
-      name: 'orderPending',
+      'This account already exist',
+      name: 'accountAlreadyExist',
       desc: '',
       args: [],
     );
   }
 
-  /// `Company Finance`
-  String get companyFinance {
+  /// `Products`
+  String get products {
     return Intl.message(
-      'Company Finance',
-      name: 'companyFinance',
+      'Products',
+      name: 'products',
       desc: '',
       args: [],
     );
   }
 
-  /// `Updated Successfully`
-  String get financeProfileUpdateSuccessfully {
+  /// `Stores`
+  String get stores {
     return Intl.message(
-      'Updated Successfully',
-      name: 'financeProfileUpdateSuccessfully',
+      'Stores',
+      name: 'stores',
       desc: '',
       args: [],
     );
   }
 
-  /// `Company`
-  String get company {
+  /// `Rate Store`
+  String get rateStore {
     return Intl.message(
-      'Company',
-      name: 'company',
+      'Rate Store',
+      name: 'rateStore',
       desc: '',
       args: [],
     );
   }
 
-  /// `Twaslna Dashboard`
-  String get twaslnaDashboard {
+  /// `Rate this store in your opinion`
+  String get rateStoreMessage {
     return Intl.message(
-      'Twaslna Dashboard',
-      name: 'twaslnaDashboard',
+      'Rate this store in your opinion',
+      name: 'rateStoreMessage',
       desc: '',
       args: [],
     );
   }
 
-  /// `OnGoing Orders`
-  String get ongoingOrders {
+  /// `Submit`
+  String get submit {
     return Intl.message(
-      'OnGoing Orders',
-      name: 'ongoingOrders',
+      'Submit',
+      name: 'submit',
       desc: '',
       args: [],
     );
   }
 
-  /// `Category Image`
-  String get categoryImage {
+  /// `stores has been rated`
+  String get storeRated {
     return Intl.message(
-      'Category Image',
-      name: 'categoryImage',
+      'stores has been rated',
+      name: 'storeRated',
       desc: '',
       args: [],
     );
   }
 
-  /// `Store Created Successfully`
-  String get storeCreatedSuccessfully {
+  /// `Your rate has been submitted`
+  String get rateSubmitting {
     return Intl.message(
-      'Store Created Successfully',
-      name: 'storeCreatedSuccessfully',
+      'Your rate has been submitted',
+      name: 'rateSubmitting',
       desc: '',
       args: [],
     );
   }
 
-  /// `Store Updated Successfully`
-  String get storeUpdatedSuccessfully {
+  /// `Download Twaslna App on Play Store`
+  String get downloadTwaslnaApp {
     return Intl.message(
-      'Store Updated Successfully',
-      name: 'storeUpdatedSuccessfully',
+      'Download Twaslna App on Play Store',
+      name: 'downloadTwaslnaApp',
       desc: '',
       args: [],
     );
   }
 
-  /// `Store Image`
-  String get storeImage {
+  /// `Rate this captain upon your opinion`
+  String get rateCaptainMessage {
     return Intl.message(
-      'Store Image',
-      name: 'storeImage',
+      'Rate this captain upon your opinion',
+      name: 'rateCaptainMessage',
       desc: '',
       args: [],
     );
   }
 
-  /// `Store Service`
-  String get storeService {
+  /// `Rate Captain`
+  String get rateCaptain {
     return Intl.message(
-      'Store Service',
-      name: 'storeService',
+      'Rate Captain',
+      name: 'rateCaptain',
       desc: '',
       args: [],
     );
   }
 
-  /// `Make Payments`
-  String get paymentsManagement {
+  /// `All`
+  String get all {
     return Intl.message(
-      'Make Payments',
-      name: 'paymentsManagement',
+      'All',
+      name: 'all',
       desc: '',
       args: [],
     );
   }
 
-  /// `Payment From Captain`
-  String get paymentFromCaptain {
+  /// `With taxes `
+  String get withTaxes {
     return Intl.message(
-      'Payment From Captain',
-      name: 'paymentFromCaptain',
+      'With taxes ',
+      name: 'withTaxes',
       desc: '',
       args: [],
     );
   }
 
-  /// `Payment To Captain`
-  String get paymentToCaptain {
+  /// `Cart`
+  String get showingCart {
     return Intl.message(
-      'Payment To Captain',
-      name: 'paymentToCaptain',
+      'Cart',
+      name: 'showingCart',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Item`
+  String get item {
+    return Intl.message(
+      'Item',
+      name: 'item',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Electronic`
+  String get electronic {
+    return Intl.message(
+      'Electronic',
+      name: 'electronic',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rating`
+  String get rating {
+    return Intl.message(
+      'Rating',
+      name: 'rating',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Discount`
+  String get discount {
+    return Intl.message(
+      'Discount',
+      name: 'discount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sold`
+  String get sold {
+    return Intl.message(
+      'Sold',
+      name: 'sold',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Specification`
+  String get specification {
+    return Intl.message(
+      'Specification',
+      name: 'specification',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total Price`
+  String get totalPrice {
+    return Intl.message(
+      'Total Price',
+      name: 'totalPrice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Quantity`
+  String get productQuantity {
+    return Intl.message(
+      'Quantity',
+      name: 'productQuantity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You have products from other store , Do you want to clear your cart and add the new ones`
+  String get youHaveProductsFromDifferentStore {
+    return Intl.message(
+      'You have products from other store , Do you want to clear your cart and add the new ones',
+      name: 'youHaveProductsFromDifferentStore',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Product Rated`
+  String get productRated {
+    return Intl.message(
+      'Product Rated',
+      name: 'productRated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please rate this product`
+  String get rateProductMessage {
+    return Intl.message(
+      'Please rate this product',
+      name: 'rateProductMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rate Product`
+  String get rateProduct {
+    return Intl.message(
+      'Rate Product',
+      name: 'rateProduct',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cart`
+  String get cart {
+    return Intl.message(
+      'Cart',
+      name: 'cart',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Saller`
+  String get seller {
+    return Intl.message(
+      'Saller',
+      name: 'seller',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Favorite Categories`
+  String get favoriteCategories {
+    return Intl.message(
+      'Favorite Categories',
+      name: 'favoriteCategories',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Favorite Stores`
+  String get favoriteStores {
+    return Intl.message(
+      'Favorite Stores',
+      name: 'favoriteStores',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Preferred Language`
+  String get preferredLanguage {
+    return Intl.message(
+      'Preferred Language',
+      name: 'preferredLanguage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select Language`
+  String get selectLanguage {
+    return Intl.message(
+      'Select Language',
+      name: 'selectLanguage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Item added to cart`
+  String get cartItemAdded {
+    return Intl.message(
+      'Item added to cart',
+      name: 'cartItemAdded',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Item removed from cart`
+  String get cartItemRemoved {
+    return Intl.message(
+      'Item removed from cart',
+      name: 'cartItemRemoved',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Products Details`
+  String get productDetails {
+    return Intl.message(
+      'Products Details',
+      name: 'productDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid number`
+  String get invalidNumber {
+    return Intl.message(
+      'Invalid number',
+      name: 'invalidNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid Code`
+  String get invalidCode {
+    return Intl.message(
+      'Invalid Code',
+      name: 'invalidCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Code number`
+  String get codeNumber {
+    return Intl.message(
+      'Code number',
+      name: 'codeNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Code has expired`
+  String get codeTimeOut {
+    return Intl.message(
+      'Code has expired',
+      name: 'codeTimeOut',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The code has been successfully sent`
+  String get resendCodeSuccessfully {
+    return Intl.message(
+      'The code has been successfully sent',
+      name: 'resendCodeSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You must enter the code first`
+  String get notVerifiedNumber {
+    return Intl.message(
+      'You must enter the code first',
+      name: 'notVerifiedNumber',
       desc: '',
       args: [],
     );
@@ -4830,401 +3890,341 @@ class S {
     );
   }
 
-  /// `Payment amount`
-  String get paymentAmount {
+  /// `First name`
+  String get firstName {
     return Intl.message(
-      'Payment amount',
-      name: 'paymentAmount',
+      'First name',
+      name: 'firstName',
       desc: '',
       args: [],
     );
   }
 
-  /// `Captain Info`
-  String get captainInfo {
+  /// `Middle name`
+  String get middleName {
     return Intl.message(
-      'Captain Info',
-      name: 'captainInfo',
+      'Middle name',
+      name: 'middleName',
       desc: '',
       args: [],
     );
   }
 
-  /// `Captain Balance Info`
-  String get captainInfoBalance {
+  /// `Last name`
+  String get lastName {
     return Intl.message(
-      'Captain Balance Info',
-      name: 'captainInfoBalance',
+      'Last name',
+      name: 'lastName',
       desc: '',
       args: [],
     );
   }
 
-  /// `Payments From Captain`
-  String get paymentsFromCaptain {
+  /// `Payment process has been failed , please try again later`
+  String get paymentFailed {
     return Intl.message(
-      'Payments From Captain',
-      name: 'paymentsFromCaptain',
+      'Payment process has been failed , please try again later',
+      name: 'paymentFailed',
       desc: '',
       args: [],
     );
   }
 
-  /// `Payments To Captain`
-  String get paymentsToCaptain {
+  /// `Extra details`
+  String get extraDetails {
     return Intl.message(
-      'Payments To Captain',
-      name: 'paymentsToCaptain',
+      'Extra details',
+      name: 'extraDetails',
       desc: '',
       args: [],
     );
   }
 
-  /// `Payment has been registered successfully`
-  String get paymentSuccessfully {
+  /// `Product Name`
+  String get productName {
     return Intl.message(
-      'Payment has been registered successfully',
-      name: 'paymentSuccessfully',
+      'Product Name',
+      name: 'productName',
       desc: '',
       args: [],
     );
   }
 
-  /// `Store Shift`
-  String get workTime {
+  /// `Enter product information`
+  String get enterProductInfo {
     return Intl.message(
-      'Store Shift',
-      name: 'workTime',
+      'Enter product information',
+      name: 'enterProductInfo',
       desc: '',
       args: [],
     );
   }
 
-  /// `Opening Time`
-  String get openingTime {
+  /// `Upload image if you have`
+  String get uploadImageIfyouHave {
     return Intl.message(
-      'Opening Time',
-      name: 'openingTime',
+      'Upload image if you have',
+      name: 'uploadImageIfyouHave',
       desc: '',
       args: [],
     );
   }
 
-  /// `Closing Time`
-  String get closingTime {
+  /// `Press here`
+  String get pressHere {
     return Intl.message(
-      'Closing Time',
-      name: 'closingTime',
+      'Press here',
+      name: 'pressHere',
       desc: '',
       args: [],
     );
   }
 
-  /// `Searching for categories`
-  String get searchingForCategories {
+  /// `Send`
+  String get send {
     return Intl.message(
-      'Searching for categories',
-      name: 'searchingForCategories',
+      'Send',
+      name: 'send',
       desc: '',
       args: [],
     );
   }
 
-  /// `searching for store`
-  String get searchingForStores {
+  /// `Your Request have been sent`
+  String get yourRequestSent {
     return Intl.message(
-      'searching for store',
-      name: 'searchingForStores',
+      'Your Request have been sent',
+      name: 'yourRequestSent',
       desc: '',
       args: [],
     );
   }
 
-  /// `Financial Dues`
-  String get captainMoney {
+  /// `Forgot password?`
+  String get forgotPass {
     return Intl.message(
-      'Financial Dues',
-      name: 'captainMoney',
+      'Forgot password?',
+      name: 'forgotPass',
       desc: '',
       args: [],
     );
   }
 
-  /// `Orders Account`
-  String get ordersAccount {
+  /// `Our partners`
+  String get partners {
     return Intl.message(
-      'Orders Account',
-      name: 'ordersAccount',
+      'Our partners',
+      name: 'partners',
       desc: '',
       args: [],
     );
   }
 
-  /// `Company profile created successfully`
-  String get companyProfileCreatedSuccessfully {
+  /// `Payments via`
+  String get paymentsVia {
     return Intl.message(
-      'Company profile created successfully',
-      name: 'companyProfileCreatedSuccessfully',
+      'Payments via',
+      name: 'paymentsVia',
       desc: '',
       args: [],
     );
   }
 
-  /// `Company profile updated successfully`
-  String get companyProfileUpdatedSuccessfully {
+  /// `New password`
+  String get newPassword {
     return Intl.message(
-      'Company profile updated successfully',
-      name: 'companyProfileUpdatedSuccessfully',
+      'New password',
+      name: 'newPassword',
       desc: '',
       args: [],
     );
   }
 
-  /// `Logs`
-  String get Logs {
+  /// `Confirm new password`
+  String get confirmNewPass {
     return Intl.message(
-      'Logs',
-      name: 'Logs',
+      'Confirm new password',
+      name: 'confirmNewPass',
       desc: '',
       args: [],
     );
   }
 
-  /// `Captain Logs`
-  String get captainLogs {
+  /// `Password updated successfully`
+  String get passwordUpdatedSuccess {
     return Intl.message(
-      'Captain Logs',
-      name: 'captainLogs',
+      'Password updated successfully',
+      name: 'passwordUpdatedSuccess',
       desc: '',
       args: [],
     );
   }
 
-  /// `Search`
-  String get search {
+  /// `We will send a verification code to your number`
+  String get informSendCode {
     return Intl.message(
-      'Search',
-      name: 'search',
+      'We will send a verification code to your number',
+      name: 'informSendCode',
       desc: '',
       args: [],
     );
   }
 
-  /// `Search for store`
-  String get searchForStore {
+  /// `Password not matching`
+  String get passwordNotMatch {
     return Intl.message(
-      'Search for store',
-      name: 'searchForStore',
+      'Password not matching',
+      name: 'passwordNotMatch',
       desc: '',
       args: [],
     );
   }
 
-  /// `Store Logs`
-  String get storeLogs {
+  /// `Update`
+  String get update {
     return Intl.message(
-      'Store Logs',
-      name: 'storeLogs',
+      'Update',
+      name: 'update',
       desc: '',
       args: [],
     );
   }
 
-  /// `Today Order`
-  String get countTodayOrder {
+  /// `Phone number invalid format , cause is more than 9`
+  String get phoneNumberLong {
     return Intl.message(
-      'Today Order',
-      name: 'countTodayOrder',
+      'Phone number invalid format , cause is more than 9',
+      name: 'phoneNumberLong',
       desc: '',
       args: [],
     );
   }
 
-  /// `First Date`
-  String get firstDate {
+  /// `Similar Products`
+  String get similarProducts {
     return Intl.message(
-      'First Date',
-      name: 'firstDate',
+      'Similar Products',
+      name: 'similarProducts',
       desc: '',
       args: [],
     );
   }
 
-  /// `Last Date`
-  String get lastDate {
+  /// `Account not exist`
+  String get accountNotExist {
     return Intl.message(
-      'Last Date',
-      name: 'lastDate',
+      'Account not exist',
+      name: 'accountNotExist',
       desc: '',
       args: [],
     );
   }
 
-  /// `Captain Updated Successfully`
-  String get captainUpdatedSuccessfully {
+  /// `All prices in payments portal are included with 15% vat`
+  String get paymentPortalHint {
     return Intl.message(
-      'Captain Updated Successfully',
-      name: 'captainUpdatedSuccessfully',
+      'All prices in payments portal are included with 15% vat',
+      name: 'paymentPortalHint',
       desc: '',
       args: [],
     );
   }
 
-  /// `Reports`
-  String get reports {
+  /// `15% vat`
+  String get tax {
     return Intl.message(
-      'Reports',
-      name: 'reports',
+      '15% vat',
+      name: 'tax',
       desc: '',
       args: [],
     );
   }
 
-  /// `Products Report`
-  String get productsReport {
+  /// `Pay Attention to cart content because changes have been made`
+  String get cartAttention {
     return Intl.message(
-      'Products Report',
-      name: 'productsReport',
+      'Pay Attention to cart content because changes have been made',
+      name: 'cartAttention',
       desc: '',
       args: [],
     );
   }
 
-  /// `Clients Report`
-  String get clientsReport {
+  /// `Checking Cart`
+  String get cartValidation {
     return Intl.message(
-      'Clients Report',
-      name: 'clientsReport',
+      'Checking Cart',
+      name: 'cartValidation',
       desc: '',
       args: [],
     );
   }
 
-  /// `Stores Report`
-  String get storesReports {
+  /// `Without vat fee`
+  String get withoutTax {
     return Intl.message(
-      'Stores Report',
-      name: 'storesReports',
+      'Without vat fee',
+      name: 'withoutTax',
       desc: '',
       args: [],
     );
   }
 
-  /// `Captain Report`
-  String get captainsReports {
+  /// `vat fee`
+  String get extraTax {
     return Intl.message(
-      'Captain Report',
-      name: 'captainsReports',
+      'vat fee',
+      name: 'extraTax',
       desc: '',
       args: [],
     );
   }
 
-  /// `Score`
-  String get score {
+  /// `Payment Resume`
+  String get paymentResume {
     return Intl.message(
-      'Score',
-      name: 'score',
+      'Payment Resume',
+      name: 'paymentResume',
       desc: '',
       args: [],
     );
   }
 
-  /// `deliver an order`
-  String get captainDelivered {
+  /// `Record Number`
+  String get recordNumber {
     return Intl.message(
-      'deliver an order',
-      name: 'captainDelivered',
+      'Record Number',
+      name: 'recordNumber',
       desc: '',
       args: [],
     );
   }
 
-  /// `Captain`
-  String get captainDid {
+  /// `National Address`
+  String get nationalAddress {
     return Intl.message(
-      'Captain',
-      name: 'captainDid',
+      'National Address',
+      name: 'nationalAddress',
       desc: '',
       args: [],
     );
   }
 
-  /// `received order`
-  String get clientOrdered {
+  /// `Tax Number`
+  String get taxNumber {
     return Intl.message(
-      'received order',
-      name: 'clientOrdered',
+      'Tax Number',
+      name: 'taxNumber',
       desc: '',
       args: [],
     );
   }
 
-  /// `Client`
-  String get clientDid {
+  /// `Captain rated successfully`
+  String get captainRated {
     return Intl.message(
-      'Client',
-      name: 'clientDid',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Order requested from store`
-  String get storeDid {
-    return Intl.message(
-      'Order requested from store',
-      name: 'storeDid',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Request product`
-  String get productOrdered {
-    return Intl.message(
-      'Request product',
-      name: 'productOrdered',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Specific`
-  String get specific {
-    return Intl.message(
-      'Specific',
-      name: 'specific',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Clients`
-  String get clients {
-    return Intl.message(
-      'Clients',
-      name: 'clients',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Store Availability`
-  String get storeAvailable {
-    return Intl.message(
-      'Store Availability',
-      name: 'storeAvailable',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Stores In Active`
-  String get storesInActive {
-    return Intl.message(
-      'Stores In Active',
-      name: 'storesInActive',
+      'Captain rated successfully',
+      name: 'captainRated',
       desc: '',
       args: [],
     );
@@ -5238,6 +4238,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
       Locale.fromSubtags(languageCode: 'ar'),
+      Locale.fromSubtags(languageCode: 'ur'),
     ];
   }
 

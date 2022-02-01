@@ -1,3 +1,5 @@
+import 'package:mandob_moshtarayat/consts/country_code.dart';
+
 class RegisterRequest {
   String? userID;
   String? password;
@@ -12,9 +14,9 @@ class RegisterRequest {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['userID'] = this.userID;
+    data['userID'] = CountryCode.COUNTRY_CODE_KSA + userID.toString();
     data['password'] = this.password;
-  //  data['userName'] = this.userName;
+    data['userName'] = this.userName;
     return data;
   }
 }

@@ -1,5 +1,6 @@
 import 'package:analyzer_plugin/utilities/pair.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mandob_moshtarayat/module_chat/model/chat_argument.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:mandob_moshtarayat/module_chat/model/chat/chat_model.dart';
 
@@ -21,7 +22,7 @@ class ChatStateManager {
   );
 
   final PublishSubject<Pair<int, List<ChatModel>>> _chatBlocSubject =
-      new PublishSubject();
+      PublishSubject();
 
   Stream<Pair<int, List<ChatModel>>> get chatBlocStream =>
       _chatBlocSubject.stream;
@@ -39,8 +40,10 @@ class ChatStateManager {
     _chatService.requestMessages(chatRoomID);
   }
 
-  void sendMessage(String chatRoomID, String chat, String username) {
+  void sendMessage(String chatRoomID, String chat, String username,
+      ChatArgument chatArgument) {
     _chatService.sendMessage(chatRoomID, chat, username);
+    _chatService.sendNotification(chatArgument);
   }
 
   void dispose() {

@@ -1,5 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mandob_moshtarayat/module_chat/model/chat_argument.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:mandob_moshtarayat/module_chat/manager/chat/chat_manager.dart';
 import 'package:mandob_moshtarayat/module_chat/model/chat/chat_model.dart';
@@ -11,8 +11,7 @@ class ChatService {
   ChatService(this._chatManager);
 
   // This is Real Time, That is Why I went this way
-  final PublishSubject<List<ChatModel>> _chatPublishSubject =
-      new PublishSubject();
+  final PublishSubject<List<ChatModel>> _chatPublishSubject = PublishSubject();
 
   Stream<List<ChatModel>> get chatMessagesStream => _chatPublishSubject.stream;
 
@@ -29,16 +28,19 @@ class ChatService {
   }
 
   void sendMessage(String chatRoomID, String msg, String username) async {
-    ChatModel model = new ChatModel(
+    ChatModel model = ChatModel(
       msg: msg,
       sender: username,
       sentDate: DateTime.now().toString(),
     );
     _chatManager.sendMessage(chatRoomID, model);
-    _chatManager.sendNotification(chatRoomID);
   }
 
   void dispose() {
     _chatPublishSubject.close();
+  }
+
+  void sendNotification(ChatArgument chatArgument) {
+    _chatManager.sendNotification(chatArgument);
   }
 }
