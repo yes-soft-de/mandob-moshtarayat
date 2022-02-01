@@ -11,82 +11,10 @@ import 'package:mandob_moshtarayat/module_home/state_manager/home_state_manager.
 import 'package:mandob_moshtarayat/module_home/widget/menu_screen.dart';
 import 'package:mandob_moshtarayat/module_my_code/my_code_routes.dart';
 import 'package:mandob_moshtarayat/module_profile/model/profile_model.dart';
+import 'package:mandob_moshtarayat/utils/components/custom_alert_dialog.dart';
 import 'package:mandob_moshtarayat/utils/components/custom_app_bar.dart';
 import 'package:mandob_moshtarayat/utils/images/images.dart';
-
-import '../../global_nav_key.dart';
 import 'home_state/home_state_loaded.dart';
-
-//@injectable
-//class HomeScreen extends StatefulWidget {
-//  final HomeStateManager _stateManager;
-//  final AuthService _authService;
-//  HomeScreen(this._stateManager, this._authService);
-//
-//  @override
-//  HomeScreenState createState() => HomeScreenState();
-//}
-//
-//class HomeScreenState extends State<HomeScreen> {
-//
-//  @override
-//  Widget build(BuildContext context) {
-//    return Scaffold(
-//      appBar: CustomMandobAppBar.appBar(context,
-//          title: S.of(context).home, icon: Icons.menu, onTap: () {
-////            MainScreenState.advancedController.showDrawer();
-//          }),
-//      body: Container(
-//          decoration: BoxDecoration(
-//            color:  Theme.of(context).scaffoldBackgroundColor,
-//          ),
-//          child:  Stack(
-//            children: [
-//              SizedBox(
-//                width: MediaQuery.of(context).size.width,
-//                height: MediaQuery.of(context).size.height,
-//                child: Center(
-//                    child: Opacity(
-//                        opacity: 0.1,
-//                        child: Image.asset(
-//                          ImageAsset.DELIVERY_CAR,
-//                          fit: BoxFit.cover,
-//                          alignment: Alignment.center,
-//                          height: 2000,
-//                        ))),
-//              ),
-//              state.getUI(context)
-//            ],
-//          ),),
-//    );
-//  }
-//
-//  late States state;
-//
-//  void refresh() {
-//    if (mounted) {
-//      setState(() {});
-//    }
-//  }
-//
-//  @override
-//  void initState() {
-//    state = HomeLoadingState(this);
-//    widget._stateManager.stateStream.listen((event) {
-//      state = event;
-//     if (this.mounted){
-//       setState(() {
-//       });
-//     }
-//    });
-//    getReport();
-//    super.initState();
-//  }
-//
-//  Future<void> getReport() async {
-//    widget._stateManager.getReport(this);
-//  }
-//}
 
 
 
@@ -134,6 +62,9 @@ class HomeScreenState extends State<HomeScreen> {
       );
     });
   }
+  void getReport(){
+    widget._stateManager.getProfile(this);
+  }
 
   @override
   void initState() {
@@ -159,16 +90,10 @@ class HomeScreenState extends State<HomeScreen> {
       }
     });
     widget._stateManager.getProfile(this);
-    widget._stateManager.getReport(this);
-
-//    _companySubscription = widget._stateManager.companyStream.listen((event) {
-//      _companyInfo = event;
-//      if (mounted) {
-//        setState(() {});
-//      }
-//    });
   }
-
+  Future<void> getHome() async {
+    widget._stateManager.getProfile(this);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -207,18 +132,26 @@ class HomeScreenState extends State<HomeScreen> {
         ),
         drawer: MenuScreen(this, _currentProfile ?? ProfileModel.empty()),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: (){
-        Navigator.pushNamed(context, MyCodeRoutes.MyCode_SCREEN  , arguments: _currentProfile);
-      },child: Icon(Icons.qr_code,size: 30,),elevation: 5.0,),
+      floatingActionButton:
+      _currentProfile !=null?
+      FloatingActionButton(onPressed: (){
+        if(_currentProfile?.status =='inactive'){
+          showDialog(
+              context: context,
+              builder: (_) {
+                return CustomAlertNoAcDialog(onPressed: () {
+                  Navigator.pop(context);
+                },message: S.of(context).noScan,);
+              });
+        }
+       else  Navigator.pushNamed(context, MyCodeRoutes.MyCode_SCREEN  , arguments: _currentProfile);
+      },child: Icon(Icons.qr_code,size: 30,),elevation: 5.0,):Container(),
     );
   }
 
   @override
   void dispose() {
     super.dispose();
-//    _stateSubscription?.cancel();
     _profileSubscription?.cancel();
-//    _companySubscription?.cancel();
-//    widget._stateManager.newActionSubscription?.cancel();
   }
 }

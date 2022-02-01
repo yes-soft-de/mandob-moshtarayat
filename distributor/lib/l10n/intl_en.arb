@@ -550,5 +550,16 @@
 
   "myCode": "My code",
   "totalStore": "Total number of stores",
-  "thisMonth": "This Month"
+  "thisMonth": "This Month",
+
+  "remainingAmount": "Remaining amount",
+  "totalPayment": "Total payments",
+  "totalDues": "Total dues",
+  "at": "at",
+  "noScan": "You cannot use your QR code because your account is not activated yet",
+  "myStore": "number of my store",
+  "myStoreLastMonth": "number of my store last month",
+
+  "gallery": "Gallery",
+  "camera": "Camera"
 }

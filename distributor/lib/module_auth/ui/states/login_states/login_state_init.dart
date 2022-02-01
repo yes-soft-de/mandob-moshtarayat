@@ -116,7 +116,7 @@ class LoginStateInit extends LoginState {
                           context: context,
                           builder: (_) {
                             return CustomAlertDialog(
-                                content: S.of(context).informSendCode,
+                                message: S.of(context).informSendCode,
                                 onPressed: () {
                                   Navigator.pop(context);
                                   screen.restPass(ResetPassRequest(

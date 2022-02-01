@@ -249,6 +249,7 @@ class UpdateProfileWidget extends StatefulWidget {
      _stcPay = TextEditingController();
      if (widget.request != null) {
        _nameController.text = widget.request?.mandobName ?? '';
+       _ageController.text = widget.request?.age.toString() ?? '';
        imagePath = widget.request?.image ?? '';
        status = widget.request?.status ?? 'inactive';
        _bankAccountNumber.text = widget.request?.bankNumber??'';
@@ -288,14 +289,14 @@ class UpdateProfileWidget extends StatefulWidget {
                  children: <Widget>[
                    new ListTile(
                        leading: new Icon(Icons.photo_library),
-                       title: new Text(S.of(context).categoryName),
+                       title: new Text(S.of(context).gallery),
                        onTap: () {
                          _openGallery();
                          Navigator.of(context).pop();
                        }),
                    new ListTile(
                      leading: new Icon(Icons.photo_camera),
-                     title: new Text(S.of(context).categoryName),
+                     title: new Text(S.of(context).camera),
                      onTap: () {
                        _openCamera();
                        Navigator.of(context).pop();

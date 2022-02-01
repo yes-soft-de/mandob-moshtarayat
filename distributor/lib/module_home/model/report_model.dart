@@ -3,20 +3,20 @@ import 'package:mandob_moshtarayat/module_home/response/report_response.dart';
 
 class ReportModel extends DataModel {
 
-  int countCompletedOrders = 0;
-  int countOngoingOrders = 0;
-  int countOrdersInToday = 0;
+  int totalLinkedStores = 0;
+  int representativeTotalLinkedStores = 0;
+  int representativeLinkedStoresLastMonth = 0;
 
   ReportModel(
-      {required this.countCompletedOrders,
-      required this.countOngoingOrders,
-        required this.countOrdersInToday
+      {required this.totalLinkedStores,
+      required this.representativeTotalLinkedStores,
+        required this.representativeLinkedStoresLastMonth
       });
 
   ReportModel.withData(Data data) : super.withData() {
-     countCompletedOrders =int.parse(data.countCompletedOrders ?? '0');
-     countOngoingOrders =int.parse(data.countOngoingOrders ?? '0');
-     countOrdersInToday =int.parse(data.countOrdersInToday ?? '0');
+    totalLinkedStores = data.totalLinkedStores  ??0;
+    representativeTotalLinkedStores =  data.representativeTotalLinkedStores ??0;
+    representativeLinkedStoresLastMonth = data.representativeLinkedStoresLastMonth  ??0;
 
   }
 

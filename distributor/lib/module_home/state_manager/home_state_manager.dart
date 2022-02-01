@@ -25,40 +25,54 @@ class HomeStateManager {
 
   HomeStateManager(this._homeService, this._profileService);
 
-  void getReport(HomeScreenState screenState) {
-    ReportModel   data = ReportModel(countCompletedOrders: 5, countOngoingOrders: 5, countOrdersInToday: 1);
-//        StoreProfileModel model = value as StoreProfileModel;
-    _stateSubject.add(HomeLoadedState(screenState,data));
-
-//    print('dddfff');
-//    _stateSubject.add(LoadingState(screenState));
-//    _homeService.getReport().then((value) {
-//      if (value.hasError) {
-//        _stateSubject
-//            .add(HomeLoadedState(screenState,null, error: value.error));
-//      } else if (value.isEmpty) {
-//        _stateSubject.add(HomeLoadedState(screenState,null));
-//      } else {
-//        ReportModel data = value as ReportModel;
-//        data = ReportModel(countCompletedOrders: 5, countOngoingOrders: 5, countOrdersInToday: 1);
+//  void getReport(HomeScreenState screenState) {
+//    ReportModel   data = ReportModel(countCompletedOrders: 5, countOngoingOrders: 5, countOrdersInToday: 1);
 ////        StoreProfileModel model = value as StoreProfileModel;
-//        _stateSubject.add(HomeLoadedState(screenState,data));
-//      }
-//    });
-  }
+//    _stateSubject.add(HomeLoadedState(screenState,data));
+//
+////    print('dddfff');
+////    _stateSubject.add(LoadingState(screenState));
+////    _homeService.getReport().then((value) {
+////      if (value.hasError) {
+////        _stateSubject
+////            .add(HomeLoadedState(screenState,null, error: value.error));
+////      } else if (value.isEmpty) {
+////        _stateSubject.add(HomeLoadedState(screenState,null));
+////      } else {
+////        ReportModel data = value as ReportModel;
+////        data = ReportModel(countCompletedOrders: 5, countOngoingOrders: 5, countOrdersInToday: 1);
+//////        StoreProfileModel model = value as StoreProfileModel;
+////        _stateSubject.add(HomeLoadedState(screenState,data));
+////      }
+////    });
+//  }
   void getProfile(HomeScreenState screenState) {
+    _stateSubject.add(HomeLoadingState(screenState));
     _profileService.getProfile().then((profile) {
       if (profile.hasError) {
+        _stateSubject
+            .add(HomeLoadedState(screenState,null, error: profile.error));
         CustomFlushBarHelper.createError(
             title: S.current.warnning, message: profile.error??'')
             .show(screenState.context);
       } else if (profile.isEmpty) {
+        _stateSubject
+            .add(HomeLoadedState(screenState,null, error: profile.error));
         CustomFlushBarHelper.createError(
             title: S.current.warnning, message: S.current.profileDataEmpty)
             .show(screenState.context);
       } else {
         ProfileModel model= profile as ProfileModel;
         _profileSubject.add(model.data);
+        _homeService.getReport().then((report) {
+          if(report.hasError){
+            _stateSubject
+            .add(HomeLoadedState(screenState,null, error: report.error));
+          }else{
+            ReportModel   data = report as ReportModel;
+            _stateSubject.add(HomeLoadedState(screenState,data));
+          }
+        });
       }
     });
   }

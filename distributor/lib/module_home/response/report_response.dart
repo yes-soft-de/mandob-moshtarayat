@@ -22,40 +22,25 @@ class ReportResponse {
   }
   }
 
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
-    map['status_code'] = statusCode;
-    map['msg'] = msg;
-    if (data != null) {
-      map['Data'] = data?.toJson();
-    }
-    return map;
-  }
+
 
 }
 
 class Data {
-  String? countCompletedOrders;
-  String? countOngoingOrders;
-  String? countOrdersInToday;
+  int? totalLinkedStores;
+  int? representativeTotalLinkedStores;
+  int? representativeLinkedStoresLastMonth;
 
   Data({
-      this.countCompletedOrders, 
-      this.countOngoingOrders,
-      this.countOrdersInToday});
+      this.totalLinkedStores,
+      this.representativeTotalLinkedStores,
+      this.representativeLinkedStoresLastMonth});
 
   Data.fromJson(dynamic json) {
-    countCompletedOrders = json['countCompletedOrders'];
-    countOngoingOrders = json['countOngoingOrders'];
-    countOrdersInToday = json['countOrdersInToday'];
+    totalLinkedStores = json['totalLinkedStores'];
+    representativeTotalLinkedStores = json['representativeTotalLinkedStores'];
+    representativeLinkedStoresLastMonth = json['representativeLinkedStoresLastMonth'];
   }
 
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
-    map['countCompletedOrders'] = countCompletedOrders;
-    map['countOngoingOrders'] = countOngoingOrders;
-    map['countOrdersInToday'] = countOrdersInToday;
-    return map;
-  }
 
 }

@@ -1,57 +1,39 @@
 
 import 'package:mandob_moshtarayat/abstracts/data_model/data_model.dart';
-import 'package:mandob_moshtarayat/module_profile/response/profile_response.dart';
+import 'package:mandob_moshtarayat/module_stores/response/store_response.dart';
 
-
-
-class  ProfileModel extends DataModel {
+class  StoreModel extends DataModel {
   int id = -1;
-  String mandobName = '';
+  String storeName = '';
   String phone = '';
-  String stcPay = '';
-  String bankName = '';
-  String bankNumber = '';
-  String roomID='';
   String status='';
-  num age = 0;
   String? image;
+ List<StoreModel> _models =[];
 
-
-  ProfileModel? _models;
-
-  ProfileModel(
+  StoreModel(
       {required this.id,
-      required this.mandobName,
+      required this.storeName,
       required this.phone,
-        required this.roomID,
+
        required this.status,
-      required this.stcPay ,required this.bankName ,required this.bankNumber,required this.age,required this.image,
+      required this.image,
       });
 
-  ProfileModel.withData(Data data) : super.withData() {
-    _models = ProfileModel(
-      id: data.id??-1,
-      stcPay: data.stcPay??'',
-      bankName: data.bankName??'',
-      bankNumber: data.bankAccountNumber??'',
-      age: data.age??0,
-      mandobName: data.mandobName??'',
-      phone: data.phone??'',
-      roomID: data.roomID??'',
-      image: data.imageURL!.image??'',
-      status: data.status??''
-
-    );
+  StoreModel.withData(List <Data> data) : super.withData() {
+    _models = [];
+    for (var element in data) {
+      _models.add(StoreModel(
+          id: element.id??-1,
+          storeName: element.storeOwnerName??'',
+          phone: element.phone??'',
+          image: element.imageURL!.image??'',
+          status: element.status??''
+      ));
+    }
   }
-  ProfileModel.empty() {
+
+  StoreModel.empty() {
 //    _empty = true;
   }
-  ProfileModel get data {
-    if (_models != null) {
-      return _models!;
-    }
-    else {
-      throw Exception('There is no data');
-    }
-  }
+  List<StoreModel> get data => _models;
 }
