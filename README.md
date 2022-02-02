@@ -1,1 +1,0 @@
-# mandob-moshtarayat
