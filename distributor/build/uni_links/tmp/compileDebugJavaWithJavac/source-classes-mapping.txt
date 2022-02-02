@@ -1,0 +1,5 @@
+name/avioli/unilinks/UniLinksPlugin.java
+ name.avioli.unilinks.UniLinksPlugin
+ name.avioli.unilinks.UniLinksPlugin$1
+name/avioli/unilinks/BuildConfig.java
+ name.avioli.unilinks.BuildConfig

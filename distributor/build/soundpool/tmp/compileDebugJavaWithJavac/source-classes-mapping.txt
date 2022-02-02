@@ -1,0 +1,2 @@
+pl/ukaszapps/soundpool/BuildConfig.java
+ pl.ukaszapps.soundpool.BuildConfig

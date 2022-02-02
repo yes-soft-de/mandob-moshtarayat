@@ -1,0 +1,12 @@
+io/flutter/plugins/firebaseperformance/FlutterFirebaseAppRegistrar.java
+ io.flutter.plugins.firebaseperformance.FlutterFirebaseAppRegistrar
+io/flutter/plugins/firebaseperformance/FirebasePerformancePlugin.java
+ io.flutter.plugins.firebaseperformance.FirebasePerformancePlugin
+io/flutter/plugins/firebaseperformance/FlutterFirebasePerformance.java
+ io.flutter.plugins.firebaseperformance.FlutterFirebasePerformance
+io/flutter/plugins/firebaseperformance/FlutterTrace.java
+ io.flutter.plugins.firebaseperformance.FlutterTrace
+io/flutter/plugins/firebaseperformance/FlutterHttpMetric.java
+ io.flutter.plugins.firebaseperformance.FlutterHttpMetric
+io/flutter/plugins/firebaseperformance/BuildConfig.java
+ io.flutter.plugins.firebaseperformance.BuildConfig
