@@ -22,6 +22,7 @@ class DeliveryCompanyFinancialCompensationEntityRepository extends ServiceEntity
     {
         return $this->createQueryBuilder('FinancialCompensation') 
             ->select('FinancialCompensation.id, FinancialCompensation.kilometers, FinancialCompensation.maxKilometerBonus, FinancialCompensation.minKilometerBonus')
+
             ->getQuery()
             ->getResult();
     }
@@ -29,8 +30,11 @@ class DeliveryCompanyFinancialCompensationEntityRepository extends ServiceEntity
     public function  getFinancialCompensationById($id)
     {
         return $this->createQueryBuilder('FinancialCompensation') 
+
             ->andWhere("FinancialCompensation.id = :id ")
+
             ->setParameter('id',$id)
+
             ->getQuery()
             ->getOneOrNullResult();
     }

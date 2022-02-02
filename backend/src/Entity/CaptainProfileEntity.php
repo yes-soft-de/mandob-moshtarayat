@@ -122,6 +122,11 @@ class CaptainProfileEntity
      */
     private $identity;
 
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     */
+    private $preferredLanguage;
+
 
     public function getId(): ?int
     {
@@ -377,6 +382,18 @@ class CaptainProfileEntity
     public function setIdentity(?string $identity): self
     {
         $this->identity = $identity;
+
+        return $this;
+    }
+
+    public function getPreferredLanguage(): ?string
+    {
+        return $this->preferredLanguage;
+    }
+
+    public function setPreferredLanguage(?string $preferredLanguage): self
+    {
+        $this->preferredLanguage = $preferredLanguage;
 
         return $this;
     }

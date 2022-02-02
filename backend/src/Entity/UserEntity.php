@@ -46,6 +46,11 @@ class UserEntity implements UserInterface
      */
     private $email;
 
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     */
+    private $verificationStatus;
+
     public function __construct($userID)
     {
         $this->userID = $userID;
@@ -149,6 +154,18 @@ class UserEntity implements UserInterface
     public function setEmail(?string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getVerificationStatus(): ?string
+    {
+        return $this->verificationStatus;
+    }
+
+    public function setVerificationStatus(?string $verificationStatus): self
+    {
+        $this->verificationStatus = $verificationStatus;
 
         return $this;
     }

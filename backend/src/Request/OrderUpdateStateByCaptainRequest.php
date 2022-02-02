@@ -9,8 +9,6 @@ class OrderUpdateStateByCaptainRequest
     private $orderNumber;
 
     private $state;
-
-    private $updatedAt;
     
     private $kilometer;
 

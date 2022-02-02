@@ -6,7 +6,7 @@ use App\Repository\DeliveryCompanyPaymentsToCaptainEntityRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
-// this entity for The money the captain collects from clients 
+
 /**
  * @ORM\Entity(repositoryClass=DeliveryCompanyPaymentsFromCaptainEntityRepository::class)
  */

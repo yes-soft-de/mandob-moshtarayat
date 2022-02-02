@@ -27,11 +27,12 @@ class DeliveryCompanyFinancialCompensationService
     public function createFinancialCompensation(DeliveryCompanyFinancialCompensationCreateRequest $request)
     {
         $item = $this->deliveryCompanyFinancialCompensationManager->createFinancialCompensation($request);
+
         if ($item instanceof DeliveryCompanyFinancialCompensationEntity) {
-        return $this->autoMapping->map(DeliveryCompanyFinancialCompensationEntity::class, DeliveryCompanyFinancialCompensationResponse::class, $item);
+             return $this->autoMapping->map(DeliveryCompanyFinancialCompensationEntity::class, DeliveryCompanyFinancialCompensationResponse::class, $item);
         }
+
         if ($item == true) {
-          
             return $this->getFinancialCompensations();
         }
     }
@@ -54,22 +55,28 @@ class DeliveryCompanyFinancialCompensationService
     public function  getFinancialCompensations()
     {
         $response = [];
+
         $results = $this->deliveryCompanyFinancialCompensationManager->getFinancialCompensations();
        
         foreach ($results as  $result) {
            $response[] = $this->autoMapping->map('array', DeliveryCompanyFinancialCompensationResponse::class, $result);
         }
+
         return $response;
     }
 
     public function  getCompensationsAndDeliveryCost()
     {
         $response = [];
+
         $compensation = $this->deliveryCompanyFinancialCompensationManager->getFinancialCompensations();
         $deliveryCost = $this->deliveryCompanyFinancialService->getDeliveryCompanyFinancialAll();
+
         $arr['compensation'] = $compensation;
         $arr['deliveryCost'] = $deliveryCost;
+
         $response = $this->autoMapping->map('array', CompensationAndDeliveryCostResponse::class, $arr);
-        return $response;  
+
+        return $response;
     }
 }

@@ -22,7 +22,9 @@ class AppointmentEntityRepository extends ServiceEntityRepository
     public function getAppointments()
     {
         return $this->createQueryBuilder('DatingEntityRepository')
+
             ->select('DatingEntityRepository.id','DatingEntityRepository.userName', 'DatingEntityRepository.phone', 'DatingEntityRepository.isDone')
+
             ->getQuery()
             ->getResult();
     }

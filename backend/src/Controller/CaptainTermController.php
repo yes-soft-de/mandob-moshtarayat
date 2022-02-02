@@ -14,6 +14,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Nelmio\ApiDocBundle\Annotation\Security;
+use OpenApi\Annotations as OA;
 
 class CaptainTermController extends BaseController
 {
@@ -30,34 +32,80 @@ class CaptainTermController extends BaseController
     }
     
     /**
+     * admin: Create new captain terms.
      * @Route("/termscaptain", name="createTermsCaptain", methods={"POST"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
+     * *
+     * @OA\Tag(name="Captain Terms")
+     *@OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     * @OA\RequestBody(
+     *      description="Create new captain terms",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="content"),
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the new captain terms",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="content"),
+     *          )
+     *      )
+     * )
+     * @Security(name="Bearer")
      */
     public function createCaptainTerm(Request $request)
     {
-            $data = json_decode($request->getContent(), true);
+       $data = json_decode($request->getContent(), true);
 
-            $request = $this->autoMapping->map(stdClass::class, CaptainTermCreateRequest::class, (object)$data);
+       $request = $this->autoMapping->map(stdClass::class, CaptainTermCreateRequest::class, (object)$data);
 
-            $violations = $this->validator->validate($request);
+       $violations = $this->validator->validate($request);
+       if (\count($violations) > 0) {
+            $violationsString = (string) $violations;
 
-            if (\count($violations) > 0) {
-                $violationsString = (string) $violations;
-
-                return new JsonResponse($violationsString, Response::HTTP_OK);
+            return new JsonResponse($violationsString, Response::HTTP_OK);
             }
-            $result = $this->captainTermService->createCaptainTerm($request);
 
-        return $this->response($result, self::CREATE);
+       $result = $this->captainTermService->createCaptainTerm($request);
+
+       return $this->response($result, self::CREATE);
     }
 
     /**
+     * Get captain terms.
       * @Route("/termscaptain", name="GetTermsCaptain", methods={"GET"})
       * @param Request $request
       * @return JsonResponse
-      */
+     * *
+     * @OA\Tag(name="Captain Terms")
+     * @OA\Response(
+     *      response=200,
+     *      description="Get captain terms",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="content"),
+     *               ),
+     *          )
+     *      )
+     * )
+     */
       public function getTermsCaptain()
       {
           $result = $this->captainTermService->getTermsCaptain();
@@ -66,10 +114,25 @@ class CaptainTermController extends BaseController
       }
 
     /**
-      * @Route("/termscaptainbyid/{id}", name="GetTermsCaptainById", methods={"GET"})
-      * @param Request $request
-      * @return JsonResponse
-      */
+     * Get captain term.
+     * @Route("/termscaptainbyid/{id}", name="GetTermsCaptainById", methods={"GET"})
+     * @param Request $request
+     * @return JsonResponse
+     * *
+     * @OA\Tag(name="Captain Terms")
+     * @OA\Response(
+     *      response=200,
+     *      description="Get captain terms",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="content"),
+     *          )
+     *      )
+     * )
+     */
       public function getTermsCaptainById($id)
       {
           $result = $this->captainTermService->getTermsCaptainById($id);
@@ -77,12 +140,42 @@ class CaptainTermController extends BaseController
           return $this->response($result, self::FETCH);
       }
 
-      /**
+     /**
+     * admin: Update captain terms.
      * @Route("/termscaptain", name="termsUpdate", methods={"PUT"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
-     */
+       * *
+       * @OA\Tag(name="Captain Terms")
+       *@OA\Parameter(
+       *      name="token",
+       *      in="header",
+       *      description="token to be passed as a header",
+       *      required=true
+       * )
+       * @OA\RequestBody(
+       *      description="Update captain terms",
+       *      @OA\JsonContent(
+       *          @OA\Property(type="string", property="id"),
+       *          @OA\Property(type="string", property="content"),
+       *      )
+       * )
+       *
+       * @OA\Response(
+       *      response=200,
+       *      description="Returns captain terms",
+       *      @OA\JsonContent(
+       *          @OA\Property(type="string", property="status_code"),
+       *          @OA\Property(type="string", property="msg"),
+       *          @OA\Property(type="object", property="Data",
+       *                  @OA\Property(type="integer", property="id"),
+       *                  @OA\Property(type="string", property="content"),
+       *          )
+       *      )
+       * )
+       * @Security(name="Bearer")
+       */
     public function update(Request $request)
     {
         $data = json_decode($request->getContent(), true);

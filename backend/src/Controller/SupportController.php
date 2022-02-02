@@ -39,16 +39,15 @@ class SupportController extends BaseController
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class, SupportCreateRequest::class, (object)$data);
-
         $request->setUserID($this->getUserId());
 
         $violations = $this->validator->validate($request);
-
         if (\count($violations) > 0) {
             $violationsString = (string) $violations;
 
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
+
         $result = $this->supportService->createSupport($request);
             
         return $this->response($result, self::CREATE);
@@ -86,6 +85,6 @@ class SupportController extends BaseController
     {
         $result = $this->supportService->supportReportNewMessageStatus($id);
 
-        return $this->response($result, self::FETCH);
+        return $this->response($result, self::UPDATE);
     }
 }

@@ -144,5 +144,4 @@ class UploadFileService
 
         $this->settingService->createSetting($request);
     }
-
 }

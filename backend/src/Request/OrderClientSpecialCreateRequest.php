@@ -14,7 +14,7 @@ class OrderClientSpecialCreateRequest
     private $note;
    
     private $payment;
-   
+
     private $state;
    
     private $roomID;
@@ -110,4 +110,21 @@ class OrderClientSpecialCreateRequest
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPayment()
+    {
+        return $this->payment;
+    }
+
+    /**
+     * @param mixed $payment
+     */
+    public function setPayment($payment): void
+    {
+        $this->payment = $payment;
+    }
+
 }

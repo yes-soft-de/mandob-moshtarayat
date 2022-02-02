@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Constant\ResponseConstant;
 use App\Entity\CaptainProfileEntity;
 use App\Entity\StoreOwnerProfileEntity;
 use App\Entity\OrderEntity;
@@ -29,6 +30,7 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('captainProfile')
 
             ->andWhere('captainProfile.captainID=:captainID')
+
             ->setParameter('captainID', $captainID)
 
             ->getQuery()
@@ -38,9 +40,12 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
     public function getCaptainProfileByCaptainID($captainID)
     {
         return $this->createQueryBuilder('captainProfile')
+
             ->addSelect('captainProfile.id', 'captainProfile.captainID', 'captainProfile.captainName', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.specialLink', 'captainProfile.phone', 'captainProfile.isOnline', 'captainProfile.bankName', 'captainProfile.bankAccountNumber', 'captainProfile.stcPay', 'captainProfile.mechanicLicense', 'captainProfile.identity', 'captainProfile.bounce')
             ->addSelect('UserEntity.createDate')
+
             ->leftJoin(UserEntity::class, 'UserEntity', Join::WITH, 'UserEntity.id = captainProfile.captainID')
+
             ->andWhere('captainProfile.captainID=:captainID')
             
             ->setParameter('captainID', $captainID)
@@ -54,7 +59,9 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('captainProfile')
 
             ->andWhere('captainProfile.captainID = :captainID')
+
             ->setParameter('captainID', $captainID)
+
             ->getQuery()
             ->getOneOrNullResult();
     }
@@ -62,6 +69,7 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
     public function getCaptainProfileByID($captainProfileId)
     {
         return $this->createQueryBuilder('captainProfile')
+
             ->addSelect('captainProfile.id', 'captainProfile.captainID', 'captainProfile.captainName', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.state as vacationStatus', 'captainProfile.bounce', 'captainProfile.roomID', 'captainProfile.specialLink', 'captainProfile.isOnline', 'captainProfile.newMessageStatus', 'captainProfile.bankName', 'captainProfile.bankAccountNumber', 'captainProfile.stcPay', 'captainProfile.mechanicLicense', 'captainProfile.identity')
             ->addSelect('OrderEntity.state')
 
@@ -78,10 +86,13 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
     public function getCaptainsInactive()
     {
         return $this->createQueryBuilder('captainProfile')
+
             ->addSelect('captainProfile.id', 'captainProfile.captainID', 'captainProfile.captainName', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.specialLink', 'captainProfile.mechanicLicense', 'captainProfile.identity')
 
             ->andWhere("captainProfile.status = :inactive ")
+
             ->setParameter('inactive', 'inactive')
+
             ->getQuery()
             ->getResult();
     }
@@ -94,8 +105,9 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
             ->addSelect('OrderEntity.captainID', 'OrderEntity.state')
             
             ->leftJoin(OrderEntity::class, 'OrderEntity', Join::WITH, 'OrderEntity.captainID = captainProfile.captainID')
-            ->andWhere("OrderEntity.state = 'in store' or OrderEntity.state = 'picked' or OrderEntity.state = 'ongoing' or OrderEntity.state = 'cash'") 
-            // ->andWhere('OrderEntity.state =:state')
+
+            ->andWhere("OrderEntity.state = 'in store' or OrderEntity.state = 'picked' or OrderEntity.state = 'ongoing' or OrderEntity.state = 'cash'")
+
             ->addGroupBy('captainProfile.id')
             ->addGroupBy('captainProfile.captainID')
             ->addGroupBy('captainProfile.captainName')
@@ -109,7 +121,7 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
             ->addGroupBy('captainProfile.bounce')
             ->addGroupBy('captainProfile.specialLink')
             ->addGroupBy('OrderEntity.state')
-            // ->setParameter('state', $state)
+
             ->getQuery()
             ->getResult();
     }
@@ -117,6 +129,7 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
     public function captainIsActive($captainID)
     {
         return $this->createQueryBuilder('captainProfile')
+
             ->select('captainProfile.status')
 
             ->andWhere('captainProfile.captainID = :captainID')
@@ -130,10 +143,13 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
     public function countpendingCaptains()
     {
         return $this->createQueryBuilder('captainProfile')
+
             ->select('count (captainProfile.id) as countPendingCaptains')
 
             ->andWhere("captainProfile.status = :inactive")
+
             ->setParameter('inactive', 'inactive')
+
             ->getQuery()
             ->getOneOrNullResult();
     }
@@ -141,12 +157,15 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
     public function countOngoingCaptains()
     {
         return $this->createQueryBuilder('captainProfile')
+
             ->select('count (OrderEntity.captainID) as countOngoingCaptains')
 
             ->join(OrderEntity::class, 'OrderEntity')
 
             ->andWhere("OrderEntity.state = :ongoing")
+
             ->setParameter('ongoing','ongoing')
+
             ->getQuery()
             ->getOneOrNullResult();
     }
@@ -154,10 +173,13 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
     public function countDayOfCaptains()
     {
         return $this->createQueryBuilder('captainProfile')
+
             ->select('count (captainProfile.id) as countDayOfCaptains')
 
-            ->andWhere("captainProfile.state = 'vacation'")
+            ->andWhere("captainProfile.state = :vacation")
+
             ->setParameter('vacation','vacation')
+
             ->getQuery()
             ->getOneOrNullResult();
     }
@@ -165,10 +187,13 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
     public function getCaptainsInVacation()
     {
         return $this->createQueryBuilder('captainProfile')
+
             ->select('captainProfile.id', 'captainProfile.captainID', 'captainProfile.captainName', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.state', 'captainProfile.specialLink')
 
             ->andWhere("captainProfile.state = :vacation")
+
             ->setParameter('vacation', 'vacation')
+
             ->getQuery()
             ->getResult();
     }
@@ -180,7 +205,9 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
             ->select('captainProfile.id', 'captainProfile.captainID', 'captainProfile.captainName', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.bounce', 'captainProfile.specialLink', 'captainProfile.bankName', 'captainProfile.bankAccountNumber', 'captainProfile.stcPay')
 
             ->andWhere('captainProfile.id =:id')
+
             ->setParameter('id', $id)
+
             ->getQuery()
             ->getResult();
     }
@@ -192,7 +219,9 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
             ->select('captainProfile.id', 'captainProfile.captainID', 'captainProfile.captainName', 'captainProfile.image', 'captainProfile.salary',  'captainProfile.bounce')
 
             ->andWhere('captainProfile.captainID =:captainID')
+
             ->setParameter('captainID', $captainId)
+
             ->getQuery()
             ->getResult();
     }
@@ -220,7 +249,12 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
     public function getAllCaptains()
     {
         return $this->createQueryBuilder('captainProfile')
+
             ->select('captainProfile.id', 'captainProfile.captainID', 'captainProfile.captainName', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.state', 'captainProfile.roomID', 'captainProfile.bounce', 'captainProfile.specialLink', 'captainProfile.isOnline', 'captainProfile.newMessageStatus', 'captainProfile.bankName', 'captainProfile.bankAccountNumber', 'captainProfile.stcPay', 'captainProfile.phone')
+
+            ->andWhere("captainProfile.status = :active")
+
+            ->setParameter('active', ResponseConstant::$CAPTAIN_ACTIVE)
 
             ->getQuery()
             ->getResult();
@@ -229,8 +263,11 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
     public function getcaptainByRoomID($roomID)
     {
         return $this->createQueryBuilder('captainProfile')
+
             ->andWhere('captainProfile.roomID = :roomID')
+
             ->setParameter('roomID',$roomID)
+
             ->getQuery()
             ->getOneOrNullResult();
     }
@@ -245,13 +282,14 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
 
             ->leftJoin(OrderEntity::class, 'OrderEntity', Join::WITH, 'OrderEntity.captainID = captainProfileEntity.captainID')
 
-            // ->andWhere("OrderEntity.state =:deliverd")
-            // ->setParameter('deliverd', 'deliverd')
             ->addGroupBy('OrderEntity.captainID')
             
             ->having('count(OrderEntity.captainID) > 0')
+
             ->setMaxResults(5)
+
             ->addOrderBy('countOrdersDeliverd','DESC')
+
             ->getQuery()
             ->getResult();
     }
@@ -266,16 +304,20 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
            
             ->leftJoin(OrderEntity::class, 'OrderEntity', Join::WITH, 'OrderEntity.captainID = captainProfileEntity.captainID')
 
-             ->where('OrderEntity.date >= :fromDate')
-             ->andWhere('OrderEntity.date < :toDate')
+             ->where('OrderEntity.createdAt >= :fromDate')
+             ->andWhere('OrderEntity.createdAt < :toDate')
+
             ->addGroupBy('OrderEntity.captainID')
             
             ->having('count(OrderEntity.captainID) > 0')
+
             ->setMaxResults(15)
+
             ->addOrderBy('countOrdersInMonth','DESC')
          
             ->setParameter('fromDate', $fromDate)
             ->setParameter('toDate', $toDate)
+
             ->getQuery()
             ->getResult();
     }
@@ -284,8 +326,11 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
     {
         return  $this->createQueryBuilder('captainProfileEntity')
                 ->select('count(captainProfileEntity.id) as count')
+
                 ->andWhere("captainProfileEntity.status = :active")
+
                 ->setParameter('active', 'active')
+
                 ->getQuery()
                 ->getSingleScalarResult();
     }
@@ -293,13 +338,31 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
     public function captainFilter($name)
     {
         return $this->createQueryBuilder('captainProfileEntity')
-        ->select('captainProfileEntity.id','captainProfileEntity.captainID','captainProfileEntity.captainName', 'captainProfileEntity.image')
+
+            ->select('captainProfileEntity.id','captainProfileEntity.captainID','captainProfileEntity.captainName', 'captainProfileEntity.image')
 
             ->andWhere('captainProfileEntity.captainName LIKE :name')
 
             ->setParameter('name', '%'.$name.'%')
+
             ->setMaxResults(20)
+
             ->getQuery()
             ->getResult();
     }
+
+    public function getCaptainInfoRequired($captainID)
+    {
+        return $this->createQueryBuilder('captainProfile')
+
+            ->addSelect('captainProfile.id', 'captainProfile.captainID', 'captainProfile.captainName', 'captainProfile.image', 'captainProfile.location', 'captainProfile.stcPay', 'captainProfile.bankAccountNumber')
+
+            ->andWhere('captainProfile.captainID = :captainID')
+
+            ->setParameter('captainID', $captainID)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 }

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\AdminCreateRequest;
+use App\Request\UserRegisterRequest;
 use App\Service\AdminService;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -26,17 +27,46 @@ class AdminController extends BaseController
         $this->validator = $validator;
         $this->adminService = $adminService;
     }
+//
+//    /**
+//     * @Route("/createAdmin", name="adminCreate", methods={"POST"})
+//     * @param Request $request
+//     * @return JsonResponse
+//     */
+//    public function createAdmin(Request $request)
+//    {
+//        $data = json_decode($request->getContent(), true);
+//
+//        $request = $this->autoMapping->map(stdClass::class, AdminCreateRequest::class, (object)$data);
+//
+//        $violations = $this->validator->validate($request);
+//        if (\count($violations) > 0) {
+//            $violationsString = (string)$violations;
+//
+//            return new JsonResponse($violationsString, Response::HTTP_OK);
+//        }
+//
+//        $response = $this->adminService->createAdmin($request);
+//        if (isset($response->found)) {
+//            return $this->response($response, self::ERROR_USER_FOUND);
+//        }
+//
+//        return $this->response($response, self::CREATE);
+//    }
+//
 
     /**
-     * @Route("/createAdmin", name="adminCreate", methods={"POST"})
+     * Create new captain.
+     * @Route("/createAdmin", name="createAdmin", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
+     *
      */
-    public function createAdmin(Request $request)
+    public function adminRegister(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class, AdminCreateRequest::class, (object)$data);
+        $request = $this->autoMapping->map(stdClass::class, UserRegisterRequest::class, (object)$data);
 
         $violations = $this->validator->validate($request);
         if (\count($violations) > 0) {
@@ -45,8 +75,11 @@ class AdminController extends BaseController
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
 
-        $response = $this->adminService->createAdmin($request);
-
+        $response = $this->adminService->adminRegister($request);
+        if (isset($response->found)) {
+            return $this->response($response, self::ERROR_USER_FOUND);
+        }
         return $this->response($response, self::CREATE);
     }
+
 }

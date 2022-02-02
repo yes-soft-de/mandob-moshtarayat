@@ -7,6 +7,7 @@ use App\Entity\DeliveryCompanyFinancialEntity;
 use App\Repository\DeliveryCompanyFinancialEntityRepository;
 use App\Request\DeliveryCompanyFinancialRequest;
 use App\Request\DeliveryCompanyFinancialUpdateRequest;
+use App\Request\RepresentativeCommissionUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
 
@@ -47,7 +48,23 @@ class DeliveryCompanyFinancialManager
         if (!$entity) {
             return null;
         }
+
         $entity = $this->autoMapping->mapToObject(DeliveryCompanyFinancialUpdateRequest::class, DeliveryCompanyFinancialEntity::class, $request, $entity);
+
+        $this->entityManager->flush();
+
+        return $entity;
+    }
+
+    public function updateDeliveryCompanyRepresentativeCommission(RepresentativeCommissionUpdateRequest $request)
+    {
+        $entity = $this->deliveryCompanyFinancialEntityRepository->find($request->getId());
+
+        if (!$entity) {
+            return null;
+        }
+
+        $entity = $this->autoMapping->mapToObject(RepresentativeCommissionUpdateRequest::class, DeliveryCompanyFinancialEntity::class, $request, $entity);
 
         $this->entityManager->flush();
 
@@ -62,5 +79,20 @@ class DeliveryCompanyFinancialManager
     public function getDeliveryCompanyFinancialAll()
     {
        return $this->deliveryCompanyFinancialEntityRepository->getDeliveryCompanyFinancialAll();
+    }
+
+    public function getDeliveryCostScalar()
+    {
+       return $this->deliveryCompanyFinancialEntityRepository->getDeliveryCostScalar();
+    }
+
+    public function getDeliveryCost()
+    {
+       return $this->deliveryCompanyFinancialEntityRepository->getDeliveryCost();
+    }
+
+    public function getRepresentativeCommission()
+    {
+        return $this->deliveryCompanyFinancialEntityRepository->getRepresentativeCommission();
     }
 }

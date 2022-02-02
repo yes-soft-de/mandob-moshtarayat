@@ -22,7 +22,9 @@ class CaptainTermEntityRepository extends ServiceEntityRepository
     public function getTermsCaptain()
     {
         return $this->createQueryBuilder('terms')
-            ->select('terms.id', 'terms.content')             
+
+            ->select('terms.id', 'terms.content')
+
             ->getQuery()
             ->getResult();
     }
@@ -30,8 +32,11 @@ class CaptainTermEntityRepository extends ServiceEntityRepository
     public function getTermsCaptainById($id) 
     {
         return $this->createQueryBuilder('terms') 
-            ->andWhere('terms.id = :id')   
-            ->setParameter('id',$id)        
+
+            ->andWhere('terms.id = :id')
+
+            ->setParameter('id',$id)
+
             ->getQuery()
             ->getOneOrNullResult();
     }

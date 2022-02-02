@@ -1,6 +1,6 @@
 kreait_firebase:
   projects:
     my_project:
-      credentials: '%kernel.project_dir%/config/c4d-app-c299b-firebase-adminsdk-xegik-fa885c59c0.json'
+      credentials: '%kernel.project_dir%/config/mandoob-456f3-firebase-adminsdk-6k6lp-6ddbf7dad6.json'
 
       

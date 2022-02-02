@@ -11,9 +11,9 @@ class CustomAlertDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TweenAnimationBuilder(
-      duration: Duration(milliseconds: 750),
+      duration: Duration(milliseconds: 450),
       tween: Tween<double>(begin: 0, end: 1),
-      curve: Curves.bounceIn,
+      curve: Curves.linear,
       builder: (context, double val, child) {
         return Transform.scale(
           scale: val,

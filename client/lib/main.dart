@@ -1,6 +1,18 @@
+// ignore_for_file: use_key_in_widget_constructors , unused_field
 import 'dart:async';
-import 'dart:io';
+import 'dart:io' as p;
+import 'package:device_info/device_info.dart';
+import 'package:flutter/gestures.dart';
 import 'package:injectable/injectable.dart';
+import 'package:lehttp_overrides/lehttp_overrides.dart';
+import 'package:mandob_moshtarayat/module_account/account_module.dart';
+import 'package:mandob_moshtarayat/module_main/main_module.dart';
+import 'package:mandob_moshtarayat/module_my_notifications/my_notifications_module.dart';
+import 'package:mandob_moshtarayat/module_orders/orders_module.dart';
+import 'package:mandob_moshtarayat/module_our_services/services_module.dart';
+import 'package:mandob_moshtarayat/module_products/products_module.dart';
+import 'package:mandob_moshtarayat/module_search/search_module.dart';
+import 'package:mandob_moshtarayat/module_stores/store_module.dart';
 import 'package:simple_moment/simple_moment.dart';
 import 'package:mandob_moshtarayat/abstracts/module/yes_module.dart';
 import 'package:mandob_moshtarayat/di/di_config.dart';
@@ -32,6 +44,16 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   timeago.setLocaleMessages('ar', timeago.ArMessages());
   timeago.setLocaleMessages('en', timeago.EnMessages());
+  timeago.setLocaleMessages('ur', timeago.EnMessages());
+  if (!kIsWeb) {
+    if (p.Platform.isAndroid) {
+      DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      if (androidInfo.version.sdkInt < 26) {
+        p.HttpOverrides.global = LEHttpOverrides();
+      }
+    }
+  }
   await HiveSetUp.init();
   await Firebase.initializeApp();
   if (kIsWeb) {
@@ -47,12 +69,12 @@ void main() async {
     FlutterError.onError = (FlutterErrorDetails details) async {
       Logger().error('Main', details.toString(), StackTrace.current);
     };
-    await runZonedGuarded(() {
+    runZonedGuarded(() {
       configureDependencies();
       // Your App Here
       runApp(getIt<MyApp>());
     }, (error, stackTrace) {
-      new Logger().error(
+      Logger().error(
           'Main', error.toString() + stackTrace.toString(), StackTrace.current);
     });
   });
@@ -60,25 +82,40 @@ void main() async {
 
 @injectable
 class MyApp extends StatefulWidget {
-  final AppThemeDataService _themeDataService;
-  final LocalizationService _localizationService;
+  const MyApp(
+      this._themeDataService,
+      this._localizationService,
+      this._fireNotificationService,
+      this._localNotificationService,
+      this._splashModule,
+      this._authorizationModule,
+      this._chatModule,
+      this._settingsModule,
+      this._mainModule,
+      this._ordersModule,
+      this._searchModule,
+      this._accountModule,
+      this._servicesModule,
+      this._storeModule,
+      this._myNotificationsModule,
+      this._productsModule);
+
+  final AccountModule _accountModule;
+  final AuthorizationModule _authorizationModule;
+  final ChatModule _chatModule;
   final FireNotificationService _fireNotificationService;
   final LocalNotificationService _localNotificationService;
-  final SplashModule _splashModule;
-  final AuthorizationModule _authorizationModule;
+  final LocalizationService _localizationService;
+  final MainModule _mainModule;
+  final MyNotificationsModule _myNotificationsModule;
+  final OrdersModule _ordersModule;
+  final ProductsModule _productsModule;
+  final SearchModule _searchModule;
+  final ServicesModule _servicesModule;
   final SettingsModule _settingsModule;
-  final ChatModule _chatModule;
-
-  MyApp(
-    this._themeDataService,
-    this._localizationService,
-    this._fireNotificationService,
-    this._localNotificationService,
-    this._splashModule,
-    this._authorizationModule,
-    this._chatModule,
-    this._settingsModule,
-  );
+  final SplashModule _splashModule;
+  final StoreModule _storeModule;
+  final AppThemeDataService _themeDataService;
 
   @override
   State<StatefulWidget> createState() => _MyAppState();
@@ -88,9 +125,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   static FirebaseAnalytics analytics = FirebaseAnalytics();
   static FirebaseAnalyticsObserver observer =
       FirebaseAnalyticsObserver(analytics: analytics);
-  late String lang;
+
   late ThemeData activeTheme;
   bool authorized = false;
+  late String lang;
 
   @override
   void initState() {
@@ -99,28 +137,26 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     activeTheme = widget._themeDataService.getActiveTheme();
     timeago.setDefaultLocale(lang);
     Moment.setLocaleGlobally(lang == 'en' ? LocaleEn() : LocaleAr());
-    //widget._fireNotificationService.init();
-    //widget._localNotificationService.init();
+    widget._fireNotificationService.init();
+    widget._localNotificationService.init();
     widget._localizationService.localizationStream.listen((event) {
       timeago.setDefaultLocale(event);
       Moment.setLocaleGlobally(event == 'en' ? LocaleEn() : LocaleAr());
       lang = event;
       setState(() {});
     });
-    // widget._fireNotificationService.onNotificationStream.listen((event) {
-    //   widget._localNotificationService.showNotification(event);
-    // });
-    // widget._localNotificationService.onLocalNotificationStream
-    //     .listen((event) {});
+    widget._fireNotificationService.onNotificationStream.listen((event) {
+      widget._localNotificationService.showNotification(event);
+    });
+    widget._localNotificationService.onLocalNotificationStream.listen((event) {
+      Navigator.pushNamed(
+          GlobalVariable.navState.currentContext!, event.clickAction.toString(),
+          arguments: event?.argument);
+    });
     widget._themeDataService.darkModeStream.listen((event) {
       activeTheme = event;
       setState(() {});
     });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return getConfiguratedApp(YesModule.RoutesMap);
   }
 
   Widget getConfiguratedApp(
@@ -128,13 +164,14 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   ) {
     return FeatureDiscovery(
       child: MaterialApp(
+        scrollBehavior: MyCustomScrollBehavior(),
         debugShowCheckedModeBanner: false,
         navigatorObservers: <NavigatorObserver>[observer],
         navigatorKey: GlobalVariable.navState,
         locale: Locale.fromSubtags(
           languageCode: lang,
         ),
-        localizationsDelegates: [
+        localizationsDelegates: const [
           S.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
@@ -148,4 +185,19 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       ),
     );
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return getConfiguratedApp(YesModule.RoutesMap);
+  }
+}
+
+class MyCustomScrollBehavior extends MaterialScrollBehavior {
+  // Override behavior methods and getters like dragDevices
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+        // etc.
+      };
 }

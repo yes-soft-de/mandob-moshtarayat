@@ -28,6 +28,7 @@ class CaptainVacationService
         if ($result) {
            $this->captainProfileService->updateCaptainStateByAdmin($request); 
         }
+
         $respnose = $this->autoMapping->map(CaptainVacationEntity::class, CaptainVacationResponse::class, $result);
         
         return $respnose;

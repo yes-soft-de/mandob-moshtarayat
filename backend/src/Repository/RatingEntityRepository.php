@@ -22,7 +22,8 @@ class RatingEntityRepository extends ServiceEntityRepository
     public function getAvgRating($itemID, $itemType)
     {
         return $this->createQueryBuilder('Rating')
-               ->select('AVG(Rating.rating) as rate ')
+
+            ->select('AVG(Rating.rating) as rate ')
               
                ->andWhere('Rating.itemID = :itemID')
                ->andWhere('Rating.itemType = :itemType')
@@ -31,11 +32,13 @@ class RatingEntityRepository extends ServiceEntityRepository
                ->setParameter('itemType', $itemType)
 
                ->getQuery()
-               ->getOneOrNullResult();
+               ->getSingleScalarResult();
     }
+
     public function getAvgOrder($orderNumber)
     {
         return $this->createQueryBuilder('Rating')
+
                ->select('AVG(Rating.rating) as rate ')
               
                ->andWhere('Rating.orderNumber = :orderNumber')
@@ -43,6 +46,7 @@ class RatingEntityRepository extends ServiceEntityRepository
                ->setParameter('orderNumber', $orderNumber)
 
                ->getQuery()
-               ->getResult();
+               ->getSingleScalarResult();
+
     }
 }

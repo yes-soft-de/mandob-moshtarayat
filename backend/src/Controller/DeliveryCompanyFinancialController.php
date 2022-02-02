@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\AutoMapping;
 use App\Request\DeliveryCompanyFinancialRequest;
 use App\Request\DeliveryCompanyFinancialUpdateRequest;
+use App\Request\RepresentativeCommissionUpdateRequest;
 use App\Service\DeliveryCompanyFinancialService;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -13,6 +14,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Nelmio\ApiDocBundle\Annotation\Security;
+use OpenApi\Annotations as OA;
 
 
 class DeliveryCompanyFinancialController extends BaseController
@@ -34,12 +37,52 @@ class DeliveryCompanyFinancialController extends BaseController
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
-     */
+    * 
+    * @OA\Tag(name="Delivery Company Financial")
+    *
+    * @OA\Parameter(
+    *      name="token",
+    *      in="header",
+    *      description="token to be passed as a header",
+    *      required=true
+    * )
+    *
+    * @OA\RequestBody(
+    *      description="create delivery cost and representative commission",
+    *      @OA\JsonContent(
+    *          @OA\Property(type="number", property="deliveryCost"),
+    *          @OA\Property(type="number", property="representativeCommission")
+    *      )
+    * )
+    *
+    * @OA\Response(
+    *      response=201,
+    *      description="Returns the delivery cost and the representative commission",
+    *      @OA\JsonContent(
+    *          @OA\Property(type="string", property="status_code"),
+    *          @OA\Property(type="string", property="msg"),
+    *          @OA\Property(type="object", property="Data",
+    *                  @OA\Property(type="integer", property="id"),
+    *                  @OA\Property(type="number", property="deliveryCost"),
+    *                  @OA\Property(type="number", property="representativeCommission")
+    *          )
+    *      )
+    * )
+    *
+    * @Security(name="Bearer")
+    */
     public function createDeliveryCompanyFinancial(Request $request)
     {
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class, DeliveryCompanyFinancialRequest::class, (object)$data);
+
+        $violations = $this->validator->validate($request);
+        if (\count($violations) > 0) {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
 
         $result = $this->deliveryCompanyFinancialService->createDeliveryCompanyFinancial($request);            
 
@@ -50,6 +93,40 @@ class DeliveryCompanyFinancialController extends BaseController
      * @Route("deliveryCompanyFinancial", name="updateDeliveryCompanyFinancial", methods={"PUT"})
      * @param Request $request
      * @return JsonResponse
+     * 
+     * @OA\Tag(name="Delivery Company Financial")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\RequestBody(
+     *      description="update delivery cost and representative commission",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="integer", property="id"),
+     *          @OA\Property(type="number", property="deliveryCost"),
+     *          @OA\Property(type="number", property="representativeCommission")
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=204,
+     *      description="Returns the delivery cost and the representative commission",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="number", property="deliveryCost"),
+     *                  @OA\Property(type="number", property="representativeCommission")
+     *          )
+     *      )
+     * )
+     * 
+     * @Security(name="Bearer")
      */
     public function updateDeliveryCompanyFinancial(Request $request)
     {
@@ -70,9 +147,75 @@ class DeliveryCompanyFinancialController extends BaseController
         return $this->response($result, self::UPDATE);
     }
 
+    /**
+    * @Route("representativecommission", name="updateDeliveryCompanyRepresentativeCommission", methods={"PUT"})
+    * @param Request $request
+    * @return JsonResponse
+    * 
+    * @OA\Tag(name="Delivery Company Financial")
+    *
+    * @OA\RequestBody(
+    *      description="update representative commission",
+    *      @OA\JsonContent(
+    *          @OA\Property(type="integer", property="id"),
+    *          @OA\Property(type="number", property="representativeCommission")
+    *      )
+    * )
+    *
+    * @OA\Response(
+    *      response=204,
+    *      description="Returns the delivery cost and the representative commission",
+    *      @OA\JsonContent(
+    *          @OA\Property(type="string", property="status_code"),
+    *          @OA\Property(type="string", property="msg"),
+    *          @OA\Property(type="object", property="Data",
+    *                  @OA\Property(type="integer", property="id"),
+    *                  @OA\Property(type="number", property="deliveryCost"),
+    *                  @OA\Property(type="number", property="representativeCommission")
+    *          )
+    *      )
+    * )
+    *
+    */
+    public function updateRepresentativeCommission(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(\stdClass::class, RepresentativeCommissionUpdateRequest::class, (object) $data);
+
+        $violations = $this->validator->validate($request);
+
+        if (\count($violations) > 0) {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $result = $this->deliveryCompanyFinancialService->updateDeliveryCompanyRepresentativeCommission($request);
+
+        return $this->response($result, self::UPDATE);
+    }
+
      /**
      * @Route("getDeliveryCompanyFinancialById/{id}", name="getDeliveryCompanyFinancialById", methods={"GET"})
      * @return JsonResponse
+     * 
+     * @OA\Tag(name="Delivery Company Financial")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the delivery cost and the representative commission by id",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="number", property="deliveryCost"),
+     *                  @OA\Property(type="number", property="representativeCommission")
+     *          )
+     *      )
+     * )
+     *
      */
     public function getDeliveryCompanyFinancialById($id)
     {
@@ -84,6 +227,25 @@ class DeliveryCompanyFinancialController extends BaseController
      /**
      * @Route("getDeliveryCompanyFinancialAll", name="getDeliveryCompanyFinancialAll", methods={"GET"})
      * @return JsonResponse
+     * 
+     * @OA\Tag(name="Delivery Company Financial")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns all delivery cost and the representative commission",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="number", property="deliveryCost"),
+     *                  @OA\Property(type="number", property="representativeCommission")
+     *              )
+     *          )
+     *      )
+     * )
+     *
      */
     public function getDeliveryCompanyFinancialAll()
     {

@@ -33,4 +33,12 @@ class StoreOwnerByCategoryIdResponse
     public $openingTime;
 
     public $status;
+
+    public $commission;
+
+    public $bankName;
+
+    public $bankAccountNumber;
+
+    public $stcPay;
 }

@@ -2,7 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\AnonymousChatEntity;
+use App\Entity\ClientProfileEntity;
 use App\Entity\NotificationTokenEntity;
+use App\Entity\StaffProfileEntity;
+use App\Entity\StoreOwnerProfileEntity;
 use App\Entity\SupportEntity;
 use App\Entity\CaptainProfileEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -20,30 +24,94 @@ class NotificationTokenEntityRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, NotificationTokenEntity::class);
     }
-    
-    public function getByReprotRoomID($roomID)
+
+    public function getCaptainTokens()
     {
         return $this->createQueryBuilder('NotificationTokenEntity')
-        ->addSelect('reportEntity.userId') 
+            ->select('NotificationTokenEntity.token')
 
-        ->leftJoin(SupportEntity::class, 'reportEntity', Join::WITH, 'reportEntity.roomID = :roomID')
+            ->leftJoin(CaptainProfileEntity::class, 'captainProfileEntity', Join::WITH, 'captainProfileEntity.captainID = NotificationTokenEntity.userID')
 
-        ->andWhere("reportEntity.roomID = :roomID ")
-        ->setParameter('roomID', $roomID) 
-        ->getQuery()
-        ->getResult();
+            ->andWhere("captainProfileEntity.status = :status ")
+
+            ->setParameter('status', 'active')
+
+            ->getQuery()
+            ->getResult();
     }
-    
-    public function getCaptainRoomID($roomID)
+
+    public function getAnonymousToken($anonymousChatID)
     {
         return $this->createQueryBuilder('NotificationTokenEntity')
-        ->addSelect('captainProfileEntity.captainID') 
+            ->select('anonymousChatEntity.token')
 
-        ->leftJoin(CaptainProfileEntity::class, 'captainProfileEntity', Join::WITH, 'captainProfileEntity.roomID = :roomID')
+            ->leftJoin(AnonymousChatEntity::class, 'anonymousChatEntity', Join::WITH, 'anonymousChatEntity.id = :anonymousChatID')
 
-        ->andWhere("captainProfileEntity.roomID = :roomID ")
-        ->setParameter('roomID', $roomID) 
-        ->getQuery()
-        ->getResult();
+            ->andWhere("anonymousChatEntity.id = :anonymousChatID ")
+
+            ->setParameter('anonymousChatID', $anonymousChatID)
+
+            ->groupBy('anonymousChatEntity.id')
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function getAdminsTokens()
+    {
+        return $this->createQueryBuilder('NotificationTokenEntity')
+            ->select('NotificationTokenEntity.token')
+
+            ->leftJoin(StaffProfileEntity::class, 'staffProfileEntity', Join::WITH, 'staffProfileEntity.adminID = NotificationTokenEntity.userID')
+
+            ->andWhere('staffProfileEntity.adminID = NotificationTokenEntity.userID')
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getStoreTokens($storeIDs)
+    {
+        return $this->createQueryBuilder('NotificationTokenEntity')
+            ->select('NotificationTokenEntity.token')
+
+            ->andWhere("NotificationTokenEntity.userID IN (:storeIDs)")
+
+            ->setParameter('storeIDs', $storeIDs)
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getAnonymouseNameByChaRoomID($chatRoomID)
+    {
+        return $this->createQueryBuilder('NotificationTokenEntity')
+            ->select('anonymousChatEntity.name')
+
+            ->leftJoin(AnonymousChatEntity::class, 'anonymousChatEntity', Join::WITH, 'anonymousChatEntity.roomID = :chatRoomID')
+
+            ->andWhere("anonymousChatEntity.roomID = :chatRoomID ")
+
+            ->setParameter('chatRoomID', $chatRoomID)
+
+            ->groupBy('anonymousChatEntity.id')
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function getClientNameByUserID($userID)
+    {
+        return $this->createQueryBuilder('NotificationTokenEntity')
+            ->select('clientProfileEntity.clientName')
+
+            ->leftJoin(ClientProfileEntity::class, 'clientProfileEntity', Join::WITH, 'clientProfileEntity.clientID = NotificationTokenEntity.userID')
+
+            ->andWhere("clientProfileEntity.clientID = :userID ")
+
+            ->setParameter('userID', $userID)
+
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 }

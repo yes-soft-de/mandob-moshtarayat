@@ -24,5 +24,4 @@ class Logger {
       FirebaseCrashlytics.instance.sendUnsentReports();
     }
   }
-
 }

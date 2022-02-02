@@ -41,16 +41,15 @@ class StoreOwnerBranchController extends BaseController
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class, StoreOwnerBranchCreateRequest::class, (object)$data);
-
         $request->setOwnerID($this->getUserId());
 
         $violations = $this->validator->validate($request);
-
         if (\count($violations) > 0) {
             $violationsString = (string) $violations;
 
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
+
         $result = $this->storeOwnerBranchService->createBranches($request);
             
         return $this->response($result, self::CREATE);
@@ -69,7 +68,6 @@ class StoreOwnerBranchController extends BaseController
         $request = $this->autoMapping->map(\stdClass::class, StoreOwnerBranchUpdateRequest::class, (object) $data);
 
         $violations = $this->validator->validate($request);
-
         if (\count($violations) > 0) {
             $violationsString = (string) $violations;
 
@@ -94,7 +92,6 @@ class StoreOwnerBranchController extends BaseController
         $request = $this->autoMapping->map(\stdClass::class, BranchesDeleteRequest::class, (object) $data);
 
         $violations = $this->validator->validate($request);
-
         if (\count($violations) > 0) {
             $violationsString = (string) $violations;
 
@@ -119,7 +116,6 @@ class StoreOwnerBranchController extends BaseController
         $request = $this->autoMapping->map(stdClass::class, StoreOwnerBranchCreateRequest::class, (object)$data);
 
         $violations = $this->validator->validate($request);
-
         if (\count($violations) > 0) {
             $violationsString = (string) $violations;
 

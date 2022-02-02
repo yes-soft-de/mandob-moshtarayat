@@ -37,6 +37,20 @@ class OrderDetailEntity
      */
     private $countProduct;
 
+    /**
+     * @ORM\Column(type="integer", length=255, nullable=true)
+     */
+    private $storeOwnerProfileID;
+
+    /**
+     * @ORM\Column(type="integer", length=255, nullable=true)
+     */
+    private $orderInvoiceId;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $state;
 
     public function getId(): ?int
     {
@@ -87,6 +101,42 @@ class OrderDetailEntity
     public function setCountProduct(int $countProduct): self
     {
         $this->countProduct = $countProduct;
+
+        return $this;
+    }
+
+    public function getStoreOwnerProfileID(): ?int
+    {
+        return $this->storeOwnerProfileID;
+    }
+
+    public function setStoreOwnerProfileID(int $storeOwnerProfileID): self
+    {
+        $this->storeOwnerProfileID = $storeOwnerProfileID;
+
+        return $this;
+    }
+
+    public function getOrderInvoiceId(): ?int
+    {
+        return $this->orderInvoiceId;
+    }
+
+    public function setOrderInvoiceId(int $orderInvoiceId): self
+    {
+        $this->orderInvoiceId = $orderInvoiceId;
+
+        return $this;
+    }
+
+    public function getState(): ?string
+    {
+        return $this->state;
+    }
+
+    public function setState(?string $state): self
+    {
+        $this->state = $state;
 
         return $this;
     }

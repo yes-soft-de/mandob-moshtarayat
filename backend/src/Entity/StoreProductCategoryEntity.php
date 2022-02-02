@@ -17,14 +17,13 @@ class StoreProductCategoryEntity
      */
     private $id;
 
-    
      /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $productCategoryName;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $storeOwnerProfileId;
     
@@ -33,6 +32,30 @@ class StoreProductCategoryEntity
      */
     private $productCategoryImage;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isLevel1;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isLevel2;
+
+    /**
+     * @ORM\Column(type="integer", length=100, nullable=true)
+     */
+    private $storeCategoryID;
+
+    /**
+     * @ORM\Column(type="integer", length=100, nullable=true)
+     */
+    private $storeProductCategoryID;
+
+    /**
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    private $language;
 
     public function getId(): ?int
     {
@@ -75,4 +98,62 @@ class StoreProductCategoryEntity
         return $this;
     }
 
+    public function getIsLevel1(): ?bool
+    {
+        return $this->isLevel1;
+    }
+
+    public function setIsLevel1(int $isLevel1): self
+    {
+        $this->isLevel1 = $isLevel1;
+
+        return $this;
+    }
+
+    public function getIsLevel2(): ?bool
+    {
+        return $this->isLevel2;
+    }
+    public function setIsLevel2(?bool $isLevel2): self
+    {
+        $this->isLevel2 = $isLevel2;
+
+        return $this;
+    }
+
+    public function getStoreCategoryID(): ?int
+    {
+        return $this->storeCategoryID;
+    }
+
+    public function setStoreCategoryID(int $storeCategoryID): self
+    {
+        $this->storeCategoryID = $storeCategoryID;
+
+        return $this;
+    }
+
+    public function getStoreProductCategoryID(): ?int
+    {
+        return $this->storeProductCategoryID;
+    }
+
+    public function setStoreProductCategoryID(int $storeProductCategoryID): self
+    {
+        $this->storeProductCategoryID = $storeProductCategoryID;
+
+        return $this;
+    }
+
+    public function getLanguage(): ?string
+    {
+        return $this->language;
+    }
+
+    public function setLanguage(?string $language): self
+    {
+        $this->language = $language;
+
+        return $this;
+    }
 }

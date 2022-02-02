@@ -3,6 +3,9 @@
 namespace App\Manager;
 
 use App\AutoMapping;
+use App\Constant\UserVerificationStatusConstant;
+use App\Request\ClientUpdateFavouriteCategoriesRequest;
+use App\Request\storeOwnerProfileStatusUpdateByAdminRequest;
 use App\Entity\UserEntity;
 use App\Entity\ClientProfileEntity;
 use App\Entity\StoreOwnerProfileEntity;
@@ -12,19 +15,17 @@ use App\Repository\UserEntityRepository;
 use App\Repository\StoreOwnerProfileEntityRepository;
 use App\Repository\CaptainProfileEntityRepository;
 use App\Repository\ClientProfileEntityRepository;
-use App\Request\StoreOwnerProfileCreateRequest;
 use App\Request\StoreOwnerProfileCreateByAdminRequest;
 use App\Request\StoreOwnerUpdateByAdminRequest;
-use App\Request\CaptainProfileCreateRequest;
 use App\Request\CaptainProfileUpdateLocationRequest;
 use App\Request\CaptainVacationCreateRequest;
 use App\Request\StoreOwnerProfileUpdateRequest;
 use App\Request\CaptainProfileUpdateByAdminRequest;
 use App\Request\CaptainProfileUpdateRequest;
 use App\Request\ClientProfileUpdateRequest;
+use App\Request\UserVerificationStatusUpdateRequest;
+use App\Request\UserPasswordUpdateRequest;
 use App\Request\UserRegisterRequest;
-use App\Manager\StoreOwnerBranchManager;
-use App\Manager\OrderManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -54,124 +55,6 @@ class UserManager
         $this->storeOwnerBranchManager = $storeOwnerBranchManager;
         $this->orderManager = $orderManager;
     }
-//TODO
-    // public function storeOwnerRegister(UserRegisterRequest $request)
-    // {
-    //     $user = $this->getUserByUserID($request->getUserID());
-    //     if ($user == null) {
-
-    //     $userRegister = $this->autoMapping->map(UserRegisterRequest::class, UserEntity::class, $request);
-
-    //     $user = new UserEntity($request->getUserID());
-
-    //     if ($request->getPassword()) {
-    //         $userRegister->setPassword($this->encoder->encodePassword($user, $request->getPassword()));
-    //     }
-
-    //     $userRegister->setRoles(["ROLE_OWNER"]);
-
-    //     $this->entityManager->persist($userRegister);
-    //     $this->entityManager->flush();
-    //     $this->entityManager->clear();
-
-    //         // Second, create the storeOwner's profile
-    //         $storeOwnerProfile = $this->getStoreOwnerProfileByID($request->getUserID());
-            
-    //         if ($storeOwnerProfile == null) {
-    //             $storeOwnerProfile = $this->autoMapping->map(UserRegisterRequest::class, StoreOwnerProfileEntity::class, $request);
-
-    //             $storeOwnerProfile->setStoreOwnerID($userRegister->getId());
-    //             $storeOwnerProfile->setStoreOwnerName($request->getUserName());
-                
-    //             $storeOwnerProfile->setStatus('inactive');
-    //             $storeOwnerProfile->setFree(false);
-    //             $storeOwnerProfile->setIs_best(false);
-
-    //             $this->entityManager->persist($storeOwnerProfile);
-    //             $this->entityManager->flush();
-    //             $this->entityManager->clear();
-    //         }
-    //         return $userRegister;
-    //     }
-    //     else
-    //     {
-    //         $storeOwnerProfile = $this->getClientProfileByClientID($user['id']);
-
-    //         if ($storeOwnerProfile == null)
-    //         {
-    //             $storeOwnerProfile = $this->autoMapping->map(UserRegisterRequest::class, StoreOwnerProfileEntity::class, $request);
-    //             $storeOwnerProfile->setStoreOwnerID($user['id']);
-    //             $storeOwnerProfile->setStoreOwnerName($request->getUserName());
-                
-    //             $this->entityManager->persist($storeOwnerProfile);
-    //             $this->entityManager->flush();
-    //             $this->entityManager->clear();
-    //         }
-
-    //         return true;
-    //     }
-    // }
-
-    public function storeOwnerRegister(UserRegisterRequest $request)
-    {
-        $user = $this->getUserByUserID($request->getUserID());
-
-        if ($user == null) {
-
-            $userRegister = $this->autoMapping->map(UserRegisterRequest::class, UserEntity::class, $request);
-
-            $user = new UserEntity($request->getUserID());
-
-            if ($request->getPassword()) {
-                $userRegister->setPassword($this->encoder->encodePassword($user, $request->getPassword()));
-            }
-
-            $userRegister->setRoles(["ROLE_OWNER"]);
-
-            $this->entityManager->persist($userRegister);
-            $this->entityManager->flush();
-            $this->entityManager->clear();
-
-            // Second, create the owner's profile
-            $storeOwnerProfile = $this->storeOwnerProfileByStoreID($request->getUserID());
-            
-            if ($storeOwnerProfile == null) {
-                $storeOwnerProfile = $this->autoMapping->map(UserRegisterRequest::class, StoreOwnerProfileEntity::class, $request);
-                $storeOwnerProfile->setStoreOwnerID($userRegister->getId());
-                $storeOwnerProfile->setStoreOwnerName($request->getUserName());
-                            
-                $storeOwnerProfile->setStatus('inactive');
-                $storeOwnerProfile->setFree(false);
-                $storeOwnerProfile->setIs_best(false);
-            
-                $this->entityManager->persist($storeOwnerProfile);
-                $this->entityManager->flush();
-                $this->entityManager->clear();
-            }
-            return $userRegister;
-        }
-        else
-        {
-            $storeOwnerProfile = $this->storeOwnerProfileByStoreID($user['id']);
-
-            if ($storeOwnerProfile == null)
-            {
-                $storeOwnerProfile = $this->autoMapping->map(UserRegisterRequest::class, StoreOwnerProfileEntity::class, $request);
-                $storeOwnerProfile->setStoreOwnerID($user['id']);
-                $storeOwnerProfile->setStoreOwnerName($request->getUserName());
-                            
-                $storeOwnerProfile->setStatus('inactive');
-                $storeOwnerProfile->setFree(false);
-                $storeOwnerProfile->setIs_best(false);
-            
-                $this->entityManager->persist($storeOwnerProfile);
-                $this->entityManager->flush();
-                $this->entityManager->clear();
-            }
-
-            return true;
-        }
-    }
 
     public function clientRegister(UserRegisterRequest $request, $roomID)
     {
@@ -189,9 +72,10 @@ class UserManager
 
             $userRegister->setRoles(["ROLE_CLIENT"]);
 
+            $userRegister->setVerificationStatus(UserVerificationStatusConstant::$NOT_VERIFIED_STATUS);
+
             $this->entityManager->persist($userRegister);
             $this->entityManager->flush();
-            $this->entityManager->clear();
 
             // Second, create the client's profile
             $clientProfile = $this->getClientProfileByClientID($request->getUserID());
@@ -202,6 +86,8 @@ class UserManager
                 $clientProfile->setClientID($userRegister->getId());
                 $clientProfile->setClientName($request->getUserName());
                 $clientProfile->setRoomID($roomID);
+                $clientProfile->setPhone($request->getUserID());
+
                 $this->entityManager->persist($clientProfile);
                 $this->entityManager->flush();
                 $this->entityManager->clear();
@@ -218,6 +104,8 @@ class UserManager
                 $clientProfile->setClientID($user['id']);
                 $clientProfile->setClientName($request->getUserName());
                 $clientProfile->setRoomID($roomID);
+                $clientProfile->setPhone($request->getUserID());
+
                 $this->entityManager->persist($clientProfile);
                 $this->entityManager->flush();
                 $this->entityManager->clear();
@@ -227,104 +115,34 @@ class UserManager
         }
     }
 
-    public function captainRegister(UserRegisterRequest $request, $roomID)
-    {
-        $user = $this->getUserByUserID($request->getUserID());
-        if ($user == null) {
-
-        $userRegister = $this->autoMapping->map(UserRegisterRequest::class, UserEntity::class, $request);
-
-        $user = new UserEntity($request->getUserID());
-
-        if ($request->getPassword()) {
-            $userRegister->setPassword($this->encoder->encodePassword($user, $request->getPassword()));
-        }
-
-        $userRegister->setRoles(["ROLE_CAPTAIN"]);
-
-        $this->entityManager->persist($userRegister);
-        $this->entityManager->flush();
-        $this->entityManager->clear();
-
-        // Second, create the captain's profile
-        $captainProfile = $this->getCaptainProfileByCaptainID($request->getUserID());
-            
-        if ($captainProfile == null) {
-            $captainProfile = $this->autoMapping->map(UserRegisterRequest::class, CaptainProfileEntity::class, $request);
-              //change setStatus to inactive
-            $captainProfile->setStatus('inactive');
-            $captainProfile->setRoomID($roomID);
-            $captainProfile->setCaptainID($userRegister->getId());
-            $captainProfile->setCaptainName($request->getUserName());
-            $captainProfile->setSalary(0);
-            $captainProfile->setBounce(0);
-            
-            $this->entityManager->persist($captainProfile);
-            $this->entityManager->flush();
-            $this->entityManager->clear();
-        }
-        return $userRegister;
-    }
-    else
-    {
-        $captainProfile = $this->getCaptainProfileByCaptainID($user['id']);
-
-        if ($captainProfile == null)
-        {
-            $captainProfile = $this->autoMapping->map(UserRegisterRequest::class, CaptainProfileEntity::class, $request);
-             
-            $captainProfile->setStatus('inactive');
-            $captainProfile->setRoomID($roomID);
-            $captainProfile->setCaptainID($user['id']);
-            $captainProfile->setCaptainName($request->getUserName());
-            $captainProfile->setSalary(0);
-            $captainProfile->setBounce(0);
-            
-            $this->entityManager->persist($captainProfile);
-            $this->entityManager->flush();
-            $this->entityManager->clear();
-        }
-        return true;
-    }
-    
-    }
-
     public function getUserByUserID($userID)
     {
         return $this->userRepository->getUserByUserID($userID);
     }
 
-    public function createStoreOwnerProfile(StoreOwnerProfileCreateRequest $request, $roomID)
+    public function getUserByUserIdAndRole($userID, $role)
     {
-        $request->setRoomID($roomID);
-        $userProfile = $this->getStoreOwnerProfileByID($request->getStoreOwnerID());
-        if ($userProfile == null) {
-            $userProfile = $this->autoMapping->map(StoreOwnerProfileCreateRequest::class, StoreOwnerProfileEntity::class, $request);
-
-            $userProfile->setStatus('inactive');
-            $userProfile->setFree(false);
-            $userProfile->setIs_best(false);
-
-            $this->entityManager->persist($userProfile);
-            $this->entityManager->flush();
-            $this->entityManager->clear();
-
-            return $userProfile;
-        }
-        else {
-            return true;
-        }
+        return $this->userRepository->getUserByUserIdAndRole($userID, $role);
     }
 
-    public function updateStoreOwnerProfile(StoreOwnerProfileUpdateRequest $request)
+    public function storeOwnerProfileUpdate(StoreOwnerProfileUpdateRequest $request)
     {
-        $item = $this->storeOwnerProfileEntityRepository->getUserProfile($request->getStoreOwnerID());
+        $item = $this->storeOwnerProfileEntityRepository->getUserProfile($request->getUserID());
 
         if ($item) {
+            if($request->getStoreOwnerName() == null) {
+                $request->setStoreOwnerName($item->getStoreOwnerName());
+            }
+
             $item = $this->autoMapping->mapToObject(StoreOwnerProfileUpdateRequest::class, StoreOwnerProfileEntity::class, $request, $item);
+            $item->setOpeningTime( $item->getOpeningTime());
+            $item->setClosingTime( $item->getClosingTime());
 
             $this->entityManager->flush();
             $this->entityManager->clear();
+
+            //update branch
+            $branch = $this->storeOwnerBranchManager->update($item->getId(), $request->getLocation(), $request->getBranchName());
 
             return $item;
         }
@@ -338,6 +156,21 @@ class UserManager
             $item = $this->autoMapping->mapToObject(StoreOwnerUpdateByAdminRequest::class, StoreOwnerProfileEntity::class, $request, $item);
             $item->setOpeningTime( $request->getOpeningTime());
             $item->setClosingTime( $request->getClosingTime());
+
+            $this->entityManager->flush();
+//            $this->entityManager->clear();
+
+            return $item;
+        }
+    }
+
+    public function storeOwnerProfileStatusUpdateByAdmin(storeOwnerProfileStatusUpdateByAdminRequest $request)
+    {
+        $item = $this->storeOwnerProfileEntityRepository->find($request->getId());
+
+        if ($item) {
+            $item = $this->autoMapping->mapToObject(storeOwnerProfileStatusUpdateByAdminRequest::class, StoreOwnerProfileEntity::class, $request, $item);
+
             $this->entityManager->flush();
             $this->entityManager->clear();
 
@@ -345,21 +178,12 @@ class UserManager
         }
     }
 
-    public function getStoreOwnerProfileByID($id)
-    {
-        return $this->storeOwnerProfileEntityRepository->getStoreOwnerProfileByID($id);
-    }
-
     public function getremainingOrders($userID)
     {
         return $this->storeOwnerProfileEntityRepository->getremainingOrders($userID);
     }
-
-    public function getStoresByName($name)
-    {
-        return $this->storeOwnerProfileEntityRepository->getStoresByName($name);
-    }
-
+//TODO
+// for remove
     public function captainFilter($name)
     {
         return $this->captainProfileEntityRepository->captainFilter($name);
@@ -369,12 +193,8 @@ class UserManager
     {
         return $this->clientProfileEntityRepository->clientsByName($name);
     }
-
-    public function countStores()
-    {
-        return $this->storeOwnerProfileEntityRepository->countStores();
-    }
-    
+//TODO
+// for remove
     public function updateCaptainProfile(CaptainProfileUpdateRequest $request)
     {
         $item = $this->captainProfileEntityRepository->getByCaptainIDForUpdate($request->getUserID());
@@ -382,6 +202,7 @@ class UserManager
             if($request->getCaptainName() == null) {
                 $request->setCaptainName($item->getCaptainName());
             }
+
             $item = $this->autoMapping->mapToObject(CaptainProfileUpdateRequest::class, CaptainProfileEntity::class, $request, $item);
             $this->entityManager->flush();
             $this->entityManager->clear();
@@ -389,59 +210,69 @@ class UserManager
             return $item;
         }
     }
-
+//TODO
+// for remove
     public function captainProfileUpdateLocation(CaptainProfileUpdateLocationRequest $request)
     {
         $item = $this->captainProfileEntityRepository->getByCaptainIDForUpdate($request->getUserID());
         if ($item) {
             $item = $this->autoMapping->mapToObject(CaptainProfileUpdateLocationRequest::class, CaptainProfileEntity::class, $request, $item);
+
             $this->entityManager->flush();
             $this->entityManager->clear();
 
             return $item;
         }
     }
-
+//TODO
+// for remove
     public function updateCaptainProfileByAdmin(CaptainProfileUpdateByAdminRequest $request)
     {
         $item = $this->captainProfileEntityRepository->getByCaptainIDForUpdate($request->getCaptainID());
         if ($item) {
             $item = $this->autoMapping->mapToObject(CaptainProfileUpdateByAdminRequest::class, CaptainProfileEntity::class, $request, $item);
+
             $this->entityManager->flush();
             $this->entityManager->clear();
 
             return $item;
         }
     }
-
+//TODO
+// for remove
     public function updateCaptainStateByAdmin(CaptainVacationCreateRequest $request)
     {  
         $item = $this->captainProfileEntityRepository->getByCaptainIDForUpdate($request->getCaptainId());
         
         if ($item) {
             $item = $this->autoMapping->mapToObject(CaptainVacationCreateRequest::class, CaptainProfileEntity::class, $request, $item);
+
             $this->entityManager->flush();
             $this->entityManager->clear();
 
             return $item;
         }
     }
-
+//TODO
+// for remove
     public function getCaptainProfileByCaptainID($captainID)
     {
         return $this->captainProfileEntityRepository->getCaptainProfileByCaptainID($captainID);
     }
-    
+//TODO
+// for remove
     public function getCaptainProfileByID($captainProfileId)
     {
         return $this->captainProfileEntityRepository->getCaptainProfileByID($captainProfileId);
     }
-
+//TODO
+// for remove
     public function getCaptainsInactive()
     {
-            return $this->captainProfileEntityRepository->getCaptainsInactive();
+        return $this->captainProfileEntityRepository->getCaptainsInactive();
     }
-
+//TODO
+// for remove
     public function captainIsActive($captainID)
     {
         return $this->captainProfileEntityRepository->captainIsActive($captainID);
@@ -466,7 +297,8 @@ class UserManager
     {
         return $this->captainProfileEntityRepository->countDayOfCaptains();
     }
-   
+    //TODO
+   // for remove
     public function getCaptainsInVacation()
     {
         return $this->captainProfileEntityRepository->getCaptainsInVacation();
@@ -476,22 +308,20 @@ class UserManager
     {
         return $this->captainProfileEntityRepository->getCaptainAsArray($id);
     }
-
+    //TODO
+    // for remove
     public function getCaptainAsArrayByCaptainId($captainID)
     {
         return $this->captainProfileEntityRepository->getCaptainAsArrayByCaptainId($captainID);
     }
-
-    public function getAllStoreOwners()
-    {
-        return $this->storeOwnerProfileEntityRepository->getAllStoreOwners();
-    }
-    
+//TODO
+    // for remove
     public function getAllCaptains()
     {
         return $this->captainProfileEntityRepository->getAllCaptains();
     }
-    
+    //TODO
+    // for remove
     public function countCaptains()
     {
         return $this->captainProfileEntityRepository->countCaptains();
@@ -505,28 +335,29 @@ class UserManager
     public function updateCaptainNewMessageStatus($request, $NewMessageStatus)
     {
         if ($request) {
-           
             $entity = $this->captainProfileEntityRepository->find($request->getId());
-        
             if (!$entity) {
                 return null;
             }
+
             $entity->setNewMessageStatus($NewMessageStatus);
-        
             $entity = $this->autoMapping->mapToObject(CaptainProfileEntity::class, CaptainProfileEntity::class, $entity, $entity);
           
             $this->entityManager->flush();
 
             return $entity;
         }
+
         return null;
     }
-
+    //TODO
+    // for remove
     public function getTop5Captains()
     {        
         return $this->captainProfileEntityRepository->getTop5Captains();
     }
-
+    //TODO
+    // for remove
     public function getTopCaptainsInLastMonthDate($fromDate, $toDate)
     {
         return $this->captainProfileEntityRepository->getTopCaptainsInLastMonthDate($fromDate, $toDate);
@@ -546,6 +377,7 @@ class UserManager
 
             $this->entityManager->flush();
             $this->entityManager->clear();
+
             return $item;
         }
     }
@@ -573,21 +405,6 @@ class UserManager
     public function getStoreOwnerByCategoryIdForAdmin($storeCategoryId)
     {
         return $this->storeOwnerProfileEntityRepository->getStoreOwnerByCategoryIdForAdmin($storeCategoryId);
-    }
-
-    public function getStoreOwnerBest()
-    {
-        return $this->storeOwnerProfileEntityRepository->getStoreOwnerBest();
-    }
-
-    public function getStoreOwnerInactive()
-    {
-        return $this->storeOwnerProfileEntityRepository->getStoreOwnerInactive();
-    }
-
-    public function getStoreOwnerInactiveFilterByName($name)
-    {
-        return $this->storeOwnerProfileEntityRepository->getStoreOwnerInactiveFilterByName($name);
     }
 
     public function createStoreOwnerProfileByAdmin(StoreOwnerProfileCreateByAdminRequest $request)
@@ -633,7 +450,13 @@ class UserManager
         if ($user->getRoles()[0] != $userType){
             return "no";
         }
+
         return "yes";
+    }
+
+    public function getStoreProfileId($userID)
+    {
+        return $this->userRepository->getStoreProfileId($userID);
     }
 
     public function getOrdersForSpecificClient($clientID)
@@ -654,5 +477,192 @@ class UserManager
     public function clientOrdersDelivered($clientID)
     {
         return $this->orderManager->clientOrdersDelivered($clientID);
+    }
+
+    public function createUser(UserRegisterRequest $request)
+    {
+        $userRegister = $this->autoMapping->map(UserRegisterRequest::class, UserEntity::class, $request);
+
+        $user = new UserEntity($request->getUserID());
+
+        if ($request->getPassword()) {
+            $userRegister->setPassword($this->encoder->encodePassword($user, $request->getPassword()));
+        }
+
+        $userRegister->setVerificationStatus(UserVerificationStatusConstant::$NOT_VERIFIED_STATUS);
+
+        $this->entityManager->persist($userRegister);
+        $this->entityManager->flush();
+
+        return $userRegister;
+    }
+
+    public function updateClientFavouriteCategories(ClientUpdateFavouriteCategoriesRequest $request)
+    {
+        $item = $this->clientProfileEntityRepository->findOneBy(['clientID'=>$request->getClientID()]);
+
+        if ($item) {
+            $item = $this->autoMapping->mapToObject(ClientUpdateFavouriteCategoriesRequest::class, ClientProfileEntity::class, $request, $item);
+
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $item;
+        }
+    }
+
+    public function getFavouriteCategoriesIDsByClientID($clientID)
+    {
+        return $this->clientProfileEntityRepository->getFavouriteCategoriesIDsByClientID($clientID);
+    }
+
+    public function updateUserVerificationStatus(UserVerificationStatusUpdateRequest $request)
+    {
+        $item = $this->userRepository->getUserEntityByUserID($request->getUserID());
+
+        if (!$item)
+        {
+            // no user with the provided userID was found!
+            return 'noUserWasFound';
+        }
+        else
+        {
+            $item = $this->autoMapping->mapToObject(UserVerificationStatusUpdateRequest::class, UserEntity::class, $request, $item);
+
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $item;
+        }
+    }
+
+    public function getUserVerificationStatusByUserID($userID)
+    {
+        return $this->userRepository->getUserVerificationStatusByUserID($userID);
+    }
+
+    public function updateAllStoreOwnersVerificationStatusByDeveloper()
+    {
+        $users = $this->userRepository->getAllStoreOwners();
+
+        if (!$users)
+        {
+            return 'noUsers';
+        }
+        else
+        {
+            foreach ($users as $user)
+            {
+                $user->setVerificationStatus(UserVerificationStatusConstant::$VERIFIED_STATUS);
+
+                $this->entityManager->flush();
+            }
+
+            return $users;
+        }
+    }
+
+    public function updateAllClientsVerificationStatusByDeveloper()
+    {
+        $users = $this->userRepository->getAllClients();
+
+        if (!$users)
+        {
+            return 'noUsers';
+        }
+        else
+        {
+            foreach ($users as $user)
+            {
+                $user->setVerificationStatus(UserVerificationStatusConstant::$VERIFIED_STATUS);
+
+                $this->entityManager->flush();
+            }
+
+            return $users;
+        }
+    }
+
+    public function updateAllCaptainsVerificationStatusByDeveloper()
+    {
+        $users = $this->userRepository->getAllCaptains();
+
+        if (!$users)
+        {
+            return 'noUsers';
+        }
+        else
+        {
+            foreach ($users as $user)
+            {
+                $user->setVerificationStatus(UserVerificationStatusConstant::$VERIFIED_STATUS);
+
+                $this->entityManager->flush();
+            }
+
+            return $users;
+        }
+    }
+
+    public function getAllStoreOwners()
+    {
+        return $this->userRepository->getAllStoreOwners();
+    }
+
+    public function updateUserPassword(UserPasswordUpdateRequest $request)
+    {
+        $userEntity = $this->userRepository->findOneBy(['userID'=>$request->getUserID()]);
+
+        if (!$userEntity)
+        {
+            return 'noUserFound';
+        }
+        else
+        {
+            $userEntity = $this->autoMapping->mapToObject(UserPasswordUpdateRequest::class, UserEntity::class, $request, $userEntity);
+
+            $userEntity->setPassword($this->encoder->encodePassword($userEntity, $request->getPassword()));
+
+            $this->entityManager->flush();
+
+            return $userEntity;
+        }
+    }
+
+    public function deleteUserById($id)
+    {
+        $result = $this->userRepository->find($id);
+
+        if(!$result)
+        {
+
+        }
+        else
+        {
+            $this->entityManager->remove($result);
+            $this->entityManager->flush();
+
+            return $result;
+        }
+    }
+
+    public function filterUsers($request)
+    {
+        return $this->userRepository->filterUsers($request);
+    }
+
+    public function deleteUser($userID)
+    {
+        $user= $this->userRepository->find($userID);
+
+        if(!$user){
+            return 'userNotFound';
+        }
+        else{
+            $this->entityManager->remove($user);
+            $this->entityManager->flush();
+
+            return $user;
+        }
     }
 }

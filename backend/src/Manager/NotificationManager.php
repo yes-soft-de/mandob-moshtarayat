@@ -25,6 +25,26 @@ class NotificationManager
         $this->notificationTokenEntityRepository = $notificationTokenEntityRepository;
     }
 
+    public function getCaptainTokens()
+    {
+        return $this->notificationTokenEntityRepository->getCaptainTokens();
+    }
+
+    public function getAdminsTokens()
+    {
+        return $this->notificationTokenEntityRepository->getAdminsTokens();
+    }
+
+    public function getAnonymouseNameByChaRoomID($chatRoomID)
+    {
+        return $this->notificationTokenEntityRepository->getAnonymouseNameByChaRoomID($chatRoomID);
+    }
+
+    public function getStoreTokens($storeIDs)
+    {
+        return $this->notificationTokenEntityRepository->getStoreTokens($storeIDs);
+    }
+
     public function notificationTokenCreate(NotificationTokenRequest $request)
     {
         $create = $this->autoMapping->map(NotificationTokenRequest::class, NotificationTokenEntity::class, $request);
@@ -56,7 +76,6 @@ class NotificationManager
         {
             $this->entityManager->remove($item);
             $this->entityManager->flush();
-            //return $id;
         }
     }
 
@@ -67,13 +86,14 @@ class NotificationManager
         return $token[0]->getToken();
     }
 
-    public function getByReprotRoomID($roomID)
+    public function getClientNameByUserID($userID)
     {
-        return $this->notificationTokenEntityRepository->getByReprotRoomID($roomID);
+        return $this->notificationTokenEntityRepository->getClientNameByUserID($userID);
+
     }
 
-    public function getCaptainRoomID($roomID)
+    public function getAnonymousToken($anonymousChatID)
     {
-        return $this->notificationTokenEntityRepository->getCaptainRoomID($roomID);
+        return $this->notificationTokenEntityRepository->getAnonymousToken($anonymousChatID);
     }
 }

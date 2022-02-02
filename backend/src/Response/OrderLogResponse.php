@@ -10,13 +10,9 @@ class OrderLogResponse
 
     public $state;
 
-    public $startTime;
-
     public $createdAt;
 
     public $completionTime;
 
     public $currentStage;
-    
-    public $storeOwnerProfileID;
 }

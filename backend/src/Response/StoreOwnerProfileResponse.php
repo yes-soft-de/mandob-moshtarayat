@@ -22,11 +22,7 @@ class StoreOwnerProfileResponse
 
     public $baseURL;
 
-    public $bankName;
-    
-    public $accountID;
-    
-    public $stcPay;
-
     public $status;
+
+    public $commission;
 }

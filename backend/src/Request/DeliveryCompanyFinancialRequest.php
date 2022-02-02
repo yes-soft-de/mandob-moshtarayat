@@ -5,6 +5,8 @@ namespace App\Request;
 class DeliveryCompanyFinancialRequest
 {  
       private $deliveryCost;
+    
+      private $representativeCommission;
 
       /**
        * Get the value of deliveryCost

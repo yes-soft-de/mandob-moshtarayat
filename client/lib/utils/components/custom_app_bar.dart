@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mandob_moshtarayat/generated/l10n.dart';
-import 'package:mandob_moshtarayat/utils/global/screen_type.dart';
 
 class CustomTwaslnaAppBar {
   static PreferredSizeWidget appBar(BuildContext context,
@@ -8,47 +6,16 @@ class CustomTwaslnaAppBar {
       GestureTapCallback? onTap,
       Color? colorIcon,
       Color? buttonBackground,
-      IconData? icon,
+      Color? background,
       bool canGoBack = true,
       List<Widget>? actions}) {
-    if (icon == Icons.menu && ScreenType.isDesktop()) {
-      icon = null;
-      onTap = null;
-      canGoBack = false;
-    }
     return AppBar(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor: background ?? Theme.of(context).scaffoldBackgroundColor,
+      actions: actions,
       centerTitle: true,
-      bottom: PreferredSize(
-        preferredSize: Size.fromHeight(16),
-        child: Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding:
-                  const EdgeInsets.only(right: 24.0, left: 24.0, bottom: 8.0),
-              child: Container(
-                height: 3,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  borderRadius: BorderRadius.circular(25),
-                ),
-                width: double.maxFinite,
-              ),
-            )),
-      ),
-      title: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(25),
-          color: Theme.of(context).primaryColor,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.only(
-              right: 16.0, left: 16.0, top: 10.0, bottom: 10.0),
-          child: Text(
-            title,
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
+      title: Text(
+        title,
+        style: TextStyle(color: Theme.of(context).textTheme.bodyText1!.color),
       ),
       leading: canGoBack
           ? Padding(
@@ -56,17 +23,17 @@ class CustomTwaslnaAppBar {
               child: Align(
                 alignment: AlignmentDirectional.centerStart,
                 child: InkWell(
-                  customBorder: CircleBorder(),
+                  borderRadius: BorderRadius.circular(10),
                   onTap: onTap ?? () => Navigator.of(context).pop(),
                   child: Container(
                     decoration: BoxDecoration(
-                        color:
-                            buttonBackground ?? Theme.of(context).primaryColor,
-                        shape: BoxShape.circle),
+                      color: buttonBackground ?? Theme.of(context).primaryColor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Icon(
-                        icon ?? Icons.arrow_back,
+                        Icons.arrow_back,
                         color: colorIcon ?? Colors.white,
                       ),
                     ),
@@ -74,9 +41,8 @@ class CustomTwaslnaAppBar {
                 ),
               ),
             )
-          : Container(),
+          : const SizedBox(),
       elevation: 0,
-      actions: actions,
     );
   }
 }

@@ -6,41 +6,73 @@ class CustomDeliverySearch extends StatefulWidget {
   final double height;
   final EdgeInsetsGeometry contentPadding;
   final String hintText;
-  final ValueChanged<String>? onChanged;
   final TextEditingController? controller;
+  final ValueChanged<String>? onChanged;
+  final bool readOnly;
+  final bool autoFocus;
+  final VoidCallback? onTap;
+  final Color? background;
+  final TextStyle? hintStyle;
   @override
   _CustomDeliverySearchState createState() => _CustomDeliverySearchState();
 
-  CustomDeliverySearch(
+  const CustomDeliverySearch(
       {this.height = 50,
-      this.contentPadding = const EdgeInsets.fromLTRB(0, 13.5, 0, 0),
+      this.controller,
+      this.hintStyle,
+      this.contentPadding = const EdgeInsets.fromLTRB(8, 0, 8, 0),
       required this.hintText,
       this.onChanged,
-      this.controller});
+      this.readOnly = false,
+      this.onTap,
+      this.autoFocus = false,
+      this.background});
 }
 
 class _CustomDeliverySearchState extends State<CustomDeliverySearch> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: widget.height,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25),
-        color: Theme.of(context).backgroundColor,
-      ),
-      child: TextField(
-        controller: widget.controller,
-        onChanged: widget.onChanged,
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          hintText: widget.hintText,
-          prefixIcon: Icon(Icons.search),
-          suffixIcon: Icon(Icons.filter_list),
-          enabledBorder: InputBorder.none,
-          contentPadding: widget.contentPadding,
-          focusedBorder: InputBorder.none,
+    return Card(
+        color: widget.background ?? Theme.of(context).scaffoldBackgroundColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25),
         ),
-      ),
-    );
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const SizedBox(
+              width: 8.0,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Theme.of(context).primaryColor),
+              child: const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Icon(
+                  Icons.search,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            Expanded(
+              child: TextField(
+                controller: widget.controller,
+                autofocus: widget.autoFocus,
+                onChanged: widget.onChanged,
+                readOnly: widget.readOnly,
+                onTap: widget.onTap,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: widget.hintText,
+                  hintStyle: widget.hintStyle,
+                  enabledBorder: InputBorder.none,
+                  contentPadding: widget.contentPadding,
+                  focusedBorder: InputBorder.none,
+                ),
+              ),
+            )
+          ],
+        ));
   }
 }

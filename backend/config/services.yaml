@@ -8,6 +8,11 @@ parameters:
     upload_base_url: '%env(SITE_BASE_URL)%/%upload_dir_name%'
     image_folder: '%env(IMAGE_FOLDER)%'
     original_image: '%env(ORIGINAL_IMAGE)%'
+    primary_language: '%env(PRIMARY_LANGUAGE)%'
+    malath_username: '%env(MALATH_USERNAME)%'
+    malath_password: '%env(MALATH_PASSWORD)%'
+    store_url_on_google_play_store: '%env(STORE_APP_URL_ON_GOOGLE_PLAY_STORE)%'
+    store_url_on_apple_store: '%env(STORE_APP_URL_ON_APPLE_STORE)%'
 
 services:
     # default configuration for services in *this* file
@@ -18,6 +23,7 @@ services:
         bind:
             $uploadBaseUrl: '%upload_base_url%'
             $fileSystem: '@oneup_flysystem.default_filesystem_filesystem'
+            $primaryLanguage: '%primary_language%'
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:

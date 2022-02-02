@@ -22,8 +22,11 @@ class DeliveryCompanyFinancialEntityRepository extends ServiceEntityRepository
     public function  getDeliveryCompanyFinancialById($id)
     {
         return $this->createQueryBuilder('DeliveryCompanyFinancialEntity') 
+
             ->andWhere('DeliveryCompanyFinancialEntity.id = :id')
+
             ->setParameter('id',$id)
+
             ->getQuery()
             ->getOneOrNullResult();
     }
@@ -31,8 +34,39 @@ class DeliveryCompanyFinancialEntityRepository extends ServiceEntityRepository
     public function  getDeliveryCompanyFinancialAll()
     {
         return $this->createQueryBuilder('DeliveryCompanyFinancialEntity') 
-            ->select('DeliveryCompanyFinancialEntity.id','DeliveryCompanyFinancialEntity.deliveryCost')
+
+            ->select('DeliveryCompanyFinancialEntity.id', 'DeliveryCompanyFinancialEntity.deliveryCost', 'DeliveryCompanyFinancialEntity.representativeCommission')
+
             ->getQuery()
             ->getResult();
+    }
+
+    public function  getDeliveryCostScalar()
+    {
+        return $this->createQueryBuilder('DeliveryCompanyFinancialEntity')
+
+            ->select('DeliveryCompanyFinancialEntity.deliveryCost')
+
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function  getDeliveryCost()
+    {
+        return $this->createQueryBuilder('DeliveryCompanyFinancialEntity')
+
+            ->select('DeliveryCompanyFinancialEntity.deliveryCost')
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function getRepresentativeCommission()
+    {
+        return $this->createQueryBuilder('deliveryCompanyFinancialEntity')
+            ->select('deliveryCompanyFinancialEntity.representativeCommission')
+
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 }

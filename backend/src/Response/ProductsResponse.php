@@ -10,4 +10,6 @@ class ProductsResponse
     public $productPrice;
     public $storeOwnerProfileID;
     public $storeProductCategoryID;
+    public $discount;
+    public $description;
 }

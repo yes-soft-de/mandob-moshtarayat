@@ -48,7 +48,7 @@ class AuthButtons extends StatelessWidget {
                     onSurface: Theme.of(context).primaryColor,
                     elevation: 0,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                   child: Center(
@@ -80,7 +80,7 @@ class AuthButtons extends StatelessWidget {
                     elevation: 0,
                     primary: Theme.of(context).backgroundColor,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                   child: Center(

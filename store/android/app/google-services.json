@@ -1,0 +1,190 @@
+{
+  "project_info": {
+    "project_number": "937614076619",
+    "project_id": "mandoob-456f3",
+    "storage_bucket": "mandoob-456f3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:937614076619:android:50ce05b8353af16e6a094e",
+        "android_client_info": {
+          "package_name": "de.yessoft.mandob_dashboard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "937614076619-nmdmhlh4j68kc1ik5ao990jsl4rg38v5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCW5K4h56wQfKihEKONqOGLvZbG9I8GGiQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "937614076619-nmdmhlh4j68kc1ik5ao990jsl4rg38v5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "937614076619-v425nkmb8f67vloih1d20arm8q0mqqsv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "de.yessoft.mandobMoshtarayat"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:937614076619:android:e6564c7c6046f72f6a094e",
+        "android_client_info": {
+          "package_name": "de.yessoft.mandob_moshtarayat.store"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "937614076619-nmdmhlh4j68kc1ik5ao990jsl4rg38v5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCW5K4h56wQfKihEKONqOGLvZbG9I8GGiQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "937614076619-nmdmhlh4j68kc1ik5ao990jsl4rg38v5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "937614076619-v425nkmb8f67vloih1d20arm8q0mqqsv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "de.yessoft.mandobMoshtarayat"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:937614076619:android:833ccca80d5e3eca6a094e",
+        "android_client_info": {
+          "package_name": "de.yessoft.mandob_moshtarayat_captain"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "937614076619-nmdmhlh4j68kc1ik5ao990jsl4rg38v5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCW5K4h56wQfKihEKONqOGLvZbG9I8GGiQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "937614076619-nmdmhlh4j68kc1ik5ao990jsl4rg38v5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "937614076619-v425nkmb8f67vloih1d20arm8q0mqqsv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "de.yessoft.mandobMoshtarayat"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:937614076619:android:ea2725078b84ce076a094e",
+        "android_client_info": {
+          "package_name": "de.yessoft.mandob_moshtarayat_client"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "937614076619-nmdmhlh4j68kc1ik5ao990jsl4rg38v5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCW5K4h56wQfKihEKONqOGLvZbG9I8GGiQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "937614076619-nmdmhlh4j68kc1ik5ao990jsl4rg38v5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "937614076619-v425nkmb8f67vloih1d20arm8q0mqqsv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "de.yessoft.mandobMoshtarayat"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:937614076619:android:b06731c344957e3d6a094e",
+        "android_client_info": {
+          "package_name": "de.yessoft.mandoob_distro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "937614076619-nmdmhlh4j68kc1ik5ao990jsl4rg38v5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCW5K4h56wQfKihEKONqOGLvZbG9I8GGiQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "937614076619-nmdmhlh4j68kc1ik5ao990jsl4rg38v5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "937614076619-v425nkmb8f67vloih1d20arm8q0mqqsv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "de.yessoft.mandobMoshtarayat"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
