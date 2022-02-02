@@ -1,0 +1,174 @@
+App\Request\UploadImageRequest:
+  properties:
+    uploadedFile:
+      - Image:
+          #mimeTypesMessage: "this id not message"
+          maxSize: 2m
+          maxSizeMessage: "Image size over 2M"
+
+App\Request\CreateImageRequest:
+  properties:
+    image:
+      - NotBlank: ~
+    entity:
+      - NotBlank: ~
+    itemID:
+      - NotBlank: ~
+
+App\Request\UpdateImageRequest:
+  properties:
+    image:
+      - NotBlank: ~
+
+App\Request\UserRegisterRequest:
+  properties:
+    userID:
+      - NotBlank: ~
+    password:
+      - NotBlank: ~
+
+App\Request\UserProfileCreateRequest:
+  properties:
+    branch:
+      - NotBlank: ~
+    city:
+      - NotBlank: ~
+    phone:
+      - NotBlank: ~
+
+App\Request\UserProfileUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    userID:
+      - NotBlank: ~
+    branch:
+      - NotBlank: ~
+    city:
+      - NotBlank: ~
+    phone:
+      - NotBlank: ~
+    bankName:
+      - NotBlank: ~
+    accountID:
+      - NotBlank: ~
+    stcPay:
+      - NotBlank: ~
+
+App\Request\userProfileUpdateByAdminRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    status:
+      - NotBlank: ~
+    free:
+      - NotBlank: ~
+
+App\Request\CaptainProfileUpdateRequest:
+  properties:
+    captainName:
+      - NotBlank: ~
+    image:
+      - NotBlank: ~
+    age:
+      - NotBlank: ~
+    car:
+      - NotBlank: ~
+    drivingLicence:
+      - NotBlank: ~
+
+App\Request\CaptainProfileUpdateByAdminRequest:
+  properties:
+    captainID:
+      - NotBlank: ~
+    salary:
+      - NotBlank: ~
+    status:
+      - NotBlank: ~
+    bounce:
+      - NotBlank: ~
+      
+App\Request\OrderUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    destination:
+      - NotBlank: ~
+    payment:
+      - NotBlank: ~
+
+App\Request\AcceptedOrderCreateRequest:
+  properties:
+    orderID:
+      - NotBlank: ~
+    captainID:
+      - NotBlank: ~
+
+App\Request\AcceptedOrderUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    orderID:
+      - NotBlank: ~
+
+App\Request\BankCreateRequest:
+  properties:
+    userID:
+      - NotBlank: ~
+    bankName:
+      - NotBlank: ~
+    accountID:
+      - NotBlank: ~
+    stcPay:
+      - NotBlank: ~
+
+App\Request\BankUpdateRequest:
+  properties:
+    bankName:
+      - NotBlank: ~
+    accountID:
+      - NotBlank: ~
+    stcPay:
+      - NotBlank: ~
+
+App\Request\ReportCreateRequest:
+  properties:
+    orderId:
+      - NotBlank: ~
+    reason:
+      - NotBlank: ~
+
+App\Request\BranchesDeleteRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    isActive:
+      - NotBlank: ~
+
+App\Request\companyInfoCreateRequest:
+  properties:
+    phone:
+      - NotBlank: ~
+
+App\Request\companyInfoUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    phone:
+      - NotBlank: ~
+
+App\Request\updateCreateRequest:
+  properties:
+    title:
+      - NotBlank: ~
+    content:
+      - NotBlank: ~
+
+App\Request\UpdateUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    title:
+      - NotBlank: ~
+    content:
+      - NotBlank: ~
