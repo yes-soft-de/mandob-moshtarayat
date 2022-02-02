@@ -1,0 +1,41 @@
+{
+  "asset": "asset:skeleton_null_safety2/lib/module_notifications/repository/notification_repo.dart",
+  "summary": {
+    "injector": [],
+    "module": [],
+    "injectable": [
+      {
+        "name": "NotificationRepo",
+        "constructor": {
+          "name": "",
+          "kind": "constructor",
+          "injectedType": {
+            "lookupKey": {
+              "root": "asset:skeleton_null_safety2/lib/module_notifications/repository/notification_repo.dart#NotificationRepo",
+              "qualifier": null
+            },
+            "isProvider": false
+          },
+          "singleton": false,
+          "asynchronous": false,
+          "dependencies": [
+            {
+              "lookupKey": {
+                "root": "asset:skeleton_null_safety2/lib/module_network/http_client/http_client.dart#ApiClient",
+                "qualifier": null
+              },
+              "isProvider": false
+            },
+            {
+              "lookupKey": {
+                "root": "asset:skeleton_null_safety2/lib/module_auth/service/auth_service/auth_service.dart#AuthService",
+                "qualifier": null
+              },
+              "isProvider": false
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
